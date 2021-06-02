@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include "AQM0802.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,6 +45,7 @@
 ADC_HandleTypeDef hadc1;
 DMA_HandleTypeDef hdma_adc1;
 
+I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c2;
 
 SD_HandleTypeDef hsd;
@@ -61,6 +63,7 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 uint16_t timer;
 uint16_t analog[14];
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -77,6 +80,7 @@ static void MX_TIM8_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_TIM7_Init(void);
+static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -98,6 +102,26 @@ int _write(int file, char *ptr, int len)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
    timer++;
+}
+
+void init()
+{
+	// ------initialize------//
+	  //PWMスター??��?��?
+	if (HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3) != HAL_OK){
+		Error_Handler();
+	}
+	if (HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4) != HAL_OK){
+		Error_Handler();
+	}
+
+	//Timer割り込みスター??��?��?
+	HAL_TIM_Base_Start_IT(&htim6);
+
+	HAL_ADC_Start_DMA(&hadc1, (uint32_t *) analog, 14);
+
+	lcd_init();
+
 }
 
 /* USER CODE END 0 */
@@ -142,21 +166,10 @@ int main(void)
   MX_FATFS_Init();
   MX_TIM6_Init();
   MX_TIM7_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
-  // ------initialize------//
-  //PWMスター?��?
-  if (HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3) != HAL_OK){
-		Error_Handler();
-  }
-  if (HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4) != HAL_OK){
-  		Error_Handler();
-  }
-
-  //Timer割り込みスター?��?
-  HAL_TIM_Base_Start_IT(&htim6);
-
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t *) analog, 14);
+  init();
 
   /* USER CODE END 2 */
 
@@ -184,6 +197,12 @@ int main(void)
 	  HAL_Delay(100);
 
 	  printf("AD: %d, %d, %d\n", analog[0], analog[1], analog[2]);
+
+	  lcd_clear();
+	  lcd_locate(0,0);
+	  lcd_printf("LCD");
+	  lcd_locate(0,1);
+	  lcd_printf("TEST");
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -404,6 +423,40 @@ static void MX_ADC1_Init(void)
 }
 
 /**
+  * @brief I2C1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C1_Init(void)
+{
+
+  /* USER CODE BEGIN I2C1_Init 0 */
+
+  /* USER CODE END I2C1_Init 0 */
+
+  /* USER CODE BEGIN I2C1_Init 1 */
+
+  /* USER CODE END I2C1_Init 1 */
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_ENABLE;
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C1_Init 2 */
+
+  /* USER CODE END I2C1_Init 2 */
+
+}
+
+/**
   * @brief I2C2 Initialization Function
   * @param None
   * @retval None
@@ -426,7 +479,7 @@ static void MX_I2C2_Init(void)
   hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
   hi2c2.Init.OwnAddress2 = 0;
   hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_ENABLE;
   if (HAL_I2C_Init(&hi2c2) != HAL_OK)
   {
     Error_Handler();
@@ -886,14 +939,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF2_TIM3;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PB6 PB7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PB8 */
