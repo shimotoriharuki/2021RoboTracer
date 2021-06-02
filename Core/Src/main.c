@@ -63,6 +63,8 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 uint16_t timer;
 uint16_t analog[14];
+uint16_t enc1, enc2;
+
 
 /* USER CODE END PV */
 
@@ -101,13 +103,15 @@ int _write(int file, char *ptr, int len)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-   timer++;
+	enc1 = TIM1 -> CNT;
+	enc2 = TIM8 -> CNT;
+	timer++;
 }
 
 void init()
 {
 	// ------initialize------//
-	  //PWMスター??��?��?
+	  //PWMスター???��?��??��?��?
 	if (HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3) != HAL_OK){
 		Error_Handler();
 	}
@@ -115,7 +119,10 @@ void init()
 		Error_Handler();
 	}
 
-	//Timer割り込みスター??��?��?
+	HAL_TIM_Encoder_Start(&htim1,TIM_CHANNEL_ALL);
+	HAL_TIM_Encoder_Start(&htim8,TIM_CHANNEL_ALL);
+
+	//Timer割り込みスター???��?��??��?��?
 	HAL_TIM_Base_Start_IT(&htim6);
 
 	HAL_ADC_Start_DMA(&hadc1, (uint32_t *) analog, 14);
@@ -188,13 +195,13 @@ int main(void)
 
 	  printf("Timer: %d\n", timer);
 
-	  HAL_Delay(100);
+	  HAL_Delay(1000);
 
 	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
 
 	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_RESET);
 	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_RESET);
-	  HAL_Delay(100);
+	  HAL_Delay(1000);
 
 	  printf("AD: %d, %d, %d\n", analog[0], analog[1], analog[2]);
 
@@ -203,6 +210,7 @@ int main(void)
 	  lcd_printf("LCD");
 	  lcd_locate(0,1);
 	  lcd_printf("TEST");
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -587,7 +595,7 @@ static void MX_TIM1_Init(void)
   {
     Error_Handler();
   }
-  sConfig.EncoderMode = TIM_ENCODERMODE_TI1;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
   sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
   sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
   sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
@@ -793,7 +801,7 @@ static void MX_TIM8_Init(void)
   htim8.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim8.Init.RepetitionCounter = 0;
   htim8.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  sConfig.EncoderMode = TIM_ENCODERMODE_TI1;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
   sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
   sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
   sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
