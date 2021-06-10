@@ -8,7 +8,6 @@
 #ifndef INC_G_VARIABLES_H_
 #define INC_G_VARIABLES_H_
 
-//#include "main.h"
 #include "Macro.h"
 
 #ifdef DEF_EXTERN

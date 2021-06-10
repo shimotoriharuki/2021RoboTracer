@@ -12,8 +12,14 @@
 extern "C" {
 #endif
 
+void cppInit(void);
+void cppLoop(void);
+void cppFlip(void);
+//LineSensor.hpp
+/*
 void ADCStart(void);
-
+void updateSensorvaluses(void);
+*/
 #ifdef __cplusplus
 };
 #endif

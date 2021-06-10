@@ -189,17 +189,17 @@ void adUpdate(void)
 }
 */
 
-/*
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	enc1 = TIM1 -> CNT;
-	enc2 = TIM8 -> CNT;
-	timer++;
+	//enc1 = TIM1 -> CNT;
+	//enc2 = TIM8 -> CNT;
+	//timer++;
 
-	adUpdate();
-	side =  getSideSensor();
+	//adUpdate();
+	//side =  getSideSensor();
+	//updateSensorvaluses();
+	cppFlip();
 }
-*/
 
 void init()
 {
@@ -245,7 +245,7 @@ void init()
 	printf("sd write and read success!!\r\n");
 	sd_unmount();
 
-	ADCStart();
+	cppInit();
 }
 
 /* USER CODE END 0 */
@@ -337,6 +337,8 @@ int main(void)
 
 	  printf("side: %d\n", side);
 
+
+	  cppLoop();
 	  //printf("R_SW: %d\n", getRotarySW());
 
 

@@ -1,1 +1,3 @@
-wrapper.cpp:11:6:void ADCStart()	16	static
+wrapper.cpp:14:6:void cppInit()	8	static
+wrapper.cpp:19:6:void cppLoop()	8	static
+wrapper.cpp:25:6:void cppFlip()	8	static
