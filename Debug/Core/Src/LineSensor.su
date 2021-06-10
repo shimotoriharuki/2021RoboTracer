@@ -1,2 +1,2 @@
-LineSensor.cpp:15:6:void LineSensor::ADCStart()	16	static
-LineSensor.cpp:20:6:void LineSensor::updateSensorvaluses()	16	static
+LineSensor.cpp:16:6:void LineSensor::ADCStart()	16	static
+LineSensor.cpp:21:6:void LineSensor::updateSensorvaluses()	16	static

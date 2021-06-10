@@ -11,17 +11,7 @@
 //#include "main.h"
 #include "Macro.h"
 
-//#ifdef DEF_EXTERN
-uint16_t timer;
-uint16_t analog[AD_DATA_SIZE];
-uint16_t enc1, enc2;
-uint16_t ad1, ad2, ad3, ad4, ad5, ad6, ad7, ad8, ad9, ad10, ad11, ad12, ad13, ad14;
-
-int data[DATA_SIZE];
-int temp[DATA_SIZE];
-
-uint16_t side;
-
+#ifdef DEF_EXTERN
 // -----auto generate variables ------//
 ADC_HandleTypeDef hadc2;
 DMA_HandleTypeDef hdma_adc2;
@@ -46,17 +36,7 @@ TIM_HandleTypeDef htim11;
 
 UART_HandleTypeDef huart2;
 
-/*
 #else
-extern uint16_t timer;
-extern uint16_t analog[14];
-extern uint16_t enc1, enc2;
-extern uint16_t ad1, ad2, ad3, ad4, ad5, ad6, ad7, ad8, ad9, ad10, ad11, ad12, ad13, ad14;
-
-extern int data[DATA_SIZE];
-extern int temp[DATA_SIZE];
-
-extern uint16_t side;
 
 // -----auto generate variables ------//
 extern ADC_HandleTypeDef hadc2;
@@ -82,5 +62,5 @@ extern TIM_HandleTypeDef htim11;
 
 extern UART_HandleTypeDef huart2;
 #endif
-*/
+
 #endif /* INC_G_VARIABLES_H_ */

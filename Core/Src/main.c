@@ -75,6 +75,10 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 
+int	data[1];
+int temp[1];
+int ad1, ad2, ad3, ad4;
+int side;
 
 /* USER CODE END PV */
 
@@ -163,7 +167,7 @@ uint16_t getSideSensor()
 	return HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_2);
 }
 
-
+/*
 void adUpdate(void)
 {
 	ad1 = analog[0] >> 0;
@@ -183,7 +187,9 @@ void adUpdate(void)
 	ad14 = analog[13] >> 0;
 
 }
+*/
 
+/*
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	enc1 = TIM1 -> CNT;
@@ -193,6 +199,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	adUpdate();
 	side =  getSideSensor();
 }
+*/
 
 void init()
 {
@@ -230,6 +237,7 @@ void init()
 	}
 
 	data[0] = 30;
+
 	sd_write_array_int("sdio", "write1.txt", DATA_SIZE, data, ADD_WRITE); //write
 	sd_read_array_int("sdio", "write1.txt", DATA_SIZE, temp); //read
 	sd_write_array_int("sdio", "write2.txt", DATA_SIZE, temp, ADD_WRITE); //write

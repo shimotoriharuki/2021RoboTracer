@@ -5,12 +5,13 @@
  *      Author: under
  */
 
-#include <LineSensor.hpp>
 #include <stdio.h>
+#include <LineSensor.hpp>
 #include "stm32f4xx_hal.h"
 #include "G_variables.h"
 #include "Macro.h"
 
+int analog[AD_DATA_SIZE];
 
 void LineSensor::ADCStart()
 {

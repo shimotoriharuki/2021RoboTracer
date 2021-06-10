@@ -11,11 +11,13 @@
 #include "stm32f4xx_hal.h"
 #include "Macro.h"
 
+extern int analod[AD_DATA_SIZE];
+
 class LineSensor {
 
 public:
 
-	uint16_t sensor[AD_DATA_SIZE];
+	//uint16_t sensor[AD_DATA_SIZE];
 	void ADCStart();
 	void updateSensorvaluses();
 
