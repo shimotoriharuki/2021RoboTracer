@@ -27,7 +27,8 @@
 #include "AQM0802.h"
 #include "HAL_SDcard_lib.h"
 #include "wrapper.hpp"
-
+#include "G_variables.h"
+#include "Macro.h"
 //#include "LineSensor.hpp"
 
 
@@ -40,9 +41,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define DATA_SIZE 1
-#define OVER_WRITE 0	// over write
-#define ADD_WRITE 1	// add write
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -75,15 +74,7 @@ TIM_HandleTypeDef htim11;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-uint16_t timer;
-uint16_t analog[14];
-uint16_t enc1, enc2;
-uint16_t ad1, ad2, ad3, ad4, ad5, ad6, ad7, ad8, ad9, ad10, ad11, ad12, ad13, ad14;
 
-int data[DATA_SIZE];
-int temp[DATA_SIZE];
-
-uint16_t side = 0;
 
 /* USER CODE END PV */
 
@@ -227,7 +218,6 @@ void init()
 	//Timer intrruptin start
 	HAL_TIM_Base_Start_IT(&htim6);
 
-	HAL_ADC_Start_DMA(&hadc2, (uint32_t *) analog, 14);
 
 	lcd_init();
 
@@ -247,7 +237,7 @@ void init()
 	printf("sd write and read success!!\r\n");
 	sd_unmount();
 
-	cpploop();
+	ADCStart();
 }
 
 /* USER CODE END 0 */

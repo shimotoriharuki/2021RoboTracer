@@ -11,7 +11,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-void cpploop(void);
+
+void ADCStart(void);
+
 #ifdef __cplusplus
 };
 #endif

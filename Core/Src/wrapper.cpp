@@ -8,7 +8,7 @@
 #include "wrapper.hpp"
 #include "LineSensor.hpp"
 
-void cpploop(void) {
+void ADCStart(void) {
     LineSensor instance;
 
     instance.ADCStart();

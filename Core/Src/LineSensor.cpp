@@ -5,13 +5,17 @@
  *      Author: under
  */
 
-#include <stdio.h>
 #include <LineSensor.hpp>
+#include <stdio.h>
+#include "stm32f4xx_hal.h"
+#include "G_variables.h"
+#include "Macro.h"
+
 
 void LineSensor::ADCStart()
 {
 	printf("class test\n");
-
+	HAL_ADC_Start_DMA(&hadc2, (uint32_t *) analog, 14);
 }
 void LineSensor::updateSensorvaluses()
 {
