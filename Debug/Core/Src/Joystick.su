@@ -1,0 +1,2 @@
+Joystick.cpp:11:1:JoyStick::JoyStick()	16	static
+Joystick.cpp:16:10:uint16_t JoyStick::getValue()	24	static

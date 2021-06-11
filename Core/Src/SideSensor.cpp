@@ -6,7 +6,6 @@
  */
 
 #include "SideSensor.hpp"
-#include <stdio.h>
 
 SideSensor::SideSensor()
 {

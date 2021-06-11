@@ -5,7 +5,7 @@ main.c:144:9:getRotarySW	16	static
 main.c:156:10:getSideSensor	8	static
 main.c:197:6:HAL_TIM_PeriodElapsedCallback	16	static
 main.c:209:6:init	16	static
-main.c:262:5:main	16	static
+main.c:262:5:main	8	static
 main.c:362:6:SystemClock_Config	152	static
 main.c:421:13:MX_ADC2_Init	24	static
 main.c:575:13:MX_I2C1_Init	8	static
@@ -23,4 +23,4 @@ main.c:1066:13:MX_TIM11_Init	40	static
 main.c:1112:13:MX_USART2_UART_Init	8	static
 main.c:1143:13:MX_DMA_Init	16	static
 main.c:1167:13:MX_GPIO_Init	56	static
-main.c:1299:6:Error_Handler	4	static,ignoring_inline_asm
+main.c:1302:6:Error_Handler	4	static,ignoring_inline_asm

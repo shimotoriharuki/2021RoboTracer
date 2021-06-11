@@ -10,9 +10,11 @@
 
 #include "LineSensor.hpp"
 #include "SideSensor.hpp"
+#include "Joystick.hpp"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
+JoyStick joy_stick;
 
 void cppInit(void)
 {
@@ -36,6 +38,7 @@ void cppLoop(void)
 	printf("cpp loop test\n");
 	printf("cpp AD %d\n", line_sensor.sensor[0]);
 	printf("cpp side: %d\n", side_sensor.status());
+	printf("cpp switch: %d\n", joy_stick.getValue());
 }
 
 
