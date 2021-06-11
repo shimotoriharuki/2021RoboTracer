@@ -1,4 +1,5 @@
-Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
+Core/Src/SideSensor.o: ../Core/Src/SideSensor.cpp \
+ ../Core/Inc/SideSensor.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -33,11 +34,9 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/LineSensor.hpp ../Core/Inc/Macro.h \
- ../Core/Inc/SideSensor.hpp
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 
-../Core/Inc/wrapper.hpp:
+../Core/Inc/SideSensor.hpp:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -108,9 +107,3 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-
-../Core/Inc/LineSensor.hpp:
-
-../Core/Inc/Macro.h:
-
-../Core/Inc/SideSensor.hpp:

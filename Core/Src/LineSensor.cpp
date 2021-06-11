@@ -13,6 +13,11 @@
 
 //int analog[AD_DATA_SIZE];
 
+LineSensor::LineSensor()
+{
+
+}
+
 void LineSensor::ADCStart()
 {
 	printf("class test\n");

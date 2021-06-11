@@ -8,6 +8,8 @@
 #ifndef INC_WRAPPER_HPP_
 #define INC_WRAPPER_HPP_
 
+#include "stm32f4xx_hal.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -15,6 +17,7 @@ extern "C" {
 void cppInit(void);
 void cppLoop(void);
 void cppFlip(void);
+void cppExit(uint16_t);
 //LineSensor.hpp
 /*
 void ADCStart(void);

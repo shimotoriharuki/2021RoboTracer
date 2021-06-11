@@ -1,6 +1,7 @@
 "Core/Src/AQM0802.o"
 "Core/Src/HAL_SDcard_lib.o"
 "Core/Src/LineSensor.o"
+"Core/Src/SideSensor.o"
 "Core/Src/main.o"
 "Core/Src/stm32f4xx_hal_msp.o"
 "Core/Src/stm32f4xx_it.o"

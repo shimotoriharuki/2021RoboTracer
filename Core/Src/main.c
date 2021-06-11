@@ -123,8 +123,12 @@ int _write(int file, char *ptr, int len)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   //HAL_Delay(1);
-  printf("EXTI callback called!\r\n");
-  if (GPIO_Pin == GPIO_PIN_0)
+  //printf("EXTI callback called!\r\n");
+
+  cppExit(GPIO_Pin);
+
+  /*
+if (GPIO_Pin == GPIO_PIN_0)
     printf("gpio0 pushed!\r\n");
   if (GPIO_Pin == GPIO_PIN_2)
     printf("gpio2 pushed!\r\n");
@@ -134,6 +138,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
       printf("gpio8 pushed!\r\n");
   if (GPIO_Pin == GPIO_PIN_10)
       printf("gpio10 pushed!\r\n");
+*/
 }
 
 uint8_t getRotarySW()
@@ -335,7 +340,7 @@ int main(void)
 	  lcd_printf("TEST");
 
 
-	  printf("side: %d\n", side);
+	  //printf("side: %d\n", side);
 
 
 	  cppLoop();
@@ -1186,8 +1191,8 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : PE2 */
   GPIO_InitStruct.Pin = GPIO_PIN_2;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PC0 PC1 PC2 PC3 */
@@ -1208,14 +1213,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB2 */
-  GPIO_InitStruct.Pin = GPIO_PIN_2;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PE7 PE8 PE10 */
-  GPIO_InitStruct.Pin = GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_10;
+  /*Configure GPIO pins : PE7 PE10 */
+  GPIO_InitStruct.Pin = GPIO_PIN_7|GPIO_PIN_10;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
@@ -1234,12 +1233,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PD8 PD1 PD3 PD4
-                           PD7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_1|GPIO_PIN_3|GPIO_PIN_4
-                          |GPIO_PIN_7;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  /*Configure GPIO pin : PD8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_8;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PD9 PD10 */
@@ -1267,6 +1264,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : PD0 */
   GPIO_InitStruct.Pin = GPIO_PIN_0;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PD1 PD3 PD4 PD7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 

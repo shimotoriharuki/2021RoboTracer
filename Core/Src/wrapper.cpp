@@ -7,19 +7,17 @@
 
 #include "wrapper.hpp"
 #include <stdio.h>
+
 #include "LineSensor.hpp"
+#include "SideSensor.hpp"
 
 LineSensor line_sensor;
+SideSensor side_sensor;
 
 void cppInit(void)
 {
 	line_sensor.ADCStart();
 
-}
-void cppLoop(void)
-{
-	printf("cpp loop test\n");
-	printf("cpp AD %d\n", line_sensor.sensor[0]);
 }
 
 void cppFlip(void)
@@ -27,19 +25,19 @@ void cppFlip(void)
 	line_sensor.updateSensorvaluses();
 }
 
-/*
-//LineSensor.hpp
-void ADCStart(void) {
-    LineSensor instance;
+void cppExit(uint16_t gpio_pin)
+{
+	side_sensor.updateStatus(gpio_pin);
 
-    instance.ADCStart();
 }
-void updateSensorvaluses(void) {
-    LineSensor instance;
 
-    instance.updateSensorvaluses();
+void cppLoop(void)
+{
+	printf("cpp loop test\n");
+	printf("cpp AD %d\n", line_sensor.sensor[0]);
+	printf("cpp side: %d\n", side_sensor.status());
 }
-*/
+
 
 
 

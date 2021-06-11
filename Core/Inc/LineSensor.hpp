@@ -6,12 +6,11 @@
  */
 
 #ifndef INC_LINESENSOR_HPP_
-#define INC_LINESENSOR_HPP_u
+#define INC_LINESENSOR_HPP_
 
 #include "stm32f4xx_hal.h"
 #include "Macro.h"
 
-//extern int analod[AD_DATA_SIZE];
 
 class LineSensor {
 
@@ -22,6 +21,7 @@ public:
 
 	uint16_t sensor[AD_DATA_SIZE];
 
+	LineSensor();
 	void ADCStart();
 	void updateSensorvaluses();
 
