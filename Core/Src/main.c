@@ -122,87 +122,11 @@ int _write(int file, char *ptr, int len)
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  //HAL_Delay(1);
-  //printf("EXTI callback called!\r\n");
-
-  cppExit(GPIO_Pin);
-
-  /*
-if (GPIO_Pin == GPIO_PIN_0)
-    printf("gpio0 pushed!\r\n");
-  if (GPIO_Pin == GPIO_PIN_2)
-    printf("gpio2 pushed!\r\n");
-  if (GPIO_Pin == GPIO_PIN_7)
-      printf("gpio7 pushed!\r\n");
-  if (GPIO_Pin == GPIO_PIN_8)
-      printf("gpio8 pushed!\r\n");
-  if (GPIO_Pin == GPIO_PIN_10)
-      printf("gpio10 pushed!\r\n");
-*/
+	cppExit(GPIO_Pin);
 }
-
-uint8_t getRotarySW()
-{
-	uint8_t r_sw = 0;
-
-	if(!HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_1))	r_sw |= 0x01;
-	if(!HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_3))	r_sw |= 0x02;
-	if(!HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_4))	r_sw |= 0x04;
-	if(!HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_7))	r_sw |= 0x08;
-
-	return r_sw;
-}
-
-uint16_t getSideSensor()
-{
-	//uint16_t ret_side = 0;
-
-	//if(!HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_8)){
-	//	ret_side = 1;
-	//}
-	/*
-	if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_2) == 1){
-		ret_side = 2;
-	}
-	else{
-		ret_side = 1;
-	}
-	*/
-
-	return HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_2);
-}
-
-/*
-void adUpdate(void)
-{
-	ad1 = analog[0] >> 0;
-	ad2 = analog[1] >> 0;
-	ad3 = analog[2] >> 0;
-	ad4 = analog[3] >> 0;
-
-	ad5 = analog[4] >> 0;
-	ad6 = analog[5] >> 0;
-	ad7 = analog[6] >> 0;
-	ad8 = analog[7] >> 0;
-	ad9 = analog[8] >> 0;
-	ad10 = analog[9] >> 0;
-	ad11 = analog[10] >> 0;
-	ad12 = analog[11] >> 0;
-	ad13 = analog[12] >> 0;
-	ad14 = analog[13] >> 0;
-
-}
-*/
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	//enc1 = TIM1 -> CNT;
-	//enc2 = TIM8 -> CNT;
-	//timer++;
-
-	//adUpdate();
-	//side =  getSideSensor();
-	//updateSensorvaluses();
 	cppFlip();
 }
 

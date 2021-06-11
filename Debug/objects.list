@@ -2,6 +2,7 @@
 "Core/Src/HAL_SDcard_lib.o"
 "Core/Src/Joystick.o"
 "Core/Src/LineSensor.o"
+"Core/Src/RotarySwitch.o"
 "Core/Src/SideSensor.o"
 "Core/Src/main.o"
 "Core/Src/stm32f4xx_hal_msp.o"
