@@ -1,0 +1,5 @@
+Encoder.cpp:13:1:Encoder::Encoder()	16	static
+Encoder.cpp:15:6:void Encoder::init()	16	static
+Encoder.cpp:21:6:void Encoder::updateCnt()	16	static
+Encoder.cpp:27:6:void Encoder::getCnt(uint16_t&, uint16_t&)	24	static
+Encoder.cpp:34:5:void Encoder::clearCnt()	16	static

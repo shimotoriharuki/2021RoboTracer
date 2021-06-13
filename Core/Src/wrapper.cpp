@@ -14,6 +14,7 @@
 #include "RotarySwitch.hpp"
 #include "Motor.hpp"
 #include "LED.hpp"
+#include "Encoder.hpp"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
@@ -22,10 +23,13 @@ RotarySwitch rotary_switch;
 Motor motor;
 LED led;
 
+Encoder encoder;
+
 void cppInit(void)
 {
 	line_sensor.ADCStart();
 	motor.init();
+	encoder.init();
 
 }
 
@@ -33,6 +37,7 @@ void cppFlip(void)
 {
 	line_sensor.updateSensorvaluses();
 	motor.motorCtrl();
+	encoder.updateCnt();
 
 }
 
@@ -50,6 +55,10 @@ void cppLoop(void)
 	printf("cpp joystick: %d\n", joy_stick.getValue());
 	printf("cpp joystick: %d\n", joy_stick.getValue());
 	printf("cpp rotaryswitch: %d\n", rotary_switch.getValue());
+
+	uint16_t cnt_l, cnt_r;
+	encoder.getCnt(cnt_l, cnt_r);
+	printf("cpp encode: %d, %d\n", cnt_l, cnt_r);
 
 	motor.setRatio(0, 1.0);
 

@@ -1,4 +1,5 @@
 "Core/Src/AQM0802.o"
+"Core/Src/Encoder.o"
 "Core/Src/HAL_SDcard_lib.o"
 "Core/Src/Joystick.o"
 "Core/Src/LED.o"
