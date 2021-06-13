@@ -1,0 +1,2 @@
+LED.cpp:10:6:void LED::fullColor(char)	16	static
+LED.cpp:59:6:void LED::LR(int8_t, int8_t)	16	static

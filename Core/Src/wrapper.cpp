@@ -13,12 +13,14 @@
 #include "Joystick.hpp"
 #include "RotarySwitch.hpp"
 #include "Motor.hpp"
+#include "LED.hpp"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
 JoyStick joy_stick;
 RotarySwitch rotary_switch;
 Motor motor;
+LED led;
 
 void cppInit(void)
 {
@@ -51,10 +53,14 @@ void cppLoop(void)
 
 	motor.setRatio(0, 1.0);
 
+	led.fullColor('C');
+	led.LR(1, 1);
 
 	HAL_Delay(1000);
 
 	//motor.setRatio(0, -0.5);
+	led.fullColor('Y');
+	led.LR(-1, 0);
 
 	HAL_Delay(1000);
 

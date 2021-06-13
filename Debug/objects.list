@@ -1,6 +1,7 @@
 "Core/Src/AQM0802.o"
 "Core/Src/HAL_SDcard_lib.o"
 "Core/Src/Joystick.o"
+"Core/Src/LED.o"
 "Core/Src/LineSensor.o"
 "Core/Src/Motor.o"
 "Core/Src/RotarySwitch.o"
