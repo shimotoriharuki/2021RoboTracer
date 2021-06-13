@@ -11,18 +11,13 @@
 #include "G_variables.h"
 
 
-Motor::Motor()
-{
-
-
-}
+Motor::Motor() : temp_left_counter_period_(0), temp_right_counter_period_(0){}
 
 void Motor::init()
 {
 	//PWM start
 	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);
 	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4);
-
 
 }
 
@@ -61,6 +56,5 @@ void Motor::setRatio(double left_ratio, double right_ratio)
 
 	temp_left_counter_period_ = (int)((double)MAX_COUNTER_PERIOD * left_ratio);
 	temp_right_counter_period_ = (int)((double)MAX_COUNTER_PERIOD * right_ratio);
-
 
 }

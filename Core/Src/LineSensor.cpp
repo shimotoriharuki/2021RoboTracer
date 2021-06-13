@@ -15,12 +15,18 @@
 
 LineSensor::LineSensor()
 {
+	for(auto &av : analog_val_){
+		av = 0;
+	}
+	for(auto &s : sensor){
+		s = 0;
+	}
 
 }
 
 void LineSensor::ADCStart()
 {
-	printf("class test\n");
+	//printf("class test\n");
 	HAL_ADC_Start_DMA(&hadc2, (uint32_t *) analog_val_, 14);
 }
 
