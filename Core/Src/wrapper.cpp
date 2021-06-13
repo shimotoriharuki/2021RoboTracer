@@ -12,21 +12,26 @@
 #include "SideSensor.hpp"
 #include "Joystick.hpp"
 #include "RotarySwitch.hpp"
+#include "Motor.hpp"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
 JoyStick joy_stick;
 RotarySwitch rotary_switch;
+Motor motor;
 
 void cppInit(void)
 {
 	line_sensor.ADCStart();
+	motor.init();
 
 }
 
 void cppFlip(void)
 {
 	line_sensor.updateSensorvaluses();
+	motor.motorCtrl();
+
 }
 
 void cppExit(uint16_t gpio_pin)
@@ -43,6 +48,19 @@ void cppLoop(void)
 	printf("cpp joystick: %d\n", joy_stick.getValue());
 	printf("cpp joystick: %d\n", joy_stick.getValue());
 	printf("cpp rotaryswitch: %d\n", rotary_switch.getValue());
+
+	motor.setRatio(0, 1.0);
+
+
+	HAL_Delay(1000);
+
+	//motor.setRatio(0, -0.5);
+
+	HAL_Delay(1000);
+
+
+
+
 }
 
 

@@ -1,0 +1,4 @@
+Motor.cpp:14:1:Motor::Motor()	16	static
+Motor.cpp:20:6:void Motor::init()	16	static
+Motor.cpp:29:6:void Motor::motorCtrl()	24	static
+Motor.cpp:55:6:void Motor::setRatio(double, double)	40	static

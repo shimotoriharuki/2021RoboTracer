@@ -133,13 +133,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 void init()
 {
 	// ------initialize------//
-	  //PWM start
-	if (HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3) != HAL_OK){
-		Error_Handler();
-	}
-	if (HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4) != HAL_OK){
-		Error_Handler();
-	}
 	/*
 	if (HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4) != HAL_OK){
 	      Error_Handler();
@@ -154,9 +147,7 @@ void init()
 	//Timer intrruptin start
 	HAL_TIM_Base_Start_IT(&htim6);
 
-
 	lcd_init();
-
 
 	if(sd_mount() == 1){
 	  printf("mount success\r\n");
@@ -166,7 +157,6 @@ void init()
 	}
 
 	data[0] = 30;
-
 	sd_write_array_int("sdio", "write1.txt", DATA_SIZE, data, ADD_WRITE); //write
 	sd_read_array_int("sdio", "write1.txt", DATA_SIZE, temp); //read
 	sd_write_array_int("sdio", "write2.txt", DATA_SIZE, temp, ADD_WRITE); //write
@@ -235,33 +225,35 @@ int main(void)
   while (1)
   {
 	  // L chika
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
+	  //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
 
 	  //Motor
-	  __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3, 800);
-	  __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, 200);
-	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_SET);
-	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_SET);
+	  //__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3, 800);
+	  //__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, 200);
+	  //HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_SET);
+	  //HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_SET);
 
 	  //printf("Timer: %d\n", timer);
 
-	  HAL_Delay(1000);
-
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
-
-	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_RESET);
-	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_RESET);
-	  HAL_Delay(1000);
-
-	  //printf("AD: %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", analog[0], analog[1], analog[2], analog[3], analog[4], analog[5], analog[6],
-		//	  analog[7], analog[8], analog[9], analog[10], analog[11], analog[12], analog[13]);
-	  //printf("AD: %d, %d, %d, %d\n", ad1, ad2, ad3, ad4);
-
+	  /*
 	  lcd_clear();
 	  lcd_locate(0,0);
 	  lcd_printf("LCD");
 	  lcd_locate(0,1);
 	  lcd_printf("TEST");
+
+	  HAL_Delay(1000);
+
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
+*/
+	  //HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_RESET);
+	  //HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_RESET);
+	  //HAL_Delay(1000);
+
+	  //printf("AD: %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", analog[0], analog[1], analog[2], analog[3], analog[4], analog[5], analog[6],
+		//	  analog[7], analog[8], analog[9], analog[10], analog[11], analog[12], analog[13]);
+	  //printf("AD: %d, %d, %d, %d\n", ad1, ad2, ad3, ad4);
+
 
 
 	  //printf("side: %d\n", side);

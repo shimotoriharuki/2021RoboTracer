@@ -2,7 +2,7 @@
  * LineSensor.h
  *
  *  Created on: 2021/06/09
- *      Author: under
+ *      Author: Haruki Shimotori
  */
 
 #ifndef INC_LINESENSOR_HPP_

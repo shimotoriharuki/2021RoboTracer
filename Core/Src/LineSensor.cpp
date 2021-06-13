@@ -2,7 +2,7 @@
  * LineSensor.cpp
  *
  *  Created on: 2021/06/09
- *      Author: under
+ *      Author: Haruki Shimotori
  */
 
 #include <stdio.h>
