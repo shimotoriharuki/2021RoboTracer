@@ -15,30 +15,35 @@
 #include "Motor.hpp"
 #include "LED.hpp"
 #include "Encoder.hpp"
+#include "VelocityCtrl.hpp"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
 JoyStick joy_stick;
 RotarySwitch rotary_switch;
-Motor motor;
+//Motor motor;
 LED led;
 
-Encoder encoder;
+//Encoder encoder;
+VelocityCtrl velocity_ctrl;
+
+float velocity;
 
 void cppInit(void)
 {
 	line_sensor.ADCStart();
-	motor.init();
-	encoder.init();
+	//motor.init();
+	//encoder.init();
+	velocity_ctrl.init();
 
 }
 
 void cppFlip(void)
 {
 	line_sensor.updateSensorvaluses();
-	motor.motorCtrl();
-	encoder.updateCnt();
-
+	//motor.motorCtrl();
+	//encoder.updateCnt();
+	velocity = velocity_ctrl.flip();
 }
 
 void cppExit(uint16_t gpio_pin)
@@ -49,18 +54,20 @@ void cppExit(uint16_t gpio_pin)
 
 void cppLoop(void)
 {
-	printf("cpp loop test\n");
+	//printf("cpp loop test\n");
 	printf("cpp AD %d\n", line_sensor.sensor[0]);
 	printf("cpp side: %d\n", side_sensor.status());
 	printf("cpp joystick: %d\n", joy_stick.getValue());
-	printf("cpp joystick: %d\n", joy_stick.getValue());
 	printf("cpp rotaryswitch: %d\n", rotary_switch.getValue());
+	printf("cpp velocity: %f\n", velocity);
 
-	uint16_t cnt_l, cnt_r;
-	encoder.getCnt(cnt_l, cnt_r);
-	printf("cpp encode: %d, %d\n", cnt_l, cnt_r);
+	//uint16_t cnt_l, cnt_r;
+	//encoder.getCnt(cnt_l, cnt_r);
+	//printf("cpp encode: %d, %d\n", cnt_l, cnt_r);
 
-	motor.setRatio(0, 1.0);
+	//motor.setRatio(0, 1.0);
+	velocity_ctrl.setVelocityGain(1, 1, 1);
+	velocity_ctrl.setVelocity(0.1, 1);
 
 	led.fullColor('C');
 	led.LR(1, 1);
@@ -68,13 +75,11 @@ void cppLoop(void)
 	HAL_Delay(1000);
 
 	//motor.setRatio(0, -0.5);
+	//velocity_ctrl.setOmegaGain(1, 1, 1);
 	led.fullColor('Y');
 	led.LR(-1, 0);
 
 	HAL_Delay(1000);
-
-
-
 
 }
 

@@ -18,11 +18,6 @@ void cppInit(void);
 void cppLoop(void);
 void cppFlip(void);
 void cppExit(uint16_t);
-//LineSensor.hpp
-/*
-void ADCStart(void);
-void updateSensorvaluses(void);
-*/
 #ifdef __cplusplus
 };
 #endif

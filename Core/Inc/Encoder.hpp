@@ -19,10 +19,8 @@ public:
 	Encoder();
 	void init();
 	void updateCnt();
-	void getCnt(uint16_t &, uint16_t &);
+	void getCnt(int16_t &, int16_t &);
 	void clearCnt();
 };
-
-
 
 #endif /* INC_ENCODER_HPP_ */
