@@ -1,6 +1,6 @@
-wrapper.cpp:32:6:void cppInit()	8	static
-wrapper.cpp:41:6:void cppFlip()	8	static
-wrapper.cpp:49:6:void cppExit(uint16_t)	16	static
-wrapper.cpp:55:6:void cppLoop()	16	static
-wrapper.cpp:84:1:void __static_initialization_and_destruction_0(int, int)	16	static
-wrapper.cpp:84:1:cpp)	8	static
+wrapper.cpp:34:6:void cppInit()	8	static
+wrapper.cpp:45:6:void cppFlip()	8	static
+wrapper.cpp:54:6:void cppExit(uint16_t)	16	static
+wrapper.cpp:60:6:void cppLoop()	16	static
+wrapper.cpp:89:1:void __static_initialization_and_destruction_0(int, int)	16	static
+wrapper.cpp:89:1:cpp)	8	static
