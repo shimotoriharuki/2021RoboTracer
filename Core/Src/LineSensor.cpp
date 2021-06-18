@@ -49,5 +49,50 @@ void LineSensor::updateSensorvaluses()
 
 }
 
+void LineSensor::calibration()
+{
+	//uint16_t max_values[AD_DATA_SIZE];
+	//uint16_t min_values[AD_DATA_SIZE];
+	HAL_Delay(100);
+
+	for(uint16_t i = 0; i < AD_DATA_SIZE; i++){
+		max_values[i] = sensor[i];
+		min_values[i] = sensor[i];
+	}
+
+	while(joy_stick_.getValue() != JOY_C){
+
+		for(uint16_t i = 0; i < AD_DATA_SIZE; i++){
+			if(max_values[i] < sensor[i]){
+				max_values[i] = sensor[i];
+			}
+			else if(min_values[i] > sensor[i]){
+				min_values[i] = sensor[i];
+			}
+		}
+
+		if(rotary_switch_.getValue() == 0){
+			led_.LR(-1, 1);
+
+		}
+		else{
+			led_.LR(-1, 0);
+
+		}
+	}
+
+
+	for(const auto &m : max_values){
+		printf("%d, ", m);
+	}
+		printf("\n");
+	for(const auto &m : min_values){
+		printf("%d, ", m);
+	}
+		printf("\n");
+
+
+}
+
 
 

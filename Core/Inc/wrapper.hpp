@@ -2,7 +2,7 @@
  * wrapper.hpp
  *
  *  Created on: Jun 9, 2021
- *      Author: under
+ *      Author: Haruki Shimotori
  */
 
 #ifndef INC_WRAPPER_HPP_

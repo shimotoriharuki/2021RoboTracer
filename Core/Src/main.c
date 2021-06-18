@@ -139,6 +139,7 @@ void init()
 	}
 	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 65535);
 	*/
+
 	HAL_GPIO_WritePin(GPIOE, GPIO_PIN_14, GPIO_PIN_SET);
 
 	HAL_TIM_Encoder_Start(&htim1,TIM_CHANNEL_ALL);

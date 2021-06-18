@@ -2,9 +2,8 @@
  * wrapper.cpp
  *
  *  Created on: Jun 9, 2021
- *      Author: under
+ *      Author: Haruki Shimotori
  */
-
 #include "wrapper.hpp"
 #include <stdio.h>
 
@@ -39,6 +38,8 @@ void cppInit(void)
 	//velocity_ctrl.init();
 	line_trace.init();
 	line_trace.setGain(0.001, 0, 0);
+
+	line_trace.calibration();
 
 }
 

@@ -4,3 +4,4 @@ LineTrace.cpp:22:6:void LineTrace::pid()	56	static
 LineTrace.cpp:47:6:void LineTrace::init()	16	static
 LineTrace.cpp:54:6:void LineTrace::setGain(float, float, float)	24	static
 LineTrace.cpp:62:6:void LineTrace::flip()	16	static
+LineTrace.cpp:70:6:void LineTrace::calibration()	16	static

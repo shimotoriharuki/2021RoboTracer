@@ -10,7 +10,6 @@
 LineTrace::LineTrace() : kp_(0), kd_(0), ki_(0){}
 
 // --------private--------- //
-
 float LineTrace::calcError()
 {
 	float diff = line_sensor_.sensor[6] - line_sensor_.sensor[7];
@@ -43,7 +42,6 @@ void LineTrace::pid()
 }
 
 // -------public---------- //
-
 void LineTrace::init()
 {
 	line_sensor_.ADCStart();
@@ -64,6 +62,13 @@ void LineTrace::flip()
 	line_sensor_.updateSensorvaluses();
 	pid();
 	motor_.motorCtrl();
+
+}
+
+void LineTrace::calibration()
+{
+	line_sensor_.calibration();
+
 }
 
 

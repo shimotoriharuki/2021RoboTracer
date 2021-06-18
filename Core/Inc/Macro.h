@@ -16,5 +16,12 @@
 // ADC
 #define AD_DATA_SIZE 14
 
+// Joy stick
+#define JOY_U 0x08
+#define JOY_D 0x04
+#define JOY_L 0x01
+#define JOY_R 0x10
+#define JOY_C 0x02
+
 
 #endif /* INC_MACRO_H_ */
