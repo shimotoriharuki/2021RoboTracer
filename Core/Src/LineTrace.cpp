@@ -6,7 +6,7 @@
  */
 
 #include "LineTrace.hpp"
-
+#include <stdio.h>
 LineTrace::LineTrace() : kp_(0), kd_(0), ki_(0){}
 
 // --------private--------- //
@@ -69,6 +69,10 @@ void LineTrace::calibration()
 {
 	line_sensor_.calibration();
 
+}
+
+void LineTrace::printSensorValues(){
+	printf("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", line_sensor_.sensor[0], line_sensor_.sensor[1], line_sensor_.sensor[2], line_sensor_.sensor[3], line_sensor_.sensor[4], line_sensor_.sensor[5], line_sensor_.sensor[6], line_sensor_.sensor[7], line_sensor_.sensor[8], line_sensor_.sensor[9], line_sensor_.sensor[10], line_sensor_.sensor[11], line_sensor_.sensor[12], line_sensor_.sensor[13]);
 }
 
 

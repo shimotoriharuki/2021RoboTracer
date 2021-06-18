@@ -19,6 +19,7 @@ class LineSensor {
 
 private:
 	uint16_t analog_val_[AD_DATA_SIZE];
+	float sensor_coefficient_[AD_DATA_SIZE];
 
 	LED led_;
 	JoyStick joy_stick_;

@@ -55,17 +55,16 @@ void cppFlip(void)
 void cppExit(uint16_t gpio_pin)
 {
 	side_sensor.updateStatus(gpio_pin);
-
 }
 
 void cppLoop(void)
 {
 	//printf("cpp loop test\n");
 	//printf("cpp AD %d\n", line_sensor.sensor[0]);
-	printf("cpp side: %d\n", side_sensor.status());
-	printf("cpp joystick: %d\n", joy_stick.getValue());
-	printf("cpp rotaryswitch: %d\n", rotary_switch.getValue());
-	printf("cpp velocity: %f\n", velocity);
+	//printf("cpp side: %d\n", side_sensor.status());
+	//printf("cpp joystick: %d\n", joy_stick.getValue());
+	//printf("cpp rotaryswitch: %d\n", rotary_switch.getValue());
+	//printf("cpp velocity: %f\n", velocity);
 
 	//uint16_t cnt_l, cnt_r;
 	//encoder.getCnt(cnt_l, cnt_r);
@@ -74,6 +73,8 @@ void cppLoop(void)
 	//motor.setRatio(0, 1.0);
 	//velocity_ctrl.setVelocityGain(1, 1, 1);
 	//velocity_ctrl.setVelocity(0.1, 1);
+	line_trace.printSensorValues();
+
 
 	led.fullColor('C');
 	led.LR(1, 1);
