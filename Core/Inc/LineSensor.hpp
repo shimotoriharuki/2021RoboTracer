@@ -36,6 +36,7 @@ public:
 	void ADCStart();
 	void updateSensorvaluses();
 	void calibration();
+	void printSensorValues();
 
 };
 

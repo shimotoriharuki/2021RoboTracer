@@ -93,5 +93,9 @@ void LineSensor::calibration()
 
 }
 
+void LineSensor::printSensorValues(){
+	printf("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", sensor[0], sensor[1], sensor[2], sensor[3], sensor[4], sensor[5], sensor[6], sensor[7], sensor[8], sensor[9], sensor[10], sensor[11], sensor[12], sensor[13]);
+}
+
 
 

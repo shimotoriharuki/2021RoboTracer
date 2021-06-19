@@ -1,7 +1,6 @@
-LineTrace.cpp:10:1:LineTrace::LineTrace(Motor*, LineSensor*)	24	static
-LineTrace.cpp:16:7:float LineTrace::calcError()	24	static
-LineTrace.cpp:24:6:void LineTrace::pid()	56	static
-LineTrace.cpp:47:6:void LineTrace::init()	16	static
-LineTrace.cpp:54:6:void LineTrace::setGain(float, float, float)	24	static
-LineTrace.cpp:62:6:void LineTrace::flip()	16	static
-LineTrace.cpp:78:6:void LineTrace::printSensorValues()	96	static
+LineTrace.cpp:11:1:LineTrace::LineTrace(Motor*, LineSensor*)	24	static
+LineTrace.cpp:17:7:float LineTrace::calcError()	24	static
+LineTrace.cpp:25:6:void LineTrace::pid()	56	static
+LineTrace.cpp:48:6:void LineTrace::init()	16	static
+LineTrace.cpp:53:6:void LineTrace::setGain(float, float, float)	24	static
+LineTrace.cpp:61:6:void LineTrace::flip()	16	static

@@ -25,14 +25,14 @@ private:
 	float current_velocity_, current_omega_;
 	float v_kp_, v_kd_, v_ki_;
 	float o_kp_, o_kd_, o_ki_;
-	Motor motor_;
-	Encoder encoder_;
+	Motor *motor_;
+	Encoder *encoder_;
 
 	float calcVelocity();
 	void pid();
 
 public:
-	VelocityCtrl();
+	VelocityCtrl(Motor *, Encoder *);
 	void init();
 	void setVelocity(float, float);
 	void setVelocityGain(float, float, float);

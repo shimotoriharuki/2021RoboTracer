@@ -28,8 +28,6 @@ public:
 	void init();
 	void setGain(float, float, float);
 	void flip();
-	//void calibration();
-	void printSensorValues();
 
 };
 
