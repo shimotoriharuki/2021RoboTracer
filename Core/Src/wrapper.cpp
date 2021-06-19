@@ -17,35 +17,36 @@
 #include "VelocityCtrl.hpp"
 #include "LineTrace.hpp"
 
-//LineSensor line_sensor;
+LineSensor line_sensor;
 SideSensor side_sensor;
 JoyStick joy_stick;
 RotarySwitch rotary_switch;
-//Motor motor;
+Motor motor;
 LED led;
 
 //Encoder encoder;
 //VelocityCtrl velocity_ctrl;
-LineTrace line_trace;
+LineTrace line_trace(&motor, &line_sensor);
 
 float velocity;
 
 void cppInit(void)
 {
-	//line_sensor.ADCStart();
-	//motor.init();
+	line_sensor.ADCStart();
+	line_sensor.calibration();
+	motor.init();
 	//encoder.init();
 	//velocity_ctrl.init();
-	line_trace.init();
+	//line_trace.init();
 	line_trace.setGain(0.001, 0, 0);
 
-	line_trace.calibration();
+	//bline_trace.calibration();
 
 }
 
 void cppFlip(void)
 {
-	//line_sensor.updateSensorvaluses();
+	line_sensor.updateSensorvaluses();
 	//motor.motorCtrl();
 	//encoder.updateCnt();
 	//velocity = velocity_ctrl.flip();

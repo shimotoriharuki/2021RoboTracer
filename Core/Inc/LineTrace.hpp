@@ -16,19 +16,19 @@
 class LineTrace
 {
 private:
-	Motor motor_;
-	LineSensor line_sensor_;
+	Motor *motor_;
+	LineSensor *line_sensor_;
 	float kp_, kd_, ki_;
 
 	float calcError();
 	void pid();
 
 public:
-	LineTrace();
+	LineTrace(Motor *, LineSensor *);
 	void init();
 	void setGain(float, float, float);
 	void flip();
-	void calibration();
+	//void calibration();
 	void printSensorValues();
 
 };
