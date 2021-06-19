@@ -17,39 +17,47 @@
 #include "VelocityCtrl.hpp"
 #include "LineTrace.hpp"
 
-//LineSensor line_sensor;
+LineSensor line_sensor;
 SideSensor side_sensor;
 JoyStick joy_stick;
 RotarySwitch rotary_switch;
-//Motor motor;
+Motor motor;
 LED led;
 
-//Encoder encoder;
-//VelocityCtrl velocity_ctrl;
-LineTrace line_trace;
+Encoder encoder;
+VelocityCtrl velocity_ctrl(&motor, &encoder);
+LineTrace line_trace(&motor, &line_sensor);
 
 float velocity;
 
 void cppInit(void)
 {
-	//line_sensor.ADCStart();
-	//motor.init();
-	//encoder.init();
-	//velocity_ctrl.init();
-	line_trace.init();
+	line_sensor.ADCStart();
+	line_sensor.calibration();
+	motor.init();
+	encoder.init();
+	//line_trace.init();
 	line_trace.setGain(0.001, 0, 0);
+	velocity_ctrl.setVelocityGain(1, 0, 0);
 
-	line_trace.calibration();
+	//line_trace.calibration();
 
 }
 
 void cppFlip(void)
 {
-	//line_sensor.updateSensorvaluses();
-	//motor.motorCtrl();
-	//encoder.updateCnt();
-	//velocity = velocity_ctrl.flip();
-	line_trace.flip();
+	line_sensor.updateSensorvaluses();
+	encoder.updateCnt();
+
+
+
+	velocity = velocity_ctrl.flip();
+	//line_trace.flip();
+
+
+
+	motor.motorCtrl();
+	encoder.clearCnt();
 }
 
 void cppExit(uint16_t gpio_pin)
@@ -72,8 +80,12 @@ void cppLoop(void)
 
 	//motor.setRatio(0, 1.0);
 	//velocity_ctrl.setVelocityGain(1, 1, 1);
-	//velocity_ctrl.setVelocity(0.1, 1);
-	line_trace.printSensorValues();
+	velocity_ctrl.setVelocity(0., 1);
+
+	printf("%d, %d, %d\n", line_sensor.sensor[0], line_sensor.sensor[1], line_sensor.sensor[2]);
+	int16_t enc_l, enc_r;
+	encoder.getCnt(enc_l, enc_r);
+	printf("velo: %d, %d\n", enc_l, enc_r);
 
 
 	led.fullColor('C');
