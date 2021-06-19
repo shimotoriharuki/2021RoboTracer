@@ -80,6 +80,8 @@ int temp[1];
 int ad1, ad2, ad3, ad4;
 int side;
 
+uint32_t tim6_timer, tim7_timer;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -119,16 +121,34 @@ int _write(int file, char *ptr, int len)
 }
 
 
-
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	cppExit(GPIO_Pin);
 }
 
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	cppFlip();
+	if(htim->Instance == TIM6){
+		tim6_timer++;
+		cppFlip1ms();
+		if(tim6_timer >= 1000) tim6_timer = 0;
+	}
+	if(htim->Instance == TIM7){
+		tim7_timer++;
+		cppFlip100ns();
+		if(tim7_timer >= 1000) tim7_timer = 0;
+	}
 }
+
+
+/*
+void TIM6_DAC2_IRQHandler(void){
+
+	tim6_timer++;
+
+}
+*/
 
 void init()
 {
@@ -142,11 +162,12 @@ void init()
 
 	HAL_GPIO_WritePin(GPIOE, GPIO_PIN_14, GPIO_PIN_SET);
 
-	HAL_TIM_Encoder_Start(&htim1,TIM_CHANNEL_ALL);
-	HAL_TIM_Encoder_Start(&htim8,TIM_CHANNEL_ALL);
+	//HAL_TIM_Encoder_Start(&htim1,TIM_CHANNEL_ALL);
+	//HAL_TIM_Encoder_Start(&htim8,TIM_CHANNEL_ALL);
 
 	//Timer intrruptin start
 	HAL_TIM_Base_Start_IT(&htim6);
+	HAL_TIM_Base_Start_IT(&htim7);
 
 	lcd_init();
 
@@ -859,9 +880,9 @@ static void MX_TIM7_Init(void)
 
   /* USER CODE END TIM7_Init 1 */
   htim7.Instance = TIM7;
-  htim7.Init.Prescaler = 0;
+  htim7.Init.Prescaler = 89;
   htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim7.Init.Period = 65535;
+  htim7.Init.Period = 100;
   htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
   {

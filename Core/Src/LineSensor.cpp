@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <LineSensor.hpp>
+#include <algorithm>
 #include "G_variables.h"
 
 LineSensor::LineSensor()
@@ -31,11 +32,40 @@ void LineSensor::ADCStart()
 	HAL_ADC_Start_DMA(&hadc2, (uint32_t *) analog_val_, 14);
 }
 
+void LineSensor::storeSensorValues()
+{
+	static uint8_t cnt = 0;
+
+	for(int i = 0; i < AD_DATA_SIZE; i++){
+		store_vals_[cnt][i] = analog_val_[i];
+	}
+
+	cnt++;
+	if(cnt >= 10) cnt = 0;
+
+
+}
 void LineSensor::updateSensorvaluses()
 {
-	for(uint8_t i = 0; i < AD_DATA_SIZE; i++){
-		sensor[i] = (analog_val_[i] - offset_values[i]) * sensor_coefficient_[i];
+	uint16_t temp_val[10];
+
+	for(uint8_t ad_cnt = 0; ad_cnt < AD_DATA_SIZE; ad_cnt++){
+		for(uint8_t store_cnt = 0; store_cnt < 10; store_cnt++){
+			temp_val[store_cnt] = store_vals_[store_cnt][ad_cnt];
+		}
+
+		std::sort(temp_val, temp_val + AD_DATA_SIZE);
+		sensor[ad_cnt] = temp_val[5];
 	}
+
+
+	for(uint8_t store_cnt = 0; store_cnt < 10; store_cnt++){
+		for(uint8_t ad_cnt = 0; ad_cnt < AD_DATA_SIZE; ad_cnt++){
+			printf("%d\n", store_vals_[store_cnt][ad_cnt]);
+		}
+		printf("\n");
+	}
+
 
 }
 
@@ -92,7 +122,7 @@ void LineSensor::calibration()
 }
 
 void LineSensor::printSensorValues(){
-	printf("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", sensor[0], sensor[1], sensor[2], sensor[3], sensor[4], sensor[5], sensor[6], sensor[7], sensor[8], sensor[9], sensor[10], sensor[11], sensor[12], sensor[13]);
+	printf("%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", sensor[0], sensor[1], sensor[2], sensor[3], sensor[4], sensor[5], sensor[6], sensor[7], sensor[8], sensor[9], sensor[10], sensor[11], sensor[12], sensor[13]);
 }
 
 

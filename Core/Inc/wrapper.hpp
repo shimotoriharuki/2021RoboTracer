@@ -16,7 +16,8 @@ extern "C" {
 
 void cppInit(void);
 void cppLoop(void);
-void cppFlip(void);
+void cppFlip1ms(void);
+void cppFlip100ns(void);
 void cppExit(uint16_t);
 #ifdef __cplusplus
 };
