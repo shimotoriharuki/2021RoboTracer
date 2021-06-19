@@ -2,7 +2,7 @@
  * VelocityCtrl.hpp
  *
  *  Created on: Jun 13, 2021
- *      Author: under
+ *      Author: Haruki Shimotori
  */
 
 #ifndef INC_VELOCITYCTRL_HPP_
@@ -14,7 +14,7 @@
 #define WHEEL_RADIUS 11 //[mm]
 #define PI 3.1415926535
 #define ENCODER_RESOLUTION 512
-#define REDUCTION_RATIO 0.35
+#define REDUCTION_RATIO 0.35 //Gear reduction ratio
 #define VELOCITY_PER_CNT (2 * PI * WHEEL_RADIUS * REDUCTION_RATIO / ENCODER_RESOLUTION) //[m/s per cnt]
 
 class VelocityCtrl

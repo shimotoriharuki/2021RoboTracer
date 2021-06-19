@@ -33,7 +33,7 @@ float velocity;
 void cppInit(void)
 {
 	line_sensor.ADCStart();
-	//line_sensor.calibration();
+	line_sensor.calibration();
 	motor.init();
 	encoder.init();
 	//line_trace.init();

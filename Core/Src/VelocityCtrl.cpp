@@ -2,7 +2,7 @@
  * VelocityCtrl.cpp
  *
  *  Created on: Jun 13, 2021
- *      Author: under
+ *      Author: Haruki Shimotori
  */
 
 #include "VelocityCtrl.hpp"
@@ -26,26 +26,20 @@ float VelocityCtrl::calcVelocity()
 	current_velocity_ = VELOCITY_PER_CNT * enc_cnt;
 
 	return current_velocity_;
-
 }
 
 
 void VelocityCtrl::pid()
 {
 	float diff = target_velocity_ - current_velocity_;
-
 	float p = v_kp_ * diff;
 
 	motor_->setRatio(p, p);
-
-
 }
 
 // --------public -----------//
 void VelocityCtrl::init()
 {
-	//motor_.init();
-	//encoder_.init();
 
 }
 
@@ -53,7 +47,6 @@ void VelocityCtrl::setVelocity(float velocity, float omega)
 {
 	target_velocity_ = velocity;
 	target_omega_= omega;
-
 }
 
 void VelocityCtrl::setVelocityGain(float kp, float kd, float ki)
@@ -72,15 +65,10 @@ void VelocityCtrl::setOmegaGain(float kp, float kd, float ki)
 
 float VelocityCtrl::flip()
 {
-	//encoder_->updateCnt();
 
 	float velocity;
 	velocity = calcVelocity();
 	pid();
-
-	//motor_->motorCtrl();
-
-	//encoder_->clearCnt();
 
 	return velocity;
 

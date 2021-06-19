@@ -1,5 +1,5 @@
-LineSensor.cpp:12:1:LineSensor::LineSensor()	64	static
-LineSensor.cpp:26:6:void LineSensor::ADCStart()	16	static
-LineSensor.cpp:31:6:void LineSensor::updateSensorvaluses()	16	static
-LineSensor.cpp:50:6:void LineSensor::calibration()	56	static
-LineSensor.cpp:96:6:void LineSensor::printSensorValues()	96	static
+LineSensor.cpp:12:1:LineSensor::LineSensor()	80	static
+LineSensor.cpp:29:6:void LineSensor::ADCStart()	16	static
+LineSensor.cpp:34:6:void LineSensor::updateSensorvaluses()	24	static
+LineSensor.cpp:42:6:void LineSensor::calibration()	112	static
+LineSensor.cpp:94:6:void LineSensor::printSensorValues()	96	static

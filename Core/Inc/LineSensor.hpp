@@ -29,8 +29,7 @@ private:
 public:
 
 	uint16_t sensor[AD_DATA_SIZE];
-	uint16_t max_values[AD_DATA_SIZE];
-	uint16_t min_values[AD_DATA_SIZE];
+	uint16_t offset_values[AD_DATA_SIZE];
 
 	LineSensor();
 	void ADCStart();
