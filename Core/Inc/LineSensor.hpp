@@ -20,8 +20,9 @@ class LineSensor {
 
 private:
 	uint16_t analog_val_[AD_DATA_SIZE];
-	uint16_t store_vals_[10][AD_DATA_SIZE];
+	float store_vals_[10][AD_DATA_SIZE];
 	float sensor_coefficient_[AD_DATA_SIZE];
+	int16_t offset_values_[AD_DATA_SIZE];
 
 	LED led_;
 	JoyStick joy_stick_;
@@ -30,8 +31,7 @@ private:
 
 public:
 
-	uint16_t sensor[AD_DATA_SIZE];
-	uint16_t offset_values[AD_DATA_SIZE];
+	float sensor[AD_DATA_SIZE];
 
 	LineSensor();
 	void ADCStart();

@@ -21,7 +21,7 @@ LineSensor::LineSensor()
 		s = 0;
 	}
 
-	for(auto &m : offset_values){
+	for(auto &m : offset_values_){
 		m = 0;
 	}
 	for(auto &s : sensor_coefficient_){
@@ -40,7 +40,8 @@ void LineSensor::storeSensorValues()
 	static uint8_t cnt = 0;
 
 	for(int i = 0; i < AD_DATA_SIZE; i++){
-		store_vals_[cnt][i] = analog_val_[i];
+		//store_vals_[cnt][i] = sensor_coefficient_[i] * (analog_val_[i] - offset_values_[i]) ;
+		store_vals_[cnt][i] = float(analog_val_[i]) ;
 	}
 
 	cnt++;
@@ -145,20 +146,22 @@ void LineSensor::calibration()
 		printf("\n");
 
 
-	/* OverFlow
+	// OverFlow
+
 	for(uint16_t i = 0; i < AD_DATA_SIZE; i++){
 		sensor_coefficient_[i] = 1000 / (max_values[i] - min_values[i]);
 	}
 	for(uint16_t i = 0; i < AD_DATA_SIZE; i++){
-		offset_values[i] = min_values[i];
+		offset_values_[i] = min_values[i];
 	}
-	*/
+
 
 }
 
 void LineSensor::printSensorValues(){
-	//printf("%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", sensor[0], sensor[1], sensor[2], sensor[3], sensor[4], sensor[5], sensor[6], sensor[7], sensor[8], sensor[9], sensor[10], sensor[11], sensor[12], sensor[13]);
-	printf("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", sensor[0], sensor[1], sensor[2], sensor[3], sensor[4], sensor[5], sensor[6], sensor[7], sensor[8], sensor[9], sensor[10], sensor[11], sensor[12], sensor[13]);
+	printf("%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", sensor[0], sensor[1], sensor[2], sensor[3], sensor[4], sensor[5], sensor[6], sensor[7], sensor[8], sensor[9], sensor[10], sensor[11], sensor[12], sensor[13]);
+	//printf("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", sensor[0], sensor[1], sensor[2], sensor[3], sensor[4], sensor[5], sensor[6], sensor[7], sensor[8], sensor[9], sensor[10], sensor[11], sensor[12], sensor[13]);
+
 }
 
 

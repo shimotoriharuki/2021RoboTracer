@@ -39,13 +39,13 @@ void cppInit(void)
 	line_trace.setGain(0.001, 0, 0);
 	//velocity_ctrl.setVelocityGain(1, 0, 0);
 
-	//line_sensor.updateSensorvaluses();
+	//line_sensor.updateSensorValues();
 	//line_sensor.calibration();
 }
 
 void cppFlip1ms(void)
 {
-	//line_sensor.updateSensorvaluses();
+	line_sensor.updateSensorValues();
 	encoder.updateCnt();
 
 
@@ -94,7 +94,7 @@ void cppLoop(void)
 	encoder.getCnt(enc_l, enc_r);
 	//printf("velo: %d, %d\n", enc_l, enc_r);
 
-	line_sensor.updateSensorValues();
+	//line_sensor.updateSensorValues();
 	line_sensor.printSensorValues();
 
 	led.fullColor('C');
