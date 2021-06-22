@@ -33,15 +33,14 @@ float velocity;
 void cppInit(void)
 {
 	line_sensor.ADCStart();
-	//line_sensor.calibration();
 	motor.init();
 	encoder.init();
 	//line_trace.init();
 	line_trace.setGain(0.001, 0, 0);
-	velocity_ctrl.setVelocityGain(1, 0, 0);
+	//velocity_ctrl.setVelocityGain(1, 0, 0);
 
-	//line_trace.calibration();
-
+	//line_sensor.updateSensorvaluses();
+	//line_sensor.calibration();
 }
 
 void cppFlip1ms(void)
@@ -51,7 +50,7 @@ void cppFlip1ms(void)
 
 
 
-	velocity = velocity_ctrl.flip();
+	//velocity = velocity_ctrl.flip();
 	//line_trace.flip();
 
 
@@ -87,7 +86,7 @@ void cppLoop(void)
 
 	//motor.setRatio(0, 1.0);
 	//velocity_ctrl.setVelocityGain(1, 1, 1);
-	velocity_ctrl.setVelocity(0., 1);
+	//velocity_ctrl.setVelocity(0., 1);
 
 	//line_sensor.printSensorValues();
 
@@ -95,7 +94,8 @@ void cppLoop(void)
 	encoder.getCnt(enc_l, enc_r);
 	//printf("velo: %d, %d\n", enc_l, enc_r);
 
-	line_sensor.updateSensorvaluses();
+	line_sensor.updateSensorValues();
+	line_sensor.printSensorValues();
 
 	led.fullColor('C');
 	led.LR(1, 1);

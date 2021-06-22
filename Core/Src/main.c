@@ -132,12 +132,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if(htim->Instance == TIM6){
 		tim6_timer++;
 		cppFlip1ms();
-		if(tim6_timer >= 1000) tim6_timer = 0;
+		if(tim6_timer >= 100000) tim6_timer = 0;
 	}
 	if(htim->Instance == TIM7){
 		tim7_timer++;
 		cppFlip100ns();
-		if(tim7_timer >= 1000) tim7_timer = 0;
+		if(tim7_timer >= 100000) tim7_timer = 0;
 	}
 }
 

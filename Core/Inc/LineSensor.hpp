@@ -30,13 +30,13 @@ private:
 
 public:
 
-	float sensor[AD_DATA_SIZE];
+	uint16_t sensor[AD_DATA_SIZE];
 	uint16_t offset_values[AD_DATA_SIZE];
 
 	LineSensor();
 	void ADCStart();
 	void storeSensorValues();
-	void updateSensorvaluses();
+	void updateSensorValues();
 	void calibration();
 	void printSensorValues();
 

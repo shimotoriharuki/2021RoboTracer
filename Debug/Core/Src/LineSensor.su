@@ -1,40 +1,6 @@
-predefined_ops.h:48:3:constexpr __gnu_cxx::__ops::_Iter_less_iter __gnu_cxx::__ops::__iter_less_iter()	4	static
-predefined_ops.h:60:5:__gnu_cxx::__ops::_Iter_less_val::_Iter_less_val(__gnu_cxx::__ops::_Iter_less_iter)	16	static
-predefined_ops.h:98:3:__gnu_cxx::__ops::_Val_less_iter __gnu_cxx::__ops::__val_comp_iter(__gnu_cxx::__ops::_Iter_less_iter)	16	static
-stl_algobase.h:1000:3:constexpr int std::__lg(int)	16	static
-LineSensor.cpp:13:1:LineSensor::LineSensor()	80	static
-LineSensor.cpp:30:6:void LineSensor::ADCStart()	16	static
-LineSensor.cpp:35:6:void LineSensor::storeSensorValues()	24	static
-LineSensor.cpp:48:6:void LineSensor::updateSensorvaluses()	48	static
-LineSensor.cpp:72:6:void LineSensor::calibration()	112	static
-LineSensor.cpp:124:6:void LineSensor::printSensorValues()	232	static
-stl_algo.h:4826:5:void std::sort(_RAIter, _RAIter) [with _RAIter = short unsigned int*]	32	static
-stl_algo.h:1963:5:void std::__sort(_RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	32	static
-stl_algo.h:1940:5:void std::__introsort_loop(_RandomAccessIterator, _RandomAccessIterator, _Size, _Compare) [with _RandomAccessIterator = short unsigned int*; _Size = int; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	48	static
-stl_algo.h:1880:5:void std::__final_insertion_sort(_RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	40	static
-stl_algo.h:1928:5:void std::__partial_sort(_RandomAccessIterator, _RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	32	static
-stl_algo.h:1917:5:_RandomAccessIterator std::__unguarded_partition_pivot(_RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	48	static
-stl_algo.h:1840:5:void std::__insertion_sort(_RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	48	static
-stl_algo.h:1863:5:void std::__unguarded_insertion_sort(_RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	40	static
-stl_algo.h:1668:5:void std::__heap_select(_RandomAccessIterator, _RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	32	static
-stl_heap.h:402:5:void std::__sort_heap(_RandomAccessIterator, _RandomAccessIterator, _Compare&) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	24	static
-predefined_ops.h:42:7:constexpr bool __gnu_cxx::__ops::_Iter_less_iter::operator()(_Iterator1, _Iterator2) const [with _Iterator1 = short unsigned int*; _Iterator2 = short unsigned int*]	24	static
-stl_algo.h:78:5:void std::__move_median_to_first(_Iterator, _Iterator, _Iterator, _Iterator, _Compare) [with _Iterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	24	static
-stl_algo.h:1896:5:_RandomAccessIterator std::__unguarded_partition(_RandomAccessIterator, _RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	24	static
-move.h:98:5:constexpr typename std::remove_reference< <template-parameter-1-1> >::type&& std::move(_Tp&&) [with _Tp = short unsigned int&]	16	static
-stl_algobase.h:658:5:_BI2 std::move_backward(_BI1, _BI1, _BI2) [with _BI1 = short unsigned int*; _BI2 = short unsigned int*]	32	static
-stl_algo.h:1821:5:void std::__unguarded_linear_insert(_RandomAccessIterator, _Compare) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Val_less_iter]	24	static
-stl_heap.h:326:5:void std::__make_heap(_RandomAccessIterator, _RandomAccessIterator, _Compare&) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	56	static
-stl_heap.h:243:5:void std::__pop_heap(_RandomAccessIterator, _RandomAccessIterator, _RandomAccessIterator, _Compare&) [with _RandomAccessIterator = short unsigned int*; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	48	static
-stl_algobase.h:120:5:void std::iter_swap(_ForwardIterator1, _ForwardIterator2) [with _ForwardIterator1 = short unsigned int*; _ForwardIterator2 = short unsigned int*]	16	static
-cpp_type_traits.h:408:5:_Iterator std::__miter_base(_Iterator) [with _Iterator = short unsigned int*]	16	static
-stl_algobase.h:595:5:_BI2 std::__copy_move_backward_a2(_BI1, _BI1, _BI2) [with bool _IsMove = true; _BI1 = short unsigned int*; _BI2 = short unsigned int*]	32	static
-predefined_ops.h:89:7:bool __gnu_cxx::__ops::_Val_less_iter::operator()(_Value&, _Iterator) const [with _Value = short unsigned int; _Iterator = short unsigned int*]	24	static
-move.h:98:5:constexpr typename std::remove_reference< <template-parameter-1-1> >::type&& std::move(_Tp&&) [with _Tp = __gnu_cxx::__ops::_Iter_less_iter&]	16	static
-stl_heap.h:214:5:void std::__adjust_heap(_RandomAccessIterator, _Distance, _Distance, _Tp, _Compare) [with _RandomAccessIterator = short unsigned int*; _Distance = int; _Tp = short unsigned int; _Compare = __gnu_cxx::__ops::_Iter_less_iter]	56	static
-move.h:187:5:typename std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<_Tp> >, std::is_move_constructible<_Tp>, std::is_move_assignable<_Tp> >::value>::type std::swap(_Tp&, _Tp&) [with _Tp = short unsigned int]	24	static
-stl_algobase.h:277:5:_Iterator std::__niter_base(_Iterator) [with _Iterator = short unsigned int*]	16	static
-stl_algobase.h:577:5:_BI2 std::__copy_move_backward_a(_BI1, _BI1, _BI2) [with bool _IsMove = true; _BI1 = short unsigned int*; _BI2 = short unsigned int*]	32	static
-stl_heap.h:128:5:void std::__push_heap(_RandomAccessIterator, _Distance, _Distance, _Tp, _Compare&) [with _RandomAccessIterator = short unsigned int*; _Distance = int; _Tp = short unsigned int; _Compare = __gnu_cxx::__ops::_Iter_less_val]	32	static
-stl_algobase.h:559:9:static _Tp* std::__copy_move_backward<_IsMove, true, std::random_access_iterator_tag>::__copy_move_b(const _Tp*, const _Tp*, _Tp*) [with _Tp = short unsigned int; bool _IsMove = true]	32	static
-predefined_ops.h:64:7:bool __gnu_cxx::__ops::_Iter_less_val::operator()(_Iterator, _Value&) const [with _Iterator = short unsigned int*; _Value = short unsigned int]	24	static
+LineSensor.cpp:14:1:LineSensor::LineSensor()	80	static
+LineSensor.cpp:33:6:void LineSensor::ADCStart()	16	static
+LineSensor.cpp:38:6:void LineSensor::storeSensorValues()	24	static
+LineSensor.cpp:51:6:void LineSensor::updateSensorValues()	56	static
+LineSensor.cpp:104:6:void LineSensor::calibration()	112	static
+LineSensor.cpp:158:6:void LineSensor::printSensorValues()	96	static
