@@ -26,20 +26,20 @@ void Motor::motorCtrl()
 	uint16_t left_counter_period, right_counter_period;
 
 	if(temp_left_counter_period_ < 0) {
-		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_RESET);
 		left_counter_period = -1 * temp_left_counter_period_;
 	}
 	else{
-		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_SET);
 		left_counter_period = temp_left_counter_period_;
 	}
 
 	if(temp_right_counter_period_ < 0) {
-		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_SET);
 		right_counter_period = -1 * temp_right_counter_period_;
 	}
 	else{
-		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_RESET);
 		right_counter_period = temp_right_counter_period_;
 	}
 

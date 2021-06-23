@@ -130,12 +130,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM6){
-		tim6_timer++;
+		//tim6_timer++;
 		cppFlip1ms();
 		if(tim6_timer >= 100000) tim6_timer = 0;
 	}
 	if(htim->Instance == TIM7){
-		tim7_timer++;
+		//tim7_timer++;
 		cppFlip100ns();
 		if(tim7_timer >= 100000) tim7_timer = 0;
 	}

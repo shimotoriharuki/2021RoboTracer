@@ -22,7 +22,7 @@ private:
 	uint16_t analog_val_[AD_DATA_SIZE];
 	float store_vals_[10][AD_DATA_SIZE];
 	float sensor_coefficient_[AD_DATA_SIZE];
-	int16_t offset_values_[AD_DATA_SIZE];
+	float offset_values_[AD_DATA_SIZE];
 
 	LED led_;
 	JoyStick joy_stick_;
@@ -39,6 +39,7 @@ public:
 	void updateSensorValues();
 	void calibration();
 	void printSensorValues();
+	bool emergencyStop();
 
 };
 

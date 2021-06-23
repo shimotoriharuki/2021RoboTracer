@@ -35,12 +35,13 @@ void cppInit(void)
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();
-	//line_trace.init();
-	line_trace.setGain(0.001, 0, 0);
+
 	//velocity_ctrl.setVelocityGain(1, 0, 0);
 
 	//line_sensor.updateSensorValues();
-	//line_sensor.calibration();
+	line_sensor.calibration();
+
+	line_trace.setGain(0.0005, 0.000003, 0);
 }
 
 void cppFlip1ms(void)
@@ -51,7 +52,7 @@ void cppFlip1ms(void)
 
 
 	//velocity = velocity_ctrl.flip();
-	//line_trace.flip();
+	line_trace.flip();
 
 
 
@@ -63,6 +64,15 @@ void cppFlip1ms(void)
 void cppFlip100ns(void)
 {
 	line_sensor.storeSensorValues();
+
+	if(rotary_switch.getValue() == 1){
+		line_trace.Start();
+		line_trace.setNormalRatio(0.1);
+	}
+	else{
+		line_trace.Stop();
+		line_trace.setNormalRatio(0.0);
+	}
 
 }
 
@@ -90,15 +100,15 @@ void cppLoop(void)
 
 	//line_sensor.printSensorValues();
 
-	int16_t enc_l, enc_r;
-	encoder.getCnt(enc_l, enc_r);
+	//int16_t enc_l, enc_r;
+	//encoder.getCnt(enc_l, enc_r);
 	//printf("velo: %d, %d\n", enc_l, enc_r);
 
 	//line_sensor.updateSensorValues();
 	line_sensor.printSensorValues();
 
 	led.fullColor('C');
-	led.LR(1, 1);
+	led.LR(-1, 1);
 
 	HAL_Delay(1000);
 
