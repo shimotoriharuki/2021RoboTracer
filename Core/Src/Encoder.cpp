@@ -29,8 +29,8 @@ void Encoder::updateCnt()
 
 void Encoder::getCnt(int16_t &cnt_l, int16_t &cnt_r)
 {
-	cnt_l = cnt_l_ - CNT_OFFSET;
-	cnt_r = CNT_OFFSET - cnt_r_;
+	cnt_l = CNT_OFFSET - cnt_l_;
+	cnt_r = cnt_r_ - CNT_OFFSET;
 }
 
 void Encoder::clearCnt()

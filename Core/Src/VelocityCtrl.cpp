@@ -91,7 +91,7 @@ float VelocityCtrl::flip()
 	float velocity;
 	velocity = calcVelocity();
 
-	if(excution_flag_ == false){
+	if(excution_flag_ == true){
 		pid();
 	}
 
@@ -107,5 +107,6 @@ void VelocityCtrl::start()
 void VelocityCtrl::stop()
 {
 	excution_flag_ = false;
+	motor_->setRatio(0, 0);
 
 }

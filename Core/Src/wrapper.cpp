@@ -36,12 +36,11 @@ void cppInit(void)
 	motor.init();
 	encoder.init();
 
-	//velocity_ctrl.setVelocityGain(1, 0, 0);
-
-	//line_sensor.updateSensorValues();
-	line_sensor.calibration();
+	//line_sensor.calibration();
 
 	line_trace.setGain(0.0005, 0.000003, 0);
+	velocity_ctrl.setVelocityGain(1.5, 0, 20);
+	velocity_ctrl.setOmegaGain(0, 0, 0);
 }
 
 void cppFlip1ms(void)
@@ -50,30 +49,32 @@ void cppFlip1ms(void)
 	encoder.updateCnt();
 
 
-
-	//velocity = velocity_ctrl.flip();
-	line_trace.flip();
-
+	velocity = velocity_ctrl.flip();
+	//line_trace.flip();
 
 
 	motor.motorCtrl();
+
 	encoder.clearCnt();
 
+	if(rotary_switch.getValue() == 1){
+		//line_trace.start();
+		//line_trace.setNormalRatio(0.1);
+		velocity_ctrl.start();
+		velocity_ctrl.setVelocity(0, 0);
+		led.fullColor('R');
+	}
+	else{
+		//line_trace.stop();
+		//line_trace.setNormalRatio(0.0);
+		velocity_ctrl.stop();
+		led.fullColor('G');
+	}
 }
 
 void cppFlip100ns(void)
 {
 	line_sensor.storeSensorValues();
-
-	if(rotary_switch.getValue() == 1){
-		//line_trace.start();
-		//line_trace.setNormalRatio(0.1);
-	}
-	else{
-		//line_trace.stop();
-		//line_trace.setNormalRatio(0.0);
-	}
-
 }
 
 void cppExit(uint16_t gpio_pin)
@@ -102,22 +103,22 @@ void cppLoop(void)
 
 	//int16_t enc_l, enc_r;
 	//encoder.getCnt(enc_l, enc_r);
-	//printf("velo: %d, %d\n", enc_l, enc_r);
+	//printf("cnt: %d, %d\n", enc_l, enc_r);
 
 	//line_sensor.updateSensorValues();
-	line_sensor.printSensorValues();
+	//line_sensor.printSensorValues();
 
-	led.fullColor('C');
+	//led.fullColor('C');
 	led.LR(-1, 1);
 
-	HAL_Delay(1000);
+	HAL_Delay(100);
 
 	//motor.setRatio(0, -0.5);
 	//velocity_ctrl.setOmegaGain(1, 1, 1);
-	led.fullColor('Y');
+	//led.fullColor('Y');
 	led.LR(-1, 0);
 
-	HAL_Delay(1000);
+	HAL_Delay(100);
 
 }
 
