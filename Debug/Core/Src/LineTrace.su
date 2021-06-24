@@ -5,5 +5,5 @@ LineTrace.cpp:48:6:void LineTrace::init()	16	static
 LineTrace.cpp:53:6:void LineTrace::setGain(float, float, float)	24	static
 LineTrace.cpp:61:6:void LineTrace::setNormalRatio(float)	16	static
 LineTrace.cpp:66:6:void LineTrace::flip()	16	static
-LineTrace.cpp:83:6:void LineTrace::Start()	16	static
-LineTrace.cpp:88:6:void LineTrace::Stop()	16	static
+LineTrace.cpp:83:6:void LineTrace::start()	16	static
+LineTrace.cpp:88:6:void LineTrace::stop()	16	static

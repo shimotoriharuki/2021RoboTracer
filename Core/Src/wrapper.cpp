@@ -66,12 +66,12 @@ void cppFlip100ns(void)
 	line_sensor.storeSensorValues();
 
 	if(rotary_switch.getValue() == 1){
-		line_trace.Start();
-		line_trace.setNormalRatio(0.1);
+		//line_trace.start();
+		//line_trace.setNormalRatio(0.1);
 	}
 	else{
-		line_trace.Stop();
-		line_trace.setNormalRatio(0.0);
+		//line_trace.stop();
+		//line_trace.setNormalRatio(0.0);
 	}
 
 }

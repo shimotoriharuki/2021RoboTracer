@@ -16,6 +16,7 @@
 #define ENCODER_RESOLUTION 512
 #define REDUCTION_RATIO 0.35 //Gear reduction ratio
 #define VELOCITY_PER_CNT (2 * PI * WHEEL_RADIUS * REDUCTION_RATIO / ENCODER_RESOLUTION) //[m/s per cnt]
+#define DELTA_T 0.001
 
 class VelocityCtrl
 {
@@ -25,6 +26,7 @@ private:
 	float current_velocity_, current_omega_;
 	float v_kp_, v_kd_, v_ki_;
 	float o_kp_, o_kd_, o_ki_;
+	bool excution_flag_;
 	Motor *motor_;
 	Encoder *encoder_;
 
@@ -38,6 +40,8 @@ public:
 	void setVelocityGain(float, float, float);
 	void setOmegaGain(float, float, float);
 	float flip();
+	void start();
+	void stop();
 
 };
 

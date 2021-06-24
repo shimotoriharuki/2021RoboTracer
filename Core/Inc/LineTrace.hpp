@@ -21,7 +21,7 @@ private:
 	LineSensor *line_sensor_;
 	LED led_;
 	float kp_, kd_, ki_;
-	bool excution_flag;
+	bool excution_flag_;
 	float normal_ratio_;
 
 	float calcError();
@@ -33,8 +33,8 @@ public:
 	void setGain(float, float, float);
 	void setNormalRatio(float);
 	void flip();
-	void Start();
-	void Stop();
+	void start();
+	void stop();
 
 };
 

@@ -8,7 +8,7 @@
 #include "LineTrace.hpp"
 #include <stdio.h>
 
-LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor) : kp_(0), kd_(0), ki_(0), excution_flag(false), normal_ratio_(0){
+LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor) : kp_(0), kd_(0), ki_(0), excution_flag_(false), normal_ratio_(0){
 	motor_ = motor;
 	line_sensor_ = line_sensor;
 }
@@ -65,7 +65,7 @@ void LineTrace::setNormalRatio(float ratio){
 
 void LineTrace::flip()
 {
-	if(excution_flag == true){
+	if(excution_flag_ == true){
 		pid();
 	}
 	if(line_sensor_->emergencyStop() == true){
@@ -80,14 +80,14 @@ void LineTrace::flip()
 
 }
 
-void LineTrace::Start()
+void LineTrace::start()
 {
-	excution_flag = true;
+	excution_flag_ = true;
 }
 
-void LineTrace::Stop()
+void LineTrace::stop()
 {
-	excution_flag = false;
+	excution_flag_ = false;
 	motor_->setRatio(0, 0);
 }
 
