@@ -1,0 +1,5 @@
+ICM_20648.c:12:9:read_byte	24	static
+ICM_20648.c:24:6:write_byte	24	static
+ICM_20648.c:34:10:IMU_init	16	static
+ICM_20648.c:53:6:read_gyro_data	16	static
+ICM_20648.c:59:6:read_accel_data	16	static

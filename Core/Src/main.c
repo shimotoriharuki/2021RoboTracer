@@ -29,6 +29,7 @@
 #include "wrapper.hpp"
 #include "G_variables.h"
 #include "Macro.h"
+#include "ICM_20648.h"
 //#include "LineSensor.hpp"
 
 
@@ -132,6 +133,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if(htim->Instance == TIM6){
 		//tim6_timer++;
 		cppFlip1ms();
+		read_gyro_data();
+		read_accel_data();
 		if(tim6_timer >= 100000) tim6_timer = 0;
 	}
 	if(htim->Instance == TIM7){
@@ -171,6 +174,7 @@ void init()
 
 	lcd_init();
 
+
 	if(sd_mount() == 1){
 	  printf("mount success\r\n");
 	}
@@ -187,6 +191,10 @@ void init()
 	sd_unmount();
 
 	cppInit();
+
+	uint16_t who_i_am;
+	who_i_am = IMU_init();
+	printf("who i am: %d\n", who_i_am);
 }
 
 /* USER CODE END 0 */
@@ -257,13 +265,14 @@ int main(void)
 
 	  //printf("Timer: %d\n", timer);
 
-	  /*
+
 	  lcd_clear();
 	  lcd_locate(0,0);
 	  lcd_printf("LCD");
 	  lcd_locate(0,1);
 	  lcd_printf("TEST");
 
+	  /*
 	  HAL_Delay(1000);
 
 	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
@@ -282,6 +291,7 @@ int main(void)
 
 
 	  cppLoop();
+	  printf("xa: %5d, ya: %5d, za: %5d, xg: %5d, yg: %5d, zg: %5d\n", xa, ya, za, xg, yg, zg);
 	  //printf("R_SW: %d\n", getRotarySW());
 
 
@@ -621,10 +631,10 @@ static void MX_SPI2_Init(void)
   hspi2.Init.Mode = SPI_MODE_MASTER;
   hspi2.Init.Direction = SPI_DIRECTION_2LINES;
   hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_HIGH;
+  hspi2.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi2.Init.NSS = SPI_NSS_SOFT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
