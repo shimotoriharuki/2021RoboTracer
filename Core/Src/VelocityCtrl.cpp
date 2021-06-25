@@ -6,6 +6,8 @@
  */
 
 #include "VelocityCtrl.hpp"
+#include "ICM_20648.h"
+#include <stdio.h>
 
 VelocityCtrl::VelocityCtrl(Motor *motor, Encoder *encoder) :
 target_velocity_(0), target_omega_(0), current_velocity_(0), current_omega_(0), v_kp_(0), v_kd_(0), v_ki_(0),
@@ -27,6 +29,14 @@ float VelocityCtrl::calcVelocity()
 	current_velocity_ = VELOCITY_PER_CNT * enc_cnt;
 
 	return current_velocity_;
+}
+
+float VelocityCtrl::calcOmega()
+{
+	current_omega_ = -(zg / 16.4) * PI / 180;
+	printf("omegao: %f\n", current_omega_);
+
+	return current_omega_;
 }
 
 
@@ -90,6 +100,7 @@ float VelocityCtrl::flip()
 {
 	float velocity;
 	velocity = calcVelocity();
+	calcOmega();
 
 	if(excution_flag_ == true){
 		pid();
@@ -102,6 +113,7 @@ float VelocityCtrl::flip()
 void VelocityCtrl::start()
 {
 	excution_flag_ = true;
+	calcOmega();
 }
 
 void VelocityCtrl::stop()

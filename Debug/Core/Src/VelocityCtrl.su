@@ -1,10 +1,11 @@
-VelocityCtrl.cpp:10:1:VelocityCtrl::VelocityCtrl(Motor*, Encoder*)	24	static
-VelocityCtrl.cpp:21:7:float VelocityCtrl::calcVelocity()	32	static
-VelocityCtrl.cpp:33:6:void VelocityCtrl::pid()	72	static
-VelocityCtrl.cpp:64:6:void VelocityCtrl::init()	16	static
-VelocityCtrl.cpp:69:6:void VelocityCtrl::setVelocity(float, float)	24	static
-VelocityCtrl.cpp:75:6:void VelocityCtrl::setVelocityGain(float, float, float)	24	static
-VelocityCtrl.cpp:82:6:void VelocityCtrl::setOmegaGain(float, float, float)	24	static
-VelocityCtrl.cpp:89:7:float VelocityCtrl::flip()	24	static
-VelocityCtrl.cpp:102:6:void VelocityCtrl::start()	16	static
-VelocityCtrl.cpp:107:6:void VelocityCtrl::stop()	16	static
+VelocityCtrl.cpp:12:1:VelocityCtrl::VelocityCtrl(Motor*, Encoder*)	24	static
+VelocityCtrl.cpp:23:7:float VelocityCtrl::calcVelocity()	32	static
+VelocityCtrl.cpp:34:7:float VelocityCtrl::calcOmega()	24	static
+VelocityCtrl.cpp:43:6:void VelocityCtrl::pid()	72	static
+VelocityCtrl.cpp:74:6:void VelocityCtrl::init()	16	static
+VelocityCtrl.cpp:79:6:void VelocityCtrl::setVelocity(float, float)	24	static
+VelocityCtrl.cpp:85:6:void VelocityCtrl::setVelocityGain(float, float, float)	24	static
+VelocityCtrl.cpp:92:6:void VelocityCtrl::setOmegaGain(float, float, float)	24	static
+VelocityCtrl.cpp:99:7:float VelocityCtrl::flip()	24	static
+VelocityCtrl.cpp:113:6:void VelocityCtrl::start()	16	static
+VelocityCtrl.cpp:119:6:void VelocityCtrl::stop()	16	static

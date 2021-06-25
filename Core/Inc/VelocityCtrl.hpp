@@ -31,6 +31,7 @@ private:
 	Encoder *encoder_;
 
 	float calcVelocity();
+	float calcOmega();
 	void pid();
 
 public:

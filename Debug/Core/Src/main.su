@@ -3,7 +3,7 @@ main.c:114:5:_write	32	static
 main.c:125:6:HAL_GPIO_EXTI_Callback	16	static
 main.c:131:6:HAL_TIM_PeriodElapsedCallback	16	static
 main.c:156:6:init	24	static
-main.c:206:5:main	32	static
+main.c:206:5:main	8	static
 main.c:310:6:SystemClock_Config	152	static
 main.c:369:13:MX_ADC2_Init	24	static
 main.c:523:13:MX_I2C1_Init	8	static

@@ -132,9 +132,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM6){
 		//tim6_timer++;
-		cppFlip1ms();
 		read_gyro_data();
 		read_accel_data();
+		cppFlip1ms();
 		if(tim6_timer >= 100000) tim6_timer = 0;
 	}
 	if(htim->Instance == TIM7){
@@ -291,7 +291,7 @@ int main(void)
 
 
 	  cppLoop();
-	  printf("xa: %5d, ya: %5d, za: %5d, xg: %5d, yg: %5d, zg: %5d\n", xa, ya, za, xg, yg, zg);
+	  //printf("xa: %5d, ya: %5d, za: %5d, xg: %5d, yg: %5d, zg: %5d\n", xa, ya, za, xg, yg, zg);
 	  //printf("R_SW: %d\n", getRotarySW());
 
 
