@@ -23,5 +23,10 @@
 #define JOY_R 0x10
 #define JOY_C 0x02
 
+//voltage and current sensor
+#define CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT (0x44<<1)
+#define CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT (0x40<<1)
+
+
 
 #endif /* INC_MACRO_H_ */
