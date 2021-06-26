@@ -28,13 +28,14 @@ float VelocityCtrl::calcVelocity()
 
 	current_velocity_ = VELOCITY_PER_CNT * enc_cnt;
 
+
 	return current_velocity_;
 }
 
 float VelocityCtrl::calcOmega()
 {
 	current_omega_ = -(zg / 16.4) * PI / 180;
-	printf("omegao: %f\n", current_omega_);
+	//printf("omegao: %f\n", current_omega_);
 
 	return current_omega_;
 }

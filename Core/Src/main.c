@@ -30,7 +30,7 @@
 #include "G_variables.h"
 #include "Macro.h"
 #include "ICM_20648.h"
-//#include "LineSensor.hpp"
+#include "INA260.h"
 
 
 /* USER CODE END Includes */
@@ -80,6 +80,7 @@ int	data[1];
 int temp[1];
 int ad1, ad2, ad3, ad4;
 int side;
+float current, voltage;
 
 uint32_t tim6_timer, tim7_timer;
 
@@ -175,6 +176,7 @@ void init()
 	lcd_init();
 
 
+	// SD card check
 	if(sd_mount() == 1){
 	  printf("mount success\r\n");
 	}
@@ -195,6 +197,8 @@ void init()
 	uint16_t who_i_am;
 	who_i_am = IMU_init();
 	printf("who i am: %d\n", who_i_am);
+
+	INA260_init();
 }
 
 /* USER CODE END 0 */
@@ -291,6 +295,10 @@ int main(void)
 
 
 	  cppLoop();
+	  current = INA260_read(0x01) * 0.00125;
+	  voltage = INA260_read(0x02) * 0.00125;
+	  printf("current: %f, valtage: %d \n", current, voltage);
+
 	  //printf("xa: %5d, ya: %5d, za: %5d, xg: %5d, yg: %5d, zg: %5d\n", xa, ya, za, xg, yg, zg);
 	  //printf("R_SW: %d\n", getRotarySW());
 

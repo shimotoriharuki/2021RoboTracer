@@ -40,8 +40,8 @@ void cppInit(void)
 	//line_sensor.calibration();
 
 	line_trace.setGain(0.0005, 0.000003, 0);
-	//velocity_ctrl.setVelocityGain(1.5, 0, 20);
-	velocity_ctrl.setVelocityGain(0, 0, 0);
+	velocity_ctrl.setVelocityGain(1.5, 0, 20);
+	//velocity_ctrl.setVelocityGain(0, 0, 0);
 	velocity_ctrl.setOmegaGain(0.2, 0, 20);
 }
 

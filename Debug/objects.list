@@ -2,6 +2,7 @@
 "Core/Src/Encoder.o"
 "Core/Src/HAL_SDcard_lib.o"
 "Core/Src/ICM_20648.o"
+"Core/Src/INA260.o"
 "Core/Src/Joystick.o"
 "Core/Src/LED.o"
 "Core/Src/LineSensor.o"
