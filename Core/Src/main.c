@@ -198,8 +198,8 @@ void init()
 	who_i_am = IMU_init();
 	printf("who i am: %d\n", who_i_am);
 
-	INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT);
-	INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT);
+	//INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT);
+	//INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT);
 }
 
 /* USER CODE END 0 */
@@ -296,12 +296,13 @@ int main(void)
 
 
 	  cppLoop();
+	  /*
 	  current_l = INA260_read(0x01, CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT) * 0.00125;
 	  voltage_l = INA260_read(0x02, CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT) * 0.00125;
 	  current_r = INA260_read(0x01, CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT) * 0.00125;
 	  voltage_r = INA260_read(0x02, CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT) * 0.00125;
 	  printf("current: %f, %f, valtage: %f, %f \n", current_l, current_l, voltage_r, voltage_r);
-
+	   */
 	  //printf("xa: %5d, ya: %5d, za: %5d, xg: %5d, yg: %5d, zg: %5d\n", xa, ya, za, xg, yg, zg);
 	  //printf("R_SW: %d\n", getRotarySW());
 

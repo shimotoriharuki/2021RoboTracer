@@ -19,6 +19,7 @@ void cppLoop(void);
 void cppFlip1ms(void);
 void cppFlip100ns(void);
 void cppExit(uint16_t);
+
 #ifdef __cplusplus
 };
 #endif

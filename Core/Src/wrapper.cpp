@@ -16,7 +16,8 @@
 #include "Encoder.hpp"
 #include "VelocityCtrl.hpp"
 #include "LineTrace.hpp"
-//#include "ICM_20648.h"
+#include "PowerSensor.hpp"
+//#include "INA260.h"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
@@ -24,19 +25,23 @@ JoyStick joy_stick;
 RotarySwitch rotary_switch;
 Motor motor;
 LED led;
+PowerSensor power_sensor;
 
 Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder);
 LineTrace line_trace(&motor, &line_sensor);
 
 float velocity;
+bool low_voltage_flag;
 
 void cppInit(void)
 {
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();
-
+	power_sensor.init();
+	//INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT);
+	//INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT);
 	//line_sensor.calibration();
 
 	line_trace.setGain(0.0005, 0.000003, 0);
@@ -56,6 +61,16 @@ void cppFlip1ms(void)
 	motor.motorCtrl();
 
 	encoder.clearCnt();
+
+	//Buttery Check
+	power_sensor.updateValues();
+	low_voltage_flag = power_sensor.butteryCheck();
+	if(low_voltage_flag == true){
+		led.LR(1, -1);
+	}
+	else{
+		led.LR(0, -1);
+	}
 
 	if(rotary_switch.getValue() == 1){
 		//line_trace.start();
@@ -109,14 +124,15 @@ void cppLoop(void)
 	//line_sensor.printSensorValues();
 
 	//led.fullColor('C');
-	led.LR(-1, 1);
+
+	//led.LR(-1, 1);
 
 	HAL_Delay(100);
 
 	//motor.setRatio(0, -0.5);
 	//velocity_ctrl.setOmegaGain(1, 1, 1);
 	//led.fullColor('Y');
-	led.LR(-1, 0);
+	//led.LR(-1, 0);
 
 	HAL_Delay(100);
 

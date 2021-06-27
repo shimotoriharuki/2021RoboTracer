@@ -12,9 +12,17 @@
 
 extern I2C_HandleTypeDef hi2c2;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 unsigned short INA260_read(uint8_t, uint8_t);
-void INA260_write(uint8_t,uint8_t,uint8_t, uint8_t);
+void INA260_write(uint8_t,uint8_t, uint8_t, uint8_t);
 void INA260_init(uint8_t);
+
+#ifdef __cplusplus
+}
+#endif
 
 
 
