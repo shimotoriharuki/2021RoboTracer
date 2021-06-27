@@ -2,7 +2,7 @@
  * IMU.hpp
  *
  *  Created on: Jun 27, 2021
- *      Author: under
+ *      Author: Haruki Shimotori
  */
 
 #ifndef INC_IMU_HPP_

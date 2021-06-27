@@ -39,12 +39,12 @@ void cppInit(void)
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();
-	power_sensor.init();
+	//power_sensor.init();
 	imu.init();
 
 	//line_sensor.calibration();
 	imu.calibration();
-	printf("imu offset %f", imu.getOffsetVal());
+	//printf("imu offset %f", imu.getOffsetVal());
 
 	line_trace.setGain(0.0005, 0.000003, 0);
 
@@ -126,6 +126,8 @@ void cppLoop(void)
 	//led.fullColor('C');
 
 	//led.LR(-1, 1);
+
+	printf("imu zg: %f\n", imu.getOmega());
 
 	HAL_Delay(100);
 

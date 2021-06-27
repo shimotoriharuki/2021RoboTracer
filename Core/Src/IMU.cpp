@@ -2,7 +2,7 @@
  * IMU.cpp
  *
  *  Created on: Jun 27, 2021
- *      Author: under
+ *      Author: Haruki Shimotori
  */
 
 
@@ -27,6 +27,9 @@ void IMU::init()
 
 void IMU::updateValues()
 {
+	read_gyro_data();
+	read_accel_data();
+
 	xa_ = xa;
 	ya_ = ya;
 	za_ = za;
@@ -39,15 +42,17 @@ void IMU::updateValues()
 float IMU::getOmega()
 {
 	return zg_ - offset_;
+
 }
 
 void IMU::calibration()
 {
 	led.fullColor('G');
 
-	std::vector<float> zg_vals;
+	//std::vector<float> zg_vals;
+	float zg_vals[1000];
 	for(uint16_t i = 0; i < 1000; i++){
-		zg_vals.push_back(zg_);
+		zg_vals[i] = zg_;
 		HAL_Delay(2);
 	}
 
@@ -56,7 +61,9 @@ void IMU::calibration()
 		sum += v;
 	}
 
-	offset_ = sum / zg_vals.size();
+	offset_ = sum / 1000;
+
+	printf("imu offset %f", offset_);
 
 	led.fullColor('B');
 }

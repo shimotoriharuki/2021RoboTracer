@@ -133,8 +133,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM6){
 		//tim6_timer++;
-		read_gyro_data();
-		read_accel_data();
+		//read_gyro_data();
+		//read_accel_data();
 		cppFlip1ms();
 		if(tim6_timer >= 100000) tim6_timer = 0;
 	}
