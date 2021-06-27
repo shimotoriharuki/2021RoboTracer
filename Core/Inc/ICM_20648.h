@@ -12,17 +12,25 @@
 
 extern SPI_HandleTypeDef hspi2;
 // IMUから取得したデータ
-extern volatile int16_t 	xa, ya, za; // 加速度(16bitデータ)
-extern volatile int16_t 	xg, yg, zg;	// omega(16bitデータ)
+extern volatile int16_t xa, ya, za; // 加速度(16bitデータ)
+extern volatile int16_t xg, yg, zg;	// omega(16bitデータ)
 
 #define CS_RESET HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET)
 #define CS_SET   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET)
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 uint8_t read_byte( uint8_t );
 void write_byte( uint8_t, uint8_t);
 uint16_t IMU_init(void);
 void read_gyro_data(void);
 void read_accel_data(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 /*
 Gyro		レンジ(dps)	スケールファクター(LSB/dps)

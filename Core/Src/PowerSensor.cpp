@@ -17,15 +17,15 @@ void PowerSensor::init()
 {
 	INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT);
 	INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT);
-
 }
 
 void PowerSensor::updateValues()
 {
-	current_l_ = INA260_read(0x01, CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT) * 0.00125;
-	current_r_ = INA260_read(0x01, CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT) * 0.00125;
+	//current_l_ = INA260_read(0x01, CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT) * 0.00125;
+	//current_r_ = INA260_read(0x01, CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT) * 0.00125;
 	buttery_voltage_ = INA260_read(0x02, CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT) * 0.00125;
 }
+
 void PowerSensor::getCurrentValue(float &left, float &right)
 {
 	left = current_l_;

@@ -1,5 +1,5 @@
-wrapper.cpp:37:6:void cppInit()	8	static
-wrapper.cpp:53:6:void cppFlip1ms()	8	static
+wrapper.cpp:37:6:void cppInit()	16	static
+wrapper.cpp:56:6:void cppFlip1ms()	8	static
 wrapper.cpp:90:6:void cppFlip100ns()	8	static
 wrapper.cpp:95:6:void cppExit(uint16_t)	16	static
 wrapper.cpp:100:6:void cppLoop()	8	static

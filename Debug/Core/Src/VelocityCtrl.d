@@ -35,7 +35,8 @@ Core/Src/VelocityCtrl.o: ../Core/Src/VelocityCtrl.cpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/Encoder.hpp ../Core/Inc/ICM_20648.h ../Core/Inc/main.h
+ ../Core/Inc/Encoder.hpp ../Core/Inc/IMU.hpp ../Core/Inc/LED.hpp \
+ ../Core/Inc/ICM_20648.h ../Core/Inc/main.h
 
 ../Core/Inc/VelocityCtrl.hpp:
 
@@ -112,6 +113,10 @@ Core/Src/VelocityCtrl.o: ../Core/Src/VelocityCtrl.cpp \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
 ../Core/Inc/Encoder.hpp:
+
+../Core/Inc/IMU.hpp:
+
+../Core/Inc/LED.hpp:
 
 ../Core/Inc/ICM_20648.h:
 

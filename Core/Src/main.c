@@ -157,12 +157,6 @@ void TIM6_DAC2_IRQHandler(void){
 void init()
 {
 	// ------initialize------//
-	/*
-	if (HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4) != HAL_OK){
-	      Error_Handler();
-	}
-	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 65535);
-	*/
 
 	HAL_GPIO_WritePin(GPIOE, GPIO_PIN_14, GPIO_PIN_SET);
 
@@ -174,7 +168,6 @@ void init()
 	HAL_TIM_Base_Start_IT(&htim7);
 
 	lcd_init();
-
 
 	// SD card check
 	if(sd_mount() == 1){
@@ -194,12 +187,10 @@ void init()
 
 	cppInit();
 
-	uint16_t who_i_am;
-	who_i_am = IMU_init();
-	printf("who i am: %d\n", who_i_am);
+	//uint16_t who_i_am;
+	//who_i_am = IMU_init();
+	//printf("who i am: %d\n", who_i_am);
 
-	//INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT);
-	//INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT);
 }
 
 /* USER CODE END 0 */

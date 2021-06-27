@@ -10,6 +10,7 @@
 
 #include "Motor.hpp"
 #include "Encoder.hpp"
+#include "IMU.hpp"
 
 #define WHEEL_RADIUS 11 //[mm]
 #define PI 3.1415926535
@@ -29,13 +30,14 @@ private:
 	bool excution_flag_;
 	Motor *motor_;
 	Encoder *encoder_;
+	IMU *imu_;
 
 	float calcVelocity();
 	float calcOmega();
 	void pid();
 
 public:
-	VelocityCtrl(Motor *, Encoder *);
+	VelocityCtrl(Motor *, Encoder *, IMU *);
 	void init();
 	void setVelocity(float, float);
 	void setVelocityGain(float, float, float);

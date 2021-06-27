@@ -17,7 +17,7 @@
 #include "VelocityCtrl.hpp"
 #include "LineTrace.hpp"
 #include "PowerSensor.hpp"
-//#include "INA260.h"
+#include "IMU.hpp"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
@@ -26,13 +26,13 @@ RotarySwitch rotary_switch;
 Motor motor;
 LED led;
 PowerSensor power_sensor;
+IMU imu;
 
 Encoder encoder;
-VelocityCtrl velocity_ctrl(&motor, &encoder);
+VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 LineTrace line_trace(&motor, &line_sensor);
 
 float velocity;
-bool low_voltage_flag;
 
 void cppInit(void)
 {
@@ -40,11 +40,14 @@ void cppInit(void)
 	motor.init();
 	encoder.init();
 	power_sensor.init();
-	//INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT);
-	//INA260_init(CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT);
+	imu.init();
+
 	//line_sensor.calibration();
+	imu.calibration();
+	printf("imu offset %f", imu.getOffsetVal());
 
 	line_trace.setGain(0.0005, 0.000003, 0);
+
 	velocity_ctrl.setVelocityGain(1.5, 0, 20);
 	//velocity_ctrl.setVelocityGain(0, 0, 0);
 	velocity_ctrl.setOmegaGain(0.2, 0, 20);
@@ -53,6 +56,7 @@ void cppInit(void)
 void cppFlip1ms(void)
 {
 	line_sensor.updateSensorValues();
+	imu.updateValues();
 	encoder.updateCnt();
 
 	velocity = velocity_ctrl.flip();
@@ -62,29 +66,25 @@ void cppFlip1ms(void)
 
 	encoder.clearCnt();
 
-	//Buttery Check
-	power_sensor.updateValues();
-	low_voltage_flag = power_sensor.butteryCheck();
-	if(low_voltage_flag == true){
-		led.LR(1, -1);
-	}
-	else{
-		led.LR(0, -1);
-	}
 
 	if(rotary_switch.getValue() == 1){
 		//line_trace.start();
 		//line_trace.setNormalRatio(0.1);
 		velocity_ctrl.start();
 		velocity_ctrl.setVelocity(0, 0);
-		led.fullColor('R');
+		led.LR(1, -1);
 	}
 	else{
 		//line_trace.stop();
 		//line_trace.setNormalRatio(0.0);
 		velocity_ctrl.stop();
-		led.fullColor('G');
+		led.LR(0, -1);
 	}
+
+	//Buttery Check
+	//power_sensor.updateValues();
+	//if(power_sensor.butteryCheck() == true) led.fullColor('R');
+
 }
 
 void cppFlip100ns(void)
