@@ -175,7 +175,7 @@ FRESULT sd_read_array(char *p_folder_name, char *p_file_name, short size, float 
 //* 戻り値：　FRESULT:
 //* 備考 : なし
 //************************************************************************/
-FRESULT sd_write_array_int(char *p_folder_name, char *p_file_name, short size, int *data, char state){
+FRESULT sd_write_array_int(char const *p_folder_name, char const *p_file_name, short size, int *data, char state){
 	FRESULT ret = 0;
 
 	create_path(p_folder_name, p_file_name);
@@ -215,7 +215,7 @@ FRESULT sd_write_array_int(char *p_folder_name, char *p_file_name, short size, i
 //* 戻り値：　FRESULT:
 //* 備考 : なし
 //************************************************************************/
-FRESULT sd_read_array_int(char *p_folder_name, char *p_file_name, short size, int *data){
+FRESULT sd_read_array_int(char const *p_folder_name, char const *p_file_name, short size, int *data){
 	FRESULT ret = 0;
 	short i = 0;
 
@@ -272,7 +272,7 @@ FRESULT sd_unmount(){
 //* 戻り値：　void:
 //* 備考 : なし
 //************************************************************************/
-void create_path(char *p_folder_name, char *p_file_name){
+void create_path(char const *p_folder_name, char const *p_file_name){
 
 	sprintf(dirpath, "%s", p_folder_name);
 

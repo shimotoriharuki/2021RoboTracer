@@ -76,8 +76,8 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 
-int	data[1];
-int temp[1];
+//int	data[1];
+//int temp[1];
 int ad1, ad2, ad3, ad4;
 int side;
 float current_l, current_r, voltage_l, voltage_r;
@@ -167,9 +167,10 @@ void init()
 	HAL_TIM_Base_Start_IT(&htim6);
 	HAL_TIM_Base_Start_IT(&htim7);
 
-	lcd_init();
+	//lcd_init();
 
 	// SD card check
+	/*
 	if(sd_mount() == 1){
 	  printf("mount success\r\n");
 	}
@@ -184,7 +185,7 @@ void init()
 
 	printf("sd write and read success!!\r\n");
 	sd_unmount();
-
+	 */
 	cppInit();
 
 	//uint16_t who_i_am;
@@ -211,6 +212,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+
 
   /* USER CODE END Init */
 
@@ -262,11 +264,11 @@ int main(void)
 	  //printf("Timer: %d\n", timer);
 
 
-	  lcd_clear();
-	  lcd_locate(0,0);
-	  lcd_printf("LCD");
-	  lcd_locate(0,1);
-	  lcd_printf("TEST");
+	  //lcd_clear();
+	  //lcd_locate(0,0);
+	  //lcd_printf("LCD");
+	  //lcd_locate(0,1);
+	  //lcd_printf("TEST");
 
 	  /*
 	  HAL_Delay(1000);

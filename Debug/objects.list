@@ -8,6 +8,7 @@
 "Core/Src/LED.o"
 "Core/Src/LineSensor.o"
 "Core/Src/LineTrace.o"
+"Core/Src/Logger.o"
 "Core/Src/Motor.o"
 "Core/Src/PowerSensor.o"
 "Core/Src/RotarySwitch.o"

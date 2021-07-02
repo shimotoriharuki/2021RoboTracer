@@ -1,4 +1,4 @@
-Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
+Core/Src/Logger.o: ../Core/Src/Logger.cpp ../Core/Inc/Logger.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -34,17 +34,17 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/LineSensor.hpp ../Core/Inc/Macro.h ../Core/Inc/LED.hpp \
- ../Core/Inc/Joystick.hpp ../Core/Inc/RotarySwitch.hpp \
- ../Core/Inc/SideSensor.hpp ../Core/Inc/Joystick.hpp \
- ../Core/Inc/RotarySwitch.hpp ../Core/Inc/Motor.hpp ../Core/Inc/LED.hpp \
- ../Core/Inc/Encoder.hpp ../Core/Inc/VelocityCtrl.hpp \
- ../Core/Inc/Motor.hpp ../Core/Inc/Encoder.hpp ../Core/Inc/IMU.hpp \
- ../Core/Inc/LineTrace.hpp ../Core/Inc/LineSensor.hpp \
- ../Core/Inc/PowerSensor.hpp ../Core/Inc/IMU.hpp ../Core/Inc/AQM0802.h \
- ../Core/Inc/main.h ../Core/Inc/Logger.hpp
+ ../Core/Inc/HAL_SDcard_lib.h ../FATFS/App/fatfs.h \
+ ../Middlewares/Third_Party/FatFs/src/ff.h \
+ ../Middlewares/Third_Party/FatFs/src/integer.h ../FATFS/Target/ffconf.h \
+ ../Core/Inc/main.h ../FATFS/Target/bsp_driver_sd.h \
+ ../FATFS/Target/fatfs_platform.h \
+ ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
+ ../Middlewares/Third_Party/FatFs/src/diskio.h \
+ ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
+ ../Core/Inc/Macro.h
 
-../Core/Inc/wrapper.hpp:
+../Core/Inc/Logger.hpp:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -116,46 +116,28 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
-../Core/Inc/LineSensor.hpp:
+../Core/Inc/HAL_SDcard_lib.h:
 
-../Core/Inc/Macro.h:
+../FATFS/App/fatfs.h:
 
-../Core/Inc/LED.hpp:
+../Middlewares/Third_Party/FatFs/src/ff.h:
 
-../Core/Inc/Joystick.hpp:
+../Middlewares/Third_Party/FatFs/src/integer.h:
 
-../Core/Inc/RotarySwitch.hpp:
-
-../Core/Inc/SideSensor.hpp:
-
-../Core/Inc/Joystick.hpp:
-
-../Core/Inc/RotarySwitch.hpp:
-
-../Core/Inc/Motor.hpp:
-
-../Core/Inc/LED.hpp:
-
-../Core/Inc/Encoder.hpp:
-
-../Core/Inc/VelocityCtrl.hpp:
-
-../Core/Inc/Motor.hpp:
-
-../Core/Inc/Encoder.hpp:
-
-../Core/Inc/IMU.hpp:
-
-../Core/Inc/LineTrace.hpp:
-
-../Core/Inc/LineSensor.hpp:
-
-../Core/Inc/PowerSensor.hpp:
-
-../Core/Inc/IMU.hpp:
-
-../Core/Inc/AQM0802.h:
+../FATFS/Target/ffconf.h:
 
 ../Core/Inc/main.h:
 
-../Core/Inc/Logger.hpp:
+../FATFS/Target/bsp_driver_sd.h:
+
+../FATFS/Target/fatfs_platform.h:
+
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
+
+../Middlewares/Third_Party/FatFs/src/diskio.h:
+
+../Middlewares/Third_Party/FatFs/src/ff.h:
+
+../FATFS/Target/sd_diskio.h:
+
+../Core/Inc/Macro.h:

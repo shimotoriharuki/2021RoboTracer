@@ -18,6 +18,8 @@
 #include "LineTrace.hpp"
 #include "PowerSensor.hpp"
 #include "IMU.hpp"
+#include "AQM0802.h"
+#include "Logger.hpp"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
@@ -27,6 +29,7 @@ Motor motor;
 LED led;
 PowerSensor power_sensor;
 IMU imu;
+Logger logger;
 
 Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
@@ -40,6 +43,10 @@ void cppInit(void)
 	motor.init();
 	encoder.init();
 	//power_sensor.init();
+	lcd_init();
+
+	logger.sdCardInit();
+
 	imu.init();
 
 	//line_sensor.calibration();
@@ -50,7 +57,7 @@ void cppInit(void)
 
 	velocity_ctrl.setVelocityGain(1.5, 0, 20);
 	//velocity_ctrl.setVelocityGain(0, 0, 0);
-	velocity_ctrl.setOmegaGain(0.2, 0, 20);
+	velocity_ctrl.setOmegaGain(0.15, 0, 20);
 }
 
 void cppFlip1ms(void)
@@ -66,7 +73,9 @@ void cppFlip1ms(void)
 
 	encoder.clearCnt();
 
+	logger.storeLog(line_sensor.sensor[0]);
 
+	/*
 	if(rotary_switch.getValue() == 1){
 		//line_trace.start();
 		//line_trace.setNormalRatio(0.1);
@@ -80,6 +89,7 @@ void cppFlip1ms(void)
 		velocity_ctrl.stop();
 		led.LR(0, -1);
 	}
+	*/
 
 	//Buttery Check
 	//power_sensor.updateValues();
@@ -99,6 +109,96 @@ void cppExit(uint16_t gpio_pin)
 
 void cppLoop(void)
 {
+	switch(rotary_switch.getValue()){
+
+	case 0:
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("LCD");
+		lcd_locate(0,1);
+		lcd_printf("TEST0");
+		break;
+
+	case 1:
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("velocity");
+		lcd_locate(0,1);
+		lcd_printf("test");
+
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+			velocity_ctrl.start();
+			velocity_ctrl.setVelocity(0.0, 3.14/2);
+			led.LR(1, -1);
+
+			HAL_Delay(2000);
+
+			velocity_ctrl.stop();
+			led.LR(0, -1);
+		}
+
+		break;
+	case 2:
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("LOG");
+		lcd_locate(0,1);
+		lcd_printf("SAVE");
+
+		if(joy_stick.getValue() == JOY_C){
+			logger.saveLogs("line_sensors", "sensor1.txt");
+			led.LR(1, -1);
+
+			HAL_Delay(500);
+
+			velocity_ctrl.stop();
+			led.LR(0, -1);
+		}
+		break;
+	case 3:
+
+		break;
+	case 4:
+
+		break;
+	case 5:
+
+		break;
+	case 6:
+
+		break;
+	case 7:
+
+		break;
+	case 8:
+
+		break;
+	case 9:
+
+		break;
+	case 10:
+
+		break;
+	case 11:
+
+		break;
+	case 12:
+
+		break;
+	case 13:
+
+		break;
+	case 14:
+
+		break;
+	case 15:
+
+		break;
+
+	default:
+		break;
+	}
 	//printf("cpp loop test\n");
 	//printf("cpp AD %d\n", line_sensor.sensor[0]);
 	//printf("cpp side: %d\n", side_sensor.status());
@@ -127,16 +227,16 @@ void cppLoop(void)
 
 	//led.LR(-1, 1);
 
-	printf("imu zg: %f\n", imu.getOmega());
+	//printf("imu zg: %f\n", imu.getOmega());
 
-	HAL_Delay(100);
+	//HAL_Delay(100);
 
 	//motor.setRatio(0, -0.5);
 	//velocity_ctrl.setOmegaGain(1, 1, 1);
 	//led.fullColor('Y');
 	//led.LR(-1, 0);
 
-	HAL_Delay(100);
+	HAL_Delay(10);
 
 }
 
