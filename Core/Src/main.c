@@ -71,6 +71,7 @@ TIM_HandleTypeDef htim7;
 TIM_HandleTypeDef htim8;
 TIM_HandleTypeDef htim10;
 TIM_HandleTypeDef htim11;
+TIM_HandleTypeDef htim13;
 
 UART_HandleTypeDef huart2;
 
@@ -82,7 +83,7 @@ int ad1, ad2, ad3, ad4;
 int side;
 float current_l, current_r, voltage_l, voltage_r;
 
-uint32_t tim6_timer, tim7_timer;
+uint32_t tim6_timer, tim7_timer, tim13_timer;
 
 /* USER CODE END PV */
 
@@ -98,12 +99,13 @@ static void MX_TIM4_Init(void);
 static void MX_TIM8_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM6_Init(void);
-static void MX_TIM7_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_TIM10_Init(void);
 static void MX_TIM11_Init(void);
 static void MX_ADC2_Init(void);
+static void MX_TIM7_Init(void);
+static void MX_TIM13_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -132,17 +134,23 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM6){
-		//tim6_timer++;
+		tim6_timer++;
 		//read_gyro_data();
 		//read_accel_data();
 		cppFlip1ms();
 		if(tim6_timer >= 100000) tim6_timer = 0;
 	}
+
 	if(htim->Instance == TIM7){
-		//tim7_timer++;
+		tim7_timer++;
 		cppFlip100ns();
 		if(tim7_timer >= 100000) tim7_timer = 0;
 	}
+	if(htim->Instance == TIM13){
+		tim13_timer++;
+		if(tim13_timer >= 100000) tim13_timer = 0;
+	}
+
 }
 
 
@@ -166,6 +174,7 @@ void init()
 	//Timer intrruptin start
 	HAL_TIM_Base_Start_IT(&htim6);
 	HAL_TIM_Base_Start_IT(&htim7);
+	HAL_TIM_Base_Start_IT(&htim13);
 
 	//lcd_init();
 
@@ -235,12 +244,13 @@ int main(void)
   MX_USART2_UART_Init();
   MX_FATFS_Init();
   MX_TIM6_Init();
-  MX_TIM7_Init();
   MX_I2C1_Init();
   MX_TIM3_Init();
   MX_TIM10_Init();
   MX_TIM11_Init();
   MX_ADC2_Init();
+  MX_TIM7_Init();
+  MX_TIM13_Init();
   /* USER CODE BEGIN 2 */
 
   init();
@@ -859,8 +869,8 @@ static void MX_TIM6_Init(void)
   htim6.Instance = TIM6;
   htim6.Init.Prescaler = 89;
   htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim6.Init.Period = 1000;
-  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  htim6.Init.Period = 999;
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
   {
     Error_Handler();
@@ -895,10 +905,10 @@ static void MX_TIM7_Init(void)
 
   /* USER CODE END TIM7_Init 1 */
   htim7.Instance = TIM7;
-  htim7.Init.Prescaler = 89;
+  htim7.Init.Prescaler = 179;
   htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim7.Init.Period = 100;
-  htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  htim7.Init.Period = 49;
+  htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
   {
     Error_Handler();
@@ -1054,6 +1064,37 @@ static void MX_TIM11_Init(void)
 
   /* USER CODE END TIM11_Init 2 */
   HAL_TIM_MspPostInit(&htim11);
+
+}
+
+/**
+  * @brief TIM13 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM13_Init(void)
+{
+
+  /* USER CODE BEGIN TIM13_Init 0 */
+
+  /* USER CODE END TIM13_Init 0 */
+
+  /* USER CODE BEGIN TIM13_Init 1 */
+
+  /* USER CODE END TIM13_Init 1 */
+  htim13.Instance = TIM13;
+  htim13.Init.Prescaler = 89;
+  htim13.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim13.Init.Period = 9999;
+  htim13.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim13.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim13) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM13_Init 2 */
+
+  /* USER CODE END TIM13_Init 2 */
 
 }
 
