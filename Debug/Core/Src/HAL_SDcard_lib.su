@@ -2,8 +2,8 @@ HAL_SDcard_lib.c:38:9:user_fopen	24	static
 HAL_SDcard_lib.c:55:9:user_fclose	16	static
 HAL_SDcard_lib.c:70:9:sd_write	40	static
 HAL_SDcard_lib.c:96:9:sd_read	24	static
-HAL_SDcard_lib.c:118:9:sd_write_array	48	static
-HAL_SDcard_lib.c:151:9:sd_read_array	32	static
+HAL_SDcard_lib.c:118:9:sd_write_array_float	48	static
+HAL_SDcard_lib.c:151:9:sd_read_array_float	32	static
 HAL_SDcard_lib.c:178:9:sd_write_array_int	32	static
 HAL_SDcard_lib.c:218:9:sd_read_array_int	32	static
 HAL_SDcard_lib.c:245:9:sd_mount	16	static

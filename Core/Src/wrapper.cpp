@@ -44,20 +44,19 @@ void cppInit(void)
 	encoder.init();
 	//power_sensor.init();
 	lcd_init();
-
-	logger.sdCardInit();
-
 	imu.init();
 
-	//line_sensor.calibration();
+	line_sensor.calibration();
 	imu.calibration();
 	//printf("imu offset %f", imu.getOffsetVal());
 
 	line_trace.setGain(0.0005, 0.000003, 0);
 
-	velocity_ctrl.setVelocityGain(1.5, 0, 20);
+	//velocity_ctrl.setVelocityGain(1.5, 0, 20);
 	//velocity_ctrl.setVelocityGain(0, 0, 0);
-	velocity_ctrl.setOmegaGain(0.15, 0, 20);
+	//velocity_ctrl.setOmegaGain(0.15, 0, 20);
+
+	logger.sdCardInit();
 }
 
 void cppFlip1ms(void)
@@ -66,14 +65,13 @@ void cppFlip1ms(void)
 	imu.updateValues();
 	encoder.updateCnt();
 
-	velocity = velocity_ctrl.flip();
-	//line_trace.flip();
+	//velocity = velocity_ctrl.flip();
+	line_trace.flip();
 
 	motor.motorCtrl();
 
 	encoder.clearCnt();
 
-	logger.storeLog(line_sensor.sensor[0]);
 
 	/*
 	if(rotary_switch.getValue() == 1){
@@ -102,6 +100,11 @@ void cppFlip100ns(void)
 	line_sensor.storeSensorValues();
 }
 
+void cppFlip10ms(void)
+{
+	logger.storeLog(line_sensor.sensor[7]);
+}
+
 void cppExit(uint16_t gpio_pin)
 {
 	side_sensor.updateStatus(gpio_pin);
@@ -128,6 +131,8 @@ void cppLoop(void)
 
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
+
+			logger.start();
 			velocity_ctrl.start();
 			velocity_ctrl.setVelocity(0.0, 3.14/2);
 			led.LR(1, -1);
@@ -136,6 +141,8 @@ void cppLoop(void)
 
 			velocity_ctrl.stop();
 			led.LR(0, -1);
+
+			logger.stop();
 		}
 
 		break;
@@ -147,20 +154,67 @@ void cppLoop(void)
 		lcd_printf("SAVE");
 
 		if(joy_stick.getValue() == JOY_C){
-			logger.saveLogs("line_sensors", "sensor1.txt");
 			led.LR(1, -1);
-
-			HAL_Delay(500);
-
-			velocity_ctrl.stop();
+			logger.saveLogs("line_sensors", "sensor6.csv");
 			led.LR(0, -1);
 		}
 		break;
 	case 3:
+		led.fullColor('C');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("Line");
+		lcd_locate(0,1);
+		lcd_printf("Trace");
+
+		if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(500);
+
+			logger.start();
+			line_trace.setNormalRatio(0.1);
+			line_trace.start();
+
+			HAL_Delay(5000);
+
+			logger.stop();
+			line_trace.setNormalRatio(0.1);
+			line_trace.stop();
+
+			led.LR(1, -1);
+			logger.saveLogs("line_sensors", "sensor7.csv");
+			led.LR(0, -1);
+
+			led.LR(-1, 0);
+		}
 
 		break;
 	case 4:
+		led.fullColor('M');
 
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("Contiue");
+		lcd_locate(0,1);
+		lcd_printf("SaveTest");
+
+
+		if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(500);
+
+			line_trace.setNormalRatio(0.1);
+			line_trace.start();
+
+			HAL_Delay(5000);
+
+			line_trace.setNormalRatio(0.1);
+			line_trace.stop();
+
+
+			led.LR(-1, 0);
+		}
 		break;
 	case 5:
 

@@ -35,7 +35,7 @@ char dirpath[256];
 //* 戻り値：　FRESULT:
 //* 備考 : なし
 //************************************************************************/
-FRESULT user_fopen(char *p_folder_name, char *p_file_name){
+FRESULT user_fopen(const char *p_folder_name, const char *p_file_name){
 
 	FRESULT ret = 0;
 
@@ -115,7 +115,7 @@ FRESULT sd_read(short size, float *data){
 //* 戻り値：　FRESULT:
 //* 備考 : なし
 //************************************************************************/
-FRESULT sd_write_array(char *p_folder_name, char *p_file_name, short size, float *data, char state){
+FRESULT sd_write_array_float(const char *p_folder_name, const char *p_file_name, short size, float *data, char state){
 	FRESULT ret = 0;
 
 	create_path(p_folder_name, p_file_name);
@@ -148,7 +148,7 @@ FRESULT sd_write_array(char *p_folder_name, char *p_file_name, short size, float
 //* 戻り値：　FRESULT:
 //* 備考 : なし
 //************************************************************************/
-FRESULT sd_read_array(char *p_folder_name, char *p_file_name, short size, float *data){
+FRESULT sd_read_array_float(const char *p_folder_name, const char *p_file_name, short size, float *data){
 	FRESULT ret = 0;
 	short i = 0;
 
@@ -175,7 +175,7 @@ FRESULT sd_read_array(char *p_folder_name, char *p_file_name, short size, float 
 //* 戻り値：　FRESULT:
 //* 備考 : なし
 //************************************************************************/
-FRESULT sd_write_array_int(char const *p_folder_name, char const *p_file_name, short size, int *data, char state){
+FRESULT sd_write_array_int(const char *p_folder_name, const char *p_file_name, short size, int *data, char state){
 	FRESULT ret = 0;
 
 	create_path(p_folder_name, p_file_name);
@@ -215,7 +215,7 @@ FRESULT sd_write_array_int(char const *p_folder_name, char const *p_file_name, s
 //* 戻り値：　FRESULT:
 //* 備考 : なし
 //************************************************************************/
-FRESULT sd_read_array_int(char const *p_folder_name, char const *p_file_name, short size, int *data){
+FRESULT sd_read_array_int(const char  *p_folder_name, const char *p_file_name, short size, int *data){
 	FRESULT ret = 0;
 	short i = 0;
 

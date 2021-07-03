@@ -19,16 +19,16 @@ void create_path(char const *, char const *);
 
 FRESULT sd_mount(void);   					//SDをマウント
 FRESULT sd_unmount(void);					  //SDをアンマウント
-FRESULT user_fopen(char *, char *);
+FRESULT user_fopen(const char *, const char *);
 FRESULT user_fclose(void);
 FRESULT sd_write(short, float *, char);
 FRESULT sd_read(short, float *);
 
-FRESULT sd_write_array(char *, char * , short, float *, char); 	 //SDに書き込み
-FRESULT sd_read_array(char *, char * , short, float *);		//SDから読み込み
+FRESULT sd_write_array_float(const char *, const char * , short, float *, char); 	 //SDに書き込み
+FRESULT sd_read_array_float(const char *, const char * , short, float *);		//SDから読み込み
 
-FRESULT sd_write_array_int(char const *, char const * , short, int *, char); 	 //SDに書き込み
-FRESULT sd_read_array_int(char const *, char const * , short, int *);		//SDから読み込み
+FRESULT sd_write_array_int(const char *, const char * , short, int *, char); 	 //SDに書き込み
+FRESULT sd_read_array_int(const char *, const char * , short, int *);		//SDから読み込み
 
 void bufclear(void);
 

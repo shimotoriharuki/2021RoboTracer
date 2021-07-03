@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include "Macro.h"
 
+Logger::Logger() : recording_flag_(false), log_index_(0){}
+
 void Logger::sdCardInit()
 {
 	if(sd_mount() == 1){
@@ -32,16 +34,30 @@ void Logger::sdCardInit()
 }
 void Logger::storeLogs(float *data, uint8_t save_num)
 {
+	if(recording_flag_ == true){
+
+
+	}
 
 }
 void Logger::storeLogs(uint16_t *data, uint8_t save_num)
 {
+	if(recording_flag_ == true){
+
+
+	}
 
 }
 void Logger::storeLog(float data)
 {
-	store_data_float_.push_back(data);
-	if(store_data_float_.size() > 2000) store_data_float_.clear();
+
+	if(recording_flag_ == true){
+		store_data_float_[log_index_] = data;
+
+		log_index_++;
+
+		if(log_index_ >= LOG_DATA_SIZE) log_index_ = 0;
+	}
 }
 
 void Logger::storeLog(uint16_t data)
@@ -49,17 +65,59 @@ void Logger::storeLog(uint16_t data)
 
 }
 
-void Logger::saveLogs(const char *folder_name, const char *file_name){
-	uint16_t data_size = store_data_float_.size();
-	int data_array[data_size];
+void Logger::saveLogs(const char *folder_name, const char *file_name)
+{
 
-	uint16_t cnt = 0;
-	for(const auto &s : store_data_float_){
-		data_array[cnt] = s;
-		cnt++;
-	}
-	sd_write_array_int(folder_name, file_name, data_size, data_array, OVER_WRITE); //write
+	sd_write_array_float(folder_name, file_name, LOG_DATA_SIZE, store_data_float_, OVER_WRITE); //write
 
 }
 
+/*
+void Logger::continuousWriteStart(const char *folder_name, const char *file_name)
+{
+	user_fopen(folder_name, file_name);
+	continuous_recording_flag_ = true;
+
+}
+
+void Logger::continuousDataWrite(float data)
+{
+	if(continuous_recording_flag_ == true){
+		sd_write(1, &data, ADD_WRITE);
+	}
+}
+
+void Logger::continuousDataWrite(uint16_t data)
+{
+
+}
+
+void Logger::continuousWriteStop()
+{
+	continuous_recording_flag_ = false;
+	user_fclose();
+}
+*/
+
+void Logger::resetLogs()
+{
+	for(auto &log : store_data_float_){
+		log = 0;
+	}
+	for(auto &log : store_data_uint16_){
+		log = 0;
+	}
+
+	log_index_ = 0;
+}
+
+void Logger::start()
+{
+	recording_flag_ = true;
+}
+
+void Logger::stop()
+{
+	recording_flag_ = false;
+}
 

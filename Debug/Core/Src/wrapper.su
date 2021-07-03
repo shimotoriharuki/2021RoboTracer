@@ -1,44 +1,8 @@
-Logger.hpp:14:7:Logger::Logger()	16	static
 wrapper.cpp:40:6:void cppInit()	8	static
-wrapper.cpp:63:6:void cppFlip1ms()	8	static
-wrapper.cpp:100:6:void cppFlip100ns()	8	static
-wrapper.cpp:105:6:void cppExit(uint16_t)	16	static
-wrapper.cpp:110:6:void cppLoop()	8	static
-stl_vector.h:259:7:std::vector<_Tp, _Alloc>::vector() [with _Tp = float; _Alloc = std::allocator<float>]	16	static
-stl_vector.h:433:7:std::vector<_Tp, _Alloc>::~vector() [with _Tp = float; _Alloc = std::allocator<float>]	24	static
-stl_vector.h:259:7:std::vector<_Tp, _Alloc>::vector() [with _Tp = short unsigned int; _Alloc = std::allocator<short unsigned int>]	16	static
-stl_vector.h:433:7:std::vector<_Tp, _Alloc>::~vector() [with _Tp = short unsigned int; _Alloc = std::allocator<short unsigned int>]	24	static
-stl_vector.h:81:14:std::_Vector_base<float, std::allocator<float> >::_Vector_impl::~_Vector_impl()	16	static
-stl_vector.h:126:7:std::_Vector_base<_Tp, _Alloc>::_Vector_base() [with _Tp = float; _Alloc = std::allocator<float>]	16	static
-stl_vector.h:161:7:std::_Vector_base<_Tp, _Alloc>::~_Vector_base() [with _Tp = float; _Alloc = std::allocator<float>]	16	static
-stl_vector.h:115:7:std::_Vector_base<_Tp, _Alloc>::_Tp_alloc_type& std::_Vector_base<_Tp, _Alloc>::_M_get_Tp_allocator() [with _Tp = float; _Alloc = std::allocator<float>]	16	static
-stl_construct.h:203:5:void std::_Destroy(_ForwardIterator, _ForwardIterator, std::allocator<_T2>&) [with _ForwardIterator = float*; _Tp = float]	24	static
-stl_vector.h:81:14:std::_Vector_base<short unsigned int, std::allocator<short unsigned int> >::_Vector_impl::~_Vector_impl()	16	static
-stl_vector.h:126:7:std::_Vector_base<_Tp, _Alloc>::_Vector_base() [with _Tp = short unsigned int; _Alloc = std::allocator<short unsigned int>]	16	static
-stl_vector.h:161:7:std::_Vector_base<_Tp, _Alloc>::~_Vector_base() [with _Tp = short unsigned int; _Alloc = std::allocator<short unsigned int>]	16	static
-stl_vector.h:115:7:std::_Vector_base<_Tp, _Alloc>::_Tp_alloc_type& std::_Vector_base<_Tp, _Alloc>::_M_get_Tp_allocator() [with _Tp = short unsigned int; _Alloc = std::allocator<short unsigned int>]	16	static
-stl_construct.h:203:5:void std::_Destroy(_ForwardIterator, _ForwardIterator, std::allocator<_T2>&) [with _ForwardIterator = short unsigned int*; _Tp = short unsigned int]	24	static
-stl_vector.h:88:2:std::_Vector_base<_Tp, _Alloc>::_Vector_impl::_Vector_impl() [with _Tp = float; _Alloc = std::allocator<float>]	16	static
-allocator.h:139:7:std::allocator< <template-parameter-1-1> >::~allocator() [with _Tp = float]	16	static
-stl_vector.h:176:7:void std::_Vector_base<_Tp, _Alloc>::_M_deallocate(std::_Vector_base<_Tp, _Alloc>::pointer, std::size_t) [with _Tp = float; _Alloc = std::allocator<float>]	24	static
-stl_construct.h:127:5:void std::_Destroy(_ForwardIterator, _ForwardIterator) [with _ForwardIterator = float*]	16	static
-stl_vector.h:88:2:std::_Vector_base<_Tp, _Alloc>::_Vector_impl::_Vector_impl() [with _Tp = short unsigned int; _Alloc = std::allocator<short unsigned int>]	16	static
-allocator.h:139:7:std::allocator< <template-parameter-1-1> >::~allocator() [with _Tp = short unsigned int]	16	static
-stl_vector.h:176:7:void std::_Vector_base<_Tp, _Alloc>::_M_deallocate(std::_Vector_base<_Tp, _Alloc>::pointer, std::size_t) [with _Tp = short unsigned int; _Alloc = std::allocator<short unsigned int>]	24	static
-stl_construct.h:127:5:void std::_Destroy(_ForwardIterator, _ForwardIterator) [with _ForwardIterator = short unsigned int*]	16	static
-allocator.h:131:7:std::allocator< <template-parameter-1-1> >::allocator() [with _Tp = float]	16	static
-new_allocator.h:86:7:__gnu_cxx::new_allocator<_Tp>::~new_allocator() [with _Tp = float]	16	static
-alloc_traits.h:461:7:static void std::allocator_traits<std::allocator<_Tp1> >::deallocate(std::allocator_traits<std::allocator<_Tp1> >::allocator_type&, std::allocator_traits<std::allocator<_Tp1> >::pointer, std::allocator_traits<std::allocator<_Tp1> >::size_type) [with _Tp = float]	24	static
-stl_construct.h:117:9:static void std::_Destroy_aux<true>::__destroy(_ForwardIterator, _ForwardIterator) [with _ForwardIterator = float*]	16	static
-allocator.h:131:7:std::allocator< <template-parameter-1-1> >::allocator() [with _Tp = short unsigned int]	16	static
-new_allocator.h:86:7:__gnu_cxx::new_allocator<_Tp>::~new_allocator() [with _Tp = short unsigned int]	16	static
-alloc_traits.h:461:7:static void std::allocator_traits<std::allocator<_Tp1> >::deallocate(std::allocator_traits<std::allocator<_Tp1> >::allocator_type&, std::allocator_traits<std::allocator<_Tp1> >::pointer, std::allocator_traits<std::allocator<_Tp1> >::size_type) [with _Tp = short unsigned int]	24	static
-stl_construct.h:117:9:static void std::_Destroy_aux<true>::__destroy(_ForwardIterator, _ForwardIterator) [with _ForwardIterator = short unsigned int*]	16	static
-new_allocator.h:79:7:__gnu_cxx::new_allocator<_Tp>::new_allocator() [with _Tp = float]	16	static
-new_allocator.h:116:7:void __gnu_cxx::new_allocator<_Tp>::deallocate(__gnu_cxx::new_allocator<_Tp>::pointer, __gnu_cxx::new_allocator<_Tp>::size_type) [with _Tp = float]	24	static
-new_allocator.h:79:7:__gnu_cxx::new_allocator<_Tp>::new_allocator() [with _Tp = short unsigned int]	16	static
-new_allocator.h:116:7:void __gnu_cxx::new_allocator<_Tp>::deallocate(__gnu_cxx::new_allocator<_Tp>::pointer, __gnu_cxx::new_allocator<_Tp>::size_type) [with _Tp = short unsigned int]	24	static
-Logger.hpp:14:7:Logger::~Logger()	16	static
-wrapper.cpp:241:1:void __static_initialization_and_destruction_0(int, int)	16	static
-wrapper.cpp:241:1:cpp)	8	static
-wrapper.cpp:241:1:cpp)	8	static
+wrapper.cpp:62:6:void cppFlip1ms()	8	static
+wrapper.cpp:98:6:void cppFlip100ns()	8	static
+wrapper.cpp:103:6:void cppFlip10ms()	8	static
+wrapper.cpp:108:6:void cppExit(uint16_t)	16	static
+wrapper.cpp:113:6:void cppLoop()	8	static
+wrapper.cpp:295:1:void __static_initialization_and_destruction_0(int, int)	16	static
+wrapper.cpp:295:1:cpp)	8	static

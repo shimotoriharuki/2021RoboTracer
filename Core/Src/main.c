@@ -134,19 +134,20 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM6){
+		cppFlip1ms();
 		tim6_timer++;
 		//read_gyro_data();
 		//read_accel_data();
-		cppFlip1ms();
 		if(tim6_timer >= 100000) tim6_timer = 0;
 	}
 
 	if(htim->Instance == TIM7){
-		tim7_timer++;
 		cppFlip100ns();
+		tim7_timer++;
 		if(tim7_timer >= 100000) tim7_timer = 0;
 	}
 	if(htim->Instance == TIM13){
+		cppFlip10ms();
 		tim13_timer++;
 		if(tim13_timer >= 100000) tim13_timer = 0;
 	}
@@ -219,6 +220,7 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
+
 
   /* USER CODE BEGIN Init */
 
