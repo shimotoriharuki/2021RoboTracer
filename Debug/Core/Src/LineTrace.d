@@ -36,7 +36,8 @@ Core/Src/LineTrace.o: ../Core/Src/LineTrace.cpp ../Core/Inc/LineTrace.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/LineSensor.hpp ../Core/Inc/Macro.h ../Core/Inc/LED.hpp \
- ../Core/Inc/Joystick.hpp ../Core/Inc/RotarySwitch.hpp
+ ../Core/Inc/Joystick.hpp ../Core/Inc/RotarySwitch.hpp \
+ ../Core/Inc/Macro.h
 
 ../Core/Inc/LineTrace.hpp:
 
@@ -121,3 +122,5 @@ Core/Src/LineTrace.o: ../Core/Src/LineTrace.cpp ../Core/Inc/LineTrace.hpp \
 ../Core/Inc/Joystick.hpp:
 
 ../Core/Inc/RotarySwitch.hpp:
+
+../Core/Inc/Macro.h:

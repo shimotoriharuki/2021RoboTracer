@@ -28,5 +28,4 @@
 #define CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT (0x40<<1)
 
 
-
 #endif /* INC_MACRO_H_ */
