@@ -40,9 +40,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
- ../Core/Inc/AQM0802.h ../Core/Inc/main.h ../Core/Inc/HAL_SDcard_lib.h \
- ../Core/Inc/wrapper.hpp ../Core/Inc/G_variables.h ../Core/Inc/Macro.h \
- ../Core/Inc/Macro.h ../Core/Inc/ICM_20648.h ../Core/Src/INA260.h
+ ../Core/Inc/wrapper.hpp
 
 ../Core/Inc/main.h:
 
@@ -136,20 +134,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../FATFS/Target/sd_diskio.h:
 
-../Core/Inc/AQM0802.h:
-
-../Core/Inc/main.h:
-
-../Core/Inc/HAL_SDcard_lib.h:
-
 ../Core/Inc/wrapper.hpp:
-
-../Core/Inc/G_variables.h:
-
-../Core/Inc/Macro.h:
-
-../Core/Inc/Macro.h:
-
-../Core/Inc/ICM_20648.h:
-
-../Core/Src/INA260.h:

@@ -43,6 +43,7 @@ public:
 	void continuousDataWrite(uint16_t);
 	void continuousWriteStop();
 	*/
+
 	void start();
 	void stop();
 

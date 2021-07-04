@@ -16,8 +16,8 @@
 #define OVER_WRITE 0	//	上書き
 #define ADD_WRITE 1		//	追加書き
 
-FATFS fs;	//ファイルシステムのやつ
-FIL fil;	//ファイルのやつ
+FATFS fs;	// ファイルシステムのやつ
+FIL fil;	// ファイルのやつ
 FRESULT fresult;
 char buffer[BUFF_SIZE];
 UINT br, bw;

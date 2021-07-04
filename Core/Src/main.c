@@ -23,14 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
-#include "AQM0802.h"
-#include "HAL_SDcard_lib.h"
 #include "wrapper.hpp"
-#include "G_variables.h"
-#include "Macro.h"
-#include "ICM_20648.h"
-#include "INA260.h"
 
 
 /* USER CODE END Includes */
@@ -76,12 +69,6 @@ TIM_HandleTypeDef htim13;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-
-//int	data[1];
-//int temp[1];
-int ad1, ad2, ad3, ad4;
-int side;
-float current_l, current_r, voltage_l, voltage_r;
 
 uint32_t tim6_timer, tim7_timer, tim13_timer;
 
@@ -135,73 +122,37 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM6){
 		cppFlip1ms();
+
 		tim6_timer++;
-		//read_gyro_data();
-		//read_accel_data();
 		if(tim6_timer >= 100000) tim6_timer = 0;
 	}
 
 	if(htim->Instance == TIM7){
 		cppFlip100ns();
+
 		tim7_timer++;
 		if(tim7_timer >= 100000) tim7_timer = 0;
 	}
 	if(htim->Instance == TIM13){
 		cppFlip10ms();
+
 		tim13_timer++;
 		if(tim13_timer >= 100000) tim13_timer = 0;
 	}
 
 }
 
-
-/*
-void TIM6_DAC2_IRQHandler(void){
-
-	tim6_timer++;
-
-}
-*/
-
 void init()
 {
 	// ------initialize------//
+	HAL_GPIO_WritePin(GPIOE, GPIO_PIN_14, GPIO_PIN_SET); // sensor led ON
 
-	HAL_GPIO_WritePin(GPIOE, GPIO_PIN_14, GPIO_PIN_SET);
-
-	//HAL_TIM_Encoder_Start(&htim1,TIM_CHANNEL_ALL);
-	//HAL_TIM_Encoder_Start(&htim8,TIM_CHANNEL_ALL);
-
-	//Timer intrruptin start
+	// timer interrpt in start
 	HAL_TIM_Base_Start_IT(&htim6);
 	HAL_TIM_Base_Start_IT(&htim7);
 	HAL_TIM_Base_Start_IT(&htim13);
 
-	//lcd_init();
-
-	// SD card check
-	/*
-	if(sd_mount() == 1){
-	  printf("mount success\r\n");
-	}
-	else{
-	  printf("error\r\n");
-	}
-
-	data[0] = 30;
-	sd_write_array_int("sdio", "write1.txt", DATA_SIZE, data, ADD_WRITE); //write
-	sd_read_array_int("sdio", "write1.txt", DATA_SIZE, temp); //read
-	sd_write_array_int("sdio", "write2.txt", DATA_SIZE, temp, ADD_WRITE); //write
-
-	printf("sd write and read success!!\r\n");
-	sd_unmount();
-	 */
 	cppInit();
-
-	//uint16_t who_i_am;
-	//who_i_am = IMU_init();
-	//printf("who i am: %d\n", who_i_am);
-
 }
 
 /* USER CODE END 0 */
@@ -221,9 +172,7 @@ int main(void)
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
-
   /* USER CODE BEGIN Init */
-
 
   /* USER CODE END Init */
 
@@ -264,55 +213,7 @@ int main(void)
 
   while (1)
   {
-	  // L chika
-	  //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
-
-	  //Motor
-	  //__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3, 800);
-	  //__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, 200);
-	  //HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_SET);
-	  //HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_SET);
-
-	  //printf("Timer: %d\n", timer);
-
-
-	  //lcd_clear();
-	  //lcd_locate(0,0);
-	  //lcd_printf("LCD");
-	  //lcd_locate(0,1);
-	  //lcd_printf("TEST");
-
-	  /*
-	  HAL_Delay(1000);
-
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
-*/
-	  //HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_RESET);
-	  //HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_RESET);
-	  //HAL_Delay(1000);
-
-	  //printf("AD: %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", analog[0], analog[1], analog[2], analog[3], analog[4], analog[5], analog[6],
-		//	  analog[7], analog[8], analog[9], analog[10], analog[11], analog[12], analog[13]);
-	  //printf("AD: %d, %d, %d, %d\n", ad1, ad2, ad3, ad4);
-
-
-
-	  //printf("side: %d\n", side);
-
-
 	  cppLoop();
-	  /*
-	  current_l = INA260_read(0x01, CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT) * 0.00125;
-	  voltage_l = INA260_read(0x02, CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT) * 0.00125;
-	  current_r = INA260_read(0x01, CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT) * 0.00125;
-	  voltage_r = INA260_read(0x02, CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT) * 0.00125;
-	  printf("current: %f, %f, valtage: %f, %f \n", current_l, current_l, voltage_r, voltage_r);
-	   */
-	  //printf("xa: %5d, ya: %5d, za: %5d, xg: %5d, yg: %5d, zg: %5d\n", xa, ya, za, xg, yg, zg);
-	  //printf("R_SW: %d\n", getRotarySW());
-
-
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

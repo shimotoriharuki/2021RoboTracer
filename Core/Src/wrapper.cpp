@@ -73,22 +73,6 @@ void cppFlip1ms(void)
 	encoder.clearCnt();
 
 
-	/*
-	if(rotary_switch.getValue() == 1){
-		//line_trace.start();
-		//line_trace.setNormalRatio(0.1);
-		velocity_ctrl.start();
-		velocity_ctrl.setVelocity(0, 0);
-		led.LR(1, -1);
-	}
-	else{
-		//line_trace.stop();
-		//line_trace.setNormalRatio(0.0);
-		velocity_ctrl.stop();
-		led.LR(0, -1);
-	}
-	*/
-
 	//Buttery Check
 	//power_sensor.updateValues();
 	//if(power_sensor.butteryCheck() == true) led.fullColor('R');
@@ -146,6 +130,7 @@ void cppLoop(void)
 		}
 
 		break;
+
 	case 2:
 		lcd_clear();
 		lcd_locate(0,0);
@@ -159,6 +144,7 @@ void cppLoop(void)
 			led.LR(0, -1);
 		}
 		break;
+
 	case 3:
 		led.fullColor('C');
 
@@ -190,6 +176,7 @@ void cppLoop(void)
 		}
 
 		break;
+
 	case 4:
 		led.fullColor('M');
 
@@ -216,79 +203,55 @@ void cppLoop(void)
 			led.LR(-1, 0);
 		}
 		break;
+
 	case 5:
 
 		break;
+
 	case 6:
 
 		break;
+
 	case 7:
 
 		break;
+
 	case 8:
 
 		break;
+
 	case 9:
 
 		break;
+
 	case 10:
 
 		break;
+
 	case 11:
 
 		break;
+
 	case 12:
 
 		break;
+
 	case 13:
 
 		break;
+
 	case 14:
 
 		break;
+
 	case 15:
 
 		break;
 
 	default:
 		break;
+
 	}
-	//printf("cpp loop test\n");
-	//printf("cpp AD %d\n", line_sensor.sensor[0]);
-	//printf("cpp side: %d\n", side_sensor.status());
-	//printf("cpp joystick: %d\n", joy_stick.getValue());
-	//printf("cpp rotaryswitch: %d\n", rotary_switch.getValue());
-	//printf("cpp velocity: %f\n", velocity);
-
-	//uint16_t cnt_l, cnt_r;
-	//encoder.getCnt(cnt_l, cnt_r);
-	//printf("cpp encode: %d, %d\n", cnt_l, cnt_r);
-
-	//motor.setRatio(0, 1.0);
-	//velocity_ctrl.setVelocityGain(1, 1, 1);
-	//velocity_ctrl.setVelocity(0., 1);
-
-	//line_sensor.printSensorValues();
-
-	//int16_t enc_l, enc_r;
-	//encoder.getCnt(enc_l, enc_r);
-	//printf("cnt: %d, %d\n", enc_l, enc_r);
-
-	//line_sensor.updateSensorValues();
-	//line_sensor.printSensorValues();
-
-	//led.fullColor('C');
-
-	//led.LR(-1, 1);
-
-	//printf("imu zg: %f\n", imu.getOmega());
-
-	//HAL_Delay(100);
-
-	//motor.setRatio(0, -0.5);
-	//velocity_ctrl.setOmegaGain(1, 1, 1);
-	//led.fullColor('Y');
-	//led.LR(-1, 0);
 
 	HAL_Delay(10);
 
