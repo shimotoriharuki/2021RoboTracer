@@ -13,13 +13,15 @@
 class Encoder{
 
 private:
-	uint16_t cnt_l_, cnt_r_;
+	int16_t cnt_l_, cnt_r_;
+	float distance_;
 
 public:
 	Encoder();
 	void init();
 	void updateCnt();
 	void getCnt(int16_t &, int16_t &);
+	float getDistance();
 	void clearCnt();
 };
 
