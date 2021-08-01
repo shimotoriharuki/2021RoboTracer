@@ -14,10 +14,13 @@ float monitor_std_angle;
 float monitor_norm_l, monitor_norm_r;
 float monitor_delta_theta;
 float monitor_steering_angle;
+float monitor_target_omega;
+float monitor_r;
 
-LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor) : kp_(0), kd_(0), ki_(0), excution_flag_(false), normal_ratio_(0){
+LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl) : kp_(0), kd_(0), ki_(0), excution_flag_(false), normal_ratio_(0){
 	motor_ = motor;
 	line_sensor_ = line_sensor;
+	velocity_ctrl_ = velocity_ctrl;
 }
 
 // --------private--------- //
@@ -51,10 +54,9 @@ float LineTrace::calcAngle()
 	monitor_norm_l = norm_l;
 	monitor_norm_r = norm_r;
 
-	monitor_delta_theta = delta_theta * 180 / PI;
+	monitor_delta_theta = delta_theta;
 
-	monitor_steering_angle = steering_angle * 180 / PI;
-
+	monitor_steering_angle = steering_angle;
 
 	return steering_angle;
 }
@@ -135,7 +137,26 @@ void LineTrace::pid()
 
 	pre_diff = diff;
 
+}
 
+void LineTrace::steeringAngleTrace()
+{
+	float steering_angle = calcAngle();
+	float r = tan(steering_angle / CENTER_OF_ROTATION_TO_CENTER_OF_SENSOR);
+
+	//float current_velocity = velocity_ctrl_->getCurrentVelocity();
+	float current_velocity = 0.1;
+	float target_omega = 0;
+
+	if(r >= 10000) target_omega = 0;
+	else if(r != 0) target_omega = current_velocity / r; //Division by zero prevention
+
+	velocity_ctrl_->setVelocity(target_velocity_, target_omega);
+
+	//velocity_ctrl_->setVelocity(target_velocity_, 0);
+
+	monitor_target_omega = target_omega;
+	monitor_r = r;
 }
 
 // -------public---------- //
@@ -149,18 +170,23 @@ void LineTrace::setGain(float kp, float kd, float ki)
 	kp_ = kp;
 	kd_ = kd;
 	ki_ = ki;
-
 }
 
 void LineTrace::setNormalRatio(float ratio){
 	normal_ratio_ = ratio;
+}
 
+void LineTrace::setTargetVelocity(float velocity)
+{
+	target_velocity_ = velocity;
 }
 
 void LineTrace::flip()
 {
+
 	if(excution_flag_ == true){
-		pid();
+		//pid();
+		steeringAngleTrace();
 	}
 	if(line_sensor_->emergencyStop() == true){
 		motor_->setRatio(0, 0);
@@ -170,9 +196,6 @@ void LineTrace::flip()
 		led_.LR(0, -1);
 
 	}
-
-	calcAngle();
-
 
 }
 

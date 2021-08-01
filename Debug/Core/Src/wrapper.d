@@ -41,8 +41,9 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
  ../Core/Inc/Encoder.hpp ../Core/Inc/VelocityCtrl.hpp \
  ../Core/Inc/Motor.hpp ../Core/Inc/Encoder.hpp ../Core/Inc/IMU.hpp \
  ../Core/Inc/LineTrace.hpp ../Core/Inc/LineSensor.hpp \
- ../Core/Inc/PowerSensor.hpp ../Core/Inc/IMU.hpp ../Core/Inc/AQM0802.h \
- ../Core/Inc/main.h ../Core/Inc/Logger.hpp
+ ../Core/Inc/VelocityCtrl.hpp ../Core/Inc/PowerSensor.hpp \
+ ../Core/Inc/IMU.hpp ../Core/Inc/AQM0802.h ../Core/Inc/main.h \
+ ../Core/Inc/Logger.hpp ../Core/Inc/Odometry.hpp
 
 ../Core/Inc/wrapper.hpp:
 
@@ -150,6 +151,8 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
 
 ../Core/Inc/LineSensor.hpp:
 
+../Core/Inc/VelocityCtrl.hpp:
+
 ../Core/Inc/PowerSensor.hpp:
 
 ../Core/Inc/IMU.hpp:
@@ -159,3 +162,5 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
 ../Core/Inc/main.h:
 
 ../Core/Inc/Logger.hpp:
+
+../Core/Inc/Odometry.hpp:

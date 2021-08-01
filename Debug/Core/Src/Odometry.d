@@ -1,5 +1,5 @@
-Core/Src/LineTrace.o: ../Core/Src/LineTrace.cpp ../Core/Inc/LineTrace.hpp \
- ../Core/Inc/Motor.hpp \
+Core/Src/Odometry.o: ../Core/Src/Odometry.cpp ../Core/Inc/Odometry.hpp \
+ ../Core/Inc/Encoder.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -35,14 +35,12 @@ Core/Src/LineTrace.o: ../Core/Src/LineTrace.cpp ../Core/Inc/LineTrace.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/LineSensor.hpp ../Core/Inc/Macro.h ../Core/Inc/LED.hpp \
- ../Core/Inc/Joystick.hpp ../Core/Inc/RotarySwitch.hpp \
- ../Core/Inc/VelocityCtrl.hpp ../Core/Inc/Encoder.hpp ../Core/Inc/IMU.hpp \
- ../Core/Inc/Macro.h
+ ../Core/Inc/IMU.hpp ../Core/Inc/LED.hpp ../Core/Inc/VelocityCtrl.hpp \
+ ../Core/Inc/Motor.hpp
 
-../Core/Inc/LineTrace.hpp:
+../Core/Inc/Odometry.hpp:
 
-../Core/Inc/Motor.hpp:
+../Core/Inc/Encoder.hpp:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -114,20 +112,10 @@ Core/Src/LineTrace.o: ../Core/Src/LineTrace.cpp ../Core/Inc/LineTrace.hpp \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
-../Core/Inc/LineSensor.hpp:
-
-../Core/Inc/Macro.h:
+../Core/Inc/IMU.hpp:
 
 ../Core/Inc/LED.hpp:
 
-../Core/Inc/Joystick.hpp:
-
-../Core/Inc/RotarySwitch.hpp:
-
 ../Core/Inc/VelocityCtrl.hpp:
 
-../Core/Inc/Encoder.hpp:
-
-../Core/Inc/IMU.hpp:
-
-../Core/Inc/Macro.h:
+../Core/Inc/Motor.hpp:

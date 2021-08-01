@@ -6,7 +6,7 @@
  */
 
 #include "VelocityCtrl.hpp"
-#include "ICM_20648.h"
+//#include "ICM_20648.h"
 #include <stdio.h>
 
 VelocityCtrl::VelocityCtrl(Motor *motor, Encoder *encoder, IMU *imu) :
@@ -99,24 +99,22 @@ void VelocityCtrl::setOmegaGain(float kp, float kd, float ki)
 	o_ki_ = ki;
 }
 
-float VelocityCtrl::flip()
+void VelocityCtrl::flip()
 {
-	float velocity;
-	velocity = calcVelocity();
+    calcVelocity();
 	calcOmega();
 
 	if(excution_flag_ == true){
 		pid();
 	}
 
-	return velocity;
 
 }
 
 void VelocityCtrl::start()
 {
 	excution_flag_ = true;
-	calcOmega();
+	//calcOmega();
 }
 
 void VelocityCtrl::stop()
@@ -124,4 +122,14 @@ void VelocityCtrl::stop()
 	excution_flag_ = false;
 	motor_->setRatio(0, 0);
 
+}
+
+float VelocityCtrl::getCurrentVelocity()
+{
+	return current_velocity_;
+}
+
+float VelocityCtrl::getCurrentOmega()
+{
+	return current_omega_;
 }

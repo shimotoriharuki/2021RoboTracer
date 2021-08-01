@@ -6,6 +6,8 @@ VelocityCtrl.cpp:77:6:void VelocityCtrl::init()	16	static
 VelocityCtrl.cpp:82:6:void VelocityCtrl::setVelocity(float, float)	24	static
 VelocityCtrl.cpp:88:6:void VelocityCtrl::setVelocityGain(float, float, float)	24	static
 VelocityCtrl.cpp:95:6:void VelocityCtrl::setOmegaGain(float, float, float)	24	static
-VelocityCtrl.cpp:102:7:float VelocityCtrl::flip()	24	static
-VelocityCtrl.cpp:116:6:void VelocityCtrl::start()	16	static
-VelocityCtrl.cpp:122:6:void VelocityCtrl::stop()	16	static
+VelocityCtrl.cpp:102:6:void VelocityCtrl::flip()	16	static
+VelocityCtrl.cpp:114:6:void VelocityCtrl::start()	16	static
+VelocityCtrl.cpp:120:6:void VelocityCtrl::stop()	16	static
+VelocityCtrl.cpp:127:7:float VelocityCtrl::getCurrentVelocity()	16	static
+VelocityCtrl.cpp:132:7:float VelocityCtrl::getCurrentOmega()	16	static

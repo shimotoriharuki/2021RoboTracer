@@ -47,6 +47,7 @@ float IMU::getOmega()
 
 void IMU::calibration()
 {
+	HAL_Delay(1000);
 	led.fullColor('G');
 
 	//std::vector<float> zg_vals;

@@ -42,9 +42,11 @@ public:
 	void setVelocity(float, float);
 	void setVelocityGain(float, float, float);
 	void setOmegaGain(float, float, float);
-	float flip();
+	void flip();
 	void start();
 	void stop();
+	float getCurrentVelocity();
+	float getCurrentOmega();
 
 };
 

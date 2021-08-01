@@ -20,6 +20,7 @@
 #include "IMU.hpp"
 #include "AQM0802.h"
 #include "Logger.hpp"
+#include "Odometry.hpp"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
@@ -33,9 +34,8 @@ Logger logger;
 
 Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
-LineTrace line_trace(&motor, &line_sensor);
-
-float velocity;
+LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl);
+Odometry odometry(&encoder, &imu, &velocity_ctrl);
 
 void cppInit(void)
 {
@@ -47,14 +47,16 @@ void cppInit(void)
 	imu.init();
 
 	line_sensor.calibration();
+	HAL_Delay(1000);
 	imu.calibration();
 	//printf("imu offset %f", imu.getOffsetVal());
 
 	line_trace.setGain(0.0005, 0.000003, 0);
 
 	//velocity_ctrl.setVelocityGain(1.5, 0, 20);
-	//velocity_ctrl.setVelocityGain(0, 0, 0);
-	//velocity_ctrl.setOmegaGain(0.15, 0, 20);
+	velocity_ctrl.setVelocityGain(0, 0, 0);
+	//velocity_ctrl.setOmegaGain(0.05, 0, 7);
+	velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
 	logger.sdCardInit();
 }
@@ -65,8 +67,9 @@ void cppFlip1ms(void)
 	imu.updateValues();
 	encoder.updateCnt();
 
-	//velocity = velocity_ctrl.flip();
 	line_trace.flip();
+	velocity_ctrl.flip();
+	odometry.flip();
 
 	motor.motorCtrl();
 
@@ -118,10 +121,10 @@ void cppLoop(void)
 
 			logger.start();
 			velocity_ctrl.start();
-			velocity_ctrl.setVelocity(0.0, 3.14/2);
+			velocity_ctrl.setVelocity(0.0, 0.0);
 			led.LR(1, -1);
 
-			HAL_Delay(2000);
+			HAL_Delay(3000);
 
 			velocity_ctrl.stop();
 			led.LR(0, -1);
@@ -182,22 +185,22 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Contiue");
+		lcd_printf("Steering");
 		lcd_locate(0,1);
-		lcd_printf("SaveTest");
-
+		lcd_printf("Trace");
 
 		if(joy_stick.getValue() == JOY_C){
 			led.LR(-1, 1);
 			HAL_Delay(500);
 
-			line_trace.setNormalRatio(0.1);
+			line_trace.setTargetVelocity(0.1);
+			velocity_ctrl.start();
 			line_trace.start();
 
-			HAL_Delay(5000);
+			HAL_Delay(10000);
 
-			line_trace.setNormalRatio(0.1);
 			line_trace.stop();
+			velocity_ctrl.stop();
 
 
 			led.LR(-1, 0);
