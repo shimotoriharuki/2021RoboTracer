@@ -10,7 +10,7 @@ LineTrace.cpp:142:6:void LineTrace::steeringAngleTrace()	40	static
 LineTrace.cpp:163:6:void LineTrace::init()	16	static
 LineTrace.cpp:168:6:void LineTrace::setGain(float, float, float)	24	static
 LineTrace.cpp:175:6:void LineTrace::setNormalRatio(float)	16	static
-LineTrace.cpp:179:6:void LineTrace::setTargetVelocity(float)	16	static
-LineTrace.cpp:184:6:void LineTrace::flip()	16	static
-LineTrace.cpp:202:6:void LineTrace::start()	16	static
-LineTrace.cpp:207:6:void LineTrace::stop()	16	static
+LineTrace.cpp:180:6:void LineTrace::setTargetVelocity(float)	16	static
+LineTrace.cpp:185:6:void LineTrace::flip()	16	static
+LineTrace.cpp:203:6:void LineTrace::start()	16	static
+LineTrace.cpp:208:6:void LineTrace::stop()	16	static

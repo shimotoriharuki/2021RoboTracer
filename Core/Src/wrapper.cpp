@@ -48,10 +48,11 @@ void cppInit(void)
 
 	line_sensor.calibration();
 	HAL_Delay(1000);
-	imu.calibration();
+	//imu.calibration();
 	//printf("imu offset %f", imu.getOffsetVal());
 
-	line_trace.setGain(0.0005, 0.000003, 0);
+	//line_trace.setGain(0.0005, 0.000003, 0);
+	line_trace.setGain(0.0005, 0.000001, 0);
 
 	//velocity_ctrl.setVelocityGain(1.5, 0, 20);
 	velocity_ctrl.setVelocityGain(0, 0, 0);
@@ -68,7 +69,7 @@ void cppFlip1ms(void)
 	encoder.updateCnt();
 
 	line_trace.flip();
-	velocity_ctrl.flip();
+	//velocity_ctrl.flip();
 	odometry.flip();
 
 	motor.motorCtrl();
@@ -208,7 +209,37 @@ void cppLoop(void)
 		break;
 
 	case 5:
+		led.fullColor('Y');
 
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("Teoshi");
+		lcd_locate(0,1);
+		lcd_printf("Following");
+
+		if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(500);
+
+			line_trace.setNormalRatio(0.0);
+			line_trace.start();
+			encoder.clearTotalCnt();
+
+			HAL_Delay(1000);
+
+			line_trace.stop();
+			long total = encoder.getTotalCnt();
+			while(joy_stick.getValue() != JOY_C){
+				lcd_clear();
+				lcd_locate(0,0);
+				lcd_printf("cnt");
+				lcd_locate(0,1);
+				lcd_printf("%ld", total);
+				HAL_Delay(10);
+			}
+
+			led.LR(-1, 0);
+		}
 		break;
 
 	case 6:

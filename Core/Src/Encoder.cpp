@@ -18,7 +18,7 @@
 
 float monitor_distance;
 
-Encoder::Encoder() : cnt_l_(CNT_OFFSET), cnt_r_(CNT_OFFSET), distance_(0){}
+Encoder::Encoder() : cnt_l_(CNT_OFFSET), cnt_r_(CNT_OFFSET), distance_(0), total_cnt_l_(0), total_cnt_r_(0){}
 
 void Encoder::init()
 {
@@ -32,6 +32,9 @@ void Encoder::updateCnt()
 {
 	cnt_l_ = CNT_OFFSET - (TIM1 -> CNT);
 	cnt_r_ = (TIM8 -> CNT) - CNT_OFFSET;
+
+	total_cnt_l_ += cnt_l_;
+	total_cnt_r_ += cnt_r_;
 
 }
 
@@ -55,4 +58,15 @@ void Encoder::clearCnt()
 	cnt_r_ = 0;
 	TIM1 -> CNT = CNT_OFFSET;
 	TIM8 -> CNT = CNT_OFFSET;
+}
+
+long Encoder::getTotalCnt()
+{
+	return long((total_cnt_l_ + total_cnt_r_) / 2);
+}
+
+void Encoder::clearTotalCnt()
+{
+	total_cnt_l_ = 0;
+	total_cnt_r_ = 0;
 }

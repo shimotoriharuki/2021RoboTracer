@@ -172,7 +172,8 @@ void LineTrace::setGain(float kp, float kd, float ki)
 	ki_ = ki;
 }
 
-void LineTrace::setNormalRatio(float ratio){
+void LineTrace::setNormalRatio(float ratio)
+{
 	normal_ratio_ = ratio;
 }
 
@@ -185,8 +186,8 @@ void LineTrace::flip()
 {
 
 	if(excution_flag_ == true){
-		//pid();
-		steeringAngleTrace();
+		pid();
+		//steeringAngleTrace();
 	}
 	if(line_sensor_->emergencyStop() == true){
 		motor_->setRatio(0, 0);

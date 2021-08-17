@@ -1,5 +1,8 @@
-Encoder.cpp:14:1:Encoder::Encoder()	16	static
-Encoder.cpp:16:6:void Encoder::init()	16	static
-Encoder.cpp:24:6:void Encoder::updateCnt()	16	static
-Encoder.cpp:30:6:void Encoder::getCnt(int16_t&, int16_t&)	24	static
-Encoder.cpp:36:6:void Encoder::clearCnt()	16	static
+Encoder.cpp:21:1:Encoder::Encoder()	16	static
+Encoder.cpp:23:6:void Encoder::init()	16	static
+Encoder.cpp:31:6:void Encoder::updateCnt()	16	static
+Encoder.cpp:41:6:void Encoder::getCnt(int16_t&, int16_t&)	24	static
+Encoder.cpp:47:7:float Encoder::getDistance()	24	static
+Encoder.cpp:55:6:void Encoder::clearCnt()	16	static
+Encoder.cpp:63:6:long int Encoder::getTotalCnt()	16	static
+Encoder.cpp:68:6:void Encoder::clearTotalCnt()	16	static

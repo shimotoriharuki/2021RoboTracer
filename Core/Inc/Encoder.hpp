@@ -15,6 +15,7 @@ class Encoder{
 private:
 	int16_t cnt_l_, cnt_r_;
 	float distance_;
+	long total_cnt_l_, total_cnt_r_;
 
 public:
 	Encoder();
@@ -23,6 +24,8 @@ public:
 	void getCnt(int16_t &, int16_t &);
 	float getDistance();
 	void clearCnt();
+	long getTotalCnt();
+	void clearTotalCnt();
 };
 
 #endif /* INC_ENCODER_HPP_ */
