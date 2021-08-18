@@ -86,10 +86,12 @@ void cppInit(void)
 
 	line_sensor.calibration();
 	HAL_Delay(1000);
+
+	led.fullColor('M');
 	imu.calibration();
 
 	//line_trace.setGain(0.0005, 0.000003, 0);
-	line_trace.setGain(0.0005, 0.000001, 0);
+	line_trace.setGain(0.0005, 0.000002, 0);
 
 	//velocity_ctrl.setVelocityGain(1.5, 0, 20);
 	velocity_ctrl.setVelocityGain(0, 0, 0);
@@ -114,6 +116,11 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
+	if(encoder.getTotalDistance() >= 10){
+		logger.storeDistanceAndTheta(encoder.getTotalDistance(), velocity_ctrl.getCurrentOmega()*DELTA_T);
+		encoder.clearTotalCnt();
+	}
+
 	encoder.clearCnt();
 
 
@@ -131,7 +138,7 @@ void cppFlip100ns(void)
 void cppFlip10ms(void)
 {
 	logger.storeLog(line_sensor.sensor[7]);
-	logger.storeDistanceAndTheta(encoder.getDistance(), velocity_ctrl.getCurrentOmega()*DELTA_T);
+	//logger.storeDistanceAndTheta(encoder.getDistance(), velocity_ctrl.getCurrentOmega()*DELTA_T);
 }
 
 void cppExit(uint16_t gpio_pin)
@@ -287,6 +294,36 @@ void cppLoop(void)
 		break;
 
 	case 6:
+		led.fullColor('C');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("Position");
+		lcd_locate(0,1);
+		lcd_printf("Record");
+
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+			led.LR(-1, 1);
+			logger.start();
+
+			line_trace.setNormalRatio(0.1);
+			line_trace.start();
+			HAL_Delay(500);
+
+			led.fullColor('R');
+			encoder.clearTotalCnt();
+			encoder.clearDistance();
+
+			HAL_Delay(10000);
+
+			line_trace.stop();
+			logger.stop();
+
+			logger.saveDistanceAndTheta("Position", "delta_distance.txt", "delta_theta.txt");
+
+			led.LR(-1, 0);
+		}
 
 		break;
 

@@ -14,14 +14,14 @@
 #define PI 3.1415926535
 #define ENCODER_RESOLUTION 4096
 #define REDUCTION_RATIO 0.35 //Gear reduction ratio
-#define DISTANCE_PER_CNT (2 * PI * WHEEL_RADIUS * REDUCTION_RATIO / ENCODER_RESOLUTION) //[m per cnt]
+#define DISTANCE_PER_CNT (2 * PI * WHEEL_RADIUS * REDUCTION_RATIO / ENCODER_RESOLUTION) //[mm per cnt]
 #define CORRECTION_COEFFICIENT float(1.0874883*1.0324*1.01)
 
 float monitor_distance;
 float monitor_cnt_l;
 float monitor_cnt_r;
 
-Encoder::Encoder() : cnt_l_(0), cnt_r_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0){}
+Encoder::Encoder() : cnt_l_(0), cnt_r_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0), total_distance_(0){}
 
 void Encoder::init()
 {
@@ -39,7 +39,9 @@ void Encoder::updateCnt()
 	total_cnt_l_ += cnt_l_;
 	total_cnt_r_ += cnt_r_;
 
-	distance_ = distance_ + DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
+	//distance_ = distance_ + DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
+	distance_ = DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
+	total_distance_ += distance_;
 	monitor_distance = distance_;
 }
 
@@ -54,6 +56,11 @@ float Encoder::getDistance()
 	return distance_;
 }
 
+float Encoder::getTotalDistance()
+{
+	return total_distance_;
+}
+
 void Encoder::clearDistance()
 {
 	distance_ = 0;
@@ -65,6 +72,7 @@ void Encoder::clearCnt()
 	cnt_r_ = 0;
 	TIM1 -> CNT = CNT_OFFSET;
 	TIM8 -> CNT = CNT_OFFSET;
+	distance_ = 0;
 }
 
 long Encoder::getTotalCnt()
@@ -76,4 +84,5 @@ void Encoder::clearTotalCnt()
 {
 	total_cnt_l_ = 0;
 	total_cnt_r_ = 0;
+	total_distance_ = 0;
 }

@@ -14,8 +14,9 @@ class Encoder{
 
 private:
 	float cnt_l_, cnt_r_;
-	float distance_;
+	float distance_; //[mm]
 	long total_cnt_l_, total_cnt_r_;
+	float total_distance_;
 
 public:
 	Encoder();
@@ -23,6 +24,7 @@ public:
 	void updateCnt();
 	void getCnt(float &, float &);
 	float getDistance();
+	float getTotalDistance();
 	void clearDistance();
 	void clearCnt();
 	long getTotalCnt();
