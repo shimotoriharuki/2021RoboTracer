@@ -29,7 +29,7 @@ public:
 	float getX();
 	float getY();
 	float getTheta();
-	void resetPotition();
+	void clearPotition();
 
 };
 

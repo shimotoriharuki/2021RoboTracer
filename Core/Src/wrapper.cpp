@@ -86,8 +86,7 @@ void cppInit(void)
 
 	line_sensor.calibration();
 	HAL_Delay(1000);
-	//imu.calibration();
-	//printf("imu offset %f", imu.getOffsetVal());
+	imu.calibration();
 
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	line_trace.setGain(0.0005, 0.000001, 0);
@@ -99,6 +98,7 @@ void cppInit(void)
 
 
 	encoder.clearDistance();
+	odometry.clearPotition();
 
 }
 
@@ -131,6 +131,7 @@ void cppFlip100ns(void)
 void cppFlip10ms(void)
 {
 	logger.storeLog(line_sensor.sensor[7]);
+	logger.storeDistanceAndTheta(encoder.getDistance(), velocity_ctrl.getCurrentOmega()*DELTA_T);
 }
 
 void cppExit(uint16_t gpio_pin)

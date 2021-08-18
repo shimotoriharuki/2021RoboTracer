@@ -22,13 +22,14 @@ Odometry::Odometry(Encoder *encoder, IMU *imu, VelocityCtrl *velocity_ctrl) : x_
 
 void Odometry::calcPotition()
 {
-	float current_velocity = velocity_ctrl_->getCurrentVelocity();
+	//float current_velocity = velocity_ctrl_->getCurrentVelocity();
 	float current_omega = velocity_ctrl_->getCurrentOmega();
+	float distance = encoder_->getDistance();
 
 	float delta_theta = current_omega * DELTA_T;
 
-	x_ = x_ + current_velocity * DELTA_T * cos(theta_ + delta_theta / 2);
-	y_ = y_ + current_velocity * DELTA_T * sin(theta_ + delta_theta / 2);
+	x_ = x_ + distance * cos(theta_ + delta_theta / 2);
+	y_ = y_ + distance * sin(theta_ + delta_theta / 2);
 	theta_ = theta_ + delta_theta;
 
 
@@ -36,7 +37,6 @@ void Odometry::calcPotition()
 	monitor_y = y_;
 	monitor_theta = theta_;
 
-	//encoder_->getDistance();
 
 }
 
@@ -60,7 +60,7 @@ float Odometry::getTheta()
 	return theta_;
 }
 
-void Odometry::resetPotition()
+void Odometry::clearPotition()
 {
 	x_ = 0;
 	y_ = 0;

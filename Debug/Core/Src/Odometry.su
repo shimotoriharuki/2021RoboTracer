@@ -4,4 +4,4 @@ Odometry.cpp:43:6:void Odometry::flip()	16	static
 Odometry.cpp:48:7:float Odometry::getX()	16	static
 Odometry.cpp:53:7:float Odometry::getY()	16	static
 Odometry.cpp:58:7:float Odometry::getTheta()	16	static
-Odometry.cpp:63:6:void Odometry::resetPotition()	16	static
+Odometry.cpp:63:6:void Odometry::clearPotition()	16	static

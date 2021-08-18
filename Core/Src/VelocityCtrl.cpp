@@ -41,7 +41,6 @@ float VelocityCtrl::calcOmega()
 	return current_omega_;
 }
 
-
 void VelocityCtrl::pid()
 {
 	float static v_pre_diff, o_pre_diff;

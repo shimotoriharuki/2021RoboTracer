@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include "Macro.h"
 
-Logger::Logger() : recording_flag_(false), log_index_(0){}
+Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_dis_(0){}
 
 bool Logger::sdCardInit()
 {
@@ -54,11 +54,11 @@ void Logger::storeLogs(uint16_t *data, uint8_t save_num)
 void Logger::storeLog(float data)
 {
 	if(recording_flag_ == true){
-		store_data_float_[log_index_] = data;
+		store_data_float_[log_index_tim_] = data;
 
-		log_index_++;
+		log_index_tim_++;
 
-		if(log_index_ >= LOG_DATA_SIZE) log_index_ = 0;
+		if(log_index_tim_ >= LOG_DATA_SIZE_TIM) log_index_tim_ = 0;
 	}
 }
 
@@ -67,11 +67,27 @@ void Logger::storeLog(uint16_t data)
 
 }
 
+void Logger::storeDistanceAndTheta(float distance, float theta)
+{
+	if(recording_flag_ == true){
+		store_distance_[log_index_dis_] = distance;
+		store_theta_[log_index_dis_] = theta;
+
+		log_index_dis_++;
+
+		if(log_index_dis_ >= LOG_DATA_SIZE_DIS) log_index_dis_ = 0;
+	}
+}
+
 void Logger::saveLogs(const char *folder_name, const char *file_name)
 {
+	sd_write_array_float(folder_name, file_name, LOG_DATA_SIZE_TIM, store_data_float_, OVER_WRITE); //write
+}
 
-	sd_write_array_float(folder_name, file_name, LOG_DATA_SIZE, store_data_float_, OVER_WRITE); //write
-
+void Logger::saveDistanceAndTheta(const char *folder_name, const char *file_name1, const char *file_name2)
+{
+	sd_write_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance_, OVER_WRITE); //write
+	sd_write_array_float(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta_, OVER_WRITE); //write
 }
 
 /*
@@ -109,8 +125,15 @@ void Logger::resetLogs()
 	for(auto &log : store_data_uint16_){
 		log = 0;
 	}
+	for(auto &log : store_distance_){
+		log = 0;
+	}
+	for(auto &log : store_theta_){
+		log = 0;
+	}
 
-	log_index_ = 0;
+	log_index_tim_ = 0;
+	log_index_dis_ = 0;
 }
 
 void Logger::start()
