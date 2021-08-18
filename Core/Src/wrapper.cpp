@@ -70,7 +70,15 @@ void cppInit(void)
 	if(power_sensor.butteryCheck() == true) batteryLowMode();
 
 	// -----------initialize-------//
-	logger.sdCardInit();
+	if(logger.sdCardInit() == true){
+		led.fullColor('G');
+		HAL_Delay(100);
+	}
+	else{
+		led.fullColor('R');
+		HAL_Delay(100);
+	}
+
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();

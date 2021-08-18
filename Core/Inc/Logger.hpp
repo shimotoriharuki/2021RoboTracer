@@ -27,7 +27,7 @@ private:
 public:
 
 	Logger();
-	void sdCardInit();
+	bool sdCardInit();
 
 	void storeLogs(float *, uint8_t);
 	void storeLogs(uint16_t *, uint8_t);

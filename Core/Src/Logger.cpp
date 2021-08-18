@@ -12,13 +12,17 @@
 
 Logger::Logger() : recording_flag_(false), log_index_(0){}
 
-void Logger::sdCardInit()
+bool Logger::sdCardInit()
 {
+	bool ret = false;
+
 	if(sd_mount() == 1){
 	  printf("mount success\r\n");
+	  ret = true;
 	}
 	else{
 	  printf("mount error\r\n");
+	  ret = false;
 	}
 
 	int	data[1];
@@ -29,8 +33,7 @@ void Logger::sdCardInit()
 	sd_read_array_int("sdio", "write1.txt", DATA_SIZE, temp); //read
 	sd_write_array_int("sdio", "write2.txt", DATA_SIZE, temp, ADD_WRITE); //write
 
-	//printf("sd write and read success!!\r\n");
-	//sd_unmount();
+	return ret;
 }
 void Logger::storeLogs(float *data, uint8_t save_num)
 {
@@ -50,7 +53,6 @@ void Logger::storeLogs(uint16_t *data, uint8_t save_num)
 }
 void Logger::storeLog(float data)
 {
-
 	if(recording_flag_ == true){
 		store_data_float_[log_index_] = data;
 
