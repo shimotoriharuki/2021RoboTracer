@@ -88,6 +88,31 @@ FRESULT sd_write(short size, float *data, char state){
 }
 
 //************************************************************************/
+//* 役割　：　SDに書き込む
+//* 引数　：　short, long*, char : 変数の数、データのポインタ、追加か上書きか
+//* 戻り値：　FRESULT:
+//* 備考 : なし
+//************************************************************************/
+FRESULT sd_write_long(short size, long *data, char state){
+	FRESULT ret = 0;
+
+	for(short i = 0 ; i < size; i++){
+		snprintf(buffer, BUFF_SIZE, "%ld\n", *(data + i));	//floatをstringに変換
+
+		if(state == ADD_WRITE){
+			f_lseek(&fil, f_size(&fil));	//ファイルの最後に移動
+		}
+		else{
+			f_lseek(&fil, 0);	//ファイルの最初に移動
+		}
+
+		f_write(&fil, buffer, strlen(buffer), &bw);	//書き込む
+
+		bufclear();	//書き込み用のバッファをクリア
+	}
+	return ret;
+}
+//************************************************************************/
 //* 役割　：　SDから読み込む
 //* 引数　：　short, float *　:変数の数、データのポインタ
 //* 戻り値：　FRESULT:

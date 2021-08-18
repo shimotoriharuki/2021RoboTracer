@@ -14,6 +14,7 @@
 extern "C" {
 #endif
 
+void batteryLowMode(void);
 void cppInit(void);
 void cppLoop(void);
 void cppFlip1ms(void);

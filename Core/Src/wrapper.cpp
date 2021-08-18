@@ -21,6 +21,7 @@
 #include "AQM0802.h"
 #include "Logger.hpp"
 #include "Odometry.hpp"
+#include "HAL_SDcard_lib.h"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
@@ -37,13 +38,41 @@ VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
 
+void batteryLowMode()
+{
+	lcd_clear();
+	lcd_locate(0,0);
+	lcd_printf("Battery");
+	lcd_locate(0,1);
+	lcd_printf("Low");
+
+	while(1){
+		led.fullColor('R');
+		HAL_Delay(100);
+		led.fullColor('Y');
+		HAL_Delay(100);
+
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+			break;
+		}
+	}
+}
+
 void cppInit(void)
 {
+	lcd_init();
+
+	//---------- Buttery Check ----------//
+	power_sensor.init();
+	HAL_Delay(100);
+	power_sensor.updateValues();
+	if(power_sensor.butteryCheck() == true) batteryLowMode();
+
+	// -----------initialize-------//
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();
-	//power_sensor.init();
-	lcd_init();
 	imu.init();
 
 	line_sensor.calibration();
@@ -60,6 +89,9 @@ void cppInit(void)
 	velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
 	logger.sdCardInit();
+
+	encoder.clearDistance();
+
 }
 
 void cppFlip1ms(void)
@@ -69,7 +101,7 @@ void cppFlip1ms(void)
 	encoder.updateCnt();
 
 	line_trace.flip();
-	//velocity_ctrl.flip();
+	velocity_ctrl.flip();
 	odometry.flip();
 
 	motor.motorCtrl();
@@ -223,23 +255,26 @@ void cppLoop(void)
 
 			line_trace.setNormalRatio(0.0);
 			line_trace.start();
-			encoder.clearTotalCnt();
+			HAL_Delay(500);
 
-			HAL_Delay(1000);
+			led.fullColor('R');
+			encoder.clearTotalCnt();
+			encoder.clearDistance();
+
+			HAL_Delay(10000);
 
 			line_trace.stop();
 			long total = encoder.getTotalCnt();
-			while(joy_stick.getValue() != JOY_C){
-				lcd_clear();
-				lcd_locate(0,0);
-				lcd_printf("cnt");
-				lcd_locate(0,1);
-				lcd_printf("%ld", total);
-				HAL_Delay(10);
-			}
+
+			//user_fopen("total_cnts", "cnts.txt");
+			user_fopen("distance", "1m.txt");
+			float d = encoder.getDistance();
+			sd_write(1, &d, ADD_WRITE);
+			user_fclose();
 
 			led.LR(-1, 0);
 		}
+
 		break;
 
 	case 6:

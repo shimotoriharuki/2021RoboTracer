@@ -23,12 +23,11 @@ target_velocity_(0), target_omega_(0), current_velocity_(0), current_omega_(0), 
 
 float VelocityCtrl::calcVelocity()
 {
-	int16_t enc_l, enc_r;
+	float enc_l, enc_r;
 	encoder_->getCnt(enc_l, enc_r);
 	float enc_cnt = (enc_l + enc_r) / 2;
 
 	current_velocity_ = VELOCITY_PER_CNT * enc_cnt;
-
 
 	return current_velocity_;
 }

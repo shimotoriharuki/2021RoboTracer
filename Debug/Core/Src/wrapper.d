@@ -43,7 +43,15 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
  ../Core/Inc/LineTrace.hpp ../Core/Inc/LineSensor.hpp \
  ../Core/Inc/VelocityCtrl.hpp ../Core/Inc/PowerSensor.hpp \
  ../Core/Inc/IMU.hpp ../Core/Inc/AQM0802.h ../Core/Inc/main.h \
- ../Core/Inc/Logger.hpp ../Core/Inc/Odometry.hpp
+ ../Core/Inc/Logger.hpp ../Core/Inc/Odometry.hpp \
+ ../Core/Inc/HAL_SDcard_lib.h ../FATFS/App/fatfs.h \
+ ../Middlewares/Third_Party/FatFs/src/ff.h \
+ ../Middlewares/Third_Party/FatFs/src/integer.h ../FATFS/Target/ffconf.h \
+ ../Core/Inc/main.h ../FATFS/Target/bsp_driver_sd.h \
+ ../FATFS/Target/fatfs_platform.h \
+ ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
+ ../Middlewares/Third_Party/FatFs/src/diskio.h \
+ ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h
 
 ../Core/Inc/wrapper.hpp:
 
@@ -164,3 +172,27 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
 ../Core/Inc/Logger.hpp:
 
 ../Core/Inc/Odometry.hpp:
+
+../Core/Inc/HAL_SDcard_lib.h:
+
+../FATFS/App/fatfs.h:
+
+../Middlewares/Third_Party/FatFs/src/ff.h:
+
+../Middlewares/Third_Party/FatFs/src/integer.h:
+
+../FATFS/Target/ffconf.h:
+
+../Core/Inc/main.h:
+
+../FATFS/Target/bsp_driver_sd.h:
+
+../FATFS/Target/fatfs_platform.h:
+
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
+
+../Middlewares/Third_Party/FatFs/src/diskio.h:
+
+../Middlewares/Third_Party/FatFs/src/ff.h:
+
+../FATFS/Target/sd_diskio.h:

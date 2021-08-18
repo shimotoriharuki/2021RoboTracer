@@ -11,7 +11,9 @@
 #include "INA260.h"
 #include "Macro.h"
 
-#define LOW_VOLTAGE_THRESHOLD 7.9
+#define LOW_VOLTAGE_THRESHOLD 7.4
+
+float monitor_voltage;
 
 void PowerSensor::init()
 {
@@ -24,6 +26,8 @@ void PowerSensor::updateValues()
 	//current_l_ = INA260_read(0x01, CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT) * 0.00125;
 	//current_r_ = INA260_read(0x01, CURRENT_VOLTAGE_SENSOR_ADRESS_RIGHT) * 0.00125;
 	buttery_voltage_ = INA260_read(0x02, CURRENT_VOLTAGE_SENSOR_ADRESS_LEFT) * 0.00125;
+
+	monitor_voltage = buttery_voltage_;
 }
 
 void PowerSensor::getCurrentValue(float &left, float &right)
@@ -46,9 +50,9 @@ bool PowerSensor::butteryCheck()
 	if(buttery_voltage_ < LOW_VOLTAGE_THRESHOLD) cnt++;
 	else cnt = 0;
 
-	if(cnt >= 1000) {
+	if(cnt >= 1) {
 		ret = true;
-		cnt = 1000;
+		cnt = 1;
 	}
 
 	return ret;

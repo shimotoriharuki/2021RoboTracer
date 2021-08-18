@@ -13,7 +13,7 @@
 class Encoder{
 
 private:
-	int16_t cnt_l_, cnt_r_;
+	float cnt_l_, cnt_r_;
 	float distance_;
 	long total_cnt_l_, total_cnt_r_;
 
@@ -21,8 +21,9 @@ public:
 	Encoder();
 	void init();
 	void updateCnt();
-	void getCnt(int16_t &, int16_t &);
+	void getCnt(float &, float &);
 	float getDistance();
+	void clearDistance();
 	void clearCnt();
 	long getTotalCnt();
 	void clearTotalCnt();

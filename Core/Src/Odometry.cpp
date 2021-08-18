@@ -36,7 +36,7 @@ void Odometry::calcPotition()
 	monitor_y = y_;
 	monitor_theta = theta_;
 
-	encoder_->getDistance();
+	//encoder_->getDistance();
 
 }
 

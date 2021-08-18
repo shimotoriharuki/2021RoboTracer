@@ -22,7 +22,6 @@ public:
 	float getButteryVoltage();
 	bool butteryCheck();
 
-
 };
 
 
