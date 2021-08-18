@@ -18,7 +18,7 @@ void Logger::sdCardInit()
 	  printf("mount success\r\n");
 	}
 	else{
-	  printf("error\r\n");
+	  printf("mount error\r\n");
 	}
 
 	int	data[1];
@@ -29,7 +29,7 @@ void Logger::sdCardInit()
 	sd_read_array_int("sdio", "write1.txt", DATA_SIZE, temp); //read
 	sd_write_array_int("sdio", "write2.txt", DATA_SIZE, temp, ADD_WRITE); //write
 
-	printf("sd write and read success!!\r\n");
+	//printf("sd write and read success!!\r\n");
 	//sd_unmount();
 }
 void Logger::storeLogs(float *data, uint8_t save_num)

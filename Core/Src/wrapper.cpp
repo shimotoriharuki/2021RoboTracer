@@ -70,6 +70,7 @@ void cppInit(void)
 	if(power_sensor.butteryCheck() == true) batteryLowMode();
 
 	// -----------initialize-------//
+	logger.sdCardInit();
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();
@@ -88,7 +89,6 @@ void cppInit(void)
 	//velocity_ctrl.setOmegaGain(0.05, 0, 7);
 	velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
-	logger.sdCardInit();
 
 	encoder.clearDistance();
 
@@ -264,7 +264,7 @@ void cppLoop(void)
 			HAL_Delay(10000);
 
 			line_trace.stop();
-			long total = encoder.getTotalCnt();
+			//long total = encoder.getTotalCnt();
 
 			//user_fopen("total_cnts", "cnts.txt");
 			user_fopen("distance", "1m.txt");
