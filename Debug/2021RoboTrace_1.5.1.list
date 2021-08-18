@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  17 .debug_line   00023c86  00000000  00000000  000a420d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    0010ddf4  00000000  00000000  000c7e93  2**0
+ 18 .debug_str    0010ddf9  00000000  00000000  000c7e93  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  001d5c87  2**0
+ 19 .comment      0000007b  00000000  00000000  001d5c8c  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00009de4  00000000  00000000  001d5d04  2**2
+ 20 .debug_frame  00009de4  00000000  00000000  001d5d08  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1719,7 +1719,7 @@ void Encoder::updateCnt()
  80012ec:	3f7830b5 	.word	0x3f7830b5
  80012f0:	40010000 	.word	0x40010000
  80012f4:	47000000 	.word	0x47000000
- 80012f8:	3f8fb562 	.word	0x3f8fb562
+ 80012f8:	3f912547 	.word	0x3f912547
  80012fc:	200001fc 	.word	0x200001fc
  8001300:	40010400 	.word	0x40010400
  8001304:	20000200 	.word	0x20000200
@@ -11364,7 +11364,7 @@ void cppInit(void)
 	power_sensor.updateValues();
  8005118:	4829      	ldr	r0, [pc, #164]	; (80051c0 <cppInit+0xbc>)
  800511a:	f7fd fe1d 	bl	8002d58 <_ZN11PowerSensor12updateValuesEv>
-	if(power_sensor.butteryCheck() == true) batteryLowMode();
+	if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
  800511e:	4828      	ldr	r0, [pc, #160]	; (80051c0 <cppInit+0xbc>)
  8005120:	f7fd fe46 	bl	8002db0 <_ZN11PowerSensor12butteryCheckEv>
  8005124:	4603      	mov	r3, r0
@@ -11373,7 +11373,7 @@ void cppInit(void)
  800512a:	f7ff ffb1 	bl	8005090 <batteryLowMode>
 
 	// -----------initialize-------//
-	if(logger.sdCardInit() == true){
+	if(logger.sdCardInit() == true){ //sd mount successfull
  800512e:	4825      	ldr	r0, [pc, #148]	; (80051c4 <cppInit+0xc0>)
  8005130:	f7fd fb76 	bl	8002820 <_ZN6Logger10sdCardInitEv>
  8005134:	4603      	mov	r3, r0
@@ -11388,7 +11388,7 @@ void cppInit(void)
  8005144:	f000 fb98 	bl	8005878 <HAL_Delay>
  8005148:	e006      	b.n	8005158 <cppInit+0x54>
 	}
-	else{
+	else{ //sd mount fali
 		led.fullColor('R');
  800514a:	2152      	movs	r1, #82	; 0x52
  800514c:	481e      	ldr	r0, [pc, #120]	; (80051c8 <cppInit+0xc4>)

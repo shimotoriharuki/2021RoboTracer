@@ -15,7 +15,7 @@
 #define ENCODER_RESOLUTION 4096
 #define REDUCTION_RATIO 0.35 //Gear reduction ratio
 #define DISTANCE_PER_CNT (2 * PI * WHEEL_RADIUS * REDUCTION_RATIO / ENCODER_RESOLUTION) //[m per cnt]
-#define CORRECTION_COEFFICIENT float(1.0874883*1.0324)
+#define CORRECTION_COEFFICIENT float(1.0874883*1.0324*1.01)
 
 float monitor_distance;
 float monitor_cnt_l;

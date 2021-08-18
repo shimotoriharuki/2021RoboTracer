@@ -67,14 +67,14 @@ void cppInit(void)
 	power_sensor.init();
 	HAL_Delay(100);
 	power_sensor.updateValues();
-	if(power_sensor.butteryCheck() == true) batteryLowMode();
+	if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
 
 	// -----------initialize-------//
-	if(logger.sdCardInit() == true){
+	if(logger.sdCardInit() == true){ //sd mount successfull
 		led.fullColor('G');
 		HAL_Delay(100);
 	}
-	else{
+	else{ //sd mount fali
 		led.fullColor('R');
 		HAL_Delay(100);
 	}
