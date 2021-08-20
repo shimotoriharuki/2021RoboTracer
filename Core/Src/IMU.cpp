@@ -39,22 +39,22 @@ void IMU::updateValues()
 
 }
 
-float IMU::getOmega()
+double IMU::getOmega()
 {
-	return zg_ - offset_;
+	return double(zg_) - offset_;
 
 }
 
 void IMU::calibration()
 {
 	HAL_Delay(1000);
-	led.fullColor('G');
+	//led.fullColor('G');
 
 	//std::vector<float> zg_vals;
-	float zg_vals[1000];
+	double zg_vals[1000];
 	for(uint16_t i = 0; i < 1000; i++){
-		zg_vals[i] = zg_;
-		HAL_Delay(2);
+		zg_vals[i] = double(zg_);
+		HAL_Delay(3);
 	}
 
 	float sum;
@@ -64,12 +64,12 @@ void IMU::calibration()
 
 	offset_ = sum / 1000;
 
-	printf("imu offset %f", offset_);
+	//printf("imu offset %f", offset_);
 
-	led.fullColor('B');
+	//led.fullColor('B');
 }
 
-float IMU::getOffsetVal()
+double IMU::getOffsetVal()
 {
 	return offset_;
 }

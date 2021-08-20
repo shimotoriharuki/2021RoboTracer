@@ -32,9 +32,9 @@ float VelocityCtrl::calcVelocity()
 	return current_velocity_;
 }
 
-float VelocityCtrl::calcOmega()
+double VelocityCtrl::calcOmega()
 {
-	float omega = imu_->getOmega();
+	double omega = imu_->getOmega();
 	current_omega_ = -(omega / 16.4) * PI / 180;
 	//printf("omegao: %f\n", current_omega_);
 
@@ -127,7 +127,7 @@ float VelocityCtrl::getCurrentVelocity()
 	return current_velocity_;
 }
 
-float VelocityCtrl::getCurrentOmega()
+double VelocityCtrl::getCurrentOmega()
 {
 	return current_omega_;
 }

@@ -117,8 +117,9 @@ void cppFlip1ms(void)
 	motor.motorCtrl();
 
 	if(encoder.getTotalDistance() >= 10){
-		logger.storeDistanceAndTheta(encoder.getTotalDistance(), velocity_ctrl.getCurrentOmega()*DELTA_T);
+		logger.storeDistanceAndTheta(encoder.getTotalDistance(), odometry.getTheta());
 		encoder.clearTotalCnt();
+		odometry.clearPotition();
 	}
 
 	encoder.clearCnt();

@@ -19,16 +19,18 @@ private:
 	IMU *imu_;
 	VelocityCtrl *velocity_ctrl_;
 
-	float x_, y_, theta_;
+	double x_, y_, theta_;
+	double delta_theta_;
 
 	void calcPotition();
 
 public:
 	Odometry(Encoder *, IMU *, VelocityCtrl *);
 	void flip();
-	float getX();
-	float getY();
-	float getTheta();
+	double getX();
+	double getY();
+	double getTheta();
+	double getDeltaTheta();
 	void clearPotition();
 
 };

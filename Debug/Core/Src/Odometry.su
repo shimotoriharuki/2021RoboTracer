@@ -1,7 +1,8 @@
 Odometry.cpp:15:1:Odometry::Odometry(Encoder*, IMU*, VelocityCtrl*)	24	static
-Odometry.cpp:23:6:void Odometry::calcPotition()	48	static
+Odometry.cpp:23:6:void Odometry::calcPotition()	56	static
 Odometry.cpp:43:6:void Odometry::flip()	16	static
-Odometry.cpp:48:7:float Odometry::getX()	16	static
-Odometry.cpp:53:7:float Odometry::getY()	16	static
-Odometry.cpp:58:7:float Odometry::getTheta()	16	static
-Odometry.cpp:63:6:void Odometry::clearPotition()	16	static
+Odometry.cpp:48:8:double Odometry::getX()	16	static
+Odometry.cpp:53:8:double Odometry::getY()	16	static
+Odometry.cpp:58:8:double Odometry::getTheta()	16	static
+Odometry.cpp:63:8:double Odometry::getDeltaTheta()	16	static
+Odometry.cpp:68:6:void Odometry::clearPotition()	16	static

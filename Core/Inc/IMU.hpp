@@ -12,18 +12,18 @@
 
 class IMU{
 private:
-	float xa_, ya_, za_;
-	float xg_, yg_, zg_;
-	float offset_;
+	int16_t xa_, ya_, za_;
+	int16_t xg_, yg_, zg_;
+	double offset_;
 	LED led;
 
 public:
 	IMU();
 	void init();
 	void updateValues();
-	float getOmega();
+	double getOmega();
 	void calibration();
-	float getOffsetVal();
+	double getOffsetVal();
 
 };
 
