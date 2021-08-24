@@ -196,6 +196,66 @@ FRESULT sd_read_array_float(const char *p_folder_name, const char *p_file_name, 
 
 //************************************************************************/
 //* 役割　：　SDに書き込む
+//* 引数　：　char *, char *, short, double *, char: フォルダ名、ファイル名、変数の数、データのポインタ、追加か上書きか
+//* 戻り値：　FRESULT:
+//* 備考 : なし
+//************************************************************************/
+FRESULT sd_write_array_double(const char *p_folder_name, const char *p_file_name, short size, double *data, char state){
+	FRESULT ret = 0;
+
+	create_path(p_folder_name, p_file_name);
+
+	if(state == OVER_WRITE){
+		f_chdir(dirpath);
+		f_unlink(filepath);	//	一回消す
+		f_chdir("..");
+	}
+
+	fopen_folder_and_file();	//	書き込むファイルを選択
+
+	for(short i = 0 ; i < size; i++){
+		snprintf(buffer, BUFF_SIZE, "%23.10e\n", *(data + i));	//doubleをstringに変換
+
+		f_lseek(&fil, f_size(&fil));	//	ファイルの最後に移動
+		f_write(&fil, buffer, strlen(buffer), &bw);	//	書き込む
+
+		bufclear();	//	書き込み用のバッファをクリア
+	}
+
+	f_close(&fil);	//	ファイル閉じる
+
+	return ret;
+}
+
+//************************************************************************/
+//* 役割　：　SDから読み込む
+//* 引数　：　char *, char *, short, double *: フォルダ名、ファイル名、変数の数、データのポインタ
+//* 戻り値：　FRESULT:
+//* 備考 : なし
+//************************************************************************/
+FRESULT sd_read_array_double(const char *p_folder_name, const char *p_file_name, short size, double *data){
+	FRESULT ret = 0;
+	short i = 0;
+
+	create_path(p_folder_name, p_file_name);
+	fopen_folder_and_file();	//書き込むファイルを選択
+
+	while(f_gets(buffer, sizeof(buffer), &fil) != NULL){
+		sscanf(buffer, "%lf", data + i);
+		i++;
+		if(i >= size) i = size - 1;
+
+	}
+
+	bufclear();	//書き込み用のバッファをクリア
+
+	f_close(&fil);	//ファイル閉じる
+
+	return ret;
+}
+
+//************************************************************************/
+//* 役割　：　SDに書き込む
 //* 引数　：　char *, char *, short, float *, char: フォルダ名、ファイル名、変数の数、データのポインタ、追加か上書きか
 //* 戻り値：　FRESULT:
 //* 備考 : なし

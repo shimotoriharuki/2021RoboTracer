@@ -23,7 +23,7 @@ Odometry::Odometry(Encoder *encoder, IMU *imu, VelocityCtrl *velocity_ctrl) : x_
 void Odometry::calcPotition()
 {
 	//float current_velocity = velocity_ctrl_->getCurrentVelocity();
-	double current_omega = velocity_ctrl_->getCurrentOmega();
+	double current_omega = imu_->getOmega();
 	float distance = encoder_->getDistance();
 
 	delta_theta_ = current_omega * DELTA_T;

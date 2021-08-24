@@ -28,6 +28,9 @@ FRESULT sd_read(short, float *);
 FRESULT sd_write_array_float(const char *, const char * , short, float *, char); 	 //SDに書き込み
 FRESULT sd_read_array_float(const char *, const char * , short, float *);		//SDから読み込み
 
+FRESULT sd_write_array_double(const char *, const char * , short, double *, char); 	 //SDに書き込み
+FRESULT sd_read_array_double(const char *, const char * , short, double *);		//SDから読み込み
+
 FRESULT sd_write_array_int(const char *, const char * , short, int *, char); 	 //SDに書き込み
 FRESULT sd_read_array_int(const char *, const char * , short, int *);		//SDから読み込み
 

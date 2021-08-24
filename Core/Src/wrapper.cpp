@@ -38,6 +38,8 @@ VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
 
+double mon_f, mon_d;
+
 void batteryLowMode()
 {
 	lcd_clear();
@@ -192,9 +194,17 @@ void cppLoop(void)
 		lcd_printf("SAVE");
 
 		if(joy_stick.getValue() == JOY_C){
-			led.LR(1, -1);
-			logger.saveLogs("line_sensors", "sensor6.csv");
-			led.LR(0, -1);
+			led.LR(-1, 1);
+
+			HAL_Delay(1000);
+			float f = 0.123456789123456789123456789;
+			double d = 0.123456789123456789123456789;
+			mon_f = f;
+			mon_d = d;
+			sd_write_array_float("type test", "float.txt", 1, &f, OVER_WRITE);
+			sd_write_array_double("type test", "double.txt", 1, &d, OVER_WRITE);
+
+			led.LR(-1, 0);
 		}
 		break;
 
@@ -306,7 +316,6 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 			led.LR(-1, 1);
-			logger.start();
 
 			line_trace.setNormalRatio(0.1);
 			line_trace.start();
@@ -315,6 +324,8 @@ void cppLoop(void)
 			led.fullColor('R');
 			encoder.clearTotalCnt();
 			encoder.clearDistance();
+			odometry.clearPotition();
+			logger.start();
 
 			HAL_Delay(10000);
 

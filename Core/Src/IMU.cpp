@@ -12,6 +12,8 @@
 #include "stdio.h"
 #include <vector>
 
+#define PI 3.1415926535
+
 IMU::IMU() : xa_(0), ya_(0), za_(0), xg_(0), yg_(0), zg_(0), offset_(0)
 {
 
@@ -41,20 +43,19 @@ void IMU::updateValues()
 
 double IMU::getOmega()
 {
-	return double(zg_) - offset_;
-
+	double corrected_zg = double(zg_) - offset_;
+	return -(corrected_zg / 16.4) * PI / 180;
 }
 
 void IMU::calibration()
 {
 	HAL_Delay(1000);
-	//led.fullColor('G');
 
-	//std::vector<float> zg_vals;
-	double zg_vals[1000];
-	for(uint16_t i = 0; i < 1000; i++){
+	int16_t num = 2000;
+	double zg_vals[num];
+	for(uint16_t i = 0; i < num; i++){
 		zg_vals[i] = double(zg_);
-		HAL_Delay(3);
+		HAL_Delay(2);
 	}
 
 	float sum;
@@ -62,11 +63,7 @@ void IMU::calibration()
 		sum += v;
 	}
 
-	offset_ = sum / 1000;
-
-	//printf("imu offset %f", offset_);
-
-	//led.fullColor('B');
+	offset_ = sum / num;
 }
 
 double IMU::getOffsetVal()

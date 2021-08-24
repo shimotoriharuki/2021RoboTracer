@@ -33,8 +33,8 @@ private:
 	Encoder *encoder_;
 	IMU *imu_;
 
-	float calcVelocity();
-	double calcOmega();
+	double calcVelocity();
+	//double calcOmega();
 	void pid();
 
 public:
@@ -47,7 +47,7 @@ public:
 	void start();
 	void stop();
 	float getCurrentVelocity();
-	double getCurrentOmega();
+	//double getCurrentOmega();
 
 };
 

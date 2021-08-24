@@ -21,17 +21,18 @@ target_velocity_(0), target_omega_(0), current_velocity_(0), current_omega_(0), 
 
 // ---------private ---------//
 
-float VelocityCtrl::calcVelocity()
+double VelocityCtrl::calcVelocity()
 {
-	float enc_l, enc_r;
+	double enc_l, enc_r;
 	encoder_->getCnt(enc_l, enc_r);
-	float enc_cnt = (enc_l + enc_r) / 2;
+	double enc_cnt = (enc_l + enc_r) / 2;
 
 	current_velocity_ = VELOCITY_PER_CNT * enc_cnt;
 
 	return current_velocity_;
 }
 
+/*
 double VelocityCtrl::calcOmega()
 {
 	double omega = imu_->getOmega();
@@ -40,12 +41,13 @@ double VelocityCtrl::calcOmega()
 
 	return current_omega_;
 }
+*/
 
 void VelocityCtrl::pid()
 {
 	float static v_pre_diff, o_pre_diff;
 	float v_diff = target_velocity_ - current_velocity_;
-	float o_diff = target_omega_- current_omega_;
+	float o_diff = target_omega_- imu_->getOmega();
 
 	float v_p, v_d, o_p, o_d;
 	static float v_i, o_i;
@@ -100,7 +102,7 @@ void VelocityCtrl::setOmegaGain(float kp, float kd, float ki)
 void VelocityCtrl::flip()
 {
     calcVelocity();
-	calcOmega();
+	//calcOmega();
 
 	if(excution_flag_ == true){
 		pid();
@@ -127,7 +129,9 @@ float VelocityCtrl::getCurrentVelocity()
 	return current_velocity_;
 }
 
+/*
 double VelocityCtrl::getCurrentOmega()
 {
 	return current_omega_;
 }
+*/
