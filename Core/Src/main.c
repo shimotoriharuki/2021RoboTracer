@@ -24,6 +24,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "wrapper.hpp"
+#include "path_following.h"
+#include "rtwtypes.h"
 
 
 /* USER CODE END Includes */
@@ -153,6 +155,8 @@ void init()
 	HAL_TIM_Base_Start_IT(&htim13);
 
 	cppInit();
+
+	path_following_initialize();
 
 }
 
