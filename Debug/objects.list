@@ -11,6 +11,7 @@
 "Core/Src/Logger.o"
 "Core/Src/Motor.o"
 "Core/Src/Odometry.o"
+"Core/Src/PathFollowing.o"
 "Core/Src/PowerSensor.o"
 "Core/Src/RotarySwitch.o"
 "Core/Src/SideSensor.o"

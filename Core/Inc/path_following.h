@@ -40,6 +40,10 @@
 #define rtmSetErrorStatus(rtm, val)    ((rtm)->errorStatus = (val))
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Forward declaration for rtModel */
 typedef struct tag_RTM RT_MODEL;
 
@@ -63,11 +67,18 @@ typedef struct {
   real_T th_cur;                       /* '<Root>/th_cur' */
 } ExtU;
 
+
 /* External outputs (root outports fed by signals with default storage) */
 typedef struct {
   real_T V_tar;                        /* '<Root>/V_tar' */
-  real_T tar;                          /* '<Root>/ƒÖ_tar' */
+  real_T tar;                          /* '<Root>/omega_tar' */
 } ExtY;
+
+typedef struct {
+  real_T kx;
+  real_T ky;
+  real_T kt;
+} Param;
 
 /* Real-time Model Data Structure */
 struct tag_RTM {
@@ -83,12 +94,18 @@ extern ExtU rtU;
 /* External outputs (root outports fed by signals with default storage) */
 extern ExtY rtY;
 
+extern Param rtParam;
+
 /* Model entry point functions */
 extern void path_following_initialize(void);
 extern void path_following_step(void);
 
 /* Real-time Model object */
 extern RT_MODEL *const rtM;
+
+#ifdef __cplusplus
+}
+#endif
 
 /*-
  * These blocks were eliminated from the model due to optimizations:
@@ -120,7 +137,7 @@ extern RT_MODEL *const rtM;
  * '<Root>' : 'path_following_test'
  * '<S1>'   : 'path_following_test/path_following'
  * '<S2>'   : 'path_following_test/path_following/CalcError1'
- * '<S3>'   : 'path_following_test/path_following/ClacTarget_VƒÖ1'
+ * '<S3>'   : 'path_following_test/path_following/ClacTarget_Vï¿½ï¿½1'
  * '<S4>'   : 'path_following_test/path_following/Discrete Derivative'
  * '<S5>'   : 'path_following_test/path_following/Discrete Derivative1'
  * '<S6>'   : 'path_following_test/path_following/Discrete Derivative2'

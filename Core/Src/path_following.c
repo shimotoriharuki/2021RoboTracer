@@ -200,16 +200,16 @@ void path_following_step(void)
    */
   rtDW.UD_DSTATE_d = rtb_Square;
 
-  /* Outputs for Atomic SubSystem: '<S1>/ClacTarget_VƒÖ1' */
+  /* Outputs for Atomic SubSystem: '<S1>/ClacTarget_Vï¿½ï¿½1' */
   /* Outport: '<Root>/V_tar' incorporates:
    *  Gain: '<S3>/Gain'
    *  Product: '<S3>/Product1'
    *  Sum: '<S3>/Add5'
    *  Trigonometry: '<S3>/Trigonometric Function2'
    */
-  rtY.V_tar = 5.0 * rtDW.Add4 + cos(rtDW.Add3) * rtb_Uk1;
+  rtY.V_tar = rtParam.kx * rtDW.Add4 + cos(rtDW.Add3) * rtb_Uk1;
 
-  /* Outport: '<Root>/ƒÖ_tar' incorporates:
+  /* Outport: '<Root>/ï¿½ï¿½_tar' incorporates:
    *  Gain: '<S3>/Gain1'
    *  Gain: '<S3>/Gain2'
    *  Product: '<S3>/Product2'
@@ -217,9 +217,9 @@ void path_following_step(void)
    *  Sum: '<S3>/Add2'
    *  Trigonometry: '<S3>/Trigonometric Function1'
    */
-  rtY.tar = (10.0 * rtDW.Add5 + 10.0 * sin(rtDW.Add3)) * rtb_Uk1 + rtb_Diff;
+  rtY.tar = (rtParam.ky * rtDW.Add5 + rtParam.kt * sin(rtDW.Add3)) * rtb_Uk1 + rtb_Diff;
 
-  /* End of Outputs for SubSystem: '<S1>/ClacTarget_VƒÖ1' */
+  /* End of Outputs for SubSystem: '<S1>/ClacTarget_Vï¿½ï¿½1' */
   /* End of Outputs for SubSystem: '<Root>/path_following' */
 }
 
