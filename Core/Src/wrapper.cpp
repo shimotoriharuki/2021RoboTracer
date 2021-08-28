@@ -110,7 +110,6 @@ void cppInit(void)
 	odometry.clearPotition();
 
 	path_following.init();
-	path_following.setGain(10, 10, 10);
 
 }
 
@@ -134,11 +133,18 @@ void cppFlip1ms(void)
 	}
 	*/
 
-	path_following.setTargetPath(0, 0, 0);
+	//  rtY.V_tar = rtParam.kx * rtDW.Add4 + cos(rtDW.Add3) * rtb_Uk1;
+	//  rtY.tar = (rtParam.ky * rtDW.Add5 + rtParam.kt * sin(rtDW.Add3)) * rtb_Uk1 + rtb_Diff;
+
+	path_following.setGain(10, 10, 10);
+	path_following.setGain(10, 10, 1000);
+	path_following.setTargetPath(0, 0, 1);
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
 	path_following.flip();
 
 	path_following.getTargetVelocitys(mon_v, mon_w);
+
+
 	encoder.clearCnt();
 
 	//Buttery Check

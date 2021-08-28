@@ -19,6 +19,8 @@
  * Validation result: Not run
  */
 
+double mon1, mon2;
+
 #include "path_following.h"
 
 /* Block signals and states (default storage) */
@@ -220,6 +222,8 @@ void path_following_step(void)
    *  Trigonometry: '<S3>/Trigonometric Function1'
    */
   rtY.tar = (rtParam.ky * rtDW.Add5 + rtParam.kt * sin(rtDW.Add3)) * rtb_Uk1 + rtb_Diff;
+  mon1 = rtb_Uk1;
+  mon2 = rtb_Diff;
 
   /* End of Outputs for SubSystem: '<S1>/ClacTarget_V��1' */
   /* End of Outputs for SubSystem: '<Root>/path_following' */
