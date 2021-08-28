@@ -8,19 +8,19 @@
 #ifndef INC_PATHFOLLOWING_HPP_
 #define INC_PATHFOLLOWING_HPP_
 
-#include "path_following.h"
+#include "rtwtypes.h"
 
 class PathFollowing{
 
 private:
-	double target_x_, target_y_, target_th_;
 
 public:
-
+	PathFollowing();
 	void init();
 	void setGain(double, double, double);
-	void setTargetPath();
-	void getVelocitys(double &, double &);
+	void setTargetPath(double, double, double);
+	void setCurrentPath(double, double, double);
+	void getTargetVelocitys(double &, double &);
 	void flip();
 };
 

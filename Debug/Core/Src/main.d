@@ -40,9 +40,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
- ../Core/Inc/wrapper.hpp ../Core/Inc/path_following.h \
- ../Core/Inc/rtwtypes.h ../Core/Inc/rtw_continuous.h \
- ../Core/Inc/rtw_solver.h ../Core/Inc/rtwtypes.h
+ ../Core/Inc/wrapper.hpp
 
 ../Core/Inc/main.h:
 
@@ -137,13 +135,3 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../FATFS/Target/sd_diskio.h:
 
 ../Core/Inc/wrapper.hpp:
-
-../Core/Inc/path_following.h:
-
-../Core/Inc/rtwtypes.h:
-
-../Core/Inc/rtw_continuous.h:
-
-../Core/Inc/rtw_solver.h:
-
-../Core/Inc/rtwtypes.h:

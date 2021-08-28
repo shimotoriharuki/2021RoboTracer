@@ -30,6 +30,8 @@ ExtU rtU;
 /* External outputs (root outports fed by signals with default storage) */
 ExtY rtY;
 
+Param rtParam;
+
 /* Real-time model */
 static RT_MODEL rtM_;
 RT_MODEL *const rtM = &rtM_;

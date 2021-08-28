@@ -6,6 +6,23 @@
  */
 
 #include "PathFollowing.hpp"
+#include "path_following.h"
+
+PathFollowing::PathFollowing()
+{
+	rtParam.kx = 0;
+	rtParam.ky = 0;
+	rtParam.kt = 0;
+	rtU.target_x = 0;
+	rtU.target_y = 0;
+	rtU.th = 0;
+	rtU.x = 0;
+	rtU.y = 0;
+	rtU.th_cur = 0;
+	rtY.V_tar = 0;
+	rtY.tar = 0;
+
+}
 
 void PathFollowing::init()
 {
@@ -20,15 +37,21 @@ void PathFollowing::setGain(double kx, double ky, double kt)
 
 }
 
-void PathFollowing::setTargetPath()
+void PathFollowing::setTargetPath(double x, double y, double th)
 {
-	target_x_ = rtU.target_x;
-	target_y_ = rtU.target_y;
-	target_th_ = rtU.th;
-
+	rtU.target_x = x;
+	rtU.target_y = y;
+	rtU.th = th;
 }
 
-void getVelocitys(double &v, double &omega)
+void PathFollowing::setCurrentPath(double x, double y, double th)
+{
+	rtU.x= x;
+	rtU.y = y;
+	rtU.th_cur = th;
+}
+
+void PathFollowing::getTargetVelocitys(double &v, double &omega)
 {
 	v = rtY.V_tar;
 	omega = rtY.tar;

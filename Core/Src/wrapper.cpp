@@ -23,6 +23,8 @@
 #include "Odometry.hpp"
 #include "HAL_SDcard_lib.h"
 
+#include "PathFollowing.hpp"
+
 LineSensor line_sensor;
 SideSensor side_sensor;
 JoyStick joy_stick;
@@ -38,7 +40,10 @@ VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
 
+PathFollowing path_following;
+
 double mon_f, mon_d;
+double mon_v, mon_w;
 
 void batteryLowMode()
 {
@@ -104,6 +109,9 @@ void cppInit(void)
 	encoder.clearDistance();
 	odometry.clearPotition();
 
+	path_following.init();
+	path_following.setGain(10, 10, 10);
+
 }
 
 void cppFlip1ms(void)
@@ -118,14 +126,20 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
+	/*
 	if(encoder.getTotalDistance() >= 10){
 		logger.storeDistanceAndTheta(encoder.getTotalDistance(), odometry.getTheta());
 		encoder.clearTotalCnt();
 		odometry.clearPotition();
 	}
+	*/
 
+	path_following.setTargetPath(0, 0, 0);
+	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
+	path_following.flip();
+
+	path_following.getTargetVelocitys(mon_v, mon_w);
 	encoder.clearCnt();
-
 
 	//Buttery Check
 	//power_sensor.updateValues();

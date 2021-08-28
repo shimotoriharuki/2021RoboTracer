@@ -24,8 +24,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "wrapper.hpp"
-#include "path_following.h"
-#include "rtwtypes.h"
+//#include "path_following.h"
+//#include "rtwtypes.h"
 
 
 /* USER CODE END Includes */
@@ -156,7 +156,7 @@ void init()
 
 	cppInit();
 
-	path_following_initialize();
+	//path_following_initialize();
 
 }
 
