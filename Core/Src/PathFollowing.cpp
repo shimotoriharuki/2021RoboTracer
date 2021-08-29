@@ -8,7 +8,7 @@
 #include "PathFollowing.hpp"
 #include "path_following.h"
 
-PathFollowing::PathFollowing()
+PathFollowing::PathFollowing() : execute_flag_(false)
 {
 	rtParam.kx = 0;
 	rtParam.ky = 0;
@@ -59,6 +59,18 @@ void PathFollowing::getTargetVelocitys(double &v, double &omega)
 }
 void PathFollowing::flip()
 {
-	path_following_step();
+	if(execute_flag_ == true){
+		path_following_step();
+	}
+}
+
+void PathFollowing::start()
+{
+	execute_flag_ = true;
+}
+
+void PathFollowing::stop()
+{
+	execute_flag_ = false;
 }
 

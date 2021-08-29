@@ -13,6 +13,7 @@
 class PathFollowing{
 
 private:
+	bool execute_flag_;
 
 public:
 	PathFollowing();
@@ -22,6 +23,8 @@ public:
 	void setCurrentPath(double, double, double);
 	void getTargetVelocitys(double &, double &);
 	void flip();
+	void start();
+	void stop();
 };
 
 

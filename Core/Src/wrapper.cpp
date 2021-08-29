@@ -45,6 +45,8 @@ PathFollowing path_following;
 double mon_f, mon_d;
 double mon_v, mon_w;
 
+bool flag = false;
+
 void batteryLowMode()
 {
 	lcd_clear();
@@ -100,10 +102,10 @@ void cppInit(void)
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	line_trace.setGain(0.0005, 0.000002, 0);
 
-	//velocity_ctrl.setVelocityGain(1.5, 0, 20);
-	velocity_ctrl.setVelocityGain(0, 0, 0);
-	//velocity_ctrl.setOmegaGain(0.05, 0, 7);
-	velocity_ctrl.setOmegaGain(0.0, 0, 0);
+	velocity_ctrl.setVelocityGain(1.5, 0, 20);
+	//velocity_ctrl.setVelocityGain(0, 0, 0);
+	velocity_ctrl.setOmegaGain(0.05, 0, 7);
+	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
 
 	encoder.clearDistance();
@@ -133,21 +135,6 @@ void cppFlip1ms(void)
 	}
 	*/
 
-	//  rtY.V_tar = rtParam.kx * rtDW.Add4 + cos(rtDW.Add3) * rtb_Uk1;
-	//  rtY.tar = (rtParam.ky * rtDW.Add5 + rtParam.kt * sin(rtDW.Add3)) * rtb_Uk1 + rtb_Diff;
-
-	path_following.setGain(10, 10, 10);
-	path_following.setGain(10, 10, 1000);
-	static double x, y, th;
-	x += 0.001;
-	y += 0.001;
-	th += 0.001;
-	path_following.setTargetPath(x, y, th);
-	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
-	path_following.flip();
-
-	path_following.getTargetVelocitys(mon_v, mon_w);
-
 
 	encoder.clearCnt();
 
@@ -165,7 +152,21 @@ void cppFlip100ns(void)
 void cppFlip10ms(void)
 {
 	logger.storeLog(line_sensor.sensor[7]);
-	//logger.storeDistanceAndTheta(encoder.getDistance(), velocity_ctrl.getCurrentOmega()*DELTA_T);
+
+	path_following.setGain(0.01, 0.01, 0.01);
+	static double x, y, th;
+	if(flag == true){
+		x += 0.001;
+		y += 0.00;
+		th += 0.00;
+	}
+	path_following.setTargetPath(x, y, th);
+	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
+	path_following.flip();
+
+	path_following.getTargetVelocitys(mon_v, mon_w);
+
+	velocity_ctrl.setVelocity(mon_v, mon_w);
 }
 
 void cppExit(uint16_t gpio_pin)
@@ -364,7 +365,34 @@ void cppLoop(void)
 		break;
 
 	case 7:
+		led.fullColor('M');
 
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("Path");
+		lcd_locate(0,1);
+		lcd_printf("Following");
+
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+			led.LR(-1, 1);
+
+			led.fullColor('R');
+			encoder.clearTotalCnt();
+			encoder.clearDistance();
+			odometry.clearPotition();
+			path_following.start();
+			velocity_ctrl.start();
+			flag = true;
+
+			HAL_Delay(1000);
+
+			path_following.stop();
+			velocity_ctrl.stop();
+			flag = false;
+
+			led.LR(-1, 0);
+		}
 		break;
 
 	case 8:

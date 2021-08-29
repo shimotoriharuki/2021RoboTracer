@@ -5,3 +5,5 @@ PathFollowing.cpp:40:6:void PathFollowing::setTargetPath(double, double, double)
 PathFollowing.cpp:47:6:void PathFollowing::setCurrentPath(double, double, double)	40	static
 PathFollowing.cpp:54:6:void PathFollowing::getTargetVelocitys(double&, double&)	24	static
 PathFollowing.cpp:60:6:void PathFollowing::flip()	16	static
+PathFollowing.cpp:67:6:void PathFollowing::start()	16	static
+PathFollowing.cpp:72:6:void PathFollowing::stop()	16	static
