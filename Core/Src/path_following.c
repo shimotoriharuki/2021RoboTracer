@@ -123,6 +123,8 @@ void path_following_step(void)
    *  Store in Global RAM
    */
   rtb_Uk1 = rtb_TSamp - rtDW.UD_DSTATE;
+  mon1 = rtb_TSamp;
+  mon2 = rtDW.UD_DSTATE;
 
   /* Math: '<S1>/Square' */
   rtb_Square = rtb_Uk1 * rtb_Uk1;
@@ -222,8 +224,8 @@ void path_following_step(void)
    *  Trigonometry: '<S3>/Trigonometric Function1'
    */
   rtY.tar = (rtParam.ky * rtDW.Add5 + rtParam.kt * sin(rtDW.Add3)) * rtb_Uk1 + rtb_Diff;
-  mon1 = rtb_Uk1;
-  mon2 = rtb_Diff;
+  //mon2 = rtb_Diff;
+
 
   /* End of Outputs for SubSystem: '<S1>/ClacTarget_V��1' */
   /* End of Outputs for SubSystem: '<Root>/path_following' */

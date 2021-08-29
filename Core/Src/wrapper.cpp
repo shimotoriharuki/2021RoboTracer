@@ -138,7 +138,11 @@ void cppFlip1ms(void)
 
 	path_following.setGain(10, 10, 10);
 	path_following.setGain(10, 10, 1000);
-	path_following.setTargetPath(0, 0, 1);
+	static double x, y, th;
+	x += 0.001;
+	y += 0.001;
+	th += 0.001;
+	path_following.setTargetPath(x, y, th);
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
 	path_following.flip();
 
