@@ -93,7 +93,7 @@ void cppInit(void)
 	encoder.init();
 	imu.init();
 
-	line_sensor.calibration();
+	//line_sensor.calibration();
 	HAL_Delay(1000);
 
 	led.fullColor('M');
@@ -102,10 +102,10 @@ void cppInit(void)
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	line_trace.setGain(0.0005, 0.000002, 0);
 
-	velocity_ctrl.setVelocityGain(1.5, 0, 20);
-	//velocity_ctrl.setVelocityGain(0, 0, 0);
-	velocity_ctrl.setOmegaGain(0.05, 0, 7);
-	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
+	//velocity_ctrl.setVelocityGain(1.5, 0, 20);
+	velocity_ctrl.setVelocityGain(0, 0, 0);
+	//velocity_ctrl.setOmegaGain(0.05, 0, 7);
+	velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
 
 	encoder.clearDistance();
@@ -153,15 +153,16 @@ void cppFlip10ms(void)
 {
 	logger.storeLog(line_sensor.sensor[7]);
 
-	path_following.setGain(0.01, 0.01, 0.01);
+	path_following.setGain(0.0, 0.0, 0.0);
 	static double x, y, th;
 	if(flag == true){
 		x += 0.001;
 		y += 0.00;
 		th += 0.00;
 	}
-	path_following.setTargetPath(x, y, th);
+	//path_following.setTargetPathSingle(x, y, th);
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
+	path_following.targetUpdate();
 	path_following.flip();
 
 	path_following.getTargetVelocitys(mon_v, mon_w);
@@ -373,16 +374,22 @@ void cppLoop(void)
 		lcd_locate(0,1);
 		lcd_printf("Following");
 
-		if(joy_stick.getValue() == JOY_C){
-			HAL_Delay(500);
+		if(joy_stick.getValue() == JOY_D){
 			led.LR(-1, 1);
+			path_following.setTargetPathMulti();
+			led.LR(-1, 0);
+		}
+
+		else if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(500);
 
 			led.fullColor('R');
 			encoder.clearTotalCnt();
 			encoder.clearDistance();
 			odometry.clearPotition();
 			path_following.start();
-			velocity_ctrl.start();
+			//velocity_ctrl.start();
 			flag = true;
 
 			HAL_Delay(1000);

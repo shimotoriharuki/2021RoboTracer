@@ -1,9 +1,13 @@
-PathFollowing.cpp:11:1:PathFollowing::PathFollowing()	16	static
-PathFollowing.cpp:27:6:void PathFollowing::init()	16	static
-PathFollowing.cpp:32:6:void PathFollowing::setGain(double, double, double)	40	static
-PathFollowing.cpp:40:6:void PathFollowing::setTargetPath(double, double, double)	40	static
-PathFollowing.cpp:47:6:void PathFollowing::setCurrentPath(double, double, double)	40	static
-PathFollowing.cpp:54:6:void PathFollowing::getTargetVelocitys(double&, double&)	24	static
-PathFollowing.cpp:60:6:void PathFollowing::flip()	16	static
-PathFollowing.cpp:67:6:void PathFollowing::start()	16	static
-PathFollowing.cpp:72:6:void PathFollowing::stop()	16	static
+PathFollowing.cpp:16:1:PathFollowing::PathFollowing()	16	static
+PathFollowing.cpp:32:6:void PathFollowing::calcXY(double, double, double&, double&)	48	static
+PathFollowing.cpp:39:6:bool PathFollowing::isNear(double, double, double)	48	static
+PathFollowing.cpp:51:6:void PathFollowing::init()	16	static
+PathFollowing.cpp:56:6:void PathFollowing::setGain(double, double, double)	40	static
+PathFollowing.cpp:64:6:void PathFollowing::setTargetPathSingle(double, double, double)	40	static
+PathFollowing.cpp:71:6:void PathFollowing::setTargetPathMulti()	24	static
+PathFollowing.cpp:80:6:void PathFollowing::targetUpdate()	40	static
+PathFollowing.cpp:102:6:void PathFollowing::setCurrentPath(double, double, double)	40	static
+PathFollowing.cpp:109:6:void PathFollowing::getTargetVelocitys(double&, double&)	24	static
+PathFollowing.cpp:115:6:void PathFollowing::flip()	16	static
+PathFollowing.cpp:122:6:void PathFollowing::start()	16	static
+PathFollowing.cpp:127:6:void PathFollowing::stop()	16	static
