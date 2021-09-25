@@ -58,7 +58,21 @@ void PathFollowing::setGain(double kx, double ky, double kt)
 	rtParam.kx = kx;
 	rtParam.ky = ky;
 	rtParam.kt = kt;
+}
 
+double PathFollowing::getKxVal()
+{
+	return rtParam.kx;
+}
+
+double PathFollowing::getKyVal()
+{
+	return rtParam.ky;
+}
+
+double PathFollowing::getKtVal()
+{
+	return rtParam.kt;
 }
 
 void PathFollowing::setTargetPathSingle(double x, double y, double th)
@@ -81,7 +95,7 @@ void PathFollowing::targetUpdate()
 {
 	if(execute_flag_ == true){
 		//if(isNear(rtU.x, x_tar_, 10) == true && isNear(rtU.y, y_tar_, 30) == true && isNear(rtU.th_cur, th_tar_, 1.100) == true){
-		if(isNear(rtU.x, x_tar_, 10) == true){
+		if(isNear(rtU.x, x_tar_, 10) == true && isNear(rtU.y, y_tar_, 10) == true && isNear(rtU.th_cur, th_tar_, 3) == true){
 			ref_num++;
 			x_tar_ = x_tar_ + log_distances_[ref_num] * cos(th_tar_ + log_delta_thetas_[ref_num] / 2);
 			y_tar_ = y_tar_ + log_distances_[ref_num] * sin(th_tar_ + log_delta_thetas_[ref_num] / 2);

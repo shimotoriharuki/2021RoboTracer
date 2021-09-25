@@ -153,7 +153,7 @@ void cppFlip10ms(void)
 {
 	logger.storeLog(line_sensor.sensor[7]);
 
-	path_following.setGain(0.0, 0.0, 0.0);
+	//path_following.setGain(0.0, 0.0, 0.0);
 	static double x, y, th;
 	if(flag == true){
 		x += 0.001;
@@ -322,7 +322,7 @@ void cppLoop(void)
 			//user_fopen("total_cnts", "cnts.txt");
 			user_fopen("distance", "1m.txt");
 			float d = encoder.getDistance();
-			sd_write(1, &d, ADD_WRITE);
+			sd_write_float(1, &d, ADD_WRITE);
 			user_fclose();
 
 			led.LR(-1, 0);
@@ -392,7 +392,7 @@ void cppLoop(void)
 			//velocity_ctrl.start();
 			flag = true;
 
-			HAL_Delay(1000);
+			HAL_Delay(10000);
 
 			path_following.stop();
 			velocity_ctrl.stop();
@@ -403,7 +403,34 @@ void cppLoop(void)
 		break;
 
 	case 8:
+		led.fullColor('M');
 
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("%3.1lf     ", path_following.getKxVal());
+		lcd_locate(0,1);
+		lcd_printf("%3.1lf,%3.1lf", path_following.getKyVal(), path_following.getKtVal());
+
+		if(joy_stick.getValue() == JOY_D){
+			led.LR(-1, 1);
+
+			double temp_kx, temp_ky, temp_kt;
+			sd_read_array_double("Parameters", "path_following_kx.txt", 1, &temp_kx);
+			sd_read_array_double("Parameters", "path_following_ky.txt", 1, &temp_ky);
+			sd_read_array_double("Parameters", "path_following_kt.txt", 1, &temp_kt);
+			path_following.setGain(temp_kx, temp_ky, temp_kt);
+			//path_following.setGain(1.1, 2.2, 3.3);
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(500);
+
+			led.fullColor('R');
+
+			led.LR(-1, 0);
+		}
 		break;
 
 	case 9:

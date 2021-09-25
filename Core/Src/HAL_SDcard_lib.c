@@ -67,7 +67,7 @@ FRESULT user_fclose(){
 //* 戻り値：　FRESULT:
 //* 備考 : なし
 //************************************************************************/
-FRESULT sd_write(short size, float *data, char state){
+FRESULT sd_write_float(short size, float *data, char state){
 	FRESULT ret = 0;
 
 	for(short i = 0 ; i < size; i++){
@@ -118,7 +118,7 @@ FRESULT sd_write_long(short size, long *data, char state){
 //* 戻り値：　FRESULT:
 //* 備考 : なし
 //************************************************************************/
-FRESULT sd_read(short size, float *data){
+FRESULT sd_read_float(short size, float *data){
 	FRESULT ret = 0;
 	short i = 0;
 
@@ -134,6 +134,52 @@ FRESULT sd_read(short size, float *data){
 	return ret;
 }
 
+//************************************************************************/
+//* 役割　：　SDに書き込む
+//* 引数　：　short, double*, char : 変数の数、データのポインタ、追加か上書きか
+//* 戻り値：　FRESULT:
+//* 備考 : なし
+//************************************************************************/
+FRESULT sd_write_double(short size, double *data, char state){
+	FRESULT ret = 0;
+
+	for(short i = 0 ; i < size; i++){
+		snprintf(buffer, BUFF_SIZE, "%lf\n", *(data + i));	//floatをstringに変換
+
+		if(state == ADD_WRITE){
+			f_lseek(&fil, f_size(&fil));	//ファイルの最後に移動
+		}
+		else{
+			f_lseek(&fil, 0);	//ファイルの最初に移動
+		}
+
+		f_write(&fil, buffer, strlen(buffer), &bw);	//書き込む
+
+		bufclear();	//書き込み用のバッファをクリア
+	}
+	return ret;
+}
+//************************************************************************/
+//* 役割　：　SDから読み込む
+//* 引数　：　short, float *　:変数の数、データのポインタ
+//* 戻り値：　FRESULT:
+//* 備考 : なし
+//************************************************************************/
+FRESULT sd_read_double(short size, double *data){
+	FRESULT ret = 0;
+	short i = 0;
+
+	while(f_gets(buffer, sizeof(buffer), &fil) != NULL){
+		sscanf(buffer, "%lf", data + i);
+		i++;
+		if(i >= size) i = size - 1;
+
+	}
+
+	bufclear();	//書き込み用のバッファをクリア
+
+	return ret;
+}
 //************************************************************************/
 //* 役割　：　SDに書き込む
 //* 引数　：　char *, char *, short, float *, char: フォルダ名、ファイル名、変数の数、データのポインタ、追加か上書きか

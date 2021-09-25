@@ -29,6 +29,9 @@ public:
 	PathFollowing();
 	void init();
 	void setGain(double, double, double);
+	double getKxVal();
+	double getKyVal();
+	double getKtVal();
 	void setTargetPathSingle(double, double, double);
 	void setTargetPathMulti();
 	void targetUpdate();

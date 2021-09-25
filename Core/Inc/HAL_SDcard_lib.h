@@ -21,9 +21,11 @@ FRESULT sd_mount(void);   					//SDをマウント
 FRESULT sd_unmount(void);					  //SDをアンマウント
 FRESULT user_fopen(const char *, const char *);
 FRESULT user_fclose(void);
-FRESULT sd_write(short, float *, char);
+FRESULT sd_write_float(short, float *, char);
 FRESULT sd_write_long(short, long *, char);
-FRESULT sd_read(short, float *);
+FRESULT sd_read_float(short, float *);
+FRESULT sd_write_double(short, double *, char);
+FRESULT sd_read_double(short, double *);
 
 FRESULT sd_write_array_float(const char *, const char * , short, float *, char); 	 //SDに書き込み
 FRESULT sd_read_array_float(const char *, const char * , short, float *);		//SDから読み込み
