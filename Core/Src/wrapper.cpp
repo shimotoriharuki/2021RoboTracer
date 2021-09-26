@@ -411,29 +411,84 @@ void cppLoop(void)
 		lcd_locate(0,1);
 		lcd_printf("%3.1lf,%3.1lf", path_following.getKyVal(), path_following.getKtVal());
 
-		if(joy_stick.getValue() == JOY_D){
-			led.LR(-1, 1);
+		static double adj_kx, adj_ky, adj_kt;
+		static int16_t pf_gain_selector;
 
-			int temp_kx, temp_ky, temp_kt;
-			sd_read_array_int("Params", "kx.txt", 1, &temp_kx);
-			//HAL_Delay(10);
-			sd_read_array_int("Params", "ky.txt", 1, &temp_ky);
-			//HAL_Delay(10);
-			sd_read_array_int("Params", "kt.txt", 1, &temp_kt);
-			//HAL_Delay(10);
-			path_following.setGain(temp_kx, temp_ky, temp_kt);
-			//path_following.setGain(1.1, 2.2, 3.3);
+		if(joy_stick.getValue() == JOY_U){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			pf_gain_selector++;
+			if(pf_gain_selector >= 3) pf_gain_selector = 0;
 
 			led.LR(-1, 0);
 		}
-		else if(joy_stick.getValue() == JOY_C){
+		else if(joy_stick.getValue() == JOY_R){
 			led.LR(-1, 1);
-			HAL_Delay(500);
+			HAL_Delay(100);
+
+			if(pf_gain_selector == 0){
+				adj_kx++;
+			}
+			else if(pf_gain_selector == 1){
+				adj_ky++;
+			}
+			else{
+				adj_kt++;
+			}
 
 			led.fullColor('R');
 
 			led.LR(-1, 0);
 		}
+
+		else if(joy_stick.getValue() == JOY_L){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			if(pf_gain_selector == 0){
+				adj_kx--;
+			}
+			else if(pf_gain_selector == 1){
+				adj_ky--;
+			}
+			else{
+				adj_kt--;
+			}
+
+			led.fullColor('R');
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_D){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			double temp_kx, temp_ky, temp_kt;
+			sd_read_array_double("Params", "kx.txt", 1, &temp_kx);
+			sd_read_array_double("Params", "ky.txt", 1, &temp_ky);
+			sd_read_array_double("Params", "kt.txt", 1, &temp_kt);
+			path_following.setGain(temp_kx, temp_ky, temp_kt);
+
+			adj_kx = temp_kx;
+			adj_ky = temp_ky;
+			adj_kt = temp_kt;
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			sd_write_array_double("Params", "kx.txt", 1, &adj_kx, OVER_WRITE);
+			sd_write_array_double("Params", "ky.txt", 1, &adj_ky, OVER_WRITE);
+			sd_write_array_double("Params", "kt.txt", 1, &adj_kt, OVER_WRITE);
+			path_following.setGain(adj_kx, adj_ky, adj_kt);
+
+			led.LR(-1, 0);
+		}
+
+
 		break;
 
 	case 9:
