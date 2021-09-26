@@ -97,7 +97,7 @@ void cppInit(void)
 	HAL_Delay(1000);
 
 	led.fullColor('M');
-	imu.calibration();
+	//imu.calibration();
 
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	line_trace.setGain(0.0005, 0.000002, 0);
@@ -414,10 +414,13 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_D){
 			led.LR(-1, 1);
 
-			double temp_kx, temp_ky, temp_kt;
-			sd_read_array_double("Parameters", "path_following_kx.txt", 1, &temp_kx);
-			sd_read_array_double("Parameters", "path_following_ky.txt", 1, &temp_ky);
-			sd_read_array_double("Parameters", "path_following_kt.txt", 1, &temp_kt);
+			int temp_kx, temp_ky, temp_kt;
+			sd_read_array_int("Params", "kx.txt", 1, &temp_kx);
+			//HAL_Delay(10);
+			sd_read_array_int("Params", "ky.txt", 1, &temp_ky);
+			//HAL_Delay(10);
+			sd_read_array_int("Params", "kt.txt", 1, &temp_kt);
+			//HAL_Delay(10);
 			path_following.setGain(temp_kx, temp_ky, temp_kt);
 			//path_following.setGain(1.1, 2.2, 3.3);
 

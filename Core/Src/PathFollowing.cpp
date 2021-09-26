@@ -84,8 +84,8 @@ void PathFollowing::setTargetPathSingle(double x, double y, double th)
 
 void PathFollowing::setTargetPathMulti()
 {
-	sd_read_array_double("Position", "2021-08-24delta_theta.txt", LOG_DATA_SIZE_DIS, log_delta_thetas_);
-	sd_read_array_double("Position", "2021-08-24delta_distance.txt", LOG_DATA_SIZE_DIS, log_distances_);
+	sd_read_array_double("Pos", "d_th.txt", LOG_DATA_SIZE_DIS, log_delta_thetas_);
+	sd_read_array_double("Pos", "d_dis.txt", LOG_DATA_SIZE_DIS, log_distances_);
 
 	mon_log_dis = log_distances_[1];
 	mon_log_th = log_delta_thetas_[1];
