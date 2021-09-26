@@ -51,6 +51,12 @@ bool PathFollowing::isNear(const double src_data, const double target_data, cons
 void PathFollowing::init()
 {
 	path_following_initialize();
+
+	double temp_kx, temp_ky, temp_kt;
+	sd_read_array_double("Params", "kx.txt", 1, &temp_kx);
+	sd_read_array_double("Params", "ky.txt", 1, &temp_ky);
+	sd_read_array_double("Params", "kt.txt", 1, &temp_kt);
+	setGain(temp_kx, temp_ky, temp_kt);
 }
 
 void PathFollowing::setGain(double kx, double ky, double kt)
@@ -84,8 +90,8 @@ void PathFollowing::setTargetPathSingle(double x, double y, double th)
 
 void PathFollowing::setTargetPathMulti()
 {
-	sd_read_array_double("Pos", "d_th.txt", LOG_DATA_SIZE_DIS, log_delta_thetas_);
-	sd_read_array_double("Pos", "d_dis.txt", LOG_DATA_SIZE_DIS, log_distances_);
+	sd_read_array_double("Pos", "D_TH_S.txt", LOG_DATA_SIZE_DIS, log_delta_thetas_);
+	sd_read_array_double("Pos", "D_DIS_S.txt", LOG_DATA_SIZE_DIS, log_distances_);
 
 	mon_log_dis = log_distances_[1];
 	mon_log_th = log_delta_thetas_[1];

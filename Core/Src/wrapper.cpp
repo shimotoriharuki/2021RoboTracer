@@ -45,8 +45,6 @@ PathFollowing path_following;
 double mon_f, mon_d;
 double mon_v, mon_w;
 
-bool flag = false;
-
 void batteryLowMode()
 {
 	lcd_clear();
@@ -93,19 +91,19 @@ void cppInit(void)
 	encoder.init();
 	imu.init();
 
-	//line_sensor.calibration();
+	line_sensor.calibration();
 	HAL_Delay(1000);
 
 	led.fullColor('M');
-	//imu.calibration();
+	imu.calibration();
 
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	line_trace.setGain(0.0005, 0.000002, 0);
 
-	//velocity_ctrl.setVelocityGain(1.5, 0, 20);
-	velocity_ctrl.setVelocityGain(0, 0, 0);
-	//velocity_ctrl.setOmegaGain(0.05, 0, 7);
-	velocity_ctrl.setOmegaGain(0.0, 0, 0);
+	velocity_ctrl.setVelocityGain(1.5, 0, 20);
+	//velocity_ctrl.setVelocityGain(0, 0, 0);
+	velocity_ctrl.setOmegaGain(0.05, 0, 7);
+	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
 
 	encoder.clearDistance();
@@ -127,14 +125,12 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-	/*
+
 	if(encoder.getTotalDistance() >= 10){
 		logger.storeDistanceAndTheta(encoder.getTotalDistance(), odometry.getTheta());
 		encoder.clearTotalCnt();
 		odometry.clearPotition();
 	}
-	*/
-
 
 	encoder.clearCnt();
 
@@ -154,13 +150,6 @@ void cppFlip10ms(void)
 	logger.storeLog(line_sensor.sensor[7]);
 
 	//path_following.setGain(0.0, 0.0, 0.0);
-	static double x, y, th;
-	if(flag == true){
-		x += 0.001;
-		y += 0.00;
-		th += 0.00;
-	}
-	//path_following.setTargetPathSingle(x, y, th);
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
 	path_following.targetUpdate();
 	path_following.flip();
@@ -353,12 +342,12 @@ void cppLoop(void)
 			odometry.clearPotition();
 			logger.start();
 
-			HAL_Delay(10000);
+			HAL_Delay(3000);
 
 			line_trace.stop();
 			logger.stop();
 
-			logger.saveDistanceAndTheta("Position", "delta_distance.txt", "delta_theta.txt");
+			logger.saveDistanceAndTheta("Pos", "d_dis_s.txt", "d_th_s.txt");
 
 			led.LR(-1, 0);
 		}
@@ -389,14 +378,12 @@ void cppLoop(void)
 			encoder.clearDistance();
 			odometry.clearPotition();
 			path_following.start();
-			//velocity_ctrl.start();
-			flag = true;
+			velocity_ctrl.start();
 
 			HAL_Delay(10000);
 
 			path_following.stop();
 			velocity_ctrl.stop();
-			flag = false;
 
 			led.LR(-1, 0);
 		}
@@ -407,16 +394,18 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("%3.1lf     ", path_following.getKxVal());
+		lcd_printf("%4.2lf    ", path_following.getKxVal());
 		lcd_locate(0,1);
-		lcd_printf("%3.1lf,%3.1lf", path_following.getKyVal(), path_following.getKtVal());
+		lcd_printf("%4.2lf%4.2lf", path_following.getKyVal(), path_following.getKtVal());
 
-		static double adj_kx, adj_ky, adj_kt;
+		static double adj_kx = path_following.getKxVal();
+		static double adj_ky = path_following.getKyVal();
+		static double adj_kt = path_following.getKtVal();
 		static int16_t pf_gain_selector;
 
 		if(joy_stick.getValue() == JOY_U){
 			led.LR(-1, 1);
-			HAL_Delay(100);
+			HAL_Delay(300);
 
 			pf_gain_selector++;
 			if(pf_gain_selector >= 3) pf_gain_selector = 0;
@@ -425,16 +414,16 @@ void cppLoop(void)
 		}
 		else if(joy_stick.getValue() == JOY_R){
 			led.LR(-1, 1);
-			HAL_Delay(100);
+			HAL_Delay(300);
 
 			if(pf_gain_selector == 0){
-				adj_kx++;
+				adj_kx = adj_kx + 0.01;
 			}
 			else if(pf_gain_selector == 1){
-				adj_ky++;
+				adj_ky = adj_ky + 0.01;
 			}
 			else{
-				adj_kt++;
+				adj_kt = adj_kt + 0.01;
 			}
 
 			led.fullColor('R');
@@ -444,16 +433,16 @@ void cppLoop(void)
 
 		else if(joy_stick.getValue() == JOY_L){
 			led.LR(-1, 1);
-			HAL_Delay(100);
+			HAL_Delay(300);
 
 			if(pf_gain_selector == 0){
-				adj_kx--;
+				adj_kx = adj_kx - 0.01;
 			}
 			else if(pf_gain_selector == 1){
-				adj_ky--;
+				adj_ky = adj_ky - 0.01;
 			}
 			else{
-				adj_kt--;
+				adj_kt = adj_kt - 0.01;
 			}
 
 			led.fullColor('R');
@@ -462,7 +451,7 @@ void cppLoop(void)
 		}
 		else if(joy_stick.getValue() == JOY_D){
 			led.LR(-1, 1);
-			HAL_Delay(100);
+			HAL_Delay(300);
 
 			double temp_kx, temp_ky, temp_kt;
 			sd_read_array_double("Params", "kx.txt", 1, &temp_kx);
@@ -478,7 +467,7 @@ void cppLoop(void)
 		}
 		else if(joy_stick.getValue() == JOY_C){
 			led.LR(-1, 1);
-			HAL_Delay(100);
+			HAL_Delay(300);
 
 			sd_write_array_double("Params", "kx.txt", 1, &adj_kx, OVER_WRITE);
 			sd_write_array_double("Params", "ky.txt", 1, &adj_ky, OVER_WRITE);
