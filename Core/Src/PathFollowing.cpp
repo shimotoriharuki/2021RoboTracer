@@ -90,24 +90,41 @@ void PathFollowing::setTargetPathSingle(double x, double y, double th)
 
 void PathFollowing::setTargetPathMulti()
 {
-	sd_read_array_double("Pos", "D_TH_S.txt", LOG_DATA_SIZE_DIS, log_delta_thetas_);
-	sd_read_array_double("Pos", "D_DIS_S.txt", LOG_DATA_SIZE_DIS, log_distances_);
+	sd_read_array_double("Pos", "TH_S2.txt", LOG_DATA_SIZE_DIS, log_delta_thetas_);
+	sd_read_array_double("Pos", "DIS_S2.txt", LOG_DATA_SIZE_DIS, log_distances_);
 
 	mon_log_dis = log_distances_[1];
 	mon_log_th = log_delta_thetas_[1];
 }
 
-void PathFollowing::targetUpdate()
+bool PathFollowing::targetUpdate(double &v, double &w)
 {
+	bool update_flag = false;
+
 	if(execute_flag_ == true){
 		//if(isNear(rtU.x, x_tar_, 10) == true && isNear(rtU.y, y_tar_, 30) == true && isNear(rtU.th_cur, th_tar_, 1.100) == true){
 		if(isNear(rtU.x, x_tar_, 10) == true && isNear(rtU.y, y_tar_, 10) == true && isNear(rtU.th_cur, th_tar_, 3) == true){
+			update_flag = true;
 			ref_num++;
 			x_tar_ = x_tar_ + log_distances_[ref_num] * cos(th_tar_ + log_delta_thetas_[ref_num] / 2);
 			y_tar_ = y_tar_ + log_distances_[ref_num] * sin(th_tar_ + log_delta_thetas_[ref_num] / 2);
 			th_tar_ = th_tar_ + log_delta_thetas_[ref_num];
+
+			rtU.target_x = x_tar_;
+			rtU.target_y = y_tar_;
+			rtU.th = th_tar_;
+
+			flip();
+
+			v = rtY.V_tar;
+			w = rtY.tar;
+		}
+		else{
+			update_flag = false;
 		}
 		if(ref_num >= LOG_DATA_SIZE_DIS) ref_num = LOG_DATA_SIZE_DIS;
+
+
 
 	}
 
@@ -116,6 +133,7 @@ void PathFollowing::targetUpdate()
 	mon_y = y_tar_;
 	mon_th = th_tar_;
 
+	return update_flag;
 }
 
 

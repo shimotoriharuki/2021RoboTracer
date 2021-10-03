@@ -43,7 +43,7 @@ Odometry odometry(&encoder, &imu, &velocity_ctrl);
 PathFollowing path_following;
 
 double mon_f, mon_d;
-double mon_v, mon_w;
+float mon_v, mon_w;
 
 void batteryLowMode()
 {
@@ -91,7 +91,7 @@ void cppInit(void)
 	encoder.init();
 	imu.init();
 
-	line_sensor.calibration();
+	//line_sensor.calibration();
 	HAL_Delay(1000);
 
 	led.fullColor('M');
@@ -126,11 +126,13 @@ void cppFlip1ms(void)
 	motor.motorCtrl();
 
 
+	/*
 	if(encoder.getTotalDistance() >= 10){
 		logger.storeDistanceAndTheta(encoder.getTotalDistance(), odometry.getTheta());
 		encoder.clearTotalCnt();
 		odometry.clearPotition();
 	}
+	*/
 
 	encoder.clearCnt();
 
@@ -149,14 +151,28 @@ void cppFlip10ms(void)
 {
 	logger.storeLog(line_sensor.sensor[7]);
 
-	//path_following.setGain(0.0, 0.0, 0.0);
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
-	path_following.targetUpdate();
+	double temp_v, temp_w;
+	static double tar_v, tar_w;
+	if(path_following.targetUpdate(temp_v, temp_w) == true){
+		tar_v = temp_v;
+		tar_w = temp_w;
+	}
+	mon_v = tar_v;
+	mon_w = tar_w;
+
+	velocity_ctrl.setVelocity(-tar_v, tar_w);
+	/*
+	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
 	path_following.flip();
 
-	path_following.getTargetVelocitys(mon_v, mon_w);
+	double v, w;
+	path_following.getTargetVelocitys(v, w);
+	mon_v = v;
+	mon_w = w;
 
-	velocity_ctrl.setVelocity(mon_v, mon_w);
+	velocity_ctrl.setVelocity(-mon_v, mon_w);
+	*/
 }
 
 void cppExit(uint16_t gpio_pin)
@@ -332,7 +348,7 @@ void cppLoop(void)
 			HAL_Delay(500);
 			led.LR(-1, 1);
 
-			line_trace.setNormalRatio(0.1);
+			line_trace.setNormalRatio(0.07);
 			line_trace.start();
 			HAL_Delay(500);
 
@@ -347,7 +363,7 @@ void cppLoop(void)
 			line_trace.stop();
 			logger.stop();
 
-			logger.saveDistanceAndTheta("Pos", "d_dis_s.txt", "d_th_s.txt");
+			logger.saveDistanceAndTheta("Pos", "dis_s2.txt", "th_s2.txt");
 
 			led.LR(-1, 0);
 		}
@@ -378,9 +394,9 @@ void cppLoop(void)
 			encoder.clearDistance();
 			odometry.clearPotition();
 			path_following.start();
-			velocity_ctrl.start();
+			//velocity_ctrl.start();
 
-			HAL_Delay(10000);
+			HAL_Delay(4000);
 
 			path_following.stop();
 			velocity_ctrl.stop();

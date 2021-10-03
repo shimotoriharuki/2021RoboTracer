@@ -32,12 +32,9 @@ void Odometry::calcPotition()
 	y_ = y_ + distance * sin(theta_ + delta_theta_ / 2);
 	theta_ = theta_ + delta_theta_;
 
-
 	monitor_x = x_;
 	monitor_y = y_;
 	monitor_theta = theta_;
-
-
 }
 
 void Odometry::flip()

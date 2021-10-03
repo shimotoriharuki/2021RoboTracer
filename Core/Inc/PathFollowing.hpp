@@ -34,7 +34,7 @@ public:
 	double getKtVal();
 	void setTargetPathSingle(double, double, double);
 	void setTargetPathMulti();
-	void targetUpdate();
+	bool targetUpdate(double &, double &);
 	void setCurrentPath(double, double, double);
 	void getTargetVelocitys(double &, double &);
 	void flip();
