@@ -410,9 +410,9 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("%4.2lf    ", path_following.getKxVal());
+		lcd_printf("%4.2lf    ", path_following.getKxVal()*1000);
 		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", path_following.getKyVal(), path_following.getKtVal());
+		lcd_printf("%4.2lf%4.2lf", path_following.getKyVal()*1000, path_following.getKtVal()*1000);
 
 		static double adj_kx = path_following.getKxVal();
 		static double adj_ky = path_following.getKyVal();
@@ -433,13 +433,13 @@ void cppLoop(void)
 			HAL_Delay(300);
 
 			if(pf_gain_selector == 0){
-				adj_kx = adj_kx + 0.01;
+				adj_kx = adj_kx + 0.00001;
 			}
 			else if(pf_gain_selector == 1){
-				adj_ky = adj_ky + 0.01;
+				adj_ky = adj_ky + 0.00001;
 			}
 			else{
-				adj_kt = adj_kt + 0.01;
+				adj_kt = adj_kt + 0.00001;
 			}
 
 			led.fullColor('R');
@@ -452,13 +452,13 @@ void cppLoop(void)
 			HAL_Delay(300);
 
 			if(pf_gain_selector == 0){
-				adj_kx = adj_kx - 0.01;
+				adj_kx = adj_kx - 0.00001;
 			}
 			else if(pf_gain_selector == 1){
-				adj_ky = adj_ky - 0.01;
+				adj_ky = adj_ky - 0.00001;
 			}
 			else{
-				adj_kt = adj_kt - 0.01;
+				adj_kt = adj_kt - 0.00001;
 			}
 
 			led.fullColor('R');

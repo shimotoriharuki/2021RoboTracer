@@ -123,9 +123,8 @@ void path_following_step(void)
    *  Store in Global RAM
    */
   rtb_Uk1 = rtb_TSamp - rtDW.UD_DSTATE;
-  //mon2 = rtb_Uk1;
-  mon1 = rtb_TSamp;
-  mon2 = rtDW.UD_DSTATE;
+  //mon1 = rtb_TSamp;
+  //mon2 = rtDW.UD_DSTATE;
 
   /* Math: '<S1>/Square' */
   rtb_Square = rtb_Uk1 * rtb_Uk1;

@@ -124,8 +124,6 @@ bool PathFollowing::targetUpdate(double &v, double &w)
 		}
 		if(ref_num >= LOG_DATA_SIZE_DIS) ref_num = LOG_DATA_SIZE_DIS;
 
-
-
 	}
 
 	mon_ref_num = ref_num;
