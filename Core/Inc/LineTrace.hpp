@@ -12,6 +12,7 @@
 #include "LineSensor.hpp"
 #include "LED.hpp"
 #include "VelocityCtrl.hpp"
+#include "HAL_SDcard_lib.h"
 
 #define DELTA_T 0.001
 #define ANGLE_BETWEEN_SENSORS 0.17104 //[rad]
@@ -30,6 +31,7 @@ private:
 	VelocityCtrl *velocity_ctrl_;
 	LED led_;
 	float kp_, kd_, ki_;
+	float kp_velo_, kd_velo_, ki_velo_;
 	bool excution_flag_;
 	float normal_ratio_;
 	float sensor_values_[SENSOR_NUM];
@@ -41,13 +43,21 @@ private:
 	void calcStandardAngle(float &, uint16_t &);
 	void calcNormalizedSensorValue(const uint16_t, float &, float &);
 	void calcDeltaTheta(const float, const float, float &);
-	void pid();
+	void pidTrace();
+	void pidAngularVelocityTrace();
 	void steeringAngleTrace();
 
 public:
 	LineTrace(Motor *, LineSensor *, VelocityCtrl *);
 	void init();
 	void setGain(float, float, float);
+	void setVeloGain(float, float, float);
+	float getKp();
+	float getKi();
+	float getKd();
+	float getKpV();
+	float getKiV();
+	float getKdV();
 	void setNormalRatio(float);
 	void setTargetVelocity(float);
 	void flip();

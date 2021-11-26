@@ -74,6 +74,13 @@ void cppInit(void)
 	power_sensor.init();
 	HAL_Delay(100);
 	power_sensor.updateValues();
+
+	lcd_clear();
+	lcd_locate(0,0);
+	lcd_printf("Voltage");
+	lcd_locate(0,1);
+	lcd_printf("%f", power_sensor.getButteryVoltage());
+
 	if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
 
 	// -----------initialize-------//
@@ -90,8 +97,9 @@ void cppInit(void)
 	motor.init();
 	encoder.init();
 	imu.init();
+	line_trace.init();
 
-	//line_sensor.calibration();
+	line_sensor.calibration();
 	HAL_Delay(1000);
 
 	led.fullColor('M');
@@ -151,28 +159,16 @@ void cppFlip10ms(void)
 {
 	logger.storeLog(line_sensor.sensor[7]);
 
-	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
-	double temp_v, temp_w;
-	static double tar_v, tar_w;
-	if(path_following.targetUpdate(temp_v, temp_w) == true){
-		tar_v = temp_v;
-		tar_w = temp_w;
-	}
-	mon_v = tar_v;
-	mon_w = tar_w;
-
-	velocity_ctrl.setVelocity(-tar_v, tar_w);
 	/*
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
-	path_following.flip();
 
-	double v, w;
-	path_following.getTargetVelocitys(v, w);
-	mon_v = v;
-	mon_w = w;
-
-	velocity_ctrl.setVelocity(-mon_v, mon_w);
+	if(path_following.isTargetNear() == true){
+		path_following.targetUpdate();
+		path_following.flip();
+	}
+	velocity_ctrl.setVelocity(path_following.getV(), path_following.getW());
 	*/
+
 }
 
 void cppExit(uint16_t gpio_pin)
@@ -183,13 +179,92 @@ void cppExit(uint16_t gpio_pin)
 void cppLoop(void)
 {
 	switch(rotary_switch.getValue()){
+	static int16_t selector;
 
 	case 0:
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("LCD");
+		lcd_printf("%4.2lf    ", line_trace.getKpV()*1000);
 		lcd_locate(0,1);
-		lcd_printf("TEST0");
+		lcd_printf("%4.2lf%4.2lf", line_trace.getKiV()*1000, line_trace.getKdV()*1000);
+
+		static double adj_kp_v = line_trace.getKpV();
+		static double adj_ki_v = line_trace.getKiV();
+		static double adj_kd_v = line_trace.getKdV();
+
+		if(joy_stick.getValue() == JOY_U){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			selector++;
+			if(selector >= 3) selector = 0;
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_R){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			if(selector == 0){
+				adj_kp_v = adj_kp_v + 0.00001;
+			}
+			else if(selector == 1){
+				adj_ki_v = adj_ki_v + 0.00001;
+			}
+			else{
+				adj_kd_v = adj_kd_v + 0.00001;
+			}
+
+			led.fullColor('R');
+
+			led.LR(-1, 0);
+		}
+
+		else if(joy_stick.getValue() == JOY_L){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			if(selector == 0){
+				adj_kp_v = adj_kp_v - 0.00001;
+			}
+			else if(selector == 1){
+				adj_ki_v = adj_ki_v - 0.00001;
+			}
+			else{
+				adj_kd_v = adj_kd_v - 0.00001;
+			}
+
+			led.fullColor('R');
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_D){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			double temp_kp_v, temp_ki_v, temp_kd_v;
+			sd_read_array_double("Params", "kp_v.txt", 1, &temp_kp_v);
+			sd_read_array_double("Params", "ki_v.txt", 1, &temp_ki_v);
+			sd_read_array_double("Params", "kd_v.txt", 1, &temp_kd_v);
+			line_trace.setVeloGain(temp_kp_v, temp_ki_v, temp_kd_v);
+
+			adj_kp_v = temp_kp_v;
+			adj_ki_v = temp_kp_v;
+			adj_kd_v = temp_kp_v;
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			sd_write_array_double("Params", "kp_v.txt", 1, &adj_kp_v, OVER_WRITE);
+			sd_write_array_double("Params", "ki_v.txt", 1, &adj_ki_v, OVER_WRITE);
+			sd_write_array_double("Params", "kd_v.txt", 1, &adj_kd_v, OVER_WRITE);
+			line_trace.setVeloGain(adj_kp_v, adj_ki_v, adj_kd_v);
+
+			led.LR(-1, 0);
+		}
 		break;
 
 	case 1:
@@ -197,14 +272,14 @@ void cppLoop(void)
 		lcd_locate(0,0);
 		lcd_printf("velocity");
 		lcd_locate(0,1);
-		lcd_printf("test");
+		lcd_printf("trace");
 
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 
-			logger.start();
 			velocity_ctrl.start();
-			velocity_ctrl.setVelocity(0.0, 0.0);
+			line_trace.start();
+			line_trace.setTargetVelocity(0.8);
 			led.LR(1, -1);
 
 			HAL_Delay(3000);
@@ -394,7 +469,7 @@ void cppLoop(void)
 			encoder.clearDistance();
 			odometry.clearPotition();
 			path_following.start();
-			//velocity_ctrl.start();
+			velocity_ctrl.start();
 
 			HAL_Delay(4000);
 
@@ -417,14 +492,13 @@ void cppLoop(void)
 		static double adj_kx = path_following.getKxVal();
 		static double adj_ky = path_following.getKyVal();
 		static double adj_kt = path_following.getKtVal();
-		static int16_t pf_gain_selector;
 
 		if(joy_stick.getValue() == JOY_U){
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			pf_gain_selector++;
-			if(pf_gain_selector >= 3) pf_gain_selector = 0;
+			selector++;
+			if(selector >= 3) selector = 0;
 
 			led.LR(-1, 0);
 		}
@@ -432,10 +506,10 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			if(pf_gain_selector == 0){
+			if(selector == 0){
 				adj_kx = adj_kx + 0.00001;
 			}
-			else if(pf_gain_selector == 1){
+			else if(selector == 1){
 				adj_ky = adj_ky + 0.00001;
 			}
 			else{
@@ -451,10 +525,10 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			if(pf_gain_selector == 0){
+			if(selector == 0){
 				adj_kx = adj_kx - 0.00001;
 			}
-			else if(pf_gain_selector == 1){
+			else if(selector == 1){
 				adj_ky = adj_ky - 0.00001;
 			}
 			else{

@@ -109,7 +109,8 @@ void path_following_step(void)
    * About '<S5>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  rtb_TSamp = rtU.target_x * 1000.0;
+  //rtb_TSamp = rtU.target_x * 1000.0;
+  rtb_TSamp = rtU.target_x * 1;
 
   /* Sum: '<S5>/Diff' incorporates:
    *  UnitDelay: '<S5>/UD'
@@ -123,8 +124,7 @@ void path_following_step(void)
    *  Store in Global RAM
    */
   rtb_Uk1 = rtb_TSamp - rtDW.UD_DSTATE;
-  //mon1 = rtb_TSamp;
-  //mon2 = rtDW.UD_DSTATE;
+  mon1 = rtb_Uk1;
 
   /* Math: '<S1>/Square' */
   rtb_Square = rtb_Uk1 * rtb_Uk1;
@@ -135,7 +135,8 @@ void path_following_step(void)
    * About '<S6>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  rtb_TSamp_gl = rtU.target_y * 1000.0;
+  //rtb_TSamp_gl = rtU.target_y * 1000.0;
+  rtb_TSamp_gl = rtU.target_y * 1;
 
   /* Sum: '<S6>/Diff' incorporates:
    *  UnitDelay: '<S6>/UD'
@@ -167,7 +168,8 @@ void path_following_step(void)
    * About '<S4>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  rtb_Square = rtU.th * 1000.0;
+  //rtb_Square = rtU.th * 1000.0;
+  rtb_Square = rtU.th * 1;
 
   /* Sum: '<S4>/Diff' incorporates:
    *  UnitDelay: '<S4>/UD'
@@ -213,7 +215,8 @@ void path_following_step(void)
    *  Sum: '<S3>/Add5'
    *  Trigonometry: '<S3>/Trigonometric Function2'
    */
-  rtY.V_tar = rtParam.kx * rtDW.Add4 + cos(rtDW.Add3) * rtb_Uk1;
+  //rtY.V_tar = rtParam.kx * rtDW.Add4 + cos(rtDW.Add3) * rtb_Uk1;
+  rtY.V_tar = rtParam.kx * rtDW.Add4 + cos(rtDW.Add3) * 0.1;
 
   /* Outport: '<Root>/��_tar' incorporates:
    *  Gain: '<S3>/Gain1'
@@ -223,8 +226,10 @@ void path_following_step(void)
    *  Sum: '<S3>/Add2'
    *  Trigonometry: '<S3>/Trigonometric Function1'
    */
-  rtY.tar = (rtParam.ky * rtDW.Add5 + rtParam.kt * sin(rtDW.Add3)) * rtb_Uk1 + rtb_Diff;
+  //rtY.tar = (rtParam.ky * rtDW.Add5 + rtParam.kt * sin(rtDW.Add3)) * rtb_Uk1 + rtb_Diff;
+  rtY.tar = (rtParam.ky * rtDW.Add5 + rtParam.kt * sin(rtDW.Add3)) * 0.1 + 0;
 
+  mon2 = rtb_Diff;
 
   /* End of Outputs for SubSystem: '<S1>/ClacTarget_V��1' */
   /* End of Outputs for SubSystem: '<Root>/path_following' */

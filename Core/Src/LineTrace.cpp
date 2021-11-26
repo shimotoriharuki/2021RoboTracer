@@ -119,7 +119,7 @@ void LineTrace::calcDeltaTheta(const float norm_l, const float norm_r, float &de
 	delta_theta = (phi * ANGLE_BETWEEN_SENSORS/2) / (PI / 4);
 }
 
-void LineTrace::pid()
+void LineTrace::pidTrace()
 {
 	float diff = calcError();
 	static float pre_diff = 0;
@@ -134,6 +134,26 @@ void LineTrace::pid()
 	float right_ratio = normal_ratio_ - (p + d + i);
 
 	motor_->setRatio(left_ratio, right_ratio);
+
+	pre_diff = diff;
+
+}
+
+void LineTrace::pidAngularVelocityTrace()
+{
+	float diff = calcError();
+	static float pre_diff = 0;
+	float p, d;
+	static float i;
+	float target_omega = 0;
+
+	p = kp_velo_ * diff;
+	d = kd_velo_ * (diff - pre_diff) / DELTA_T;
+	i += ki_velo_ * diff * DELTA_T;
+
+	target_omega = p + d + i;
+
+	velocity_ctrl_->setVelocity(target_velocity_, target_omega);
 
 	pre_diff = diff;
 
@@ -162,14 +182,56 @@ void LineTrace::steeringAngleTrace()
 // -------public---------- //
 void LineTrace::init()
 {
+	double temp_kp_v, temp_ki_v, temp_kd_v;
+	sd_read_array_double("Params", "kp_v.txt", 1, &temp_kp_v);
+	sd_read_array_double("Params", "ki_v.txt", 1, &temp_ki_v);
+	sd_read_array_double("Params", "kd_v.txt", 1, &temp_kd_v);
+	setVeloGain(temp_kp_v, temp_ki_v, temp_kd_v);
 
 }
 
-void LineTrace::setGain(float kp, float kd, float ki)
+void LineTrace::setGain(float kp, float ki, float kd)
 {
 	kp_ = kp;
-	kd_ = kd;
 	ki_ = ki;
+	kd_ = kd;
+}
+
+
+void LineTrace::setVeloGain(float kp, float ki, float kd)
+{
+	kp_velo_ = kp;
+	ki_velo_ = ki;
+	kd_velo_ = kd;
+}
+
+float LineTrace::getKp()
+{
+	return kp_;
+}
+
+
+float LineTrace::getKi()
+{
+	return ki_;
+}
+
+float LineTrace::getKd()
+{
+	return kd_;
+}
+
+float LineTrace::getKpV()
+{
+	return kp_velo_;
+}
+float LineTrace::getKiV()
+{
+	return ki_velo_;
+}
+float LineTrace::getKdV()
+{
+	return kd_velo_;
 }
 
 void LineTrace::setNormalRatio(float ratio)
@@ -184,9 +246,9 @@ void LineTrace::setTargetVelocity(float velocity)
 
 void LineTrace::flip()
 {
-
 	if(excution_flag_ == true){
-		pid();
+		//pidTrace();
+		pidAngularVelocityTrace();
 		//steeringAngleTrace();
 	}
 	if(line_sensor_->emergencyStop() == true){

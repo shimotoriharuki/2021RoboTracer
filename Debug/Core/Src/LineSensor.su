@@ -4,4 +4,4 @@ LineSensor.cpp:38:6:void LineSensor::storeSensorValues()	24	static
 LineSensor.cpp:52:6:void LineSensor::updateSensorValues()	64	static
 LineSensor.cpp:77:6:void LineSensor::calibration()	176	static
 LineSensor.cpp:130:6:void LineSensor::printSensorValues()	232	static
-LineSensor.cpp:136:6:bool LineSensor::emergencyStop()	40	static
+LineSensor.cpp:135:6:bool LineSensor::emergencyStop()	40	static

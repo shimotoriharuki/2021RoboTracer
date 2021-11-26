@@ -97,33 +97,26 @@ void PathFollowing::setTargetPathMulti()
 	mon_log_th = log_delta_thetas_[1];
 }
 
-bool PathFollowing::targetUpdate(double &v, double &w)
+bool PathFollowing::isTargetNear()
 {
-	bool update_flag = false;
+	if(isNear(rtU.x, x_tar_, 10) == true && isNear(rtU.y, y_tar_, 10) == true && isNear(rtU.th_cur, th_tar_, 3) == true)
+		return true;
+	else return false;
+}
 
+void PathFollowing::targetUpdate()
+{
 	if(execute_flag_ == true){
-		//if(isNear(rtU.x, x_tar_, 10) == true && isNear(rtU.y, y_tar_, 30) == true && isNear(rtU.th_cur, th_tar_, 1.100) == true){
-		if(isNear(rtU.x, x_tar_, 10) == true && isNear(rtU.y, y_tar_, 10) == true && isNear(rtU.th_cur, th_tar_, 3) == true){
-			update_flag = true;
-			ref_num++;
-			x_tar_ = x_tar_ + log_distances_[ref_num] * cos(th_tar_ + log_delta_thetas_[ref_num] / 2);
-			y_tar_ = y_tar_ + log_distances_[ref_num] * sin(th_tar_ + log_delta_thetas_[ref_num] / 2);
-			th_tar_ = th_tar_ + log_delta_thetas_[ref_num];
+		ref_num++;
+		x_tar_ = x_tar_ + log_distances_[ref_num] * cos(th_tar_ + log_delta_thetas_[ref_num] / 2);
+		y_tar_ = y_tar_ + log_distances_[ref_num] * sin(th_tar_ + log_delta_thetas_[ref_num] / 2);
+		th_tar_ = th_tar_ + log_delta_thetas_[ref_num];
 
-			rtU.target_x = x_tar_;
-			rtU.target_y = y_tar_;
-			rtU.th = th_tar_;
+		rtU.target_x = x_tar_;
+		rtU.target_y = y_tar_;
+		rtU.th = th_tar_;
 
-			flip();
-
-			v = rtY.V_tar;
-			w = rtY.tar;
-		}
-		else{
-			update_flag = false;
-		}
 		if(ref_num >= LOG_DATA_SIZE_DIS) ref_num = LOG_DATA_SIZE_DIS;
-
 	}
 
 	mon_ref_num = ref_num;
@@ -131,28 +124,37 @@ bool PathFollowing::targetUpdate(double &v, double &w)
 	mon_y = y_tar_;
 	mon_th = th_tar_;
 
-	return update_flag;
 }
-
 
 void PathFollowing::setCurrentPath(double x, double y, double th)
 {
-	rtU.x= x;
+	rtU.x = x;
 	rtU.y = y;
 	rtU.th_cur = th;
 }
 
+/*
 void PathFollowing::getTargetVelocitys(double &v, double &omega)
 {
 	v = rtY.V_tar;
 	omega = rtY.tar;
-
 }
+*/
 void PathFollowing::flip()
 {
 	if(execute_flag_ == true){
 		path_following_step();
 	}
+}
+
+double PathFollowing::getV()
+{
+	return rtY.V_tar;
+}
+
+double PathFollowing::getW()
+{
+	return rtY.tar;
 }
 
 void PathFollowing::start()
@@ -167,5 +169,18 @@ void PathFollowing::stop()
 	x_tar_ = 0;
 	y_tar_ = 0;
 	th_tar_ = 0;
-}
 
+	rtU.target_x = 0;
+	rtU.target_y = 0;
+	rtU.th = 0;
+	rtU.x = 0;
+	rtU.y = 0;
+	rtU.th_cur = 0;
+
+	rtDW.Add4 = 0;
+	rtDW.Add5 = 0;
+	rtDW.Add3 = 0;
+	rtDW.UD_DSTATE = 0;
+	rtDW.UD_DSTATE_o = 0;
+	rtDW.UD_DSTATE_d = 0;
+}
