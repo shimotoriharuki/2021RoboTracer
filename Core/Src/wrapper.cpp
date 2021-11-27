@@ -22,6 +22,7 @@
 #include "Logger.hpp"
 #include "Odometry.hpp"
 #include "HAL_SDcard_lib.h"
+#include "SystemIdentification.hpp"
 
 #include "PathFollowing.hpp"
 
@@ -39,6 +40,7 @@ Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
+SystemIdentification sys_ident(&logger);
 
 PathFollowing path_following;
 
@@ -131,7 +133,10 @@ void cppFlip1ms(void)
 	velocity_ctrl.flip();
 	odometry.flip();
 
+	sys_ident.updateMsig();
+
 	motor.motorCtrl();
+
 
 
 	/*
@@ -157,7 +162,7 @@ void cppFlip100ns(void)
 
 void cppFlip10ms(void)
 {
-	logger.storeLog(line_sensor.sensor[7]);
+	sys_ident.outputStore(imu.getOmega());
 
 	/*
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
@@ -295,20 +300,18 @@ void cppLoop(void)
 	case 2:
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("LOG");
+		lcd_printf("System");
 		lcd_locate(0,1);
-		lcd_printf("SAVE");
+		lcd_printf("Ident");
 
 		if(joy_stick.getValue() == JOY_C){
 			led.LR(-1, 1);
-
 			HAL_Delay(1000);
-			float f = 0.123456789123456789123456789;
-			double d = 0.123456789123456789123456789;
-			mon_f = f;
-			mon_d = d;
-			sd_write_array_float("type test", "float.txt", 1, &f, OVER_WRITE);
-			sd_write_array_double("type test", "double.txt", 1, &d, OVER_WRITE);
+			sys_ident.setInputRatio(1);
+			sys_ident.start();
+			HAL_Delay(2000);
+			sys_ident.stop();
+			sys_ident.outputSave();
 
 			led.LR(-1, 0);
 		}
