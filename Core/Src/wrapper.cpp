@@ -40,7 +40,7 @@ Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
-SystemIdentification sys_ident(&logger);
+SystemIdentification sys_ident(&logger, &motor);
 
 PathFollowing path_following;
 
@@ -101,7 +101,7 @@ void cppInit(void)
 	imu.init();
 	line_trace.init();
 
-	line_sensor.calibration();
+	//line_sensor.calibration();
 	HAL_Delay(1000);
 
 	led.fullColor('M');
@@ -133,10 +133,9 @@ void cppFlip1ms(void)
 	velocity_ctrl.flip();
 	odometry.flip();
 
-	sys_ident.updateMsig();
-
 	motor.motorCtrl();
 
+	sys_ident.outputStore(imu.getOmega());
 
 
 	/*
@@ -162,8 +161,8 @@ void cppFlip100ns(void)
 
 void cppFlip10ms(void)
 {
-	//sys_ident.outputStore(imu.getOmega());
-	logger.storeLog(imu.getOmega());
+	//logger.storeLog(imu.getOmega());
+	sys_ident.updateMsig();
 
 	/*
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
@@ -308,9 +307,10 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			led.LR(-1, 1);
 			HAL_Delay(1000);
-			sys_ident.setInputRatio(1);
+
+			sys_ident.setInputRatio(0.2);
 			sys_ident.start();
-			HAL_Delay(2000);
+			HAL_Delay(10000);
 			sys_ident.stop();
 			sys_ident.outputSave();
 
@@ -575,7 +575,28 @@ void cppLoop(void)
 		break;
 
 	case 9:
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("Log");
+		lcd_locate(0,1);
+		lcd_printf("Record");
 
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+			led.LR(-1, 1);
+
+			logger.start();
+			motor.setRatio(0.2, -0.2);
+
+			HAL_Delay(3000);
+
+			logger.stop();
+			motor.setRatio(0.0, 0.0);
+
+			logger.saveLogs("SYSIDENT", "rotstep.txt");
+
+			led.LR(-1, 0);
+		}
 		break;
 
 	case 10:

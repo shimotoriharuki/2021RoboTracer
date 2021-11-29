@@ -250,14 +250,15 @@ void LineTrace::flip()
 		//pidTrace();
 		pidAngularVelocityTrace();
 		//steeringAngleTrace();
-	}
-	if(line_sensor_->emergencyStop() == true){
-		motor_->setRatio(0, 0);
-		led_.LR(1, -1);
-	}
-	else{
-		led_.LR(0, -1);
 
+		if(line_sensor_->emergencyStop() == true){
+			motor_->setRatio(0, 0);
+			led_.LR(1, -1);
+		}
+		else{
+			led_.LR(0, -1);
+
+		}
 	}
 
 }

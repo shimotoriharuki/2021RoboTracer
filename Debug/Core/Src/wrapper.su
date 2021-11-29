@@ -1,23 +1,9 @@
 wrapper.cpp:50:6:void batteryLowMode()	8	static
 wrapper.cpp:71:6:void cppInit()	16	static
 wrapper.cpp:126:6:void cppFlip1ms()	8	static
-wrapper.cpp:158:6:void cppFlip100ns()	8	static
-wrapper.cpp:163:6:void cppFlip10ms()	8	static
-wrapper.cpp:180:6:void cppExit(uint16_t)	16	static
-wrapper.cpp:185:6:void cppLoop()	88	static
-allocator.h:139:7:std::allocator< <template-parameter-1-1> >::~allocator() [with _Tp = signed char]	16	static
-stl_vector.h:433:7:std::vector<_Tp, _Alloc>::~vector() [with _Tp = signed char; _Alloc = std::allocator<signed char>]	24	static
-new_allocator.h:86:7:__gnu_cxx::new_allocator<_Tp>::~new_allocator() [with _Tp = signed char]	16	static
-stl_vector.h:81:14:std::_Vector_base<signed char, std::allocator<signed char> >::_Vector_impl::~_Vector_impl()	16	static
-stl_vector.h:161:7:std::_Vector_base<_Tp, _Alloc>::~_Vector_base() [with _Tp = signed char; _Alloc = std::allocator<signed char>]	16	static
-stl_vector.h:115:7:std::_Vector_base<_Tp, _Alloc>::_Tp_alloc_type& std::_Vector_base<_Tp, _Alloc>::_M_get_Tp_allocator() [with _Tp = signed char; _Alloc = std::allocator<signed char>]	16	static
-stl_construct.h:203:5:void std::_Destroy(_ForwardIterator, _ForwardIterator, std::allocator<_T2>&) [with _ForwardIterator = signed char*; _Tp = signed char]	24	static
-stl_vector.h:176:7:void std::_Vector_base<_Tp, _Alloc>::_M_deallocate(std::_Vector_base<_Tp, _Alloc>::pointer, std::size_t) [with _Tp = signed char; _Alloc = std::allocator<signed char>]	24	static
-stl_construct.h:127:5:void std::_Destroy(_ForwardIterator, _ForwardIterator) [with _ForwardIterator = signed char*]	16	static
-alloc_traits.h:461:7:static void std::allocator_traits<std::allocator<_Tp1> >::deallocate(std::allocator_traits<std::allocator<_Tp1> >::allocator_type&, std::allocator_traits<std::allocator<_Tp1> >::pointer, std::allocator_traits<std::allocator<_Tp1> >::size_type) [with _Tp = signed char]	24	static
-stl_construct.h:117:9:static void std::_Destroy_aux<true>::__destroy(_ForwardIterator, _ForwardIterator) [with _ForwardIterator = signed char*]	16	static
-new_allocator.h:116:7:void __gnu_cxx::new_allocator<_Tp>::deallocate(__gnu_cxx::new_allocator<_Tp>::pointer, __gnu_cxx::new_allocator<_Tp>::size_type) [with _Tp = signed char]	24	static
-SystemIdentification.hpp:14:7:SystemIdentification::~SystemIdentification()	16	static
-wrapper.cpp:612:1:void __static_initialization_and_destruction_0(int, int)	16	static
-wrapper.cpp:612:1:cpp)	8	static
-wrapper.cpp:612:1:cpp)	8	static
+wrapper.cpp:157:6:void cppFlip100ns()	8	static
+wrapper.cpp:162:6:void cppFlip10ms()	8	static
+wrapper.cpp:179:6:void cppExit(uint16_t)	16	static
+wrapper.cpp:184:6:void cppLoop()	88	static
+wrapper.cpp:633:1:void __static_initialization_and_destruction_0(int, int)	16	static
+wrapper.cpp:633:1:cpp)	8	static

@@ -20,5 +20,5 @@ LineTrace.cpp:232:7:float LineTrace::getKdV()	16	static
 LineTrace.cpp:237:6:void LineTrace::setNormalRatio(float)	16	static
 LineTrace.cpp:242:6:void LineTrace::setTargetVelocity(float)	16	static
 LineTrace.cpp:247:6:void LineTrace::flip()	16	static
-LineTrace.cpp:265:6:void LineTrace::start()	16	static
-LineTrace.cpp:270:6:void LineTrace::stop()	16	static
+LineTrace.cpp:266:6:void LineTrace::start()	16	static
+LineTrace.cpp:271:6:void LineTrace::stop()	16	static

@@ -9,10 +9,11 @@
 
 float mon_msig;
 
-SystemIdentification::SystemIdentification(Logger *logger) : inputVal_(0), processing_flag_(false)
+SystemIdentification::SystemIdentification(Logger *logger, Motor *motor) : msigArrayIdx_(0), inputVal_(0), processing_flag_(false)
 {
 	logger_ = logger;
-	msigItr_ = msigArray_.begin();
+	motor_ = motor;
+	//msigItr_ = msigArray_.begin();
 }
 
 void SystemIdentification::init()
@@ -36,11 +37,14 @@ void SystemIdentification::outputSave()
 void SystemIdentification::updateMsig()
 {
 	if(processing_flag_ == true){
-		inputVal_ = inputRatio_ * *msigItr_;
-		msigItr_++;
+		inputVal_ = inputRatio_ * msigArray_[msigArrayIdx_];
+		msigArrayIdx_++;
 		mon_msig = inputVal_;
 
-		if(msigItr_ == msigArray_.end()) msigItr_ = msigArray_.begin();
+		if(msigArrayIdx_ >= MSIG_SIZE) msigArrayIdx_ = MSIG_SIZE;
+
+		motor_->setRatio(inputVal_, -inputVal_);
+
 	}
 
 }
@@ -51,6 +55,7 @@ void SystemIdentification::setInputRatio(float ratio)
 
 void SystemIdentification::start()
 {
+	//logger_->resetLogs();
 	logger_->start();
 	processing_flag_ = true;
 }
@@ -59,6 +64,7 @@ void SystemIdentification::stop()
 {
 	logger_->stop();
 	processing_flag_ = false;
-	msigItr_ = msigArray_.begin();
+	msigArrayIdx_ = 0;
+	motor_->setRatio(0, 0);
 }
 
