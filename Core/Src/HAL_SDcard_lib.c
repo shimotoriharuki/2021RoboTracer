@@ -260,7 +260,7 @@ FRESULT sd_write_array_double(const char *p_folder_name, const char *p_file_name
 	fopen_folder_and_file();	//	書き込むファイルを選択
 
 	for(short i = 0 ; i < size; i++){
-		snprintf(buffer, BUFF_SIZE, "%23.10e\n", *(data + i));	//doubleをstringに変換
+		snprintf(buffer, BUFF_SIZE, "%lf\n", *(data + i));	//doubleをstringに変換
 
 		f_lseek(&fil, f_size(&fil));	//	ファイルの最後に移動
 		f_write(&fil, buffer, strlen(buffer), &bw);	//	書き込む

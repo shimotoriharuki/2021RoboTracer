@@ -41,9 +41,9 @@ void IMU::updateValues()
 
 }
 
-double IMU::getOmega()
+float IMU::getOmega()
 {
-	double corrected_zg = double(zg_) - offset_;
+	float corrected_zg = float(zg_) - offset_;
 	return -(corrected_zg / 16.4) * PI / 180;
 }
 
@@ -52,9 +52,9 @@ void IMU::calibration()
 	HAL_Delay(1000);
 
 	int16_t num = 2000;
-	double zg_vals[num];
+	float zg_vals[num];
 	for(uint16_t i = 0; i < num; i++){
-		zg_vals[i] = double(zg_);
+		zg_vals[i] = float(zg_);
 		HAL_Delay(2);
 	}
 
@@ -66,7 +66,7 @@ void IMU::calibration()
 	offset_ = sum / num;
 }
 
-double IMU::getOffsetVal()
+float IMU::getOffsetVal()
 {
 	return offset_;
 }

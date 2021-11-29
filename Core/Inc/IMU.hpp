@@ -14,16 +14,16 @@ class IMU{
 private:
 	int16_t xa_, ya_, za_;
 	int16_t xg_, yg_, zg_;
-	double offset_;
+	float offset_;
 	LED led;
 
 public:
 	IMU();
 	void init();
 	void updateValues();
-	double getOmega();
+	float getOmega();
 	void calibration();
-	double getOffsetVal();
+	float getOffsetVal();
 
 };
 

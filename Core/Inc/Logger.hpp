@@ -20,8 +20,8 @@ private:
 	float store_data_float_[LOG_DATA_SIZE_TIM];
 	uint16_t store_data_uint16_[LOG_DATA_SIZE_TIM];
 
-	double  store_distance_[LOG_DATA_SIZE_DIS];
-	double store_theta_[LOG_DATA_SIZE_DIS];
+	float  store_distance_[LOG_DATA_SIZE_DIS];
+	float store_theta_[LOG_DATA_SIZE_DIS];
 
 	bool recording_flag_;
 	//bool continuous_recording_flag_;
@@ -38,7 +38,7 @@ public:
 	void storeLogs(uint16_t *, uint8_t);
 	void storeLog(float);
 	void storeLog(uint16_t);
-	void storeDistanceAndTheta(double , double);
+	void storeDistanceAndTheta(float , float);
 
 	void saveLogs(const char *, const char *);
 	void saveDistanceAndTheta(const char *, const char *, const char *);

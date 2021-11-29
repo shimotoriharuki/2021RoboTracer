@@ -162,7 +162,8 @@ void cppFlip100ns(void)
 
 void cppFlip10ms(void)
 {
-	sys_ident.outputStore(imu.getOmega());
+	//sys_ident.outputStore(imu.getOmega());
+	logger.storeLog(imu.getOmega());
 
 	/*
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
