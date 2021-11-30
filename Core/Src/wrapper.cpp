@@ -113,7 +113,7 @@ void cppInit(void)
 
 	velocity_ctrl.setVelocityGain(1.5, 0, 20);
 	//velocity_ctrl.setVelocityGain(0, 0, 0);
-	velocity_ctrl.setOmegaGain(0.05, 0, 7);
+	velocity_ctrl.setOmegaGain(0.51189, 8.724, 0.00);
 	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
 
@@ -139,7 +139,7 @@ void cppFlip1ms(void)
 	static uint16_t twice_cnt;
 	twice_cnt++;
 	if(twice_cnt >= 2){
-		sys_ident.outputStore(imu.getOmega());
+		//sys_ident.outputStore(imu.getOmega());
 		twice_cnt = 0;
 	}
 
@@ -167,11 +167,11 @@ void cppFlip100ns(void)
 
 void cppFlip10ms(void)
 {
-	//logger.storeLog(imu.getOmega());
+	logger.storeLog(imu.getOmega());
 	static uint16_t twice_cnt;
 	twice_cnt++;
 	if(twice_cnt >= 4){
-		sys_ident.updateMsig();
+		//sys_ident.updateMsig();
 		twice_cnt = 0;
 	}
 
@@ -606,13 +606,36 @@ void cppLoop(void)
 			logger.stop();
 			motor.setRatio(0.0, 0.0);
 
-			logger.saveLogs("SYSIDENT", "rotstep.txt");
+			logger.saveLogs("SYSIDENT", "STEPRES.txt");
 
 			led.LR(-1, 0);
 		}
 		break;
 
 	case 10:
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("PID");
+		lcd_locate(0,1);
+		lcd_printf("Response");
+
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+			led.LR(-1, 1);
+
+			logger.start();
+			velocity_ctrl.start();
+			velocity_ctrl.setVelocity(0, 1);
+
+			HAL_Delay(1000);
+
+			logger.stop();
+			velocity_ctrl.stop();
+
+			logger.saveLogs("SYSIDENT", "PIDRES.txt");
+
+			led.LR(-1, 0);
+		}
 
 		break;
 

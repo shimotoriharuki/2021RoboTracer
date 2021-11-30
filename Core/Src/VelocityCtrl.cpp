@@ -53,12 +53,12 @@ void VelocityCtrl::pid()
 	static float v_i, o_i;
 
 	v_p = v_kp_ * v_diff;
-	v_d = v_kd_ * (v_diff - v_pre_diff) * DELTA_T;
 	v_i += v_ki_ * v_diff * DELTA_T;
+	v_d = v_kd_ * (v_diff - v_pre_diff) * DELTA_T;
 
 	o_p = o_kp_ * o_diff;
-	o_d = o_kd_ * (o_diff - o_pre_diff) * DELTA_T;
 	o_i += o_ki_ * o_diff * DELTA_T;
+	o_d = o_kd_ * (o_diff - o_pre_diff) * DELTA_T;
 
 	float v_left_ratio, v_right_ratio, o_left_ratio, o_right_ratio;
 
@@ -85,18 +85,18 @@ void VelocityCtrl::setVelocity(float velocity, float omega)
 	target_omega_= omega;
 }
 
-void VelocityCtrl::setVelocityGain(float kp, float kd, float ki)
+void VelocityCtrl::setVelocityGain(float kp, float ki, float kd)
 {
 	v_kp_ = kp;
-	v_kd_ = kd;
 	v_ki_ = ki;
+	v_kd_ = kd;
 }
 
-void VelocityCtrl::setOmegaGain(float kp, float kd, float ki)
+void VelocityCtrl::setOmegaGain(float kp, float ki, float kd)
 {
 	o_kp_ = kp;
-	o_kd_ = kd;
 	o_ki_ = ki;
+	o_kd_ = kd;
 }
 
 void VelocityCtrl::flip()
