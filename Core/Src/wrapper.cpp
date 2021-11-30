@@ -46,6 +46,7 @@ PathFollowing path_following;
 
 double mon_f, mon_d;
 float mon_v, mon_w;
+uint16_t mon_cnt;
 
 void batteryLowMode()
 {
@@ -135,9 +136,14 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-	sys_ident.outputStore(imu.getOmega());
+	static uint16_t twice_cnt;
+	twice_cnt++;
+	if(twice_cnt >= 2){
+		sys_ident.outputStore(imu.getOmega());
+		twice_cnt = 0;
+	}
 
-
+	//mon_cnt = twice_cnt;
 	/*
 	if(encoder.getTotalDistance() >= 10){
 		logger.storeDistanceAndTheta(encoder.getTotalDistance(), odometry.getTheta());
@@ -162,7 +168,14 @@ void cppFlip100ns(void)
 void cppFlip10ms(void)
 {
 	//logger.storeLog(imu.getOmega());
-	sys_ident.updateMsig();
+	static uint16_t twice_cnt;
+	twice_cnt++;
+	if(twice_cnt >= 4){
+		sys_ident.updateMsig();
+		twice_cnt = 0;
+	}
+
+	mon_cnt = twice_cnt;
 
 	/*
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());

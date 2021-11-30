@@ -31,7 +31,7 @@ void SystemIdentification::outputStore(float output)
 
 void SystemIdentification::outputSave()
 {
-	logger_->saveLogs("sysident", "angvel.txt");
+	logger_->saveLogs("sysident", "rotstep.txt");
 }
 
 void SystemIdentification::updateMsig()
