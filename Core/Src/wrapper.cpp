@@ -113,7 +113,8 @@ void cppInit(void)
 
 	velocity_ctrl.setVelocityGain(1.5, 0, 20);
 	//velocity_ctrl.setVelocityGain(0, 0, 0);
-	velocity_ctrl.setOmegaGain(0.51189, 8.724, 0.00);
+	velocity_ctrl.setOmegaGain(0.05, 7, 0);
+	//velocity_ctrl.setOmegaGain(0.51189, 8.724, 0.00);
 	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
 
@@ -136,10 +137,12 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
+	logger.storeLog(imu.getOmega());
+
 	static uint16_t twice_cnt;
 	twice_cnt++;
-	if(twice_cnt >= 2){
-		//sys_ident.outputStore(imu.getOmega());
+	if(twice_cnt >= 4){
+		sys_ident.outputStore(imu.getOmega());
 		twice_cnt = 0;
 	}
 
@@ -163,15 +166,21 @@ void cppFlip1ms(void)
 void cppFlip100ns(void)
 {
 	line_sensor.storeSensorValues();
+
+	static uint8_t cnt;
+	cnt++;
+	if(cnt >= 2){
+		cnt = 0;
+		imu.storeValues();
+	}
 }
 
 void cppFlip10ms(void)
 {
-	logger.storeLog(imu.getOmega());
 	static uint16_t twice_cnt;
 	twice_cnt++;
 	if(twice_cnt >= 4){
-		//sys_ident.updateMsig();
+		sys_ident.updateMsig();
 		twice_cnt = 0;
 	}
 
@@ -313,15 +322,14 @@ void cppLoop(void)
 	case 2:
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("System");
+		lcd_printf("Msig");
 		lcd_locate(0,1);
-		lcd_printf("Ident");
+		lcd_printf("Record");
 
 		if(joy_stick.getValue() == JOY_C){
 			led.LR(-1, 1);
 			HAL_Delay(1000);
 
-			sys_ident.setInputRatio(0.2);
 			sys_ident.start();
 			HAL_Delay(10000);
 			sys_ident.stop();
@@ -590,7 +598,7 @@ void cppLoop(void)
 	case 9:
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Log");
+		lcd_printf("Step");
 		lcd_locate(0,1);
 		lcd_printf("Record");
 
@@ -599,9 +607,9 @@ void cppLoop(void)
 			led.LR(-1, 1);
 
 			logger.start();
-			motor.setRatio(0.2, -0.2);
+			motor.setRatio(0.3, -0.3);
 
-			HAL_Delay(3000);
+			HAL_Delay(1000);
 
 			logger.stop();
 			motor.setRatio(0.0, 0.0);

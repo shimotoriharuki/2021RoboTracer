@@ -58,7 +58,6 @@ void LineSensor::updateSensorValues()
 			temp_val[store_cnt] = store_vals_[store_cnt][ad_cnt];
 		}
 
-		//std::sort(temp_val, temp_val + AD_DATA_SIZE);
 		// sort
 		for(uint8_t i = 0; i < 10; i++){
 			for (uint8_t j = i+1; j < 10; j++) {
