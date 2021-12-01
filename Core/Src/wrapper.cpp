@@ -166,13 +166,6 @@ void cppFlip1ms(void)
 void cppFlip100ns(void)
 {
 	line_sensor.storeSensorValues();
-
-	static uint8_t cnt;
-	cnt++;
-	if(cnt >= 2){
-		cnt = 0;
-		imu.storeValues();
-	}
 }
 
 void cppFlip10ms(void)
