@@ -14,8 +14,6 @@
 
 #define PI 3.1415926535
 
-uint16_t mon_zg;
-
 IMU::IMU() : xa_(0), ya_(0), za_(0), xg_(0), yg_(0), zg_(0), offset_(0)
 {
 }
@@ -33,17 +31,19 @@ void IMU::updateValues()
 	read_gyro_data();
 	//read_accel_data();
 
-	xa_ = xa;
-	ya_ = ya;
-	za_ = za;
+	//xa_ = xa;
+	//ya_ = ya;
+	//za_ = za;
 	xg_ = xg;
 	yg_ = yg;
 	zg_ = zg;
+
 }
 
 float IMU::getOmega()
 {
 	float corrected_zg = float(zg_) - offset_;
+
 	return -(corrected_zg / 16.4) * PI / 180;
 }
 

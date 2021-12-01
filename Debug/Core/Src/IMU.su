@@ -1,6 +1,6 @@
-IMU.cpp:19:1:IMU::IMU()	16	static
-IMU.cpp:23:6:void IMU::init()	24	static
-IMU.cpp:31:6:void IMU::updateValues()	16	static
-IMU.cpp:44:7:float IMU::getOmega()	32	static
+IMU.cpp:17:1:IMU::IMU()	16	static
+IMU.cpp:21:6:void IMU::init()	24	static
+IMU.cpp:29:6:void IMU::updateValues()	16	static
+IMU.cpp:43:7:float IMU::getOmega()	32	static
 IMU.cpp:50:6:void IMU::calibration()	72	dynamic
 IMU.cpp:69:7:float IMU::getOffsetVal()	16	static
