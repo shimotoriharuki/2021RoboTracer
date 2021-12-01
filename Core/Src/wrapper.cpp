@@ -171,7 +171,7 @@ void cppFlip100ns(void)
 
 	static uint8_t cnt;
 	cnt++;
-	if(cnt >= 2){
+	if(cnt >= 2){ //200ns
 		cnt = 0;
 		imu.storeValues();
 	}

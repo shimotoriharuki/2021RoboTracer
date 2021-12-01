@@ -12680,7 +12680,7 @@ void cppFlip100ns(void)
  8005b08:	b2da      	uxtb	r2, r3
  8005b0a:	4b08      	ldr	r3, [pc, #32]	; (8005b2c <cppFlip100ns+0x34>)
  8005b0c:	701a      	strb	r2, [r3, #0]
-	if(cnt >= 2){
+	if(cnt >= 2){ //200ns
  8005b0e:	4b07      	ldr	r3, [pc, #28]	; (8005b2c <cppFlip100ns+0x34>)
  8005b10:	781b      	ldrb	r3, [r3, #0]
  8005b12:	2b01      	cmp	r3, #1
