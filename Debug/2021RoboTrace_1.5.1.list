@@ -8461,9 +8461,9 @@ static void MX_SPI2_Init(void)
  800428e:	4b0e      	ldr	r3, [pc, #56]	; (80042c8 <MX_SPI2_Init+0x64>)
  8004290:	f44f 7200 	mov.w	r2, #512	; 0x200
  8004294:	619a      	str	r2, [r3, #24]
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
  8004296:	4b0c      	ldr	r3, [pc, #48]	; (80042c8 <MX_SPI2_Init+0x64>)
- 8004298:	2220      	movs	r2, #32
+ 8004298:	2218      	movs	r2, #24
  800429a:	61da      	str	r2, [r3, #28]
   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
  800429c:	4b0a      	ldr	r3, [pc, #40]	; (80042c8 <MX_SPI2_Init+0x64>)
@@ -14516,7 +14516,7 @@ void cppLoop(void)
 			logger.start();
  8006b02:	4828      	ldr	r0, [pc, #160]	; (8006ba4 <cppLoop+0x1014>)
  8006b04:	f7fc f84d 	bl	8002ba2 <_ZN6Logger5startEv>
-			motor.setRatio(0.3, -0.3);
+			motor.setRatio(0.2, -0.2);
  8006b08:	ed9f 1b13 	vldr	d1, [pc, #76]	; 8006b58 <cppLoop+0xfc8>
  8006b0c:	ed9f 0b14 	vldr	d0, [pc, #80]	; 8006b60 <cppLoop+0xfd0>
  8006b10:	4825      	ldr	r0, [pc, #148]	; (8006ba8 <cppLoop+0x1018>)
@@ -14553,10 +14553,10 @@ void cppLoop(void)
  8006b4c:	f3af 8000 	nop.w
  8006b50:	88e368f1 	.word	0x88e368f1
  8006b54:	3ee4f8b5 	.word	0x3ee4f8b5
- 8006b58:	33333333 	.word	0x33333333
- 8006b5c:	bfd33333 	.word	0xbfd33333
- 8006b60:	33333333 	.word	0x33333333
- 8006b64:	3fd33333 	.word	0x3fd33333
+ 8006b58:	9999999a 	.word	0x9999999a
+ 8006b5c:	bfc99999 	.word	0xbfc99999
+ 8006b60:	9999999a 	.word	0x9999999a
+ 8006b64:	3fc99999 	.word	0x3fc99999
 	...
  8006b70:	2002b0be 	.word	0x2002b0be
  8006b74:	2002b100 	.word	0x2002b100
@@ -14695,8 +14695,8 @@ void cppLoop(void)
 
 	}
 
-	HAL_Delay(10);
- 8006c72:	200a      	movs	r0, #10
+	HAL_Delay(30);
+ 8006c72:	201e      	movs	r0, #30
  8006c74:	f000 f912 	bl	8006e9c <HAL_Delay>
 
 }

@@ -609,7 +609,7 @@ void cppLoop(void)
 			led.LR(-1, 1);
 
 			logger.start();
-			motor.setRatio(0.3, -0.3);
+			motor.setRatio(0.2, -0.2);
 
 			HAL_Delay(1000);
 
@@ -674,7 +674,7 @@ void cppLoop(void)
 
 	}
 
-	HAL_Delay(10);
+	HAL_Delay(30);
 
 }
 
