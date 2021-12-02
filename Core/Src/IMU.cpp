@@ -56,6 +56,19 @@ void IMU::storeValues()
 }
 void IMU::updateValues()
 {
+	read_gyro_data();
+	xg_ = xg;
+	yg_ = yg;
+	zg_ = zg;
+
+	static int16_t pre_zg;
+	float r = 0.03; //more small, storong
+
+	zg_ = ((r)*(zg_) + (1.0 - (r))* (pre_zg));
+
+	pre_zg = zg_;
+
+	/*
 	// heap value
 	int16_t temp_val[STORE_NUM];
 	for(uint8_t i = 0; i < STORE_NUM; i++){
@@ -75,6 +88,8 @@ void IMU::updateValues()
 
 	zg_ = temp_val[2];
 	mon_zg_ = zg_;
+	*/
+
 
 }
 

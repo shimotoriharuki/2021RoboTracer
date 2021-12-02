@@ -173,7 +173,7 @@ void cppFlip100ns(void)
 	cnt++;
 	if(cnt >= 2){ //200ns
 		cnt = 0;
-		imu.storeValues();
+		//imu.storeValues();
 	}
 }
 
