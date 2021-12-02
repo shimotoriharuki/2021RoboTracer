@@ -114,9 +114,9 @@ void cppInit(void)
 
 	//velocity_ctrl.setVelocityGain(1.5, 20, 0);
 	velocity_ctrl.setVelocityGain(0, 0, 0);
-	velocity_ctrl.setOmegaGain(0.5, 5, 0);
+	//velocity_ctrl.setOmegaGain(0.5, 5, 0);
 	//velocity_ctrl.setOmegaGain(0.05, 7, 0);
-	//velocity_ctrl.setOmegaGain(0.51189, 8.724, 0.00);
+	velocity_ctrl.setOmegaGain(0.51189, 8.724, 0.00);
 	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
 
@@ -603,7 +603,7 @@ void cppLoop(void)
 			led.LR(-1, 1);
 
 			logger.start();
-			motor.setRatio(0.2, -0.2);
+			motor.setRatio(0.3, -0.3);
 
 			HAL_Delay(1000);
 
