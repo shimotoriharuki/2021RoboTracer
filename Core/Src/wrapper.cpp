@@ -44,6 +44,7 @@ PathFollowing path_following;
 
 double mon_f, mon_d;
 float mon_v, mon_w;
+float mon_zg;
 
 void batteryLowMode()
 {
@@ -117,6 +118,7 @@ void cppFlip1ms(void)
 {
 	line_sensor.updateSensorValues();
 	imu.updateValues();
+	mon_zg = imu.getOmega();
 	encoder.updateCnt();
 
 	line_trace.flip();
