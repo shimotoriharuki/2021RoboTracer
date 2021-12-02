@@ -14,7 +14,7 @@
 
 #define PI 3.1415926535
 
-int16_t mon_zg_;
+//int16_t mon_zg_;
 
 IMU::IMU() : xa_(0), ya_(0), za_(0), xg_(0), yg_(0), zg_(0), offset_(0)
 {
@@ -52,12 +52,16 @@ void IMU::updateValues()
 {
 	read_gyro_data();
 	//read_accel_data();
+
+	//xa_ = xa;
+	//ya_ = ya;
+	//za_ = za;
 	xg_ = xg;
 	yg_ = yg;
 	zg_ = zg;
 
 	static int16_t pre_zg;
-	float r = 0.03; //
+	float r = 0.03; //The smaller it is, the more effective/
 
 	zg_ = ((r)*(zg_) + (1.0 - (r))* (pre_zg));
 
