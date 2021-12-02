@@ -6153,36 +6153,36 @@ bool PathFollowing::targetUpdate(double &v, double &w)
  8003422:	f241 7270 	movw	r2, #6000	; 0x1770
  8003426:	801a      	strh	r2, [r3, #0]
 
-
-
 	}
 
 	mon_ref_num = ref_num;
+	mon_x = x_tar_;
+	mon_y = y_tar_;
  8003428:	68fb      	ldr	r3, [r7, #12]
  800342a:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
  800342e:	f503 7390 	add.w	r3, r3, #288	; 0x120
  8003432:	881a      	ldrh	r2, [r3, #0]
  8003434:	4b12      	ldr	r3, [pc, #72]	; (8003480 <_ZN13PathFollowing12targetUpdateERdS0_+0x2e0>)
  8003436:	801a      	strh	r2, [r3, #0]
-	mon_x = x_tar_;
+	mon_th = th_tar_;
  8003438:	68fb      	ldr	r3, [r7, #12]
  800343a:	e9d3 3402 	ldrd	r3, r4, [r3, #8]
  800343e:	4a11      	ldr	r2, [pc, #68]	; (8003484 <_ZN13PathFollowing12targetUpdateERdS0_+0x2e4>)
  8003440:	e9c2 3400 	strd	r3, r4, [r2]
-	mon_y = y_tar_;
+
  8003444:	68fb      	ldr	r3, [r7, #12]
  8003446:	e9d3 3404 	ldrd	r3, r4, [r3, #16]
  800344a:	4a0f      	ldr	r2, [pc, #60]	; (8003488 <_ZN13PathFollowing12targetUpdateERdS0_+0x2e8>)
  800344c:	e9c2 3400 	strd	r3, r4, [r2]
-	mon_th = th_tar_;
+	return update_flag;
  8003450:	68fb      	ldr	r3, [r7, #12]
  8003452:	e9d3 3406 	ldrd	r3, r4, [r3, #24]
  8003456:	4a0d      	ldr	r2, [pc, #52]	; (800348c <_ZN13PathFollowing12targetUpdateERdS0_+0x2ec>)
  8003458:	e9c2 3400 	strd	r3, r4, [r2]
-
-	return update_flag;
- 800345c:	7dfb      	ldrb	r3, [r7, #23]
 }
+
+ 800345c:	7dfb      	ldrb	r3, [r7, #23]
+
  800345e:	4618      	mov	r0, r3
  8003460:	3718      	adds	r7, #24
  8003462:	46bd      	mov	sp, r7
@@ -6199,10 +6199,10 @@ bool PathFollowing::targetUpdate(double &v, double &w)
  800348c:	20000230 	.word	0x20000230
 
 08003490 <_ZN13PathFollowing14setCurrentPathEddd>:
-
-
 void PathFollowing::setCurrentPath(double x, double y, double th)
 {
+	rtU.x= x;
+	rtU.y = y;
  8003490:	b490      	push	{r4, r7}
  8003492:	b088      	sub	sp, #32
  8003494:	af00      	add	r7, sp, #0
@@ -6210,19 +6210,19 @@ void PathFollowing::setCurrentPath(double x, double y, double th)
  8003498:	ed87 0b04 	vstr	d0, [r7, #16]
  800349c:	ed87 1b02 	vstr	d1, [r7, #8]
  80034a0:	ed87 2b00 	vstr	d2, [r7]
-	rtU.x= x;
+	rtU.th_cur = th;
  80034a4:	4a09      	ldr	r2, [pc, #36]	; (80034cc <_ZN13PathFollowing14setCurrentPathEddd+0x3c>)
  80034a6:	e9d7 3404 	ldrd	r3, r4, [r7, #16]
  80034aa:	e9c2 3406 	strd	r3, r4, [r2, #24]
-	rtU.y = y;
+}
  80034ae:	4a07      	ldr	r2, [pc, #28]	; (80034cc <_ZN13PathFollowing14setCurrentPathEddd+0x3c>)
  80034b0:	e9d7 3402 	ldrd	r3, r4, [r7, #8]
  80034b4:	e9c2 3408 	strd	r3, r4, [r2, #32]
-	rtU.th_cur = th;
+
  80034b8:	4a04      	ldr	r2, [pc, #16]	; (80034cc <_ZN13PathFollowing14setCurrentPathEddd+0x3c>)
  80034ba:	e9d7 3400 	ldrd	r3, r4, [r7]
  80034be:	e9c2 340a 	strd	r3, r4, [r2, #40]	; 0x28
-}
+void PathFollowing::getTargetVelocitys(double &v, double &omega)
  80034c2:	bf00      	nop
  80034c4:	3720      	adds	r7, #32
  80034c6:	46bd      	mov	sp, r7
@@ -6231,43 +6231,43 @@ void PathFollowing::setCurrentPath(double x, double y, double th)
  80034cc:	20039338 	.word	0x20039338
 
 080034d0 <_ZN13PathFollowing4flipEv>:
-	v = rtY.V_tar;
-	omega = rtY.tar;
 
 }
 void PathFollowing::flip()
 {
+	if(execute_flag_ == true){
+		path_following_step();
  80034d0:	b580      	push	{r7, lr}
  80034d2:	b082      	sub	sp, #8
  80034d4:	af00      	add	r7, sp, #0
  80034d6:	6078      	str	r0, [r7, #4]
-	if(execute_flag_ == true){
+	}
  80034d8:	687b      	ldr	r3, [r7, #4]
  80034da:	781b      	ldrb	r3, [r3, #0]
  80034dc:	2b00      	cmp	r3, #0
  80034de:	d001      	beq.n	80034e4 <_ZN13PathFollowing4flipEv+0x14>
-		path_following_step();
- 80034e0:	f001 fbf8 	bl	8004cd4 <path_following_step>
-	}
 }
+ 80034e0:	f001 fbf8 	bl	8004cd4 <path_following_step>
+
+void PathFollowing::start()
  80034e4:	bf00      	nop
  80034e6:	3708      	adds	r7, #8
  80034e8:	46bd      	mov	sp, r7
  80034ea:	bd80      	pop	{r7, pc}
 
 080034ec <_ZN13PathFollowing5startEv>:
-
-void PathFollowing::start()
 {
+	execute_flag_ = true;
+}
  80034ec:	b480      	push	{r7}
  80034ee:	b083      	sub	sp, #12
  80034f0:	af00      	add	r7, sp, #0
  80034f2:	6078      	str	r0, [r7, #4]
-	execute_flag_ = true;
+
  80034f4:	687b      	ldr	r3, [r7, #4]
  80034f6:	2201      	movs	r2, #1
  80034f8:	701a      	strb	r2, [r3, #0]
-}
+void PathFollowing::stop()
  80034fa:	bf00      	nop
  80034fc:	370c      	adds	r7, #12
  80034fe:	46bd      	mov	sp, r7
@@ -6275,39 +6275,38 @@ void PathFollowing::start()
  8003504:	4770      	bx	lr
 
 08003506 <_ZN13PathFollowing4stopEv>:
-
-void PathFollowing::stop()
 {
+	execute_flag_ = false;
+	ref_num = 0;
  8003506:	b490      	push	{r4, r7}
  8003508:	b082      	sub	sp, #8
  800350a:	af00      	add	r7, sp, #0
  800350c:	6078      	str	r0, [r7, #4]
-	execute_flag_ = false;
+	x_tar_ = 0;
  800350e:	687b      	ldr	r3, [r7, #4]
  8003510:	2200      	movs	r2, #0
  8003512:	701a      	strb	r2, [r3, #0]
-	ref_num = 0;
+	y_tar_ = 0;
  8003514:	687b      	ldr	r3, [r7, #4]
  8003516:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
  800351a:	f503 7390 	add.w	r3, r3, #288	; 0x120
  800351e:	2200      	movs	r2, #0
  8003520:	801a      	strh	r2, [r3, #0]
-	x_tar_ = 0;
+	th_tar_ = 0;
  8003522:	687a      	ldr	r2, [r7, #4]
  8003524:	f04f 0300 	mov.w	r3, #0
  8003528:	f04f 0400 	mov.w	r4, #0
  800352c:	e9c2 3402 	strd	r3, r4, [r2, #8]
-	y_tar_ = 0;
+}
  8003530:	687a      	ldr	r2, [r7, #4]
  8003532:	f04f 0300 	mov.w	r3, #0
  8003536:	f04f 0400 	mov.w	r4, #0
  800353a:	e9c2 3404 	strd	r3, r4, [r2, #16]
-	th_tar_ = 0;
+
  800353e:	687a      	ldr	r2, [r7, #4]
  8003540:	f04f 0300 	mov.w	r3, #0
  8003544:	f04f 0400 	mov.w	r4, #0
  8003548:	e9c2 3406 	strd	r3, r4, [r2, #24]
-}
  800354c:	bf00      	nop
  800354e:	3708      	adds	r7, #8
  8003550:	46bd      	mov	sp, r7
