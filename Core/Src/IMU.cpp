@@ -16,16 +16,8 @@
 
 int16_t mon_zg_;
 
-IMU::IMU() : array_idx(0), offset_(0)
+IMU::IMU() : xa_(0), ya_(0), za_(0), xg_(0), yg_(0), zg_(0), offset_(0)
 {
-	for(uint16_t i = 0; i < STORE_NUM; i++){
-		xa_store_[i] = 0;
-		ya_store_[i] = 0;
-		za_store_[i] = 0;
-		xg_store_[i] = 0;
-		yg_store_[i] = 0;
-		zg_store_[i] = 0;
-	}
 
 }
 
@@ -37,6 +29,7 @@ void IMU::init()
 
 }
 
+/*
 void IMU::storeValues()
 {
 	read_gyro_data();
@@ -54,15 +47,17 @@ void IMU::storeValues()
 	if(array_idx >= STORE_NUM) array_idx = 0;
 
 }
+*/
 void IMU::updateValues()
 {
 	read_gyro_data();
+	//read_accel_data();
 	xg_ = xg;
 	yg_ = yg;
 	zg_ = zg;
 
 	static int16_t pre_zg;
-	float r = 0.03; //more small, storong
+	float r = 0.03; //
 
 	zg_ = ((r)*(zg_) + (1.0 - (r))* (pre_zg));
 

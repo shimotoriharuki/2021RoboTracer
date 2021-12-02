@@ -641,7 +641,27 @@ void cppLoop(void)
 		break;
 
 	case 11:
+		lcd_clear();
+				lcd_locate(0,0);
+				lcd_printf("Velocity");
+				lcd_locate(0,1);
+				lcd_printf("Test");
 
+				if(joy_stick.getValue() == JOY_C){
+					led.LR(-1, 1);
+					HAL_Delay(500);
+
+					led.fullColor('R');
+					velocity_ctrl.setVelocity(0, 1.57);
+					velocity_ctrl.start();
+
+					HAL_Delay(1000);
+					velocity_ctrl.setVelocity(0, 0);
+					HAL_Delay(100);
+					velocity_ctrl.stop();
+
+					led.LR(-1, 0);
+				}
 		break;
 
 	case 12:
