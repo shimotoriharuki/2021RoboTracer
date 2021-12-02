@@ -112,8 +112,8 @@ void cppInit(void)
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	line_trace.setGain(0.0005, 0.000002, 0);
 
-	velocity_ctrl.setVelocityGain(1.5, 0, 20);
-	//velocity_ctrl.setVelocityGain(0, 0, 0);
+	//velocity_ctrl.setVelocityGain(1.5, 20, 0);
+	velocity_ctrl.setVelocityGain(0, 0, 0);
 	velocity_ctrl.setOmegaGain(0.05, 7, 0);
 	//velocity_ctrl.setOmegaGain(0.51189, 8.724, 0.00);
 	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
@@ -477,30 +477,21 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Path");
+		lcd_printf("Velocity");
 		lcd_locate(0,1);
-		lcd_printf("Following");
+		lcd_printf("Test");
 
-		if(joy_stick.getValue() == JOY_D){
-			led.LR(-1, 1);
-			path_following.setTargetPathMulti();
-			led.LR(-1, 0);
-		}
-
-		else if(joy_stick.getValue() == JOY_C){
+		if(joy_stick.getValue() == JOY_C){
 			led.LR(-1, 1);
 			HAL_Delay(500);
 
 			led.fullColor('R');
-			encoder.clearTotalCnt();
-			encoder.clearDistance();
-			odometry.clearPotition();
-			path_following.start();
+			velocity_ctrl.setVelocity(0, 1.57);
 			velocity_ctrl.start();
 
-			HAL_Delay(4000);
-
-			path_following.stop();
+			HAL_Delay(1000);
+			velocity_ctrl.setVelocity(0, 0);
+			HAL_Delay(100);
 			velocity_ctrl.stop();
 
 			led.LR(-1, 0);
