@@ -34,7 +34,7 @@ Core/Src/IMU.o: ../Core/Src/IMU.cpp ../Core/Inc/IMU.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/ICM_20648.h ../Core/Inc/main.h
+ ../Core/Inc/ICM_20648.h ../Core/Inc/main.h ../Core/Inc/AQM0802.h
 
 ../Core/Inc/IMU.hpp:
 
@@ -113,3 +113,5 @@ Core/Src/IMU.o: ../Core/Src/IMU.cpp ../Core/Inc/IMU.hpp \
 ../Core/Inc/ICM_20648.h:
 
 ../Core/Inc/main.h:
+
+../Core/Inc/AQM0802.h:

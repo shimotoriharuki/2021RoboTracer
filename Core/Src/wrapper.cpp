@@ -84,6 +84,7 @@ void cppInit(void)
 	lcd_printf("Voltage");
 	lcd_locate(0,1);
 	lcd_printf("%f", power_sensor.getButteryVoltage());
+	HAL_Delay(1000);
 
 	if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
 
@@ -116,7 +117,7 @@ void cppInit(void)
 	velocity_ctrl.setVelocityGain(0, 0, 0);
 	//velocity_ctrl.setOmegaGain(0.5, 5, 0);
 	//velocity_ctrl.setOmegaGain(0.05, 7, 0);
-	velocity_ctrl.setOmegaGain(0.51189, 8.724, 0.00);
+	velocity_ctrl.setOmegaGain(0.48398, 8.7326, 0.0061017);
 	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
 
@@ -141,11 +142,11 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-	logger.storeLog(imu.getOmega());
+	//logger.storeLog(imu.getOmega());
 
 	static uint16_t twice_cnt;
 	twice_cnt++;
-	if(twice_cnt >= 4){
+	if(twice_cnt >= 5){ //5ms
 		sys_ident.outputStore(imu.getOmega());
 		twice_cnt = 0;
 	}
@@ -184,7 +185,7 @@ void cppFlip10ms(void)
 {
 	static uint16_t twice_cnt;
 	twice_cnt++;
-	if(twice_cnt >= 4){
+	if(twice_cnt >= 5){ //50ms
 		sys_ident.updateMsig();
 		twice_cnt = 0;
 	}
@@ -645,26 +646,25 @@ void cppLoop(void)
 
 	case 11:
 		lcd_clear();
-				lcd_locate(0,0);
-				lcd_printf("Velocity");
-				lcd_locate(0,1);
-				lcd_printf("Test");
+		lcd_locate(0,0);
+		lcd_printf("Velocity");
+		lcd_locate(0,1);
+		lcd_printf("Test");
 
-				if(joy_stick.getValue() == JOY_C){
-					led.LR(-1, 1);
-					HAL_Delay(500);
+		if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(500);
 
-					led.fullColor('R');
-					velocity_ctrl.setVelocity(0, 1.57);
-					velocity_ctrl.start();
+			led.fullColor('R');
+			velocity_ctrl.setVelocity(0, 1.57);
+			velocity_ctrl.start();
 
-					HAL_Delay(1000);
-					velocity_ctrl.setVelocity(0, 0);
-					HAL_Delay(100);
-					velocity_ctrl.stop();
+			HAL_Delay(1000);
 
-					led.LR(-1, 0);
-				}
+			velocity_ctrl.stop();
+
+			led.LR(-1, 0);
+		}
 		break;
 
 	case 12:

@@ -42,7 +42,7 @@ Core/Src/Logger.o: ../Core/Src/Logger.cpp ../Core/Inc/Logger.hpp \
  ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
- ../Core/Inc/Macro.h
+ ../Core/Inc/Macro.h ../Core/Inc/AQM0802.h ../Core/Inc/main.h
 
 ../Core/Inc/Logger.hpp:
 
@@ -141,3 +141,7 @@ Core/Src/Logger.o: ../Core/Src/Logger.cpp ../Core/Inc/Logger.hpp \
 ../FATFS/Target/sd_diskio.h:
 
 ../Core/Inc/Macro.h:
+
+../Core/Inc/AQM0802.h:
+
+../Core/Inc/main.h:

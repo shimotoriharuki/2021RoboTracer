@@ -9,6 +9,7 @@
 #include "HAL_SDcard_lib.h"
 #include <stdio.h>
 #include "Macro.h"
+#include "AQM0802.h"
 
 Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_dis_(0){}
 
@@ -18,20 +19,36 @@ bool Logger::sdCardInit()
 
 	if(sd_mount() == 1){
 	  printf("mount success\r\n");
+
+	  lcd_clear();
+	  lcd_locate(0,0);
+	  lcd_printf("SD mount");
+	  lcd_locate(0,1);
+	  lcd_printf("success");
+	  HAL_Delay(1000);
+
 	  ret = true;
 	}
 	else{
 	  printf("mount error\r\n");
+
+	  lcd_clear();
+	  lcd_locate(0,0);
+	  lcd_printf("SD mount");
+	  lcd_locate(0,1);
+	  lcd_printf("fail");
+	  HAL_Delay(1000);
+
 	  ret = false;
 	}
 
-	int	data[1];
-	int temp[1];
+	//int	data[1];
+	//int temp[1];
 
-	data[0] = 100;
-	sd_write_array_int("sdio", "write1.txt", DATA_SIZE, data, ADD_WRITE); //write
-	sd_read_array_int("sdio", "write1.txt", DATA_SIZE, temp); //read
-	sd_write_array_int("sdio", "write2.txt", DATA_SIZE, temp, ADD_WRITE); //write
+	//data[0] = 100;
+	//sd_write_array_int("sdio", "write1.txt", DATA_SIZE, data, ADD_WRITE); //write
+	//sd_read_array_int("sdio", "write1.txt", DATA_SIZE, temp); //read
+	//sd_write_array_int("sdio", "write2.txt", DATA_SIZE, temp, ADD_WRITE); //write
 
 	return ret;
 }
