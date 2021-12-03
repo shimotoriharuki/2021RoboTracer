@@ -142,7 +142,7 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-	logger.storeLog(imu.getOmega());
+	logger.storeLog(velocity_ctrl.getCurrentVelocity());
 
 	static uint16_t twice_cnt;
 	twice_cnt++;
@@ -605,7 +605,7 @@ void cppLoop(void)
 			led.LR(-1, 1);
 
 			logger.start();
-			motor.setRatio(0.3, -0.3);
+			motor.setRatio(0.3, 0.3);
 
 			HAL_Delay(1000);
 

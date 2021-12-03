@@ -1,10 +1,10 @@
 Encoder.cpp:24:1:Encoder::Encoder()	16	static
 Encoder.cpp:26:6:void Encoder::init()	16	static
 Encoder.cpp:34:6:void Encoder::updateCnt()	24	static
-Encoder.cpp:48:6:void Encoder::getCnt(double&, double&)	24	static
-Encoder.cpp:54:8:double Encoder::getDistance()	16	static
-Encoder.cpp:59:8:double Encoder::getTotalDistance()	16	static
+Encoder.cpp:48:6:void Encoder::getCnt(float&, float&)	24	static
+Encoder.cpp:54:7:float Encoder::getDistance()	16	static
+Encoder.cpp:59:7:float Encoder::getTotalDistance()	16	static
 Encoder.cpp:64:6:void Encoder::clearDistance()	16	static
 Encoder.cpp:69:6:void Encoder::clearCnt()	16	static
-Encoder.cpp:78:8:double Encoder::getTotalCnt()	24	static
+Encoder.cpp:78:7:float Encoder::getTotalCnt()	16	static
 Encoder.cpp:83:6:void Encoder::clearTotalCnt()	16	static

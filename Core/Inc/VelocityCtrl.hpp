@@ -25,7 +25,7 @@ class VelocityCtrl
 private:
 	float target_velocity_, target_omega_;
 	float current_velocity_;
-	double current_omega_;
+	float current_omega_;
 	float v_kp_, v_kd_, v_ki_;
 	float o_kp_, o_kd_, o_ki_;
 	bool excution_flag_;
@@ -33,8 +33,8 @@ private:
 	Encoder *encoder_;
 	IMU *imu_;
 
-	double calcVelocity();
-	//double calcOmega();
+	float calcVelocity();
+	//float calcOmega();
 	void pid();
 
 public:
@@ -47,7 +47,7 @@ public:
 	void start();
 	void stop();
 	float getCurrentVelocity();
-	//double getCurrentOmega();
+	//float getCurrentOmega();
 
 };
 

@@ -13,21 +13,21 @@
 class Encoder{
 
 private:
-	double cnt_l_, cnt_r_;
-	double distance_; //[mm]
-	double total_cnt_l_, total_cnt_r_;
-	double total_distance_;
+	float cnt_l_, cnt_r_;
+	float distance_; //[mm]
+	float total_cnt_l_, total_cnt_r_;
+	float total_distance_;
 
 public:
 	Encoder();
 	void init();
 	void updateCnt();
-	void getCnt(double &, double &);
-	double getDistance();
-	double getTotalDistance();
+	void getCnt(float &, float &);
+	float getDistance();
+	float getTotalDistance();
 	void clearDistance();
 	void clearCnt();
-	double getTotalCnt();
+	float getTotalCnt();
 	void clearTotalCnt();
 };
 

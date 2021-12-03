@@ -21,11 +21,11 @@ target_velocity_(0), target_omega_(0), current_velocity_(0), current_omega_(0), 
 
 // ---------private ---------//
 
-double VelocityCtrl::calcVelocity()
+float VelocityCtrl::calcVelocity()
 {
-	double enc_l, enc_r;
+	float enc_l, enc_r;
 	encoder_->getCnt(enc_l, enc_r);
-	double enc_cnt = (enc_l + enc_r) / 2;
+	float enc_cnt = (enc_l + enc_r) / 2;
 
 	current_velocity_ = VELOCITY_PER_CNT * enc_cnt;
 
@@ -33,9 +33,9 @@ double VelocityCtrl::calcVelocity()
 }
 
 /*
-double VelocityCtrl::calcOmega()
+float VelocityCtrl::calcOmega()
 {
-	double omega = imu_->getOmega();
+	float omega = imu_->getOmega();
 	current_omega_ = -(omega / 16.4) * PI / 180;
 	//printf("omegao: %f\n", current_omega_);
 
@@ -130,7 +130,7 @@ float VelocityCtrl::getCurrentVelocity()
 }
 
 /*
-double VelocityCtrl::getCurrentOmega()
+float VelocityCtrl::getCurrentOmega()
 {
 	return current_omega_;
 }

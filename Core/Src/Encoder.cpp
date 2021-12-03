@@ -15,7 +15,7 @@
 #define ENCODER_RESOLUTION 4096
 #define REDUCTION_RATIO 0.35 //Gear reduction ratio
 #define DISTANCE_PER_CNT (2 * PI * WHEEL_RADIUS * REDUCTION_RATIO / ENCODER_RESOLUTION) //[mm per cnt]
-#define CORRECTION_COEFFICIENT double(1.0874883*1.0324*1.01)
+#define CORRECTION_COEFFICIENT float(1.0874883*1.0324*1.01)
 
 float monitor_distance;
 float monitor_cnt_l;
@@ -45,18 +45,18 @@ void Encoder::updateCnt()
 	monitor_distance = distance_;
 }
 
-void Encoder::getCnt(double &cnt_l, double &cnt_r)
+void Encoder::getCnt(float &cnt_l, float &cnt_r)
 {
 	cnt_l = cnt_l_;
 	cnt_r = cnt_r_;
 }
 
-double Encoder::getDistance()
+float Encoder::getDistance()
 {
 	return distance_;
 }
 
-double Encoder::getTotalDistance()
+float Encoder::getTotalDistance()
 {
 	return total_distance_;
 }
@@ -75,7 +75,7 @@ void Encoder::clearCnt()
 	distance_ = 0;
 }
 
-double Encoder::getTotalCnt()
+float Encoder::getTotalCnt()
 {
 	return (total_cnt_l_ + total_cnt_r_) / 2;
 }
