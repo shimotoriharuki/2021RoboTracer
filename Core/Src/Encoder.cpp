@@ -38,8 +38,8 @@ void Encoder::updateCnt()
 	float cnt_r = (float(TIM8 -> CNT) - float(CNT_OFFSET)) * CORRECTION_COEFFICIENT;
 	monitor_cnt_l = cnt_l;
 
-	cnt_l_ = ((R)*(cnt_l) + (1.0 - (R))* (pre_cnt_l)); // lowpath filter
-	cnt_r_ = ((R)*(cnt_r) + (1.0 - (R))* (pre_cnt_r)); // lowpath filter
+	cnt_l_ = ((R_ENC)*(cnt_l) + (1.0 - (R_ENC))* (pre_cnt_l)); // lowpath filter
+	cnt_r_ = ((R_ENC)*(cnt_r) + (1.0 - (R_ENC))* (pre_cnt_r)); // lowpath filter
 	monitor_cnt_l_lpf = cnt_l_;
 
 	pre_cnt_l = cnt_l_;

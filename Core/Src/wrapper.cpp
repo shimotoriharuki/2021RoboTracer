@@ -114,7 +114,7 @@ void cppInit(void)
 	line_trace.setGain(0.0005, 0.000002, 0);
 
 	//velocity_ctrl.setVelocityGain(1.5, 20, 0);
-	velocity_ctrl.setVelocityGain(0, 0, 0);
+	velocity_ctrl.setVelocityGain(1.9842, 22.9078, 0.02079);
 	//velocity_ctrl.setOmegaGain(0.5, 5, 0);
 	//velocity_ctrl.setOmegaGain(0.05, 7, 0);
 	velocity_ctrl.setOmegaGain(0.12175, 1.0604, 0.002614);
@@ -147,7 +147,7 @@ void cppFlip1ms(void)
 	static uint16_t twice_cnt;
 	twice_cnt++;
 	if(twice_cnt >= 3){ //3ms
-		sys_ident.inOutputStore(imu.getOmega());
+		sys_ident.inOutputStore(velocity_ctrl.getCurrentVelocity());
 		twice_cnt = 0;
 	}
 
@@ -185,7 +185,7 @@ void cppFlip10ms(void)
 {
 	static uint16_t twice_cnt;
 	twice_cnt++;
-	if(twice_cnt >= 6){ //60ms
+	if(twice_cnt >= 15){ //150ms
 		sys_ident.updateMsig();
 		twice_cnt = 0;
 	}
@@ -334,11 +334,11 @@ void cppLoop(void)
 
 		if(joy_stick.getValue() == JOY_C){
 			led.LR(-1, 1);
-			HAL_Delay(1000);
+			HAL_Delay(1500);
 
-			sys_ident.setInputRatio(0.3);
+			sys_ident.setInputRatio(0.2);
 			sys_ident.start();
-			HAL_Delay(30000);
+			HAL_Delay(15000);
 			sys_ident.stop();
 			sys_ident.inOutputSave();
 
@@ -601,13 +601,13 @@ void cppLoop(void)
 		lcd_printf("Record");
 
 		if(joy_stick.getValue() == JOY_C){
-			HAL_Delay(500);
+			HAL_Delay(1500);
 			led.LR(-1, 1);
 
 			logger.start();
-			motor.setRatio(0.3, 0.3);
+			motor.setRatio(0.2, 0.2);
 
-			HAL_Delay(1000);
+			HAL_Delay(3000);
 
 			logger.stop();
 			motor.setRatio(0.0, 0.0);
@@ -626,12 +626,12 @@ void cppLoop(void)
 		lcd_printf("Response");
 
 		if(joy_stick.getValue() == JOY_C){
-			HAL_Delay(500);
+			HAL_Delay(1500);
 			led.LR(-1, 1);
 
 			logger.start();
 			velocity_ctrl.start();
-			velocity_ctrl.setVelocity(0, 3.14);
+			velocity_ctrl.setVelocity(0.8, 0);
 
 			HAL_Delay(1000);
 
