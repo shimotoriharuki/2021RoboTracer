@@ -117,7 +117,7 @@ void cppInit(void)
 	velocity_ctrl.setVelocityGain(0, 0, 0);
 	//velocity_ctrl.setOmegaGain(0.5, 5, 0);
 	//velocity_ctrl.setOmegaGain(0.05, 7, 0);
-	velocity_ctrl.setOmegaGain(0.48398, 8.7326, 0.0061017);
+	velocity_ctrl.setOmegaGain(0.12175, 1.0604, 0.002614);
 	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
 
@@ -142,12 +142,12 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-	//logger.storeLog(imu.getOmega());
+	logger.storeLog(imu.getOmega());
 
 	static uint16_t twice_cnt;
 	twice_cnt++;
-	if(twice_cnt >= 5){ //5ms
-		sys_ident.outputStore(imu.getOmega());
+	if(twice_cnt >= 3){ //3ms
+		sys_ident.inOutputStore(imu.getOmega());
 		twice_cnt = 0;
 	}
 
@@ -185,7 +185,7 @@ void cppFlip10ms(void)
 {
 	static uint16_t twice_cnt;
 	twice_cnt++;
-	if(twice_cnt >= 5){ //50ms
+	if(twice_cnt >= 6){ //60ms
 		sys_ident.updateMsig();
 		twice_cnt = 0;
 	}
@@ -336,10 +336,11 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(1000);
 
+			sys_ident.setInputRatio(0.3);
 			sys_ident.start();
-			HAL_Delay(10000);
+			HAL_Delay(30000);
 			sys_ident.stop();
-			sys_ident.outputSave();
+			sys_ident.inOutputSave();
 
 			led.LR(-1, 0);
 		}
@@ -630,7 +631,7 @@ void cppLoop(void)
 
 			logger.start();
 			velocity_ctrl.start();
-			velocity_ctrl.setVelocity(0, 1);
+			velocity_ctrl.setVelocity(0, 3.14);
 
 			HAL_Delay(1000);
 

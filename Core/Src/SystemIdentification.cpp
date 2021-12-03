@@ -21,17 +21,19 @@ void SystemIdentification::init()
 
 }
 
-void SystemIdentification::outputStore(float output)
+void SystemIdentification::inOutputStore(float output)
 {
 	if(processing_flag_ == true){
 		logger_->storeLog(output);
+		logger_->storeLog2(inputVal_);
 	}
 
 }
 
-void SystemIdentification::outputSave()
+void SystemIdentification::inOutputSave()
 {
 	logger_->saveLogs("sysident", "MSIGRES.txt");
+	logger_->saveLogs2("sysident", "INPUT.txt");
 }
 
 void SystemIdentification::updateMsig()

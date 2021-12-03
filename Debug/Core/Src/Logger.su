@@ -3,10 +3,12 @@ Logger.cpp:16:6:bool Logger::sdCardInit()	24	static
 Logger.cpp:55:6:void Logger::storeLogs(float*, uint8_t)	24	static
 Logger.cpp:63:6:void Logger::storeLogs(uint16_t*, uint8_t)	24	static
 Logger.cpp:71:6:void Logger::storeLog(float)	16	static
-Logger.cpp:82:6:void Logger::storeLog(uint16_t)	16	static
-Logger.cpp:87:6:void Logger::storeDistanceAndTheta(float, float)	24	static
-Logger.cpp:99:6:void Logger::saveLogs(const char*, const char*)	32	static
-Logger.cpp:104:6:void Logger::saveDistanceAndTheta(const char*, const char*, const char*)	32	static
-Logger.cpp:137:6:void Logger::resetLogs()	80	static
-Logger.cpp:156:6:void Logger::start()	16	static
-Logger.cpp:161:6:void Logger::stop()	16	static
+Logger.cpp:81:6:void Logger::storeLog2(float)	16	static
+Logger.cpp:92:6:void Logger::storeLog(uint16_t)	16	static
+Logger.cpp:97:6:void Logger::storeDistanceAndTheta(float, float)	24	static
+Logger.cpp:109:6:void Logger::saveLogs(const char*, const char*)	32	static
+Logger.cpp:113:6:void Logger::saveLogs2(const char*, const char*)	32	static
+Logger.cpp:118:6:void Logger::saveDistanceAndTheta(const char*, const char*, const char*)	32	static
+Logger.cpp:151:6:void Logger::resetLogs()	80	static
+Logger.cpp:175:6:void Logger::start()	16	static
+Logger.cpp:180:6:void Logger::stop()	16	static

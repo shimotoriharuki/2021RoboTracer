@@ -11,7 +11,7 @@
 #include "Macro.h"
 #include "AQM0802.h"
 
-Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_dis_(0){}
+Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_tim2_(0), log_index_dis_(0){}
 
 bool Logger::sdCardInit()
 {
@@ -78,6 +78,16 @@ void Logger::storeLog(float data)
 		if(log_index_tim_ >= LOG_DATA_SIZE_TIM) log_index_tim_ = 0;
 	}
 }
+void Logger::storeLog2(float data)
+{
+	if(recording_flag_ == true){
+		store_data_float2_[log_index_tim2_] = data;
+
+		log_index_tim2_++;
+
+		if(log_index_tim2_ >= LOG_DATA_SIZE_TIM2) log_index_tim2_ = 0;
+	}
+}
 
 void Logger::storeLog(uint16_t data)
 {
@@ -99,6 +109,10 @@ void Logger::storeDistanceAndTheta(float distance, float theta)
 void Logger::saveLogs(const char *folder_name, const char *file_name)
 {
 	sd_write_array_float(folder_name, file_name, LOG_DATA_SIZE_TIM, store_data_float_, OVER_WRITE); //write
+}
+void Logger::saveLogs2(const char *folder_name, const char *file_name)
+{
+	sd_write_array_float(folder_name, file_name, LOG_DATA_SIZE_TIM2, store_data_float2_, OVER_WRITE); //write
 }
 
 void Logger::saveDistanceAndTheta(const char *folder_name, const char *file_name1, const char *file_name2)
@@ -139,9 +153,14 @@ void Logger::resetLogs()
 	for(auto &log : store_data_float_){
 		log = 0;
 	}
+	for(auto &log : store_data_float2_){
+		log = 0;
+	}
+	/*
 	for(auto &log : store_data_uint16_){
 		log = 0;
 	}
+	*/
 	for(auto &log : store_distance_){
 		log = 0;
 	}
