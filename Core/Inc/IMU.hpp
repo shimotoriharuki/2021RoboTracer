@@ -11,6 +11,7 @@
 #include "LED.hpp"
 
 #define STORE_NUM 5
+#define R 0.03 //Lowpath filter constant. The smaller it is, the more effective/
 
 class IMU{
 private:

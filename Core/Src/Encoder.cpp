@@ -19,7 +19,7 @@
 
 float monitor_distance;
 float monitor_cnt_l;
-float monitor_cnt_r;
+float monitor_cnt_l_lpf;
 
 Encoder::Encoder() : cnt_l_(0), cnt_r_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0), total_distance_(0){}
 
@@ -33,8 +33,18 @@ void Encoder::init()
 
 void Encoder::updateCnt()
 {
-	cnt_l_ = (float(CNT_OFFSET) - float(TIM1 -> CNT)) * CORRECTION_COEFFICIENT;
-	cnt_r_ = (float(TIM8 -> CNT) - float(CNT_OFFSET)) * CORRECTION_COEFFICIENT;
+	static float pre_cnt_l, pre_cnt_r;
+	float cnt_l = (float(CNT_OFFSET) - float(TIM1 -> CNT)) * CORRECTION_COEFFICIENT;
+	float cnt_r = (float(TIM8 -> CNT) - float(CNT_OFFSET)) * CORRECTION_COEFFICIENT;
+	monitor_cnt_l = cnt_l;
+
+	cnt_l_ = ((R)*(cnt_l) + (1.0 - (R))* (pre_cnt_l)); // lowpath filter
+	cnt_r_ = ((R)*(cnt_r) + (1.0 - (R))* (pre_cnt_r)); // lowpath filter
+	monitor_cnt_l_lpf = cnt_l_;
+
+	pre_cnt_l = cnt_l_;
+	pre_cnt_r = cnt_r_;
+
 
 	total_cnt_l_ += cnt_l_;
 	total_cnt_r_ += cnt_r_;

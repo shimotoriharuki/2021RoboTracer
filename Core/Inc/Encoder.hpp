@@ -10,6 +10,8 @@
 
 #include "stm32f4xx_hal.h"
 
+#define R 0.05 //Lowpath filter constant. The smaller it is, the more effective/
+
 class Encoder{
 
 private:
