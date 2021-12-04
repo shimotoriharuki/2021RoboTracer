@@ -45,7 +45,7 @@ void SystemIdentification::updateMsig()
 
 		if(msigArrayIdx_ >= MSIG_SIZE) msigArrayIdx_ = MSIG_SIZE;
 
-		motor_->setRatio(inputVal_, inputVal_);
+		motor_->setRatio(inputVal_, -inputVal_);
 
 	}
 
