@@ -118,7 +118,7 @@ void cppInit(void)
 	//velocity_ctrl.setVelocityGain(1.9842, 22.9078, 0.02079);
 	//velocity_ctrl.setOmegaGain(0.5, 5, 0);
 	//velocity_ctrl.setOmegaGain(0.05, 7, 0);
-	velocity_ctrl.setOmegaGain(0.35757, 4.0392, 0.0046799);
+	velocity_ctrl.setOmegaGain(0.069793, 0.86816, 0.0014027);
 	//velocity_ctrl.setOmegaGain(0.12175, 1.0604, 0.002614);
 	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
@@ -144,8 +144,8 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-	logger.storeLog(velocity_ctrl.getCurrentVelocity());
-	//logger.storeLog(imu.getOmega());
+	//logger.storeLog(velocity_ctrl.getCurrentVelocity());
+	logger.storeLog(imu.getOmega());
 
 	static uint16_t twice_cnt;
 	twice_cnt++;
@@ -224,7 +224,7 @@ void cppLoop(void)
 		lcd_locate(0,0);
 		lcd_printf("%4.2lf    ", line_trace.getKpV()*1000);
 		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", line_trace.getKiV()*1000, line_trace.getKdV()*1000);
+		lcd_printf("%4.2lf%4.2lf", line_trace.getKiV()*100, line_trace.getKdV()*1000);
 
 		static float adj_kp_v = line_trace.getKpV();
 		static float adj_ki_v = line_trace.getKiV();
@@ -247,7 +247,7 @@ void cppLoop(void)
 				adj_kp_v = adj_kp_v + 0.00001;
 			}
 			else if(selector == 1){
-				adj_ki_v = adj_ki_v + 0.00001;
+				adj_ki_v = adj_ki_v + 0.0001;
 			}
 			else{
 				adj_kd_v = adj_kd_v + 0.00001;
@@ -266,7 +266,7 @@ void cppLoop(void)
 				adj_kp_v = adj_kp_v - 0.00001;
 			}
 			else if(selector == 1){
-				adj_ki_v = adj_ki_v - 0.00001;
+				adj_ki_v = adj_ki_v - 0.0001;
 			}
 			else{
 				adj_kd_v = adj_kd_v - 0.00001;
@@ -319,7 +319,7 @@ void cppLoop(void)
 
 			velocity_ctrl.start();
 			line_trace.start();
-			line_trace.setTargetVelocity(0.0);
+			line_trace.setTargetVelocity(0.5);
 			led.LR(1, -1);
 
 			HAL_Delay(3000);
@@ -645,7 +645,7 @@ void cppLoop(void)
 
 			logger.start();
 			velocity_ctrl.start();
-			velocity_ctrl.setVelocity(0.8, 0);
+			velocity_ctrl.setVelocity(0.0, 3.14*2);
 
 			HAL_Delay(1000);
 
