@@ -218,6 +218,8 @@ void cppLoop(void)
 	static int16_t selector;
 
 	case 0:
+		led.fullColor('R');
+
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("%4.2lf    ", line_trace.getKpV()*1000);
@@ -304,6 +306,8 @@ void cppLoop(void)
 		break;
 
 	case 1:
+		led.fullColor('G');
+
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("velocity");
@@ -329,6 +333,8 @@ void cppLoop(void)
 		break;
 
 	case 2:
+		led.fullColor('B');
+
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("Msig");
@@ -350,7 +356,7 @@ void cppLoop(void)
 		break;
 
 	case 3:
-		led.fullColor('C');
+		led.fullColor('M');
 
 		lcd_clear();
 		lcd_locate(0,0);
@@ -382,7 +388,7 @@ void cppLoop(void)
 		break;
 
 	case 4:
-		led.fullColor('M');
+		led.fullColor('Y');
 
 		lcd_clear();
 		lcd_locate(0,0);
@@ -409,7 +415,7 @@ void cppLoop(void)
 		break;
 
 	case 5:
-		led.fullColor('Y');
+		led.fullColor('C');
 
 		lcd_clear();
 		lcd_locate(0,0);
@@ -446,7 +452,7 @@ void cppLoop(void)
 		break;
 
 	case 6:
-		led.fullColor('C');
+		led.fullColor('R');
 
 		lcd_clear();
 		lcd_locate(0,0);
@@ -481,7 +487,7 @@ void cppLoop(void)
 		break;
 
 	case 7:
-		led.fullColor('M');
+		led.fullColor('G');
 
 		lcd_clear();
 		lcd_locate(0,0);
@@ -507,7 +513,7 @@ void cppLoop(void)
 		break;
 
 	case 8:
-		led.fullColor('M');
+		led.fullColor('B');
 
 		lcd_clear();
 		lcd_locate(0,0);
@@ -597,6 +603,8 @@ void cppLoop(void)
 		break;
 
 	case 9:
+		led.fullColor('M');
+
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("Step");
@@ -622,6 +630,8 @@ void cppLoop(void)
 		break;
 
 	case 10:
+		led.fullColor('Y');
+
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("PID");
@@ -649,41 +659,57 @@ void cppLoop(void)
 		break;
 
 	case 11:
+		led.fullColor('C');
+
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Velocity");
+		lcd_printf("11      ");
 		lcd_locate(0,1);
-		lcd_printf("Test");
+		lcd_printf("        ");
 
-		if(joy_stick.getValue() == JOY_C){
-			led.LR(-1, 1);
-			HAL_Delay(500);
-
-			led.fullColor('R');
-			velocity_ctrl.setVelocity(0, 1.57);
-			velocity_ctrl.start();
-
-			HAL_Delay(1000);
-
-			velocity_ctrl.stop();
-
-			led.LR(-1, 0);
-		}
 		break;
 
 	case 12:
+		led.fullColor('R');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("12      ");
+		lcd_locate(0,1);
+		lcd_printf("        ");
 
 		break;
 
 	case 13:
+		led.fullColor('G');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("13      ");
+		lcd_locate(0,1);
+		lcd_printf("        ");
 
 		break;
 
 	case 14:
+		led.fullColor('B');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("14      ");
+		lcd_locate(0,1);
+		lcd_printf("        ");
 
 		break;
 
 	case 15:
+		led.fullColor('M');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("15      ");
+		lcd_locate(0,1);
+		lcd_printf("        ");
 
 		break;
 
