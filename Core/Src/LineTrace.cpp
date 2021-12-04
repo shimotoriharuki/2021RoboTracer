@@ -182,10 +182,10 @@ void LineTrace::steeringAngleTrace()
 // -------public---------- //
 void LineTrace::init()
 {
-	double temp_kp_v, temp_ki_v, temp_kd_v;
-	sd_read_array_double("Params", "kp_v.txt", 1, &temp_kp_v);
-	sd_read_array_double("Params", "ki_v.txt", 1, &temp_ki_v);
-	sd_read_array_double("Params", "kd_v.txt", 1, &temp_kd_v);
+	float temp_kp_v, temp_ki_v, temp_kd_v;
+	sd_read_array_float("Params", "kp_v.txt", 1, &temp_kp_v);
+	sd_read_array_float("Params", "ki_v.txt", 1, &temp_ki_v);
+	sd_read_array_float("Params", "kd_v.txt", 1, &temp_kd_v);
 	setVeloGain(temp_kp_v, temp_ki_v, temp_kd_v);
 
 }

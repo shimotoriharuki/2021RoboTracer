@@ -226,9 +226,9 @@ void cppLoop(void)
 		lcd_locate(0,1);
 		lcd_printf("%4.2lf%4.2lf", line_trace.getKiV()*1000, line_trace.getKdV()*1000);
 
-		static double adj_kp_v = line_trace.getKpV();
-		static double adj_ki_v = line_trace.getKiV();
-		static double adj_kd_v = line_trace.getKdV();
+		static float adj_kp_v = line_trace.getKpV();
+		static float adj_ki_v = line_trace.getKiV();
+		static float adj_kd_v = line_trace.getKdV();
 
 		if(joy_stick.getValue() == JOY_U){
 			led.LR(-1, 1);
@@ -280,10 +280,10 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			double temp_kp_v, temp_ki_v, temp_kd_v;
-			sd_read_array_double("Params", "kp_v.txt", 1, &temp_kp_v);
-			sd_read_array_double("Params", "ki_v.txt", 1, &temp_ki_v);
-			sd_read_array_double("Params", "kd_v.txt", 1, &temp_kd_v);
+			float temp_kp_v, temp_ki_v, temp_kd_v;
+			sd_read_array_float("Params", "kp_v.txt", 1, &temp_kp_v);
+			sd_read_array_float("Params", "ki_v.txt", 1, &temp_ki_v);
+			sd_read_array_float("Params", "kd_v.txt", 1, &temp_kd_v);
 			line_trace.setVeloGain(temp_kp_v, temp_ki_v, temp_kd_v);
 
 			adj_kp_v = temp_kp_v;
@@ -296,9 +296,9 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			sd_write_array_double("Params", "kp_v.txt", 1, &adj_kp_v, OVER_WRITE);
-			sd_write_array_double("Params", "ki_v.txt", 1, &adj_ki_v, OVER_WRITE);
-			sd_write_array_double("Params", "kd_v.txt", 1, &adj_kd_v, OVER_WRITE);
+			sd_write_array_float("Params", "kp_v.txt", 1, &adj_kp_v, OVER_WRITE);
+			sd_write_array_float("Params", "ki_v.txt", 1, &adj_ki_v, OVER_WRITE);
+			sd_write_array_float("Params", "kd_v.txt", 1, &adj_kd_v, OVER_WRITE);
 			line_trace.setVeloGain(adj_kp_v, adj_ki_v, adj_kd_v);
 
 			led.LR(-1, 0);
@@ -327,7 +327,7 @@ void cppLoop(void)
 			velocity_ctrl.stop();
 			led.LR(0, -1);
 
-			logger.stop();
+			//logger.stop();
 		}
 
 		break;
@@ -521,9 +521,9 @@ void cppLoop(void)
 		lcd_locate(0,1);
 		lcd_printf("%4.2lf%4.2lf", path_following.getKyVal()*1000, path_following.getKtVal()*1000);
 
-		static double adj_kx = path_following.getKxVal();
-		static double adj_ky = path_following.getKyVal();
-		static double adj_kt = path_following.getKtVal();
+		static float adj_kx = path_following.getKxVal();
+		static float adj_ky = path_following.getKyVal();
+		static float adj_kt = path_following.getKtVal();
 
 		if(joy_stick.getValue() == JOY_U){
 			led.LR(-1, 1);
@@ -575,10 +575,10 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			double temp_kx, temp_ky, temp_kt;
-			sd_read_array_double("Params", "kx.txt", 1, &temp_kx);
-			sd_read_array_double("Params", "ky.txt", 1, &temp_ky);
-			sd_read_array_double("Params", "kt.txt", 1, &temp_kt);
+			float temp_kx, temp_ky, temp_kt;
+			sd_read_array_float("Params", "kx.txt", 1, &temp_kx);
+			sd_read_array_float("Params", "ky.txt", 1, &temp_ky);
+			sd_read_array_float("Params", "kt.txt", 1, &temp_kt);
 			path_following.setGain(temp_kx, temp_ky, temp_kt);
 
 			adj_kx = temp_kx;
@@ -591,9 +591,9 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			sd_write_array_double("Params", "kx.txt", 1, &adj_kx, OVER_WRITE);
-			sd_write_array_double("Params", "ky.txt", 1, &adj_ky, OVER_WRITE);
-			sd_write_array_double("Params", "kt.txt", 1, &adj_kt, OVER_WRITE);
+			sd_write_array_float("Params", "kx.txt", 1, &adj_kx, OVER_WRITE);
+			sd_write_array_float("Params", "ky.txt", 1, &adj_ky, OVER_WRITE);
+			sd_write_array_float("Params", "kt.txt", 1, &adj_kt, OVER_WRITE);
 			path_following.setGain(adj_kx, adj_ky, adj_kt);
 
 			led.LR(-1, 0);

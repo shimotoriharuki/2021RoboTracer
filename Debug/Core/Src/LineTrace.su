@@ -8,7 +8,7 @@ LineTrace.cpp:116:6:void LineTrace::calcDeltaTheta(float, float, float&)	40	stat
 LineTrace.cpp:122:6:void LineTrace::pidTrace()	56	static
 LineTrace.cpp:142:6:void LineTrace::pidAngularVelocityTrace()	40	static
 LineTrace.cpp:162:6:void LineTrace::steeringAngleTrace()	40	static
-LineTrace.cpp:183:6:void LineTrace::init()	56	static
+LineTrace.cpp:183:6:void LineTrace::init()	32	static
 LineTrace.cpp:193:6:void LineTrace::setGain(float, float, float)	24	static
 LineTrace.cpp:201:6:void LineTrace::setVeloGain(float, float, float)	24	static
 LineTrace.cpp:208:7:float LineTrace::getKp()	16	static
