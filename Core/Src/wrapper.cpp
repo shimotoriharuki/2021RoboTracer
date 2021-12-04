@@ -104,7 +104,7 @@ void cppInit(void)
 	imu.init();
 	line_trace.init();
 
-	//line_sensor.calibration();
+	line_sensor.calibration();
 	HAL_Delay(1000);
 
 	led.fullColor('M');
@@ -241,7 +241,7 @@ void cppLoop(void)
 		}
 		else if(joy_stick.getValue() == JOY_R){
 			led.LR(-1, 1);
-			HAL_Delay(300);
+			HAL_Delay(100);
 
 			if(selector == 0){
 				adj_kp_v = adj_kp_v + 0.00001;
@@ -260,7 +260,7 @@ void cppLoop(void)
 
 		else if(joy_stick.getValue() == JOY_L){
 			led.LR(-1, 1);
-			HAL_Delay(300);
+			HAL_Delay(100);
 
 			if(selector == 0){
 				adj_kp_v = adj_kp_v - 0.00001;
@@ -319,7 +319,7 @@ void cppLoop(void)
 
 			velocity_ctrl.start();
 			line_trace.start();
-			line_trace.setTargetVelocity(0.8);
+			line_trace.setTargetVelocity(0.0);
 			led.LR(1, -1);
 
 			HAL_Delay(3000);
@@ -536,7 +536,7 @@ void cppLoop(void)
 		}
 		else if(joy_stick.getValue() == JOY_R){
 			led.LR(-1, 1);
-			HAL_Delay(300);
+			HAL_Delay(100);
 
 			if(selector == 0){
 				adj_kx = adj_kx + 0.00001;
@@ -555,7 +555,7 @@ void cppLoop(void)
 
 		else if(joy_stick.getValue() == JOY_L){
 			led.LR(-1, 1);
-			HAL_Delay(300);
+			HAL_Delay(100);
 
 			if(selector == 0){
 				adj_kx = adj_kx - 0.00001;
@@ -576,9 +576,9 @@ void cppLoop(void)
 			HAL_Delay(300);
 
 			float temp_kx, temp_ky, temp_kt;
-			sd_read_array_float("Params", "kx.txt", 1, &temp_kx);
-			sd_read_array_float("Params", "ky.txt", 1, &temp_ky);
-			sd_read_array_float("Params", "kt.txt", 1, &temp_kt);
+			sd_read_array_float("PARAMS", "KX.TXT", 1, &temp_kx);
+			sd_read_array_float("PARAMS", "KY.TXT", 1, &temp_ky);
+			sd_read_array_float("PARAMS", "KT.TXT", 1, &temp_kt);
 			path_following.setGain(temp_kx, temp_ky, temp_kt);
 
 			adj_kx = temp_kx;
@@ -591,9 +591,9 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			sd_write_array_float("Params", "kx.txt", 1, &adj_kx, OVER_WRITE);
-			sd_write_array_float("Params", "ky.txt", 1, &adj_ky, OVER_WRITE);
-			sd_write_array_float("Params", "kt.txt", 1, &adj_kt, OVER_WRITE);
+			sd_write_array_float("PARAMS", "KX.TXT", 1, &adj_kx, OVER_WRITE);
+			sd_write_array_float("PARAMS", "KY.TXT", 1, &adj_ky, OVER_WRITE);
+			sd_write_array_float("PARAMS", "KT.TXT", 1, &adj_kt, OVER_WRITE);
 			path_following.setGain(adj_kx, adj_ky, adj_kt);
 
 			led.LR(-1, 0);

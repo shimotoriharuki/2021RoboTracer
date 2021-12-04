@@ -13,8 +13,9 @@
 #include "LED.hpp"
 #include "Joystick.hpp"
 #include "RotarySwitch.hpp"
-
 #include <vector>
+
+#define R_LINESENSE 0.05
 
 class LineSensor {
 

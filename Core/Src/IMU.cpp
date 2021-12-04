@@ -109,6 +109,12 @@ void IMU::calibration()
 {
 	HAL_Delay(1000);
 
+	lcd_clear();
+	lcd_locate(0,0);
+	lcd_printf("IMU     ");
+	lcd_locate(0,1);
+	lcd_printf("Calib   ");
+
 	int16_t num = 2000;
 	float zg_vals[num];
 	for(uint16_t i = 0; i < num; i++){

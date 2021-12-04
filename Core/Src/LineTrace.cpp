@@ -17,6 +17,8 @@ float monitor_steering_angle;
 float monitor_target_omega;
 float monitor_r;
 
+float mon_diff;
+
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl) : kp_(0), kd_(0), ki_(0), excution_flag_(false), normal_ratio_(0){
 	motor_ = motor;
 	line_sensor_ = line_sensor;
@@ -142,6 +144,7 @@ void LineTrace::pidTrace()
 void LineTrace::pidAngularVelocityTrace()
 {
 	float diff = calcError();
+	mon_diff = diff;
 	static float pre_diff = 0;
 	float p, d;
 	static float i;
