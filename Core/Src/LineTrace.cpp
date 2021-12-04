@@ -21,7 +21,7 @@ float monitor_r;
 
 float mon_diff, mon_diff_lpf;
 
-LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl) : kp_(0), kd_(0), ki_(0), excution_flag_(false), normal_ratio_(0){
+LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl) : kp_(0), kd_(0), ki_(0), excution_flag_(false), i_reset_flag_(false), normal_ratio_(0){
 	motor_ = motor;
 	line_sensor_ = line_sensor;
 	velocity_ctrl_ = velocity_ctrl;
@@ -137,6 +137,11 @@ void LineTrace::pidTrace()
 	float p, d;
 	static float i;
 
+	if(i_reset_flag_ == true){
+		i = 0;
+		i_reset_flag_ = false;
+	}
+
 	p = kp_ * diff;
 	d = kd_ * (diff - pre_diff) / DELTA_T;
 	i += ki_ * diff * DELTA_T;
@@ -157,6 +162,11 @@ void LineTrace::pidAngularVelocityTrace()
 	float p, d;
 	static float i;
 	float target_omega = 0;
+
+	if(i_reset_flag_ == true){
+		i = 0;
+		i_reset_flag_ = false;
+	}
 
 	p = kp_velo_ * diff;
 	d = kd_velo_ * (diff - pre_diff) / DELTA_T;
@@ -276,6 +286,7 @@ void LineTrace::flip()
 void LineTrace::start()
 {
 	excution_flag_ = true;
+	i_reset_flag_ = true;
 }
 
 void LineTrace::stop()

@@ -33,6 +33,7 @@ private:
 	float kp_, kd_, ki_;
 	float kp_velo_, kd_velo_, ki_velo_;
 	bool excution_flag_;
+	bool i_reset_flag_;
 	float normal_ratio_;
 	float sensor_values_[SENSOR_NUM];
 	float target_velocity_;

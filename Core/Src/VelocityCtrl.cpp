@@ -11,7 +11,7 @@
 
 VelocityCtrl::VelocityCtrl(Motor *motor, Encoder *encoder, IMU *imu) :
 target_velocity_(0), target_omega_(0), current_velocity_(0), current_omega_(0), v_kp_(0), v_kd_(0), v_ki_(0),
-	o_kp_(0), o_kd_(0), o_ki_(0), excution_flag_(false)
+	o_kp_(0), o_kd_(0), o_ki_(0), excution_flag_(false), i_reset_flag_(false)
 {
 	motor_ = motor;
 	encoder_ = encoder;
@@ -51,6 +51,11 @@ void VelocityCtrl::pid()
 
 	float v_p, v_d, o_p, o_d;
 	static float v_i, o_i;
+
+	if(i_reset_flag_ == true){
+		v_i = o_i = 0;
+		i_reset_flag_ = false;
+	}
 
 	v_p = v_kp_ * v_diff;
 	v_i += v_ki_ * v_diff * DELTA_T;
@@ -114,6 +119,7 @@ void VelocityCtrl::flip()
 void VelocityCtrl::start()
 {
 	excution_flag_ = true;
+	i_reset_flag_ = true;
 	//calcOmega();
 }
 
