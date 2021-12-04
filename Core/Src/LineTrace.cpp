@@ -10,6 +10,8 @@
 #include "Macro.h"
 #include <cmath>
 
+#define R_DIFF 0.08
+
 float monitor_std_angle;
 float monitor_norm_l, monitor_norm_r;
 float monitor_delta_theta;
@@ -17,7 +19,7 @@ float monitor_steering_angle;
 float monitor_target_omega;
 float monitor_r;
 
-float mon_diff;
+float mon_diff, mon_diff_lpf;
 
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl) : kp_(0), kd_(0), ki_(0), excution_flag_(false), normal_ratio_(0){
 	motor_ = motor;
@@ -28,8 +30,15 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 // --------private--------- //
 float LineTrace::calcError()
 {
+	static float pre_diff;
 	float diff = (line_sensor_->sensor[0] + line_sensor_->sensor[1] + line_sensor_->sensor[2] + line_sensor_->sensor[3] + line_sensor_->sensor[4] + line_sensor_->sensor[5] + line_sensor_->sensor[6])
 			- (line_sensor_->sensor[7] + line_sensor_->sensor[8] + line_sensor_->sensor[9] + line_sensor_->sensor[10] + line_sensor_->sensor[11] + line_sensor_->sensor[12] + line_sensor_->sensor[13]);
+	mon_diff = diff;
+
+	diff = ((R_DIFF)*(diff) + (1.0 - (R_DIFF))* (pre_diff));
+	mon_diff_lpf = diff;
+
+	pre_diff = diff;
 
 	return diff;
 
@@ -144,7 +153,6 @@ void LineTrace::pidTrace()
 void LineTrace::pidAngularVelocityTrace()
 {
 	float diff = calcError();
-	mon_diff = diff;
 	static float pre_diff = 0;
 	float p, d;
 	static float i;
@@ -263,7 +271,6 @@ void LineTrace::flip()
 
 		}
 	}
-
 }
 
 void LineTrace::start()

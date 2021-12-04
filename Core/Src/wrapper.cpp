@@ -325,6 +325,7 @@ void cppLoop(void)
 			HAL_Delay(3000);
 
 			velocity_ctrl.stop();
+			line_trace.stop();
 			led.LR(0, -1);
 
 			//logger.stop();
@@ -721,6 +722,7 @@ void cppLoop(void)
 	HAL_Delay(30);
 
 }
+
 
 
 
