@@ -53,9 +53,9 @@ void PathFollowing::init()
 	path_following_initialize();
 
 	double temp_kx, temp_ky, temp_kt;
-	sd_read_array_double("Params", "kx.txt", 1, &temp_kx);
-	sd_read_array_double("Params", "ky.txt", 1, &temp_ky);
-	sd_read_array_double("Params", "kt.txt", 1, &temp_kt);
+	sd_read_array_double("PARAMS", "KX.TXT", 1, &temp_kx);
+	sd_read_array_double("PARAMS", "KY.TXT", 1, &temp_ky);
+	sd_read_array_double("PARAMS", "KT.TXT", 1, &temp_kt);
 	setGain(temp_kx, temp_ky, temp_kt);
 }
 

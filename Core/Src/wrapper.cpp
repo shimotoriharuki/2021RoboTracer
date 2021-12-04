@@ -281,9 +281,9 @@ void cppLoop(void)
 			HAL_Delay(300);
 
 			float temp_kp_v, temp_ki_v, temp_kd_v;
-			sd_read_array_float("Params", "kp_v.txt", 1, &temp_kp_v);
-			sd_read_array_float("Params", "ki_v.txt", 1, &temp_ki_v);
-			sd_read_array_float("Params", "kd_v.txt", 1, &temp_kd_v);
+			sd_read_array_float("PARAMS", "KP_V.TXT", 1, &temp_kp_v);
+			sd_read_array_float("PARAMS", "KI_V.TXT", 1, &temp_ki_v);
+			sd_read_array_float("PARAMS", "KD_V.TXT", 1, &temp_kd_v);
 			line_trace.setVeloGain(temp_kp_v, temp_ki_v, temp_kd_v);
 
 			adj_kp_v = temp_kp_v;
@@ -296,9 +296,9 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			sd_write_array_float("Params", "kp_v.txt", 1, &adj_kp_v, OVER_WRITE);
-			sd_write_array_float("Params", "ki_v.txt", 1, &adj_ki_v, OVER_WRITE);
-			sd_write_array_float("Params", "kd_v.txt", 1, &adj_kd_v, OVER_WRITE);
+			sd_write_array_float("PARAMS", "KP_V.TXT", 1, &adj_kp_v, OVER_WRITE);
+			sd_write_array_float("PARAMS", "KI_V.TXT", 1, &adj_ki_v, OVER_WRITE);
+			sd_write_array_float("PARAMS", "KD_V.TXT", 1, &adj_kd_v, OVER_WRITE);
 			line_trace.setVeloGain(adj_kp_v, adj_ki_v, adj_kd_v);
 
 			led.LR(-1, 0);
