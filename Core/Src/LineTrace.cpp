@@ -146,10 +146,10 @@ void LineTrace::pidTrace()
 	d = kd_ * (diff - pre_diff) / DELTA_T;
 	i += ki_ * diff * DELTA_T;
 
-	float left_ratio = normal_ratio_ + (p + d + i);
-	float right_ratio = normal_ratio_ - (p + d + i);
+	float rotation_ratio = p + d + i;
 
-	motor_->setRatio(left_ratio, right_ratio);
+	//motor_->setRatio(left_ratio, right_ratio);
+	velocity_ctrl_->setTranslationVelocityOnly(target_velocity_, rotation_ratio);
 
 	pre_diff = diff;
 
@@ -203,11 +203,11 @@ void LineTrace::steeringAngleTrace()
 // -------public---------- //
 void LineTrace::init()
 {
-	float temp_kp_v, temp_ki_v, temp_kd_v;
-	sd_read_array_float("PARAMS", "KP_V.TXT", 1, &temp_kp_v);
-	sd_read_array_float("PARAMS", "KI_V.TXT", 1, &temp_ki_v);
-	sd_read_array_float("PARAMS", "KD_V.TXT", 1, &temp_kd_v);
-	setVeloGain(temp_kp_v, temp_ki_v, temp_kd_v);
+	float temp_kp, temp_ki, temp_kd;
+	sd_read_array_float("PARAMS", "KP.TXT", 1, &temp_kp);
+	sd_read_array_float("PARAMS", "KI.TXT", 1, &temp_ki);
+	sd_read_array_float("PARAMS", "KD.TXT", 1, &temp_kd);
+	setGain(temp_kp, temp_ki, temp_kd);
 
 }
 
@@ -268,8 +268,8 @@ void LineTrace::setTargetVelocity(float velocity)
 void LineTrace::flip()
 {
 	if(excution_flag_ == true){
-		//pidTrace();
-		pidAngularVelocityTrace();
+		pidTrace();
+		//pidAngularVelocityTrace();
 		//steeringAngleTrace();
 
 		if(line_sensor_->emergencyStop() == true){

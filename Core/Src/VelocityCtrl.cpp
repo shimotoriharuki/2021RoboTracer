@@ -78,6 +78,32 @@ void VelocityCtrl::pid()
 	o_pre_diff = o_diff;
 }
 
+void VelocityCtrl::pidTranslationOnly()
+{
+	float static v_pre_diff;
+	float v_diff = target_velocity_ - current_velocity_;
+
+	float v_p, v_d ;
+	static float v_i;
+
+	if(i_reset_flag_ == true){
+		v_i = 0;
+		i_reset_flag_ = false;
+	}
+
+	v_p = v_kp_ * v_diff;
+	v_i += v_ki_ * v_diff * DELTA_T;
+	v_d = v_kd_ * (v_diff - v_pre_diff) * DELTA_T;
+
+	float translation_ratio;
+
+	translation_ratio =  v_p + v_d + v_i;
+
+	motor_->setRatio(translation_ratio + rotation_ratio_, translation_ratio - rotation_ratio_);
+
+	v_pre_diff = v_diff;
+}
+
 // --------public -----------//
 void VelocityCtrl::init()
 {
@@ -88,6 +114,12 @@ void VelocityCtrl::setVelocity(float velocity, float omega)
 {
 	target_velocity_ = velocity;
 	target_omega_= omega;
+}
+
+void VelocityCtrl::setTranslationVelocityOnly(float velocity, float rotation_ratio)
+{
+	target_velocity_ = velocity;
+	rotation_ratio_ = rotation_ratio;
 }
 
 void VelocityCtrl::setVelocityGain(float kp, float ki, float kd)
@@ -110,7 +142,8 @@ void VelocityCtrl::flip()
 	//calcOmega();
 
 	if(excution_flag_ == true){
-		pid();
+		//pid();
+		pidTranslationOnly();
 	}
 
 

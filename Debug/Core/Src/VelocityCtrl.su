@@ -1,11 +1,13 @@
 VelocityCtrl.cpp:12:1:VelocityCtrl::VelocityCtrl(Motor*, Encoder*, IMU*)	24	static
 VelocityCtrl.cpp:24:7:float VelocityCtrl::calcVelocity()	40	static
 VelocityCtrl.cpp:46:6:void VelocityCtrl::pid()	80	static
-VelocityCtrl.cpp:82:6:void VelocityCtrl::init()	16	static
-VelocityCtrl.cpp:87:6:void VelocityCtrl::setVelocity(float, float)	24	static
-VelocityCtrl.cpp:93:6:void VelocityCtrl::setVelocityGain(float, float, float)	24	static
-VelocityCtrl.cpp:100:6:void VelocityCtrl::setOmegaGain(float, float, float)	24	static
-VelocityCtrl.cpp:107:6:void VelocityCtrl::flip()	16	static
-VelocityCtrl.cpp:119:6:void VelocityCtrl::start()	16	static
-VelocityCtrl.cpp:126:6:void VelocityCtrl::stop()	16	static
-VelocityCtrl.cpp:133:7:float VelocityCtrl::getCurrentVelocity()	16	static
+VelocityCtrl.cpp:81:6:void VelocityCtrl::pidTranslationOnly()	48	static
+VelocityCtrl.cpp:108:6:void VelocityCtrl::init()	16	static
+VelocityCtrl.cpp:113:6:void VelocityCtrl::setVelocity(float, float)	24	static
+VelocityCtrl.cpp:119:6:void VelocityCtrl::setTranslationVelocityOnly(float, float)	24	static
+VelocityCtrl.cpp:125:6:void VelocityCtrl::setVelocityGain(float, float, float)	24	static
+VelocityCtrl.cpp:132:6:void VelocityCtrl::setOmegaGain(float, float, float)	24	static
+VelocityCtrl.cpp:139:6:void VelocityCtrl::flip()	16	static
+VelocityCtrl.cpp:152:6:void VelocityCtrl::start()	16	static
+VelocityCtrl.cpp:159:6:void VelocityCtrl::stop()	16	static
+VelocityCtrl.cpp:166:7:float VelocityCtrl::getCurrentVelocity()	16	static

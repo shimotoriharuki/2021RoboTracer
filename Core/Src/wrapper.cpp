@@ -222,13 +222,13 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("%4.2lf    ", line_trace.getKpV()*1000);
+		lcd_printf("%4.2lf    ", line_trace.getKp()*1000);
 		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", line_trace.getKiV()*100, line_trace.getKdV()*1000);
+		lcd_printf("%4.2lf%4.2lf", line_trace.getKi()*100, line_trace.getKd()*1000);
 
-		static float adj_kp_v = line_trace.getKpV();
-		static float adj_ki_v = line_trace.getKiV();
-		static float adj_kd_v = line_trace.getKdV();
+		static float adj_kp = line_trace.getKp();
+		static float adj_ki = line_trace.getKi();
+		static float adj_kd = line_trace.getKd();
 
 		if(joy_stick.getValue() == JOY_U){
 			led.LR(-1, 1);
@@ -244,13 +244,13 @@ void cppLoop(void)
 			HAL_Delay(100);
 
 			if(selector == 0){
-				adj_kp_v = adj_kp_v + 0.00001;
+				adj_kp = adj_kp + 0.00001;
 			}
 			else if(selector == 1){
-				adj_ki_v = adj_ki_v + 0.0001;
+				adj_ki = adj_ki + 0.0001;
 			}
 			else{
-				adj_kd_v = adj_kd_v + 0.00001;
+				adj_kd = adj_kd + 0.00001;
 			}
 
 			led.fullColor('R');
@@ -263,13 +263,13 @@ void cppLoop(void)
 			HAL_Delay(100);
 
 			if(selector == 0){
-				adj_kp_v = adj_kp_v - 0.00001;
+				adj_kp = adj_kp - 0.00001;
 			}
 			else if(selector == 1){
-				adj_ki_v = adj_ki_v - 0.0001;
+				adj_ki = adj_ki - 0.0001;
 			}
 			else{
-				adj_kd_v = adj_kd_v - 0.00001;
+				adj_kd = adj_kd - 0.00001;
 			}
 
 			led.fullColor('R');
@@ -280,15 +280,15 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			float temp_kp_v, temp_ki_v, temp_kd_v;
-			sd_read_array_float("PARAMS", "KP_V.TXT", 1, &temp_kp_v);
-			sd_read_array_float("PARAMS", "KI_V.TXT", 1, &temp_ki_v);
-			sd_read_array_float("PARAMS", "KD_V.TXT", 1, &temp_kd_v);
-			line_trace.setVeloGain(temp_kp_v, temp_ki_v, temp_kd_v);
+			float temp_kp, temp_ki, temp_kd;
+			sd_read_array_float("PARAMS", "KP.TXT", 1, &temp_kp);
+			sd_read_array_float("PARAMS", "KI.TXT", 1, &temp_ki);
+			sd_read_array_float("PARAMS", "KD.TXT", 1, &temp_kd);
+			line_trace.setGain(temp_kp, temp_ki, temp_kd);
 
-			adj_kp_v = temp_kp_v;
-			adj_ki_v = temp_kp_v;
-			adj_kd_v = temp_kp_v;
+			adj_kp = temp_kp;
+			adj_ki = temp_kp;
+			adj_kd = temp_kp;
 
 			led.LR(-1, 0);
 		}
@@ -296,10 +296,10 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			sd_write_array_float("PARAMS", "KP_V.TXT", 1, &adj_kp_v, OVER_WRITE);
-			sd_write_array_float("PARAMS", "KI_V.TXT", 1, &adj_ki_v, OVER_WRITE);
-			sd_write_array_float("PARAMS", "KD_V.TXT", 1, &adj_kd_v, OVER_WRITE);
-			line_trace.setVeloGain(adj_kp_v, adj_ki_v, adj_kd_v);
+			sd_write_array_float("PARAMS", "KP.TXT", 1, &adj_kp, OVER_WRITE);
+			sd_write_array_float("PARAMS", "KI.TXT", 1, &adj_ki, OVER_WRITE);
+			sd_write_array_float("PARAMS", "KD.TXT", 1, &adj_kd, OVER_WRITE);
+			line_trace.setGain(adj_kp, adj_ki, adj_kd);
 
 			led.LR(-1, 0);
 		}
@@ -319,7 +319,7 @@ void cppLoop(void)
 
 			velocity_ctrl.start();
 			line_trace.start();
-			line_trace.setTargetVelocity(0.5);
+			line_trace.setTargetVelocity(0.8);
 			led.LR(1, -1);
 
 			HAL_Delay(3000);
@@ -380,7 +380,7 @@ void cppLoop(void)
 			line_trace.stop();
 
 			led.LR(1, -1);
-			logger.saveLogs("line_sensors", "sensor7.csv");
+			//logger.saveLogs("line_sensors", "sensor7.csv");
 			led.LR(0, -1);
 
 			led.LR(-1, 0);

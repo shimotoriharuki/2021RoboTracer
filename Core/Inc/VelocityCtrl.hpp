@@ -30,6 +30,7 @@ private:
 	float o_kp_, o_kd_, o_ki_;
 	bool excution_flag_;
 	bool i_reset_flag_;
+	bool rotation_ratio_;
 	Motor *motor_;
 	Encoder *encoder_;
 	IMU *imu_;
@@ -37,11 +38,13 @@ private:
 	float calcVelocity();
 	//float calcOmega();
 	void pid();
+	void pidTranslationOnly();
 
 public:
 	VelocityCtrl(Motor *, Encoder *, IMU *);
 	void init();
 	void setVelocity(float, float);
+	void setTranslationVelocityOnly(float, float);
 	void setVelocityGain(float, float, float);
 	void setOmegaGain(float, float, float);
 	void flip();

@@ -5,7 +5,7 @@ LineTrace.cpp:75:6:void LineTrace::getSensorValues()	16	static
 LineTrace.cpp:92:6:void LineTrace::calcStandardAngle(float&, uint16_t&)	40	static
 LineTrace.cpp:121:6:void LineTrace::calcNormalizedSensorValue(uint16_t, float&, float&)	24	static
 LineTrace.cpp:127:6:void LineTrace::calcDeltaTheta(float, float, float&)	40	static
-LineTrace.cpp:133:6:void LineTrace::pidTrace()	56	static
+LineTrace.cpp:133:6:void LineTrace::pidTrace()	40	static
 LineTrace.cpp:158:6:void LineTrace::pidAngularVelocityTrace()	40	static
 LineTrace.cpp:183:6:void LineTrace::steeringAngleTrace()	40	static
 LineTrace.cpp:204:6:void LineTrace::init()	32	static
