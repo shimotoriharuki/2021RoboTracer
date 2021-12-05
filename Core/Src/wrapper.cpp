@@ -114,7 +114,7 @@ void cppInit(void)
 	line_trace.setGain(0.0005, 0.000002, 0);
 
 	//velocity_ctrl.setVelocityGain(1.5, 20, 0);
-	velocity_ctrl.setVelocityGain(3.0983, 23.773, 0.036866);
+	velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243);
 	//velocity_ctrl.setVelocityGain(1.9842, 22.9078, 0.02079);
 	//velocity_ctrl.setOmegaGain(0.5, 5, 0);
 	//velocity_ctrl.setOmegaGain(0.05, 7, 0);
@@ -144,8 +144,8 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-	//logger.storeLog(velocity_ctrl.getCurrentVelocity());
-	logger.storeLog(imu.getOmega());
+	logger.storeLog(velocity_ctrl.getCurrentVelocity());
+	//logger.storeLog(imu.getOmega());
 
 	static uint16_t twice_cnt;
 	twice_cnt++;
@@ -645,7 +645,7 @@ void cppLoop(void)
 
 			logger.start();
 			velocity_ctrl.start();
-			velocity_ctrl.setVelocity(0.0, 3.14*2);
+			velocity_ctrl.setVelocity(1, 0);
 
 			HAL_Delay(1000);
 
