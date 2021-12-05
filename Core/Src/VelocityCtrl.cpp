@@ -11,7 +11,7 @@
 
 VelocityCtrl::VelocityCtrl(Motor *motor, Encoder *encoder, IMU *imu) :
 target_velocity_(0), target_omega_(0), current_velocity_(0), current_omega_(0), v_kp_(0), v_kd_(0), v_ki_(0),
-	o_kp_(0), o_kd_(0), o_ki_(0), excution_flag_(false), i_reset_flag_(false)
+	o_kp_(0), o_kd_(0), o_ki_(0), excution_flag_(false), i_reset_flag_(false), rotation_ratio_(0)
 {
 	motor_ = motor;
 	encoder_ = encoder;
@@ -59,11 +59,11 @@ void VelocityCtrl::pid()
 
 	v_p = v_kp_ * v_diff;
 	v_i += v_ki_ * v_diff * DELTA_T;
-	v_d = v_kd_ * (v_diff - v_pre_diff) * DELTA_T;
+	v_d = v_kd_ * (v_diff - v_pre_diff) / DELTA_T;
 
 	o_p = o_kp_ * o_diff;
 	o_i += o_ki_ * o_diff * DELTA_T;
-	o_d = o_kd_ * (o_diff - o_pre_diff) * DELTA_T;
+	o_d = o_kd_ * (o_diff - o_pre_diff) / DELTA_T;
 
 	float v_left_ratio, v_right_ratio, o_left_ratio, o_right_ratio;
 
@@ -93,7 +93,7 @@ void VelocityCtrl::pidTranslationOnly()
 
 	v_p = v_kp_ * v_diff;
 	v_i += v_ki_ * v_diff * DELTA_T;
-	v_d = v_kd_ * (v_diff - v_pre_diff) * DELTA_T;
+	v_d = v_kd_ * (v_diff - v_pre_diff) / DELTA_T;
 
 	float translation_ratio;
 

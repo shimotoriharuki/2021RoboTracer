@@ -319,7 +319,7 @@ void cppLoop(void)
 
 			velocity_ctrl.start();
 			line_trace.start();
-			line_trace.setTargetVelocity(0.8);
+			line_trace.setTargetVelocity(0.0);
 			led.LR(1, -1);
 
 			HAL_Delay(3000);
