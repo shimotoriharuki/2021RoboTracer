@@ -21,11 +21,12 @@ float monitor_r;
 
 float mon_diff, mon_diff_lpf;
 
-LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl) : kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0), excution_flag_(false), i_reset_flag_(false), normal_ratio_(0), target_velocity_(0)
+LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor) : kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0), excution_flag_(false), i_reset_flag_(false), normal_ratio_(0), target_velocity_(0)
 {
 	motor_ = motor;
 	line_sensor_ = line_sensor;
 	velocity_ctrl_ = velocity_ctrl;
+	side_sensor_ = side_sensor;
 }
 
 // --------private--------- //
@@ -294,5 +295,15 @@ void LineTrace::stop()
 {
 	excution_flag_ = false;
 	motor_->setRatio(0, 0);
+}
+
+void LineTrace::waitGoal()
+{
+
+	while(1){
+
+	}
+	stop();
+
 }
 

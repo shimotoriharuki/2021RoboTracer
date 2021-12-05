@@ -46,7 +46,7 @@ Core/Src/LineTrace.o: ../Core/Src/LineTrace.cpp ../Core/Inc/LineTrace.hpp \
  ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
- ../Core/Inc/Macro.h
+ ../Core/Inc/SideSensor.hpp ../Core/Inc/Macro.h
 
 ../Core/Inc/LineTrace.hpp:
 
@@ -161,5 +161,7 @@ Core/Src/LineTrace.o: ../Core/Src/LineTrace.cpp ../Core/Inc/LineTrace.hpp \
 ../Middlewares/Third_Party/FatFs/src/ff.h:
 
 ../FATFS/Target/sd_diskio.h:
+
+../Core/Inc/SideSensor.hpp:
 
 ../Core/Inc/Macro.h:

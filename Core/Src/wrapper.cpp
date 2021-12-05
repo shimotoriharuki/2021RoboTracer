@@ -38,7 +38,7 @@ Logger logger;
 
 Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
-LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl);
+LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
 SystemIdentification sys_ident(&logger, &motor);
 
@@ -134,8 +134,8 @@ void cppFlip1ms(void)
 {
 	line_sensor.updateSensorValues();
 	imu.updateValues();
-	mon_zg = imu.getOmega();
-	mon_offset = imu.getOffsetVal();
+	//mon_zg = imu.getOmega();
+	//mon_offset = imu.getOffsetVal();
 	encoder.updateCnt();
 
 	line_trace.flip();
@@ -210,6 +210,7 @@ void cppFlip10ms(void)
 void cppExit(uint16_t gpio_pin)
 {
 	side_sensor.updateStatus(gpio_pin);
+	printf("intertuptin\n");
 }
 
 void cppLoop(void)
@@ -224,7 +225,7 @@ void cppLoop(void)
 		lcd_locate(0,0);
 		lcd_printf("%4.2lf    ", line_trace.getKp()*1000);
 		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", line_trace.getKi()*100, line_trace.getKd()*1000);
+		lcd_printf("%4.2lf%4.2lf", line_trace.getKi()*100, line_trace.getKd()*10000);
 
 		static float adj_kp = line_trace.getKp();
 		static float adj_ki = line_trace.getKi();
@@ -250,7 +251,7 @@ void cppLoop(void)
 				adj_ki = adj_ki + 0.0001;
 			}
 			else{
-				adj_kd = adj_kd + 0.00001;
+				adj_kd = adj_kd + 0.000001;
 			}
 
 			led.fullColor('R');
@@ -269,7 +270,7 @@ void cppLoop(void)
 				adj_ki = adj_ki - 0.0001;
 			}
 			else{
-				adj_kd = adj_kd - 0.00001;
+				adj_kd = adj_kd - 0.000001;
 			}
 
 			led.fullColor('R');
@@ -319,10 +320,10 @@ void cppLoop(void)
 
 			line_trace.start();
 			velocity_ctrl.start();
-			line_trace.setTargetVelocity(0.0);
+			line_trace.setTargetVelocity(1.0);
 			led.LR(1, -1);
 
-			HAL_Delay(1000);
+			HAL_Delay(3000);
 
 			line_trace.stop();
 			velocity_ctrl.stop();

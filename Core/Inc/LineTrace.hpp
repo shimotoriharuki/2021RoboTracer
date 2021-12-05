@@ -13,6 +13,7 @@
 #include "LED.hpp"
 #include "VelocityCtrl.hpp"
 #include "HAL_SDcard_lib.h"
+#include "SideSensor.hpp"
 
 #define DELTA_T 0.001
 #define ANGLE_BETWEEN_SENSORS 0.17104 //[rad]
@@ -21,7 +22,6 @@
 #define CENTER_NUM 6
 #define PI 3.1415926535
 #define CENTER_OF_ROTATION_TO_CENTER_OF_SENSOR 0.060 //[m]
-//extern float monitor_angle;
 
 class LineTrace
 {
@@ -30,6 +30,7 @@ private:
 	LineSensor *line_sensor_;
 	VelocityCtrl *velocity_ctrl_;
 	LED led_;
+	SideSensor *side_sensor_;
 	float kp_, kd_, ki_;
 	float kp_velo_, kd_velo_, ki_velo_;
 	bool excution_flag_;
@@ -49,7 +50,7 @@ private:
 	void steeringAngleTrace();
 
 public:
-	LineTrace(Motor *, LineSensor *, VelocityCtrl *);
+	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor *);
 	void init();
 	void setGain(float, float, float);
 	void setVeloGain(float, float, float);
@@ -64,6 +65,7 @@ public:
 	void flip();
 	void start();
 	void stop();
+	void waitGoal();
 
 };
 

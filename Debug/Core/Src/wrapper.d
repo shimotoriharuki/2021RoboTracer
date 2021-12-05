@@ -49,8 +49,9 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
  ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
- ../Core/Inc/PowerSensor.hpp ../Core/Inc/IMU.hpp ../Core/Inc/AQM0802.h \
- ../Core/Inc/main.h ../Core/Inc/Logger.hpp ../Core/Inc/Odometry.hpp \
+ ../Core/Inc/SideSensor.hpp ../Core/Inc/PowerSensor.hpp \
+ ../Core/Inc/IMU.hpp ../Core/Inc/AQM0802.h ../Core/Inc/main.h \
+ ../Core/Inc/Logger.hpp ../Core/Inc/Odometry.hpp \
  ../Core/Inc/HAL_SDcard_lib.h ../Core/Inc/SystemIdentification.hpp \
  ../Core/Inc/Logger.hpp ../Core/Inc/PathFollowing.hpp \
  ../Core/Inc/rtwtypes.h
@@ -186,6 +187,8 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
 ../Middlewares/Third_Party/FatFs/src/ff.h:
 
 ../FATFS/Target/sd_diskio.h:
+
+../Core/Inc/SideSensor.hpp:
 
 ../Core/Inc/PowerSensor.hpp:
 
