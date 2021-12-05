@@ -21,7 +21,8 @@ float monitor_r;
 
 float mon_diff, mon_diff_lpf;
 
-LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl) : kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0), excution_flag_(false), i_reset_flag_(false), normal_ratio_(0), target_velocity_(0){
+LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl) : kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0), excution_flag_(false), i_reset_flag_(false), normal_ratio_(0), target_velocity_(0)
+{
 	motor_ = motor;
 	line_sensor_ = line_sensor;
 	velocity_ctrl_ = velocity_ctrl;
@@ -149,7 +150,7 @@ void LineTrace::pidTrace()
 	float rotation_ratio = p + d + i;
 
 	//motor_->setRatio(left_ratio, right_ratio);
-	velocity_ctrl_->setTranslationVelocityOnly(target_velocity_, 0);
+	velocity_ctrl_->setTranslationVelocityOnly(target_velocity_, rotation_ratio);
 
 	pre_diff = diff;
 

@@ -30,7 +30,7 @@ private:
 	float o_kp_, o_kd_, o_ki_;
 	bool excution_flag_;
 	bool i_reset_flag_;
-	bool rotation_ratio_;
+	float rotation_ratio_;
 	Motor *motor_;
 	Encoder *encoder_;
 	IMU *imu_;

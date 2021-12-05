@@ -111,7 +111,7 @@ void cppInit(void)
 	imu.calibration();
 
 	//line_trace.setGain(0.0005, 0.000003, 0);
-	line_trace.setGain(0.0005, 0.000002, 0);
+	//line_trace.setGain(0.0005, 0.000002, 0);
 
 	//velocity_ctrl.setVelocityGain(1.5, 20, 0);
 	velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243);
@@ -317,15 +317,15 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 
-			velocity_ctrl.start();
 			line_trace.start();
+			velocity_ctrl.start();
 			line_trace.setTargetVelocity(0.0);
 			led.LR(1, -1);
 
-			HAL_Delay(3000);
+			HAL_Delay(1000);
 
-			velocity_ctrl.stop();
 			line_trace.stop();
+			velocity_ctrl.stop();
 			led.LR(0, -1);
 
 			//logger.stop();
