@@ -299,9 +299,12 @@ void LineTrace::stop()
 
 void LineTrace::waitGoal()
 {
+	side_sensor_->resetWhiteLineCnt();
 
 	while(1){
-
+		if(side_sensor_->getWhiteLineCntR() == 2){
+			break;
+		}
 	}
 	stop();
 
