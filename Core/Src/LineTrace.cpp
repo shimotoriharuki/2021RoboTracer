@@ -303,7 +303,11 @@ void LineTrace::waitGoal()
 
 	while(1){
 		if(side_sensor_->getWhiteLineCntR() == 2){
+			HAL_Delay(100); //Run through after the goal
+			setTargetVelocity(0);
+			HAL_Delay(500); //Run through after the goal
 			break;
+
 		}
 	}
 	stop();

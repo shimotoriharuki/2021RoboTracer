@@ -210,7 +210,6 @@ void cppFlip10ms(void)
 void cppExit(uint16_t gpio_pin)
 {
 	side_sensor.updateStatus(gpio_pin);
-	printf("intertuptin\n");
 }
 
 void cppLoop(void)
@@ -320,7 +319,7 @@ void cppLoop(void)
 
 			line_trace.start();
 			velocity_ctrl.start();
-			line_trace.setTargetVelocity(1.4);
+			line_trace.setTargetVelocity(1.6);
 			led.LR(1, -1);
 
 			line_trace.waitGoal();

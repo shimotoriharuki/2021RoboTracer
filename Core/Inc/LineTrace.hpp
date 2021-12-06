@@ -66,6 +66,7 @@ public:
 	void start();
 	void stop();
 	void waitGoal();
+	void loggerStart();
 
 };
 
