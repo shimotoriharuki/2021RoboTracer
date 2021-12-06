@@ -38,8 +38,8 @@ Logger logger;
 
 Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
-LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
+LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &logger);
 SystemIdentification sys_ident(&logger, &motor);
 
 PathFollowing path_following;
@@ -134,8 +134,6 @@ void cppFlip1ms(void)
 {
 	line_sensor.updateSensorValues();
 	imu.updateValues();
-	//mon_zg = imu.getOmega();
-	//mon_offset = imu.getOffsetVal();
 	encoder.updateCnt();
 
 	line_trace.flip();
@@ -144,7 +142,7 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-	logger.storeLog(velocity_ctrl.getCurrentVelocity());
+	//logger.storeLog(velocity_ctrl.getCurrentVelocity());
 	//logger.storeLog(imu.getOmega());
 
 	static uint16_t twice_cnt;
@@ -154,13 +152,10 @@ void cppFlip1ms(void)
 		twice_cnt = 0;
 	}
 
+	line_trace.storeLogs();
+
 	//mon_cnt = twice_cnt;
 	/*
-	if(encoder.getTotalDistance() >= 10){
-		logger.storeDistanceAndTheta(encoder.getTotalDistance(), odometry.getTheta());
-		encoder.clearTotalCnt();
-		odometry.clearPotition();
-	}
 	*/
 
 	encoder.clearCnt();
@@ -174,14 +169,6 @@ void cppFlip1ms(void)
 void cppFlip100ns(void)
 {
 	line_sensor.storeSensorValues();
-	/*
-	static uint8_t cnt;
-	cnt++;
-	if(cnt >= 2){ //200ns
-		cnt = 0;
-		//imu.storeValues();
-	}
-	*/
 }
 
 void cppFlip10ms(void)
@@ -317,16 +304,13 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 
-			line_trace.start();
-			velocity_ctrl.start();
-			line_trace.setTargetVelocity(1.6);
+			line_trace.setTargetVelocity(1.0);
 			led.LR(1, -1);
 
-			line_trace.waitGoal();
+			line_trace.running();
 			//HAL_Delay(3000);
 
 			//line_trace.stop();
-			velocity_ctrl.stop();
 			led.LR(0, -1);
 
 			//logger.stop();

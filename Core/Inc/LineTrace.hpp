@@ -14,6 +14,9 @@
 #include "VelocityCtrl.hpp"
 #include "HAL_SDcard_lib.h"
 #include "SideSensor.hpp"
+#include "Encoder.hpp"
+#include "Odometry.hpp"
+#include "Logger.hpp"
 
 #define DELTA_T 0.001
 #define ANGLE_BETWEEN_SENSORS 0.17104 //[rad]
@@ -31,6 +34,10 @@ private:
 	VelocityCtrl *velocity_ctrl_;
 	LED led_;
 	SideSensor *side_sensor_;
+	Encoder *encoder_;
+	Odometry *odometry_;
+	Logger *logger_;
+
 	float kp_, kd_, ki_;
 	float kp_velo_, kd_velo_, ki_velo_;
 	bool excution_flag_;
@@ -38,6 +45,7 @@ private:
 	float normal_ratio_;
 	float sensor_values_[SENSOR_NUM];
 	float target_velocity_;
+	bool logging_flag_;
 
 	float calcError();
 	float calcAngle();
@@ -50,7 +58,7 @@ private:
 	void steeringAngleTrace();
 
 public:
-	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor *);
+	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *);
 	void init();
 	void setGain(float, float, float);
 	void setVeloGain(float, float, float);
@@ -65,8 +73,10 @@ public:
 	void flip();
 	void start();
 	void stop();
-	void waitGoal();
+	void running();
+	void storeLogs();
 	void loggerStart();
+	void loggerStop();
 
 };
 

@@ -21,12 +21,19 @@ float monitor_r;
 
 float mon_diff, mon_diff_lpf;
 
-LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor) : kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0), excution_flag_(false), i_reset_flag_(false), normal_ratio_(0), target_velocity_(0)
+uint16_t mon_store_cnt;
+
+LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger) :
+				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
+				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0), target_velocity_(0), logging_flag_(false)
 {
 	motor_ = motor;
 	line_sensor_ = line_sensor;
 	velocity_ctrl_ = velocity_ctrl;
 	side_sensor_ = side_sensor;
+	encoder_ = encoder;
+	odometry_ = odometry;
+	logger_ = logger;
 }
 
 // --------private--------- //
@@ -289,28 +296,77 @@ void LineTrace::start()
 {
 	excution_flag_ = true;
 	i_reset_flag_ = true;
+	velocity_ctrl_->start();
+	side_sensor_->resetWhiteLineCnt();
 }
 
 void LineTrace::stop()
 {
 	excution_flag_ = false;
-	motor_->setRatio(0, 0);
+	velocity_ctrl_->stop();
+
+	logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
+	//logger_->resetLogs();
 }
 
-void LineTrace::waitGoal()
+void LineTrace::running()
 {
-	side_sensor_->resetWhiteLineCnt();
+	uint16_t stage = 0;
+	bool goal_flag = false;
+	start();
 
-	while(1){
-		if(side_sensor_->getWhiteLineCntR() == 2){
-			HAL_Delay(100); //Run through after the goal
-			setTargetVelocity(0);
-			HAL_Delay(500); //Run through after the goal
+	while(goal_flag == false){
+		switch(stage){
+		case 0:
+			if(side_sensor_->getWhiteLineCntR() == 1){
+				loggerStart();
+				stage = 10;
+			}
+
 			break;
 
+		case 10:
+			if(side_sensor_->getWhiteLineCntR() == 2){
+				loggerStop();
+				HAL_Delay(100); //Run through after the goal
+
+				setTargetVelocity(0);
+				HAL_Delay(500); //Stop for a while on the spot
+
+				goal_flag = true;
+
+			}
+
+			break;
 		}
 	}
+
 	stop();
 
+}
+
+void LineTrace::storeLogs()
+{
+	if(logging_flag_ == true && encoder_->getTotalDistance() >= 10){
+		logger_->storeDistanceAndTheta(encoder_->getTotalDistance(), odometry_->getTheta());
+		encoder_->clearTotalCnt();
+		odometry_->clearPotition();
+		mon_store_cnt++;
+	}
+}
+
+void LineTrace::loggerStart()
+{
+	encoder_->clearTotalCnt();
+	odometry_->clearPotition();
+	//logger_->start();
+
+	logging_flag_ = true;
+}
+
+void LineTrace::loggerStop()
+{
+	logger_->stop();
+	logging_flag_ = false;
 }
 

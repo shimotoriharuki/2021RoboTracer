@@ -96,14 +96,14 @@ void Logger::storeLog(uint16_t data)
 
 void Logger::storeDistanceAndTheta(float distance, float theta)
 {
-	if(recording_flag_ == true){
+	//if(recording_flag_ == true){
 		store_distance_[log_index_dis_] = distance;
 		store_theta_[log_index_dis_] = theta;
 
 		log_index_dis_++;
 
 		if(log_index_dis_ >= LOG_DATA_SIZE_DIS) log_index_dis_ = 0;
-	}
+	//}
 }
 
 void Logger::saveLogs(const char *folder_name, const char *file_name)

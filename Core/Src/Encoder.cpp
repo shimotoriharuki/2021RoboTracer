@@ -52,7 +52,7 @@ void Encoder::updateCnt()
 	//distance_ = distance_ + DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	distance_ = DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	total_distance_ += distance_;
-	monitor_distance = distance_;
+	monitor_distance = total_distance_;
 }
 
 void Encoder::getCnt(float &cnt_l, float &cnt_r)

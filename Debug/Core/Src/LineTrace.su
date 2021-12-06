@@ -1,25 +1,28 @@
-LineTrace.cpp:24:1:LineTrace::LineTrace(Motor*, LineSensor*, VelocityCtrl*, SideSensor*)	24	static
-LineTrace.cpp:33:7:float LineTrace::calcError()	32	static
-LineTrace.cpp:49:7:float LineTrace::calcAngle()	40	static
-LineTrace.cpp:77:6:void LineTrace::getSensorValues()	16	static
-LineTrace.cpp:94:6:void LineTrace::calcStandardAngle(float&, uint16_t&)	40	static
-LineTrace.cpp:123:6:void LineTrace::calcNormalizedSensorValue(uint16_t, float&, float&)	24	static
-LineTrace.cpp:129:6:void LineTrace::calcDeltaTheta(float, float, float&)	40	static
-LineTrace.cpp:135:6:void LineTrace::pidTrace()	40	static
-LineTrace.cpp:160:6:void LineTrace::pidAngularVelocityTrace()	40	static
-LineTrace.cpp:185:6:void LineTrace::steeringAngleTrace()	40	static
-LineTrace.cpp:206:6:void LineTrace::init()	32	static
-LineTrace.cpp:216:6:void LineTrace::setGain(float, float, float)	24	static
-LineTrace.cpp:224:6:void LineTrace::setVeloGain(float, float, float)	24	static
-LineTrace.cpp:231:7:float LineTrace::getKp()	16	static
-LineTrace.cpp:237:7:float LineTrace::getKi()	16	static
-LineTrace.cpp:242:7:float LineTrace::getKd()	16	static
-LineTrace.cpp:247:7:float LineTrace::getKpV()	16	static
-LineTrace.cpp:251:7:float LineTrace::getKiV()	16	static
-LineTrace.cpp:255:7:float LineTrace::getKdV()	16	static
-LineTrace.cpp:260:6:void LineTrace::setNormalRatio(float)	16	static
-LineTrace.cpp:265:6:void LineTrace::setTargetVelocity(float)	16	static
-LineTrace.cpp:270:6:void LineTrace::flip()	16	static
-LineTrace.cpp:288:6:void LineTrace::start()	16	static
-LineTrace.cpp:294:6:void LineTrace::stop()	16	static
-LineTrace.cpp:300:6:void LineTrace::waitGoal()	16	static
+LineTrace.cpp:26:1:LineTrace::LineTrace(Motor*, LineSensor*, VelocityCtrl*, SideSensor*, Encoder*, Odometry*, Logger*)	24	static
+LineTrace.cpp:40:7:float LineTrace::calcError()	32	static
+LineTrace.cpp:56:7:float LineTrace::calcAngle()	40	static
+LineTrace.cpp:84:6:void LineTrace::getSensorValues()	16	static
+LineTrace.cpp:101:6:void LineTrace::calcStandardAngle(float&, uint16_t&)	40	static
+LineTrace.cpp:130:6:void LineTrace::calcNormalizedSensorValue(uint16_t, float&, float&)	24	static
+LineTrace.cpp:136:6:void LineTrace::calcDeltaTheta(float, float, float&)	40	static
+LineTrace.cpp:142:6:void LineTrace::pidTrace()	40	static
+LineTrace.cpp:167:6:void LineTrace::pidAngularVelocityTrace()	40	static
+LineTrace.cpp:192:6:void LineTrace::steeringAngleTrace()	40	static
+LineTrace.cpp:213:6:void LineTrace::init()	32	static
+LineTrace.cpp:223:6:void LineTrace::setGain(float, float, float)	24	static
+LineTrace.cpp:231:6:void LineTrace::setVeloGain(float, float, float)	24	static
+LineTrace.cpp:238:7:float LineTrace::getKp()	16	static
+LineTrace.cpp:244:7:float LineTrace::getKi()	16	static
+LineTrace.cpp:249:7:float LineTrace::getKd()	16	static
+LineTrace.cpp:254:7:float LineTrace::getKpV()	16	static
+LineTrace.cpp:258:7:float LineTrace::getKiV()	16	static
+LineTrace.cpp:262:7:float LineTrace::getKdV()	16	static
+LineTrace.cpp:267:6:void LineTrace::setNormalRatio(float)	16	static
+LineTrace.cpp:272:6:void LineTrace::setTargetVelocity(float)	16	static
+LineTrace.cpp:277:6:void LineTrace::flip()	16	static
+LineTrace.cpp:295:6:void LineTrace::start()	16	static
+LineTrace.cpp:303:6:void LineTrace::stop()	16	static
+LineTrace.cpp:312:6:void LineTrace::running()	24	static
+LineTrace.cpp:348:6:void LineTrace::storeLogs()	32	static
+LineTrace.cpp:358:6:void LineTrace::loggerStart()	16	static
+LineTrace.cpp:367:6:void LineTrace::loggerStop()	16	static
