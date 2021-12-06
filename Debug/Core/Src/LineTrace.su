@@ -22,7 +22,7 @@ LineTrace.cpp:272:6:void LineTrace::setTargetVelocity(float)	16	static
 LineTrace.cpp:277:6:void LineTrace::flip()	16	static
 LineTrace.cpp:295:6:void LineTrace::start()	16	static
 LineTrace.cpp:303:6:void LineTrace::stop()	16	static
-LineTrace.cpp:312:6:void LineTrace::running()	24	static
-LineTrace.cpp:348:6:void LineTrace::storeLogs()	32	static
-LineTrace.cpp:358:6:void LineTrace::loggerStart()	16	static
-LineTrace.cpp:367:6:void LineTrace::loggerStop()	16	static
+LineTrace.cpp:314:6:void LineTrace::running()	24	static
+LineTrace.cpp:350:6:void LineTrace::storeLogs()	32	static
+LineTrace.cpp:360:6:void LineTrace::loggerStart()	16	static
+LineTrace.cpp:369:6:void LineTrace::loggerStop()	16	static

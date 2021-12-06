@@ -305,8 +305,10 @@ void LineTrace::stop()
 	excution_flag_ = false;
 	velocity_ctrl_->stop();
 
+	led_.LR(-1, 1);
 	logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
-	//logger_->resetLogs();
+	led_.LR(-1, 0);
+	logger_->resetLogs();
 }
 
 void LineTrace::running()
