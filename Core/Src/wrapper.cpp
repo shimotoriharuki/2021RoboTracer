@@ -320,7 +320,7 @@ void cppLoop(void)
 
 			line_trace.start();
 			velocity_ctrl.start();
-			line_trace.setTargetVelocity(1.0);
+			line_trace.setTargetVelocity(1.4);
 			led.LR(1, -1);
 
 			line_trace.waitGoal();
