@@ -21,7 +21,7 @@ float monitor_distance;
 float monitor_cnt_l;
 float monitor_cnt_l_lpf;
 
-Encoder::Encoder() : cnt_l_(0), cnt_r_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0), total_distance_(0){}
+Encoder::Encoder() : cnt_l_(0), cnt_r_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0), total_distance_(0), cross_line_ignore_distance_(0){}
 
 void Encoder::init()
 {
@@ -52,6 +52,7 @@ void Encoder::updateCnt()
 	//distance_ = distance_ + DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	distance_ = DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	total_distance_ += distance_;
+	cross_line_ignore_distance_ += distance_;
 	monitor_distance = total_distance_;
 }
 
@@ -95,4 +96,14 @@ void Encoder::clearTotalCnt()
 	total_cnt_l_ = 0;
 	total_cnt_r_ = 0;
 	total_distance_ = 0;
+}
+
+float Encoder::getCrossLineIgnoreDistance()
+{
+	return cross_line_ignore_distance_;
+}
+
+void Encoder::clearCrossLineIgnoreDistance()
+{
+	cross_line_ignore_distance_ = 0;
 }

@@ -26,6 +26,9 @@ public:
 	uint16_t getWhiteLineCntL();
 	uint16_t getWhiteLineCntR();
 	void resetWhiteLineCnt();
+	void enableIgnore();
+	void disableIgnore();
+	bool getIgnoreFlag();
 
 };
 

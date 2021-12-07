@@ -327,17 +327,25 @@ void LineTrace::setTargetVelocity(float velocity)
 void LineTrace::flip()
 {
 	if(excution_flag_ == true){
+		// ---- line following processing -----//
 		pidTrace();
 		//pidAngularVelocityTrace();
 		//steeringAngleTrace();
 
+		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
 			led_.LR(1, -1);
+			side_sensor_->enableIgnore();
+			encoder_->clearCrossLineIgnoreDistance();
 		}
 		else{
+		}
+		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 100){
+			side_sensor_->disableIgnore();
 			led_.LR(0, -1);
 		}
 
+		// ----- emergency stop processingj:w------//
 		if(line_sensor_->emergencyStop() == true){
 			velocity_ctrl_->setTranslationVelocityOnly(0, 0);
 			//led_.LR(1, -1);

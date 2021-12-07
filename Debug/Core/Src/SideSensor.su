@@ -4,3 +4,6 @@ SideSensor.cpp:55:10:uint16_t SideSensor::getStatus()	16	static
 SideSensor.cpp:60:10:uint16_t SideSensor::getWhiteLineCntL()	16	static
 SideSensor.cpp:65:10:uint16_t SideSensor::getWhiteLineCntR()	16	static
 SideSensor.cpp:70:6:void SideSensor::resetWhiteLineCnt()	16	static
+SideSensor.cpp:76:6:void SideSensor::enableIgnore()	16	static
+SideSensor.cpp:81:6:void SideSensor::disableIgnore()	16	static
+SideSensor.cpp:86:6:bool SideSensor::getIgnoreFlag()	16	static

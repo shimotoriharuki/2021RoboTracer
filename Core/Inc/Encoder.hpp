@@ -19,6 +19,7 @@ private:
 	float distance_; //[mm]
 	float total_cnt_l_, total_cnt_r_;
 	float total_distance_;
+	float cross_line_ignore_distance_;
 
 public:
 	Encoder();
@@ -31,6 +32,8 @@ public:
 	void clearCnt();
 	float getTotalCnt();
 	void clearTotalCnt();
+	float getCrossLineIgnoreDistance();
+	void clearCrossLineIgnoreDistance();
 };
 
 #endif /* INC_ENCODER_HPP_ */
