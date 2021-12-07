@@ -152,7 +152,7 @@ bool LineSensor::emergencyStop()
 	static uint8_t cnt = 0;
 
 	for(const auto & s : sensor){
-		if(s >= 800) out_cnt++;
+		if(s >= 700) out_cnt++;
 	}
 
 	bool flag;

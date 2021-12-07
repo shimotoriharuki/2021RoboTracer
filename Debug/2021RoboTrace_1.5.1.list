@@ -4506,7 +4506,7 @@ bool LineSensor::emergencyStop()
  8002738:	d012      	beq.n	8002760 <_ZN10LineSensor13emergencyStopEv+0x4c>
  800273a:	69bb      	ldr	r3, [r7, #24]
  800273c:	60bb      	str	r3, [r7, #8]
-		if(s >= 800) out_cnt++;
+		if(s >= 700) out_cnt++;
  800273e:	68bb      	ldr	r3, [r7, #8]
  8002740:	edd3 7a00 	vldr	s15, [r3]
  8002744:	ed9f 7a15 	vldr	s14, [pc, #84]	; 800279c <_ZN10LineSensor13emergencyStopEv+0x88>
@@ -4568,7 +4568,7 @@ bool LineSensor::emergencyStop()
  8002794:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002798:	4770      	bx	lr
  800279a:	bf00      	nop
- 800279c:	44480000 	.word	0x44480000
+ 800279c:	442f0000 	.word	0x442f0000
  80027a0:	20000258 	.word	0x20000258
 
 080027a4 <_ZN9LineTraceC1EP5MotorP10LineSensorP12VelocityCtrlP10SideSensorP7EncoderP8OdometryP6Logger>:
@@ -14328,7 +14328,7 @@ void cppLoop(void)
  80067c6:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
  80067ca:	f000 ff5f 	bl	800768c <HAL_Delay>
 
-			line_trace.setTargetVelocity(1.6);
+			line_trace.setTargetVelocity(1.2);
  80067ce:	ed9f 0a41 	vldr	s0, [pc, #260]	; 80068d4 <cppLoop+0x684>
  80067d2:	483d      	ldr	r0, [pc, #244]	; (80068c8 <cppLoop+0x678>)
  80067d4:	f7fc fa89 	bl	8002cea <_ZN9LineTrace17setTargetVelocityEf>
@@ -14445,7 +14445,7 @@ void cppLoop(void)
  80068c8:	20015e28 	.word	0x20015e28
  80068cc:	080183e8 	.word	0x080183e8
  80068d0:	080183f4 	.word	0x080183f4
- 80068d4:	3fcccccd 	.word	0x3fcccccd
+ 80068d4:	3f99999a 	.word	0x3f99999a
  80068d8:	080183fc 	.word	0x080183fc
  80068dc:	08018404 	.word	0x08018404
  80068e0:	3e99999a 	.word	0x3e99999a
