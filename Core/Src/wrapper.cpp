@@ -293,7 +293,7 @@ void cppLoop(void)
 		break;
 
 	case 1:
-		led.fullColor('G');
+		led.fullColor('B');
 
 		lcd_clear();
 		lcd_locate(0,0);
@@ -304,7 +304,7 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 
-			line_trace.setTargetVelocity(0.8);
+			line_trace.setTargetVelocity(1.6);
 			led.LR(1, -1);
 
 			line_trace.running();
@@ -319,7 +319,7 @@ void cppLoop(void)
 		break;
 
 	case 2:
-		led.fullColor('B');
+		led.fullColor('G');
 
 		lcd_clear();
 		lcd_locate(0,0);

@@ -340,7 +340,7 @@ void LineTrace::flip()
 		}
 		else{
 		}
-		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 100){
+		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 200){
 			side_sensor_->disableIgnore();
 			led_.LR(0, -1);
 		}
@@ -352,7 +352,6 @@ void LineTrace::flip()
 		}
 		else{
 			//led_.LR(0, -1);
-
 		}
 	}
 }
@@ -387,6 +386,8 @@ void LineTrace::running()
 		case 0:
 			if(side_sensor_->getWhiteLineCntR() == 1){
 				loggerStart();
+				encoder_->clearCrossLineIgnoreDistance();
+				led_.LR(1, -1);
 				stage = 10;
 			}
 
