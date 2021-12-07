@@ -345,7 +345,7 @@ void LineTrace::flip()
 			led_.LR(0, -1);
 		}
 
-		// ----- emergency stop processingj:w------//
+		// ----- emergency stop processing------//
 		if(line_sensor_->emergencyStop() == true){
 			velocity_ctrl_->setTranslationVelocityOnly(0, 0);
 			//led_.LR(1, -1);
