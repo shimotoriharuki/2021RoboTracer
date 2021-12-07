@@ -34,6 +34,10 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	encoder_ = encoder;
 	odometry_ = odometry;
 	logger_ = logger;
+
+	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
+		velocityTable[i] = 0;
+	}
 }
 
 // --------private--------- //
@@ -209,6 +213,53 @@ void LineTrace::steeringAngleTrace()
 	monitor_r = r;
 }
 
+void LineTrace::loggerStart()
+{
+	encoder_->clearTotalCnt();
+	odometry_->clearPotition();
+	//logger_->start();
+
+	logging_flag_ = true;
+}
+
+void LineTrace::loggerStop()
+{
+	logger_->stop();
+	logging_flag_ = false;
+}
+
+bool LineTrace::isCrossLine()
+{
+	static uint16_t cnt;
+	float sensor_edge_val_l = (line_sensor_->sensor[0] + line_sensor_->sensor[1] + line_sensor_->sensor[2]) / 3;
+	float sensor_edge_val_r = (line_sensor_->sensor[11] + line_sensor_->sensor[12] + line_sensor_->sensor[13]) / 3;
+	bool flag = false;
+
+	if(sensor_edge_val_l < 500 && sensor_edge_val_r < 500){
+		cnt++;
+	}
+	else{
+		cnt = 0;
+	}
+
+	if(cnt >= 5){
+		flag = true;
+		//cnt = 0;
+	}
+
+	return flag;
+}
+
+void LineTrace::createVelocityTabele()
+{
+
+}
+
+void LineTrace::updateTargetVelocity()
+{
+
+}
+
 // -------public---------- //
 void LineTrace::init()
 {
@@ -239,7 +290,6 @@ float LineTrace::getKp()
 {
 	return kp_;
 }
-
 
 float LineTrace::getKi()
 {
@@ -281,12 +331,19 @@ void LineTrace::flip()
 		//pidAngularVelocityTrace();
 		//steeringAngleTrace();
 
-		if(line_sensor_->emergencyStop() == true){
-			motor_->setRatio(0, 0);
+		if(isCrossLine() == true){ //detect cross line
 			led_.LR(1, -1);
 		}
 		else{
 			led_.LR(0, -1);
+		}
+
+		if(line_sensor_->emergencyStop() == true){
+			velocity_ctrl_->setTranslationVelocityOnly(0, 0);
+			//led_.LR(1, -1);
+		}
+		else{
+			//led_.LR(0, -1);
 
 		}
 	}
@@ -355,20 +412,5 @@ void LineTrace::storeLogs()
 		odometry_->clearPotition();
 		mon_store_cnt++;
 	}
-}
-
-void LineTrace::loggerStart()
-{
-	encoder_->clearTotalCnt();
-	odometry_->clearPotition();
-	//logger_->start();
-
-	logging_flag_ = true;
-}
-
-void LineTrace::loggerStop()
-{
-	logger_->stop();
-	logging_flag_ = false;
 }
 

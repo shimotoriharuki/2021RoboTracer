@@ -26,6 +26,8 @@
 #define PI 3.1415926535
 #define CENTER_OF_ROTATION_TO_CENTER_OF_SENSOR 0.060 //[m]
 
+#define LOG_DATA_SIZE_DIS 6000 //Distance based size. Can record for 60 m every 10 mm
+
 class LineTrace
 {
 private:
@@ -46,6 +48,7 @@ private:
 	float sensor_values_[SENSOR_NUM];
 	float target_velocity_;
 	bool logging_flag_;
+	float velocityTable[LOG_DATA_SIZE_DIS];
 
 	float calcError();
 	float calcAngle();
@@ -56,6 +59,11 @@ private:
 	void pidTrace();
 	void pidAngularVelocityTrace();
 	void steeringAngleTrace();
+	void loggerStart();
+	void loggerStop();
+	bool isCrossLine();
+	void createVelocityTabele();
+	void updateTargetVelocity();
 
 public:
 	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *);
@@ -75,8 +83,6 @@ public:
 	void stop();
 	void running();
 	void storeLogs();
-	void loggerStart();
-	void loggerStop();
 
 };
 

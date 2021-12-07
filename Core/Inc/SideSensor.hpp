@@ -16,6 +16,7 @@ private:
 
 	uint16_t status_;
 	uint16_t white_line_cnt_l_, white_line_cnt_r_;
+	bool ignore_flag_;
 
 public:
 
