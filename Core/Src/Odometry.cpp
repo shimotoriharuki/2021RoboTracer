@@ -12,7 +12,7 @@
 
 float monitor_x, monitor_y, monitor_theta;
 
-Odometry::Odometry(Encoder *encoder, IMU *imu, VelocityCtrl *velocity_ctrl) : x_(0), y_(0), theta_(0)
+Odometry::Odometry(Encoder *encoder, IMU *imu, VelocityCtrl *velocity_ctrl) : x_robot_(0), y_robot_(0), theta_(0), x_sens_(0), y_sens_(0)
 {
 	encoder_ = encoder;
 	imu_ = imu;
@@ -28,12 +28,15 @@ void Odometry::calcPotition()
 
 	delta_theta_ = current_omega * DELTA_T;
 
-	x_ = x_ + distance * cos(theta_ + delta_theta_ / 2);
-	y_ = y_ + distance * sin(theta_ + delta_theta_ / 2);
-	theta_ = theta_ + delta_theta_;
+	x_robot_ = x_robot_ + distance * cos(theta_ + delta_theta_ / 2);
+	y_robot_ = y_robot_ + distance * sin(theta_ + delta_theta_ / 2);
+	theta_= theta_ + delta_theta_;
 
-	monitor_x = x_;
-	monitor_y = y_;
+	x_sens_ = x_robot_ + SENSOR_LENGTH * cos(theta_); //calculate a sensor position from robot's center position
+	y_sens_ = y_robot_ + SENSOR_LENGTH * sin(theta_);
+
+	monitor_x = x_sens_;
+	monitor_y = y_sens_;
 	monitor_theta = theta_;
 }
 
@@ -44,12 +47,12 @@ void Odometry::flip()
 
 double Odometry::getX()
 {
-	return x_;
+	return x_sens_;
 }
 
 double Odometry::getY()
 {
-	return y_;
+	return y_sens_;
 }
 
 double Odometry::getTheta()
@@ -64,8 +67,8 @@ double Odometry::getDeltaTheta()
 
 void Odometry::clearPotition()
 {
-	x_ = 0;
-	y_ = 0;
+	x_sens_ = 0;
+	y_sens_ = 0;
 	theta_ = 0;
 }
 

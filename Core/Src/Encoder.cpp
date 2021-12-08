@@ -10,7 +10,7 @@
 
 #define MAX_ENCODER_CNT 65535
 #define CNT_OFFSET 32768
-#define WHEEL_RADIUS 11 //[mm]
+#define WHEEL_RADIUS 10.75 //[mm]
 #define PI 3.1415926535
 #define ENCODER_RESOLUTION 4096
 #define REDUCTION_RATIO 0.35 //Gear reduction ratio
