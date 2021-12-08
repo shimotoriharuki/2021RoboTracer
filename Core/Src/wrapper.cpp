@@ -649,9 +649,17 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("11      ");
+		lcd_printf("Create  ");
 		lcd_locate(0,1);
-		lcd_printf("        ");
+		lcd_printf("VelTable");
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+			led.LR(-1, 1);
+
+			line_trace.createVelocityTabele();
+
+			led.LR(-1, 0);
+		}
 
 		break;
 

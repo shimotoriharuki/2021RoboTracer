@@ -48,6 +48,8 @@ private:
 	float sensor_values_[SENSOR_NUM];
 	float target_velocity_;
 	bool logging_flag_;
+	//float distances[LOG_DATA_SIZE_DIS];
+	//float thetas[LOG_DATA_SIZE_DIS];
 	float velocityTable[LOG_DATA_SIZE_DIS];
 
 	float calcError();
@@ -62,7 +64,7 @@ private:
 	void loggerStart();
 	void loggerStop();
 	bool isCrossLine();
-	void createVelocityTabele();
+	float calcRadius(float, float);
 	void updateTargetVelocity();
 
 public:
@@ -84,6 +86,7 @@ public:
 	void running();
 	void storeLogs();
 
+	void createVelocityTabele();
 };
 
 

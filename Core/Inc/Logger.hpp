@@ -43,10 +43,13 @@ public:
 	void storeLog2(float);
 	void storeLog(uint16_t);
 	void storeDistanceAndTheta(float , float);
+	const float *getDistanceArrayPointer();
+	const float *getThetaArrayPointer();
 
 	void saveLogs(const char *, const char *);
 	void saveLogs2(const char *, const char *);
 	void saveDistanceAndTheta(const char *, const char *, const char *);
+	void importDistanceAndTheta(const char *, const char *, const char *);
 	void resetLogs();
 
 	/*

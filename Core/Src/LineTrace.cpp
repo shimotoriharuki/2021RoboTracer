@@ -22,6 +22,7 @@ float monitor_r;
 float mon_diff, mon_diff_lpf;
 
 uint16_t mon_store_cnt;
+float mon_pdis;
 
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger) :
 				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
@@ -250,8 +251,21 @@ bool LineTrace::isCrossLine()
 	return flag;
 }
 
+float LineTrace::calcRadius(float distance, float theta)
+{
+	if(theta == 0) theta = 0.000001;
+	return distance / theta;
+}
 void LineTrace::createVelocityTabele()
 {
+	logger_->importDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
+	const float *p_distance, *p_theta;
+	p_distance = logger_->getDistanceArrayPointer();
+	p_theta= logger_->getThetaArrayPointer();
+
+	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
+		mon_pdis = p_distance[i];
+	}
 
 }
 

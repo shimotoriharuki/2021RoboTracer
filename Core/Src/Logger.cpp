@@ -106,6 +106,16 @@ void Logger::storeDistanceAndTheta(float distance, float theta)
 	//}
 }
 
+const float *Logger::getDistanceArrayPointer()
+{
+	return store_distance_;
+}
+
+const float *Logger::getThetaArrayPointer()
+{
+	return store_theta_;
+}
+
 void Logger::saveLogs(const char *folder_name, const char *file_name)
 {
 	sd_write_array_float(folder_name, file_name, LOG_DATA_SIZE_TIM, store_data_float_, OVER_WRITE); //write
@@ -119,6 +129,12 @@ void Logger::saveDistanceAndTheta(const char *folder_name, const char *file_name
 {
 	sd_write_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance_, OVER_WRITE); //write
 	sd_write_array_float(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta_, OVER_WRITE); //write
+}
+
+void Logger::importDistanceAndTheta(const char *folder_name, const char *file_name1, const char *file_name2)
+{
+	sd_read_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance_); //read
+	sd_read_array_float(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta_); //read
 }
 
 /*
