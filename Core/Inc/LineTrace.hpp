@@ -26,8 +26,6 @@
 #define PI 3.1415926535
 #define CENTER_OF_ROTATION_TO_CENTER_OF_SENSOR 0.060 //[m]
 
-#define LOG_DATA_SIZE_DIS 6000 //Distance based size. Can record for 60 m every 10 mm
-
 class LineTrace
 {
 private:
@@ -50,7 +48,7 @@ private:
 	bool logging_flag_;
 	//float distances[LOG_DATA_SIZE_DIS];
 	//float thetas[LOG_DATA_SIZE_DIS];
-	float velocityTable[LOG_DATA_SIZE_DIS];
+	float velocity_table_[LOG_DATA_SIZE_DIS];
 
 	float calcError();
 	float calcAngle();

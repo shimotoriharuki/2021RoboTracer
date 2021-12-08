@@ -37,7 +37,7 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	logger_ = logger;
 
 	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
-		velocityTable[i] = 0;
+		velocity_table_[i] = 0;
 	}
 }
 
@@ -263,9 +263,19 @@ void LineTrace::createVelocityTabele()
 	p_distance = logger_->getDistanceArrayPointer();
 	p_theta= logger_->getThetaArrayPointer();
 
+	float temp_distance, temp_theta;
 	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
-		mon_pdis = p_distance[i];
+		temp_distance = p_distance[i];
+		temp_theta = p_theta[i];
+
+		if(temp_theta == 0) temp_theta = 0.00001;
+		float radius = abs(temp_distance / temp_theta);
+		if(radius >= 5000) radius = 5000;
+
+		velocity_table_[i] = radius;
 	}
+
+	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 
 }
 
