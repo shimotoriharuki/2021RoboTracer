@@ -26,7 +26,7 @@ float mon_pdis;
 
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger) :
 				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
-				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0), target_velocity_(0), logging_flag_(false)
+				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0), target_velocity_(0), logging_flag_(false), velocity_play_flag_(false), velocity_table_idx_(0)
 {
 	motor_ = motor;
 	line_sensor_ = line_sensor;
@@ -256,6 +256,17 @@ float LineTrace::calcRadius(float distance, float theta)
 	if(theta == 0) theta = 0.000001;
 	return distance / theta;
 }
+
+float LineTrace::radius2Velocity(float radius)
+{
+	float velocity;
+
+	if(radius < 130) velocity = 0.5;
+	else if(radius < 250) velocity = 0.5;
+	else velocity = 1.0;
+
+	return velocity;
+}
 void LineTrace::createVelocityTabele()
 {
 	logger_->importDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
@@ -272,7 +283,8 @@ void LineTrace::createVelocityTabele()
 		float radius = abs(temp_distance / temp_theta);
 		if(radius >= 5000) radius = 5000;
 
-		velocity_table_[i] = radius;
+		velocity_table_[i] = radius2Velocity(radius);
+		//velocity_table_[i] = radius;
 	}
 
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
@@ -281,6 +293,12 @@ void LineTrace::createVelocityTabele()
 
 void LineTrace::updateTargetVelocity()
 {
+	if(velocity_play_flag_ == true && encoder_->getTotalDistance() >= 10){
+		setTargetVelocity(velocity_table_[velocity_table_idx_]);
+		encoder_->clearTotalCnt();
+		odometry_->clearPotition();
+		velocity_table_idx_++;
+	}
 
 }
 
@@ -356,6 +374,9 @@ void LineTrace::flip()
 		//pidAngularVelocityTrace();
 		//steeringAngleTrace();
 
+		// ---- Target Velocity Updata ------//
+		updateTargetVelocity();
+
 		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
 			led_.LR(1, -1);
@@ -409,7 +430,13 @@ void LineTrace::running()
 		switch(stage){
 		case 0:
 			if(side_sensor_->getWhiteLineCntR() == 1){
-				loggerStart();
+				if(mode_selector_ == 1){
+					loggerStart();
+				}
+				else if(mode_selector_ == 2){
+					startVelocityPlay();
+
+				}
 				encoder_->clearCrossLineIgnoreDistance();
 				led_.LR(1, -1);
 				stage = 10;
@@ -420,6 +447,7 @@ void LineTrace::running()
 		case 10:
 			if(side_sensor_->getWhiteLineCntR() == 2){
 				loggerStop();
+				stopVelocityPlay();
 				HAL_Delay(100); //Run through after the goal
 
 				setTargetVelocity(0);
@@ -434,7 +462,6 @@ void LineTrace::running()
 	}
 
 	stop();
-
 }
 
 void LineTrace::storeLogs()
@@ -447,3 +474,20 @@ void LineTrace::storeLogs()
 	}
 }
 
+void LineTrace::startVelocityPlay()
+{
+	encoder_->clearTotalCnt();
+	odometry_->clearPotition();
+	velocity_play_flag_ = true;
+}
+
+void LineTrace::stopVelocityPlay()
+{
+	velocity_play_flag_ = false;
+	velocity_table_idx_ = 0;
+}
+
+void LineTrace::setMode(int16_t mode)
+{
+	mode_selector_ = mode;
+}

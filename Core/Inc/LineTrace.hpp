@@ -49,6 +49,9 @@ private:
 	//float distances[LOG_DATA_SIZE_DIS];
 	//float thetas[LOG_DATA_SIZE_DIS];
 	float velocity_table_[LOG_DATA_SIZE_DIS];
+	bool velocity_play_flag_;
+	uint16_t velocity_table_idx_;
+	int16_t mode_selector_;
 
 	float calcError();
 	float calcAngle();
@@ -63,6 +66,7 @@ private:
 	void loggerStop();
 	bool isCrossLine();
 	float calcRadius(float, float);
+	float radius2Velocity(float);
 	void updateTargetVelocity();
 
 public:
@@ -85,6 +89,9 @@ public:
 	void storeLogs();
 
 	void createVelocityTabele();
+	void startVelocityPlay();
+	void stopVelocityPlay();
+	void setMode(int16_t);
 };
 
 

@@ -13,21 +13,25 @@ LineTrace.cpp:217:6:void LineTrace::loggerStart()	16	static
 LineTrace.cpp:226:6:void LineTrace::loggerStop()	16	static
 LineTrace.cpp:232:6:bool LineTrace::isCrossLine()	32	static
 LineTrace.cpp:254:7:float LineTrace::calcRadius(float, float)	24	static
-LineTrace.cpp:259:6:void LineTrace::createVelocityTabele()	48	static
-LineTrace.cpp:282:6:void LineTrace::updateTargetVelocity()	16	static
-LineTrace.cpp:288:6:void LineTrace::init()	32	static
-LineTrace.cpp:298:6:void LineTrace::setGain(float, float, float)	24	static
-LineTrace.cpp:306:6:void LineTrace::setVeloGain(float, float, float)	24	static
-LineTrace.cpp:313:7:float LineTrace::getKp()	16	static
-LineTrace.cpp:318:7:float LineTrace::getKi()	16	static
-LineTrace.cpp:323:7:float LineTrace::getKd()	16	static
-LineTrace.cpp:328:7:float LineTrace::getKpV()	16	static
-LineTrace.cpp:332:7:float LineTrace::getKiV()	16	static
-LineTrace.cpp:336:7:float LineTrace::getKdV()	16	static
-LineTrace.cpp:341:6:void LineTrace::setNormalRatio(float)	16	static
-LineTrace.cpp:346:6:void LineTrace::setTargetVelocity(float)	16	static
-LineTrace.cpp:351:6:void LineTrace::flip()	16	static
-LineTrace.cpp:383:6:void LineTrace::start()	16	static
-LineTrace.cpp:391:6:void LineTrace::stop()	16	static
-LineTrace.cpp:402:6:void LineTrace::running()	24	static
-LineTrace.cpp:440:6:void LineTrace::storeLogs()	32	static
+LineTrace.cpp:260:7:float LineTrace::radius2Velocity(float)	24	static
+LineTrace.cpp:270:6:void LineTrace::createVelocityTabele()	56	static
+LineTrace.cpp:294:6:void LineTrace::updateTargetVelocity()	16	static
+LineTrace.cpp:306:6:void LineTrace::init()	32	static
+LineTrace.cpp:316:6:void LineTrace::setGain(float, float, float)	24	static
+LineTrace.cpp:324:6:void LineTrace::setVeloGain(float, float, float)	24	static
+LineTrace.cpp:331:7:float LineTrace::getKp()	16	static
+LineTrace.cpp:336:7:float LineTrace::getKi()	16	static
+LineTrace.cpp:341:7:float LineTrace::getKd()	16	static
+LineTrace.cpp:346:7:float LineTrace::getKpV()	16	static
+LineTrace.cpp:350:7:float LineTrace::getKiV()	16	static
+LineTrace.cpp:354:7:float LineTrace::getKdV()	16	static
+LineTrace.cpp:359:6:void LineTrace::setNormalRatio(float)	16	static
+LineTrace.cpp:364:6:void LineTrace::setTargetVelocity(float)	16	static
+LineTrace.cpp:369:6:void LineTrace::flip()	16	static
+LineTrace.cpp:404:6:void LineTrace::start()	16	static
+LineTrace.cpp:412:6:void LineTrace::stop()	16	static
+LineTrace.cpp:423:6:void LineTrace::running()	24	static
+LineTrace.cpp:467:6:void LineTrace::storeLogs()	32	static
+LineTrace.cpp:477:6:void LineTrace::startVelocityPlay()	16	static
+LineTrace.cpp:484:6:void LineTrace::stopVelocityPlay()	16	static
+LineTrace.cpp:490:6:void LineTrace::setMode(int16_t)	16	static

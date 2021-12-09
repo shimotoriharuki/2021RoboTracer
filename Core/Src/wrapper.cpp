@@ -307,6 +307,7 @@ void cppLoop(void)
 			line_trace.setTargetVelocity(1.0);
 			led.LR(1, -1);
 
+			line_trace.setMode(1);
 			line_trace.running();
 			//HAL_Delay(3000);
 
@@ -323,21 +324,24 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Msig");
+		lcd_printf("velocity");
 		lcd_locate(0,1);
-		lcd_printf("Record");
+		lcd_printf("update");
 
 		if(joy_stick.getValue() == JOY_C){
-			led.LR(-1, 1);
-			HAL_Delay(1500);
+			HAL_Delay(500);
 
-			sys_ident.setInputRatio(0.3);
-			sys_ident.start();
-			HAL_Delay(17500);
-			sys_ident.stop();
-			sys_ident.inOutputSave();
+			line_trace.setTargetVelocity(1.0);
+			led.LR(1, -1);
 
-			led.LR(-1, 0);
+			line_trace.setMode(2);
+			line_trace.running();
+			//HAL_Delay(3000);
+
+			//line_trace.stop();
+			led.LR(0, -1);
+
+			//logger.stop();
 		}
 		break;
 
@@ -668,9 +672,22 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("12      ");
+		lcd_printf("Msig");
 		lcd_locate(0,1);
-		lcd_printf("        ");
+		lcd_printf("Record");
+
+		if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(1500);
+
+			sys_ident.setInputRatio(0.3);
+			sys_ident.start();
+			HAL_Delay(17500);
+			sys_ident.stop();
+			sys_ident.inOutputSave();
+
+			led.LR(-1, 0);
+		}
 
 		break;
 
