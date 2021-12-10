@@ -298,8 +298,7 @@ void LineTrace::updateTargetVelocity()
 {
 	if(velocity_play_flag_ == true && encoder_->getTotalDistance() >= 10){
 		setTargetVelocity(velocity_table_[velocity_table_idx_]);
-		encoder_->clearTotalCnt();
-		odometry_->clearPotition();
+
 		velocity_table_idx_++;
 	}
 
@@ -377,8 +376,19 @@ void LineTrace::flip()
 		//pidAngularVelocityTrace();
 		//steeringAngleTrace();
 
-		// ---- Target Velocity Updata ------//
-		updateTargetVelocity();
+		/*
+		if(isTargetDistance(10) == true){
+			// ---- Target Velocity Updata ------//
+			updateTargetVelocity();
+
+			// ---- Store Logs ------//
+			storeLogs();
+
+			// ---reset total cnt ---//
+			encoder_->clearTotalCnt();
+			odometry_->clearPotition();
+		}
+		*/
 
 		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
@@ -404,6 +414,21 @@ void LineTrace::flip()
 	}
 }
 
+void LineTrace::flip100ns()
+{
+	if(isTargetDistance(10) == true){
+		// ---- Target Velocity Updata ------//
+		updateTargetVelocity();
+
+		// ---- Store Logs ------//
+		storeLogs();
+
+		// ---reset total cnt ---//
+		encoder_->clearTotalCnt();
+		odometry_->clearPotition();
+	}
+}
+
 void LineTrace::start()
 {
 	excution_flag_ = true;
@@ -418,8 +443,14 @@ void LineTrace::stop()
 	velocity_ctrl_->stop();
 
 	led_.LR(-1, 1);
-	logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
+	if(mode_selector_ == FIRST_RUNNING){ //First running
+		logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
+	}
+	else if(mode_selector_ == SECOND_RUNNING){//Secondary run
+		logger_->saveDistanceAndTheta("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
+	}
 	led_.LR(-1, 0);
+
 	logger_->resetLogs();
 }
 
@@ -433,13 +464,20 @@ void LineTrace::running()
 		switch(stage){
 		case 0:
 			if(side_sensor_->getWhiteLineCntR() == 1){
-				if(mode_selector_ == 1){
+
+				/*
+				if(mode_selector_ ==FIRST_RUNNING){ //First running
 					loggerStart();
 				}
-				else if(mode_selector_ == 2){
+				else if(mode_selector_ == SECOND_RUNNING)){ //Secondary run
 					startVelocityPlay();
-
 				}
+				*/
+				loggerStart();
+				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
+					startVelocityPlay();
+				}
+
 				encoder_->clearCrossLineIgnoreDistance();
 				led_.LR(1, -1);
 				stage = 10;
@@ -471,8 +509,7 @@ void LineTrace::storeLogs()
 {
 	if(logging_flag_ == true && encoder_->getTotalDistance() >= 10){
 		logger_->storeDistanceAndTheta(encoder_->getTotalDistance(), odometry_->getTheta());
-		encoder_->clearTotalCnt();
-		odometry_->clearPotition();
+
 		mon_store_cnt++;
 	}
 }
@@ -493,4 +530,14 @@ void LineTrace::stopVelocityPlay()
 void LineTrace::setMode(int16_t mode)
 {
 	mode_selector_ = mode;
+}
+
+bool LineTrace::isTargetDistance(float target_distance)
+{
+	bool ret = false;
+	if(encoder_->getTotalDistance() >= target_distance){
+		ret = true;
+	}
+
+	return ret;
 }

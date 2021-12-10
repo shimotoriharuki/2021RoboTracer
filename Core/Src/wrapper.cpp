@@ -153,8 +153,6 @@ void cppFlip1ms(void)
 		twice_cnt = 0;
 	}
 
-	line_trace.storeLogs();
-
 	//mon_cnt = twice_cnt;
 	/*
 	*/
@@ -170,6 +168,7 @@ void cppFlip1ms(void)
 void cppFlip100ns(void)
 {
 	line_sensor.storeSensorValues();
+	line_trace.flip100ns();
 }
 
 void cppFlip10ms(void)
@@ -308,7 +307,7 @@ void cppLoop(void)
 			line_trace.setTargetVelocity(1.0);
 			led.LR(1, -1);
 
-			line_trace.setMode(1);
+			line_trace.setMode(FIRST_RUNNING);
 			line_trace.running();
 			//HAL_Delay(3000);
 
@@ -335,7 +334,7 @@ void cppLoop(void)
 			line_trace.setTargetVelocity(1.0);
 			led.LR(1, -1);
 
-			line_trace.setMode(2);
+			line_trace.setMode(SECOND_RUNNING);
 			line_trace.running();
 			//HAL_Delay(3000);
 

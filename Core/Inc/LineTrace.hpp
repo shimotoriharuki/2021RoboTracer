@@ -25,6 +25,8 @@
 #define CENTER_NUM 6
 #define PI 3.1415926535
 #define CENTER_OF_ROTATION_TO_CENTER_OF_SENSOR 0.060 //[m]
+#define FIRST_RUNNING 0
+#define SECOND_RUNNING 1
 
 class LineTrace
 {
@@ -68,6 +70,7 @@ private:
 	float calcRadius(float, float);
 	float radius2Velocity(float);
 	void updateTargetVelocity();
+	bool isTargetDistance(float);
 
 public:
 	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *);
@@ -83,6 +86,7 @@ public:
 	void setNormalRatio(float);
 	void setTargetVelocity(float);
 	void flip();
+	void flip100ns();
 	void start();
 	void stop();
 	void running();
