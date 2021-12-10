@@ -56,26 +56,26 @@ void SideSensor::updateStatus(uint16_t gpio_pin)
 
 		if(white_flag2 == false){
 			if(gpio_pin == GPIO_PIN_8){
-				cnt_r++;
+				cnt_l++;
 			}
 			else{
-				cnt_r = 0;
+				cnt_l = 0;
 			}
-			if(cnt_r >= 5){
+			if(cnt_l >= 5){
 				status_ |= 0x02;
 				white_flag2 = true;
-				cnt_r = 0;
+				cnt_l = 0;
 			}
 
 		}
 		if(white_flag2 == true){
 			if(gpio_pin == GPIO_PIN_8){
-				cnt_r++;
+				cnt_l++;
 			}
 			else{
-				cnt_r = 0;
+				cnt_l = 0;
 			}
-			if(cnt_r >= 5){
+			if(cnt_l >= 5){
 				status_ ^= 0x02;
 				white_flag2 = false;
 
