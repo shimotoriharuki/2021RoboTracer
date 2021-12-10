@@ -1,9 +1,9 @@
 SideSensor.cpp:13:1:SideSensor::SideSensor()	16	static
 SideSensor.cpp:18:6:void SideSensor::updateStatus(uint16_t)	16	static
-SideSensor.cpp:55:10:uint16_t SideSensor::getStatus()	16	static
-SideSensor.cpp:60:10:uint16_t SideSensor::getWhiteLineCntL()	16	static
-SideSensor.cpp:65:10:uint16_t SideSensor::getWhiteLineCntR()	16	static
-SideSensor.cpp:70:6:void SideSensor::resetWhiteLineCnt()	16	static
-SideSensor.cpp:76:6:void SideSensor::enableIgnore()	16	static
-SideSensor.cpp:81:6:void SideSensor::disableIgnore()	16	static
-SideSensor.cpp:86:6:bool SideSensor::getIgnoreFlag()	16	static
+SideSensor.cpp:93:10:uint16_t SideSensor::getStatus()	16	static
+SideSensor.cpp:98:10:uint16_t SideSensor::getWhiteLineCntL()	16	static
+SideSensor.cpp:103:10:uint16_t SideSensor::getWhiteLineCntR()	16	static
+SideSensor.cpp:108:6:void SideSensor::resetWhiteLineCnt()	16	static
+SideSensor.cpp:114:6:void SideSensor::enableIgnore()	16	static
+SideSensor.cpp:119:6:void SideSensor::disableIgnore()	16	static
+SideSensor.cpp:124:6:bool SideSensor::getIgnoreFlag()	16	static
