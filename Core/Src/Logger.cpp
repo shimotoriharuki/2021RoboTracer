@@ -18,19 +18,19 @@ bool Logger::sdCardInit()
 	bool ret = false;
 
 	if(sd_mount() == 1){
-	  printf("mount success\r\n");
+	  //printf("mount success\r\n");
 
 	  lcd_clear();
 	  lcd_locate(0,0);
 	  lcd_printf("SD mount");
 	  lcd_locate(0,1);
 	  lcd_printf("success");
-	  HAL_Delay(1000);
+	  HAL_Delay(500);
 
 	  ret = true;
 	}
 	else{
-	  printf("mount error\r\n");
+	  //printf("mount error\r\n");
 
 	  lcd_clear();
 	  lcd_locate(0,0);

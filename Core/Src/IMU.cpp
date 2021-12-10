@@ -26,15 +26,15 @@ void IMU::init()
 {
 	uint16_t who_i_am;
 	who_i_am = IMU_init();
-	printf("who i am: %d\n", who_i_am);
+	//printf("who i am: %d\n", who_i_am);
 
 	lcd_clear();
 	lcd_locate(0,0);
-	lcd_printf("Who I am");
+	lcd_printf("IMUstatus");
 	lcd_locate(0,1);
 	lcd_printf("%d", who_i_am);
 
-	HAL_Delay(1000);
+	HAL_Delay(500);
 
 }
 

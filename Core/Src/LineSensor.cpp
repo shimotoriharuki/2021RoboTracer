@@ -121,6 +121,7 @@ void LineSensor::calibration()
 		}
 	}
 
+	/*
 	for(const auto &m : max_values){
 		printf("%f, ", m);
 	}
@@ -129,7 +130,7 @@ void LineSensor::calibration()
 		printf("%f, ", m);
 	}
 		printf("\n");
-
+	*/
 
 	for(uint16_t i = 0; i < AD_DATA_SIZE; i++){
 		sensor_coefficient_[i] = 1000 / (max_values[i] - min_values[i]);
@@ -155,7 +156,7 @@ bool LineSensor::emergencyStop()
 		if(s >= 700) out_cnt++;
 	}
 
-	bool flag;
+	static bool flag;
 	if(out_cnt >= AD_DATA_SIZE){
 		cnt++;
 	}
@@ -163,7 +164,7 @@ bool LineSensor::emergencyStop()
 		cnt = 0;
 	}
 
-	if(cnt >= 100){
+	if(cnt >= 50){
 		flag = true;
 	}
 	else flag = false;
