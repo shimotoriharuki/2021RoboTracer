@@ -22,4 +22,4 @@ main.c:983:13:MX_TIM13_Init	8	static
 main.c:1014:13:MX_USART2_UART_Init	8	static
 main.c:1045:13:MX_DMA_Init	16	static
 main.c:1069:13:MX_GPIO_Init	56	static
-main.c:1204:6:Error_Handler	4	static,ignoring_inline_asm
+main.c:1197:6:Error_Handler	4	static,ignoring_inline_asm

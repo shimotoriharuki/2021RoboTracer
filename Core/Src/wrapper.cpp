@@ -139,6 +139,7 @@ void cppFlip1ms(void)
 	line_trace.flip();
 	velocity_ctrl.flip();
 	odometry.flip();
+	side_sensor.updateStatus();
 
 	motor.motorCtrl();
 
@@ -196,7 +197,7 @@ void cppFlip10ms(void)
 
 void cppExit(uint16_t gpio_pin)
 {
-	side_sensor.updateStatus(gpio_pin);
+	//side_sensor.updateStatus(gpio_pin);
 }
 
 void cppLoop(void)

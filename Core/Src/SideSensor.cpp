@@ -38,7 +38,7 @@ void SideSensor::updateStatus(uint16_t gpio_pin)
 
 		}
 		else if(white_flag1 == true){
-			if(gpio_pin == GPIO_PIN_2 && white_flag1 == true){
+			if(gpio_pin == GPIO_PIN_2){
 				cnt_r++;
 			}
 			else{
@@ -90,6 +90,80 @@ void SideSensor::updateStatus(uint16_t gpio_pin)
 
 }
 
+void SideSensor::updateStatus()
+{
+	static bool white_flag1 = false;
+	static bool white_flag2 = false;
+	static uint16_t cnt_l, cnt_r;
+
+	if(ignore_flag_ == false){
+
+		if(white_flag1 == false){
+			if(!HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_2)){
+				cnt_r++;
+			}
+			else{
+				cnt_r = 0;
+			}
+			if(cnt_r >= 5){
+				status_ |= 0x01;
+				white_flag1 = true;
+				cnt_r = 0;
+			}
+
+		}
+		else if(white_flag1 == true){
+			if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_2)){
+				cnt_r++;
+			}
+			else{
+				cnt_r = 0;
+			}
+			if(cnt_r >= 5){
+				status_ ^= 0x01;
+				white_flag1 = false;
+
+				white_line_cnt_r_++;
+				mon_cnt_r = white_line_cnt_r_;
+			}
+		}
+
+
+		if(white_flag2 == false){
+			if(!HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_8)){
+				cnt_l++;
+			}
+			else{
+				cnt_l = 0;
+			}
+			if(cnt_l >= 5){
+				status_ |= 0x02;
+				white_flag2 = true;
+				cnt_l = 0;
+			}
+
+		}
+		if(white_flag2 == true){
+			if(HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_8)){
+				cnt_l++;
+			}
+			else{
+				cnt_l = 0;
+			}
+			if(cnt_l >= 5){
+				status_ ^= 0x02;
+				white_flag2 = false;
+
+				white_line_cnt_l_++;
+				mon_cnt_l = white_line_cnt_l_;
+			}
+
+		}
+
+		mon_status = status_;
+	}
+
+}
 uint16_t SideSensor::getStatus()
 {
 	return status_;
