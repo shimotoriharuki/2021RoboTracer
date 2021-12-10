@@ -23,6 +23,7 @@ float mon_diff, mon_diff_lpf;
 
 uint16_t mon_store_cnt;
 float mon_pdis;
+float mon_ave_l, mon_ave_r;
 
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger) :
 				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
@@ -235,15 +236,17 @@ bool LineTrace::isCrossLine()
 	float sensor_edge_val_l = (line_sensor_->sensor[0] + line_sensor_->sensor[1] + line_sensor_->sensor[2]) / 3;
 	float sensor_edge_val_r = (line_sensor_->sensor[11] + line_sensor_->sensor[12] + line_sensor_->sensor[13]) / 3;
 	bool flag = false;
+	mon_ave_l = sensor_edge_val_l;
+	mon_ave_r = sensor_edge_val_r;
 
-	if(sensor_edge_val_l < 500 && sensor_edge_val_r < 500){
+	if(sensor_edge_val_l < 600 && sensor_edge_val_r < 600){
 		cnt++;
 	}
 	else{
 		cnt = 0;
 	}
 
-	if(cnt >= 5){
+	if(cnt >= 3){
 		flag = true;
 		//cnt = 0;
 	}

@@ -149,14 +149,14 @@ void LineSensor::printSensorValues()
 
 bool LineSensor::emergencyStop()
 {
-	uint8_t out_cnt = 0;
-	static uint8_t cnt = 0;
+	uint16_t out_cnt = 0;
+	static uint16_t cnt = 0;
+	static bool flag = false;
 
 	for(const auto & s : sensor){
 		if(s >= 700) out_cnt++;
 	}
 
-	static bool flag;
 	if(out_cnt >= AD_DATA_SIZE){
 		cnt++;
 	}
@@ -168,6 +168,8 @@ bool LineSensor::emergencyStop()
 		flag = true;
 	}
 	else flag = false;
+
+	if(cnt >= 10000) cnt = 10000;
 
 	return flag;
 
