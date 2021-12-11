@@ -18,6 +18,7 @@ private:
 	float cnt_l_, cnt_r_;
 	float distance_; //[mm]
 	float total_cnt_l_, total_cnt_r_;
+	float distance_10mm_;
 	float total_distance_;
 	float cross_line_ignore_distance_;
 
@@ -27,7 +28,7 @@ public:
 	void updateCnt();
 	void getCnt(float &, float &);
 	float getDistance();
-	float getTotalDistance();
+	float getDistance10mm();
 	void clearDistance();
 	void clearCnt();
 	float getTotalCnt();

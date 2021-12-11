@@ -296,7 +296,7 @@ void LineTrace::createVelocityTabele()
 
 void LineTrace::updateTargetVelocity()
 {
-	if(velocity_play_flag_ == true && encoder_->getTotalDistance() >= 10){
+	if(velocity_play_flag_ == true){
 		setTargetVelocity(velocity_table_[velocity_table_idx_]);
 
 		velocity_table_idx_++;
@@ -376,7 +376,7 @@ void LineTrace::flip()
 		//pidAngularVelocityTrace();
 		//steeringAngleTrace();
 
-		/*
+
 		if(isTargetDistance(10) == true){
 			// ---- Target Velocity Updata ------//
 			updateTargetVelocity();
@@ -388,7 +388,6 @@ void LineTrace::flip()
 			encoder_->clearTotalCnt();
 			odometry_->clearPotition();
 		}
-		*/
 
 		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
@@ -507,8 +506,8 @@ void LineTrace::running()
 
 void LineTrace::storeLogs()
 {
-	if(logging_flag_ == true && encoder_->getTotalDistance() >= 10){
-		logger_->storeDistanceAndTheta(encoder_->getTotalDistance(), odometry_->getTheta());
+	if(logging_flag_ == true){
+		logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
 
 		mon_store_cnt++;
 	}
@@ -535,7 +534,7 @@ void LineTrace::setMode(int16_t mode)
 bool LineTrace::isTargetDistance(float target_distance)
 {
 	bool ret = false;
-	if(encoder_->getTotalDistance() >= target_distance){
+	if(encoder_->getDistance10mm() >= target_distance){
 		ret = true;
 	}
 

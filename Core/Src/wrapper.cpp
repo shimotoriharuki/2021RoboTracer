@@ -168,7 +168,7 @@ void cppFlip1ms(void)
 void cppFlip100ns(void)
 {
 	line_sensor.storeSensorValues();
-	line_trace.flip100ns();
+	//line_trace.flip100ns();
 }
 
 void cppFlip10ms(void)
@@ -320,7 +320,7 @@ void cppLoop(void)
 		break;
 
 	case 2:
-		led.fullColor('G');
+		led.fullColor('M');
 
 		lcd_clear();
 		lcd_locate(0,0);
@@ -346,7 +346,7 @@ void cppLoop(void)
 		break;
 
 	case 3:
-		led.fullColor('M');
+		led.fullColor('G');
 
 		lcd_clear();
 		lcd_locate(0,0);
