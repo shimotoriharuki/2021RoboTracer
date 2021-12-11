@@ -24,10 +24,14 @@ float mon_diff, mon_diff_lpf;
 uint16_t mon_store_cnt;
 float mon_pdis;
 float mon_ave_l, mon_ave_r;
+float mon_ref_dis, mon_current_dis;
+uint16_t mon_vel_idx, mon_i;
+float mon_tar_vel;
 
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger) :
 				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
-				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0), target_velocity_(0), logging_flag_(false), velocity_play_flag_(false), velocity_table_idx_(0)
+				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
+				target_velocity_(0), logging_flag_(false), ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0)
 {
 	motor_ = motor;
 	line_sensor_ = line_sensor;
@@ -265,11 +269,12 @@ float LineTrace::radius2Velocity(float radius)
 	float velocity;
 
 	if(radius < 130) velocity = 1.0;
-	else if(radius < 250) velocity = 1.3;
-	else velocity = 1.5;
+	else if(radius < 300) velocity = 1.3;
+	else velocity = 1.4;
 
 	return velocity;
 }
+
 void LineTrace::createVelocityTabele()
 {
 	logger_->importDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
@@ -288,6 +293,8 @@ void LineTrace::createVelocityTabele()
 
 		velocity_table_[i] = radius2Velocity(radius);
 		//velocity_table_[i] = radius;
+
+		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
 
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
@@ -297,11 +304,24 @@ void LineTrace::createVelocityTabele()
 void LineTrace::updateTargetVelocity()
 {
 	if(velocity_play_flag_ == true){
+
+		if(encoder_->getTotalDistance() >= ref_distance_){
+			ref_distance_ += ref_delta_distances_[velocity_table_idx_];
+			velocity_table_idx_++;
+		}
+
+		if(velocity_table_idx_ >= LOG_DATA_SIZE_DIS) velocity_table_idx_ = LOG_DATA_SIZE_DIS - 1;
+
+
+		mon_ref_dis = ref_distance_;
+		mon_current_dis = encoder_->getTotalDistance();
+		mon_vel_idx = velocity_table_idx_;
+
 		setTargetVelocity(velocity_table_[velocity_table_idx_]);
 
-		velocity_table_idx_++;
-	}
+		mon_tar_vel = velocity_table_[velocity_table_idx_];
 
+	}
 }
 
 // -------public---------- //
@@ -312,7 +332,6 @@ void LineTrace::init()
 	sd_read_array_float("PARAMS", "KI.TXT", 1, &temp_ki);
 	sd_read_array_float("PARAMS", "KD.TXT", 1, &temp_kd);
 	setGain(temp_kp, temp_ki, temp_kd);
-
 }
 
 void LineTrace::setGain(float kp, float ki, float kd)
@@ -378,9 +397,6 @@ void LineTrace::flip()
 
 
 		if(isTargetDistance(10) == true){
-			// ---- Target Velocity Updata ------//
-			updateTargetVelocity();
-
 			// ---- Store Logs ------//
 			storeLogs();
 
@@ -388,6 +404,9 @@ void LineTrace::flip()
 			encoder_->clearDistance10mm();
 			odometry_->clearPotition();
 		}
+
+		// ---- Target Velocity Updata ------//
+		updateTargetVelocity();
 
 		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
@@ -463,15 +482,6 @@ void LineTrace::running()
 		switch(stage){
 		case 0:
 			if(side_sensor_->getWhiteLineCntR() == 1){
-
-				/*
-				if(mode_selector_ ==FIRST_RUNNING){ //First running
-					loggerStart();
-				}
-				else if(mode_selector_ == SECOND_RUNNING)){ //Secondary run
-					startVelocityPlay();
-				}
-				*/
 				loggerStart();
 				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
 					startVelocityPlay();
@@ -515,8 +525,7 @@ void LineTrace::storeLogs()
 
 void LineTrace::startVelocityPlay()
 {
-	encoder_->clearDistance10mm();
-	odometry_->clearPotition();
+	encoder_->clearTotalDistance();
 	velocity_play_flag_ = true;
 }
 
@@ -524,6 +533,7 @@ void LineTrace::stopVelocityPlay()
 {
 	velocity_play_flag_ = false;
 	velocity_table_idx_ = 0;
+	ref_distance_ = 0;
 }
 
 void LineTrace::setMode(int16_t mode)

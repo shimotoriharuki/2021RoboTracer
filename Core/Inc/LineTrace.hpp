@@ -48,7 +48,8 @@ private:
 	float sensor_values_[SENSOR_NUM];
 	float target_velocity_;
 	bool logging_flag_;
-	//float distances[LOG_DATA_SIZE_DIS];
+	float ref_delta_distances_[LOG_DATA_SIZE_DIS];
+	float ref_distance_;
 	//float thetas[LOG_DATA_SIZE_DIS];
 	float velocity_table_[LOG_DATA_SIZE_DIS];
 	bool velocity_play_flag_;
