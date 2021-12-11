@@ -52,6 +52,7 @@ void Encoder::update()
 	//distance_ = distance_ + DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	distance_ = DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	distance_10mm_ += distance_;
+	total_distance_ += distance_;
 	cross_line_ignore_distance_ += distance_;
 	monitor_distance = distance_10mm_;
 }
@@ -105,6 +106,11 @@ void Encoder::clearDistance10mm()
 	//total_cnt_l_ = 0;
 	//total_cnt_r_ = 0;
 	distance_10mm_ = 0;
+}
+
+void Encoder::clearTotalDistance()
+{
+	total_distance_ = 0;
 }
 
 float Encoder::getCrossLineIgnoreDistance()

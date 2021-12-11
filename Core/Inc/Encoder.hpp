@@ -34,6 +34,7 @@ public:
 	void clearDistance();
 	//float getTotalCnt();
 	void clearDistance10mm();
+	void clearTotalDistance();
 	float getCrossLineIgnoreDistance();
 	void clearCrossLineIgnoreDistance();
 };
