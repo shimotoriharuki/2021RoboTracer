@@ -86,10 +86,12 @@ float Encoder::getTotalDistance()
 	return total_distance_;
 }
 
+/*
 void Encoder::clearDistance()
 {
 	distance_ = 0;
 }
+*/
 
 /*
 float Encoder::getTotalCnt()

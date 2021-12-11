@@ -123,7 +123,7 @@ void cppInit(void)
 	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
 
-	encoder.clearDistance();
+	//encoder.clearDistance();
 	odometry.clearPotition();
 
 	path_following.init();
@@ -423,7 +423,7 @@ void cppLoop(void)
 
 			led.fullColor('R');
 			encoder.clearDistance10mm();
-			encoder.clearDistance();
+			//encoder.clearDistance();
 
 			HAL_Delay(10000);
 
@@ -460,7 +460,7 @@ void cppLoop(void)
 
 			led.fullColor('R');
 			encoder.clearDistance10mm();
-			encoder.clearDistance();
+			//encoder.clearDistance();
 			odometry.clearPotition();
 			logger.start();
 
