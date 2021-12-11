@@ -31,7 +31,7 @@ void Encoder::init()
 	TIM8 -> CNT = CNT_OFFSET;
 }
 
-void Encoder::updateCnt()
+void Encoder::update()
 {
 	static float pre_cnt_l, pre_cnt_r;
 	float cnt_l = (float(CNT_OFFSET) - float(TIM1 -> CNT)) * CORRECTION_COEFFICIENT;
@@ -46,14 +46,23 @@ void Encoder::updateCnt()
 	pre_cnt_r = cnt_r_;
 
 
-	total_cnt_l_ += cnt_l_;
-	total_cnt_r_ += cnt_r_;
+	//total_cnt_l_ += cnt_l_;
+	//total_cnt_r_ += cnt_r_;
 
 	//distance_ = distance_ + DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	distance_ = DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	distance_10mm_ += distance_;
 	cross_line_ignore_distance_ += distance_;
 	monitor_distance = distance_10mm_;
+}
+
+void Encoder::clear()
+{
+	cnt_l_ = 0;
+	cnt_r_ = 0;
+	TIM1 -> CNT = CNT_OFFSET;
+	TIM8 -> CNT = CNT_OFFSET;
+	distance_ = 0;
 }
 
 void Encoder::getCnt(float &cnt_l, float &cnt_r)
@@ -72,29 +81,27 @@ float Encoder::getDistance10mm()
 	return distance_10mm_;
 }
 
+float Encoder::getTotalDistance()
+{
+	return total_distance_;
+}
+
 void Encoder::clearDistance()
 {
 	distance_ = 0;
 }
 
-void Encoder::clearCnt()
-{
-	cnt_l_ = 0;
-	cnt_r_ = 0;
-	TIM1 -> CNT = CNT_OFFSET;
-	TIM8 -> CNT = CNT_OFFSET;
-	distance_ = 0;
-}
-
+/*
 float Encoder::getTotalCnt()
 {
 	return (total_cnt_l_ + total_cnt_r_) / 2;
 }
+*/
 
-void Encoder::clearTotalCnt()
+void Encoder::clearDistance10mm()
 {
-	total_cnt_l_ = 0;
-	total_cnt_r_ = 0;
+	//total_cnt_l_ = 0;
+	//total_cnt_r_ = 0;
 	distance_10mm_ = 0;
 }
 

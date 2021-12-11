@@ -134,7 +134,7 @@ void cppFlip1ms(void)
 {
 	line_sensor.updateSensorValues();
 	imu.updateValues();
-	encoder.updateCnt();
+	encoder.update();
 
 	line_trace.flip();
 	velocity_ctrl.flip();
@@ -157,7 +157,7 @@ void cppFlip1ms(void)
 	/*
 	*/
 
-	encoder.clearCnt();
+	encoder.clear();
 
 	//Buttery Check
 	//power_sensor.updateValues();
@@ -422,7 +422,7 @@ void cppLoop(void)
 			HAL_Delay(500);
 
 			led.fullColor('R');
-			encoder.clearTotalCnt();
+			encoder.clearDistance10mm();
 			encoder.clearDistance();
 
 			HAL_Delay(10000);
@@ -459,7 +459,7 @@ void cppLoop(void)
 			HAL_Delay(500);
 
 			led.fullColor('R');
-			encoder.clearTotalCnt();
+			encoder.clearDistance10mm();
 			encoder.clearDistance();
 			odometry.clearPotition();
 			logger.start();

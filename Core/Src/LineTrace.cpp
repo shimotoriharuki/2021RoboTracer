@@ -217,7 +217,7 @@ void LineTrace::steeringAngleTrace()
 
 void LineTrace::loggerStart()
 {
-	encoder_->clearTotalCnt();
+	encoder_->clearDistance10mm();
 	odometry_->clearPotition();
 	//logger_->start();
 
@@ -385,7 +385,7 @@ void LineTrace::flip()
 			storeLogs();
 
 			// ---reset total cnt ---//
-			encoder_->clearTotalCnt();
+			encoder_->clearDistance10mm();
 			odometry_->clearPotition();
 		}
 
@@ -423,7 +423,7 @@ void LineTrace::flip100ns()
 		storeLogs();
 
 		// ---reset total cnt ---//
-		encoder_->clearTotalCnt();
+		encoder_->clearDistance10mm();
 		odometry_->clearPotition();
 	}
 }
@@ -515,7 +515,7 @@ void LineTrace::storeLogs()
 
 void LineTrace::startVelocityPlay()
 {
-	encoder_->clearTotalCnt();
+	encoder_->clearDistance10mm();
 	odometry_->clearPotition();
 	velocity_play_flag_ = true;
 }

@@ -25,14 +25,15 @@ private:
 public:
 	Encoder();
 	void init();
-	void updateCnt();
+	void update();
+	void clear();
 	void getCnt(float &, float &);
 	float getDistance();
 	float getDistance10mm();
+	float getTotalDistance();
 	void clearDistance();
-	void clearCnt();
-	float getTotalCnt();
-	void clearTotalCnt();
+	//float getTotalCnt();
+	void clearDistance10mm();
 	float getCrossLineIgnoreDistance();
 	void clearCrossLineIgnoreDistance();
 };

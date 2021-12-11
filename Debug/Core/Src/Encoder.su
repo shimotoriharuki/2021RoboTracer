@@ -1,12 +1,12 @@
 Encoder.cpp:24:1:Encoder::Encoder()	16	static
 Encoder.cpp:26:6:void Encoder::init()	16	static
-Encoder.cpp:34:6:void Encoder::updateCnt()	32	static
-Encoder.cpp:59:6:void Encoder::getCnt(float&, float&)	24	static
-Encoder.cpp:65:7:float Encoder::getDistance()	16	static
-Encoder.cpp:70:7:float Encoder::getDistance10mm()	16	static
-Encoder.cpp:75:6:void Encoder::clearDistance()	16	static
-Encoder.cpp:80:6:void Encoder::clearCnt()	16	static
-Encoder.cpp:89:7:float Encoder::getTotalCnt()	16	static
-Encoder.cpp:94:6:void Encoder::clearTotalCnt()	16	static
-Encoder.cpp:101:7:float Encoder::getCrossLineIgnoreDistance()	16	static
-Encoder.cpp:106:6:void Encoder::clearCrossLineIgnoreDistance()	16	static
+Encoder.cpp:34:6:void Encoder::update()	32	static
+Encoder.cpp:59:6:void Encoder::clear()	16	static
+Encoder.cpp:68:6:void Encoder::getCnt(float&, float&)	24	static
+Encoder.cpp:74:7:float Encoder::getDistance()	16	static
+Encoder.cpp:79:7:float Encoder::getDistance10mm()	16	static
+Encoder.cpp:84:7:float Encoder::getTotalDistance()	16	static
+Encoder.cpp:89:6:void Encoder::clearDistance()	16	static
+Encoder.cpp:101:6:void Encoder::clearDistance10mm()	16	static
+Encoder.cpp:108:7:float Encoder::getCrossLineIgnoreDistance()	16	static
+Encoder.cpp:113:6:void Encoder::clearCrossLineIgnoreDistance()	16	static
