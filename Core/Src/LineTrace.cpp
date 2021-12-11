@@ -268,9 +268,9 @@ float LineTrace::radius2Velocity(float radius)
 {
 	float velocity;
 
-	if(radius < 130) velocity = 1.0;
+	if(radius < 130) velocity = 1.3;
 	else if(radius < 300) velocity = 1.3;
-	else velocity = 1.4;
+	else velocity = 1.3;
 
 	return velocity;
 }
