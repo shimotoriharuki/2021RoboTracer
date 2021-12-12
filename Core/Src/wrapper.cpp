@@ -304,7 +304,7 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 
-			line_trace.setTargetVelocity(1.0);
+			line_trace.setTargetVelocity(1.5);
 			led.LR(1, -1);
 
 			line_trace.setMode(FIRST_RUNNING);
