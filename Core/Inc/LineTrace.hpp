@@ -28,6 +28,7 @@
 #define FIRST_RUNNING 0
 #define SECOND_RUNNING 1
 #define THIRD_RUNNING 2
+#define CROSSLINE_SIZE 100
 
 class LineTrace
 {
@@ -58,6 +59,9 @@ private:
 	bool velocity_play_flag_;
 	uint16_t velocity_table_idx_;
 	int16_t mode_selector_;
+	float crossline_distance_[CROSSLINE_SIZE];
+	uint16_t crossline_idx_;
+	bool ignore_crossline_flag_;
 
 	float calcError();
 	float calcAngle();
@@ -75,6 +79,7 @@ private:
 	float radius2Velocity(float);
 	void updateTargetVelocity();
 	bool isTargetDistance(float);
+	void storeCrossLineDistance();
 
 public:
 	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *);

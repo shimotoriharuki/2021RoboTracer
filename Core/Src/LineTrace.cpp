@@ -32,7 +32,8 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), logging_flag_(false),
-				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0)
+				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0),
+				ignore_crossline_flag_(false)
 {
 	motor_ = motor;
 	line_sensor_ = line_sensor;
@@ -44,6 +45,9 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 
 	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
 		velocity_table_[i] = 0;
+	}
+	for(uint16_t i = 0; i < 100; i++){
+		crossline_distance_[i] = 0;
 	}
 }
 
@@ -237,23 +241,47 @@ void LineTrace::loggerStop()
 
 bool LineTrace::isCrossLine()
 {
-	static uint16_t cnt;
+	static uint16_t cnt = 0;
 	float sensor_edge_val_l = (line_sensor_->sensor[0] + line_sensor_->sensor[1] + line_sensor_->sensor[2]) / 3;
 	float sensor_edge_val_r = (line_sensor_->sensor[11] + line_sensor_->sensor[12] + line_sensor_->sensor[13]) / 3;
-	bool flag = false;
+	static bool flag = false;
+	static bool white_flag = false;
 	mon_ave_l = sensor_edge_val_l;
 	mon_ave_r = sensor_edge_val_r;
 
-	if(sensor_edge_val_l < 600 && sensor_edge_val_r < 600){
-		cnt++;
+	if(white_flag == false){
+		if(sensor_edge_val_l < 600 && sensor_edge_val_r < 600){
+			cnt++;
+		}
+		else{
+			cnt = 0;
+		}
+
+		if(cnt >= 3){
+			flag = true;
+			white_flag = true;
+			cnt = 0;
+		}
 	}
 	else{
-		cnt = 0;
-	}
+		if(sensor_edge_val_l > 500 && sensor_edge_val_r > 500){
+			cnt++;
+		}
+		else{
+			cnt = 0;
+		}
 
-	if(cnt >= 3){
-		flag = true;
-		//cnt = 0;
+		if(cnt >= 3){
+			flag = false;
+			white_flag = false;
+			cnt = 0;
+
+			if(mode_selector_ == FIRST_RUNNING){
+				storeCrossLineDistance();
+			}
+			else{}
+		}
+
 	}
 
 	return flag;
@@ -480,10 +508,11 @@ void LineTrace::flip()
 			side_sensor_->enableIgnore();
 			encoder_->clearCrossLineIgnoreDistance();
 		}
-		else{
-		}
+
 		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 200){
 			side_sensor_->disableIgnore();
+
+
 			led_.LR(0, -1);
 		}
 
@@ -519,6 +548,7 @@ void LineTrace::start()
 	i_reset_flag_ = true;
 	velocity_ctrl_->start();
 	side_sensor_->resetWhiteLineCnt();
+	crossline_idx_ = 0;
 }
 
 void LineTrace::stop()
@@ -533,6 +563,8 @@ void LineTrace::stop()
 	else{//Secondary run
 		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
 	}
+	sd_write_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_, OVER_WRITE);
+
 	led_.LR(-1, 0);
 
 	logger_->resetIdx();
@@ -570,7 +602,7 @@ void LineTrace::running()
 			break;
 
 		case 10:
-			if(side_sensor_->getWhiteLineCntR() == 3){
+			if(side_sensor_->getWhiteLineCntR() == 2){
 				loggerStop();
 				stopVelocityPlay();
 				HAL_Delay(100); //Run through after the goal
@@ -627,4 +659,12 @@ bool LineTrace::isTargetDistance(float target_distance)
 	}
 
 	return ret;
+}
+
+void LineTrace::storeCrossLineDistance()
+{
+	crossline_distance_[crossline_idx_] = encoder_->getTotalDistance();
+	crossline_idx_++;
+
+	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
 }
