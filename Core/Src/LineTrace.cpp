@@ -224,7 +224,7 @@ void LineTrace::loggerStart()
 {
 	encoder_->clearDistance10mm();
 	odometry_->clearPotition();
-	//logger_->start();
+	logger_->resetLogs();
 
 	logging_flag_ = true;
 }
@@ -269,14 +269,46 @@ float LineTrace::radius2Velocity(float radius)
 {
 	float velocity;
 
-	if(radius < 130) velocity = 1.3;
-	else if(radius < 300) velocity = 1.3;
+	if(mode_selector_ == SECOND_RUNNING){
+		if(radius < 130) velocity = 1.3;
+		else if(radius < 500) velocity = 1.3;
+		else velocity = max_velocity_;
+	}
+	else if(mode_selector_ == THIRD_RUNNING){
+		if(radius < 130) velocity = 1.3;
+		else if(radius < 500) velocity = 1.3;
+		else velocity = max_velocity2_;
+	}
 	else velocity = 1.3;
 
 	return velocity;
 }
 
 void LineTrace::createVelocityTabele()
+{
+	const float *p_distance, *p_theta;
+	p_distance = logger_->getDistanceArrayPointer();
+	p_theta= logger_->getThetaArrayPointer();
+
+	float temp_distance, temp_theta;
+	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
+		temp_distance = p_distance[i];
+		temp_theta = p_theta[i];
+
+		if(temp_theta == 0) temp_theta = 0.00001;
+		float radius = abs(temp_distance / temp_theta);
+		if(radius >= 5000) radius = 5000;
+
+		velocity_table_[i] = radius2Velocity(radius);
+		//velocity_table_[i] = radius;
+
+		ref_delta_distances_[i] = p_distance[i]; //copy
+	}
+
+	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
+
+}
+void LineTrace::createVelocityTabeleFromSD()
 {
 	logger_->importDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
 	const float *p_distance, *p_theta;
@@ -499,11 +531,11 @@ void LineTrace::stop()
 		logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
 	}
 	else if(mode_selector_ == SECOND_RUNNING){//Secondary run
-		logger_->saveDistanceAndTheta("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
+		//logger_->saveDistanceAndTheta("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
 	}
 	led_.LR(-1, 0);
 
-	logger_->resetLogs();
+	logger_->resetIdx();
 }
 
 void LineTrace::running()
@@ -516,8 +548,10 @@ void LineTrace::running()
 		switch(stage){
 		case 0:
 			if(side_sensor_->getWhiteLineCntR() == 1){
-				loggerStart();
-				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
+				if(mode_selector_ == FIRST_RUNNING){ // Other than first running
+					loggerStart();
+				}
+				else{ // Other than first running
 					startVelocityPlay();
 				}
 

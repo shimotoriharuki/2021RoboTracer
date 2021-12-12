@@ -369,11 +369,12 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 
+			led.LR(1, -1);
+			line_trace.setMode(SECOND_RUNNING);
 			line_trace.setTargetVelocity(adj_max_velocity);
 			line_trace.setMaxVelocity(adj_max_velocity);
-			led.LR(1, -1);
+			line_trace.createVelocityTabele();
 
-			line_trace.setMode(SECOND_RUNNING);
 			line_trace.running();
 
 			led.LR(0, -1);
@@ -430,11 +431,12 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 
+			led.LR(1, -1);
+			line_trace.setMode(THIRD_RUNNING);
 			line_trace.setTargetVelocity(adj_max_velocity2);
 			line_trace.setMaxVelocity2(adj_max_velocity2);
-			led.LR(1, -1);
+			line_trace.createVelocityTabele();
 
-			line_trace.setMode(SECOND_RUNNING);
 			line_trace.running();
 
 			led.LR(0, -1);
@@ -506,9 +508,35 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("09      ");
+		lcd_printf("Teoshi");
 		lcd_locate(0,1);
-		lcd_printf("        ");
+		lcd_printf("Following");
+
+		if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(500);
+
+			line_trace.setNormalRatio(0.0);
+			line_trace.start();
+			HAL_Delay(500);
+
+			led.fullColor('R');
+			encoder.clearDistance10mm();
+			//encoder.clearDistance();
+
+			HAL_Delay(10000);
+
+			line_trace.stop();
+			//long total = encoder.getTotalCnt();
+
+			//user_fopen("total_cnts", "cnts.txt");
+			user_fopen("distance", "1m.txt");
+			float d = encoder.getDistance();
+			sd_write_float(1, &d, ADD_WRITE);
+			user_fclose();
+
+			led.LR(-1, 0);
+		}
 		break;
 
 	case 10:
@@ -516,9 +544,18 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("10      ");
+		lcd_printf("Create  ");
 		lcd_locate(0,1);
-		lcd_printf("        ");
+		lcd_printf("VelTable");
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+			led.LR(-1, 1);
+
+			line_trace.setMode(THIRD_RUNNING);
+			line_trace.createVelocityTabeleFromSD();
+
+			led.LR(-1, 0);
+		}
 
 		break;
 
@@ -601,57 +638,51 @@ void cppLoop(void)
 		break;
 
 	case 14:
-		led.fullColor('~');
+		led.fullColor('W');
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Teoshi");
+		lcd_printf("LogRun2    ");
 		lcd_locate(0,1);
-		lcd_printf("Following");
+		lcd_printf("Start%3.1f", adj_max_velocity2);
 
 		if(joy_stick.getValue() == JOY_C){
-			led.LR(-1, 1);
 			HAL_Delay(500);
 
-			line_trace.setNormalRatio(0.0);
-			line_trace.start();
-			HAL_Delay(500);
+			led.LR(1, -1);
+			line_trace.setMode(THIRD_RUNNING);
+			line_trace.setTargetVelocity(adj_max_velocity2);
+			line_trace.setMaxVelocity(adj_max_velocity2);
+			line_trace.createVelocityTabeleFromSD();
 
-			led.fullColor('R');
-			encoder.clearDistance10mm();
-			//encoder.clearDistance();
+			line_trace.running();
 
-			HAL_Delay(10000);
-
-			line_trace.stop();
-			//long total = encoder.getTotalCnt();
-
-			//user_fopen("total_cnts", "cnts.txt");
-			user_fopen("distance", "1m.txt");
-			float d = encoder.getDistance();
-			sd_write_float(1, &d, ADD_WRITE);
-			user_fclose();
-
-			led.LR(-1, 0);
+			led.LR(0, -1);
 		}
 
 		break;
 
 	case 15:
-		led.fullColor('~');
+		led.fullColor('W');
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Create  ");
+		lcd_printf("LogRun1    ");
 		lcd_locate(0,1);
-		lcd_printf("VelTable");
+		lcd_printf("Start%3.1f", adj_max_velocity);
+
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
-			led.LR(-1, 1);
 
-			line_trace.createVelocityTabele();
+			led.LR(1, -1);
+			line_trace.setMode(SECOND_RUNNING);
+			line_trace.setTargetVelocity(adj_max_velocity);
+			line_trace.setMaxVelocity(adj_max_velocity);
+			line_trace.createVelocityTabeleFromSD();
 
-			led.LR(-1, 0);
+			line_trace.running();
+
+			led.LR(0, -1);
 		}
 		break;
 

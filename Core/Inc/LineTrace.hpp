@@ -27,6 +27,7 @@
 #define CENTER_OF_ROTATION_TO_CENTER_OF_SENSOR 0.060 //[m]
 #define FIRST_RUNNING 0
 #define SECOND_RUNNING 1
+#define THIRD_RUNNING 2
 
 class LineTrace
 {
@@ -101,6 +102,7 @@ public:
 	void storeLogs();
 
 	void createVelocityTabele();
+	void createVelocityTabeleFromSD();
 	void startVelocityPlay();
 	void stopVelocityPlay();
 	void setMode(int16_t);

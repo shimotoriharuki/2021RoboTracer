@@ -188,6 +188,12 @@ void Logger::resetLogs()
 	log_index_dis_ = 0;
 }
 
+void Logger::resetIdx()
+{
+	log_index_tim_ = 0;
+	log_index_dis_ = 0;
+}
+
 void Logger::start()
 {
 	recording_flag_ = true;

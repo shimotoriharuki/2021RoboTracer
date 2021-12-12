@@ -51,6 +51,7 @@ public:
 	void saveDistanceAndTheta(const char *, const char *, const char *);
 	void importDistanceAndTheta(const char *, const char *, const char *);
 	void resetLogs();
+	void resetIdx();
 
 	/*
 	void continuousWriteStart(const char *, const char *);
