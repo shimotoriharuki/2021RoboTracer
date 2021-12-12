@@ -80,6 +80,7 @@ private:
 	void updateTargetVelocity();
 	bool isTargetDistance(float);
 	void storeCrossLineDistance();
+	void correctionTotalDistance();
 
 public:
 	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *);

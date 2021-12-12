@@ -31,6 +31,7 @@ public:
 	float getDistance();
 	float getDistance10mm();
 	float getTotalDistance();
+	void setTotalDistance(float);
 	void clearDistance();
 	//float getTotalCnt();
 	void clearDistance10mm();

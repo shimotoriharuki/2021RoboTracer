@@ -279,7 +279,9 @@ bool LineTrace::isCrossLine()
 			if(mode_selector_ == FIRST_RUNNING){
 				storeCrossLineDistance();
 			}
-			else{}
+			else{
+				correctionTotalDistance();
+			}
 		}
 
 	}
@@ -372,7 +374,6 @@ void LineTrace::updateTargetVelocity()
 		}
 
 		if(velocity_table_idx_ >= LOG_DATA_SIZE_DIS) velocity_table_idx_ = LOG_DATA_SIZE_DIS - 1;
-
 
 		mon_ref_dis = ref_distance_;
 		mon_current_dis = encoder_->getTotalDistance();
@@ -602,7 +603,7 @@ void LineTrace::running()
 			break;
 
 		case 10:
-			if(side_sensor_->getWhiteLineCntR() == 2){
+			if(side_sensor_->getWhiteLineCntR() == 10){
 				loggerStop();
 				stopVelocityPlay();
 				HAL_Delay(100); //Run through after the goal
@@ -667,4 +668,13 @@ void LineTrace::storeCrossLineDistance()
 	crossline_idx_++;
 
 	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
+}
+
+void LineTrace::correctionTotalDistance()
+{
+	encoder_->setTotalDistance(crossline_distance_[crossline_idx_]);
+	crossline_idx_++;
+
+	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
+
 }

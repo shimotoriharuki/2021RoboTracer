@@ -87,6 +87,10 @@ float Encoder::getTotalDistance()
 	return total_distance_;
 }
 
+void Encoder::setTotalDistance(float true_distance){
+	total_distance_ = true_distance;
+}
+
 /*
 void Encoder::clearDistance()
 {
