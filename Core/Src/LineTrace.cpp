@@ -261,6 +261,7 @@ bool LineTrace::isCrossLine()
 			flag = true;
 			white_flag = true;
 			cnt = 0;
+			led_.LR(-1, 1);
 		}
 	}
 	else{
@@ -271,7 +272,7 @@ bool LineTrace::isCrossLine()
 			cnt = 0;
 		}
 
-		if(cnt >= 3){
+		if(cnt >= 10){
 			flag = false;
 			white_flag = false;
 			cnt = 0;
@@ -282,6 +283,7 @@ bool LineTrace::isCrossLine()
 			else{
 				correctionTotalDistance();
 			}
+			led_.LR(-1, 0);
 		}
 
 	}
@@ -369,8 +371,10 @@ void LineTrace::updateTargetVelocity()
 	if(velocity_play_flag_ == true){
 
 		if(encoder_->getTotalDistance() >= ref_distance_){
-			ref_distance_ += ref_delta_distances_[velocity_table_idx_];
-			velocity_table_idx_++;
+			while(encoder_->getTotalDistance() >= ref_distance_){
+				ref_distance_ += ref_delta_distances_[velocity_table_idx_];
+				velocity_table_idx_++;
+			}
 		}
 
 		if(velocity_table_idx_ >= LOG_DATA_SIZE_DIS) velocity_table_idx_ = LOG_DATA_SIZE_DIS - 1;
@@ -603,7 +607,7 @@ void LineTrace::running()
 			break;
 
 		case 10:
-			if(side_sensor_->getWhiteLineCntR() == 10){
+			if(side_sensor_->getWhiteLineCntR() == 6){
 				loggerStop();
 				stopVelocityPlay();
 				HAL_Delay(100); //Run through after the goal
@@ -628,7 +632,9 @@ void LineTrace::storeLogs()
 		if(mode_selector_ == FIRST_RUNNING)
 			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
 		else
-			logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
+			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
+			//logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
+			logger_->storeDistanceAndTheta2(getTargetVelocity(), odometry_->getTheta());
 
 		mon_store_cnt++;
 	}
