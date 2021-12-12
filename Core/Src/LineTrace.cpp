@@ -31,7 +31,8 @@ float mon_tar_vel;
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger) :
 				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
-				target_velocity_(0), logging_flag_(false), ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0)
+				target_velocity_(0), max_velocity_(0), max_velocity2_(0), logging_flag_(false),
+				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0)
 {
 	motor_ = motor;
 	line_sensor_ = line_sensor;
@@ -332,6 +333,14 @@ void LineTrace::init()
 	sd_read_array_float("PARAMS", "KI.TXT", 1, &temp_ki);
 	sd_read_array_float("PARAMS", "KD.TXT", 1, &temp_kd);
 	setGain(temp_kp, temp_ki, temp_kd);
+
+	float temp_velocity, temp_max_velocity, temp_max_velocity2;
+	sd_read_array_float("PARAMS", "TARVEL1.TXT", 1, &temp_velocity);
+	sd_read_array_float("PARAMS", "TARVEL2.TXT", 1, &temp_max_velocity);
+	sd_read_array_float("PARAMS", "TARVEL3.TXT", 1, &temp_max_velocity2);
+	setTargetVelocity(temp_velocity);
+	setMaxVelocity(temp_max_velocity);
+	setMaxVelocity2(temp_max_velocity2);
 }
 
 void LineTrace::setGain(float kp, float ki, float kd)
@@ -385,6 +394,31 @@ void LineTrace::setNormalRatio(float ratio)
 void LineTrace::setTargetVelocity(float velocity)
 {
 	target_velocity_ = velocity;
+}
+
+void LineTrace::setMaxVelocity(float velocity)
+{
+	max_velocity_ = velocity;
+}
+
+void LineTrace::setMaxVelocity2(float velocity)
+{
+	max_velocity2_ = velocity;
+}
+
+float LineTrace::getTargetVelocity()
+{
+	return target_velocity_;
+}
+
+float LineTrace::getMaxVelocity()
+{
+	return max_velocity_;
+}
+
+float LineTrace::getMaxVelocity2()
+{
+	return max_velocity2_;
 }
 
 void LineTrace::flip()

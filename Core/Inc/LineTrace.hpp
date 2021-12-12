@@ -47,6 +47,8 @@ private:
 	float normal_ratio_;
 	float sensor_values_[SENSOR_NUM];
 	float target_velocity_;
+	float max_velocity_;
+	float max_velocity2_;
 	bool logging_flag_;
 	float ref_delta_distances_[LOG_DATA_SIZE_DIS];
 	float ref_distance_;
@@ -86,6 +88,11 @@ public:
 	float getKdV();
 	void setNormalRatio(float);
 	void setTargetVelocity(float);
+	void setMaxVelocity(float);
+	void setMaxVelocity2(float);
+	float getTargetVelocity();
+	float getMaxVelocity();
+	float getMaxVelocity2();
 	void flip();
 	void flip100ns();
 	void start();

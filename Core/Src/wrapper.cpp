@@ -86,7 +86,7 @@ void cppInit(void)
 	lcd_printf("%f", power_sensor.getButteryVoltage());
 	HAL_Delay(1000);
 
-	if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
+	//if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
 
 	// -----------initialize-------//
 	if(logger.sdCardInit() == true){ //sd mount successfull
@@ -201,21 +201,25 @@ void cppExit(uint16_t gpio_pin)
 
 void cppLoop(void)
 {
-	switch(rotary_switch.getValue()){
 	static int16_t selector;
 
+	static float adj_kp = line_trace.getKp();
+	static float adj_ki= line_trace.getKi();
+	static float adj_kd = line_trace.getKd();
+
+	static float adj_velocity = line_trace.getTargetVelocity();
+	static float adj_max_velocity = line_trace.getMaxVelocity();
+	static float adj_max_velocity2 = line_trace.getMaxVelocity2();
+
+	switch(rotary_switch.getValue()){
 	case 0:
-		led.fullColor('R');
+		led.fullColor('W');
 
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("%4.2lf    ", line_trace.getKp()*1000);
 		lcd_locate(0,1);
 		lcd_printf("%4.2lf%4.2lf", line_trace.getKi()*100, line_trace.getKd()*10000);
-
-		static float adj_kp = line_trace.getKp();
-		static float adj_ki = line_trace.getKi();
-		static float adj_kd = line_trace.getKd();
 
 		if(joy_stick.getValue() == JOY_U){
 			led.LR(-1, 1);
@@ -293,119 +297,311 @@ void cppLoop(void)
 		break;
 
 	case 1:
-		led.fullColor('B');
+		led.fullColor('C');
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("velocity");
+		lcd_printf("FirstRun");
 		lcd_locate(0,1);
-		lcd_printf("trace");
+		lcd_printf("Start%3.1f", adj_velocity);
 
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 
-			line_trace.setTargetVelocity(1.5);
+			line_trace.setTargetVelocity(adj_velocity);
 			led.LR(1, -1);
 
 			line_trace.setMode(FIRST_RUNNING);
 			line_trace.running();
-			//HAL_Delay(3000);
 
-			//line_trace.stop();
 			led.LR(0, -1);
-
-			//logger.stop();
 		}
 
 		break;
 
 	case 2:
-		led.fullColor('M');
+		led.fullColor('B');
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("velocity");
+		lcd_printf("FirstRun");
 		lcd_locate(0,1);
-		lcd_printf("update");
+		lcd_printf("%Vel: %3.1f", adj_velocity);
 
-		if(joy_stick.getValue() == JOY_C){
-			HAL_Delay(500);
 
-			line_trace.setTargetVelocity(1.0);
-			led.LR(1, -1);
+		if(joy_stick.getValue() == JOY_R){
+			led.LR(-1, 1);
+			HAL_Delay(100);
 
-			line_trace.setMode(SECOND_RUNNING);
-			line_trace.running();
-			//HAL_Delay(3000);
+			adj_velocity = adj_velocity + 0.1;
 
-			//line_trace.stop();
-			led.LR(0, -1);
+			led.LR(-1, 0);
+		}
 
-			//logger.stop();
+		else if(joy_stick.getValue() == JOY_L){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			adj_velocity = adj_velocity - 0.1;
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			sd_write_array_float("PARAMS", "TARVEL1.TXT", 1, &adj_velocity, OVER_WRITE);
+			line_trace.setTargetVelocity(adj_velocity);
+
+			led.LR(-1, 0);
 		}
 		break;
 
 	case 3:
-		led.fullColor('G');
+		led.fullColor('Y');
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Line");
+		lcd_printf("SeconRun");
 		lcd_locate(0,1);
-		lcd_printf("Trace");
+		lcd_printf("Start%3.1f", adj_max_velocity);
 
 		if(joy_stick.getValue() == JOY_C){
-			led.LR(-1, 1);
 			HAL_Delay(500);
 
-			logger.start();
-			line_trace.setNormalRatio(0.1);
-			line_trace.start();
-
-			HAL_Delay(5000);
-
-			logger.stop();
-			line_trace.setNormalRatio(0.1);
-			line_trace.stop();
-
+			line_trace.setTargetVelocity(adj_max_velocity);
+			line_trace.setMaxVelocity(adj_max_velocity);
 			led.LR(1, -1);
-			//logger.saveLogs("line_sensors", "sensor7.csv");
-			led.LR(0, -1);
 
-			led.LR(-1, 0);
+			line_trace.setMode(SECOND_RUNNING);
+			line_trace.running();
+
+			led.LR(0, -1);
 		}
 
 		break;
 
 	case 4:
-		led.fullColor('Y');
+		led.fullColor('G');
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Steering");
+		lcd_printf("SeconRun");
 		lcd_locate(0,1);
-		lcd_printf("Trace");
+		lcd_printf("%Vel: %3.1f", line_trace.getMaxVelocity());
 
-		if(joy_stick.getValue() == JOY_C){
+		if(joy_stick.getValue() == JOY_R){
 			led.LR(-1, 1);
-			HAL_Delay(500);
+			HAL_Delay(100);
 
-			line_trace.setTargetVelocity(0.1);
-			velocity_ctrl.start();
-			line_trace.start();
+			adj_max_velocity = adj_max_velocity + 0.1;
 
-			HAL_Delay(10000);
+			led.LR(-1, 0);
+		}
 
-			line_trace.stop();
-			velocity_ctrl.stop();
+		else if(joy_stick.getValue() == JOY_L){
+			led.LR(-1, 1);
+			HAL_Delay(100);
 
+			adj_max_velocity = adj_max_velocity - 0.1;
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			sd_write_array_float("PARAMS", "TARVEL2.TXT", 1, &adj_max_velocity, OVER_WRITE);
+			line_trace.setMaxVelocity(adj_max_velocity);
 
 			led.LR(-1, 0);
 		}
 		break;
 
 	case 5:
-		led.fullColor('C');
+		led.fullColor('M');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("ThirdRun");
+		lcd_locate(0,1);
+		lcd_printf("Start%3.1f", adj_max_velocity2);
+
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+
+			line_trace.setTargetVelocity(adj_max_velocity2);
+			line_trace.setMaxVelocity2(adj_max_velocity2);
+			led.LR(1, -1);
+
+			line_trace.setMode(SECOND_RUNNING);
+			line_trace.running();
+
+			led.LR(0, -1);
+		}
+
+		break;
+
+	case 6:
+		led.fullColor('R');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("ThirdRun");
+		lcd_locate(0,1);
+		lcd_printf("%Vel: %3.1f", line_trace.getMaxVelocity2());
+
+		if(joy_stick.getValue() == JOY_R){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			adj_max_velocity2 = adj_max_velocity2 + 0.1;
+
+			led.LR(-1, 0);
+		}
+
+		else if(joy_stick.getValue() == JOY_L){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			adj_max_velocity2 = adj_max_velocity2 - 0.1;
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			sd_write_array_float("PARAMS", "TARVEL3.TXT", 1, &adj_max_velocity2, OVER_WRITE);
+			line_trace.setMaxVelocity2(adj_max_velocity2);
+
+			led.LR(-1, 0);
+		}
+
+		break;
+
+	case 7:
+		led.fullColor('~');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("07      ");
+		lcd_locate(0,1);
+		lcd_printf("        ");
+		break;
+
+	case 8:
+		led.fullColor('~');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("08      ");
+		lcd_locate(0,1);
+		lcd_printf("        ");
+
+		break;
+
+	case 9:
+		led.fullColor('~');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("09      ");
+		lcd_locate(0,1);
+		lcd_printf("        ");
+		break;
+
+	case 10:
+		led.fullColor('~');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("10      ");
+		lcd_locate(0,1);
+		lcd_printf("        ");
+
+		break;
+
+	case 11:
+		led.fullColor('~');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("Step");
+		lcd_locate(0,1);
+		lcd_printf("Record");
+
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(1500);
+			led.LR(-1, 1);
+
+			logger.start();
+			motor.setRatio(0.3, -0.3);
+
+			HAL_Delay(1000);
+
+			logger.stop();
+			motor.setRatio(0.0, 0.0);
+
+			logger.saveLogs("SYSIDENT", "STEPRES.txt");
+
+			led.LR(-1, 0);
+		}
+		break;
+
+	case 12:
+		led.fullColor('~');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("PID");
+		lcd_locate(0,1);
+		lcd_printf("Response");
+
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(1500);
+			led.LR(-1, 1);
+
+			logger.start();
+			velocity_ctrl.start();
+			velocity_ctrl.setVelocity(1, 0);
+
+			HAL_Delay(1000);
+
+			logger.stop();
+			velocity_ctrl.stop();
+
+			logger.saveLogs("SYSIDENT", "PIDRES.txt");
+
+			led.LR(-1, 0);
+		}
+		break;
+
+	case 13:
+		led.fullColor('~');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("Msig");
+		lcd_locate(0,1);
+		lcd_printf("Record");
+
+		if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(1500);
+
+			sys_ident.setInputRatio(0.3);
+			sys_ident.start();
+			HAL_Delay(17500);
+			sys_ident.stop();
+			sys_ident.inOutputSave();
+
+			led.LR(-1, 0);
+		}
+		break;
+
+	case 14:
+		led.fullColor('~');
 
 		lcd_clear();
 		lcd_locate(0,0);
@@ -441,215 +637,8 @@ void cppLoop(void)
 
 		break;
 
-	case 6:
-		led.fullColor('R');
-
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("Position");
-		lcd_locate(0,1);
-		lcd_printf("Record");
-
-		if(joy_stick.getValue() == JOY_C){
-			HAL_Delay(500);
-			led.LR(-1, 1);
-
-			line_trace.setNormalRatio(0.07);
-			line_trace.start();
-			HAL_Delay(500);
-
-			led.fullColor('R');
-			encoder.clearDistance10mm();
-			//encoder.clearDistance();
-			odometry.clearPotition();
-			logger.start();
-
-			HAL_Delay(3000);
-
-			line_trace.stop();
-			logger.stop();
-
-			logger.saveDistanceAndTheta("Pos", "dis_s2.txt", "th_s2.txt");
-
-			led.LR(-1, 0);
-		}
-
-		break;
-
-	case 7:
-		led.fullColor('G');
-
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("Velocity");
-		lcd_locate(0,1);
-		lcd_printf("Test");
-
-		if(joy_stick.getValue() == JOY_C){
-			led.LR(-1, 1);
-			HAL_Delay(500);
-
-			led.fullColor('R');
-			velocity_ctrl.setVelocity(0, 1.57);
-			velocity_ctrl.start();
-
-			HAL_Delay(1000);
-			velocity_ctrl.setVelocity(0, 0);
-			HAL_Delay(100);
-			velocity_ctrl.stop();
-
-			led.LR(-1, 0);
-		}
-		break;
-
-	case 8:
-		led.fullColor('B');
-
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("%4.2lf    ", path_following.getKxVal()*1000);
-		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", path_following.getKyVal()*1000, path_following.getKtVal()*1000);
-
-		static float adj_kx = path_following.getKxVal();
-		static float adj_ky = path_following.getKyVal();
-		static float adj_kt = path_following.getKtVal();
-
-		if(joy_stick.getValue() == JOY_U){
-			led.LR(-1, 1);
-			HAL_Delay(300);
-
-			selector++;
-			if(selector >= 3) selector = 0;
-
-			led.LR(-1, 0);
-		}
-		else if(joy_stick.getValue() == JOY_R){
-			led.LR(-1, 1);
-			HAL_Delay(100);
-
-			if(selector == 0){
-				adj_kx = adj_kx + 0.00001;
-			}
-			else if(selector == 1){
-				adj_ky = adj_ky + 0.00001;
-			}
-			else{
-				adj_kt = adj_kt + 0.00001;
-			}
-
-			led.fullColor('R');
-
-			led.LR(-1, 0);
-		}
-
-		else if(joy_stick.getValue() == JOY_L){
-			led.LR(-1, 1);
-			HAL_Delay(100);
-
-			if(selector == 0){
-				adj_kx = adj_kx - 0.00001;
-			}
-			else if(selector == 1){
-				adj_ky = adj_ky - 0.00001;
-			}
-			else{
-				adj_kt = adj_kt - 0.00001;
-			}
-
-			led.fullColor('R');
-
-			led.LR(-1, 0);
-		}
-		else if(joy_stick.getValue() == JOY_D){
-			led.LR(-1, 1);
-			HAL_Delay(300);
-
-			float temp_kx, temp_ky, temp_kt;
-			sd_read_array_float("PARAMS", "KX.TXT", 1, &temp_kx);
-			sd_read_array_float("PARAMS", "KY.TXT", 1, &temp_ky);
-			sd_read_array_float("PARAMS", "KT.TXT", 1, &temp_kt);
-			path_following.setGain(temp_kx, temp_ky, temp_kt);
-
-			adj_kx = temp_kx;
-			adj_ky = temp_ky;
-			adj_kt = temp_kt;
-
-			led.LR(-1, 0);
-		}
-		else if(joy_stick.getValue() == JOY_C){
-			led.LR(-1, 1);
-			HAL_Delay(300);
-
-			sd_write_array_float("PARAMS", "KX.TXT", 1, &adj_kx, OVER_WRITE);
-			sd_write_array_float("PARAMS", "KY.TXT", 1, &adj_ky, OVER_WRITE);
-			sd_write_array_float("PARAMS", "KT.TXT", 1, &adj_kt, OVER_WRITE);
-			path_following.setGain(adj_kx, adj_ky, adj_kt);
-
-			led.LR(-1, 0);
-		}
-
-
-		break;
-
-	case 9:
-		led.fullColor('M');
-
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("Step");
-		lcd_locate(0,1);
-		lcd_printf("Record");
-
-		if(joy_stick.getValue() == JOY_C){
-			HAL_Delay(1500);
-			led.LR(-1, 1);
-
-			logger.start();
-			motor.setRatio(0.3, -0.3);
-
-			HAL_Delay(1000);
-
-			logger.stop();
-			motor.setRatio(0.0, 0.0);
-
-			logger.saveLogs("SYSIDENT", "STEPRES.txt");
-
-			led.LR(-1, 0);
-		}
-		break;
-
-	case 10:
-		led.fullColor('Y');
-
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("PID");
-		lcd_locate(0,1);
-		lcd_printf("Response");
-
-		if(joy_stick.getValue() == JOY_C){
-			HAL_Delay(1500);
-			led.LR(-1, 1);
-
-			logger.start();
-			velocity_ctrl.start();
-			velocity_ctrl.setVelocity(1, 0);
-
-			HAL_Delay(1000);
-
-			logger.stop();
-			velocity_ctrl.stop();
-
-			logger.saveLogs("SYSIDENT", "PIDRES.txt");
-
-			led.LR(-1, 0);
-		}
-
-		break;
-
-	case 11:
-		led.fullColor('C');
+	case 15:
+		led.fullColor('~');
 
 		lcd_clear();
 		lcd_locate(0,0);
@@ -664,64 +653,6 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
-
-		break;
-
-	case 12:
-		led.fullColor('R');
-
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("Msig");
-		lcd_locate(0,1);
-		lcd_printf("Record");
-
-		if(joy_stick.getValue() == JOY_C){
-			led.LR(-1, 1);
-			HAL_Delay(1500);
-
-			sys_ident.setInputRatio(0.3);
-			sys_ident.start();
-			HAL_Delay(17500);
-			sys_ident.stop();
-			sys_ident.inOutputSave();
-
-			led.LR(-1, 0);
-		}
-
-		break;
-
-	case 13:
-		led.fullColor('G');
-
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("13      ");
-		lcd_locate(0,1);
-		lcd_printf("        ");
-
-		break;
-
-	case 14:
-		led.fullColor('B');
-
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("14      ");
-		lcd_locate(0,1);
-		lcd_printf("        ");
-
-		break;
-
-	case 15:
-		led.fullColor('M');
-
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("15      ");
-		lcd_locate(0,1);
-		lcd_printf("        ");
-
 		break;
 
 	default:
@@ -730,6 +661,11 @@ void cppLoop(void)
 	}
 
 	HAL_Delay(30);
+
+}
+
+void prameterSttingMode()
+{
 
 }
 
