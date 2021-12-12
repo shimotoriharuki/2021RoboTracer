@@ -106,6 +106,17 @@ void Logger::storeDistanceAndTheta(float distance, float theta)
 	//}
 }
 
+void Logger::storeDistanceAndTheta2(float distance, float theta)
+{
+	//if(recording_flag_ == true){
+		store_distance2_[log_index_dis_] = distance;
+		store_theta2_[log_index_dis_] = theta;
+
+		log_index_dis_++;
+
+		if(log_index_dis_ >= LOG_DATA_SIZE_DIS) log_index_dis_ = 0;
+	//}
+}
 const float *Logger::getDistanceArrayPointer()
 {
 	return store_distance_;
@@ -129,6 +140,12 @@ void Logger::saveDistanceAndTheta(const char *folder_name, const char *file_name
 {
 	sd_write_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance_, OVER_WRITE); //write
 	sd_write_array_float(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta_, OVER_WRITE); //write
+}
+
+void Logger::saveDistanceAndTheta2(const char *folder_name, const char *file_name1, const char *file_name2)
+{
+	sd_write_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance2_, OVER_WRITE); //write
+	sd_write_array_float(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta2_, OVER_WRITE); //write
 }
 
 void Logger::importDistanceAndTheta(const char *folder_name, const char *file_name1, const char *file_name2)
@@ -164,19 +181,8 @@ void Logger::continuousWriteStop()
 }
 */
 
-void Logger::resetLogs()
+void Logger::resetLogs1()
 {
-	for(auto &log : store_data_float_){
-		log = 0;
-	}
-	for(auto &log : store_data_float2_){
-		log = 0;
-	}
-	/*
-	for(auto &log : store_data_uint16_){
-		log = 0;
-	}
-	*/
 	for(auto &log : store_distance_){
 		log = 0;
 	}
@@ -188,6 +194,18 @@ void Logger::resetLogs()
 	log_index_dis_ = 0;
 }
 
+void Logger::resetLogs2()
+{
+	for(auto &log : store_distance2_){
+		log = 0;
+	}
+	for(auto &log : store_theta2_){
+		log = 0;
+	}
+
+	log_index_tim_ = 0;
+	log_index_dis_ = 0;
+}
 void Logger::resetIdx()
 {
 	log_index_tim_ = 0;

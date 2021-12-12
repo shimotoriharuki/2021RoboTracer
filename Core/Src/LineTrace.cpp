@@ -224,7 +224,7 @@ void LineTrace::loggerStart()
 {
 	encoder_->clearDistance10mm();
 	odometry_->clearPotition();
-	logger_->resetLogs();
+	logger_->resetLogs2();
 
 	logging_flag_ = true;
 }
@@ -270,8 +270,8 @@ float LineTrace::radius2Velocity(float radius)
 	float velocity;
 
 	if(mode_selector_ == SECOND_RUNNING){
-		if(radius < 130) velocity = 1.3;
-		else if(radius < 500) velocity = 1.3;
+		if(radius < 130) velocity = 1.0;
+		else if(radius < 500) velocity = 1.0;
 		else velocity = max_velocity_;
 	}
 	else if(mode_selector_ == THIRD_RUNNING){
@@ -530,12 +530,13 @@ void LineTrace::stop()
 	if(mode_selector_ == FIRST_RUNNING){ //First running
 		logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
 	}
-	else if(mode_selector_ == SECOND_RUNNING){//Secondary run
-		//logger_->saveDistanceAndTheta("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
+	else{//Secondary run
+		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
 	}
 	led_.LR(-1, 0);
 
 	logger_->resetIdx();
+	logger_->resetLogs2();
 }
 
 void LineTrace::running()
@@ -548,10 +549,16 @@ void LineTrace::running()
 		switch(stage){
 		case 0:
 			if(side_sensor_->getWhiteLineCntR() == 1){
+				/*
 				if(mode_selector_ == FIRST_RUNNING){ // Other than first running
 					loggerStart();
 				}
 				else{ // Other than first running
+					startVelocityPlay();
+				}
+				*/
+				loggerStart();
+				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
 					startVelocityPlay();
 				}
 
@@ -563,7 +570,7 @@ void LineTrace::running()
 			break;
 
 		case 10:
-			if(side_sensor_->getWhiteLineCntR() == 2){
+			if(side_sensor_->getWhiteLineCntR() == 3){
 				loggerStop();
 				stopVelocityPlay();
 				HAL_Delay(100); //Run through after the goal
@@ -585,7 +592,10 @@ void LineTrace::running()
 void LineTrace::storeLogs()
 {
 	if(logging_flag_ == true){
-		logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
+		if(mode_selector_ == FIRST_RUNNING)
+			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
+		else
+			logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
 
 		mon_store_cnt++;
 	}

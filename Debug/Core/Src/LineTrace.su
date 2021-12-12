@@ -37,9 +37,9 @@ LineTrace.cpp:456:6:void LineTrace::flip()	16	static
 LineTrace.cpp:501:6:void LineTrace::flip100ns()	16	static
 LineTrace.cpp:516:6:void LineTrace::start()	16	static
 LineTrace.cpp:524:6:void LineTrace::stop()	16	static
-LineTrace.cpp:541:6:void LineTrace::running()	24	static
-LineTrace.cpp:585:6:void LineTrace::storeLogs()	32	static
-LineTrace.cpp:594:6:void LineTrace::startVelocityPlay()	16	static
-LineTrace.cpp:600:6:void LineTrace::stopVelocityPlay()	16	static
-LineTrace.cpp:607:6:void LineTrace::setMode(int16_t)	16	static
-LineTrace.cpp:612:6:bool LineTrace::isTargetDistance(float)	24	static
+LineTrace.cpp:542:6:void LineTrace::running()	24	static
+LineTrace.cpp:592:6:void LineTrace::storeLogs()	32	static
+LineTrace.cpp:604:6:void LineTrace::startVelocityPlay()	16	static
+LineTrace.cpp:610:6:void LineTrace::stopVelocityPlay()	16	static
+LineTrace.cpp:617:6:void LineTrace::setMode(int16_t)	16	static
+LineTrace.cpp:622:6:bool LineTrace::isTargetDistance(float)	24	static
