@@ -273,7 +273,7 @@ bool LineTrace::isCrossLine()
 				correctionTotalDistance();
 			}
 
-			led_.LR(-1, 1);
+			//led_.LR(-1, 1);
 		}
 	}
 	else{
@@ -297,7 +297,7 @@ bool LineTrace::isCrossLine()
 				correctionTotalDistance();
 			}
 			*/
-			led_.LR(-1, 0);
+			//led_.LR(-1, 0);
 		}
 
 	}
@@ -405,9 +405,27 @@ void LineTrace::updateTargetVelocity()
 
 bool LineTrace::isStable()
 {
+	bool ret = false;
 	static uint16_t cnt = 0;
+	float temp_distance = encoder_->getDistance10mm();
+	float temp_theta = odometry_->getTheta();;
 
-	if(1){}
+	if(temp_theta == 0) temp_theta = 0.00001;
+	float radius = abs(temp_distance / temp_theta);
+	if(radius >= 5000) radius = 5000;
+
+	if(radius >= 200){
+		cnt++;
+	}
+	else{
+		cnt = 0;
+	}
+
+	if(cnt >= 10){ //100mm
+		ret = true;
+	}
+
+	return ret;
 }
 
 // -------public---------- //
@@ -519,6 +537,14 @@ void LineTrace::flip()
 			// ---- Store Logs ------//
 			storeLogs();
 
+			// -------- Detect Robot stabilization ------//
+			if(isStable() == true){
+				led_.LR(-1, 1);
+			}
+			else{
+				led_.LR(-1, 0);
+			}
+
 			// ---reset total cnt ---//
 			encoder_->clearDistance10mm();
 			odometry_->clearPotition();
@@ -547,18 +573,6 @@ void LineTrace::flip()
 			*/
 			led_.LR(0, -1);
 		}
-
-		// -------- Detect Robot stabilization ------//
-
-
-
-
-
-
-
-
-
-
 
 		// ----- emergency stop processing------//
 		if(line_sensor_->emergencyStop() == true){
@@ -642,8 +656,7 @@ void LineTrace::running()
 
 				encoder_->clearCrossLineIgnoreDistance();
 				encoder_->clearTotalDistance();
-				encoder_->clearStableDistance();
-				led_.LR(1, -1);
+				led_.LR(0, -1);
 				stage = 10;
 			}
 
