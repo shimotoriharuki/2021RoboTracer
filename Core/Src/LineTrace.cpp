@@ -271,7 +271,7 @@ bool LineTrace::isCrossLine()
 				storeCrossLineDistance();
 			}
 			else{
-				//correctionTotalDistance();
+				correctionTotalDistanceFromCrossLine();
 			}
 
 			//led_.LR(-1, 1);
@@ -309,13 +309,13 @@ float LineTrace::radius2Velocity(float radius)
 	float velocity;
 
 	if(mode_selector_ == SECOND_RUNNING){
-		if(radius < 130) velocity = 1.0;
-		else if(radius < 500) velocity = 1.0;
+		if(radius < 130) velocity = 1.3;
+		else if(radius < 500) velocity = 1.3;
 		else velocity = max_velocity_;
 	}
 	else if(mode_selector_ == THIRD_RUNNING){
-		if(radius < 130) velocity = 1.3;
-		else if(radius < 500) velocity = 1.3;
+		if(radius < 130) velocity = 1.5;
+		else if(radius < 500) velocity = 1.5;
 		else velocity = max_velocity2_;
 	}
 	else velocity = 1.3;
@@ -344,9 +344,30 @@ void LineTrace::createVelocityTabele()
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
 
+	// ----- Decelerate processing -----//
+	float am = 0.005;
+	for(uint16_t i = LOG_DATA_SIZE_DIS - 1; i >= 1; i--){
+		float v_diff = velocity_table_[i-1] - velocity_table_[i];
+		if(v_diff > 0){
+			float t = p_distance[i]*10e-3 / v_diff;
+			float a = v_diff / t;
+			if(a > am){
+				velocity_table_[i-1] = velocity_table_[i] + am * t;
+			}
+
+		}
+
+	}
+
+
+
+
+
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 
 }
+
+float mon_a;
 void LineTrace::createVelocityTabeleFromSD()
 {
 	logger_->importDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
@@ -369,6 +390,24 @@ void LineTrace::createVelocityTabeleFromSD()
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
 
+	// ----- Decelerate processing -----//
+	float am = 0.005;
+	for(uint16_t i = LOG_DATA_SIZE_DIS - 1; i >= 1; i--){
+		float v_diff = velocity_table_[i-1] - velocity_table_[i];
+
+		if(v_diff > 0){
+			float t = p_distance[i]*10e-3 / v_diff;
+			float a = v_diff / t;
+			mon_a = a;
+			if(a > am){
+				velocity_table_[i-1] = velocity_table_[i] + am * t;
+			}
+			mon_a = 0;
+
+		}
+		HAL_Delay(0.5);
+
+	}
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 
 }
@@ -741,7 +780,7 @@ void LineTrace::storeSideLineDistance()
 
 	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
 }
-void LineTrace::correctionTotalDistance()
+void LineTrace::correctionTotalDistanceFromCrossLine()
 {
 	encoder_->setTotalDistance(crossline_distance_[crossline_idx_]);
 	crossline_idx_++;

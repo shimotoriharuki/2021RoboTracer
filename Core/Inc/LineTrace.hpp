@@ -87,7 +87,7 @@ private:
 	bool isTargetDistance(float);
 	void storeCrossLineDistance();
 	void storeSideLineDistance();
-	void correctionTotalDistance();
+	void correctionTotalDistanceFromCrossLine();
 	void correctionTotalDistanceFromSideMarker();
 	bool isStable();
 
