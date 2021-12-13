@@ -88,6 +88,7 @@ private:
 	void storeCrossLineDistance();
 	void storeSideLineDistance();
 	void correctionTotalDistance();
+	void correctionTotalDistanceFromSideMarker();
 	bool isStable();
 
 public:

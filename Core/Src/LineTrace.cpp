@@ -266,11 +266,12 @@ bool LineTrace::isCrossLine()
 			white_flag = true;
 			cnt = 0;
 
+			stable_cnt_reset_flag_ = true; //Because the conditions do not differ between when you tremble and when you do not tremble
 			if(mode_selector_ == FIRST_RUNNING){
 				storeCrossLineDistance();
 			}
 			else{
-				correctionTotalDistance();
+				//correctionTotalDistance();
 			}
 
 			//led_.LR(-1, 1);
@@ -289,14 +290,6 @@ bool LineTrace::isCrossLine()
 			white_flag = false;
 			cnt = 0;
 
-			/*
-			if(mode_selector_ == FIRST_RUNNING){
-				storeCrossLineDistance();
-			}
-			else{
-				correctionTotalDistance();
-			}
-			*/
 			//led_.LR(-1, 0);
 		}
 
@@ -316,8 +309,8 @@ float LineTrace::radius2Velocity(float radius)
 	float velocity;
 
 	if(mode_selector_ == SECOND_RUNNING){
-		if(radius < 130) velocity = 1.4;
-		else if(radius < 500) velocity = 1.4;
+		if(radius < 130) velocity = 1.0;
+		else if(radius < 500) velocity = 1.0;
 		else velocity = max_velocity_;
 	}
 	else if(mode_selector_ == THIRD_RUNNING){
@@ -419,14 +412,14 @@ bool LineTrace::isStable()
 		stable_cnt_reset_flag_ = false;
 	}
 
-	if(radius >= 150){
+	if(radius >= 2000){ //150
 		stable_cnt++;
 	}
 	else{
 		stable_cnt = 0;
 	}
 
-	if(stable_cnt >= 35){ //100mm
+	if(stable_cnt >= 23){ //230mm
 		ret = true;
 	}
 
@@ -543,12 +536,8 @@ void LineTrace::flip()
 			storeLogs();
 
 			// -------- Detect Robot stabilization ------//
-			if(isStable() == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){ // Stabling and side sensor is black
-				//led_.LR(-1, 1);
+			if(isStable() == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){ // Stabilizing and side sensor is black
 				stable_flag_ = true;
-			}
-			else{
-				//led_.LR(-1, 0);
 			}
 
 			// ---reset total cnt ---//
@@ -561,7 +550,6 @@ void LineTrace::flip()
 
 		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
-			//led_.LR(1, -1);
 			side_sensor_->enableIgnore();
 			encoder_->clearCrossLineIgnoreDistance();
 		}
@@ -569,30 +557,24 @@ void LineTrace::flip()
 		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 200){
 			side_sensor_->disableIgnore();
 
-			/*
-			if(mode_selector_ == FIRST_RUNNING){
-				storeCrossLineDistance();
-			}
-			else{
-				correctionTotalDistance();
-			}
-			*/
-			//led_.LR(0, -1);
 		}
 
 		// ------- Store side line distance ------//
-		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x02) == 0x02){ //stabling and side sensor is white
-			storeSideLineDistance();
+		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x02) == 0x02){ //stabilizing and side sensor is white
+			//storeSideLineDistance();
+			if(mode_selector_ == FIRST_RUNNING){
+				storeSideLineDistance();
+			}
+			else{
+				correctionTotalDistanceFromSideMarker();
+			}
+
 			stable_flag_ = false;
 			stable_cnt_reset_flag_ = true;
 		}
 
 		if(stable_flag_ == true) led_.LR(-1, 1);
 		else led_.LR(-1, 0);
-
-
-
-
 
 		// ----- emergency stop processing------//
 		if(line_sensor_->emergencyStop() == true){
@@ -765,5 +747,22 @@ void LineTrace::correctionTotalDistance()
 	crossline_idx_++;
 
 	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
+
+}
+
+void LineTrace::correctionTotalDistanceFromSideMarker()
+{
+	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
+		float temp_sideline_distance = sideline_distance_[i];
+		float diff = abs(temp_sideline_distance - encoder_->getTotalDistance());
+		if(diff <= 80){
+			encoder_->setTotalDistance(sideline_distance_[i]);
+			break;
+		}
+	}
+
+		//sideline_idx_++;
+
+	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
 
 }
