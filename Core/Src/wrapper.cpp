@@ -551,7 +551,7 @@ void cppLoop(void)
 			HAL_Delay(500);
 			led.LR(-1, 1);
 
-			line_trace.setMode(THIRD_RUNNING);
+			line_trace.setMode(SECOND_RUNNING);
 			line_trace.createVelocityTabeleFromSD();
 
 			led.LR(-1, 0);

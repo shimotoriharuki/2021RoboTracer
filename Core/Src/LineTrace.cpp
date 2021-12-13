@@ -261,6 +261,19 @@ bool LineTrace::isCrossLine()
 			flag = true;
 			white_flag = true;
 			cnt = 0;
+
+
+			//storeCrossLineDistance();
+
+			if(mode_selector_ == FIRST_RUNNING){
+				storeCrossLineDistance();
+			}
+			else{
+				correctionTotalDistance();
+			}
+
+
+
 			led_.LR(-1, 1);
 		}
 	}
@@ -277,12 +290,14 @@ bool LineTrace::isCrossLine()
 			white_flag = false;
 			cnt = 0;
 
+			/*
 			if(mode_selector_ == FIRST_RUNNING){
 				storeCrossLineDistance();
 			}
 			else{
 				correctionTotalDistance();
 			}
+			*/
 			led_.LR(-1, 0);
 		}
 
@@ -369,13 +384,12 @@ void LineTrace::createVelocityTabeleFromSD()
 void LineTrace::updateTargetVelocity()
 {
 	if(velocity_play_flag_ == true){
-
-		if(encoder_->getTotalDistance() >= ref_distance_){
+		//if(encoder_->getTotalDistance() >= ref_distance_){
 			while(encoder_->getTotalDistance() >= ref_distance_){
 				ref_distance_ += ref_delta_distances_[velocity_table_idx_];
 				velocity_table_idx_++;
 			}
-		}
+		//}
 
 		if(velocity_table_idx_ >= LOG_DATA_SIZE_DIS) velocity_table_idx_ = LOG_DATA_SIZE_DIS - 1;
 
@@ -517,6 +531,15 @@ void LineTrace::flip()
 		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 200){
 			side_sensor_->disableIgnore();
 
+			/*
+			if(mode_selector_ == FIRST_RUNNING){
+				storeCrossLineDistance();
+			}
+			else{
+				correctionTotalDistance();
+			}
+			*/
+
 
 			led_.LR(0, -1);
 		}
@@ -600,6 +623,7 @@ void LineTrace::running()
 				}
 
 				encoder_->clearCrossLineIgnoreDistance();
+				encoder_->clearTotalDistance();
 				led_.LR(1, -1);
 				stage = 10;
 			}
@@ -607,7 +631,7 @@ void LineTrace::running()
 			break;
 
 		case 10:
-			if(side_sensor_->getWhiteLineCntR() == 6){
+			if(side_sensor_->getWhiteLineCntR() == 2){
 				loggerStop();
 				stopVelocityPlay();
 				HAL_Delay(100); //Run through after the goal
@@ -633,8 +657,8 @@ void LineTrace::storeLogs()
 			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
 		else
 			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
-			//logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
-			logger_->storeDistanceAndTheta2(getTargetVelocity(), odometry_->getTheta());
+			logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
+			//logger_->storeDistanceAndTheta2(getTargetVelocity(), odometry_->getTheta());
 
 		mon_store_cnt++;
 	}
