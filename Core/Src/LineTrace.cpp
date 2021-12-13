@@ -33,7 +33,7 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), logging_flag_(false),
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0),
-				ignore_crossline_flag_(false), stable_flag_(false)
+				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false)
 {
 	motor_ = motor;
 	line_sensor_ = line_sensor;
@@ -406,7 +406,7 @@ void LineTrace::updateTargetVelocity()
 bool LineTrace::isStable()
 {
 	bool ret = false;
-	static uint16_t cnt = 0;
+	static uint16_t stable_cnt = 0;
 	float temp_distance = encoder_->getDistance10mm();
 	float temp_theta = odometry_->getTheta();;
 
@@ -414,14 +414,19 @@ bool LineTrace::isStable()
 	float radius = abs(temp_distance / temp_theta);
 	if(radius >= 5000) radius = 5000;
 
-	if(radius >= 300){
-		cnt++;
-	}
-	else{
-		cnt = 0;
+	if(stable_cnt_reset_flag_ == true){
+		stable_cnt = 0;
+		stable_cnt_reset_flag_ = false;
 	}
 
-	if(cnt >= 50){ //100mm
+	if(radius >= 150){
+		stable_cnt++;
+	}
+	else{
+		stable_cnt = 0;
+	}
+
+	if(stable_cnt >= 35){ //100mm
 		ret = true;
 	}
 
@@ -539,11 +544,11 @@ void LineTrace::flip()
 
 			// -------- Detect Robot stabilization ------//
 			if(isStable() == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){ // Stabling and side sensor is black
-				led_.LR(-1, 1);
+				//led_.LR(-1, 1);
 				stable_flag_ = true;
 			}
 			else{
-				led_.LR(-1, 0);
+				//led_.LR(-1, 0);
 			}
 
 			// ---reset total cnt ---//
@@ -579,6 +584,7 @@ void LineTrace::flip()
 		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x02) == 0x02){ //stabling and side sensor is white
 			storeSideLineDistance();
 			stable_flag_ = false;
+			stable_cnt_reset_flag_ = true;
 		}
 
 		if(stable_flag_ == true) led_.LR(-1, 1);

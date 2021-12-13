@@ -67,6 +67,7 @@ private:
 	uint16_t sideline_idx_;
 	bool ignore_crossline_flag_;
 	bool stable_flag_;
+	bool stable_cnt_reset_flag_;
 
 	float calcError();
 	float calcAngle();
