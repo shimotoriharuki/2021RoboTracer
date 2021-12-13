@@ -10,6 +10,9 @@
 
 #include "stm32f4xx_hal.h"
 
+#define LEFT_STATUS 0x01
+#define RIGHT_STATUS 0x02
+
 class SideSensor{
 
 private:
