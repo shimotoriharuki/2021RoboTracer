@@ -28,11 +28,11 @@ float mon_ref_dis, mon_current_dis;
 uint16_t mon_vel_idx, mon_i;
 float mon_tar_vel;
 
-LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger) :
+LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu) :
 				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), logging_flag_(false),
-				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0),
+				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0),
 				ignore_crossline_flag_(false)
 {
 	motor_ = motor;
@@ -42,12 +42,16 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	encoder_ = encoder;
 	odometry_ = odometry;
 	logger_ = logger;
+	imu_ = imu;
 
 	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
 		velocity_table_[i] = 0;
 	}
-	for(uint16_t i = 0; i < 100; i++){
+	for(uint16_t i = 0; i < CROSSLINE_SIZE; i++){
 		crossline_distance_[i] = 0;
+	}
+	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
+		sideline_distance_[i] = 0;
 	}
 }
 
@@ -262,17 +266,12 @@ bool LineTrace::isCrossLine()
 			white_flag = true;
 			cnt = 0;
 
-
-			//storeCrossLineDistance();
-
 			if(mode_selector_ == FIRST_RUNNING){
 				storeCrossLineDistance();
 			}
 			else{
 				correctionTotalDistance();
 			}
-
-
 
 			led_.LR(-1, 1);
 		}
@@ -317,8 +316,8 @@ float LineTrace::radius2Velocity(float radius)
 	float velocity;
 
 	if(mode_selector_ == SECOND_RUNNING){
-		if(radius < 130) velocity = 1.0;
-		else if(radius < 500) velocity = 1.0;
+		if(radius < 130) velocity = 1.4;
+		else if(radius < 500) velocity = 1.4;
 		else velocity = max_velocity_;
 	}
 	else if(mode_selector_ == THIRD_RUNNING){
@@ -402,6 +401,13 @@ void LineTrace::updateTargetVelocity()
 		mon_tar_vel = velocity_table_[velocity_table_idx_];
 
 	}
+}
+
+bool LineTrace::isStable()
+{
+	static uint16_t cnt = 0;
+
+	if(1){}
 }
 
 // -------public---------- //
@@ -539,10 +545,20 @@ void LineTrace::flip()
 				correctionTotalDistance();
 			}
 			*/
-
-
 			led_.LR(0, -1);
 		}
+
+		// -------- Detect Robot stabilization ------//
+
+
+
+
+
+
+
+
+
+
 
 		// ----- emergency stop processing------//
 		if(line_sensor_->emergencyStop() == true){
@@ -577,6 +593,7 @@ void LineTrace::start()
 	velocity_ctrl_->start();
 	side_sensor_->resetWhiteLineCnt();
 	crossline_idx_ = 0;
+	sideline_idx_ = 0;
 }
 
 void LineTrace::stop()
@@ -592,6 +609,7 @@ void LineTrace::stop()
 		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
 	}
 	sd_write_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_, OVER_WRITE);
+	sd_write_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_, OVER_WRITE);
 
 	led_.LR(-1, 0);
 
@@ -624,6 +642,7 @@ void LineTrace::running()
 
 				encoder_->clearCrossLineIgnoreDistance();
 				encoder_->clearTotalDistance();
+				encoder_->clearStableDistance();
 				led_.LR(1, -1);
 				stage = 10;
 			}
@@ -700,6 +719,13 @@ void LineTrace::storeCrossLineDistance()
 	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
 }
 
+void LineTrace::storeSideLineDistance()
+{
+	sideline_distance_[sideline_idx_] = encoder_->getTotalDistance();
+	sideline_idx_++;
+
+	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
+}
 void LineTrace::correctionTotalDistance()
 {
 	encoder_->setTotalDistance(crossline_distance_[crossline_idx_]);

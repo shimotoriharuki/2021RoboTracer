@@ -29,6 +29,7 @@
 #define SECOND_RUNNING 1
 #define THIRD_RUNNING 2
 #define CROSSLINE_SIZE 100
+#define SIDELINE_SIZE 1000
 
 class LineTrace
 {
@@ -41,6 +42,7 @@ private:
 	Encoder *encoder_;
 	Odometry *odometry_;
 	Logger *logger_;
+	IMU *imu_;
 
 	float kp_, kd_, ki_;
 	float kp_velo_, kd_velo_, ki_velo_;
@@ -60,7 +62,9 @@ private:
 	uint16_t velocity_table_idx_;
 	int16_t mode_selector_;
 	float crossline_distance_[CROSSLINE_SIZE];
+	float sideline_distance_[SIDELINE_SIZE];
 	uint16_t crossline_idx_;
+	uint16_t sideline_idx_;
 	bool ignore_crossline_flag_;
 
 	float calcError();
@@ -80,10 +84,12 @@ private:
 	void updateTargetVelocity();
 	bool isTargetDistance(float);
 	void storeCrossLineDistance();
+	void storeSideLineDistance();
 	void correctionTotalDistance();
+	bool isStable();
 
 public:
-	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *);
+	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *, IMU *);
 	void init();
 	void setGain(float, float, float);
 	void setVeloGain(float, float, float);

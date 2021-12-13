@@ -39,7 +39,7 @@ Logger logger;
 Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
-LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &logger);
+LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &logger, &imu);
 SystemIdentification sys_ident(&logger, &motor);
 
 PathFollowing path_following;
