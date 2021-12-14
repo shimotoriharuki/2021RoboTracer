@@ -55,6 +55,8 @@ private:
 	float target_velocity_;
 	float max_velocity_;
 	float max_velocity2_;
+	float min_velocity_;
+	float min_velocity2_;
 	bool logging_flag_;
 	float ref_delta_distances_[LOG_DATA_SIZE_DIS];
 	float ref_distance_;
@@ -112,9 +114,13 @@ public:
 	void setTargetVelocity(float);
 	void setMaxVelocity(float);
 	void setMaxVelocity2(float);
+	void setMinVelocity(float);
+	void setMinVelocity2(float);
 	float getTargetVelocity();
 	float getMaxVelocity();
 	float getMaxVelocity2();
+	float getMinVelocity();
+	float getMinVelocity2();
 	void setMaxAccDec(const float, const float);
 	float getMaxAcc();
 	float getMaxDec();

@@ -31,7 +31,7 @@ float mon_tar_vel;
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu) :
 				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
-				target_velocity_(0), max_velocity_(0), max_velocity2_(0), logging_flag_(false),
+				target_velocity_(0), max_velocity_(0), max_velocity2_(0), min_velocity_(0), min_velocity2_(0), logging_flag_(false),
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0),
 				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), correction_check_cnt_(0)
 
@@ -311,13 +311,13 @@ float LineTrace::radius2Velocity(float radius)
 	float velocity;
 
 	if(mode_selector_ == SECOND_RUNNING){
-		if(radius < 130) velocity = 1.3;
+		if(radius < 130) velocity = min_velocity_;
 		else if(radius < 2000) velocity = 1.6;
 		else velocity = max_velocity_;
 	}
 	else if(mode_selector_ == THIRD_RUNNING){
-		if(radius < 130) velocity = 1.5;
-		else if(radius < 500) velocity = 1.5;
+		if(radius < 130) velocity = min_velocity2_;
+		else if(radius < 2000) velocity = 2;
 		else velocity = max_velocity2_;
 	}
 	else velocity = 1.3;
@@ -485,13 +485,17 @@ void LineTrace::init()
 	sd_read_array_float("PARAMS", "KD.TXT", 1, &temp_kd);
 	setGain(temp_kp, temp_ki, temp_kd);
 
-	float temp_velocity, temp_max_velocity, temp_max_velocity2;
+	float temp_velocity, temp_max_velocity, temp_max_velocity2, temp_min_velocity, temp_min_velocity2;
 	sd_read_array_float("PARAMS", "TARVEL1.TXT", 1, &temp_velocity);
 	sd_read_array_float("PARAMS", "TARVEL2.TXT", 1, &temp_max_velocity);
 	sd_read_array_float("PARAMS", "TARVEL3.TXT", 1, &temp_max_velocity2);
+	sd_read_array_float("PARAMS", "MINVEL.TXT", 1, &temp_min_velocity);
+	sd_read_array_float("PARAMS", "MINVEL2.TXT", 1, &temp_min_velocity2);
 	setTargetVelocity(temp_velocity);
 	setMaxVelocity(temp_max_velocity);
 	setMaxVelocity2(temp_max_velocity2);
+	setMinVelocity(temp_min_velocity);
+	setMinVelocity2(temp_min_velocity2);
 
 	float temp_acc, temp_dec;
 	sd_read_array_float("PARAMS", "ACC.TXT", 1, &temp_acc);
@@ -562,6 +566,15 @@ void LineTrace::setMaxVelocity2(float velocity)
 	max_velocity2_ = velocity;
 }
 
+void LineTrace::setMinVelocity(float velocity)
+{
+	min_velocity_ = velocity;
+}
+
+void LineTrace::setMinVelocity2(float velocity)
+{
+	min_velocity2_ = velocity;
+}
 float LineTrace::getTargetVelocity()
 {
 	return target_velocity_;
@@ -577,6 +590,15 @@ float LineTrace::getMaxVelocity2()
 	return max_velocity2_;
 }
 
+float LineTrace::getMinVelocity()
+{
+	return min_velocity_;
+}
+
+float LineTrace::getMinVelocity2()
+{
+	return min_velocity2_;
+}
 void LineTrace::setMaxAccDec(const float acc, const float dec)
 {
 	max_acc_ = acc;
