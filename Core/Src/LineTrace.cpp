@@ -310,7 +310,7 @@ float LineTrace::radius2Velocity(float radius)
 
 	if(mode_selector_ == SECOND_RUNNING){
 		if(radius < 130) velocity = 1.3;
-		else if(radius < 2000) velocity = 1.7;
+		else if(radius < 2000) velocity = 1.6;
 		else velocity = max_velocity_;
 	}
 	else if(mode_selector_ == THIRD_RUNNING){
@@ -351,11 +351,14 @@ void LineTrace::createVelocityTabele()
 
 }
 
+float mon_crossdis;
 void LineTrace::createVelocityTabeleFromSD()
 {
 	logger_->importDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
-	sd_read_array_float("COURSLOG", "CROSSDIS.TXT, ", CROSSLINE_SIZE, crossline_distance_);
-	sd_read_array_float("COURSLOG", "SIDEDIS.TXT, ", SIDELINE_SIZE, sideline_distance_);
+	sd_read_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_);
+	sd_read_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_);
+
+	mon_crossdis = crossline_distance_[0];
 
 	const float *p_distance, *p_theta;
 	p_distance = logger_->getDistanceArrayPointer();
@@ -380,6 +383,8 @@ void LineTrace::createVelocityTabeleFromSD()
 	decelerateProcessing(MAX_DEC, p_distance);
 
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
+	//sd_write_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_, OVER_WRITE);
+	//sd_write_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_, OVER_WRITE);
 
 }
 
