@@ -485,7 +485,7 @@ void cppLoop(void)
 		break;
 
 	case 7:
-		led.fullColor('W');
+		led.fullColor('~');
 
 		lcd_clear();
 		lcd_locate(0,0);

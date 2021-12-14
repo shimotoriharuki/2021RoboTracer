@@ -1,0 +1,3 @@
+BZ.cpp:11:1:BZ::BZ()	16	static
+BZ.cpp:16:6:void BZ::on()	16	static
+BZ.cpp:21:6:void BZ::off()	16	static

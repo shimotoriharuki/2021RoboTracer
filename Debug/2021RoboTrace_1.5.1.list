@@ -35,15 +35,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  15 .debug_ranges 00001fc0  00000000  00000000  00072b70  2**3
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_macro  00036f89  00000000  00000000  00074b30  2**0
+ 16 .debug_macro  00035247  00000000  00000000  00074b30  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   00025a8c  00000000  00000000  000abab9  2**0
+ 17 .debug_line   00025a8c  00000000  00000000  000a9d77  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    00110a8f  00000000  00000000  000d1545  2**0
+ 18 .debug_str    00110a8f  00000000  00000000  000cf803  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  001e1fd4  2**0
+ 19 .comment      0000007b  00000000  00000000  001e0292  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000a414  00000000  00000000  001e2050  2**2
+ 20 .debug_frame  0000a414  00000000  00000000  001e0310  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -17056,8 +17056,8 @@ void cppLoop(void)
  8007e7e:	e3c0      	b.n	8008602 <cppLoop+0x14b2>
 
 	case 7:
-		led.fullColor('W');
- 8007e80:	2157      	movs	r1, #87	; 0x57
+		led.fullColor('~');
+ 8007e80:	217e      	movs	r1, #126	; 0x7e
  8007e82:	4869      	ldr	r0, [pc, #420]	; (8008028 <cppLoop+0xed8>)
  8007e84:	f7fa f83a 	bl	8001efc <_ZN3LED9fullColorEc>
 

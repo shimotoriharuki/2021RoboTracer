@@ -17,6 +17,7 @@ C_SRCS += \
 ../Core/Src/system_stm32f4xx.c 
 
 CPP_SRCS += \
+../Core/Src/BZ.cpp \
 ../Core/Src/Encoder.cpp \
 ../Core/Src/IMU.cpp \
 ../Core/Src/Joystick.cpp \
@@ -49,6 +50,7 @@ C_DEPS += \
 
 OBJS += \
 ./Core/Src/AQM0802.o \
+./Core/Src/BZ.o \
 ./Core/Src/Encoder.o \
 ./Core/Src/HAL_SDcard_lib.o \
 ./Core/Src/ICM_20648.o \
@@ -77,6 +79,7 @@ OBJS += \
 ./Core/Src/wrapper.o 
 
 CPP_DEPS += \
+./Core/Src/BZ.d \
 ./Core/Src/Encoder.d \
 ./Core/Src/IMU.d \
 ./Core/Src/Joystick.d \
@@ -98,6 +101,8 @@ CPP_DEPS += \
 # Each subdirectory must supply rules for building sources it contributes
 Core/Src/AQM0802.o: ../Core/Src/AQM0802.c
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F469xx -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/AQM0802.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+Core/Src/BZ.o: ../Core/Src/BZ.cpp
+	arm-none-eabi-g++ "$<" -mcpu=cortex-m4 -std=gnu++14 -g3 -DUSE_HAL_DRIVER -DSTM32F469xx -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -MMD -MP -MF"Core/Src/BZ.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Core/Src/Encoder.o: ../Core/Src/Encoder.cpp
 	arm-none-eabi-g++ "$<" -mcpu=cortex-m4 -std=gnu++14 -g3 -DUSE_HAL_DRIVER -DSTM32F469xx -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -MMD -MP -MF"Core/Src/Encoder.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Core/Src/HAL_SDcard_lib.o: ../Core/Src/HAL_SDcard_lib.c
