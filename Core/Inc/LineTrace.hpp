@@ -71,6 +71,7 @@ private:
 	bool stable_flag_;
 	bool stable_cnt_reset_flag_;
 	float max_acc_, max_dec_;
+	uint16_t correction_check_cnt_;
 
 	float calcError();
 	float calcAngle();

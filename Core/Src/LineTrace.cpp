@@ -33,7 +33,8 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), logging_flag_(false),
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0),
-				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0)
+				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), correction_check_cnt_(0)
+
 {
 	motor_ = motor;
 	line_sensor_ = line_sensor;
@@ -272,6 +273,7 @@ bool LineTrace::isCrossLine()
 			}
 			else{
 				correctionTotalDistanceFromCrossLine();
+				correction_check_cnt_ = 0;
 			}
 
 			//led_.LR(-1, 1);
@@ -635,6 +637,7 @@ void LineTrace::flip()
 			}
 			else{
 				correctionTotalDistanceFromSideMarker();
+				correction_check_cnt_ = 0;
 			}
 
 			stable_flag_ = false;
@@ -652,6 +655,12 @@ void LineTrace::flip()
 		else{
 			//led_.LR(0, -1);
 		}
+
+		correction_check_cnt_++;
+		if(correction_check_cnt_ >= 10000) correction_check_cnt_ = 10000;
+
+		if(correction_check_cnt_ <= 500) led_.LR(-1, 1);
+		else led_.LR(-1, 0);
 	}
 }
 
@@ -828,8 +837,6 @@ void LineTrace::correctionTotalDistanceFromSideMarker()
 			break;
 		}
 	}
-
-		//sideline_idx_++;
 
 	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
 
