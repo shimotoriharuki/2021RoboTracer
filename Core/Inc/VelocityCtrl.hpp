@@ -19,9 +19,6 @@
 #define VELOCITY_PER_CNT (2 * PI * WHEEL_RADIUS * REDUCTION_RATIO / ENCODER_RESOLUTION) //[m/s per cnt]
 #define DELTA_T 0.001
 
-#define LINETRACE_MODE 0
-#define STRAIGHT_MODE 1
-
 class VelocityCtrl
 {
 
@@ -37,7 +34,6 @@ private:
 	Motor *motor_;
 	Encoder *encoder_;
 	IMU *imu_;
-	uint16_t mode_;
 
 	float calcVelocity();
 	//float calcOmega();
@@ -56,7 +52,6 @@ public:
 	void stop();
 	float getCurrentVelocity();
 	//float getCurrentOmega();
-	void setMode(uint16_t);
 
 };
 

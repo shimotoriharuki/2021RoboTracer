@@ -33,7 +33,7 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), logging_flag_(false),
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0),
-				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), ignore_linetrace_flag_(false)
+				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false)
 {
 	motor_ = motor;
 	line_sensor_ = line_sensor;
@@ -246,8 +246,8 @@ void LineTrace::loggerStop()
 bool LineTrace::isCrossLine()
 {
 	static uint16_t cnt = 0;
-	float sensor_edge_val_l = (line_sensor_->sensor[2] + line_sensor_->sensor[3] + line_sensor_->sensor[4]) / 3;
-	float sensor_edge_val_r = (line_sensor_->sensor[9] + line_sensor_->sensor[10] + line_sensor_->sensor[11]) / 3;
+	float sensor_edge_val_l = (line_sensor_->sensor[0] + line_sensor_->sensor[1] + line_sensor_->sensor[2]) / 3;
+	float sensor_edge_val_r = (line_sensor_->sensor[11] + line_sensor_->sensor[12] + line_sensor_->sensor[13]) / 3;
 	static bool flag = false;
 	static bool white_flag = false;
 	mon_ave_l = sensor_edge_val_l;
@@ -574,14 +574,7 @@ void LineTrace::flip()
 {
 	if(excution_flag_ == true){
 		// ---- line following processing -----//
-		if(ignore_linetrace_flag_ == false){
-			velocity_ctrl_->setMode(LINETRACE_MODE);
-			pidTrace();
-		}
-		else{
-			velocity_ctrl_->setMode(STRAIGHT_MODE);
-			velocity_ctrl_->setVelocity(target_velocity_, 0);
-		}
+		pidTrace();
 		//pidAngularVelocityTrace();
 		//steeringAngleTrace();
 
@@ -603,24 +596,15 @@ void LineTrace::flip()
 		// ---- Target Velocity Updata ------//
 		updateTargetVelocity();
 
-		// ----- cross line ignore and line trace ignore processing ------//
+		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
 			side_sensor_->enableIgnore();
 			encoder_->clearCrossLineIgnoreDistance();
-
-			ignore_linetrace_flag_ = true;
-			encoder_->clearIgnoreLinetraceDistance();
-			led_.LR(-1, 1);
 		}
 
 		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 200){
 			side_sensor_->disableIgnore();
 
-		}
-
-		if(ignore_linetrace_flag_ == true && encoder_->getIgnoreLinetraceDistance() >= 40){
-			ignore_linetrace_flag_ = false;
-			led_.LR(-1, 0);
 		}
 
 		// ------- Store side line distance ------//
@@ -637,10 +621,8 @@ void LineTrace::flip()
 			stable_cnt_reset_flag_ = true;
 		}
 
-		/*
 		if(stable_flag_ == true) led_.LR(-1, 1);
 		else led_.LR(-1, 0);
-		*/
 
 		// ----- emergency stop processing------//
 		if(line_sensor_->emergencyStop() == true){
@@ -724,7 +706,6 @@ void LineTrace::running()
 
 				encoder_->clearCrossLineIgnoreDistance();
 				encoder_->clearTotalDistance();
-				encoder_->clearIgnoreLinetraceDistance();
 				led_.LR(0, -1);
 				stage = 10;
 			}

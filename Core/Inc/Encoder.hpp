@@ -21,7 +21,6 @@ private:
 	float distance_10mm_;
 	float total_distance_;
 	float cross_line_ignore_distance_;
-	float ignore_linetrace_distance_;
 
 public:
 	Encoder();
@@ -39,8 +38,6 @@ public:
 	void clearTotalDistance();
 	float getCrossLineIgnoreDistance();
 	void clearCrossLineIgnoreDistance();
-	float getIgnoreLinetraceDistance();
-	void clearIgnoreLinetraceDistance();
 };
 
 #endif /* INC_ENCODER_HPP_ */

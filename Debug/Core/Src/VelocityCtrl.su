@@ -8,7 +8,6 @@ VelocityCtrl.cpp:119:6:void VelocityCtrl::setTranslationVelocityOnly(float, floa
 VelocityCtrl.cpp:125:6:void VelocityCtrl::setVelocityGain(float, float, float)	24	static
 VelocityCtrl.cpp:132:6:void VelocityCtrl::setOmegaGain(float, float, float)	24	static
 VelocityCtrl.cpp:139:6:void VelocityCtrl::flip()	16	static
-VelocityCtrl.cpp:156:6:void VelocityCtrl::start()	16	static
-VelocityCtrl.cpp:163:6:void VelocityCtrl::stop()	16	static
-VelocityCtrl.cpp:170:7:float VelocityCtrl::getCurrentVelocity()	16	static
-VelocityCtrl.cpp:182:6:void VelocityCtrl::setMode(uint16_t)	16	static
+VelocityCtrl.cpp:152:6:void VelocityCtrl::start()	16	static
+VelocityCtrl.cpp:159:6:void VelocityCtrl::stop()	16	static
+VelocityCtrl.cpp:166:7:float VelocityCtrl::getCurrentVelocity()	16	static

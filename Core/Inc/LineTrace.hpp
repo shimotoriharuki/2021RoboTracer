@@ -30,8 +30,8 @@
 #define THIRD_RUNNING 2
 #define CROSSLINE_SIZE 100
 #define SIDELINE_SIZE 1000
-#define MAX_DEC 4
-#define MAX_ACC 11
+#define MAX_DEC 5
+#define MAX_ACC 8
 
 class LineTrace
 {
@@ -70,7 +70,6 @@ private:
 	bool ignore_crossline_flag_;
 	bool stable_flag_;
 	bool stable_cnt_reset_flag_;
-	bool ignore_linetrace_flag_;
 
 	float calcError();
 	float calcAngle();

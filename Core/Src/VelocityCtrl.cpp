@@ -11,7 +11,7 @@
 
 VelocityCtrl::VelocityCtrl(Motor *motor, Encoder *encoder, IMU *imu) :
 target_velocity_(0), target_omega_(0), current_velocity_(0), current_omega_(0), v_kp_(0), v_kd_(0), v_ki_(0),
-	o_kp_(0), o_kd_(0), o_ki_(0), excution_flag_(false), i_reset_flag_(false), rotation_ratio_(0), mode_(LINETRACE_MODE)
+	o_kp_(0), o_kd_(0), o_ki_(0), excution_flag_(false), i_reset_flag_(false), rotation_ratio_(0)
 {
 	motor_ = motor;
 	encoder_ = encoder;
@@ -142,12 +142,8 @@ void VelocityCtrl::flip()
 	//calcOmega();
 
 	if(excution_flag_ == true){
-		if(mode_ == STRAIGHT_MODE){
-			pid();
-		}
-		else if(mode_ == LINETRACE_MODE){
-			pidTranslationOnly();
-		}
+		//pid();
+		pidTranslationOnly();
 	}
 
 
@@ -178,8 +174,3 @@ float VelocityCtrl::getCurrentOmega()
 	return current_omega_;
 }
 */
-
-void VelocityCtrl::setMode(uint16_t mode)
-{
-	mode_ = mode;
-}
