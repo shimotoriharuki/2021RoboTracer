@@ -15,6 +15,7 @@
 "Core/Src/PowerSensor.o"
 "Core/Src/RotarySwitch.o"
 "Core/Src/SideSensor.o"
+"Core/Src/SystemIdentification.o"
 "Core/Src/VelocityCtrl.o"
 "Core/Src/main.o"
 "Core/Src/path_following.o"

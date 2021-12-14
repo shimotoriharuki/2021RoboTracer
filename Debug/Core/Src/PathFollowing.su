@@ -8,9 +8,20 @@ PathFollowing.cpp:74:8:double PathFollowing::getKyVal()	16	static
 PathFollowing.cpp:79:8:double PathFollowing::getKtVal()	16	static
 PathFollowing.cpp:84:6:void PathFollowing::setTargetPathSingle(double, double, double)	40	static
 PathFollowing.cpp:91:6:void PathFollowing::setTargetPathMulti()	24	static
+<<<<<<< HEAD
 PathFollowing.cpp:100:6:bool PathFollowing::targetUpdate(double&, double&)	56	static
 PathFollowing.cpp:138:6:void PathFollowing::setCurrentPath(double, double, double)	40	static
 PathFollowing.cpp:145:6:void PathFollowing::getTargetVelocitys(double&, double&)	24	static
 PathFollowing.cpp:151:6:void PathFollowing::flip()	16	static
 PathFollowing.cpp:158:6:void PathFollowing::start()	16	static
 PathFollowing.cpp:163:6:void PathFollowing::stop()	16	static
+=======
+PathFollowing.cpp:100:6:bool PathFollowing::isTargetNear()	16	static
+PathFollowing.cpp:107:6:void PathFollowing::targetUpdate()	40	static
+PathFollowing.cpp:129:6:void PathFollowing::setCurrentPath(double, double, double)	40	static
+PathFollowing.cpp:143:6:void PathFollowing::flip()	16	static
+PathFollowing.cpp:150:8:double PathFollowing::getV()	16	static
+PathFollowing.cpp:155:8:double PathFollowing::getW()	16	static
+PathFollowing.cpp:160:6:void PathFollowing::start()	16	static
+PathFollowing.cpp:165:6:void PathFollowing::stop()	16	static
+>>>>>>> fc031703c4625fba0a688c4e05e8ebb865e0630f

@@ -37,7 +37,7 @@ Core/Src/LineSensor.o: ../Core/Src/LineSensor.cpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/Macro.h ../Core/Inc/LED.hpp ../Core/Inc/Joystick.hpp \
  ../Core/Inc/RotarySwitch.hpp ../Core/Inc/G_variables.h \
- ../Core/Inc/Macro.h
+ ../Core/Inc/Macro.h ../Core/Inc/AQM0802.h ../Core/Inc/main.h
 
 ../Core/Inc/LineSensor.hpp:
 
@@ -122,3 +122,7 @@ Core/Src/LineSensor.o: ../Core/Src/LineSensor.cpp \
 ../Core/Inc/G_variables.h:
 
 ../Core/Inc/Macro.h:
+
+../Core/Inc/AQM0802.h:
+
+../Core/Inc/main.h:

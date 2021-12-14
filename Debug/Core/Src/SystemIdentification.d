@@ -1,5 +1,6 @@
-Core/Src/IMU.o: ../Core/Src/IMU.cpp ../Core/Inc/IMU.hpp \
- ../Core/Inc/LED.hpp ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+Core/Src/SystemIdentification.o: ../Core/Src/SystemIdentification.cpp \
+ ../Core/Inc/SystemIdentification.hpp ../Core/Inc/Logger.hpp \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -34,11 +35,11 @@ Core/Src/IMU.o: ../Core/Src/IMU.cpp ../Core/Inc/IMU.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/ICM_20648.h ../Core/Inc/main.h ../Core/Inc/AQM0802.h
+ ../Core/Inc/Motor.hpp
 
-../Core/Inc/IMU.hpp:
+../Core/Inc/SystemIdentification.hpp:
 
-../Core/Inc/LED.hpp:
+../Core/Inc/Logger.hpp:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -110,8 +111,4 @@ Core/Src/IMU.o: ../Core/Src/IMU.cpp ../Core/Inc/IMU.hpp \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
-../Core/Inc/ICM_20648.h:
-
-../Core/Inc/main.h:
-
-../Core/Inc/AQM0802.h:
+../Core/Inc/Motor.hpp:

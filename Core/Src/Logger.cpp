@@ -9,29 +9,46 @@
 #include "HAL_SDcard_lib.h"
 #include <stdio.h>
 #include "Macro.h"
+#include "AQM0802.h"
 
-Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_dis_(0){}
+Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_tim2_(0), log_index_dis_(0){}
 
 bool Logger::sdCardInit()
 {
 	bool ret = false;
 
 	if(sd_mount() == 1){
-	  printf("mount success\r\n");
+	  //printf("mount success\r\n");
+
+	  lcd_clear();
+	  lcd_locate(0,0);
+	  lcd_printf("SD mount");
+	  lcd_locate(0,1);
+	  lcd_printf("success");
+	  HAL_Delay(500);
+
 	  ret = true;
 	}
 	else{
-	  printf("mount error\r\n");
+	  //printf("mount error\r\n");
+
+	  lcd_clear();
+	  lcd_locate(0,0);
+	  lcd_printf("SD mount");
+	  lcd_locate(0,1);
+	  lcd_printf("fail");
+	  HAL_Delay(1000);
+
 	  ret = false;
 	}
 
-	int	data[1];
-	int temp[1];
+	//int	data[1];
+	//int temp[1];
 
-	data[0] = 100;
-	sd_write_array_int("sdio", "write1.txt", DATA_SIZE, data, ADD_WRITE); //write
-	sd_read_array_int("sdio", "write1.txt", DATA_SIZE, temp); //read
-	sd_write_array_int("sdio", "write2.txt", DATA_SIZE, temp, ADD_WRITE); //write
+	//data[0] = 100;
+	//sd_write_array_int("sdio", "write1.txt", DATA_SIZE, data, ADD_WRITE); //write
+	//sd_read_array_int("sdio", "write1.txt", DATA_SIZE, temp); //read
+	//sd_write_array_int("sdio", "write2.txt", DATA_SIZE, temp, ADD_WRITE); //write
 
 	return ret;
 }
@@ -61,33 +78,80 @@ void Logger::storeLog(float data)
 		if(log_index_tim_ >= LOG_DATA_SIZE_TIM) log_index_tim_ = 0;
 	}
 }
+void Logger::storeLog2(float data)
+{
+	if(recording_flag_ == true){
+		store_data_float2_[log_index_tim2_] = data;
+
+		log_index_tim2_++;
+
+		if(log_index_tim2_ >= LOG_DATA_SIZE_TIM2) log_index_tim2_ = 0;
+	}
+}
 
 void Logger::storeLog(uint16_t data)
 {
 
 }
 
-void Logger::storeDistanceAndTheta(double distance, double theta)
+void Logger::storeDistanceAndTheta(float distance, float theta)
 {
-	if(recording_flag_ == true){
+	//if(recording_flag_ == true){
 		store_distance_[log_index_dis_] = distance;
 		store_theta_[log_index_dis_] = theta;
 
 		log_index_dis_++;
 
 		if(log_index_dis_ >= LOG_DATA_SIZE_DIS) log_index_dis_ = 0;
-	}
+	//}
+}
+
+void Logger::storeDistanceAndTheta2(float distance, float theta)
+{
+	//if(recording_flag_ == true){
+		store_distance2_[log_index_dis_] = distance;
+		store_theta2_[log_index_dis_] = theta;
+
+		log_index_dis_++;
+
+		if(log_index_dis_ >= LOG_DATA_SIZE_DIS) log_index_dis_ = 0;
+	//}
+}
+const float *Logger::getDistanceArrayPointer()
+{
+	return store_distance_;
+}
+
+const float *Logger::getThetaArrayPointer()
+{
+	return store_theta_;
 }
 
 void Logger::saveLogs(const char *folder_name, const char *file_name)
 {
 	sd_write_array_float(folder_name, file_name, LOG_DATA_SIZE_TIM, store_data_float_, OVER_WRITE); //write
 }
+void Logger::saveLogs2(const char *folder_name, const char *file_name)
+{
+	sd_write_array_float(folder_name, file_name, LOG_DATA_SIZE_TIM2, store_data_float2_, OVER_WRITE); //write
+}
 
 void Logger::saveDistanceAndTheta(const char *folder_name, const char *file_name1, const char *file_name2)
 {
-	sd_write_array_double(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance_, OVER_WRITE); //write
-	sd_write_array_double(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta_, OVER_WRITE); //write
+	sd_write_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance_, OVER_WRITE); //write
+	sd_write_array_float(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta_, OVER_WRITE); //write
+}
+
+void Logger::saveDistanceAndTheta2(const char *folder_name, const char *file_name1, const char *file_name2)
+{
+	sd_write_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance2_, OVER_WRITE); //write
+	sd_write_array_float(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta2_, OVER_WRITE); //write
+}
+
+void Logger::importDistanceAndTheta(const char *folder_name, const char *file_name1, const char *file_name2)
+{
+	sd_read_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance_); //read
+	sd_read_array_float(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta_); //read
 }
 
 /*
@@ -117,14 +181,8 @@ void Logger::continuousWriteStop()
 }
 */
 
-void Logger::resetLogs()
+void Logger::resetLogs1()
 {
-	for(auto &log : store_data_float_){
-		log = 0;
-	}
-	for(auto &log : store_data_uint16_){
-		log = 0;
-	}
 	for(auto &log : store_distance_){
 		log = 0;
 	}
@@ -132,6 +190,24 @@ void Logger::resetLogs()
 		log = 0;
 	}
 
+	log_index_tim_ = 0;
+	log_index_dis_ = 0;
+}
+
+void Logger::resetLogs2()
+{
+	for(auto &log : store_distance2_){
+		log = 0;
+	}
+	for(auto &log : store_theta2_){
+		log = 0;
+	}
+
+	log_index_tim_ = 0;
+	log_index_dis_ = 0;
+}
+void Logger::resetIdx()
+{
 	log_index_tim_ = 0;
 	log_index_dis_ = 0;
 }

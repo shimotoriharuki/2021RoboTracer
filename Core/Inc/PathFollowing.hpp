@@ -32,12 +32,15 @@ public:
 	double getKxVal();
 	double getKyVal();
 	double getKtVal();
+	bool isTargetNear();
 	void setTargetPathSingle(double, double, double);
 	void setTargetPathMulti();
-	bool targetUpdate(double &, double &);
+	void targetUpdate();
 	void setCurrentPath(double, double, double);
-	void getTargetVelocitys(double &, double &);
+	//void getTargetVelocitys(double &, double &);
 	void flip();
+	double getV();
+	double getW();
 	void start();
 	void stop();
 };

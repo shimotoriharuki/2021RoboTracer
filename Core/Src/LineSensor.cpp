@@ -10,6 +10,9 @@
 #include <algorithm>
 #include "G_variables.h"
 #include "Macro.h"
+#include "AQM0802.h"
+
+float mon_sens, mon_sens_lpf;
 
 LineSensor::LineSensor()
 {
@@ -52,13 +55,13 @@ void LineSensor::storeSensorValues()
 void LineSensor::updateSensorValues()
 {
 	float temp_val[10];
+	static float pre_sensor[AD_DATA_SIZE];
 
 	for(uint8_t ad_cnt = 0; ad_cnt < AD_DATA_SIZE; ad_cnt++){
 		for(uint8_t store_cnt = 0; store_cnt < 10; store_cnt++){
 			temp_val[store_cnt] = store_vals_[store_cnt][ad_cnt];
 		}
 
-		//std::sort(temp_val, temp_val + AD_DATA_SIZE);
 		// sort
 		for(uint8_t i = 0; i < 10; i++){
 			for (uint8_t j = i+1; j < 10; j++) {
@@ -70,13 +73,24 @@ void LineSensor::updateSensorValues()
 			}
 		}
 
-		sensor[ad_cnt] = temp_val[5];
+		sensor[ad_cnt] = ((R_LINESENSE)*(temp_val[5]) + (1.0 - (R_LINESENSE))* (pre_sensor[ad_cnt]));
+		pre_sensor[ad_cnt] = temp_val[5];
 	}
+
+	mon_sens = store_vals_[5][5];
+	mon_sens_lpf = sensor[5];
 }
 
 void LineSensor::calibration()
 {
 	HAL_Delay(100);
+
+	lcd_clear();
+	lcd_locate(0,0);
+	lcd_printf("LineSens");
+	lcd_locate(0,1);
+	lcd_printf("Calib   ");
+
 
 	float max_values[AD_DATA_SIZE];
 	float min_values[AD_DATA_SIZE];
@@ -107,6 +121,7 @@ void LineSensor::calibration()
 		}
 	}
 
+	/*
 	for(const auto &m : max_values){
 		printf("%f, ", m);
 	}
@@ -115,7 +130,7 @@ void LineSensor::calibration()
 		printf("%f, ", m);
 	}
 		printf("\n");
-
+	*/
 
 	for(uint16_t i = 0; i < AD_DATA_SIZE; i++){
 		sensor_coefficient_[i] = 1000 / (max_values[i] - min_values[i]);
@@ -130,20 +145,31 @@ void LineSensor::calibration()
 void LineSensor::printSensorValues()
 {
 	printf("%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", sensor[0], sensor[1], sensor[2], sensor[3], sensor[4], sensor[5], sensor[6], sensor[7], sensor[8], sensor[9], sensor[10], sensor[11], sensor[12], sensor[13]);
-
 }
 
 bool LineSensor::emergencyStop()
 {
-	uint8_t cnt = 0;
+	uint16_t out_cnt = 0;
+	static uint16_t cnt = 0;
+	static bool flag = false;
 
 	for(const auto & s : sensor){
-		if(s >= 600) cnt++;
+		if(s >= 700) out_cnt++;
 	}
 
-	bool flag;
-	if(cnt >= AD_DATA_SIZE) flag = true;
+	if(out_cnt >= AD_DATA_SIZE){
+		cnt++;
+	}
+	else{
+		cnt = 0;
+	}
+
+	if(cnt >= 50){
+		flag = true;
+	}
 	else flag = false;
+
+	if(cnt >= 10000) cnt = 10000;
 
 	return flag;
 

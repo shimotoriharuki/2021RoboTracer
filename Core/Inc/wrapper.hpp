@@ -21,6 +21,7 @@ void cppFlip1ms(void);
 void cppFlip100ns(void);
 void cppFlip10ms(void);
 void cppExit(uint16_t);
+void parameterSettingMode(void);
 
 #ifdef __cplusplus
 };

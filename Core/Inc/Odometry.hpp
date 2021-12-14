@@ -12,6 +12,8 @@
 #include "IMU.hpp"
 #include "VelocityCtrl.hpp"
 
+#define SENSOR_LENGTH 110 //mm
+
 class Odometry
 {
 private:
@@ -19,7 +21,8 @@ private:
 	IMU *imu_;
 	VelocityCtrl *velocity_ctrl_;
 
-	double x_, y_, theta_;
+	double x_robot_, y_robot_, theta_; // Center position of Robot
+	double x_sens_, y_sens_; //Center position of sensor
 	double delta_theta_;
 
 	void calcPotition();

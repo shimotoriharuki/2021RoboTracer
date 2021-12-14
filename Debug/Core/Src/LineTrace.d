@@ -38,7 +38,16 @@ Core/Src/LineTrace.o: ../Core/Src/LineTrace.cpp ../Core/Inc/LineTrace.hpp \
  ../Core/Inc/LineSensor.hpp ../Core/Inc/Macro.h ../Core/Inc/LED.hpp \
  ../Core/Inc/Joystick.hpp ../Core/Inc/RotarySwitch.hpp \
  ../Core/Inc/VelocityCtrl.hpp ../Core/Inc/Encoder.hpp ../Core/Inc/IMU.hpp \
- ../Core/Inc/Macro.h
+ ../Core/Inc/HAL_SDcard_lib.h ../FATFS/App/fatfs.h \
+ ../Middlewares/Third_Party/FatFs/src/ff.h \
+ ../Middlewares/Third_Party/FatFs/src/integer.h ../FATFS/Target/ffconf.h \
+ ../Core/Inc/main.h ../FATFS/Target/bsp_driver_sd.h \
+ ../FATFS/Target/fatfs_platform.h \
+ ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
+ ../Middlewares/Third_Party/FatFs/src/diskio.h \
+ ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
+ ../Core/Inc/SideSensor.hpp ../Core/Inc/Odometry.hpp \
+ ../Core/Inc/Logger.hpp ../Core/Inc/Macro.h
 
 ../Core/Inc/LineTrace.hpp:
 
@@ -129,5 +138,35 @@ Core/Src/LineTrace.o: ../Core/Src/LineTrace.cpp ../Core/Inc/LineTrace.hpp \
 ../Core/Inc/Encoder.hpp:
 
 ../Core/Inc/IMU.hpp:
+
+../Core/Inc/HAL_SDcard_lib.h:
+
+../FATFS/App/fatfs.h:
+
+../Middlewares/Third_Party/FatFs/src/ff.h:
+
+../Middlewares/Third_Party/FatFs/src/integer.h:
+
+../FATFS/Target/ffconf.h:
+
+../Core/Inc/main.h:
+
+../FATFS/Target/bsp_driver_sd.h:
+
+../FATFS/Target/fatfs_platform.h:
+
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
+
+../Middlewares/Third_Party/FatFs/src/diskio.h:
+
+../Middlewares/Third_Party/FatFs/src/ff.h:
+
+../FATFS/Target/sd_diskio.h:
+
+../Core/Inc/SideSensor.hpp:
+
+../Core/Inc/Odometry.hpp:
+
+../Core/Inc/Logger.hpp:
 
 ../Core/Inc/Macro.h:
