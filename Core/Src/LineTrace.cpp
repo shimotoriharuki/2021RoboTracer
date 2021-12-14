@@ -310,7 +310,7 @@ float LineTrace::radius2Velocity(float radius)
 
 	if(mode_selector_ == SECOND_RUNNING){
 		if(radius < 130) velocity = 1.3;
-		else if(radius < 500) velocity = 1.3;
+		else if(radius < 2000) velocity = 1.7;
 		else velocity = max_velocity_;
 	}
 	else if(mode_selector_ == THIRD_RUNNING){
@@ -345,28 +345,18 @@ void LineTrace::createVelocityTabele()
 	}
 
 	// ----- Decelerate processing -----//
-	float am = 0.8;
-	for(uint16_t i = LOG_DATA_SIZE_DIS - 1; i >= 1; i--){
-		float v_diff = velocity_table_[i-1] - velocity_table_[i];
+	decelerateProcessing(MAX_DEC, p_distance);
 
-		if(v_diff > 0){
-			float t = p_distance[i]*1e-3 / v_diff;
-			float a = v_diff / t;
-			if(a > am){
-				velocity_table_[i-1] = velocity_table_[i] + am * p_distance[i]*1e-3;
-			}
-
-		}
-
-	}
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 
 }
 
-float mon_a;
 void LineTrace::createVelocityTabeleFromSD()
 {
 	logger_->importDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
+	sd_read_array_float("COURSLOG", "CROSSDIS.TXT, ", CROSSLINE_SIZE, crossline_distance_);
+	sd_read_array_float("COURSLOG", "SIDEDIS.TXT, ", SIDELINE_SIZE, sideline_distance_);
+
 	const float *p_distance, *p_theta;
 	p_distance = logger_->getDistanceArrayPointer();
 	p_theta= logger_->getThetaArrayPointer();
@@ -387,25 +377,26 @@ void LineTrace::createVelocityTabeleFromSD()
 	}
 
 	// ----- Decelerate processing -----//
-	float am = 1;
+	decelerateProcessing(MAX_DEC, p_distance);
+
+	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
+
+}
+
+void LineTrace::decelerateProcessing(const float am, const float *p_distance)
+{
 	for(uint16_t i = LOG_DATA_SIZE_DIS - 1; i >= 1; i--){
 		float v_diff = velocity_table_[i-1] - velocity_table_[i];
 
 		if(v_diff > 0){
 			float t = p_distance[i]*1e-3 / v_diff;
 			float a = v_diff / t;
-			mon_a = a;
 			if(a > am){
-				//velocity_table_[i-1] = velocity_table_[i] + am * t;
 				velocity_table_[i-1] = velocity_table_[i] + am * p_distance[i]*1e-3;
 			}
 
 		}
-		//HAL_Delay(1);
-		mon_a = 0;
-
 	}
-	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 
 }
 

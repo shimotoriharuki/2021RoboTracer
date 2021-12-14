@@ -30,6 +30,8 @@
 #define THIRD_RUNNING 2
 #define CROSSLINE_SIZE 100
 #define SIDELINE_SIZE 1000
+#define MAX_DEC 1
+#define MAX_ACC 1
 
 class LineTrace
 {
@@ -90,6 +92,7 @@ private:
 	void correctionTotalDistanceFromCrossLine();
 	void correctionTotalDistanceFromSideMarker();
 	bool isStable();
+	void decelerateProcessing(const float, const float *);
 
 public:
 	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *, IMU *);
