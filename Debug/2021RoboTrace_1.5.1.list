@@ -5332,7 +5332,7 @@ float LineTrace::radius2VelocityFnc(float radius)
 	float c =      -1.256;
  8002d66:	4b2b      	ldr	r3, [pc, #172]	; (8002e14 <_ZN9LineTrace18radius2VelocityFncEf+0xc4>)
  8002d68:	60fb      	str	r3, [r7, #12]
-	float d =   -0.001714;;
+	float d =   -0.001714;
  8002d6a:	4b2b      	ldr	r3, [pc, #172]	; (8002e18 <_ZN9LineTrace18radius2VelocityFncEf+0xc8>)
  8002d6c:	60bb      	str	r3, [r7, #8]
 
