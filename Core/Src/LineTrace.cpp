@@ -345,24 +345,20 @@ void LineTrace::createVelocityTabele()
 	}
 
 	// ----- Decelerate processing -----//
-	float am = 0.005;
+	float am = 0.8;
 	for(uint16_t i = LOG_DATA_SIZE_DIS - 1; i >= 1; i--){
 		float v_diff = velocity_table_[i-1] - velocity_table_[i];
+
 		if(v_diff > 0){
-			float t = p_distance[i]*10e-3 / v_diff;
+			float t = p_distance[i]*1e-3 / v_diff;
 			float a = v_diff / t;
 			if(a > am){
-				velocity_table_[i-1] = velocity_table_[i] + am * t;
+				velocity_table_[i-1] = velocity_table_[i] + am * p_distance[i]*1e-3;
 			}
 
 		}
 
 	}
-
-
-
-
-
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 
 }
@@ -391,21 +387,22 @@ void LineTrace::createVelocityTabeleFromSD()
 	}
 
 	// ----- Decelerate processing -----//
-	float am = 0.005;
+	float am = 1;
 	for(uint16_t i = LOG_DATA_SIZE_DIS - 1; i >= 1; i--){
 		float v_diff = velocity_table_[i-1] - velocity_table_[i];
 
 		if(v_diff > 0){
-			float t = p_distance[i]*10e-3 / v_diff;
+			float t = p_distance[i]*1e-3 / v_diff;
 			float a = v_diff / t;
 			mon_a = a;
 			if(a > am){
-				velocity_table_[i-1] = velocity_table_[i] + am * t;
+				//velocity_table_[i-1] = velocity_table_[i] + am * t;
+				velocity_table_[i-1] = velocity_table_[i] + am * p_distance[i]*1e-3;
 			}
-			mon_a = 0;
 
 		}
-		HAL_Delay(0.5);
+		//HAL_Delay(1);
+		mon_a = 0;
 
 	}
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
