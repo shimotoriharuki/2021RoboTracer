@@ -93,6 +93,7 @@ private:
 	void correctionTotalDistanceFromSideMarker();
 	bool isStable();
 	void decelerateProcessing(const float, const float *);
+	void accelerateProcessing(const float, const float *);
 
 public:
 	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *, IMU *);

@@ -346,19 +346,19 @@ void LineTrace::createVelocityTabele()
 
 	// ----- Decelerate processing -----//
 	decelerateProcessing(MAX_DEC, p_distance);
+	// ----- Accelerate processing -----//
+	accelerateProcessing(MAX_ACC, p_distance);
 
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 
 }
 
-float mon_crossdis;
+//float mon_crossdis;
 void LineTrace::createVelocityTabeleFromSD()
 {
 	logger_->importDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
 	sd_read_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_);
 	sd_read_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_);
-
-	mon_crossdis = crossline_distance_[0];
 
 	const float *p_distance, *p_theta;
 	p_distance = logger_->getDistanceArrayPointer();
@@ -374,17 +374,16 @@ void LineTrace::createVelocityTabeleFromSD()
 		if(radius >= 5000) radius = 5000;
 
 		velocity_table_[i] = radius2Velocity(radius);
-		//velocity_table_[i] = radius;
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
 
 	// ----- Decelerate processing -----//
 	decelerateProcessing(MAX_DEC, p_distance);
+	// ----- Accelerate processing -----//
+	accelerateProcessing(MAX_ACC, p_distance);
 
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
-	//sd_write_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_, OVER_WRITE);
-	//sd_write_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_, OVER_WRITE);
 
 }
 
@@ -398,6 +397,23 @@ void LineTrace::decelerateProcessing(const float am, const float *p_distance)
 			float a = v_diff / t;
 			if(a > am){
 				velocity_table_[i-1] = velocity_table_[i] + am * p_distance[i]*1e-3;
+			}
+
+		}
+	}
+
+}
+
+void LineTrace::accelerateProcessing(const float am, const float *p_distance)
+{
+	for(uint16_t i = 0; i <= LOG_DATA_SIZE_DIS - 1; i++){
+		float v_diff = velocity_table_[i+1] - velocity_table_[i];
+
+		if(v_diff > 0){
+			float t = p_distance[i]*1e-3 / v_diff;
+			float a = v_diff / t;
+			if(a > am){
+				velocity_table_[i+1] = velocity_table_[i] + am * p_distance[i]*1e-3;
 			}
 
 		}
