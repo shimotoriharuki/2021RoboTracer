@@ -89,6 +89,7 @@ private:
 	bool isCrossLine();
 	float calcRadius(float, float);
 	float radius2Velocity(float);
+	float radius2VelocityFnc(float);
 	void updateTargetVelocity();
 	bool isTargetDistance(float);
 	void storeCrossLineDistance();

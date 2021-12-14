@@ -325,6 +325,16 @@ float LineTrace::radius2Velocity(float radius)
 	return velocity;
 }
 
+float LineTrace::radius2VelocityFnc(float radius)
+{
+	float a =       2.439;
+	float b =   2.723e-05;
+	float c =      -1.256;
+	float d =   -0.001714;
+
+	return a*exp(b*radius) + c*exp(d*radius);
+}
+
 void LineTrace::createVelocityTabele()
 {
 	const float *p_distance, *p_theta;
@@ -340,8 +350,8 @@ void LineTrace::createVelocityTabele()
 		float radius = abs(temp_distance / temp_theta);
 		if(radius >= 5000) radius = 5000;
 
-		velocity_table_[i] = radius2Velocity(radius);
-		//velocity_table_[i] = radius;
+		//velocity_table_[i] = radius2Velocity(radius);
+		velocity_table_[i] = radius2VelocityFnc(radius);
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
@@ -375,7 +385,8 @@ void LineTrace::createVelocityTabeleFromSD()
 		float radius = abs(temp_distance / temp_theta);
 		if(radius >= 5000) radius = 5000;
 
-		velocity_table_[i] = radius2Velocity(radius);
+		//velocity_table_[i] = radius2Velocity(radius);
+		velocity_table_[i] = radius2VelocityFnc(radius);
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
