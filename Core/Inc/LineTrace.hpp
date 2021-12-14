@@ -30,8 +30,8 @@
 #define THIRD_RUNNING 2
 #define CROSSLINE_SIZE 100
 #define SIDELINE_SIZE 1000
-#define MAX_DEC 1
-#define MAX_ACC 1
+#define MAX_DEC 5
+#define MAX_ACC 11
 
 class LineTrace
 {
