@@ -246,8 +246,8 @@ void LineTrace::loggerStop()
 bool LineTrace::isCrossLine()
 {
 	static uint16_t cnt = 0;
-	float sensor_edge_val_l = (line_sensor_->sensor[0] + line_sensor_->sensor[1] + line_sensor_->sensor[2]) / 3;
-	float sensor_edge_val_r = (line_sensor_->sensor[11] + line_sensor_->sensor[12] + line_sensor_->sensor[13]) / 3;
+	float sensor_edge_val_l = (line_sensor_->sensor[2] + line_sensor_->sensor[3] + line_sensor_->sensor[4]) / 3;
+	float sensor_edge_val_r = (line_sensor_->sensor[9] + line_sensor_->sensor[10] + line_sensor_->sensor[11]) / 3;
 	static bool flag = false;
 	static bool white_flag = false;
 	mon_ave_l = sensor_edge_val_l;
