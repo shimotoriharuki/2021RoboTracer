@@ -311,13 +311,22 @@ float LineTrace::radius2Velocity(float radius)
 	float velocity;
 
 	if(mode_selector_ == SECOND_RUNNING){
-		if(radius < 130) velocity = min_velocity_;
-		else if(radius < 2000) velocity = 1.6;
+		if(radius < 200) velocity = 1.3;
+		if(radius < 500) velocity = 1.6;
+		else if(radius < 1500) velocity = 1.8;
+		else if(radius < 2000) velocity = 2.0;
 		else velocity = max_velocity_;
 	}
+
 	else if(mode_selector_ == THIRD_RUNNING){
-		if(radius < 130) velocity = min_velocity2_;
-		else if(radius < 2000) velocity = 2;
+		if(radius < 100) velocity = min_velocity2_;
+		else if(radius < 150) velocity = 1.4;
+		else if(radius < 300) velocity = 1.5;
+		else if(radius < 500) velocity = 1.7;
+		else if(radius < 800) velocity = 1.8;
+		else if(radius < 1000) velocity = 2.0;
+		else if(radius < 1500) velocity = 2.2;
+		else if(radius < 2000) velocity = 2.4;
 		else velocity = max_velocity2_;
 	}
 	else velocity = 1.3;
@@ -350,8 +359,7 @@ void LineTrace::createVelocityTabele()
 		float radius = abs(temp_distance / temp_theta);
 		if(radius >= 5000) radius = 5000;
 
-		//velocity_table_[i] = radius2Velocity(radius);
-		velocity_table_[i] = radius2VelocityFnc(radius);
+		velocity_table_[i] = radius2Velocity(radius);
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
@@ -385,8 +393,7 @@ void LineTrace::createVelocityTabeleFromSD()
 		float radius = abs(temp_distance / temp_theta);
 		if(radius >= 5000) radius = 5000;
 
-		//velocity_table_[i] = radius2Velocity(radius);
-		velocity_table_[i] = radius2VelocityFnc(radius);
+		velocity_table_[i] = radius2Velocity(radius);
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
@@ -396,9 +403,6 @@ void LineTrace::createVelocityTabeleFromSD()
 	// ----- Accelerate processing -----//
 	accelerateProcessing(max_acc_, p_distance);
 
-	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS - 1; i++){
-		velocity_table_[i] = ((R_VELTABLE)*(velocity_table_[i + 1]) + (1.0 - (R_VELTABLE))* (velocity_table_[i]));
-	}
 
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 

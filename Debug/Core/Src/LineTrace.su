@@ -14,47 +14,47 @@ LineTrace.cpp:241:6:void LineTrace::loggerStop()	16	static
 LineTrace.cpp:247:6:bool LineTrace::isCrossLine()	24	static
 LineTrace.cpp:303:7:float LineTrace::calcRadius(float, float)	24	static
 LineTrace.cpp:309:7:float LineTrace::radius2Velocity(float)	24	static
-LineTrace.cpp:328:7:float LineTrace::radius2VelocityFnc(float)	48	static
-LineTrace.cpp:338:6:void LineTrace::createVelocityTabele()	56	static
-LineTrace.cpp:369:6:void LineTrace::createVelocityTabeleFromSD()	64	static
-LineTrace.cpp:407:6:void LineTrace::decelerateProcessing(float, const float*)	48	static
-LineTrace.cpp:424:6:void LineTrace::accelerateProcessing(float, const float*)	48	static
-LineTrace.cpp:441:6:void LineTrace::updateTargetVelocity()	16	static
-LineTrace.cpp:464:6:bool LineTrace::isStable()	40	static
-LineTrace.cpp:495:6:void LineTrace::init()	56	static
-LineTrace.cpp:521:6:void LineTrace::setGain(float, float, float)	24	static
-LineTrace.cpp:529:6:void LineTrace::setVeloGain(float, float, float)	24	static
-LineTrace.cpp:536:7:float LineTrace::getKp()	16	static
-LineTrace.cpp:541:7:float LineTrace::getKi()	16	static
-LineTrace.cpp:546:7:float LineTrace::getKd()	16	static
-LineTrace.cpp:551:7:float LineTrace::getKpV()	16	static
-LineTrace.cpp:555:7:float LineTrace::getKiV()	16	static
-LineTrace.cpp:559:7:float LineTrace::getKdV()	16	static
-LineTrace.cpp:564:6:void LineTrace::setNormalRatio(float)	16	static
-LineTrace.cpp:569:6:void LineTrace::setTargetVelocity(float)	16	static
-LineTrace.cpp:574:6:void LineTrace::setMaxVelocity(float)	16	static
-LineTrace.cpp:579:6:void LineTrace::setMaxVelocity2(float)	16	static
-LineTrace.cpp:584:6:void LineTrace::setMinVelocity(float)	16	static
-LineTrace.cpp:589:6:void LineTrace::setMinVelocity2(float)	16	static
-LineTrace.cpp:593:7:float LineTrace::getTargetVelocity()	16	static
-LineTrace.cpp:598:7:float LineTrace::getMaxVelocity()	16	static
-LineTrace.cpp:603:7:float LineTrace::getMaxVelocity2()	16	static
-LineTrace.cpp:608:7:float LineTrace::getMinVelocity()	16	static
-LineTrace.cpp:613:7:float LineTrace::getMinVelocity2()	16	static
-LineTrace.cpp:617:6:void LineTrace::setMaxAccDec(float, float)	24	static
-LineTrace.cpp:623:7:float LineTrace::getMaxAcc()	16	static
-LineTrace.cpp:628:7:float LineTrace::getMaxDec()	16	static
-LineTrace.cpp:632:6:void LineTrace::flip()	16	static
-LineTrace.cpp:704:6:void LineTrace::flip100ns()	16	static
-LineTrace.cpp:719:6:void LineTrace::start()	16	static
-LineTrace.cpp:729:6:void LineTrace::stop()	24	static
-LineTrace.cpp:750:6:void LineTrace::running()	24	static
-LineTrace.cpp:801:6:void LineTrace::storeLogs()	32	static
-LineTrace.cpp:815:6:void LineTrace::startVelocityPlay()	16	static
-LineTrace.cpp:821:6:void LineTrace::stopVelocityPlay()	16	static
-LineTrace.cpp:828:6:void LineTrace::setMode(int16_t)	16	static
-LineTrace.cpp:833:6:bool LineTrace::isTargetDistance(float)	24	static
-LineTrace.cpp:843:6:void LineTrace::storeCrossLineDistance()	24	static
-LineTrace.cpp:851:6:void LineTrace::storeSideLineDistance()	24	static
-LineTrace.cpp:858:6:void LineTrace::correctionTotalDistanceFromCrossLine()	16	static
-LineTrace.cpp:867:6:void LineTrace::correctionTotalDistanceFromSideMarker()	32	static
+LineTrace.cpp:337:7:float LineTrace::radius2VelocityFnc(float)	48	static
+LineTrace.cpp:347:6:void LineTrace::createVelocityTabele()	56	static
+LineTrace.cpp:377:6:void LineTrace::createVelocityTabeleFromSD()	56	static
+LineTrace.cpp:411:6:void LineTrace::decelerateProcessing(float, const float*)	48	static
+LineTrace.cpp:428:6:void LineTrace::accelerateProcessing(float, const float*)	48	static
+LineTrace.cpp:445:6:void LineTrace::updateTargetVelocity()	16	static
+LineTrace.cpp:468:6:bool LineTrace::isStable()	40	static
+LineTrace.cpp:499:6:void LineTrace::init()	56	static
+LineTrace.cpp:525:6:void LineTrace::setGain(float, float, float)	24	static
+LineTrace.cpp:533:6:void LineTrace::setVeloGain(float, float, float)	24	static
+LineTrace.cpp:540:7:float LineTrace::getKp()	16	static
+LineTrace.cpp:545:7:float LineTrace::getKi()	16	static
+LineTrace.cpp:550:7:float LineTrace::getKd()	16	static
+LineTrace.cpp:555:7:float LineTrace::getKpV()	16	static
+LineTrace.cpp:559:7:float LineTrace::getKiV()	16	static
+LineTrace.cpp:563:7:float LineTrace::getKdV()	16	static
+LineTrace.cpp:568:6:void LineTrace::setNormalRatio(float)	16	static
+LineTrace.cpp:573:6:void LineTrace::setTargetVelocity(float)	16	static
+LineTrace.cpp:578:6:void LineTrace::setMaxVelocity(float)	16	static
+LineTrace.cpp:583:6:void LineTrace::setMaxVelocity2(float)	16	static
+LineTrace.cpp:588:6:void LineTrace::setMinVelocity(float)	16	static
+LineTrace.cpp:593:6:void LineTrace::setMinVelocity2(float)	16	static
+LineTrace.cpp:597:7:float LineTrace::getTargetVelocity()	16	static
+LineTrace.cpp:602:7:float LineTrace::getMaxVelocity()	16	static
+LineTrace.cpp:607:7:float LineTrace::getMaxVelocity2()	16	static
+LineTrace.cpp:612:7:float LineTrace::getMinVelocity()	16	static
+LineTrace.cpp:617:7:float LineTrace::getMinVelocity2()	16	static
+LineTrace.cpp:621:6:void LineTrace::setMaxAccDec(float, float)	24	static
+LineTrace.cpp:627:7:float LineTrace::getMaxAcc()	16	static
+LineTrace.cpp:632:7:float LineTrace::getMaxDec()	16	static
+LineTrace.cpp:636:6:void LineTrace::flip()	16	static
+LineTrace.cpp:708:6:void LineTrace::flip100ns()	16	static
+LineTrace.cpp:723:6:void LineTrace::start()	16	static
+LineTrace.cpp:733:6:void LineTrace::stop()	24	static
+LineTrace.cpp:754:6:void LineTrace::running()	24	static
+LineTrace.cpp:805:6:void LineTrace::storeLogs()	32	static
+LineTrace.cpp:819:6:void LineTrace::startVelocityPlay()	16	static
+LineTrace.cpp:825:6:void LineTrace::stopVelocityPlay()	16	static
+LineTrace.cpp:832:6:void LineTrace::setMode(int16_t)	16	static
+LineTrace.cpp:837:6:bool LineTrace::isTargetDistance(float)	24	static
+LineTrace.cpp:847:6:void LineTrace::storeCrossLineDistance()	24	static
+LineTrace.cpp:855:6:void LineTrace::storeSideLineDistance()	24	static
+LineTrace.cpp:862:6:void LineTrace::correctionTotalDistanceFromCrossLine()	16	static
+LineTrace.cpp:871:6:void LineTrace::correctionTotalDistanceFromSideMarker()	32	static
