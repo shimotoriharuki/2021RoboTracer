@@ -327,12 +327,12 @@ float LineTrace::radius2Velocity(float radius)
 
 float LineTrace::radius2VelocityFnc(float radius)
 {
-	float a =       2.439;
-	float b =   2.723e-05;
-	float c =      -1.256;
-	float d =   -0.001714;
+	float a =       2.162;
+	float b =   2.94e-05;
+	float c =      -0.9206;
+	float d =   -0.001755;
 
-	return a*exp(b*radius) + c*exp(d*radius);
+	return a * exp(b * radius) + c * exp(d * radius);
 }
 
 void LineTrace::createVelocityTabele()
@@ -395,6 +395,10 @@ void LineTrace::createVelocityTabeleFromSD()
 	decelerateProcessing(max_dec_, p_distance);
 	// ----- Accelerate processing -----//
 	accelerateProcessing(max_acc_, p_distance);
+
+	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS - 1; i++){
+		velocity_table_[i] = ((R_VELTABLE)*(velocity_table_[i + 1]) + (1.0 - (R_VELTABLE))* (velocity_table_[i]));
+	}
 
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 

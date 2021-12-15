@@ -32,6 +32,7 @@
 #define SIDELINE_SIZE 1000
 #define MAX_DEC 5
 #define MAX_ACC 8
+#define R_VELTABLE 0.1
 
 class LineTrace
 {
