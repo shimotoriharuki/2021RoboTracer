@@ -68,13 +68,16 @@ private:
 	int16_t mode_selector_;
 	float crossline_distance_[CROSSLINE_SIZE];
 	float sideline_distance_[SIDELINE_SIZE];
+	float all_sideline_distance_[SIDELINE_SIZE];
 	uint16_t crossline_idx_;
 	uint16_t sideline_idx_;
+	uint16_t all_sideline_idx_;
 	bool ignore_crossline_flag_;
 	bool stable_flag_;
 	bool stable_cnt_reset_flag_;
 	float max_acc_, max_dec_;
 	uint16_t correction_check_cnt_;
+	bool all_sideline_flag_;
 
 	float calcError();
 	float calcAngle();
@@ -95,8 +98,10 @@ private:
 	bool isTargetDistance(float);
 	void storeCrossLineDistance();
 	void storeSideLineDistance();
+	void storeAllSideLineDistance();
 	void correctionTotalDistanceFromCrossLine();
 	void correctionTotalDistanceFromSideMarker();
+	void correctionTotalDistanceFromAllSideMarker();
 	bool isStable();
 	void decelerateProcessing(const float, const float *);
 	void accelerateProcessing(const float, const float *);

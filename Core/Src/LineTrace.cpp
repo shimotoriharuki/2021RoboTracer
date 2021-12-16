@@ -32,8 +32,8 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), min_velocity_(0), min_velocity2_(0), logging_flag_(false),
-				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0),
-				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), correction_check_cnt_(0)
+				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), all_sideline_idx_(0),
+				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), correction_check_cnt_(0), all_sideline_flag_(false)
 
 {
 	motor_ = motor;
@@ -53,6 +53,9 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	}
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
 		sideline_distance_[i] = 0;
+	}
+	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
+		all_sideline_distance_[i] = 0;
 	}
 }
 
@@ -312,9 +315,9 @@ float LineTrace::radius2Velocity(float radius)
 
 	if(mode_selector_ == SECOND_RUNNING){
 		if(radius < 200) velocity = 1.3;
-		if(radius < 500) velocity = 1.6;
-		else if(radius < 1500) velocity = 1.8;
-		else if(radius < 2000) velocity = 2.0;
+		if(radius < 500) velocity = 1.5;
+		else if(radius < 1500) velocity = 1.6;
+		else if(radius < 2000) velocity = 1.8;
 		else velocity = max_velocity_;
 	}
 
@@ -695,6 +698,26 @@ void LineTrace::flip()
 		if(stable_flag_ == true) led_.LR(-1, 1);
 		else led_.LR(-1, 0);
 
+		// ------ All sideline storing -------//
+		if(all_sideline_flag_ == false && (side_sensor_->getStatus() & 0x02) == 0x02){
+			all_sideline_flag_ = true;
+
+			if(mode_selector_ == FIRST_RUNNING){
+				storeAllSideLineDistance();
+			}
+			else{
+				//correctionTotalDistanceFromAllSideMarker();
+				//correction_check_cnt_ = 0;
+			}
+		}
+		else if(all_sideline_flag_ == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){
+			all_sideline_flag_ = false;
+		}
+
+
+
+
+
 		// ----- emergency stop processing------//
 		if(line_sensor_->emergencyStop() == true){
 			velocity_ctrl_->setTranslationVelocityOnly(0, 0);
@@ -707,7 +730,7 @@ void LineTrace::flip()
 		correction_check_cnt_++;
 		if(correction_check_cnt_ >= 10000) correction_check_cnt_ = 10000;
 
-		if(correction_check_cnt_ <= 500) led_.LR(-1, 1);
+		if(correction_check_cnt_ <= 80) led_.LR(-1, 1);
 		else led_.LR(-1, 0);
 	}
 }
@@ -735,6 +758,7 @@ void LineTrace::start()
 	side_sensor_->resetWhiteLineCnt();
 	crossline_idx_ = 0;
 	sideline_idx_ = 0;
+	all_sideline_idx_ = 0;
 }
 
 void LineTrace::stop()
@@ -751,6 +775,7 @@ void LineTrace::stop()
 	}
 	sd_write_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_, OVER_WRITE);
 	sd_write_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_, OVER_WRITE);
+	sd_write_array_float("COURSLOG", "ASIDEDIS.TXT", SIDELINE_SIZE, all_sideline_distance_, OVER_WRITE);
 
 	led_.LR(-1, 0);
 
@@ -866,6 +891,13 @@ void LineTrace::storeSideLineDistance()
 
 	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
 }
+void LineTrace::storeAllSideLineDistance()
+{
+	all_sideline_distance_[all_sideline_idx_] = encoder_->getTotalDistance();
+	all_sideline_idx_++;
+
+	if(all_sideline_idx_ >= SIDELINE_SIZE) all_sideline_idx_ = SIDELINE_SIZE - 1;
+}
 void LineTrace::correctionTotalDistanceFromCrossLine()
 {
 	encoder_->setTotalDistance(crossline_distance_[crossline_idx_]);
@@ -887,5 +919,20 @@ void LineTrace::correctionTotalDistanceFromSideMarker()
 	}
 
 	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
+
+}
+
+void LineTrace::correctionTotalDistanceFromAllSideMarker()
+{
+	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
+		float temp_sideline_distance = all_sideline_distance_[i];
+		float diff = abs(temp_sideline_distance - encoder_->getTotalDistance());
+		if(diff <= 60){
+			encoder_->setTotalDistance(all_sideline_distance_[i]);
+			break;
+		}
+	}
+
+	if(all_sideline_idx_ >= SIDELINE_SIZE) all_sideline_idx_ = SIDELINE_SIZE - 1;
 
 }
