@@ -276,6 +276,7 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
+			/*
 			float temp_kp, temp_ki, temp_kd;
 			sd_read_array_float("PARAMS", "KP.TXT", 1, &temp_kp);
 			sd_read_array_float("PARAMS", "KI.TXT", 1, &temp_ki);
@@ -285,6 +286,7 @@ void cppLoop(void)
 			adj_kp = temp_kp;
 			adj_ki = temp_kp;
 			adj_kd = temp_kp;
+			*/
 
 			led.LR(-1, 0);
 		}
