@@ -385,7 +385,7 @@ void LineTrace::createVelocityTabeleFromSD()
 	p_theta= logger_->getThetaArrayPointer();
 
 	float temp_distance, temp_theta;
-	float pre_radius = 0;;
+	//float pre_radius = 0;;
 	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
 
 		temp_distance = p_distance[i];
@@ -395,10 +395,10 @@ void LineTrace::createVelocityTabeleFromSD()
 		float radius_origin = abs(temp_distance / temp_theta);
 		if(radius_origin >= 5000) radius_origin = 5000;
 
-		float radius_lpf = ((R_RADIUS)*(radius_origin) + (1.0 - (R_RADIUS))* (pre_radius));
-		velocity_table_[i] = radius_lpf;
-		//velocity_table_[i] = radius2Velocity(radius);
-		pre_radius = radius_origin;
+		//float radius_lpf = ((R_RADIUS)*(radius_origin) + (1.0 - (R_RADIUS))* (pre_radius));
+		//velocity_table_[i] = radius_lpf;
+		velocity_table_[i] = radius2Velocity(radius_origin);
+		//pre_radius = radius_origin;
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
