@@ -16,47 +16,47 @@ LineTrace.cpp:306:7:float LineTrace::calcRadius(float, float)	24	static
 LineTrace.cpp:312:7:float LineTrace::radius2Velocity(float)	24	static
 LineTrace.cpp:340:7:float LineTrace::radius2VelocityFnc(float)	48	static
 LineTrace.cpp:350:6:void LineTrace::createVelocityTabele()	56	static
-LineTrace.cpp:380:6:void LineTrace::createVelocityTabeleFromSD()	64	static
-LineTrace.cpp:421:6:void LineTrace::decelerateProcessing(float, const float*)	48	static
-LineTrace.cpp:438:6:void LineTrace::accelerateProcessing(float, const float*)	48	static
-LineTrace.cpp:455:6:void LineTrace::updateTargetVelocity()	16	static
-LineTrace.cpp:478:6:bool LineTrace::isStable()	40	static
-LineTrace.cpp:509:6:void LineTrace::init()	56	static
-LineTrace.cpp:535:6:void LineTrace::setGain(float, float, float)	24	static
-LineTrace.cpp:543:6:void LineTrace::setVeloGain(float, float, float)	24	static
-LineTrace.cpp:550:7:float LineTrace::getKp()	16	static
-LineTrace.cpp:555:7:float LineTrace::getKi()	16	static
-LineTrace.cpp:560:7:float LineTrace::getKd()	16	static
-LineTrace.cpp:565:7:float LineTrace::getKpV()	16	static
-LineTrace.cpp:569:7:float LineTrace::getKiV()	16	static
-LineTrace.cpp:573:7:float LineTrace::getKdV()	16	static
-LineTrace.cpp:578:6:void LineTrace::setNormalRatio(float)	16	static
-LineTrace.cpp:583:6:void LineTrace::setTargetVelocity(float)	16	static
-LineTrace.cpp:588:6:void LineTrace::setMaxVelocity(float)	16	static
-LineTrace.cpp:593:6:void LineTrace::setMaxVelocity2(float)	16	static
-LineTrace.cpp:598:6:void LineTrace::setMinVelocity(float)	16	static
-LineTrace.cpp:603:6:void LineTrace::setMinVelocity2(float)	16	static
-LineTrace.cpp:607:7:float LineTrace::getTargetVelocity()	16	static
-LineTrace.cpp:612:7:float LineTrace::getMaxVelocity()	16	static
-LineTrace.cpp:617:7:float LineTrace::getMaxVelocity2()	16	static
-LineTrace.cpp:622:7:float LineTrace::getMinVelocity()	16	static
-LineTrace.cpp:627:7:float LineTrace::getMinVelocity2()	16	static
-LineTrace.cpp:631:6:void LineTrace::setMaxAccDec(float, float)	24	static
-LineTrace.cpp:637:7:float LineTrace::getMaxAcc()	16	static
-LineTrace.cpp:642:7:float LineTrace::getMaxDec()	16	static
-LineTrace.cpp:646:6:void LineTrace::flip()	16	static
-LineTrace.cpp:738:6:void LineTrace::flip100ns()	16	static
-LineTrace.cpp:753:6:void LineTrace::start()	16	static
-LineTrace.cpp:764:6:void LineTrace::stop()	24	static
-LineTrace.cpp:786:6:void LineTrace::running()	24	static
-LineTrace.cpp:837:6:void LineTrace::storeLogs()	32	static
-LineTrace.cpp:851:6:void LineTrace::startVelocityPlay()	16	static
-LineTrace.cpp:857:6:void LineTrace::stopVelocityPlay()	16	static
-LineTrace.cpp:864:6:void LineTrace::setMode(int16_t)	16	static
-LineTrace.cpp:869:6:bool LineTrace::isTargetDistance(float)	24	static
-LineTrace.cpp:879:6:void LineTrace::storeCrossLineDistance()	24	static
-LineTrace.cpp:887:6:void LineTrace::storeSideLineDistance()	24	static
-LineTrace.cpp:894:6:void LineTrace::storeAllSideLineDistance()	24	static
-LineTrace.cpp:901:6:void LineTrace::correctionTotalDistanceFromCrossLine()	16	static
-LineTrace.cpp:910:6:void LineTrace::correctionTotalDistanceFromSideMarker()	32	static
-LineTrace.cpp:925:6:void LineTrace::correctionTotalDistanceFromAllSideMarker()	32	static
+LineTrace.cpp:382:6:void LineTrace::createVelocityTabeleFromSD()	64	static
+LineTrace.cpp:425:6:void LineTrace::decelerateProcessing(float, const float*)	48	static
+LineTrace.cpp:442:6:void LineTrace::accelerateProcessing(float, const float*)	48	static
+LineTrace.cpp:459:6:void LineTrace::updateTargetVelocity()	16	static
+LineTrace.cpp:482:6:bool LineTrace::isStable()	40	static
+LineTrace.cpp:513:6:void LineTrace::init()	56	static
+LineTrace.cpp:539:6:void LineTrace::setGain(float, float, float)	24	static
+LineTrace.cpp:547:6:void LineTrace::setVeloGain(float, float, float)	24	static
+LineTrace.cpp:554:7:float LineTrace::getKp()	16	static
+LineTrace.cpp:559:7:float LineTrace::getKi()	16	static
+LineTrace.cpp:564:7:float LineTrace::getKd()	16	static
+LineTrace.cpp:569:7:float LineTrace::getKpV()	16	static
+LineTrace.cpp:573:7:float LineTrace::getKiV()	16	static
+LineTrace.cpp:577:7:float LineTrace::getKdV()	16	static
+LineTrace.cpp:582:6:void LineTrace::setNormalRatio(float)	16	static
+LineTrace.cpp:587:6:void LineTrace::setTargetVelocity(float)	16	static
+LineTrace.cpp:592:6:void LineTrace::setMaxVelocity(float)	16	static
+LineTrace.cpp:597:6:void LineTrace::setMaxVelocity2(float)	16	static
+LineTrace.cpp:602:6:void LineTrace::setMinVelocity(float)	16	static
+LineTrace.cpp:607:6:void LineTrace::setMinVelocity2(float)	16	static
+LineTrace.cpp:611:7:float LineTrace::getTargetVelocity()	16	static
+LineTrace.cpp:616:7:float LineTrace::getMaxVelocity()	16	static
+LineTrace.cpp:621:7:float LineTrace::getMaxVelocity2()	16	static
+LineTrace.cpp:626:7:float LineTrace::getMinVelocity()	16	static
+LineTrace.cpp:631:7:float LineTrace::getMinVelocity2()	16	static
+LineTrace.cpp:635:6:void LineTrace::setMaxAccDec(float, float)	24	static
+LineTrace.cpp:641:7:float LineTrace::getMaxAcc()	16	static
+LineTrace.cpp:646:7:float LineTrace::getMaxDec()	16	static
+LineTrace.cpp:650:6:void LineTrace::flip()	16	static
+LineTrace.cpp:739:6:void LineTrace::flip100ns()	16	static
+LineTrace.cpp:754:6:void LineTrace::start()	16	static
+LineTrace.cpp:765:6:void LineTrace::stop()	24	static
+LineTrace.cpp:787:6:void LineTrace::running()	24	static
+LineTrace.cpp:838:6:void LineTrace::storeLogs()	32	static
+LineTrace.cpp:852:6:void LineTrace::startVelocityPlay()	16	static
+LineTrace.cpp:858:6:void LineTrace::stopVelocityPlay()	16	static
+LineTrace.cpp:865:6:void LineTrace::setMode(int16_t)	16	static
+LineTrace.cpp:870:6:bool LineTrace::isTargetDistance(float)	24	static
+LineTrace.cpp:880:6:void LineTrace::storeCrossLineDistance()	24	static
+LineTrace.cpp:888:6:void LineTrace::storeSideLineDistance()	24	static
+LineTrace.cpp:895:6:void LineTrace::storeAllSideLineDistance()	24	static
+LineTrace.cpp:902:6:void LineTrace::correctionTotalDistanceFromCrossLine()	16	static
+LineTrace.cpp:911:6:void LineTrace::correctionTotalDistanceFromSideMarker()	32	static
+LineTrace.cpp:926:6:void LineTrace::correctionTotalDistanceFromAllSideMarker()	32	static

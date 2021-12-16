@@ -314,10 +314,10 @@ float LineTrace::radius2Velocity(float radius)
 	float velocity;
 
 	if(mode_selector_ == SECOND_RUNNING){
-		if(radius < 200) velocity = 1.3;
+		if(radius < 200) velocity = min_velocity_;
 		if(radius < 500) velocity = 1.5;
-		else if(radius < 1500) velocity = 1.6;
-		else if(radius < 2000) velocity = 1.8;
+		else if(radius < 1500) velocity = 2.0;
+		else if(radius < 2000) velocity = 2.5;
 		else velocity = max_velocity_;
 	}
 
@@ -367,6 +367,8 @@ void LineTrace::createVelocityTabele()
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
 
+	velocity_table_[0] = min_velocity_;
+
 	// ----- Decelerate processing -----//
 	decelerateProcessing(max_dec_, p_distance);
 	// ----- Accelerate processing -----//
@@ -407,6 +409,8 @@ void LineTrace::createVelocityTabeleFromSD()
 	}
 	for(uint16_t i = 1; i < LOG_DATA_SIZE_DIS; i++){
 	}
+
+	velocity_table_[0] = min_velocity_;
 
 	// ----- Decelerate processing -----//
 	decelerateProcessing(max_dec_, p_distance);
@@ -713,9 +717,6 @@ void LineTrace::flip()
 		else if(all_sideline_flag_ == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){
 			all_sideline_flag_ = false;
 		}
-
-
-
 
 
 		// ----- emergency stop processing------//
