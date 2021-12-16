@@ -28,6 +28,8 @@ float mon_ref_dis, mon_current_dis;
 uint16_t mon_vel_idx, mon_i;
 float mon_tar_vel;
 
+#define REVERSE
+
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu) :
 				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
@@ -314,8 +316,8 @@ float LineTrace::radius2Velocity(float radius)
 	float velocity;
 
 	if(mode_selector_ == SECOND_RUNNING){
-		if(radius < 200) velocity = min_velocity_;
-		if(radius < 500) velocity = 1.5;
+		if(radius < 400) velocity = min_velocity_;
+		if(radius < 800) velocity = 1.5;
 		else if(radius < 1500) velocity = 2.0;
 		else if(radius < 2000) velocity = 2.5;
 		else velocity = max_velocity_;
@@ -661,7 +663,11 @@ void LineTrace::flip()
 			storeLogs();
 
 			// -------- Detect Robot stabilization ------//
+#ifdef REVERSE
+			if(isStable() == true && (~(side_sensor_->getStatus()) & 0x01) == 0x01){ // Stabilizing and side sensor is black
+#else
 			if(isStable() == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){ // Stabilizing and side sensor is black
+#endif
 				stable_flag_ = true;
 			}
 
@@ -685,7 +691,11 @@ void LineTrace::flip()
 		}
 
 		// ------- Store side line distance ------//
+#ifdef REVERSE
+		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x01) == 0x01){ //stabilizing and side sensor is white
+#else
 		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x02) == 0x02){ //stabilizing and side sensor is white
+#endif
 			//storeSideLineDistance();
 			if(mode_selector_ == FIRST_RUNNING){
 				storeSideLineDistance();
@@ -703,7 +713,11 @@ void LineTrace::flip()
 		else led_.LR(-1, 0);
 
 		// ------ All sideline storing -------//
+#ifdef REVERSE
+		if(all_sideline_flag_ == false && (side_sensor_->getStatus() & 0x01) == 0x01){
+#else
 		if(all_sideline_flag_ == false && (side_sensor_->getStatus() & 0x02) == 0x02){
+#endif
 			all_sideline_flag_ = true;
 
 			if(mode_selector_ == FIRST_RUNNING){
@@ -714,7 +728,11 @@ void LineTrace::flip()
 				//correction_check_cnt_ = 0;
 			}
 		}
+#ifdef REVERSE
+		else if(all_sideline_flag_ == true && (~(side_sensor_->getStatus()) & 0x01) == 0x01){
+#else
 		else if(all_sideline_flag_ == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){
+#endif
 			all_sideline_flag_ = false;
 		}
 
@@ -793,7 +811,12 @@ void LineTrace::running()
 	while(goal_flag == false){
 		switch(stage){
 		case 0:
+#ifdef REVERSE
+			if(side_sensor_->getWhiteLineCntL() == 1){
+#else
+			}
 			if(side_sensor_->getWhiteLineCntR() == 1){
+#endif
 				/*
 				if(mode_selector_ == FIRST_RUNNING){ // Other than first running
 					loggerStart();
@@ -816,7 +839,11 @@ void LineTrace::running()
 			break;
 
 		case 10:
+#ifdef REVERSE
+			if(side_sensor_->getWhiteLineCntL() == 2){
+#else
 			if(side_sensor_->getWhiteLineCntR() == 2){
+#endif
 				loggerStop();
 				stopVelocityPlay();
 				HAL_Delay(100); //Run through after the goal
