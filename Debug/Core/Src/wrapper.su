@@ -4,7 +4,7 @@ wrapper.cpp:133:6:void cppFlip1ms()	8	static
 wrapper.cpp:167:6:void cppFlip100ns()	8	static
 wrapper.cpp:173:6:void cppFlip10ms()	8	static
 wrapper.cpp:195:6:void cppExit(uint16_t)	16	static
-wrapper.cpp:200:6:void cppLoop()	40	static
-wrapper.cpp:869:6:void prameterSttingMode()	4	static
-wrapper.cpp:872:1:void __static_initialization_and_destruction_0(int, int)	40	static
-wrapper.cpp:872:1:cpp)	8	static
+wrapper.cpp:200:6:void cppLoop()	32	static
+wrapper.cpp:928:6:void prameterSttingMode()	4	static
+wrapper.cpp:931:1:void __static_initialization_and_destruction_0(int, int)	40	static
+wrapper.cpp:931:1:cpp)	8	static

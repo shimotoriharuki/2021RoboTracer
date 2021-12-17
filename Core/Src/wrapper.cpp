@@ -200,7 +200,7 @@ void cppExit(uint16_t gpio_pin)
 void cppLoop(void)
 {
 	static int16_t selector;
-	static int16_t selector_acc;
+	static int16_t selector_acc, selector_acc2;
 	static int16_t selector_vel, selector_vel2;
 	static int16_t selector_fast;
 
@@ -220,6 +220,8 @@ void cppLoop(void)
 
 	static float adj_acc = line_trace.getMaxAcc();
 	static float adj_dec = line_trace.getMaxDec();
+	static float adj_acc2 = line_trace.getMaxAcc2();
+	static float adj_dec2 = line_trace.getMaxDec2();
 
 	switch(rotary_switch.getValue()){
 	case 0:
@@ -592,6 +594,63 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
+		lcd_printf("ACC2:%3.1f", line_trace.getMaxAcc2());
+		lcd_locate(0,1);
+		lcd_printf("DEC2:%3.1f", line_trace.getMaxDec2());
+
+		if(joy_stick.getValue() == JOY_U){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			selector_acc2++;
+			if(selector_acc2 >= 2) selector_acc2 = 0;
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_R){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			if(selector_acc2 == 0){
+				adj_acc2 = adj_acc2 + 0.1;
+			}
+			else{
+				adj_dec2 = adj_dec2 + 0.1;
+			}
+
+			led.LR(-1, 0);
+		}
+
+		else if(joy_stick.getValue() == JOY_L){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			if(selector_acc2 == 0){
+				adj_acc2 = adj_acc2 - 0.1;
+			}
+			else{
+				adj_dec2 = adj_dec2 - 0.1;
+			}
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			sd_write_array_float("PARAMS", "ACC2.TXT", 1, &adj_acc2, OVER_WRITE);
+			sd_write_array_float("PARAMS", "DEC2.TXT", 1, &adj_dec2, OVER_WRITE);
+			line_trace.setMaxAccDec2(adj_acc2, adj_dec2);
+
+			led.LR(-1, 0);
+		}
+		break;
+
+	case 9:
+		led.fullColor('W');
+
+		lcd_clear();
+		lcd_locate(0,0);
 		lcd_printf("F%4.2lf   ", line_trace.getKpFast()*1000);
 		lcd_locate(0,1);
 		lcd_printf("%4.2lf%4.2lf", line_trace.getKiFast()*100, line_trace.getKdFast()*10000);
@@ -671,10 +730,7 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
-
-		break;
-
-	case 9:
+		/*
 		led.fullColor('~');
 
 		lcd_clear();
@@ -708,6 +764,7 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
+		*/
 		break;
 
 	case 10:
@@ -722,7 +779,9 @@ void cppLoop(void)
 			HAL_Delay(500);
 			led.LR(-1, 1);
 
-			line_trace.setMode(SECOND_RUNNING);
+			line_trace.setMode(THIRD_RUNNING);
+			line_trace.setTargetVelocity(adj_max_velocity2);
+			line_trace.setMaxVelocity(adj_max_velocity2);
 			line_trace.createVelocityTabeleFromSD();
 
 			led.LR(-1, 0);

@@ -77,6 +77,7 @@ private:
 	bool stable_flag_;
 	bool stable_cnt_reset_flag_;
 	float max_acc_, max_dec_;
+	float max_acc2_, max_dec2_;
 	uint16_t correction_check_cnt_;
 	bool all_sideline_flag_;
 
@@ -134,8 +135,11 @@ public:
 	float getMinVelocity();
 	float getMinVelocity2();
 	void setMaxAccDec(const float, const float);
+	void setMaxAccDec2(const float, const float);
 	float getMaxAcc();
 	float getMaxDec();
+	float getMaxAcc2();
+	float getMaxDec2();
 	void flip();
 	void flip100ns();
 	void start();

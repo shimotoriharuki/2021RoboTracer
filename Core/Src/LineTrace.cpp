@@ -35,7 +35,7 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), min_velocity_(0), min_velocity2_(0), logging_flag_(false),
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), all_sideline_idx_(0),
-				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), correction_check_cnt_(0), all_sideline_flag_(false)
+				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), correction_check_cnt_(0), all_sideline_flag_(false)
 
 {
 	motor_ = motor;
@@ -332,14 +332,11 @@ float LineTrace::radius2Velocity(float radius)
 	}
 
 	else if(mode_selector_ == THIRD_RUNNING){
-		if(radius < 100) velocity = min_velocity2_;
-		else if(radius < 150) velocity = 1.4;
-		else if(radius < 300) velocity = 1.5;
-		else if(radius < 500) velocity = 1.7;
-		else if(radius < 800) velocity = 1.8;
+		if(radius < 300) velocity = min_velocity2_;
+		else if(radius < 800) velocity = 1.7;
 		else if(radius < 1000) velocity = 2.0;
-		else if(radius < 1500) velocity = 2.2;
-		else if(radius < 2000) velocity = 2.4;
+		else if(radius < 1500) velocity = 2.3;
+		else if(radius < 2000) velocity = 2.5;
 		else velocity = max_velocity2_;
 	}
 	else velocity = 1.3;
@@ -377,12 +374,21 @@ void LineTrace::createVelocityTabele()
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
 
-	velocity_table_[0] = min_velocity_;
 
-	// ----- Decelerate processing -----//
-	decelerateProcessing(max_dec_, p_distance);
-	// ----- Accelerate processing -----//
-	accelerateProcessing(max_acc_, p_distance);
+	if(mode_selector_ == SECOND_RUNNING){
+		velocity_table_[0] = min_velocity_;
+		// ----- Decelerate processing -----//
+		decelerateProcessing(max_dec_, p_distance);
+		// ----- Accelerate processing -----//
+		accelerateProcessing(max_acc_, p_distance);
+	}
+	else if(mode_selector_ == THIRD_RUNNING){
+		velocity_table_[0] = min_velocity2_;
+		// ----- Decelerate processing -----//
+		decelerateProcessing(max_dec2_, p_distance);
+		// ----- Accelerate processing -----//
+		accelerateProcessing(max_acc2_, p_distance);
+	}
 
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 
@@ -417,15 +423,21 @@ void LineTrace::createVelocityTabeleFromSD()
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
-	for(uint16_t i = 1; i < LOG_DATA_SIZE_DIS; i++){
+
+	if(mode_selector_ == SECOND_RUNNING){
+		velocity_table_[0] = min_velocity_;
+		// ----- Decelerate processing -----//
+		decelerateProcessing(max_dec_, p_distance);
+		// ----- Accelerate processing -----//
+		accelerateProcessing(max_acc_, p_distance);
 	}
-
-	velocity_table_[0] = min_velocity_;
-
-	// ----- Decelerate processing -----//
-	decelerateProcessing(max_dec_, p_distance);
-	// ----- Accelerate processing -----//
-	accelerateProcessing(max_acc_, p_distance);
+	else if(mode_selector_ == THIRD_RUNNING){
+		velocity_table_[0] = min_velocity2_;
+		// ----- Decelerate processing -----//
+		decelerateProcessing(max_dec2_, p_distance);
+		// ----- Accelerate processing -----//
+		accelerateProcessing(max_acc2_, p_distance);
+	}
 
 
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
@@ -550,6 +562,11 @@ void LineTrace::init()
 	sd_read_array_float("PARAMS", "ACC.TXT", 1, &temp_acc);
 	sd_read_array_float("PARAMS", "DEC.TXT", 1, &temp_dec);
 	setMaxAccDec(temp_acc, temp_dec);
+
+	float temp_acc2 = 0, temp_dec2 = 0;
+	sd_read_array_float("PARAMS", "ACC2.TXT", 1, &temp_acc2);
+	sd_read_array_float("PARAMS", "DEC2.TXT", 1, &temp_dec2);
+	setMaxAccDec2(temp_acc2, temp_dec2);
 }
 
 void LineTrace::setGain(float kp, float ki, float kd)
@@ -673,10 +690,24 @@ void LineTrace::setMaxAccDec(const float acc, const float dec)
 	max_acc_ = acc;
 	max_dec_ = dec;
 }
+void LineTrace::setMaxAccDec2(const float acc, const float dec)
+{
+	max_acc2_ = acc;
+	max_dec2_ = dec;
+}
 
 float LineTrace::getMaxAcc()
 {
 	return max_acc_;
+}
+
+float LineTrace::getMaxDec2()
+{
+	return max_dec2_;
+}
+float LineTrace::getMaxAcc2()
+{
+	return max_acc2_;
 }
 
 float LineTrace::getMaxDec()
