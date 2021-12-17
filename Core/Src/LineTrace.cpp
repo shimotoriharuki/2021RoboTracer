@@ -176,7 +176,7 @@ void LineTrace::pidTrace()
 		i_reset_flag_ = false;
 	}
 
-	if(target_velocity_ >= 3){
+	if(target_velocity_ >= 2.5){
 		p = kp_fast_ * diff;
 		d = kd_fast_ * (diff - pre_diff) / DELTA_T;
 		i += ki_fast_ * diff * DELTA_T;

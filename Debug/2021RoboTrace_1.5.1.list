@@ -35,15 +35,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  15 .debug_ranges 00002030  00000000  00000000  00073478  2**3
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_macro  00035241  00000000  00000000  000754a8  2**0
+ 16 .debug_macro  00035247  00000000  00000000  000754a8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   00025d90  00000000  00000000  000aa6e9  2**0
+ 17 .debug_line   00025d8e  00000000  00000000  000aa6ef  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    00110eb4  00000000  00000000  000d0479  2**0
+ 18 .debug_str    00110ebd  00000000  00000000  000d047d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  001e132d  2**0
+ 19 .comment      0000007b  00000000  00000000  001e133a  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000a648  00000000  00000000  001e13a8  2**2
+ 20 .debug_frame  0000a648  00000000  00000000  001e13b8  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -4405,7 +4405,7 @@ bool LineSensor::emergencyStop()
 uint16_t mon_vel_idx, mon_i;
 float mon_tar_vel;
 
-//#define REVERSE
+#define REVERSE
 
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu) :
  8002658:	b480      	push	{r7}
@@ -4849,10 +4849,10 @@ void LineTrace::pidTrace()
  8002a10:	f883 2049 	strb.w	r2, [r3, #73]	; 0x49
 	}
 
-	if(target_velocity_ >= 3){
+	if(target_velocity_ >= 2.5){
  8002a14:	687b      	ldr	r3, [r7, #4]
  8002a16:	edd3 7a21 	vldr	s15, [r3, #132]	; 0x84
- 8002a1a:	eeb0 7a08 	vmov.f32	s14, #8	; 0x40400000  3.0
+ 8002a1a:	eeb0 7a04 	vmov.f32	s14, #4	; 0x40200000  2.5
  8002a1e:	eef4 7ac7 	vcmpe.f32	s15, s14
  8002a22:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  8002a26:	db4c      	blt.n	8002ac2 <_ZN9LineTrace8pidTraceEv+0xda>
@@ -5033,7 +5033,7 @@ void LineTrace::loggerStart()
  8002bcc:	687b      	ldr	r3, [r7, #4]
  8002bce:	69db      	ldr	r3, [r3, #28]
  8002bd0:	4618      	mov	r0, r3
- 8002bd2:	f001 feb3 	bl	800493c <_ZN6Logger10resetLogs2Ev>
+ 8002bd2:	f001 feb1 	bl	8004938 <_ZN6Logger10resetLogs2Ev>
 
 	logging_flag_ = true;
  8002bd6:	687b      	ldr	r3, [r7, #4]
@@ -5057,7 +5057,7 @@ void LineTrace::loggerStop()
  8002bee:	687b      	ldr	r3, [r7, #4]
  8002bf0:	69db      	ldr	r3, [r3, #28]
  8002bf2:	4618      	mov	r0, r3
- 8002bf4:	f001 ff18 	bl	8004a28 <_ZN6Logger4stopEv>
+ 8002bf4:	f001 ff16 	bl	8004a24 <_ZN6Logger4stopEv>
 	logging_flag_ = false;
  8002bf8:	687b      	ldr	r3, [r7, #4]
  8002bfa:	2200      	movs	r2, #0
@@ -5184,13 +5184,13 @@ bool LineTrace::isCrossLine()
  8002cec:	d103      	bne.n	8002cf6 <_ZN9LineTrace11isCrossLineEv+0xee>
 				storeCrossLineDistance();
  8002cee:	6878      	ldr	r0, [r7, #4]
- 8002cf0:	f001 fad2 	bl	8004298 <_ZN9LineTrace22storeCrossLineDistanceEv>
+ 8002cf0:	f001 fad0 	bl	8004294 <_ZN9LineTrace22storeCrossLineDistanceEv>
  8002cf4:	e032      	b.n	8002d5c <_ZN9LineTrace11isCrossLineEv+0x154>
 			}
 			else{
 				correctionTotalDistanceFromCrossLine();
  8002cf6:	6878      	ldr	r0, [r7, #4]
- 8002cf8:	f001 fb74 	bl	80043e4 <_ZN9LineTrace36correctionTotalDistanceFromCrossLineEv>
+ 8002cf8:	f001 fb72 	bl	80043e0 <_ZN9LineTrace36correctionTotalDistanceFromCrossLineEv>
 				correction_check_cnt_ = 0;
  8002cfc:	687b      	ldr	r3, [r7, #4]
  8002cfe:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
@@ -5435,13 +5435,13 @@ void LineTrace::createVelocityTabele()
  8002ef8:	687b      	ldr	r3, [r7, #4]
  8002efa:	69db      	ldr	r3, [r3, #28]
  8002efc:	4618      	mov	r0, r3
- 8002efe:	f001 fc78 	bl	80047f2 <_ZN6Logger23getDistanceArrayPointerEv>
+ 8002efe:	f001 fc76 	bl	80047ee <_ZN6Logger23getDistanceArrayPointerEv>
  8002f02:	6138      	str	r0, [r7, #16]
 	p_theta= logger_->getThetaArrayPointer();
  8002f04:	687b      	ldr	r3, [r7, #4]
  8002f06:	69db      	ldr	r3, [r3, #28]
  8002f08:	4618      	mov	r0, r3
- 8002f0a:	f001 fc7e 	bl	800480a <_ZN6Logger20getThetaArrayPointerEv>
+ 8002f0a:	f001 fc7c 	bl	8004806 <_ZN6Logger20getThetaArrayPointerEv>
  8002f0e:	60f8      	str	r0, [r7, #12]
 
 	float temp_distance, temp_theta;
@@ -5633,7 +5633,7 @@ void LineTrace::createVelocityTabeleFromSD()
  8003098:	4b6b      	ldr	r3, [pc, #428]	; (8003248 <_ZN9LineTrace26createVelocityTabeleFromSDEv+0x1bc>)
  800309a:	4a6c      	ldr	r2, [pc, #432]	; (800324c <_ZN9LineTrace26createVelocityTabeleFromSDEv+0x1c0>)
  800309c:	496c      	ldr	r1, [pc, #432]	; (8003250 <_ZN9LineTrace26createVelocityTabeleFromSDEv+0x1c4>)
- 800309e:	f001 fc30 	bl	8004902 <_ZN6Logger22importDistanceAndThetaEPKcS1_S1_>
+ 800309e:	f001 fc2e 	bl	80048fe <_ZN6Logger22importDistanceAndThetaEPKcS1_S1_>
 	sd_read_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_);
  80030a2:	687b      	ldr	r3, [r7, #4]
  80030a4:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
@@ -5656,13 +5656,13 @@ void LineTrace::createVelocityTabeleFromSD()
  80030c8:	687b      	ldr	r3, [r7, #4]
  80030ca:	69db      	ldr	r3, [r3, #28]
  80030cc:	4618      	mov	r0, r3
- 80030ce:	f001 fb90 	bl	80047f2 <_ZN6Logger23getDistanceArrayPointerEv>
+ 80030ce:	f001 fb8e 	bl	80047ee <_ZN6Logger23getDistanceArrayPointerEv>
  80030d2:	6138      	str	r0, [r7, #16]
 	p_theta= logger_->getThetaArrayPointer();
  80030d4:	687b      	ldr	r3, [r7, #4]
  80030d6:	69db      	ldr	r3, [r3, #28]
  80030d8:	4618      	mov	r0, r3
- 80030da:	f001 fb96 	bl	800480a <_ZN6Logger20getThetaArrayPointerEv>
+ 80030da:	f001 fb94 	bl	8004806 <_ZN6Logger20getThetaArrayPointerEv>
  80030de:	60f8      	str	r0, [r7, #12]
 
 	float temp_distance, temp_theta;
@@ -7114,7 +7114,7 @@ void LineTrace::flip()
  8003c50:	687b      	ldr	r3, [r7, #4]
  8003c52:	f893 3048 	ldrb.w	r3, [r3, #72]	; 0x48
  8003c56:	2b00      	cmp	r3, #0
- 8003c58:	f000 8142 	beq.w	8003ee0 <_ZN9LineTrace4flipEv+0x298>
+ 8003c58:	f000 8140 	beq.w	8003edc <_ZN9LineTrace4flipEv+0x294>
 		// ---- line following processing -----//
 		pidTrace();
  8003c5c:	6878      	ldr	r0, [r7, #4]
@@ -7126,2214 +7126,2216 @@ void LineTrace::flip()
 		if(isTargetDistance(10) == true){
  8003c62:	eeb2 0a04 	vmov.f32	s0, #36	; 0x41200000  10.0
  8003c66:	6878      	ldr	r0, [r7, #4]
- 8003c68:	f000 faf4 	bl	8004254 <_ZN9LineTrace16isTargetDistanceEf>
+ 8003c68:	f000 faf2 	bl	8004250 <_ZN9LineTrace16isTargetDistanceEf>
  8003c6c:	4603      	mov	r3, r0
  8003c6e:	2b00      	cmp	r3, #0
- 8003c70:	d028      	beq.n	8003cc4 <_ZN9LineTrace4flipEv+0x7c>
+ 8003c70:	d027      	beq.n	8003cc2 <_ZN9LineTrace4flipEv+0x7a>
 			// ---- Store Logs ------//
 			storeLogs();
  8003c72:	6878      	ldr	r0, [r7, #4]
- 8003c74:	f000 fa52 	bl	800411c <_ZN9LineTrace9storeLogsEv>
+ 8003c74:	f000 fa50 	bl	8004118 <_ZN9LineTrace9storeLogsEv>
 
 			// -------- Detect Robot stabilization ------//
 #ifdef REVERSE
 			if(isStable() == true && (~(side_sensor_->getStatus()) & 0x01) == 0x01){ // Stabilizing and side sensor is black
-#else
-			if(isStable() == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){ // Stabilizing and side sensor is black
  8003c78:	6878      	ldr	r0, [r7, #4]
  8003c7a:	f7ff fcdf 	bl	800363c <_ZN9LineTrace8isStableEv>
  8003c7e:	4603      	mov	r3, r0
  8003c80:	2b00      	cmp	r3, #0
- 8003c82:	d00c      	beq.n	8003c9e <_ZN9LineTrace4flipEv+0x56>
+ 8003c82:	d00b      	beq.n	8003c9c <_ZN9LineTrace4flipEv+0x54>
  8003c84:	687b      	ldr	r3, [r7, #4]
  8003c86:	691b      	ldr	r3, [r3, #16]
  8003c88:	4618      	mov	r0, r3
  8003c8a:	f001 fbb3 	bl	80053f4 <_ZN10SideSensor9getStatusEv>
  8003c8e:	4603      	mov	r3, r0
- 8003c90:	43db      	mvns	r3, r3
- 8003c92:	f003 0302 	and.w	r3, r3, #2
- 8003c96:	2b02      	cmp	r3, #2
- 8003c98:	d101      	bne.n	8003c9e <_ZN9LineTrace4flipEv+0x56>
- 8003c9a:	2301      	movs	r3, #1
- 8003c9c:	e000      	b.n	8003ca0 <_ZN9LineTrace4flipEv+0x58>
- 8003c9e:	2300      	movs	r3, #0
- 8003ca0:	2b00      	cmp	r3, #0
- 8003ca2:	d005      	beq.n	8003cb0 <_ZN9LineTrace4flipEv+0x68>
+ 8003c90:	f003 0301 	and.w	r3, r3, #1
+ 8003c94:	2b00      	cmp	r3, #0
+ 8003c96:	d101      	bne.n	8003c9c <_ZN9LineTrace4flipEv+0x54>
+ 8003c98:	2301      	movs	r3, #1
+ 8003c9a:	e000      	b.n	8003c9e <_ZN9LineTrace4flipEv+0x56>
+ 8003c9c:	2300      	movs	r3, #0
+ 8003c9e:	2b00      	cmp	r3, #0
+ 8003ca0:	d005      	beq.n	8003cae <_ZN9LineTrace4flipEv+0x66>
+#else
+			if(isStable() == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){ // Stabilizing and side sensor is black
 #endif
 				stable_flag_ = true;
- 8003ca4:	687b      	ldr	r3, [r7, #4]
- 8003ca6:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8003caa:	33ff      	adds	r3, #255	; 0xff
- 8003cac:	2201      	movs	r2, #1
- 8003cae:	701a      	strb	r2, [r3, #0]
+ 8003ca2:	687b      	ldr	r3, [r7, #4]
+ 8003ca4:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8003ca8:	33ff      	adds	r3, #255	; 0xff
+ 8003caa:	2201      	movs	r2, #1
+ 8003cac:	701a      	strb	r2, [r3, #0]
 			}
 
 			// ---reset total cnt ---//
 			encoder_->clearDistance10mm();
- 8003cb0:	687b      	ldr	r3, [r7, #4]
- 8003cb2:	695b      	ldr	r3, [r3, #20]
- 8003cb4:	4618      	mov	r0, r3
- 8003cb6:	f7fd fbf7 	bl	80014a8 <_ZN7Encoder17clearDistance10mmEv>
+ 8003cae:	687b      	ldr	r3, [r7, #4]
+ 8003cb0:	695b      	ldr	r3, [r3, #20]
+ 8003cb2:	4618      	mov	r0, r3
+ 8003cb4:	f7fd fbf8 	bl	80014a8 <_ZN7Encoder17clearDistance10mmEv>
 			odometry_->clearPotition();
- 8003cba:	687b      	ldr	r3, [r7, #4]
- 8003cbc:	699b      	ldr	r3, [r3, #24]
- 8003cbe:	4618      	mov	r0, r3
- 8003cc0:	f001 f90a 	bl	8004ed8 <_ZN8Odometry13clearPotitionEv>
+ 8003cb8:	687b      	ldr	r3, [r7, #4]
+ 8003cba:	699b      	ldr	r3, [r3, #24]
+ 8003cbc:	4618      	mov	r0, r3
+ 8003cbe:	f001 f90b 	bl	8004ed8 <_ZN8Odometry13clearPotitionEv>
 		}
 
 		// ---- Target Velocity Updata ------//
 		updateTargetVelocity();
- 8003cc4:	6878      	ldr	r0, [r7, #4]
- 8003cc6:	f7ff fc1b 	bl	8003500 <_ZN9LineTrace20updateTargetVelocityEv>
+ 8003cc2:	6878      	ldr	r0, [r7, #4]
+ 8003cc4:	f7ff fc1c 	bl	8003500 <_ZN9LineTrace20updateTargetVelocityEv>
 
 		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
- 8003cca:	6878      	ldr	r0, [r7, #4]
- 8003ccc:	f7fe ff9c 	bl	8002c08 <_ZN9LineTrace11isCrossLineEv>
- 8003cd0:	4603      	mov	r3, r0
- 8003cd2:	2b00      	cmp	r3, #0
- 8003cd4:	d009      	beq.n	8003cea <_ZN9LineTrace4flipEv+0xa2>
+ 8003cc8:	6878      	ldr	r0, [r7, #4]
+ 8003cca:	f7fe ff9d 	bl	8002c08 <_ZN9LineTrace11isCrossLineEv>
+ 8003cce:	4603      	mov	r3, r0
+ 8003cd0:	2b00      	cmp	r3, #0
+ 8003cd2:	d009      	beq.n	8003ce8 <_ZN9LineTrace4flipEv+0xa0>
 			side_sensor_->enableIgnore();
- 8003cd6:	687b      	ldr	r3, [r7, #4]
- 8003cd8:	691b      	ldr	r3, [r3, #16]
- 8003cda:	4618      	mov	r0, r3
- 8003cdc:	f001 fbb2 	bl	8005444 <_ZN10SideSensor12enableIgnoreEv>
+ 8003cd4:	687b      	ldr	r3, [r7, #4]
+ 8003cd6:	691b      	ldr	r3, [r3, #16]
+ 8003cd8:	4618      	mov	r0, r3
+ 8003cda:	f001 fbb3 	bl	8005444 <_ZN10SideSensor12enableIgnoreEv>
 			encoder_->clearCrossLineIgnoreDistance();
- 8003ce0:	687b      	ldr	r3, [r7, #4]
- 8003ce2:	695b      	ldr	r3, [r3, #20]
- 8003ce4:	4618      	mov	r0, r3
- 8003ce6:	f7fd fc0a 	bl	80014fe <_ZN7Encoder28clearCrossLineIgnoreDistanceEv>
+ 8003cde:	687b      	ldr	r3, [r7, #4]
+ 8003ce0:	695b      	ldr	r3, [r3, #20]
+ 8003ce2:	4618      	mov	r0, r3
+ 8003ce4:	f7fd fc0b 	bl	80014fe <_ZN7Encoder28clearCrossLineIgnoreDistanceEv>
 		}
 
 		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 200){
- 8003cea:	687b      	ldr	r3, [r7, #4]
- 8003cec:	691b      	ldr	r3, [r3, #16]
- 8003cee:	4618      	mov	r0, r3
- 8003cf0:	f001 fbc2 	bl	8005478 <_ZN10SideSensor13getIgnoreFlagEv>
- 8003cf4:	4603      	mov	r3, r0
- 8003cf6:	2b00      	cmp	r3, #0
- 8003cf8:	d00f      	beq.n	8003d1a <_ZN9LineTrace4flipEv+0xd2>
- 8003cfa:	687b      	ldr	r3, [r7, #4]
- 8003cfc:	695b      	ldr	r3, [r3, #20]
- 8003cfe:	4618      	mov	r0, r3
- 8003d00:	f7fd fbee 	bl	80014e0 <_ZN7Encoder26getCrossLineIgnoreDistanceEv>
- 8003d04:	eeb0 7a40 	vmov.f32	s14, s0
- 8003d08:	eddf 7a77 	vldr	s15, [pc, #476]	; 8003ee8 <_ZN9LineTrace4flipEv+0x2a0>
- 8003d0c:	eeb4 7ae7 	vcmpe.f32	s14, s15
- 8003d10:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
- 8003d14:	db01      	blt.n	8003d1a <_ZN9LineTrace4flipEv+0xd2>
- 8003d16:	2301      	movs	r3, #1
- 8003d18:	e000      	b.n	8003d1c <_ZN9LineTrace4flipEv+0xd4>
- 8003d1a:	2300      	movs	r3, #0
- 8003d1c:	2b00      	cmp	r3, #0
- 8003d1e:	d004      	beq.n	8003d2a <_ZN9LineTrace4flipEv+0xe2>
+ 8003ce8:	687b      	ldr	r3, [r7, #4]
+ 8003cea:	691b      	ldr	r3, [r3, #16]
+ 8003cec:	4618      	mov	r0, r3
+ 8003cee:	f001 fbc3 	bl	8005478 <_ZN10SideSensor13getIgnoreFlagEv>
+ 8003cf2:	4603      	mov	r3, r0
+ 8003cf4:	2b00      	cmp	r3, #0
+ 8003cf6:	d00f      	beq.n	8003d18 <_ZN9LineTrace4flipEv+0xd0>
+ 8003cf8:	687b      	ldr	r3, [r7, #4]
+ 8003cfa:	695b      	ldr	r3, [r3, #20]
+ 8003cfc:	4618      	mov	r0, r3
+ 8003cfe:	f7fd fbef 	bl	80014e0 <_ZN7Encoder26getCrossLineIgnoreDistanceEv>
+ 8003d02:	eeb0 7a40 	vmov.f32	s14, s0
+ 8003d06:	eddf 7a77 	vldr	s15, [pc, #476]	; 8003ee4 <_ZN9LineTrace4flipEv+0x29c>
+ 8003d0a:	eeb4 7ae7 	vcmpe.f32	s14, s15
+ 8003d0e:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
+ 8003d12:	db01      	blt.n	8003d18 <_ZN9LineTrace4flipEv+0xd0>
+ 8003d14:	2301      	movs	r3, #1
+ 8003d16:	e000      	b.n	8003d1a <_ZN9LineTrace4flipEv+0xd2>
+ 8003d18:	2300      	movs	r3, #0
+ 8003d1a:	2b00      	cmp	r3, #0
+ 8003d1c:	d004      	beq.n	8003d28 <_ZN9LineTrace4flipEv+0xe0>
 			side_sensor_->disableIgnore();
- 8003d20:	687b      	ldr	r3, [r7, #4]
- 8003d22:	691b      	ldr	r3, [r3, #16]
- 8003d24:	4618      	mov	r0, r3
- 8003d26:	f001 fb9a 	bl	800545e <_ZN10SideSensor13disableIgnoreEv>
+ 8003d1e:	687b      	ldr	r3, [r7, #4]
+ 8003d20:	691b      	ldr	r3, [r3, #16]
+ 8003d22:	4618      	mov	r0, r3
+ 8003d24:	f001 fb9b 	bl	800545e <_ZN10SideSensor13disableIgnoreEv>
+
+		}
 
 		// ------- Store side line distance ------//
 #ifdef REVERSE
 		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x01) == 0x01){ //stabilizing and side sensor is white
+ 8003d28:	687b      	ldr	r3, [r7, #4]
+ 8003d2a:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8003d2e:	33ff      	adds	r3, #255	; 0xff
+ 8003d30:	781b      	ldrb	r3, [r3, #0]
+ 8003d32:	2b00      	cmp	r3, #0
+ 8003d34:	d00b      	beq.n	8003d4e <_ZN9LineTrace4flipEv+0x106>
+ 8003d36:	687b      	ldr	r3, [r7, #4]
+ 8003d38:	691b      	ldr	r3, [r3, #16]
+ 8003d3a:	4618      	mov	r0, r3
+ 8003d3c:	f001 fb5a 	bl	80053f4 <_ZN10SideSensor9getStatusEv>
+ 8003d40:	4603      	mov	r3, r0
+ 8003d42:	f003 0301 	and.w	r3, r3, #1
+ 8003d46:	2b01      	cmp	r3, #1
+ 8003d48:	d101      	bne.n	8003d4e <_ZN9LineTrace4flipEv+0x106>
+ 8003d4a:	2301      	movs	r3, #1
+ 8003d4c:	e000      	b.n	8003d50 <_ZN9LineTrace4flipEv+0x108>
+ 8003d4e:	2300      	movs	r3, #0
+ 8003d50:	2b00      	cmp	r3, #0
+ 8003d52:	d01f      	beq.n	8003d94 <_ZN9LineTrace4flipEv+0x14c>
 #else
 		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x02) == 0x02){ //stabilizing and side sensor is white
- 8003d2a:	687b      	ldr	r3, [r7, #4]
- 8003d2c:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8003d30:	33ff      	adds	r3, #255	; 0xff
- 8003d32:	781b      	ldrb	r3, [r3, #0]
- 8003d34:	2b00      	cmp	r3, #0
- 8003d36:	d00b      	beq.n	8003d50 <_ZN9LineTrace4flipEv+0x108>
- 8003d38:	687b      	ldr	r3, [r7, #4]
- 8003d3a:	691b      	ldr	r3, [r3, #16]
- 8003d3c:	4618      	mov	r0, r3
- 8003d3e:	f001 fb59 	bl	80053f4 <_ZN10SideSensor9getStatusEv>
- 8003d42:	4603      	mov	r3, r0
- 8003d44:	f003 0302 	and.w	r3, r3, #2
- 8003d48:	2b02      	cmp	r3, #2
- 8003d4a:	d101      	bne.n	8003d50 <_ZN9LineTrace4flipEv+0x108>
- 8003d4c:	2301      	movs	r3, #1
- 8003d4e:	e000      	b.n	8003d52 <_ZN9LineTrace4flipEv+0x10a>
- 8003d50:	2300      	movs	r3, #0
- 8003d52:	2b00      	cmp	r3, #0
- 8003d54:	d01f      	beq.n	8003d96 <_ZN9LineTrace4flipEv+0x14e>
 #endif
 			//storeSideLineDistance();
 			if(mode_selector_ == FIRST_RUNNING){
- 8003d56:	687b      	ldr	r3, [r7, #4]
- 8003d58:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8003d5c:	3324      	adds	r3, #36	; 0x24
- 8003d5e:	f9b3 3000 	ldrsh.w	r3, [r3]
- 8003d62:	2b00      	cmp	r3, #0
- 8003d64:	d103      	bne.n	8003d6e <_ZN9LineTrace4flipEv+0x126>
+ 8003d54:	687b      	ldr	r3, [r7, #4]
+ 8003d56:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 8003d5a:	3324      	adds	r3, #36	; 0x24
+ 8003d5c:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 8003d60:	2b00      	cmp	r3, #0
+ 8003d62:	d103      	bne.n	8003d6c <_ZN9LineTrace4flipEv+0x124>
 				storeSideLineDistance();
- 8003d66:	6878      	ldr	r0, [r7, #4]
- 8003d68:	f000 facc 	bl	8004304 <_ZN9LineTrace21storeSideLineDistanceEv>
- 8003d6c:	e008      	b.n	8003d80 <_ZN9LineTrace4flipEv+0x138>
+ 8003d64:	6878      	ldr	r0, [r7, #4]
+ 8003d66:	f000 facb 	bl	8004300 <_ZN9LineTrace21storeSideLineDistanceEv>
+ 8003d6a:	e008      	b.n	8003d7e <_ZN9LineTrace4flipEv+0x136>
 			}
 			else{
 				correctionTotalDistanceFromSideMarker();
- 8003d6e:	6878      	ldr	r0, [r7, #4]
- 8003d70:	f000 fb6e 	bl	8004450 <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv>
+ 8003d6c:	6878      	ldr	r0, [r7, #4]
+ 8003d6e:	f000 fb6d 	bl	800444c <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv>
 				correction_check_cnt_ = 0;
- 8003d74:	687b      	ldr	r3, [r7, #4]
- 8003d76:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
- 8003d7a:	3314      	adds	r3, #20
- 8003d7c:	2200      	movs	r2, #0
- 8003d7e:	801a      	strh	r2, [r3, #0]
+ 8003d72:	687b      	ldr	r3, [r7, #4]
+ 8003d74:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
+ 8003d78:	3314      	adds	r3, #20
+ 8003d7a:	2200      	movs	r2, #0
+ 8003d7c:	801a      	strh	r2, [r3, #0]
 			}
 
 			stable_flag_ = false;
- 8003d80:	687b      	ldr	r3, [r7, #4]
- 8003d82:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8003d86:	33ff      	adds	r3, #255	; 0xff
- 8003d88:	2200      	movs	r2, #0
- 8003d8a:	701a      	strb	r2, [r3, #0]
+ 8003d7e:	687b      	ldr	r3, [r7, #4]
+ 8003d80:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8003d84:	33ff      	adds	r3, #255	; 0xff
+ 8003d86:	2200      	movs	r2, #0
+ 8003d88:	701a      	strb	r2, [r3, #0]
 			stable_cnt_reset_flag_ = true;
- 8003d8c:	687b      	ldr	r3, [r7, #4]
- 8003d8e:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
- 8003d92:	2201      	movs	r2, #1
- 8003d94:	701a      	strb	r2, [r3, #0]
+ 8003d8a:	687b      	ldr	r3, [r7, #4]
+ 8003d8c:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
+ 8003d90:	2201      	movs	r2, #1
+ 8003d92:	701a      	strb	r2, [r3, #0]
 		}
 
 		if(stable_flag_ == true) led_.LR(-1, 1);
- 8003d96:	687b      	ldr	r3, [r7, #4]
- 8003d98:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8003d9c:	33ff      	adds	r3, #255	; 0xff
- 8003d9e:	781b      	ldrb	r3, [r3, #0]
- 8003da0:	2b00      	cmp	r3, #0
- 8003da2:	d008      	beq.n	8003db6 <_ZN9LineTrace4flipEv+0x16e>
- 8003da4:	687b      	ldr	r3, [r7, #4]
- 8003da6:	330c      	adds	r3, #12
- 8003da8:	2201      	movs	r2, #1
- 8003daa:	f04f 31ff 	mov.w	r1, #4294967295
- 8003dae:	4618      	mov	r0, r3
- 8003db0:	f7fe f8ec 	bl	8001f8c <_ZN3LED2LREaa>
- 8003db4:	e007      	b.n	8003dc6 <_ZN9LineTrace4flipEv+0x17e>
+ 8003d94:	687b      	ldr	r3, [r7, #4]
+ 8003d96:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8003d9a:	33ff      	adds	r3, #255	; 0xff
+ 8003d9c:	781b      	ldrb	r3, [r3, #0]
+ 8003d9e:	2b00      	cmp	r3, #0
+ 8003da0:	d008      	beq.n	8003db4 <_ZN9LineTrace4flipEv+0x16c>
+ 8003da2:	687b      	ldr	r3, [r7, #4]
+ 8003da4:	330c      	adds	r3, #12
+ 8003da6:	2201      	movs	r2, #1
+ 8003da8:	f04f 31ff 	mov.w	r1, #4294967295
+ 8003dac:	4618      	mov	r0, r3
+ 8003dae:	f7fe f8ed 	bl	8001f8c <_ZN3LED2LREaa>
+ 8003db2:	e007      	b.n	8003dc4 <_ZN9LineTrace4flipEv+0x17c>
 		else led_.LR(-1, 0);
- 8003db6:	687b      	ldr	r3, [r7, #4]
- 8003db8:	330c      	adds	r3, #12
- 8003dba:	2200      	movs	r2, #0
- 8003dbc:	f04f 31ff 	mov.w	r1, #4294967295
- 8003dc0:	4618      	mov	r0, r3
- 8003dc2:	f7fe f8e3 	bl	8001f8c <_ZN3LED2LREaa>
+ 8003db4:	687b      	ldr	r3, [r7, #4]
+ 8003db6:	330c      	adds	r3, #12
+ 8003db8:	2200      	movs	r2, #0
+ 8003dba:	f04f 31ff 	mov.w	r1, #4294967295
+ 8003dbe:	4618      	mov	r0, r3
+ 8003dc0:	f7fe f8e4 	bl	8001f8c <_ZN3LED2LREaa>
 
 		// ------ All sideline storing -------//
 #ifdef REVERSE
 		if(all_sideline_flag_ == false && (side_sensor_->getStatus() & 0x01) == 0x01){
+ 8003dc4:	687b      	ldr	r3, [r7, #4]
+ 8003dc6:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
+ 8003dca:	3316      	adds	r3, #22
+ 8003dcc:	781b      	ldrb	r3, [r3, #0]
+ 8003dce:	f083 0301 	eor.w	r3, r3, #1
+ 8003dd2:	b2db      	uxtb	r3, r3
+ 8003dd4:	2b00      	cmp	r3, #0
+ 8003dd6:	d00b      	beq.n	8003df0 <_ZN9LineTrace4flipEv+0x1a8>
+ 8003dd8:	687b      	ldr	r3, [r7, #4]
+ 8003dda:	691b      	ldr	r3, [r3, #16]
+ 8003ddc:	4618      	mov	r0, r3
+ 8003dde:	f001 fb09 	bl	80053f4 <_ZN10SideSensor9getStatusEv>
+ 8003de2:	4603      	mov	r3, r0
+ 8003de4:	f003 0301 	and.w	r3, r3, #1
+ 8003de8:	2b01      	cmp	r3, #1
+ 8003dea:	d101      	bne.n	8003df0 <_ZN9LineTrace4flipEv+0x1a8>
+ 8003dec:	2301      	movs	r3, #1
+ 8003dee:	e000      	b.n	8003df2 <_ZN9LineTrace4flipEv+0x1aa>
+ 8003df0:	2300      	movs	r3, #0
+ 8003df2:	2b00      	cmp	r3, #0
+ 8003df4:	d011      	beq.n	8003e1a <_ZN9LineTrace4flipEv+0x1d2>
 #else
 		if(all_sideline_flag_ == false && (side_sensor_->getStatus() & 0x02) == 0x02){
- 8003dc6:	687b      	ldr	r3, [r7, #4]
- 8003dc8:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
- 8003dcc:	3316      	adds	r3, #22
- 8003dce:	781b      	ldrb	r3, [r3, #0]
- 8003dd0:	f083 0301 	eor.w	r3, r3, #1
- 8003dd4:	b2db      	uxtb	r3, r3
- 8003dd6:	2b00      	cmp	r3, #0
- 8003dd8:	d00b      	beq.n	8003df2 <_ZN9LineTrace4flipEv+0x1aa>
- 8003dda:	687b      	ldr	r3, [r7, #4]
- 8003ddc:	691b      	ldr	r3, [r3, #16]
- 8003dde:	4618      	mov	r0, r3
- 8003de0:	f001 fb08 	bl	80053f4 <_ZN10SideSensor9getStatusEv>
- 8003de4:	4603      	mov	r3, r0
- 8003de6:	f003 0302 	and.w	r3, r3, #2
- 8003dea:	2b02      	cmp	r3, #2
- 8003dec:	d101      	bne.n	8003df2 <_ZN9LineTrace4flipEv+0x1aa>
- 8003dee:	2301      	movs	r3, #1
- 8003df0:	e000      	b.n	8003df4 <_ZN9LineTrace4flipEv+0x1ac>
- 8003df2:	2300      	movs	r3, #0
- 8003df4:	2b00      	cmp	r3, #0
- 8003df6:	d011      	beq.n	8003e1c <_ZN9LineTrace4flipEv+0x1d4>
 #endif
 			all_sideline_flag_ = true;
- 8003df8:	687b      	ldr	r3, [r7, #4]
- 8003dfa:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
- 8003dfe:	3316      	adds	r3, #22
- 8003e00:	2201      	movs	r2, #1
- 8003e02:	701a      	strb	r2, [r3, #0]
+ 8003df6:	687b      	ldr	r3, [r7, #4]
+ 8003df8:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
+ 8003dfc:	3316      	adds	r3, #22
+ 8003dfe:	2201      	movs	r2, #1
+ 8003e00:	701a      	strb	r2, [r3, #0]
 
 			if(mode_selector_ == FIRST_RUNNING){
- 8003e04:	687b      	ldr	r3, [r7, #4]
- 8003e06:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8003e0a:	3324      	adds	r3, #36	; 0x24
- 8003e0c:	f9b3 3000 	ldrsh.w	r3, [r3]
- 8003e10:	2b00      	cmp	r3, #0
- 8003e12:	d120      	bne.n	8003e56 <_ZN9LineTrace4flipEv+0x20e>
+ 8003e02:	687b      	ldr	r3, [r7, #4]
+ 8003e04:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 8003e08:	3324      	adds	r3, #36	; 0x24
+ 8003e0a:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 8003e0e:	2b00      	cmp	r3, #0
+ 8003e10:	d11f      	bne.n	8003e52 <_ZN9LineTrace4flipEv+0x20a>
 				storeAllSideLineDistance();
- 8003e14:	6878      	ldr	r0, [r7, #4]
- 8003e16:	f000 faad 	bl	8004374 <_ZN9LineTrace24storeAllSideLineDistanceEv>
- 8003e1a:	e01c      	b.n	8003e56 <_ZN9LineTrace4flipEv+0x20e>
+ 8003e12:	6878      	ldr	r0, [r7, #4]
+ 8003e14:	f000 faac 	bl	8004370 <_ZN9LineTrace24storeAllSideLineDistanceEv>
+ 8003e18:	e01b      	b.n	8003e52 <_ZN9LineTrace4flipEv+0x20a>
+				//correctionTotalDistanceFromAllSideMarker();
+				//correction_check_cnt_ = 0;
 			}
 		}
 #ifdef REVERSE
 		else if(all_sideline_flag_ == true && (~(side_sensor_->getStatus()) & 0x01) == 0x01){
+ 8003e1a:	687b      	ldr	r3, [r7, #4]
+ 8003e1c:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
+ 8003e20:	3316      	adds	r3, #22
+ 8003e22:	781b      	ldrb	r3, [r3, #0]
+ 8003e24:	2b00      	cmp	r3, #0
+ 8003e26:	d00b      	beq.n	8003e40 <_ZN9LineTrace4flipEv+0x1f8>
+ 8003e28:	687b      	ldr	r3, [r7, #4]
+ 8003e2a:	691b      	ldr	r3, [r3, #16]
+ 8003e2c:	4618      	mov	r0, r3
+ 8003e2e:	f001 fae1 	bl	80053f4 <_ZN10SideSensor9getStatusEv>
+ 8003e32:	4603      	mov	r3, r0
+ 8003e34:	f003 0301 	and.w	r3, r3, #1
+ 8003e38:	2b00      	cmp	r3, #0
+ 8003e3a:	d101      	bne.n	8003e40 <_ZN9LineTrace4flipEv+0x1f8>
+ 8003e3c:	2301      	movs	r3, #1
+ 8003e3e:	e000      	b.n	8003e42 <_ZN9LineTrace4flipEv+0x1fa>
+ 8003e40:	2300      	movs	r3, #0
+ 8003e42:	2b00      	cmp	r3, #0
+ 8003e44:	d005      	beq.n	8003e52 <_ZN9LineTrace4flipEv+0x20a>
 #else
 		else if(all_sideline_flag_ == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){
- 8003e1c:	687b      	ldr	r3, [r7, #4]
- 8003e1e:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
- 8003e22:	3316      	adds	r3, #22
- 8003e24:	781b      	ldrb	r3, [r3, #0]
- 8003e26:	2b00      	cmp	r3, #0
- 8003e28:	d00c      	beq.n	8003e44 <_ZN9LineTrace4flipEv+0x1fc>
- 8003e2a:	687b      	ldr	r3, [r7, #4]
- 8003e2c:	691b      	ldr	r3, [r3, #16]
- 8003e2e:	4618      	mov	r0, r3
- 8003e30:	f001 fae0 	bl	80053f4 <_ZN10SideSensor9getStatusEv>
- 8003e34:	4603      	mov	r3, r0
- 8003e36:	43db      	mvns	r3, r3
- 8003e38:	f003 0302 	and.w	r3, r3, #2
- 8003e3c:	2b02      	cmp	r3, #2
- 8003e3e:	d101      	bne.n	8003e44 <_ZN9LineTrace4flipEv+0x1fc>
- 8003e40:	2301      	movs	r3, #1
- 8003e42:	e000      	b.n	8003e46 <_ZN9LineTrace4flipEv+0x1fe>
- 8003e44:	2300      	movs	r3, #0
- 8003e46:	2b00      	cmp	r3, #0
- 8003e48:	d005      	beq.n	8003e56 <_ZN9LineTrace4flipEv+0x20e>
 #endif
 			all_sideline_flag_ = false;
- 8003e4a:	687b      	ldr	r3, [r7, #4]
- 8003e4c:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
- 8003e50:	3316      	adds	r3, #22
- 8003e52:	2200      	movs	r2, #0
- 8003e54:	701a      	strb	r2, [r3, #0]
+ 8003e46:	687b      	ldr	r3, [r7, #4]
+ 8003e48:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
+ 8003e4c:	3316      	adds	r3, #22
+ 8003e4e:	2200      	movs	r2, #0
+ 8003e50:	701a      	strb	r2, [r3, #0]
 		}
 
 
 		// ----- emergency stop processing------//
 		if(line_sensor_->emergencyStop() == true){
- 8003e56:	687b      	ldr	r3, [r7, #4]
- 8003e58:	685b      	ldr	r3, [r3, #4]
- 8003e5a:	4618      	mov	r0, r3
- 8003e5c:	f7fe fb96 	bl	800258c <_ZN10LineSensor13emergencyStopEv>
- 8003e60:	4603      	mov	r3, r0
- 8003e62:	2b00      	cmp	r3, #0
- 8003e64:	d008      	beq.n	8003e78 <_ZN9LineTrace4flipEv+0x230>
+ 8003e52:	687b      	ldr	r3, [r7, #4]
+ 8003e54:	685b      	ldr	r3, [r3, #4]
+ 8003e56:	4618      	mov	r0, r3
+ 8003e58:	f7fe fb98 	bl	800258c <_ZN10LineSensor13emergencyStopEv>
+ 8003e5c:	4603      	mov	r3, r0
+ 8003e5e:	2b00      	cmp	r3, #0
+ 8003e60:	d008      	beq.n	8003e74 <_ZN9LineTrace4flipEv+0x22c>
 			velocity_ctrl_->setTranslationVelocityOnly(0, 0);
- 8003e66:	687b      	ldr	r3, [r7, #4]
- 8003e68:	689b      	ldr	r3, [r3, #8]
- 8003e6a:	eddf 0a20 	vldr	s1, [pc, #128]	; 8003eec <_ZN9LineTrace4flipEv+0x2a4>
- 8003e6e:	ed9f 0a1f 	vldr	s0, [pc, #124]	; 8003eec <_ZN9LineTrace4flipEv+0x2a4>
- 8003e72:	4618      	mov	r0, r3
- 8003e74:	f001 fd50 	bl	8005918 <_ZN12VelocityCtrl26setTranslationVelocityOnlyEff>
+ 8003e62:	687b      	ldr	r3, [r7, #4]
+ 8003e64:	689b      	ldr	r3, [r3, #8]
+ 8003e66:	eddf 0a20 	vldr	s1, [pc, #128]	; 8003ee8 <_ZN9LineTrace4flipEv+0x2a0>
+ 8003e6a:	ed9f 0a1f 	vldr	s0, [pc, #124]	; 8003ee8 <_ZN9LineTrace4flipEv+0x2a0>
+ 8003e6e:	4618      	mov	r0, r3
+ 8003e70:	f001 fd52 	bl	8005918 <_ZN12VelocityCtrl26setTranslationVelocityOnlyEff>
 		}
 		else{
 			//led_.LR(0, -1);
 		}
 
 		correction_check_cnt_++;
- 8003e78:	687b      	ldr	r3, [r7, #4]
- 8003e7a:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
- 8003e7e:	3314      	adds	r3, #20
- 8003e80:	881b      	ldrh	r3, [r3, #0]
- 8003e82:	3301      	adds	r3, #1
- 8003e84:	b29a      	uxth	r2, r3
- 8003e86:	687b      	ldr	r3, [r7, #4]
- 8003e88:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
- 8003e8c:	3314      	adds	r3, #20
- 8003e8e:	801a      	strh	r2, [r3, #0]
+ 8003e74:	687b      	ldr	r3, [r7, #4]
+ 8003e76:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
+ 8003e7a:	3314      	adds	r3, #20
+ 8003e7c:	881b      	ldrh	r3, [r3, #0]
+ 8003e7e:	3301      	adds	r3, #1
+ 8003e80:	b29a      	uxth	r2, r3
+ 8003e82:	687b      	ldr	r3, [r7, #4]
+ 8003e84:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
+ 8003e88:	3314      	adds	r3, #20
+ 8003e8a:	801a      	strh	r2, [r3, #0]
 		if(correction_check_cnt_ >= 10000) correction_check_cnt_ = 10000;
- 8003e90:	687b      	ldr	r3, [r7, #4]
- 8003e92:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
- 8003e96:	3314      	adds	r3, #20
- 8003e98:	881b      	ldrh	r3, [r3, #0]
- 8003e9a:	f242 720f 	movw	r2, #9999	; 0x270f
- 8003e9e:	4293      	cmp	r3, r2
- 8003ea0:	d906      	bls.n	8003eb0 <_ZN9LineTrace4flipEv+0x268>
- 8003ea2:	687b      	ldr	r3, [r7, #4]
- 8003ea4:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
- 8003ea8:	3314      	adds	r3, #20
- 8003eaa:	f242 7210 	movw	r2, #10000	; 0x2710
- 8003eae:	801a      	strh	r2, [r3, #0]
+ 8003e8c:	687b      	ldr	r3, [r7, #4]
+ 8003e8e:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
+ 8003e92:	3314      	adds	r3, #20
+ 8003e94:	881b      	ldrh	r3, [r3, #0]
+ 8003e96:	f242 720f 	movw	r2, #9999	; 0x270f
+ 8003e9a:	4293      	cmp	r3, r2
+ 8003e9c:	d906      	bls.n	8003eac <_ZN9LineTrace4flipEv+0x264>
+ 8003e9e:	687b      	ldr	r3, [r7, #4]
+ 8003ea0:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
+ 8003ea4:	3314      	adds	r3, #20
+ 8003ea6:	f242 7210 	movw	r2, #10000	; 0x2710
+ 8003eaa:	801a      	strh	r2, [r3, #0]
 
 		if(correction_check_cnt_ <= 80) led_.LR(-1, 1);
- 8003eb0:	687b      	ldr	r3, [r7, #4]
- 8003eb2:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
- 8003eb6:	3314      	adds	r3, #20
- 8003eb8:	881b      	ldrh	r3, [r3, #0]
- 8003eba:	2b50      	cmp	r3, #80	; 0x50
- 8003ebc:	d808      	bhi.n	8003ed0 <_ZN9LineTrace4flipEv+0x288>
- 8003ebe:	687b      	ldr	r3, [r7, #4]
- 8003ec0:	330c      	adds	r3, #12
- 8003ec2:	2201      	movs	r2, #1
- 8003ec4:	f04f 31ff 	mov.w	r1, #4294967295
- 8003ec8:	4618      	mov	r0, r3
- 8003eca:	f7fe f85f 	bl	8001f8c <_ZN3LED2LREaa>
+ 8003eac:	687b      	ldr	r3, [r7, #4]
+ 8003eae:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
+ 8003eb2:	3314      	adds	r3, #20
+ 8003eb4:	881b      	ldrh	r3, [r3, #0]
+ 8003eb6:	2b50      	cmp	r3, #80	; 0x50
+ 8003eb8:	d808      	bhi.n	8003ecc <_ZN9LineTrace4flipEv+0x284>
+ 8003eba:	687b      	ldr	r3, [r7, #4]
+ 8003ebc:	330c      	adds	r3, #12
+ 8003ebe:	2201      	movs	r2, #1
+ 8003ec0:	f04f 31ff 	mov.w	r1, #4294967295
+ 8003ec4:	4618      	mov	r0, r3
+ 8003ec6:	f7fe f861 	bl	8001f8c <_ZN3LED2LREaa>
 		else led_.LR(-1, 0);
 	}
 }
- 8003ece:	e007      	b.n	8003ee0 <_ZN9LineTrace4flipEv+0x298>
+ 8003eca:	e007      	b.n	8003edc <_ZN9LineTrace4flipEv+0x294>
 		else led_.LR(-1, 0);
- 8003ed0:	687b      	ldr	r3, [r7, #4]
- 8003ed2:	330c      	adds	r3, #12
- 8003ed4:	2200      	movs	r2, #0
- 8003ed6:	f04f 31ff 	mov.w	r1, #4294967295
- 8003eda:	4618      	mov	r0, r3
- 8003edc:	f7fe f856 	bl	8001f8c <_ZN3LED2LREaa>
+ 8003ecc:	687b      	ldr	r3, [r7, #4]
+ 8003ece:	330c      	adds	r3, #12
+ 8003ed0:	2200      	movs	r2, #0
+ 8003ed2:	f04f 31ff 	mov.w	r1, #4294967295
+ 8003ed6:	4618      	mov	r0, r3
+ 8003ed8:	f7fe f858 	bl	8001f8c <_ZN3LED2LREaa>
 }
- 8003ee0:	bf00      	nop
- 8003ee2:	3708      	adds	r7, #8
- 8003ee4:	46bd      	mov	sp, r7
- 8003ee6:	bd80      	pop	{r7, pc}
- 8003ee8:	43480000 	.word	0x43480000
- 8003eec:	00000000 	.word	0x00000000
+ 8003edc:	bf00      	nop
+ 8003ede:	3708      	adds	r7, #8
+ 8003ee0:	46bd      	mov	sp, r7
+ 8003ee2:	bd80      	pop	{r7, pc}
+ 8003ee4:	43480000 	.word	0x43480000
+ 8003ee8:	00000000 	.word	0x00000000
 
-08003ef0 <_ZN9LineTrace5startEv>:
+08003eec <_ZN9LineTrace5startEv>:
 		odometry_->clearPotition();
 	}
 }
 
 void LineTrace::start()
 {
- 8003ef0:	b580      	push	{r7, lr}
- 8003ef2:	b082      	sub	sp, #8
- 8003ef4:	af00      	add	r7, sp, #0
- 8003ef6:	6078      	str	r0, [r7, #4]
+ 8003eec:	b580      	push	{r7, lr}
+ 8003eee:	b082      	sub	sp, #8
+ 8003ef0:	af00      	add	r7, sp, #0
+ 8003ef2:	6078      	str	r0, [r7, #4]
 	excution_flag_ = true;
- 8003ef8:	687b      	ldr	r3, [r7, #4]
- 8003efa:	2201      	movs	r2, #1
- 8003efc:	f883 2048 	strb.w	r2, [r3, #72]	; 0x48
+ 8003ef4:	687b      	ldr	r3, [r7, #4]
+ 8003ef6:	2201      	movs	r2, #1
+ 8003ef8:	f883 2048 	strb.w	r2, [r3, #72]	; 0x48
 	i_reset_flag_ = true;
- 8003f00:	687b      	ldr	r3, [r7, #4]
- 8003f02:	2201      	movs	r2, #1
- 8003f04:	f883 2049 	strb.w	r2, [r3, #73]	; 0x49
+ 8003efc:	687b      	ldr	r3, [r7, #4]
+ 8003efe:	2201      	movs	r2, #1
+ 8003f00:	f883 2049 	strb.w	r2, [r3, #73]	; 0x49
 	velocity_ctrl_->start();
- 8003f08:	687b      	ldr	r3, [r7, #4]
- 8003f0a:	689b      	ldr	r3, [r3, #8]
- 8003f0c:	4618      	mov	r0, r3
- 8003f0e:	f001 fd5c 	bl	80059ca <_ZN12VelocityCtrl5startEv>
+ 8003f04:	687b      	ldr	r3, [r7, #4]
+ 8003f06:	689b      	ldr	r3, [r3, #8]
+ 8003f08:	4618      	mov	r0, r3
+ 8003f0a:	f001 fd5e 	bl	80059ca <_ZN12VelocityCtrl5startEv>
 	side_sensor_->resetWhiteLineCnt();
- 8003f12:	687b      	ldr	r3, [r7, #4]
- 8003f14:	691b      	ldr	r3, [r3, #16]
- 8003f16:	4618      	mov	r0, r3
- 8003f18:	f001 fa84 	bl	8005424 <_ZN10SideSensor17resetWhiteLineCntEv>
+ 8003f0e:	687b      	ldr	r3, [r7, #4]
+ 8003f10:	691b      	ldr	r3, [r3, #16]
+ 8003f12:	4618      	mov	r0, r3
+ 8003f14:	f001 fa86 	bl	8005424 <_ZN10SideSensor17resetWhiteLineCntEv>
 	crossline_idx_ = 0;
- 8003f1c:	687b      	ldr	r3, [r7, #4]
- 8003f1e:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8003f22:	33f8      	adds	r3, #248	; 0xf8
- 8003f24:	2200      	movs	r2, #0
- 8003f26:	801a      	strh	r2, [r3, #0]
+ 8003f18:	687b      	ldr	r3, [r7, #4]
+ 8003f1a:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8003f1e:	33f8      	adds	r3, #248	; 0xf8
+ 8003f20:	2200      	movs	r2, #0
+ 8003f22:	801a      	strh	r2, [r3, #0]
 	sideline_idx_ = 0;
- 8003f28:	687b      	ldr	r3, [r7, #4]
- 8003f2a:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8003f2e:	33fa      	adds	r3, #250	; 0xfa
- 8003f30:	2200      	movs	r2, #0
- 8003f32:	801a      	strh	r2, [r3, #0]
+ 8003f24:	687b      	ldr	r3, [r7, #4]
+ 8003f26:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8003f2a:	33fa      	adds	r3, #250	; 0xfa
+ 8003f2c:	2200      	movs	r2, #0
+ 8003f2e:	801a      	strh	r2, [r3, #0]
 	all_sideline_idx_ = 0;
- 8003f34:	687b      	ldr	r3, [r7, #4]
- 8003f36:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8003f3a:	33fc      	adds	r3, #252	; 0xfc
- 8003f3c:	2200      	movs	r2, #0
- 8003f3e:	801a      	strh	r2, [r3, #0]
+ 8003f30:	687b      	ldr	r3, [r7, #4]
+ 8003f32:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8003f36:	33fc      	adds	r3, #252	; 0xfc
+ 8003f38:	2200      	movs	r2, #0
+ 8003f3a:	801a      	strh	r2, [r3, #0]
 }
- 8003f40:	bf00      	nop
- 8003f42:	3708      	adds	r7, #8
- 8003f44:	46bd      	mov	sp, r7
- 8003f46:	bd80      	pop	{r7, pc}
+ 8003f3c:	bf00      	nop
+ 8003f3e:	3708      	adds	r7, #8
+ 8003f40:	46bd      	mov	sp, r7
+ 8003f42:	bd80      	pop	{r7, pc}
 
-08003f48 <_ZN9LineTrace4stopEv>:
+08003f44 <_ZN9LineTrace4stopEv>:
 
 void LineTrace::stop()
 {
- 8003f48:	b580      	push	{r7, lr}
- 8003f4a:	b084      	sub	sp, #16
- 8003f4c:	af02      	add	r7, sp, #8
- 8003f4e:	6078      	str	r0, [r7, #4]
+ 8003f44:	b580      	push	{r7, lr}
+ 8003f46:	b084      	sub	sp, #16
+ 8003f48:	af02      	add	r7, sp, #8
+ 8003f4a:	6078      	str	r0, [r7, #4]
 	excution_flag_ = false;
- 8003f50:	687b      	ldr	r3, [r7, #4]
- 8003f52:	2200      	movs	r2, #0
- 8003f54:	f883 2048 	strb.w	r2, [r3, #72]	; 0x48
+ 8003f4c:	687b      	ldr	r3, [r7, #4]
+ 8003f4e:	2200      	movs	r2, #0
+ 8003f50:	f883 2048 	strb.w	r2, [r3, #72]	; 0x48
 	velocity_ctrl_->stop();
- 8003f58:	687b      	ldr	r3, [r7, #4]
- 8003f5a:	689b      	ldr	r3, [r3, #8]
- 8003f5c:	4618      	mov	r0, r3
- 8003f5e:	f001 fd47 	bl	80059f0 <_ZN12VelocityCtrl4stopEv>
+ 8003f54:	687b      	ldr	r3, [r7, #4]
+ 8003f56:	689b      	ldr	r3, [r3, #8]
+ 8003f58:	4618      	mov	r0, r3
+ 8003f5a:	f001 fd49 	bl	80059f0 <_ZN12VelocityCtrl4stopEv>
 
 	led_.LR(-1, 1);
- 8003f62:	687b      	ldr	r3, [r7, #4]
- 8003f64:	330c      	adds	r3, #12
- 8003f66:	2201      	movs	r2, #1
- 8003f68:	f04f 31ff 	mov.w	r1, #4294967295
- 8003f6c:	4618      	mov	r0, r3
- 8003f6e:	f7fe f80d 	bl	8001f8c <_ZN3LED2LREaa>
+ 8003f5e:	687b      	ldr	r3, [r7, #4]
+ 8003f60:	330c      	adds	r3, #12
+ 8003f62:	2201      	movs	r2, #1
+ 8003f64:	f04f 31ff 	mov.w	r1, #4294967295
+ 8003f68:	4618      	mov	r0, r3
+ 8003f6a:	f7fe f80f 	bl	8001f8c <_ZN3LED2LREaa>
 	if(mode_selector_ == FIRST_RUNNING){ //First running
- 8003f72:	687b      	ldr	r3, [r7, #4]
- 8003f74:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8003f78:	3324      	adds	r3, #36	; 0x24
- 8003f7a:	f9b3 3000 	ldrsh.w	r3, [r3]
- 8003f7e:	2b00      	cmp	r3, #0
- 8003f80:	d107      	bne.n	8003f92 <_ZN9LineTrace4stopEv+0x4a>
+ 8003f6e:	687b      	ldr	r3, [r7, #4]
+ 8003f70:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 8003f74:	3324      	adds	r3, #36	; 0x24
+ 8003f76:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 8003f7a:	2b00      	cmp	r3, #0
+ 8003f7c:	d107      	bne.n	8003f8e <_ZN9LineTrace4stopEv+0x4a>
 		logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
- 8003f82:	687b      	ldr	r3, [r7, #4]
- 8003f84:	69d8      	ldr	r0, [r3, #28]
- 8003f86:	4b23      	ldr	r3, [pc, #140]	; (8004014 <_ZN9LineTrace4stopEv+0xcc>)
- 8003f88:	4a23      	ldr	r2, [pc, #140]	; (8004018 <_ZN9LineTrace4stopEv+0xd0>)
- 8003f8a:	4924      	ldr	r1, [pc, #144]	; (800401c <_ZN9LineTrace4stopEv+0xd4>)
- 8003f8c:	f000 fc72 	bl	8004874 <_ZN6Logger20saveDistanceAndThetaEPKcS1_S1_>
- 8003f90:	e006      	b.n	8003fa0 <_ZN9LineTrace4stopEv+0x58>
+ 8003f7e:	687b      	ldr	r3, [r7, #4]
+ 8003f80:	69d8      	ldr	r0, [r3, #28]
+ 8003f82:	4b23      	ldr	r3, [pc, #140]	; (8004010 <_ZN9LineTrace4stopEv+0xcc>)
+ 8003f84:	4a23      	ldr	r2, [pc, #140]	; (8004014 <_ZN9LineTrace4stopEv+0xd0>)
+ 8003f86:	4924      	ldr	r1, [pc, #144]	; (8004018 <_ZN9LineTrace4stopEv+0xd4>)
+ 8003f88:	f000 fc72 	bl	8004870 <_ZN6Logger20saveDistanceAndThetaEPKcS1_S1_>
+ 8003f8c:	e006      	b.n	8003f9c <_ZN9LineTrace4stopEv+0x58>
 	}
 	else{//Secondary run
 		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
- 8003f92:	687b      	ldr	r3, [r7, #4]
- 8003f94:	69d8      	ldr	r0, [r3, #28]
- 8003f96:	4b22      	ldr	r3, [pc, #136]	; (8004020 <_ZN9LineTrace4stopEv+0xd8>)
- 8003f98:	4a22      	ldr	r2, [pc, #136]	; (8004024 <_ZN9LineTrace4stopEv+0xdc>)
- 8003f9a:	4920      	ldr	r1, [pc, #128]	; (800401c <_ZN9LineTrace4stopEv+0xd4>)
- 8003f9c:	f000 fc8d 	bl	80048ba <_ZN6Logger21saveDistanceAndTheta2EPKcS1_S1_>
+ 8003f8e:	687b      	ldr	r3, [r7, #4]
+ 8003f90:	69d8      	ldr	r0, [r3, #28]
+ 8003f92:	4b22      	ldr	r3, [pc, #136]	; (800401c <_ZN9LineTrace4stopEv+0xd8>)
+ 8003f94:	4a22      	ldr	r2, [pc, #136]	; (8004020 <_ZN9LineTrace4stopEv+0xdc>)
+ 8003f96:	4920      	ldr	r1, [pc, #128]	; (8004018 <_ZN9LineTrace4stopEv+0xd4>)
+ 8003f98:	f000 fc8d 	bl	80048b6 <_ZN6Logger21saveDistanceAndTheta2EPKcS1_S1_>
 	}
 	sd_write_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_, OVER_WRITE);
- 8003fa0:	687b      	ldr	r3, [r7, #4]
- 8003fa2:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8003fa6:	3328      	adds	r3, #40	; 0x28
- 8003fa8:	2200      	movs	r2, #0
- 8003faa:	9200      	str	r2, [sp, #0]
- 8003fac:	2264      	movs	r2, #100	; 0x64
- 8003fae:	491e      	ldr	r1, [pc, #120]	; (8004028 <_ZN9LineTrace4stopEv+0xe0>)
- 8003fb0:	481a      	ldr	r0, [pc, #104]	; (800401c <_ZN9LineTrace4stopEv+0xd4>)
- 8003fb2:	f7fd fab3 	bl	800151c <sd_write_array_float>
+ 8003f9c:	687b      	ldr	r3, [r7, #4]
+ 8003f9e:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 8003fa2:	3328      	adds	r3, #40	; 0x28
+ 8003fa4:	2200      	movs	r2, #0
+ 8003fa6:	9200      	str	r2, [sp, #0]
+ 8003fa8:	2264      	movs	r2, #100	; 0x64
+ 8003faa:	491e      	ldr	r1, [pc, #120]	; (8004024 <_ZN9LineTrace4stopEv+0xe0>)
+ 8003fac:	481a      	ldr	r0, [pc, #104]	; (8004018 <_ZN9LineTrace4stopEv+0xd4>)
+ 8003fae:	f7fd fab5 	bl	800151c <sd_write_array_float>
 	sd_write_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_, OVER_WRITE);
- 8003fb6:	687b      	ldr	r3, [r7, #4]
- 8003fb8:	f503 433d 	add.w	r3, r3, #48384	; 0xbd00
- 8003fbc:	33b8      	adds	r3, #184	; 0xb8
- 8003fbe:	2200      	movs	r2, #0
- 8003fc0:	9200      	str	r2, [sp, #0]
- 8003fc2:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
- 8003fc6:	4919      	ldr	r1, [pc, #100]	; (800402c <_ZN9LineTrace4stopEv+0xe4>)
- 8003fc8:	4814      	ldr	r0, [pc, #80]	; (800401c <_ZN9LineTrace4stopEv+0xd4>)
- 8003fca:	f7fd faa7 	bl	800151c <sd_write_array_float>
+ 8003fb2:	687b      	ldr	r3, [r7, #4]
+ 8003fb4:	f503 433d 	add.w	r3, r3, #48384	; 0xbd00
+ 8003fb8:	33b8      	adds	r3, #184	; 0xb8
+ 8003fba:	2200      	movs	r2, #0
+ 8003fbc:	9200      	str	r2, [sp, #0]
+ 8003fbe:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
+ 8003fc2:	4919      	ldr	r1, [pc, #100]	; (8004028 <_ZN9LineTrace4stopEv+0xe4>)
+ 8003fc4:	4814      	ldr	r0, [pc, #80]	; (8004018 <_ZN9LineTrace4stopEv+0xd4>)
+ 8003fc6:	f7fd faa9 	bl	800151c <sd_write_array_float>
 	sd_write_array_float("COURSLOG", "ASIDEDIS.TXT", SIDELINE_SIZE, all_sideline_distance_, OVER_WRITE);
- 8003fce:	687b      	ldr	r3, [r7, #4]
- 8003fd0:	f503 434d 	add.w	r3, r3, #52480	; 0xcd00
- 8003fd4:	3358      	adds	r3, #88	; 0x58
- 8003fd6:	2200      	movs	r2, #0
- 8003fd8:	9200      	str	r2, [sp, #0]
- 8003fda:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
- 8003fde:	4914      	ldr	r1, [pc, #80]	; (8004030 <_ZN9LineTrace4stopEv+0xe8>)
- 8003fe0:	480e      	ldr	r0, [pc, #56]	; (800401c <_ZN9LineTrace4stopEv+0xd4>)
- 8003fe2:	f7fd fa9b 	bl	800151c <sd_write_array_float>
+ 8003fca:	687b      	ldr	r3, [r7, #4]
+ 8003fcc:	f503 434d 	add.w	r3, r3, #52480	; 0xcd00
+ 8003fd0:	3358      	adds	r3, #88	; 0x58
+ 8003fd2:	2200      	movs	r2, #0
+ 8003fd4:	9200      	str	r2, [sp, #0]
+ 8003fd6:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
+ 8003fda:	4914      	ldr	r1, [pc, #80]	; (800402c <_ZN9LineTrace4stopEv+0xe8>)
+ 8003fdc:	480e      	ldr	r0, [pc, #56]	; (8004018 <_ZN9LineTrace4stopEv+0xd4>)
+ 8003fde:	f7fd fa9d 	bl	800151c <sd_write_array_float>
 
 	led_.LR(-1, 0);
- 8003fe6:	687b      	ldr	r3, [r7, #4]
- 8003fe8:	330c      	adds	r3, #12
- 8003fea:	2200      	movs	r2, #0
- 8003fec:	f04f 31ff 	mov.w	r1, #4294967295
- 8003ff0:	4618      	mov	r0, r3
- 8003ff2:	f7fd ffcb 	bl	8001f8c <_ZN3LED2LREaa>
+ 8003fe2:	687b      	ldr	r3, [r7, #4]
+ 8003fe4:	330c      	adds	r3, #12
+ 8003fe6:	2200      	movs	r2, #0
+ 8003fe8:	f04f 31ff 	mov.w	r1, #4294967295
+ 8003fec:	4618      	mov	r0, r3
+ 8003fee:	f7fd ffcd 	bl	8001f8c <_ZN3LED2LREaa>
 
 	logger_->resetIdx();
- 8003ff6:	687b      	ldr	r3, [r7, #4]
- 8003ff8:	69db      	ldr	r3, [r3, #28]
- 8003ffa:	4618      	mov	r0, r3
- 8003ffc:	f000 fceb 	bl	80049d6 <_ZN6Logger8resetIdxEv>
+ 8003ff2:	687b      	ldr	r3, [r7, #4]
+ 8003ff4:	69db      	ldr	r3, [r3, #28]
+ 8003ff6:	4618      	mov	r0, r3
+ 8003ff8:	f000 fceb 	bl	80049d2 <_ZN6Logger8resetIdxEv>
 	logger_->resetLogs2();
- 8004000:	687b      	ldr	r3, [r7, #4]
- 8004002:	69db      	ldr	r3, [r3, #28]
- 8004004:	4618      	mov	r0, r3
- 8004006:	f000 fc99 	bl	800493c <_ZN6Logger10resetLogs2Ev>
+ 8003ffc:	687b      	ldr	r3, [r7, #4]
+ 8003ffe:	69db      	ldr	r3, [r3, #28]
+ 8004000:	4618      	mov	r0, r3
+ 8004002:	f000 fc99 	bl	8004938 <_ZN6Logger10resetLogs2Ev>
 }
- 800400a:	bf00      	nop
- 800400c:	3708      	adds	r7, #8
- 800400e:	46bd      	mov	sp, r7
- 8004010:	bd80      	pop	{r7, pc}
- 8004012:	bf00      	nop
- 8004014:	08019758 	.word	0x08019758
- 8004018:	08019764 	.word	0x08019764
- 800401c:	0801974c 	.word	0x0801974c
- 8004020:	08019838 	.word	0x08019838
- 8004024:	08019844 	.word	0x08019844
- 8004028:	08019774 	.word	0x08019774
- 800402c:	08019784 	.word	0x08019784
- 8004030:	08019854 	.word	0x08019854
+ 8004006:	bf00      	nop
+ 8004008:	3708      	adds	r7, #8
+ 800400a:	46bd      	mov	sp, r7
+ 800400c:	bd80      	pop	{r7, pc}
+ 800400e:	bf00      	nop
+ 8004010:	08019758 	.word	0x08019758
+ 8004014:	08019764 	.word	0x08019764
+ 8004018:	0801974c 	.word	0x0801974c
+ 800401c:	08019838 	.word	0x08019838
+ 8004020:	08019844 	.word	0x08019844
+ 8004024:	08019774 	.word	0x08019774
+ 8004028:	08019784 	.word	0x08019784
+ 800402c:	08019854 	.word	0x08019854
 
-08004034 <_ZN9LineTrace7runningEv>:
+08004030 <_ZN9LineTrace7runningEv>:
 
 void LineTrace::running()
 {
- 8004034:	b580      	push	{r7, lr}
- 8004036:	b084      	sub	sp, #16
- 8004038:	af00      	add	r7, sp, #0
- 800403a:	6078      	str	r0, [r7, #4]
+ 8004030:	b580      	push	{r7, lr}
+ 8004032:	b084      	sub	sp, #16
+ 8004034:	af00      	add	r7, sp, #0
+ 8004036:	6078      	str	r0, [r7, #4]
 	uint16_t stage = 0;
- 800403c:	2300      	movs	r3, #0
- 800403e:	81fb      	strh	r3, [r7, #14]
+ 8004038:	2300      	movs	r3, #0
+ 800403a:	81fb      	strh	r3, [r7, #14]
 	bool goal_flag = false;
- 8004040:	2300      	movs	r3, #0
- 8004042:	737b      	strb	r3, [r7, #13]
+ 800403c:	2300      	movs	r3, #0
+ 800403e:	737b      	strb	r3, [r7, #13]
 	start();
- 8004044:	6878      	ldr	r0, [r7, #4]
- 8004046:	f7ff ff53 	bl	8003ef0 <_ZN9LineTrace5startEv>
+ 8004040:	6878      	ldr	r0, [r7, #4]
+ 8004042:	f7ff ff53 	bl	8003eec <_ZN9LineTrace5startEv>
 
 	while(goal_flag == false){
- 800404a:	7b7b      	ldrb	r3, [r7, #13]
- 800404c:	2b00      	cmp	r3, #0
- 800404e:	d15b      	bne.n	8004108 <_ZN9LineTrace7runningEv+0xd4>
+ 8004046:	7b7b      	ldrb	r3, [r7, #13]
+ 8004048:	2b00      	cmp	r3, #0
+ 800404a:	d15b      	bne.n	8004104 <_ZN9LineTrace7runningEv+0xd4>
 		switch(stage){
- 8004050:	89fb      	ldrh	r3, [r7, #14]
- 8004052:	2b00      	cmp	r3, #0
- 8004054:	d002      	beq.n	800405c <_ZN9LineTrace7runningEv+0x28>
- 8004056:	2b0a      	cmp	r3, #10
- 8004058:	d030      	beq.n	80040bc <_ZN9LineTrace7runningEv+0x88>
- 800405a:	e054      	b.n	8004106 <_ZN9LineTrace7runningEv+0xd2>
+ 800404c:	89fb      	ldrh	r3, [r7, #14]
+ 800404e:	2b00      	cmp	r3, #0
+ 8004050:	d002      	beq.n	8004058 <_ZN9LineTrace7runningEv+0x28>
+ 8004052:	2b0a      	cmp	r3, #10
+ 8004054:	d030      	beq.n	80040b8 <_ZN9LineTrace7runningEv+0x88>
+ 8004056:	e054      	b.n	8004102 <_ZN9LineTrace7runningEv+0xd2>
 		case 0:
 #ifdef REVERSE
 			if(side_sensor_->getWhiteLineCntL() == 1){
-#else
-			if(side_sensor_->getWhiteLineCntR() == 1){
- 800405c:	687b      	ldr	r3, [r7, #4]
- 800405e:	691b      	ldr	r3, [r3, #16]
- 8004060:	4618      	mov	r0, r3
- 8004062:	f001 f9d3 	bl	800540c <_ZN10SideSensor16getWhiteLineCntREv>
- 8004066:	4603      	mov	r3, r0
- 8004068:	2b01      	cmp	r3, #1
- 800406a:	bf0c      	ite	eq
- 800406c:	2301      	moveq	r3, #1
- 800406e:	2300      	movne	r3, #0
- 8004070:	b2db      	uxtb	r3, r3
- 8004072:	2b00      	cmp	r3, #0
- 8004074:	d044      	beq.n	8004100 <_ZN9LineTrace7runningEv+0xcc>
+ 8004058:	687b      	ldr	r3, [r7, #4]
+ 800405a:	691b      	ldr	r3, [r3, #16]
+ 800405c:	4618      	mov	r0, r3
+ 800405e:	f001 f9d5 	bl	800540c <_ZN10SideSensor16getWhiteLineCntLEv>
+ 8004062:	4603      	mov	r3, r0
+ 8004064:	2b01      	cmp	r3, #1
+ 8004066:	bf0c      	ite	eq
+ 8004068:	2301      	moveq	r3, #1
+ 800406a:	2300      	movne	r3, #0
+ 800406c:	b2db      	uxtb	r3, r3
+ 800406e:	2b00      	cmp	r3, #0
+ 8004070:	d044      	beq.n	80040fc <_ZN9LineTrace7runningEv+0xcc>
 				}
 				else{ // Other than first running
 					startVelocityPlay();
 				}
 				*/
 				loggerStart();
- 8004076:	6878      	ldr	r0, [r7, #4]
- 8004078:	f7fe fd9a 	bl	8002bb0 <_ZN9LineTrace11loggerStartEv>
+ 8004072:	6878      	ldr	r0, [r7, #4]
+ 8004074:	f7fe fd9c 	bl	8002bb0 <_ZN9LineTrace11loggerStartEv>
 				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
- 800407c:	687b      	ldr	r3, [r7, #4]
- 800407e:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8004082:	3324      	adds	r3, #36	; 0x24
- 8004084:	f9b3 3000 	ldrsh.w	r3, [r3]
- 8004088:	2b00      	cmp	r3, #0
- 800408a:	d002      	beq.n	8004092 <_ZN9LineTrace7runningEv+0x5e>
+ 8004078:	687b      	ldr	r3, [r7, #4]
+ 800407a:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 800407e:	3324      	adds	r3, #36	; 0x24
+ 8004080:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 8004084:	2b00      	cmp	r3, #0
+ 8004086:	d002      	beq.n	800408e <_ZN9LineTrace7runningEv+0x5e>
 					startVelocityPlay();
- 800408c:	6878      	ldr	r0, [r7, #4]
- 800408e:	f000 f89f 	bl	80041d0 <_ZN9LineTrace17startVelocityPlayEv>
+ 8004088:	6878      	ldr	r0, [r7, #4]
+ 800408a:	f000 f89f 	bl	80041cc <_ZN9LineTrace17startVelocityPlayEv>
 				}
 
 				encoder_->clearCrossLineIgnoreDistance();
- 8004092:	687b      	ldr	r3, [r7, #4]
- 8004094:	695b      	ldr	r3, [r3, #20]
- 8004096:	4618      	mov	r0, r3
- 8004098:	f7fd fa31 	bl	80014fe <_ZN7Encoder28clearCrossLineIgnoreDistanceEv>
+ 800408e:	687b      	ldr	r3, [r7, #4]
+ 8004090:	695b      	ldr	r3, [r3, #20]
+ 8004092:	4618      	mov	r0, r3
+ 8004094:	f7fd fa33 	bl	80014fe <_ZN7Encoder28clearCrossLineIgnoreDistanceEv>
 				encoder_->clearTotalDistance();
- 800409c:	687b      	ldr	r3, [r7, #4]
- 800409e:	695b      	ldr	r3, [r3, #20]
- 80040a0:	4618      	mov	r0, r3
- 80040a2:	f7fd fa0f 	bl	80014c4 <_ZN7Encoder18clearTotalDistanceEv>
+ 8004098:	687b      	ldr	r3, [r7, #4]
+ 800409a:	695b      	ldr	r3, [r3, #20]
+ 800409c:	4618      	mov	r0, r3
+ 800409e:	f7fd fa11 	bl	80014c4 <_ZN7Encoder18clearTotalDistanceEv>
 				led_.LR(0, -1);
- 80040a6:	687b      	ldr	r3, [r7, #4]
- 80040a8:	330c      	adds	r3, #12
- 80040aa:	f04f 32ff 	mov.w	r2, #4294967295
- 80040ae:	2100      	movs	r1, #0
- 80040b0:	4618      	mov	r0, r3
- 80040b2:	f7fd ff6b 	bl	8001f8c <_ZN3LED2LREaa>
+ 80040a2:	687b      	ldr	r3, [r7, #4]
+ 80040a4:	330c      	adds	r3, #12
+ 80040a6:	f04f 32ff 	mov.w	r2, #4294967295
+ 80040aa:	2100      	movs	r1, #0
+ 80040ac:	4618      	mov	r0, r3
+ 80040ae:	f7fd ff6d 	bl	8001f8c <_ZN3LED2LREaa>
 				stage = 10;
- 80040b6:	230a      	movs	r3, #10
- 80040b8:	81fb      	strh	r3, [r7, #14]
+ 80040b2:	230a      	movs	r3, #10
+ 80040b4:	81fb      	strh	r3, [r7, #14]
 			}
 
 			break;
- 80040ba:	e021      	b.n	8004100 <_ZN9LineTrace7runningEv+0xcc>
+ 80040b6:	e021      	b.n	80040fc <_ZN9LineTrace7runningEv+0xcc>
 
 		case 10:
 #ifdef REVERSE
 			if(side_sensor_->getWhiteLineCntL() == 2){
+ 80040b8:	687b      	ldr	r3, [r7, #4]
+ 80040ba:	691b      	ldr	r3, [r3, #16]
+ 80040bc:	4618      	mov	r0, r3
+ 80040be:	f001 f9a5 	bl	800540c <_ZN10SideSensor16getWhiteLineCntLEv>
+ 80040c2:	4603      	mov	r3, r0
+ 80040c4:	2b02      	cmp	r3, #2
+ 80040c6:	bf0c      	ite	eq
+ 80040c8:	2301      	moveq	r3, #1
+ 80040ca:	2300      	movne	r3, #0
+ 80040cc:	b2db      	uxtb	r3, r3
+ 80040ce:	2b00      	cmp	r3, #0
+ 80040d0:	d016      	beq.n	8004100 <_ZN9LineTrace7runningEv+0xd0>
 #else
 			if(side_sensor_->getWhiteLineCntR() == 2){
- 80040bc:	687b      	ldr	r3, [r7, #4]
- 80040be:	691b      	ldr	r3, [r3, #16]
- 80040c0:	4618      	mov	r0, r3
- 80040c2:	f001 f9a3 	bl	800540c <_ZN10SideSensor16getWhiteLineCntREv>
- 80040c6:	4603      	mov	r3, r0
- 80040c8:	2b02      	cmp	r3, #2
- 80040ca:	bf0c      	ite	eq
- 80040cc:	2301      	moveq	r3, #1
- 80040ce:	2300      	movne	r3, #0
- 80040d0:	b2db      	uxtb	r3, r3
- 80040d2:	2b00      	cmp	r3, #0
- 80040d4:	d016      	beq.n	8004104 <_ZN9LineTrace7runningEv+0xd0>
 #endif
 				loggerStop();
- 80040d6:	6878      	ldr	r0, [r7, #4]
- 80040d8:	f7fe fd85 	bl	8002be6 <_ZN9LineTrace10loggerStopEv>
+ 80040d2:	6878      	ldr	r0, [r7, #4]
+ 80040d4:	f7fe fd87 	bl	8002be6 <_ZN9LineTrace10loggerStopEv>
 				stopVelocityPlay();
- 80040dc:	6878      	ldr	r0, [r7, #4]
- 80040de:	f000 f88a 	bl	80041f6 <_ZN9LineTrace16stopVelocityPlayEv>
+ 80040d8:	6878      	ldr	r0, [r7, #4]
+ 80040da:	f000 f88a 	bl	80041f2 <_ZN9LineTrace16stopVelocityPlayEv>
 				HAL_Delay(100); //Run through after the goal
- 80040e2:	2064      	movs	r0, #100	; 0x64
- 80040e4:	f005 fb88 	bl	80097f8 <HAL_Delay>
+ 80040de:	2064      	movs	r0, #100	; 0x64
+ 80040e0:	f005 fb8a 	bl	80097f8 <HAL_Delay>
 
 				setTargetVelocity(0);
- 80040e8:	ed9f 0a0b 	vldr	s0, [pc, #44]	; 8004118 <_ZN9LineTrace7runningEv+0xe4>
- 80040ec:	6878      	ldr	r0, [r7, #4]
- 80040ee:	f7ff fc8f 	bl	8003a10 <_ZN9LineTrace17setTargetVelocityEf>
+ 80040e4:	ed9f 0a0b 	vldr	s0, [pc, #44]	; 8004114 <_ZN9LineTrace7runningEv+0xe4>
+ 80040e8:	6878      	ldr	r0, [r7, #4]
+ 80040ea:	f7ff fc91 	bl	8003a10 <_ZN9LineTrace17setTargetVelocityEf>
 				HAL_Delay(500); //Stop for a while on the spot
- 80040f2:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
- 80040f6:	f005 fb7f 	bl	80097f8 <HAL_Delay>
+ 80040ee:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
+ 80040f2:	f005 fb81 	bl	80097f8 <HAL_Delay>
 
 				goal_flag = true;
- 80040fa:	2301      	movs	r3, #1
- 80040fc:	737b      	strb	r3, [r7, #13]
+ 80040f6:	2301      	movs	r3, #1
+ 80040f8:	737b      	strb	r3, [r7, #13]
 
 			}
 
 			break;
- 80040fe:	e001      	b.n	8004104 <_ZN9LineTrace7runningEv+0xd0>
+ 80040fa:	e001      	b.n	8004100 <_ZN9LineTrace7runningEv+0xd0>
+			break;
+ 80040fc:	bf00      	nop
+ 80040fe:	e7a2      	b.n	8004046 <_ZN9LineTrace7runningEv+0x16>
 			break;
  8004100:	bf00      	nop
- 8004102:	e7a2      	b.n	800404a <_ZN9LineTrace7runningEv+0x16>
-			break;
- 8004104:	bf00      	nop
 	while(goal_flag == false){
- 8004106:	e7a0      	b.n	800404a <_ZN9LineTrace7runningEv+0x16>
+ 8004102:	e7a0      	b.n	8004046 <_ZN9LineTrace7runningEv+0x16>
 		}
 	}
 
 	stop();
- 8004108:	6878      	ldr	r0, [r7, #4]
- 800410a:	f7ff ff1d 	bl	8003f48 <_ZN9LineTrace4stopEv>
+ 8004104:	6878      	ldr	r0, [r7, #4]
+ 8004106:	f7ff ff1d 	bl	8003f44 <_ZN9LineTrace4stopEv>
 }
- 800410e:	bf00      	nop
- 8004110:	3710      	adds	r7, #16
- 8004112:	46bd      	mov	sp, r7
- 8004114:	bd80      	pop	{r7, pc}
- 8004116:	bf00      	nop
- 8004118:	00000000 	.word	0x00000000
+ 800410a:	bf00      	nop
+ 800410c:	3710      	adds	r7, #16
+ 800410e:	46bd      	mov	sp, r7
+ 8004110:	bd80      	pop	{r7, pc}
+ 8004112:	bf00      	nop
+ 8004114:	00000000 	.word	0x00000000
 
-0800411c <_ZN9LineTrace9storeLogsEv>:
+08004118 <_ZN9LineTrace9storeLogsEv>:
 
 void LineTrace::storeLogs()
 {
- 800411c:	b590      	push	{r4, r7, lr}
- 800411e:	ed2d 8b02 	vpush	{d8}
- 8004122:	b083      	sub	sp, #12
- 8004124:	af00      	add	r7, sp, #0
- 8004126:	6078      	str	r0, [r7, #4]
+ 8004118:	b590      	push	{r4, r7, lr}
+ 800411a:	ed2d 8b02 	vpush	{d8}
+ 800411e:	b083      	sub	sp, #12
+ 8004120:	af00      	add	r7, sp, #0
+ 8004122:	6078      	str	r0, [r7, #4]
 	if(logging_flag_ == true){
- 8004128:	687b      	ldr	r3, [r7, #4]
- 800412a:	f893 3098 	ldrb.w	r3, [r3, #152]	; 0x98
- 800412e:	2b00      	cmp	r3, #0
- 8004130:	d046      	beq.n	80041c0 <_ZN9LineTrace9storeLogsEv+0xa4>
+ 8004124:	687b      	ldr	r3, [r7, #4]
+ 8004126:	f893 3098 	ldrb.w	r3, [r3, #152]	; 0x98
+ 800412a:	2b00      	cmp	r3, #0
+ 800412c:	d046      	beq.n	80041bc <_ZN9LineTrace9storeLogsEv+0xa4>
 		if(mode_selector_ == FIRST_RUNNING)
- 8004132:	687b      	ldr	r3, [r7, #4]
- 8004134:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8004138:	3324      	adds	r3, #36	; 0x24
- 800413a:	f9b3 3000 	ldrsh.w	r3, [r3]
- 800413e:	2b00      	cmp	r3, #0
- 8004140:	d11c      	bne.n	800417c <_ZN9LineTrace9storeLogsEv+0x60>
+ 800412e:	687b      	ldr	r3, [r7, #4]
+ 8004130:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 8004134:	3324      	adds	r3, #36	; 0x24
+ 8004136:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 800413a:	2b00      	cmp	r3, #0
+ 800413c:	d11c      	bne.n	8004178 <_ZN9LineTrace9storeLogsEv+0x60>
 			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
+ 800413e:	687b      	ldr	r3, [r7, #4]
+ 8004140:	69dc      	ldr	r4, [r3, #28]
  8004142:	687b      	ldr	r3, [r7, #4]
- 8004144:	69dc      	ldr	r4, [r3, #28]
- 8004146:	687b      	ldr	r3, [r7, #4]
- 8004148:	695b      	ldr	r3, [r3, #20]
- 800414a:	4618      	mov	r0, r3
- 800414c:	f7fd f97f 	bl	800144e <_ZN7Encoder15getDistance10mmEv>
- 8004150:	eeb0 8a40 	vmov.f32	s16, s0
- 8004154:	687b      	ldr	r3, [r7, #4]
- 8004156:	699b      	ldr	r3, [r3, #24]
- 8004158:	4618      	mov	r0, r3
- 800415a:	f000 feac 	bl	8004eb6 <_ZN8Odometry8getThetaEv>
- 800415e:	ec53 2b10 	vmov	r2, r3, d0
- 8004162:	4610      	mov	r0, r2
- 8004164:	4619      	mov	r1, r3
- 8004166:	f7fc fd57 	bl	8000c18 <__aeabi_d2f>
- 800416a:	4603      	mov	r3, r0
- 800416c:	ee00 3a90 	vmov	s1, r3
- 8004170:	eeb0 0a48 	vmov.f32	s0, s16
- 8004174:	4620      	mov	r0, r4
- 8004176:	f000 faac 	bl	80046d2 <_ZN6Logger21storeDistanceAndThetaEff>
- 800417a:	e01b      	b.n	80041b4 <_ZN9LineTrace9storeLogsEv+0x98>
+ 8004144:	695b      	ldr	r3, [r3, #20]
+ 8004146:	4618      	mov	r0, r3
+ 8004148:	f7fd f981 	bl	800144e <_ZN7Encoder15getDistance10mmEv>
+ 800414c:	eeb0 8a40 	vmov.f32	s16, s0
+ 8004150:	687b      	ldr	r3, [r7, #4]
+ 8004152:	699b      	ldr	r3, [r3, #24]
+ 8004154:	4618      	mov	r0, r3
+ 8004156:	f000 feae 	bl	8004eb6 <_ZN8Odometry8getThetaEv>
+ 800415a:	ec53 2b10 	vmov	r2, r3, d0
+ 800415e:	4610      	mov	r0, r2
+ 8004160:	4619      	mov	r1, r3
+ 8004162:	f7fc fd59 	bl	8000c18 <__aeabi_d2f>
+ 8004166:	4603      	mov	r3, r0
+ 8004168:	ee00 3a90 	vmov	s1, r3
+ 800416c:	eeb0 0a48 	vmov.f32	s0, s16
+ 8004170:	4620      	mov	r0, r4
+ 8004172:	f000 faac 	bl	80046ce <_ZN6Logger21storeDistanceAndThetaEff>
+ 8004176:	e01b      	b.n	80041b0 <_ZN9LineTrace9storeLogsEv+0x98>
 		else
 			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
 			//logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
 			logger_->storeDistanceAndTheta2(velocity_ctrl_->getCurrentVelocity(), odometry_->getTheta());
+ 8004178:	687b      	ldr	r3, [r7, #4]
+ 800417a:	69dc      	ldr	r4, [r3, #28]
  800417c:	687b      	ldr	r3, [r7, #4]
- 800417e:	69dc      	ldr	r4, [r3, #28]
- 8004180:	687b      	ldr	r3, [r7, #4]
- 8004182:	689b      	ldr	r3, [r3, #8]
- 8004184:	4618      	mov	r0, r3
- 8004186:	f001 fc4f 	bl	8005a28 <_ZN12VelocityCtrl18getCurrentVelocityEv>
- 800418a:	eeb0 8a40 	vmov.f32	s16, s0
- 800418e:	687b      	ldr	r3, [r7, #4]
- 8004190:	699b      	ldr	r3, [r3, #24]
- 8004192:	4618      	mov	r0, r3
- 8004194:	f000 fe8f 	bl	8004eb6 <_ZN8Odometry8getThetaEv>
- 8004198:	ec53 2b10 	vmov	r2, r3, d0
- 800419c:	4610      	mov	r0, r2
- 800419e:	4619      	mov	r1, r3
- 80041a0:	f7fc fd3a 	bl	8000c18 <__aeabi_d2f>
- 80041a4:	4603      	mov	r3, r0
- 80041a6:	ee00 3a90 	vmov	s1, r3
- 80041aa:	eeb0 0a48 	vmov.f32	s0, s16
- 80041ae:	4620      	mov	r0, r4
- 80041b0:	f000 fad6 	bl	8004760 <_ZN6Logger22storeDistanceAndTheta2Eff>
+ 800417e:	689b      	ldr	r3, [r3, #8]
+ 8004180:	4618      	mov	r0, r3
+ 8004182:	f001 fc51 	bl	8005a28 <_ZN12VelocityCtrl18getCurrentVelocityEv>
+ 8004186:	eeb0 8a40 	vmov.f32	s16, s0
+ 800418a:	687b      	ldr	r3, [r7, #4]
+ 800418c:	699b      	ldr	r3, [r3, #24]
+ 800418e:	4618      	mov	r0, r3
+ 8004190:	f000 fe91 	bl	8004eb6 <_ZN8Odometry8getThetaEv>
+ 8004194:	ec53 2b10 	vmov	r2, r3, d0
+ 8004198:	4610      	mov	r0, r2
+ 800419a:	4619      	mov	r1, r3
+ 800419c:	f7fc fd3c 	bl	8000c18 <__aeabi_d2f>
+ 80041a0:	4603      	mov	r3, r0
+ 80041a2:	ee00 3a90 	vmov	s1, r3
+ 80041a6:	eeb0 0a48 	vmov.f32	s0, s16
+ 80041aa:	4620      	mov	r0, r4
+ 80041ac:	f000 fad6 	bl	800475c <_ZN6Logger22storeDistanceAndTheta2Eff>
 
 		mon_store_cnt++;
- 80041b4:	4b05      	ldr	r3, [pc, #20]	; (80041cc <_ZN9LineTrace9storeLogsEv+0xb0>)
- 80041b6:	881b      	ldrh	r3, [r3, #0]
- 80041b8:	3301      	adds	r3, #1
- 80041ba:	b29a      	uxth	r2, r3
- 80041bc:	4b03      	ldr	r3, [pc, #12]	; (80041cc <_ZN9LineTrace9storeLogsEv+0xb0>)
- 80041be:	801a      	strh	r2, [r3, #0]
+ 80041b0:	4b05      	ldr	r3, [pc, #20]	; (80041c8 <_ZN9LineTrace9storeLogsEv+0xb0>)
+ 80041b2:	881b      	ldrh	r3, [r3, #0]
+ 80041b4:	3301      	adds	r3, #1
+ 80041b6:	b29a      	uxth	r2, r3
+ 80041b8:	4b03      	ldr	r3, [pc, #12]	; (80041c8 <_ZN9LineTrace9storeLogsEv+0xb0>)
+ 80041ba:	801a      	strh	r2, [r3, #0]
 	}
 }
- 80041c0:	bf00      	nop
- 80041c2:	370c      	adds	r7, #12
- 80041c4:	46bd      	mov	sp, r7
- 80041c6:	ecbd 8b02 	vpop	{d8}
- 80041ca:	bd90      	pop	{r4, r7, pc}
- 80041cc:	20000264 	.word	0x20000264
+ 80041bc:	bf00      	nop
+ 80041be:	370c      	adds	r7, #12
+ 80041c0:	46bd      	mov	sp, r7
+ 80041c2:	ecbd 8b02 	vpop	{d8}
+ 80041c6:	bd90      	pop	{r4, r7, pc}
+ 80041c8:	20000264 	.word	0x20000264
 
-080041d0 <_ZN9LineTrace17startVelocityPlayEv>:
+080041cc <_ZN9LineTrace17startVelocityPlayEv>:
 
 void LineTrace::startVelocityPlay()
 {
- 80041d0:	b580      	push	{r7, lr}
- 80041d2:	b082      	sub	sp, #8
- 80041d4:	af00      	add	r7, sp, #0
- 80041d6:	6078      	str	r0, [r7, #4]
+ 80041cc:	b580      	push	{r7, lr}
+ 80041ce:	b082      	sub	sp, #8
+ 80041d0:	af00      	add	r7, sp, #0
+ 80041d2:	6078      	str	r0, [r7, #4]
 	encoder_->clearTotalDistance();
- 80041d8:	687b      	ldr	r3, [r7, #4]
- 80041da:	695b      	ldr	r3, [r3, #20]
- 80041dc:	4618      	mov	r0, r3
- 80041de:	f7fd f971 	bl	80014c4 <_ZN7Encoder18clearTotalDistanceEv>
+ 80041d4:	687b      	ldr	r3, [r7, #4]
+ 80041d6:	695b      	ldr	r3, [r3, #20]
+ 80041d8:	4618      	mov	r0, r3
+ 80041da:	f7fd f973 	bl	80014c4 <_ZN7Encoder18clearTotalDistanceEv>
 	velocity_play_flag_ = true;
- 80041e2:	687b      	ldr	r3, [r7, #4]
- 80041e4:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 80041e8:	3320      	adds	r3, #32
- 80041ea:	2201      	movs	r2, #1
- 80041ec:	701a      	strb	r2, [r3, #0]
+ 80041de:	687b      	ldr	r3, [r7, #4]
+ 80041e0:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 80041e4:	3320      	adds	r3, #32
+ 80041e6:	2201      	movs	r2, #1
+ 80041e8:	701a      	strb	r2, [r3, #0]
 }
- 80041ee:	bf00      	nop
- 80041f0:	3708      	adds	r7, #8
- 80041f2:	46bd      	mov	sp, r7
- 80041f4:	bd80      	pop	{r7, pc}
+ 80041ea:	bf00      	nop
+ 80041ec:	3708      	adds	r7, #8
+ 80041ee:	46bd      	mov	sp, r7
+ 80041f0:	bd80      	pop	{r7, pc}
 
-080041f6 <_ZN9LineTrace16stopVelocityPlayEv>:
+080041f2 <_ZN9LineTrace16stopVelocityPlayEv>:
 
 void LineTrace::stopVelocityPlay()
 {
- 80041f6:	b480      	push	{r7}
- 80041f8:	b083      	sub	sp, #12
- 80041fa:	af00      	add	r7, sp, #0
- 80041fc:	6078      	str	r0, [r7, #4]
+ 80041f2:	b480      	push	{r7}
+ 80041f4:	b083      	sub	sp, #12
+ 80041f6:	af00      	add	r7, sp, #0
+ 80041f8:	6078      	str	r0, [r7, #4]
 	velocity_play_flag_ = false;
- 80041fe:	687b      	ldr	r3, [r7, #4]
- 8004200:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8004204:	3320      	adds	r3, #32
- 8004206:	2200      	movs	r2, #0
- 8004208:	701a      	strb	r2, [r3, #0]
+ 80041fa:	687b      	ldr	r3, [r7, #4]
+ 80041fc:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 8004200:	3320      	adds	r3, #32
+ 8004202:	2200      	movs	r2, #0
+ 8004204:	701a      	strb	r2, [r3, #0]
 	velocity_table_idx_ = 0;
- 800420a:	687b      	ldr	r3, [r7, #4]
- 800420c:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8004210:	3322      	adds	r3, #34	; 0x22
- 8004212:	2200      	movs	r2, #0
- 8004214:	801a      	strh	r2, [r3, #0]
+ 8004206:	687b      	ldr	r3, [r7, #4]
+ 8004208:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 800420c:	3322      	adds	r3, #34	; 0x22
+ 800420e:	2200      	movs	r2, #0
+ 8004210:	801a      	strh	r2, [r3, #0]
 	ref_distance_ = 0;
- 8004216:	687b      	ldr	r3, [r7, #4]
- 8004218:	f503 43bc 	add.w	r3, r3, #24064	; 0x5e00
- 800421c:	335c      	adds	r3, #92	; 0x5c
- 800421e:	f04f 0200 	mov.w	r2, #0
- 8004222:	601a      	str	r2, [r3, #0]
+ 8004212:	687b      	ldr	r3, [r7, #4]
+ 8004214:	f503 43bc 	add.w	r3, r3, #24064	; 0x5e00
+ 8004218:	335c      	adds	r3, #92	; 0x5c
+ 800421a:	f04f 0200 	mov.w	r2, #0
+ 800421e:	601a      	str	r2, [r3, #0]
 }
- 8004224:	bf00      	nop
- 8004226:	370c      	adds	r7, #12
- 8004228:	46bd      	mov	sp, r7
- 800422a:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800422e:	4770      	bx	lr
+ 8004220:	bf00      	nop
+ 8004222:	370c      	adds	r7, #12
+ 8004224:	46bd      	mov	sp, r7
+ 8004226:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800422a:	4770      	bx	lr
 
-08004230 <_ZN9LineTrace7setModeEs>:
+0800422c <_ZN9LineTrace7setModeEs>:
 
 void LineTrace::setMode(int16_t mode)
 {
- 8004230:	b480      	push	{r7}
- 8004232:	b083      	sub	sp, #12
- 8004234:	af00      	add	r7, sp, #0
- 8004236:	6078      	str	r0, [r7, #4]
- 8004238:	460b      	mov	r3, r1
- 800423a:	807b      	strh	r3, [r7, #2]
+ 800422c:	b480      	push	{r7}
+ 800422e:	b083      	sub	sp, #12
+ 8004230:	af00      	add	r7, sp, #0
+ 8004232:	6078      	str	r0, [r7, #4]
+ 8004234:	460b      	mov	r3, r1
+ 8004236:	807b      	strh	r3, [r7, #2]
 	mode_selector_ = mode;
- 800423c:	687b      	ldr	r3, [r7, #4]
- 800423e:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8004242:	3324      	adds	r3, #36	; 0x24
- 8004244:	887a      	ldrh	r2, [r7, #2]
- 8004246:	801a      	strh	r2, [r3, #0]
+ 8004238:	687b      	ldr	r3, [r7, #4]
+ 800423a:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 800423e:	3324      	adds	r3, #36	; 0x24
+ 8004240:	887a      	ldrh	r2, [r7, #2]
+ 8004242:	801a      	strh	r2, [r3, #0]
 }
- 8004248:	bf00      	nop
- 800424a:	370c      	adds	r7, #12
- 800424c:	46bd      	mov	sp, r7
- 800424e:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8004252:	4770      	bx	lr
+ 8004244:	bf00      	nop
+ 8004246:	370c      	adds	r7, #12
+ 8004248:	46bd      	mov	sp, r7
+ 800424a:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800424e:	4770      	bx	lr
 
-08004254 <_ZN9LineTrace16isTargetDistanceEf>:
+08004250 <_ZN9LineTrace16isTargetDistanceEf>:
 
 bool LineTrace::isTargetDistance(float target_distance)
 {
- 8004254:	b580      	push	{r7, lr}
- 8004256:	b084      	sub	sp, #16
- 8004258:	af00      	add	r7, sp, #0
- 800425a:	6078      	str	r0, [r7, #4]
- 800425c:	ed87 0a00 	vstr	s0, [r7]
+ 8004250:	b580      	push	{r7, lr}
+ 8004252:	b084      	sub	sp, #16
+ 8004254:	af00      	add	r7, sp, #0
+ 8004256:	6078      	str	r0, [r7, #4]
+ 8004258:	ed87 0a00 	vstr	s0, [r7]
 	bool ret = false;
- 8004260:	2300      	movs	r3, #0
- 8004262:	73fb      	strb	r3, [r7, #15]
+ 800425c:	2300      	movs	r3, #0
+ 800425e:	73fb      	strb	r3, [r7, #15]
 	if(encoder_->getDistance10mm() >= target_distance){
- 8004264:	687b      	ldr	r3, [r7, #4]
- 8004266:	695b      	ldr	r3, [r3, #20]
- 8004268:	4618      	mov	r0, r3
- 800426a:	f7fd f8f0 	bl	800144e <_ZN7Encoder15getDistance10mmEv>
- 800426e:	eeb0 7a40 	vmov.f32	s14, s0
- 8004272:	edd7 7a00 	vldr	s15, [r7]
- 8004276:	eef4 7ac7 	vcmpe.f32	s15, s14
- 800427a:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
- 800427e:	bf94      	ite	ls
- 8004280:	2301      	movls	r3, #1
- 8004282:	2300      	movhi	r3, #0
- 8004284:	b2db      	uxtb	r3, r3
- 8004286:	2b00      	cmp	r3, #0
- 8004288:	d001      	beq.n	800428e <_ZN9LineTrace16isTargetDistanceEf+0x3a>
+ 8004260:	687b      	ldr	r3, [r7, #4]
+ 8004262:	695b      	ldr	r3, [r3, #20]
+ 8004264:	4618      	mov	r0, r3
+ 8004266:	f7fd f8f2 	bl	800144e <_ZN7Encoder15getDistance10mmEv>
+ 800426a:	eeb0 7a40 	vmov.f32	s14, s0
+ 800426e:	edd7 7a00 	vldr	s15, [r7]
+ 8004272:	eef4 7ac7 	vcmpe.f32	s15, s14
+ 8004276:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
+ 800427a:	bf94      	ite	ls
+ 800427c:	2301      	movls	r3, #1
+ 800427e:	2300      	movhi	r3, #0
+ 8004280:	b2db      	uxtb	r3, r3
+ 8004282:	2b00      	cmp	r3, #0
+ 8004284:	d001      	beq.n	800428a <_ZN9LineTrace16isTargetDistanceEf+0x3a>
 		ret = true;
- 800428a:	2301      	movs	r3, #1
- 800428c:	73fb      	strb	r3, [r7, #15]
+ 8004286:	2301      	movs	r3, #1
+ 8004288:	73fb      	strb	r3, [r7, #15]
 	}
 
 	return ret;
- 800428e:	7bfb      	ldrb	r3, [r7, #15]
+ 800428a:	7bfb      	ldrb	r3, [r7, #15]
 }
- 8004290:	4618      	mov	r0, r3
- 8004292:	3710      	adds	r7, #16
- 8004294:	46bd      	mov	sp, r7
- 8004296:	bd80      	pop	{r7, pc}
+ 800428c:	4618      	mov	r0, r3
+ 800428e:	3710      	adds	r7, #16
+ 8004290:	46bd      	mov	sp, r7
+ 8004292:	bd80      	pop	{r7, pc}
 
-08004298 <_ZN9LineTrace22storeCrossLineDistanceEv>:
+08004294 <_ZN9LineTrace22storeCrossLineDistanceEv>:
 
 void LineTrace::storeCrossLineDistance()
 {
- 8004298:	b590      	push	{r4, r7, lr}
- 800429a:	b083      	sub	sp, #12
- 800429c:	af00      	add	r7, sp, #0
- 800429e:	6078      	str	r0, [r7, #4]
+ 8004294:	b590      	push	{r4, r7, lr}
+ 8004296:	b083      	sub	sp, #12
+ 8004298:	af00      	add	r7, sp, #0
+ 800429a:	6078      	str	r0, [r7, #4]
 	crossline_distance_[crossline_idx_] = encoder_->getTotalDistance();
+ 800429c:	687b      	ldr	r3, [r7, #4]
+ 800429e:	695a      	ldr	r2, [r3, #20]
  80042a0:	687b      	ldr	r3, [r7, #4]
- 80042a2:	695a      	ldr	r2, [r3, #20]
- 80042a4:	687b      	ldr	r3, [r7, #4]
- 80042a6:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80042aa:	33f8      	adds	r3, #248	; 0xf8
- 80042ac:	881b      	ldrh	r3, [r3, #0]
- 80042ae:	461c      	mov	r4, r3
- 80042b0:	4610      	mov	r0, r2
- 80042b2:	f7fd f8db 	bl	800146c <_ZN7Encoder16getTotalDistanceEv>
- 80042b6:	eef0 7a40 	vmov.f32	s15, s0
- 80042ba:	687a      	ldr	r2, [r7, #4]
- 80042bc:	f504 533c 	add.w	r3, r4, #12032	; 0x2f00
- 80042c0:	330a      	adds	r3, #10
- 80042c2:	009b      	lsls	r3, r3, #2
- 80042c4:	4413      	add	r3, r2
- 80042c6:	edc3 7a00 	vstr	s15, [r3]
+ 80042a2:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80042a6:	33f8      	adds	r3, #248	; 0xf8
+ 80042a8:	881b      	ldrh	r3, [r3, #0]
+ 80042aa:	461c      	mov	r4, r3
+ 80042ac:	4610      	mov	r0, r2
+ 80042ae:	f7fd f8dd 	bl	800146c <_ZN7Encoder16getTotalDistanceEv>
+ 80042b2:	eef0 7a40 	vmov.f32	s15, s0
+ 80042b6:	687a      	ldr	r2, [r7, #4]
+ 80042b8:	f504 533c 	add.w	r3, r4, #12032	; 0x2f00
+ 80042bc:	330a      	adds	r3, #10
+ 80042be:	009b      	lsls	r3, r3, #2
+ 80042c0:	4413      	add	r3, r2
+ 80042c2:	edc3 7a00 	vstr	s15, [r3]
 	crossline_idx_++;
- 80042ca:	687b      	ldr	r3, [r7, #4]
- 80042cc:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80042d0:	33f8      	adds	r3, #248	; 0xf8
- 80042d2:	881b      	ldrh	r3, [r3, #0]
- 80042d4:	3301      	adds	r3, #1
- 80042d6:	b29a      	uxth	r2, r3
- 80042d8:	687b      	ldr	r3, [r7, #4]
- 80042da:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80042de:	33f8      	adds	r3, #248	; 0xf8
- 80042e0:	801a      	strh	r2, [r3, #0]
+ 80042c6:	687b      	ldr	r3, [r7, #4]
+ 80042c8:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80042cc:	33f8      	adds	r3, #248	; 0xf8
+ 80042ce:	881b      	ldrh	r3, [r3, #0]
+ 80042d0:	3301      	adds	r3, #1
+ 80042d2:	b29a      	uxth	r2, r3
+ 80042d4:	687b      	ldr	r3, [r7, #4]
+ 80042d6:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80042da:	33f8      	adds	r3, #248	; 0xf8
+ 80042dc:	801a      	strh	r2, [r3, #0]
 
 	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
- 80042e2:	687b      	ldr	r3, [r7, #4]
- 80042e4:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80042e8:	33f8      	adds	r3, #248	; 0xf8
- 80042ea:	881b      	ldrh	r3, [r3, #0]
- 80042ec:	2b63      	cmp	r3, #99	; 0x63
- 80042ee:	d905      	bls.n	80042fc <_ZN9LineTrace22storeCrossLineDistanceEv+0x64>
- 80042f0:	687b      	ldr	r3, [r7, #4]
- 80042f2:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80042f6:	33f8      	adds	r3, #248	; 0xf8
- 80042f8:	2263      	movs	r2, #99	; 0x63
- 80042fa:	801a      	strh	r2, [r3, #0]
+ 80042de:	687b      	ldr	r3, [r7, #4]
+ 80042e0:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80042e4:	33f8      	adds	r3, #248	; 0xf8
+ 80042e6:	881b      	ldrh	r3, [r3, #0]
+ 80042e8:	2b63      	cmp	r3, #99	; 0x63
+ 80042ea:	d905      	bls.n	80042f8 <_ZN9LineTrace22storeCrossLineDistanceEv+0x64>
+ 80042ec:	687b      	ldr	r3, [r7, #4]
+ 80042ee:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80042f2:	33f8      	adds	r3, #248	; 0xf8
+ 80042f4:	2263      	movs	r2, #99	; 0x63
+ 80042f6:	801a      	strh	r2, [r3, #0]
 }
- 80042fc:	bf00      	nop
- 80042fe:	370c      	adds	r7, #12
- 8004300:	46bd      	mov	sp, r7
- 8004302:	bd90      	pop	{r4, r7, pc}
+ 80042f8:	bf00      	nop
+ 80042fa:	370c      	adds	r7, #12
+ 80042fc:	46bd      	mov	sp, r7
+ 80042fe:	bd90      	pop	{r4, r7, pc}
 
-08004304 <_ZN9LineTrace21storeSideLineDistanceEv>:
+08004300 <_ZN9LineTrace21storeSideLineDistanceEv>:
 
 void LineTrace::storeSideLineDistance()
 {
- 8004304:	b590      	push	{r4, r7, lr}
- 8004306:	b083      	sub	sp, #12
- 8004308:	af00      	add	r7, sp, #0
- 800430a:	6078      	str	r0, [r7, #4]
+ 8004300:	b590      	push	{r4, r7, lr}
+ 8004302:	b083      	sub	sp, #12
+ 8004304:	af00      	add	r7, sp, #0
+ 8004306:	6078      	str	r0, [r7, #4]
 	sideline_distance_[sideline_idx_] = encoder_->getTotalDistance();
+ 8004308:	687b      	ldr	r3, [r7, #4]
+ 800430a:	695a      	ldr	r2, [r3, #20]
  800430c:	687b      	ldr	r3, [r7, #4]
- 800430e:	695a      	ldr	r2, [r3, #20]
- 8004310:	687b      	ldr	r3, [r7, #4]
- 8004312:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8004316:	33fa      	adds	r3, #250	; 0xfa
- 8004318:	881b      	ldrh	r3, [r3, #0]
- 800431a:	461c      	mov	r4, r3
- 800431c:	4610      	mov	r0, r2
- 800431e:	f7fd f8a5 	bl	800146c <_ZN7Encoder16getTotalDistanceEv>
- 8004322:	eef0 7a40 	vmov.f32	s15, s0
- 8004326:	687a      	ldr	r2, [r7, #4]
- 8004328:	f504 533d 	add.w	r3, r4, #12096	; 0x2f40
- 800432c:	332e      	adds	r3, #46	; 0x2e
- 800432e:	009b      	lsls	r3, r3, #2
- 8004330:	4413      	add	r3, r2
- 8004332:	edc3 7a00 	vstr	s15, [r3]
+ 800430e:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8004312:	33fa      	adds	r3, #250	; 0xfa
+ 8004314:	881b      	ldrh	r3, [r3, #0]
+ 8004316:	461c      	mov	r4, r3
+ 8004318:	4610      	mov	r0, r2
+ 800431a:	f7fd f8a7 	bl	800146c <_ZN7Encoder16getTotalDistanceEv>
+ 800431e:	eef0 7a40 	vmov.f32	s15, s0
+ 8004322:	687a      	ldr	r2, [r7, #4]
+ 8004324:	f504 533d 	add.w	r3, r4, #12096	; 0x2f40
+ 8004328:	332e      	adds	r3, #46	; 0x2e
+ 800432a:	009b      	lsls	r3, r3, #2
+ 800432c:	4413      	add	r3, r2
+ 800432e:	edc3 7a00 	vstr	s15, [r3]
 	sideline_idx_++;
- 8004336:	687b      	ldr	r3, [r7, #4]
- 8004338:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 800433c:	33fa      	adds	r3, #250	; 0xfa
- 800433e:	881b      	ldrh	r3, [r3, #0]
- 8004340:	3301      	adds	r3, #1
- 8004342:	b29a      	uxth	r2, r3
- 8004344:	687b      	ldr	r3, [r7, #4]
- 8004346:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 800434a:	33fa      	adds	r3, #250	; 0xfa
- 800434c:	801a      	strh	r2, [r3, #0]
+ 8004332:	687b      	ldr	r3, [r7, #4]
+ 8004334:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8004338:	33fa      	adds	r3, #250	; 0xfa
+ 800433a:	881b      	ldrh	r3, [r3, #0]
+ 800433c:	3301      	adds	r3, #1
+ 800433e:	b29a      	uxth	r2, r3
+ 8004340:	687b      	ldr	r3, [r7, #4]
+ 8004342:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8004346:	33fa      	adds	r3, #250	; 0xfa
+ 8004348:	801a      	strh	r2, [r3, #0]
 
 	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
- 800434e:	687b      	ldr	r3, [r7, #4]
- 8004350:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8004354:	33fa      	adds	r3, #250	; 0xfa
- 8004356:	881b      	ldrh	r3, [r3, #0]
- 8004358:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
- 800435c:	d306      	bcc.n	800436c <_ZN9LineTrace21storeSideLineDistanceEv+0x68>
- 800435e:	687b      	ldr	r3, [r7, #4]
- 8004360:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8004364:	33fa      	adds	r3, #250	; 0xfa
- 8004366:	f240 32e7 	movw	r2, #999	; 0x3e7
- 800436a:	801a      	strh	r2, [r3, #0]
+ 800434a:	687b      	ldr	r3, [r7, #4]
+ 800434c:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8004350:	33fa      	adds	r3, #250	; 0xfa
+ 8004352:	881b      	ldrh	r3, [r3, #0]
+ 8004354:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
+ 8004358:	d306      	bcc.n	8004368 <_ZN9LineTrace21storeSideLineDistanceEv+0x68>
+ 800435a:	687b      	ldr	r3, [r7, #4]
+ 800435c:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8004360:	33fa      	adds	r3, #250	; 0xfa
+ 8004362:	f240 32e7 	movw	r2, #999	; 0x3e7
+ 8004366:	801a      	strh	r2, [r3, #0]
 }
- 800436c:	bf00      	nop
- 800436e:	370c      	adds	r7, #12
- 8004370:	46bd      	mov	sp, r7
- 8004372:	bd90      	pop	{r4, r7, pc}
+ 8004368:	bf00      	nop
+ 800436a:	370c      	adds	r7, #12
+ 800436c:	46bd      	mov	sp, r7
+ 800436e:	bd90      	pop	{r4, r7, pc}
 
-08004374 <_ZN9LineTrace24storeAllSideLineDistanceEv>:
+08004370 <_ZN9LineTrace24storeAllSideLineDistanceEv>:
 void LineTrace::storeAllSideLineDistance()
 {
- 8004374:	b590      	push	{r4, r7, lr}
- 8004376:	b083      	sub	sp, #12
- 8004378:	af00      	add	r7, sp, #0
- 800437a:	6078      	str	r0, [r7, #4]
+ 8004370:	b590      	push	{r4, r7, lr}
+ 8004372:	b083      	sub	sp, #12
+ 8004374:	af00      	add	r7, sp, #0
+ 8004376:	6078      	str	r0, [r7, #4]
 	all_sideline_distance_[all_sideline_idx_] = encoder_->getTotalDistance();
+ 8004378:	687b      	ldr	r3, [r7, #4]
+ 800437a:	695a      	ldr	r2, [r3, #20]
  800437c:	687b      	ldr	r3, [r7, #4]
- 800437e:	695a      	ldr	r2, [r3, #20]
- 8004380:	687b      	ldr	r3, [r7, #4]
- 8004382:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8004386:	33fc      	adds	r3, #252	; 0xfc
- 8004388:	881b      	ldrh	r3, [r3, #0]
- 800438a:	461c      	mov	r4, r3
- 800438c:	4610      	mov	r0, r2
- 800438e:	f7fd f86d 	bl	800146c <_ZN7Encoder16getTotalDistanceEv>
- 8004392:	eef0 7a40 	vmov.f32	s15, s0
- 8004396:	687a      	ldr	r2, [r7, #4]
- 8004398:	f504 534d 	add.w	r3, r4, #13120	; 0x3340
- 800439c:	3316      	adds	r3, #22
- 800439e:	009b      	lsls	r3, r3, #2
- 80043a0:	4413      	add	r3, r2
- 80043a2:	edc3 7a00 	vstr	s15, [r3]
+ 800437e:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8004382:	33fc      	adds	r3, #252	; 0xfc
+ 8004384:	881b      	ldrh	r3, [r3, #0]
+ 8004386:	461c      	mov	r4, r3
+ 8004388:	4610      	mov	r0, r2
+ 800438a:	f7fd f86f 	bl	800146c <_ZN7Encoder16getTotalDistanceEv>
+ 800438e:	eef0 7a40 	vmov.f32	s15, s0
+ 8004392:	687a      	ldr	r2, [r7, #4]
+ 8004394:	f504 534d 	add.w	r3, r4, #13120	; 0x3340
+ 8004398:	3316      	adds	r3, #22
+ 800439a:	009b      	lsls	r3, r3, #2
+ 800439c:	4413      	add	r3, r2
+ 800439e:	edc3 7a00 	vstr	s15, [r3]
 	all_sideline_idx_++;
- 80043a6:	687b      	ldr	r3, [r7, #4]
- 80043a8:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80043ac:	33fc      	adds	r3, #252	; 0xfc
- 80043ae:	881b      	ldrh	r3, [r3, #0]
- 80043b0:	3301      	adds	r3, #1
- 80043b2:	b29a      	uxth	r2, r3
- 80043b4:	687b      	ldr	r3, [r7, #4]
- 80043b6:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80043ba:	33fc      	adds	r3, #252	; 0xfc
- 80043bc:	801a      	strh	r2, [r3, #0]
+ 80043a2:	687b      	ldr	r3, [r7, #4]
+ 80043a4:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80043a8:	33fc      	adds	r3, #252	; 0xfc
+ 80043aa:	881b      	ldrh	r3, [r3, #0]
+ 80043ac:	3301      	adds	r3, #1
+ 80043ae:	b29a      	uxth	r2, r3
+ 80043b0:	687b      	ldr	r3, [r7, #4]
+ 80043b2:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80043b6:	33fc      	adds	r3, #252	; 0xfc
+ 80043b8:	801a      	strh	r2, [r3, #0]
 
 	if(all_sideline_idx_ >= SIDELINE_SIZE) all_sideline_idx_ = SIDELINE_SIZE - 1;
- 80043be:	687b      	ldr	r3, [r7, #4]
- 80043c0:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80043c4:	33fc      	adds	r3, #252	; 0xfc
- 80043c6:	881b      	ldrh	r3, [r3, #0]
- 80043c8:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
- 80043cc:	d306      	bcc.n	80043dc <_ZN9LineTrace24storeAllSideLineDistanceEv+0x68>
- 80043ce:	687b      	ldr	r3, [r7, #4]
- 80043d0:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80043d4:	33fc      	adds	r3, #252	; 0xfc
- 80043d6:	f240 32e7 	movw	r2, #999	; 0x3e7
- 80043da:	801a      	strh	r2, [r3, #0]
+ 80043ba:	687b      	ldr	r3, [r7, #4]
+ 80043bc:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80043c0:	33fc      	adds	r3, #252	; 0xfc
+ 80043c2:	881b      	ldrh	r3, [r3, #0]
+ 80043c4:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
+ 80043c8:	d306      	bcc.n	80043d8 <_ZN9LineTrace24storeAllSideLineDistanceEv+0x68>
+ 80043ca:	687b      	ldr	r3, [r7, #4]
+ 80043cc:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80043d0:	33fc      	adds	r3, #252	; 0xfc
+ 80043d2:	f240 32e7 	movw	r2, #999	; 0x3e7
+ 80043d6:	801a      	strh	r2, [r3, #0]
 }
- 80043dc:	bf00      	nop
- 80043de:	370c      	adds	r7, #12
- 80043e0:	46bd      	mov	sp, r7
- 80043e2:	bd90      	pop	{r4, r7, pc}
+ 80043d8:	bf00      	nop
+ 80043da:	370c      	adds	r7, #12
+ 80043dc:	46bd      	mov	sp, r7
+ 80043de:	bd90      	pop	{r4, r7, pc}
 
-080043e4 <_ZN9LineTrace36correctionTotalDistanceFromCrossLineEv>:
+080043e0 <_ZN9LineTrace36correctionTotalDistanceFromCrossLineEv>:
 void LineTrace::correctionTotalDistanceFromCrossLine()
 {
- 80043e4:	b580      	push	{r7, lr}
- 80043e6:	b082      	sub	sp, #8
- 80043e8:	af00      	add	r7, sp, #0
- 80043ea:	6078      	str	r0, [r7, #4]
+ 80043e0:	b580      	push	{r7, lr}
+ 80043e2:	b082      	sub	sp, #8
+ 80043e4:	af00      	add	r7, sp, #0
+ 80043e6:	6078      	str	r0, [r7, #4]
 	encoder_->setTotalDistance(crossline_distance_[crossline_idx_]);
+ 80043e8:	687b      	ldr	r3, [r7, #4]
+ 80043ea:	6959      	ldr	r1, [r3, #20]
  80043ec:	687b      	ldr	r3, [r7, #4]
- 80043ee:	6959      	ldr	r1, [r3, #20]
- 80043f0:	687b      	ldr	r3, [r7, #4]
- 80043f2:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80043f6:	33f8      	adds	r3, #248	; 0xf8
- 80043f8:	881b      	ldrh	r3, [r3, #0]
- 80043fa:	687a      	ldr	r2, [r7, #4]
- 80043fc:	f503 533c 	add.w	r3, r3, #12032	; 0x2f00
- 8004400:	330a      	adds	r3, #10
- 8004402:	009b      	lsls	r3, r3, #2
- 8004404:	4413      	add	r3, r2
- 8004406:	edd3 7a00 	vldr	s15, [r3]
- 800440a:	eeb0 0a67 	vmov.f32	s0, s15
- 800440e:	4608      	mov	r0, r1
- 8004410:	f7fd f83b 	bl	800148a <_ZN7Encoder16setTotalDistanceEf>
+ 80043ee:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80043f2:	33f8      	adds	r3, #248	; 0xf8
+ 80043f4:	881b      	ldrh	r3, [r3, #0]
+ 80043f6:	687a      	ldr	r2, [r7, #4]
+ 80043f8:	f503 533c 	add.w	r3, r3, #12032	; 0x2f00
+ 80043fc:	330a      	adds	r3, #10
+ 80043fe:	009b      	lsls	r3, r3, #2
+ 8004400:	4413      	add	r3, r2
+ 8004402:	edd3 7a00 	vldr	s15, [r3]
+ 8004406:	eeb0 0a67 	vmov.f32	s0, s15
+ 800440a:	4608      	mov	r0, r1
+ 800440c:	f7fd f83d 	bl	800148a <_ZN7Encoder16setTotalDistanceEf>
 	crossline_idx_++;
- 8004414:	687b      	ldr	r3, [r7, #4]
- 8004416:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 800441a:	33f8      	adds	r3, #248	; 0xf8
- 800441c:	881b      	ldrh	r3, [r3, #0]
- 800441e:	3301      	adds	r3, #1
- 8004420:	b29a      	uxth	r2, r3
- 8004422:	687b      	ldr	r3, [r7, #4]
- 8004424:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8004428:	33f8      	adds	r3, #248	; 0xf8
- 800442a:	801a      	strh	r2, [r3, #0]
+ 8004410:	687b      	ldr	r3, [r7, #4]
+ 8004412:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8004416:	33f8      	adds	r3, #248	; 0xf8
+ 8004418:	881b      	ldrh	r3, [r3, #0]
+ 800441a:	3301      	adds	r3, #1
+ 800441c:	b29a      	uxth	r2, r3
+ 800441e:	687b      	ldr	r3, [r7, #4]
+ 8004420:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 8004424:	33f8      	adds	r3, #248	; 0xf8
+ 8004426:	801a      	strh	r2, [r3, #0]
 
 	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
- 800442c:	687b      	ldr	r3, [r7, #4]
- 800442e:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8004432:	33f8      	adds	r3, #248	; 0xf8
- 8004434:	881b      	ldrh	r3, [r3, #0]
- 8004436:	2b63      	cmp	r3, #99	; 0x63
- 8004438:	d905      	bls.n	8004446 <_ZN9LineTrace36correctionTotalDistanceFromCrossLineEv+0x62>
- 800443a:	687b      	ldr	r3, [r7, #4]
- 800443c:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 8004440:	33f8      	adds	r3, #248	; 0xf8
- 8004442:	2263      	movs	r2, #99	; 0x63
- 8004444:	801a      	strh	r2, [r3, #0]
+ 8004428:	687b      	ldr	r3, [r7, #4]
+ 800442a:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 800442e:	33f8      	adds	r3, #248	; 0xf8
+ 8004430:	881b      	ldrh	r3, [r3, #0]
+ 8004432:	2b63      	cmp	r3, #99	; 0x63
+ 8004434:	d905      	bls.n	8004442 <_ZN9LineTrace36correctionTotalDistanceFromCrossLineEv+0x62>
+ 8004436:	687b      	ldr	r3, [r7, #4]
+ 8004438:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 800443c:	33f8      	adds	r3, #248	; 0xf8
+ 800443e:	2263      	movs	r2, #99	; 0x63
+ 8004440:	801a      	strh	r2, [r3, #0]
 
 }
- 8004446:	bf00      	nop
- 8004448:	3708      	adds	r7, #8
- 800444a:	46bd      	mov	sp, r7
- 800444c:	bd80      	pop	{r7, pc}
+ 8004442:	bf00      	nop
+ 8004444:	3708      	adds	r7, #8
+ 8004446:	46bd      	mov	sp, r7
+ 8004448:	bd80      	pop	{r7, pc}
 	...
 
-08004450 <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv>:
+0800444c <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv>:
 
 void LineTrace::correctionTotalDistanceFromSideMarker()
 {
- 8004450:	b580      	push	{r7, lr}
- 8004452:	b086      	sub	sp, #24
- 8004454:	af00      	add	r7, sp, #0
- 8004456:	6078      	str	r0, [r7, #4]
+ 800444c:	b580      	push	{r7, lr}
+ 800444e:	b086      	sub	sp, #24
+ 8004450:	af00      	add	r7, sp, #0
+ 8004452:	6078      	str	r0, [r7, #4]
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
- 8004458:	2300      	movs	r3, #0
- 800445a:	82fb      	strh	r3, [r7, #22]
- 800445c:	8afb      	ldrh	r3, [r7, #22]
- 800445e:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
- 8004462:	d237      	bcs.n	80044d4 <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0x84>
+ 8004454:	2300      	movs	r3, #0
+ 8004456:	82fb      	strh	r3, [r7, #22]
+ 8004458:	8afb      	ldrh	r3, [r7, #22]
+ 800445a:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
+ 800445e:	d237      	bcs.n	80044d0 <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0x84>
 		float temp_sideline_distance = sideline_distance_[i];
- 8004464:	8afb      	ldrh	r3, [r7, #22]
- 8004466:	687a      	ldr	r2, [r7, #4]
- 8004468:	f503 533d 	add.w	r3, r3, #12096	; 0x2f40
- 800446c:	332e      	adds	r3, #46	; 0x2e
- 800446e:	009b      	lsls	r3, r3, #2
- 8004470:	4413      	add	r3, r2
- 8004472:	681b      	ldr	r3, [r3, #0]
- 8004474:	613b      	str	r3, [r7, #16]
+ 8004460:	8afb      	ldrh	r3, [r7, #22]
+ 8004462:	687a      	ldr	r2, [r7, #4]
+ 8004464:	f503 533d 	add.w	r3, r3, #12096	; 0x2f40
+ 8004468:	332e      	adds	r3, #46	; 0x2e
+ 800446a:	009b      	lsls	r3, r3, #2
+ 800446c:	4413      	add	r3, r2
+ 800446e:	681b      	ldr	r3, [r3, #0]
+ 8004470:	613b      	str	r3, [r7, #16]
 		float diff = abs(temp_sideline_distance - encoder_->getTotalDistance());
- 8004476:	687b      	ldr	r3, [r7, #4]
- 8004478:	695b      	ldr	r3, [r3, #20]
- 800447a:	4618      	mov	r0, r3
- 800447c:	f7fc fff6 	bl	800146c <_ZN7Encoder16getTotalDistanceEv>
- 8004480:	eeb0 7a40 	vmov.f32	s14, s0
- 8004484:	edd7 7a04 	vldr	s15, [r7, #16]
- 8004488:	ee77 7ac7 	vsub.f32	s15, s15, s14
- 800448c:	eeb0 0a67 	vmov.f32	s0, s15
- 8004490:	f7fe f8d2 	bl	8002638 <_ZSt3absf>
- 8004494:	ed87 0a03 	vstr	s0, [r7, #12]
+ 8004472:	687b      	ldr	r3, [r7, #4]
+ 8004474:	695b      	ldr	r3, [r3, #20]
+ 8004476:	4618      	mov	r0, r3
+ 8004478:	f7fc fff8 	bl	800146c <_ZN7Encoder16getTotalDistanceEv>
+ 800447c:	eeb0 7a40 	vmov.f32	s14, s0
+ 8004480:	edd7 7a04 	vldr	s15, [r7, #16]
+ 8004484:	ee77 7ac7 	vsub.f32	s15, s15, s14
+ 8004488:	eeb0 0a67 	vmov.f32	s0, s15
+ 800448c:	f7fe f8d4 	bl	8002638 <_ZSt3absf>
+ 8004490:	ed87 0a03 	vstr	s0, [r7, #12]
 		if(diff <= 80){
- 8004498:	edd7 7a03 	vldr	s15, [r7, #12]
- 800449c:	ed9f 7a17 	vldr	s14, [pc, #92]	; 80044fc <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0xac>
- 80044a0:	eef4 7ac7 	vcmpe.f32	s15, s14
- 80044a4:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
- 80044a8:	d810      	bhi.n	80044cc <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0x7c>
+ 8004494:	edd7 7a03 	vldr	s15, [r7, #12]
+ 8004498:	ed9f 7a17 	vldr	s14, [pc, #92]	; 80044f8 <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0xac>
+ 800449c:	eef4 7ac7 	vcmpe.f32	s15, s14
+ 80044a0:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
+ 80044a4:	d810      	bhi.n	80044c8 <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0x7c>
 			encoder_->setTotalDistance(sideline_distance_[i]);
- 80044aa:	687b      	ldr	r3, [r7, #4]
- 80044ac:	6959      	ldr	r1, [r3, #20]
- 80044ae:	8afb      	ldrh	r3, [r7, #22]
- 80044b0:	687a      	ldr	r2, [r7, #4]
- 80044b2:	f503 533d 	add.w	r3, r3, #12096	; 0x2f40
- 80044b6:	332e      	adds	r3, #46	; 0x2e
- 80044b8:	009b      	lsls	r3, r3, #2
- 80044ba:	4413      	add	r3, r2
- 80044bc:	edd3 7a00 	vldr	s15, [r3]
- 80044c0:	eeb0 0a67 	vmov.f32	s0, s15
- 80044c4:	4608      	mov	r0, r1
- 80044c6:	f7fc ffe0 	bl	800148a <_ZN7Encoder16setTotalDistanceEf>
+ 80044a6:	687b      	ldr	r3, [r7, #4]
+ 80044a8:	6959      	ldr	r1, [r3, #20]
+ 80044aa:	8afb      	ldrh	r3, [r7, #22]
+ 80044ac:	687a      	ldr	r2, [r7, #4]
+ 80044ae:	f503 533d 	add.w	r3, r3, #12096	; 0x2f40
+ 80044b2:	332e      	adds	r3, #46	; 0x2e
+ 80044b4:	009b      	lsls	r3, r3, #2
+ 80044b6:	4413      	add	r3, r2
+ 80044b8:	edd3 7a00 	vldr	s15, [r3]
+ 80044bc:	eeb0 0a67 	vmov.f32	s0, s15
+ 80044c0:	4608      	mov	r0, r1
+ 80044c2:	f7fc ffe2 	bl	800148a <_ZN7Encoder16setTotalDistanceEf>
 			break;
- 80044ca:	e003      	b.n	80044d4 <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0x84>
+ 80044c6:	e003      	b.n	80044d0 <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0x84>
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
- 80044cc:	8afb      	ldrh	r3, [r7, #22]
- 80044ce:	3301      	adds	r3, #1
- 80044d0:	82fb      	strh	r3, [r7, #22]
- 80044d2:	e7c3      	b.n	800445c <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0xc>
+ 80044c8:	8afb      	ldrh	r3, [r7, #22]
+ 80044ca:	3301      	adds	r3, #1
+ 80044cc:	82fb      	strh	r3, [r7, #22]
+ 80044ce:	e7c3      	b.n	8004458 <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0xc>
 		}
 	}
 
 	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
- 80044d4:	687b      	ldr	r3, [r7, #4]
- 80044d6:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80044da:	33fa      	adds	r3, #250	; 0xfa
- 80044dc:	881b      	ldrh	r3, [r3, #0]
- 80044de:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
- 80044e2:	d306      	bcc.n	80044f2 <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0xa2>
- 80044e4:	687b      	ldr	r3, [r7, #4]
- 80044e6:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
- 80044ea:	33fa      	adds	r3, #250	; 0xfa
- 80044ec:	f240 32e7 	movw	r2, #999	; 0x3e7
- 80044f0:	801a      	strh	r2, [r3, #0]
+ 80044d0:	687b      	ldr	r3, [r7, #4]
+ 80044d2:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80044d6:	33fa      	adds	r3, #250	; 0xfa
+ 80044d8:	881b      	ldrh	r3, [r3, #0]
+ 80044da:	f5b3 7f7a 	cmp.w	r3, #1000	; 0x3e8
+ 80044de:	d306      	bcc.n	80044ee <_ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv+0xa2>
+ 80044e0:	687b      	ldr	r3, [r7, #4]
+ 80044e2:	f503 435c 	add.w	r3, r3, #56320	; 0xdc00
+ 80044e6:	33fa      	adds	r3, #250	; 0xfa
+ 80044e8:	f240 32e7 	movw	r2, #999	; 0x3e7
+ 80044ec:	801a      	strh	r2, [r3, #0]
 
 }
- 80044f2:	bf00      	nop
- 80044f4:	3718      	adds	r7, #24
- 80044f6:	46bd      	mov	sp, r7
- 80044f8:	bd80      	pop	{r7, pc}
- 80044fa:	bf00      	nop
- 80044fc:	42a00000 	.word	0x42a00000
+ 80044ee:	bf00      	nop
+ 80044f0:	3718      	adds	r7, #24
+ 80044f2:	46bd      	mov	sp, r7
+ 80044f4:	bd80      	pop	{r7, pc}
+ 80044f6:	bf00      	nop
+ 80044f8:	42a00000 	.word	0x42a00000
 
-08004500 <_ZN6LoggerC1Ev>:
+080044fc <_ZN6LoggerC1Ev>:
 #include "HAL_SDcard_lib.h"
 #include <stdio.h>
 #include "Macro.h"
 #include "AQM0802.h"
 
 Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_tim2_(0), log_index_dis_(0){}
- 8004500:	b480      	push	{r7}
- 8004502:	b083      	sub	sp, #12
- 8004504:	af00      	add	r7, sp, #0
- 8004506:	6078      	str	r0, [r7, #4]
- 8004508:	687b      	ldr	r3, [r7, #4]
- 800450a:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 800450e:	f503 7384 	add.w	r3, r3, #264	; 0x108
- 8004512:	2200      	movs	r2, #0
- 8004514:	701a      	strb	r2, [r3, #0]
- 8004516:	687b      	ldr	r3, [r7, #4]
- 8004518:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 800451c:	f503 7385 	add.w	r3, r3, #266	; 0x10a
- 8004520:	2200      	movs	r2, #0
- 8004522:	801a      	strh	r2, [r3, #0]
- 8004524:	687b      	ldr	r3, [r7, #4]
- 8004526:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 800452a:	f503 7386 	add.w	r3, r3, #268	; 0x10c
- 800452e:	2200      	movs	r2, #0
- 8004530:	801a      	strh	r2, [r3, #0]
- 8004532:	687b      	ldr	r3, [r7, #4]
- 8004534:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004538:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 800453c:	2200      	movs	r2, #0
- 800453e:	801a      	strh	r2, [r3, #0]
- 8004540:	687b      	ldr	r3, [r7, #4]
- 8004542:	4618      	mov	r0, r3
- 8004544:	370c      	adds	r7, #12
- 8004546:	46bd      	mov	sp, r7
- 8004548:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800454c:	4770      	bx	lr
+ 80044fc:	b480      	push	{r7}
+ 80044fe:	b083      	sub	sp, #12
+ 8004500:	af00      	add	r7, sp, #0
+ 8004502:	6078      	str	r0, [r7, #4]
+ 8004504:	687b      	ldr	r3, [r7, #4]
+ 8004506:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 800450a:	f503 7384 	add.w	r3, r3, #264	; 0x108
+ 800450e:	2200      	movs	r2, #0
+ 8004510:	701a      	strb	r2, [r3, #0]
+ 8004512:	687b      	ldr	r3, [r7, #4]
+ 8004514:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004518:	f503 7385 	add.w	r3, r3, #266	; 0x10a
+ 800451c:	2200      	movs	r2, #0
+ 800451e:	801a      	strh	r2, [r3, #0]
+ 8004520:	687b      	ldr	r3, [r7, #4]
+ 8004522:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004526:	f503 7386 	add.w	r3, r3, #268	; 0x10c
+ 800452a:	2200      	movs	r2, #0
+ 800452c:	801a      	strh	r2, [r3, #0]
+ 800452e:	687b      	ldr	r3, [r7, #4]
+ 8004530:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004534:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 8004538:	2200      	movs	r2, #0
+ 800453a:	801a      	strh	r2, [r3, #0]
+ 800453c:	687b      	ldr	r3, [r7, #4]
+ 800453e:	4618      	mov	r0, r3
+ 8004540:	370c      	adds	r7, #12
+ 8004542:	46bd      	mov	sp, r7
+ 8004544:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8004548:	4770      	bx	lr
 	...
 
-08004550 <_ZN6Logger10sdCardInitEv>:
+0800454c <_ZN6Logger10sdCardInitEv>:
 
 bool Logger::sdCardInit()
 {
- 8004550:	b580      	push	{r7, lr}
- 8004552:	b084      	sub	sp, #16
- 8004554:	af00      	add	r7, sp, #0
- 8004556:	6078      	str	r0, [r7, #4]
+ 800454c:	b580      	push	{r7, lr}
+ 800454e:	b084      	sub	sp, #16
+ 8004550:	af00      	add	r7, sp, #0
+ 8004552:	6078      	str	r0, [r7, #4]
 	bool ret = false;
- 8004558:	2300      	movs	r3, #0
- 800455a:	73fb      	strb	r3, [r7, #15]
+ 8004554:	2300      	movs	r3, #0
+ 8004556:	73fb      	strb	r3, [r7, #15]
 
 	if(sd_mount() == 1){
- 800455c:	f7fd f8d0 	bl	8001700 <sd_mount>
- 8004560:	4603      	mov	r3, r0
- 8004562:	2b01      	cmp	r3, #1
- 8004564:	bf0c      	ite	eq
- 8004566:	2301      	moveq	r3, #1
- 8004568:	2300      	movne	r3, #0
- 800456a:	b2db      	uxtb	r3, r3
- 800456c:	2b00      	cmp	r3, #0
- 800456e:	d016      	beq.n	800459e <_ZN6Logger10sdCardInitEv+0x4e>
+ 8004558:	f7fd f8d2 	bl	8001700 <sd_mount>
+ 800455c:	4603      	mov	r3, r0
+ 800455e:	2b01      	cmp	r3, #1
+ 8004560:	bf0c      	ite	eq
+ 8004562:	2301      	moveq	r3, #1
+ 8004564:	2300      	movne	r3, #0
+ 8004566:	b2db      	uxtb	r3, r3
+ 8004568:	2b00      	cmp	r3, #0
+ 800456a:	d016      	beq.n	800459a <_ZN6Logger10sdCardInitEv+0x4e>
 	  //printf("mount success\r\n");
 
 	  lcd_clear();
- 8004570:	f7fc fd96 	bl	80010a0 <lcd_clear>
+ 800456c:	f7fc fd98 	bl	80010a0 <lcd_clear>
 	  lcd_locate(0,0);
- 8004574:	2100      	movs	r1, #0
- 8004576:	2000      	movs	r0, #0
- 8004578:	f7fc fda2 	bl	80010c0 <lcd_locate>
+ 8004570:	2100      	movs	r1, #0
+ 8004572:	2000      	movs	r0, #0
+ 8004574:	f7fc fda4 	bl	80010c0 <lcd_locate>
 	  lcd_printf("SD mount");
- 800457c:	4815      	ldr	r0, [pc, #84]	; (80045d4 <_ZN6Logger10sdCardInitEv+0x84>)
- 800457e:	f7fc fdc9 	bl	8001114 <lcd_printf>
+ 8004578:	4815      	ldr	r0, [pc, #84]	; (80045d0 <_ZN6Logger10sdCardInitEv+0x84>)
+ 800457a:	f7fc fdcb 	bl	8001114 <lcd_printf>
 	  lcd_locate(0,1);
- 8004582:	2101      	movs	r1, #1
- 8004584:	2000      	movs	r0, #0
- 8004586:	f7fc fd9b 	bl	80010c0 <lcd_locate>
+ 800457e:	2101      	movs	r1, #1
+ 8004580:	2000      	movs	r0, #0
+ 8004582:	f7fc fd9d 	bl	80010c0 <lcd_locate>
 	  lcd_printf("success");
- 800458a:	4813      	ldr	r0, [pc, #76]	; (80045d8 <_ZN6Logger10sdCardInitEv+0x88>)
- 800458c:	f7fc fdc2 	bl	8001114 <lcd_printf>
+ 8004586:	4813      	ldr	r0, [pc, #76]	; (80045d4 <_ZN6Logger10sdCardInitEv+0x88>)
+ 8004588:	f7fc fdc4 	bl	8001114 <lcd_printf>
 	  HAL_Delay(500);
- 8004590:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
- 8004594:	f005 f930 	bl	80097f8 <HAL_Delay>
+ 800458c:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
+ 8004590:	f005 f932 	bl	80097f8 <HAL_Delay>
 
 	  ret = true;
- 8004598:	2301      	movs	r3, #1
- 800459a:	73fb      	strb	r3, [r7, #15]
- 800459c:	e015      	b.n	80045ca <_ZN6Logger10sdCardInitEv+0x7a>
+ 8004594:	2301      	movs	r3, #1
+ 8004596:	73fb      	strb	r3, [r7, #15]
+ 8004598:	e015      	b.n	80045c6 <_ZN6Logger10sdCardInitEv+0x7a>
 	}
 	else{
 	  //printf("mount error\r\n");
 
 	  lcd_clear();
- 800459e:	f7fc fd7f 	bl	80010a0 <lcd_clear>
+ 800459a:	f7fc fd81 	bl	80010a0 <lcd_clear>
 	  lcd_locate(0,0);
- 80045a2:	2100      	movs	r1, #0
- 80045a4:	2000      	movs	r0, #0
- 80045a6:	f7fc fd8b 	bl	80010c0 <lcd_locate>
+ 800459e:	2100      	movs	r1, #0
+ 80045a0:	2000      	movs	r0, #0
+ 80045a2:	f7fc fd8d 	bl	80010c0 <lcd_locate>
 	  lcd_printf("SD mount");
- 80045aa:	480a      	ldr	r0, [pc, #40]	; (80045d4 <_ZN6Logger10sdCardInitEv+0x84>)
- 80045ac:	f7fc fdb2 	bl	8001114 <lcd_printf>
+ 80045a6:	480a      	ldr	r0, [pc, #40]	; (80045d0 <_ZN6Logger10sdCardInitEv+0x84>)
+ 80045a8:	f7fc fdb4 	bl	8001114 <lcd_printf>
 	  lcd_locate(0,1);
- 80045b0:	2101      	movs	r1, #1
- 80045b2:	2000      	movs	r0, #0
- 80045b4:	f7fc fd84 	bl	80010c0 <lcd_locate>
+ 80045ac:	2101      	movs	r1, #1
+ 80045ae:	2000      	movs	r0, #0
+ 80045b0:	f7fc fd86 	bl	80010c0 <lcd_locate>
 	  lcd_printf("fail");
- 80045b8:	4808      	ldr	r0, [pc, #32]	; (80045dc <_ZN6Logger10sdCardInitEv+0x8c>)
- 80045ba:	f7fc fdab 	bl	8001114 <lcd_printf>
+ 80045b4:	4808      	ldr	r0, [pc, #32]	; (80045d8 <_ZN6Logger10sdCardInitEv+0x8c>)
+ 80045b6:	f7fc fdad 	bl	8001114 <lcd_printf>
 	  HAL_Delay(1000);
- 80045be:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
- 80045c2:	f005 f919 	bl	80097f8 <HAL_Delay>
+ 80045ba:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
+ 80045be:	f005 f91b 	bl	80097f8 <HAL_Delay>
 
 	  ret = false;
- 80045c6:	2300      	movs	r3, #0
- 80045c8:	73fb      	strb	r3, [r7, #15]
+ 80045c2:	2300      	movs	r3, #0
+ 80045c4:	73fb      	strb	r3, [r7, #15]
 	//data[0] = 100;
 	//sd_write_array_int("sdio", "write1.txt", DATA_SIZE, data, ADD_WRITE); //write
 	//sd_read_array_int("sdio", "write1.txt", DATA_SIZE, temp); //read
 	//sd_write_array_int("sdio", "write2.txt", DATA_SIZE, temp, ADD_WRITE); //write
 
 	return ret;
- 80045ca:	7bfb      	ldrb	r3, [r7, #15]
+ 80045c6:	7bfb      	ldrb	r3, [r7, #15]
 }
- 80045cc:	4618      	mov	r0, r3
- 80045ce:	3710      	adds	r7, #16
- 80045d0:	46bd      	mov	sp, r7
- 80045d2:	bd80      	pop	{r7, pc}
- 80045d4:	08019864 	.word	0x08019864
- 80045d8:	08019870 	.word	0x08019870
- 80045dc:	08019878 	.word	0x08019878
+ 80045c8:	4618      	mov	r0, r3
+ 80045ca:	3710      	adds	r7, #16
+ 80045cc:	46bd      	mov	sp, r7
+ 80045ce:	bd80      	pop	{r7, pc}
+ 80045d0:	08019864 	.word	0x08019864
+ 80045d4:	08019870 	.word	0x08019870
+ 80045d8:	08019878 	.word	0x08019878
 
-080045e0 <_ZN6Logger8storeLogEf>:
+080045dc <_ZN6Logger8storeLogEf>:
 
 	}
 
 }
 void Logger::storeLog(float data)
 {
- 80045e0:	b480      	push	{r7}
- 80045e2:	b083      	sub	sp, #12
- 80045e4:	af00      	add	r7, sp, #0
- 80045e6:	6078      	str	r0, [r7, #4]
- 80045e8:	ed87 0a00 	vstr	s0, [r7]
+ 80045dc:	b480      	push	{r7}
+ 80045de:	b083      	sub	sp, #12
+ 80045e0:	af00      	add	r7, sp, #0
+ 80045e2:	6078      	str	r0, [r7, #4]
+ 80045e4:	ed87 0a00 	vstr	s0, [r7]
 	if(recording_flag_ == true){
- 80045ec:	687b      	ldr	r3, [r7, #4]
- 80045ee:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80045f2:	f503 7384 	add.w	r3, r3, #264	; 0x108
- 80045f6:	781b      	ldrb	r3, [r3, #0]
- 80045f8:	2b00      	cmp	r3, #0
- 80045fa:	d027      	beq.n	800464c <_ZN6Logger8storeLogEf+0x6c>
+ 80045e8:	687b      	ldr	r3, [r7, #4]
+ 80045ea:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80045ee:	f503 7384 	add.w	r3, r3, #264	; 0x108
+ 80045f2:	781b      	ldrb	r3, [r3, #0]
+ 80045f4:	2b00      	cmp	r3, #0
+ 80045f6:	d027      	beq.n	8004648 <_ZN6Logger8storeLogEf+0x6c>
 		store_data_float_[log_index_tim_] = data;
- 80045fc:	687b      	ldr	r3, [r7, #4]
- 80045fe:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004602:	f503 7385 	add.w	r3, r3, #266	; 0x10a
- 8004606:	881b      	ldrh	r3, [r3, #0]
- 8004608:	687a      	ldr	r2, [r7, #4]
- 800460a:	009b      	lsls	r3, r3, #2
- 800460c:	4413      	add	r3, r2
- 800460e:	683a      	ldr	r2, [r7, #0]
- 8004610:	601a      	str	r2, [r3, #0]
+ 80045f8:	687b      	ldr	r3, [r7, #4]
+ 80045fa:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80045fe:	f503 7385 	add.w	r3, r3, #266	; 0x10a
+ 8004602:	881b      	ldrh	r3, [r3, #0]
+ 8004604:	687a      	ldr	r2, [r7, #4]
+ 8004606:	009b      	lsls	r3, r3, #2
+ 8004608:	4413      	add	r3, r2
+ 800460a:	683a      	ldr	r2, [r7, #0]
+ 800460c:	601a      	str	r2, [r3, #0]
 
 		log_index_tim_++;
- 8004612:	687b      	ldr	r3, [r7, #4]
- 8004614:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004618:	f503 7385 	add.w	r3, r3, #266	; 0x10a
- 800461c:	881b      	ldrh	r3, [r3, #0]
- 800461e:	3301      	adds	r3, #1
- 8004620:	b29a      	uxth	r2, r3
- 8004622:	687b      	ldr	r3, [r7, #4]
- 8004624:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004628:	f503 7385 	add.w	r3, r3, #266	; 0x10a
- 800462c:	801a      	strh	r2, [r3, #0]
+ 800460e:	687b      	ldr	r3, [r7, #4]
+ 8004610:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004614:	f503 7385 	add.w	r3, r3, #266	; 0x10a
+ 8004618:	881b      	ldrh	r3, [r3, #0]
+ 800461a:	3301      	adds	r3, #1
+ 800461c:	b29a      	uxth	r2, r3
+ 800461e:	687b      	ldr	r3, [r7, #4]
+ 8004620:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004624:	f503 7385 	add.w	r3, r3, #266	; 0x10a
+ 8004628:	801a      	strh	r2, [r3, #0]
 
 		if(log_index_tim_ >= LOG_DATA_SIZE_TIM) log_index_tim_ = 0;
- 800462e:	687b      	ldr	r3, [r7, #4]
- 8004630:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004634:	f503 7385 	add.w	r3, r3, #266	; 0x10a
- 8004638:	881b      	ldrh	r3, [r3, #0]
- 800463a:	2b00      	cmp	r3, #0
- 800463c:	d006      	beq.n	800464c <_ZN6Logger8storeLogEf+0x6c>
- 800463e:	687b      	ldr	r3, [r7, #4]
- 8004640:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004644:	f503 7385 	add.w	r3, r3, #266	; 0x10a
- 8004648:	2200      	movs	r2, #0
- 800464a:	801a      	strh	r2, [r3, #0]
+ 800462a:	687b      	ldr	r3, [r7, #4]
+ 800462c:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004630:	f503 7385 	add.w	r3, r3, #266	; 0x10a
+ 8004634:	881b      	ldrh	r3, [r3, #0]
+ 8004636:	2b00      	cmp	r3, #0
+ 8004638:	d006      	beq.n	8004648 <_ZN6Logger8storeLogEf+0x6c>
+ 800463a:	687b      	ldr	r3, [r7, #4]
+ 800463c:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004640:	f503 7385 	add.w	r3, r3, #266	; 0x10a
+ 8004644:	2200      	movs	r2, #0
+ 8004646:	801a      	strh	r2, [r3, #0]
 	}
 }
- 800464c:	bf00      	nop
- 800464e:	370c      	adds	r7, #12
- 8004650:	46bd      	mov	sp, r7
- 8004652:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8004656:	4770      	bx	lr
+ 8004648:	bf00      	nop
+ 800464a:	370c      	adds	r7, #12
+ 800464c:	46bd      	mov	sp, r7
+ 800464e:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8004652:	4770      	bx	lr
 
-08004658 <_ZN6Logger9storeLog2Ef>:
+08004654 <_ZN6Logger9storeLog2Ef>:
 void Logger::storeLog2(float data)
 {
- 8004658:	b480      	push	{r7}
- 800465a:	b083      	sub	sp, #12
- 800465c:	af00      	add	r7, sp, #0
- 800465e:	6078      	str	r0, [r7, #4]
- 8004660:	ed87 0a00 	vstr	s0, [r7]
+ 8004654:	b480      	push	{r7}
+ 8004656:	b083      	sub	sp, #12
+ 8004658:	af00      	add	r7, sp, #0
+ 800465a:	6078      	str	r0, [r7, #4]
+ 800465c:	ed87 0a00 	vstr	s0, [r7]
 	if(recording_flag_ == true){
- 8004664:	687b      	ldr	r3, [r7, #4]
- 8004666:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 800466a:	f503 7384 	add.w	r3, r3, #264	; 0x108
- 800466e:	781b      	ldrb	r3, [r3, #0]
- 8004670:	2b00      	cmp	r3, #0
- 8004672:	d028      	beq.n	80046c6 <_ZN6Logger9storeLog2Ef+0x6e>
+ 8004660:	687b      	ldr	r3, [r7, #4]
+ 8004662:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004666:	f503 7384 	add.w	r3, r3, #264	; 0x108
+ 800466a:	781b      	ldrb	r3, [r3, #0]
+ 800466c:	2b00      	cmp	r3, #0
+ 800466e:	d028      	beq.n	80046c2 <_ZN6Logger9storeLog2Ef+0x6e>
 		store_data_float2_[log_index_tim2_] = data;
- 8004674:	687b      	ldr	r3, [r7, #4]
- 8004676:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 800467a:	f503 7386 	add.w	r3, r3, #268	; 0x10c
- 800467e:	881b      	ldrh	r3, [r3, #0]
- 8004680:	687a      	ldr	r2, [r7, #4]
- 8004682:	009b      	lsls	r3, r3, #2
- 8004684:	4413      	add	r3, r2
- 8004686:	3304      	adds	r3, #4
- 8004688:	683a      	ldr	r2, [r7, #0]
- 800468a:	601a      	str	r2, [r3, #0]
+ 8004670:	687b      	ldr	r3, [r7, #4]
+ 8004672:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004676:	f503 7386 	add.w	r3, r3, #268	; 0x10c
+ 800467a:	881b      	ldrh	r3, [r3, #0]
+ 800467c:	687a      	ldr	r2, [r7, #4]
+ 800467e:	009b      	lsls	r3, r3, #2
+ 8004680:	4413      	add	r3, r2
+ 8004682:	3304      	adds	r3, #4
+ 8004684:	683a      	ldr	r2, [r7, #0]
+ 8004686:	601a      	str	r2, [r3, #0]
 
 		log_index_tim2_++;
- 800468c:	687b      	ldr	r3, [r7, #4]
- 800468e:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004692:	f503 7386 	add.w	r3, r3, #268	; 0x10c
- 8004696:	881b      	ldrh	r3, [r3, #0]
- 8004698:	3301      	adds	r3, #1
- 800469a:	b29a      	uxth	r2, r3
- 800469c:	687b      	ldr	r3, [r7, #4]
- 800469e:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80046a2:	f503 7386 	add.w	r3, r3, #268	; 0x10c
- 80046a6:	801a      	strh	r2, [r3, #0]
+ 8004688:	687b      	ldr	r3, [r7, #4]
+ 800468a:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 800468e:	f503 7386 	add.w	r3, r3, #268	; 0x10c
+ 8004692:	881b      	ldrh	r3, [r3, #0]
+ 8004694:	3301      	adds	r3, #1
+ 8004696:	b29a      	uxth	r2, r3
+ 8004698:	687b      	ldr	r3, [r7, #4]
+ 800469a:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 800469e:	f503 7386 	add.w	r3, r3, #268	; 0x10c
+ 80046a2:	801a      	strh	r2, [r3, #0]
 
 		if(log_index_tim2_ >= LOG_DATA_SIZE_TIM2) log_index_tim2_ = 0;
- 80046a8:	687b      	ldr	r3, [r7, #4]
- 80046aa:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80046ae:	f503 7386 	add.w	r3, r3, #268	; 0x10c
- 80046b2:	881b      	ldrh	r3, [r3, #0]
- 80046b4:	2b00      	cmp	r3, #0
- 80046b6:	d006      	beq.n	80046c6 <_ZN6Logger9storeLog2Ef+0x6e>
- 80046b8:	687b      	ldr	r3, [r7, #4]
- 80046ba:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80046be:	f503 7386 	add.w	r3, r3, #268	; 0x10c
- 80046c2:	2200      	movs	r2, #0
- 80046c4:	801a      	strh	r2, [r3, #0]
+ 80046a4:	687b      	ldr	r3, [r7, #4]
+ 80046a6:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80046aa:	f503 7386 	add.w	r3, r3, #268	; 0x10c
+ 80046ae:	881b      	ldrh	r3, [r3, #0]
+ 80046b0:	2b00      	cmp	r3, #0
+ 80046b2:	d006      	beq.n	80046c2 <_ZN6Logger9storeLog2Ef+0x6e>
+ 80046b4:	687b      	ldr	r3, [r7, #4]
+ 80046b6:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80046ba:	f503 7386 	add.w	r3, r3, #268	; 0x10c
+ 80046be:	2200      	movs	r2, #0
+ 80046c0:	801a      	strh	r2, [r3, #0]
 	}
 }
- 80046c6:	bf00      	nop
- 80046c8:	370c      	adds	r7, #12
- 80046ca:	46bd      	mov	sp, r7
- 80046cc:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80046d0:	4770      	bx	lr
+ 80046c2:	bf00      	nop
+ 80046c4:	370c      	adds	r7, #12
+ 80046c6:	46bd      	mov	sp, r7
+ 80046c8:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80046cc:	4770      	bx	lr
 
-080046d2 <_ZN6Logger21storeDistanceAndThetaEff>:
+080046ce <_ZN6Logger21storeDistanceAndThetaEff>:
 {
 
 }
 
 void Logger::storeDistanceAndTheta(float distance, float theta)
 {
- 80046d2:	b480      	push	{r7}
- 80046d4:	b085      	sub	sp, #20
- 80046d6:	af00      	add	r7, sp, #0
- 80046d8:	60f8      	str	r0, [r7, #12]
- 80046da:	ed87 0a02 	vstr	s0, [r7, #8]
- 80046de:	edc7 0a01 	vstr	s1, [r7, #4]
+ 80046ce:	b480      	push	{r7}
+ 80046d0:	b085      	sub	sp, #20
+ 80046d2:	af00      	add	r7, sp, #0
+ 80046d4:	60f8      	str	r0, [r7, #12]
+ 80046d6:	ed87 0a02 	vstr	s0, [r7, #8]
+ 80046da:	edc7 0a01 	vstr	s1, [r7, #4]
 	//if(recording_flag_ == true){
 		store_distance_[log_index_dis_] = distance;
- 80046e2:	68fb      	ldr	r3, [r7, #12]
- 80046e4:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80046e8:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 80046ec:	881b      	ldrh	r3, [r3, #0]
- 80046ee:	68fa      	ldr	r2, [r7, #12]
- 80046f0:	3302      	adds	r3, #2
- 80046f2:	009b      	lsls	r3, r3, #2
- 80046f4:	4413      	add	r3, r2
- 80046f6:	68ba      	ldr	r2, [r7, #8]
- 80046f8:	601a      	str	r2, [r3, #0]
+ 80046de:	68fb      	ldr	r3, [r7, #12]
+ 80046e0:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80046e4:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 80046e8:	881b      	ldrh	r3, [r3, #0]
+ 80046ea:	68fa      	ldr	r2, [r7, #12]
+ 80046ec:	3302      	adds	r3, #2
+ 80046ee:	009b      	lsls	r3, r3, #2
+ 80046f0:	4413      	add	r3, r2
+ 80046f2:	68ba      	ldr	r2, [r7, #8]
+ 80046f4:	601a      	str	r2, [r3, #0]
 		store_theta_[log_index_dis_] = theta;
- 80046fa:	68fb      	ldr	r3, [r7, #12]
- 80046fc:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004700:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 8004704:	881b      	ldrh	r3, [r3, #0]
- 8004706:	68fa      	ldr	r2, [r7, #12]
- 8004708:	f503 53bb 	add.w	r3, r3, #5984	; 0x1760
- 800470c:	3312      	adds	r3, #18
- 800470e:	009b      	lsls	r3, r3, #2
- 8004710:	4413      	add	r3, r2
- 8004712:	687a      	ldr	r2, [r7, #4]
- 8004714:	601a      	str	r2, [r3, #0]
+ 80046f6:	68fb      	ldr	r3, [r7, #12]
+ 80046f8:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80046fc:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 8004700:	881b      	ldrh	r3, [r3, #0]
+ 8004702:	68fa      	ldr	r2, [r7, #12]
+ 8004704:	f503 53bb 	add.w	r3, r3, #5984	; 0x1760
+ 8004708:	3312      	adds	r3, #18
+ 800470a:	009b      	lsls	r3, r3, #2
+ 800470c:	4413      	add	r3, r2
+ 800470e:	687a      	ldr	r2, [r7, #4]
+ 8004710:	601a      	str	r2, [r3, #0]
 
 		log_index_dis_++;
- 8004716:	68fb      	ldr	r3, [r7, #12]
- 8004718:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 800471c:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 8004720:	881b      	ldrh	r3, [r3, #0]
- 8004722:	3301      	adds	r3, #1
- 8004724:	b29a      	uxth	r2, r3
- 8004726:	68fb      	ldr	r3, [r7, #12]
- 8004728:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 800472c:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 8004730:	801a      	strh	r2, [r3, #0]
+ 8004712:	68fb      	ldr	r3, [r7, #12]
+ 8004714:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004718:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 800471c:	881b      	ldrh	r3, [r3, #0]
+ 800471e:	3301      	adds	r3, #1
+ 8004720:	b29a      	uxth	r2, r3
+ 8004722:	68fb      	ldr	r3, [r7, #12]
+ 8004724:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004728:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 800472c:	801a      	strh	r2, [r3, #0]
 
 		if(log_index_dis_ >= LOG_DATA_SIZE_DIS) log_index_dis_ = 0;
- 8004732:	68fb      	ldr	r3, [r7, #12]
- 8004734:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004738:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 800473c:	881b      	ldrh	r3, [r3, #0]
- 800473e:	f241 726f 	movw	r2, #5999	; 0x176f
- 8004742:	4293      	cmp	r3, r2
- 8004744:	d906      	bls.n	8004754 <_ZN6Logger21storeDistanceAndThetaEff+0x82>
- 8004746:	68fb      	ldr	r3, [r7, #12]
- 8004748:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 800474c:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 8004750:	2200      	movs	r2, #0
- 8004752:	801a      	strh	r2, [r3, #0]
+ 800472e:	68fb      	ldr	r3, [r7, #12]
+ 8004730:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004734:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 8004738:	881b      	ldrh	r3, [r3, #0]
+ 800473a:	f241 726f 	movw	r2, #5999	; 0x176f
+ 800473e:	4293      	cmp	r3, r2
+ 8004740:	d906      	bls.n	8004750 <_ZN6Logger21storeDistanceAndThetaEff+0x82>
+ 8004742:	68fb      	ldr	r3, [r7, #12]
+ 8004744:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004748:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 800474c:	2200      	movs	r2, #0
+ 800474e:	801a      	strh	r2, [r3, #0]
 	//}
 }
- 8004754:	bf00      	nop
- 8004756:	3714      	adds	r7, #20
- 8004758:	46bd      	mov	sp, r7
- 800475a:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800475e:	4770      	bx	lr
+ 8004750:	bf00      	nop
+ 8004752:	3714      	adds	r7, #20
+ 8004754:	46bd      	mov	sp, r7
+ 8004756:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800475a:	4770      	bx	lr
 
-08004760 <_ZN6Logger22storeDistanceAndTheta2Eff>:
+0800475c <_ZN6Logger22storeDistanceAndTheta2Eff>:
 
 void Logger::storeDistanceAndTheta2(float distance, float theta)
 {
- 8004760:	b480      	push	{r7}
- 8004762:	b085      	sub	sp, #20
- 8004764:	af00      	add	r7, sp, #0
- 8004766:	60f8      	str	r0, [r7, #12]
- 8004768:	ed87 0a02 	vstr	s0, [r7, #8]
- 800476c:	edc7 0a01 	vstr	s1, [r7, #4]
+ 800475c:	b480      	push	{r7}
+ 800475e:	b085      	sub	sp, #20
+ 8004760:	af00      	add	r7, sp, #0
+ 8004762:	60f8      	str	r0, [r7, #12]
+ 8004764:	ed87 0a02 	vstr	s0, [r7, #8]
+ 8004768:	edc7 0a01 	vstr	s1, [r7, #4]
 	//if(recording_flag_ == true){
 		store_distance2_[log_index_dis_] = distance;
- 8004770:	68fb      	ldr	r3, [r7, #12]
- 8004772:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004776:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 800477a:	881b      	ldrh	r3, [r3, #0]
- 800477c:	68fa      	ldr	r2, [r7, #12]
- 800477e:	f503 533b 	add.w	r3, r3, #11968	; 0x2ec0
- 8004782:	3322      	adds	r3, #34	; 0x22
- 8004784:	009b      	lsls	r3, r3, #2
- 8004786:	4413      	add	r3, r2
- 8004788:	68ba      	ldr	r2, [r7, #8]
- 800478a:	601a      	str	r2, [r3, #0]
+ 800476c:	68fb      	ldr	r3, [r7, #12]
+ 800476e:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004772:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 8004776:	881b      	ldrh	r3, [r3, #0]
+ 8004778:	68fa      	ldr	r2, [r7, #12]
+ 800477a:	f503 533b 	add.w	r3, r3, #11968	; 0x2ec0
+ 800477e:	3322      	adds	r3, #34	; 0x22
+ 8004780:	009b      	lsls	r3, r3, #2
+ 8004782:	4413      	add	r3, r2
+ 8004784:	68ba      	ldr	r2, [r7, #8]
+ 8004786:	601a      	str	r2, [r3, #0]
 		store_theta2_[log_index_dis_] = theta;
- 800478c:	68fb      	ldr	r3, [r7, #12]
- 800478e:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004792:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 8004796:	881b      	ldrh	r3, [r3, #0]
- 8004798:	68fa      	ldr	r2, [r7, #12]
- 800479a:	f503 438c 	add.w	r3, r3, #17920	; 0x4600
- 800479e:	3352      	adds	r3, #82	; 0x52
- 80047a0:	009b      	lsls	r3, r3, #2
- 80047a2:	4413      	add	r3, r2
- 80047a4:	687a      	ldr	r2, [r7, #4]
- 80047a6:	601a      	str	r2, [r3, #0]
+ 8004788:	68fb      	ldr	r3, [r7, #12]
+ 800478a:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 800478e:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 8004792:	881b      	ldrh	r3, [r3, #0]
+ 8004794:	68fa      	ldr	r2, [r7, #12]
+ 8004796:	f503 438c 	add.w	r3, r3, #17920	; 0x4600
+ 800479a:	3352      	adds	r3, #82	; 0x52
+ 800479c:	009b      	lsls	r3, r3, #2
+ 800479e:	4413      	add	r3, r2
+ 80047a0:	687a      	ldr	r2, [r7, #4]
+ 80047a2:	601a      	str	r2, [r3, #0]
 
 		log_index_dis_++;
- 80047a8:	68fb      	ldr	r3, [r7, #12]
- 80047aa:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80047ae:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 80047b2:	881b      	ldrh	r3, [r3, #0]
- 80047b4:	3301      	adds	r3, #1
- 80047b6:	b29a      	uxth	r2, r3
- 80047b8:	68fb      	ldr	r3, [r7, #12]
- 80047ba:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80047be:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 80047c2:	801a      	strh	r2, [r3, #0]
+ 80047a4:	68fb      	ldr	r3, [r7, #12]
+ 80047a6:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80047aa:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 80047ae:	881b      	ldrh	r3, [r3, #0]
+ 80047b0:	3301      	adds	r3, #1
+ 80047b2:	b29a      	uxth	r2, r3
+ 80047b4:	68fb      	ldr	r3, [r7, #12]
+ 80047b6:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80047ba:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 80047be:	801a      	strh	r2, [r3, #0]
 
 		if(log_index_dis_ >= LOG_DATA_SIZE_DIS) log_index_dis_ = 0;
- 80047c4:	68fb      	ldr	r3, [r7, #12]
- 80047c6:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80047ca:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 80047ce:	881b      	ldrh	r3, [r3, #0]
- 80047d0:	f241 726f 	movw	r2, #5999	; 0x176f
- 80047d4:	4293      	cmp	r3, r2
- 80047d6:	d906      	bls.n	80047e6 <_ZN6Logger22storeDistanceAndTheta2Eff+0x86>
- 80047d8:	68fb      	ldr	r3, [r7, #12]
- 80047da:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80047de:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 80047e2:	2200      	movs	r2, #0
- 80047e4:	801a      	strh	r2, [r3, #0]
+ 80047c0:	68fb      	ldr	r3, [r7, #12]
+ 80047c2:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80047c6:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 80047ca:	881b      	ldrh	r3, [r3, #0]
+ 80047cc:	f241 726f 	movw	r2, #5999	; 0x176f
+ 80047d0:	4293      	cmp	r3, r2
+ 80047d2:	d906      	bls.n	80047e2 <_ZN6Logger22storeDistanceAndTheta2Eff+0x86>
+ 80047d4:	68fb      	ldr	r3, [r7, #12]
+ 80047d6:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80047da:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 80047de:	2200      	movs	r2, #0
+ 80047e0:	801a      	strh	r2, [r3, #0]
 	//}
 }
- 80047e6:	bf00      	nop
- 80047e8:	3714      	adds	r7, #20
- 80047ea:	46bd      	mov	sp, r7
- 80047ec:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80047f0:	4770      	bx	lr
+ 80047e2:	bf00      	nop
+ 80047e4:	3714      	adds	r7, #20
+ 80047e6:	46bd      	mov	sp, r7
+ 80047e8:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80047ec:	4770      	bx	lr
 
-080047f2 <_ZN6Logger23getDistanceArrayPointerEv>:
+080047ee <_ZN6Logger23getDistanceArrayPointerEv>:
 const float *Logger::getDistanceArrayPointer()
 {
- 80047f2:	b480      	push	{r7}
- 80047f4:	b083      	sub	sp, #12
- 80047f6:	af00      	add	r7, sp, #0
- 80047f8:	6078      	str	r0, [r7, #4]
+ 80047ee:	b480      	push	{r7}
+ 80047f0:	b083      	sub	sp, #12
+ 80047f2:	af00      	add	r7, sp, #0
+ 80047f4:	6078      	str	r0, [r7, #4]
 	return store_distance_;
- 80047fa:	687b      	ldr	r3, [r7, #4]
- 80047fc:	3308      	adds	r3, #8
+ 80047f6:	687b      	ldr	r3, [r7, #4]
+ 80047f8:	3308      	adds	r3, #8
 }
- 80047fe:	4618      	mov	r0, r3
- 8004800:	370c      	adds	r7, #12
- 8004802:	46bd      	mov	sp, r7
- 8004804:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8004808:	4770      	bx	lr
+ 80047fa:	4618      	mov	r0, r3
+ 80047fc:	370c      	adds	r7, #12
+ 80047fe:	46bd      	mov	sp, r7
+ 8004800:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8004804:	4770      	bx	lr
 
-0800480a <_ZN6Logger20getThetaArrayPointerEv>:
+08004806 <_ZN6Logger20getThetaArrayPointerEv>:
 
 const float *Logger::getThetaArrayPointer()
 {
- 800480a:	b480      	push	{r7}
- 800480c:	b083      	sub	sp, #12
- 800480e:	af00      	add	r7, sp, #0
- 8004810:	6078      	str	r0, [r7, #4]
+ 8004806:	b480      	push	{r7}
+ 8004808:	b083      	sub	sp, #12
+ 800480a:	af00      	add	r7, sp, #0
+ 800480c:	6078      	str	r0, [r7, #4]
 	return store_theta_;
- 8004812:	687b      	ldr	r3, [r7, #4]
- 8004814:	f503 43bb 	add.w	r3, r3, #23936	; 0x5d80
- 8004818:	3348      	adds	r3, #72	; 0x48
+ 800480e:	687b      	ldr	r3, [r7, #4]
+ 8004810:	f503 43bb 	add.w	r3, r3, #23936	; 0x5d80
+ 8004814:	3348      	adds	r3, #72	; 0x48
 }
- 800481a:	4618      	mov	r0, r3
- 800481c:	370c      	adds	r7, #12
- 800481e:	46bd      	mov	sp, r7
- 8004820:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8004824:	4770      	bx	lr
+ 8004816:	4618      	mov	r0, r3
+ 8004818:	370c      	adds	r7, #12
+ 800481a:	46bd      	mov	sp, r7
+ 800481c:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8004820:	4770      	bx	lr
 
-08004826 <_ZN6Logger8saveLogsEPKcS1_>:
+08004822 <_ZN6Logger8saveLogsEPKcS1_>:
 
 void Logger::saveLogs(const char *folder_name, const char *file_name)
 {
- 8004826:	b580      	push	{r7, lr}
- 8004828:	b086      	sub	sp, #24
- 800482a:	af02      	add	r7, sp, #8
- 800482c:	60f8      	str	r0, [r7, #12]
- 800482e:	60b9      	str	r1, [r7, #8]
- 8004830:	607a      	str	r2, [r7, #4]
+ 8004822:	b580      	push	{r7, lr}
+ 8004824:	b086      	sub	sp, #24
+ 8004826:	af02      	add	r7, sp, #8
+ 8004828:	60f8      	str	r0, [r7, #12]
+ 800482a:	60b9      	str	r1, [r7, #8]
+ 800482c:	607a      	str	r2, [r7, #4]
 	sd_write_array_float(folder_name, file_name, LOG_DATA_SIZE_TIM, store_data_float_, OVER_WRITE); //write
- 8004832:	68fa      	ldr	r2, [r7, #12]
- 8004834:	2300      	movs	r3, #0
- 8004836:	9300      	str	r3, [sp, #0]
- 8004838:	4613      	mov	r3, r2
- 800483a:	2201      	movs	r2, #1
- 800483c:	6879      	ldr	r1, [r7, #4]
- 800483e:	68b8      	ldr	r0, [r7, #8]
- 8004840:	f7fc fe6c 	bl	800151c <sd_write_array_float>
+ 800482e:	68fa      	ldr	r2, [r7, #12]
+ 8004830:	2300      	movs	r3, #0
+ 8004832:	9300      	str	r3, [sp, #0]
+ 8004834:	4613      	mov	r3, r2
+ 8004836:	2201      	movs	r2, #1
+ 8004838:	6879      	ldr	r1, [r7, #4]
+ 800483a:	68b8      	ldr	r0, [r7, #8]
+ 800483c:	f7fc fe6e 	bl	800151c <sd_write_array_float>
 }
- 8004844:	bf00      	nop
- 8004846:	3710      	adds	r7, #16
- 8004848:	46bd      	mov	sp, r7
- 800484a:	bd80      	pop	{r7, pc}
+ 8004840:	bf00      	nop
+ 8004842:	3710      	adds	r7, #16
+ 8004844:	46bd      	mov	sp, r7
+ 8004846:	bd80      	pop	{r7, pc}
 
-0800484c <_ZN6Logger9saveLogs2EPKcS1_>:
+08004848 <_ZN6Logger9saveLogs2EPKcS1_>:
 void Logger::saveLogs2(const char *folder_name, const char *file_name)
 {
- 800484c:	b580      	push	{r7, lr}
- 800484e:	b086      	sub	sp, #24
- 8004850:	af02      	add	r7, sp, #8
- 8004852:	60f8      	str	r0, [r7, #12]
- 8004854:	60b9      	str	r1, [r7, #8]
- 8004856:	607a      	str	r2, [r7, #4]
+ 8004848:	b580      	push	{r7, lr}
+ 800484a:	b086      	sub	sp, #24
+ 800484c:	af02      	add	r7, sp, #8
+ 800484e:	60f8      	str	r0, [r7, #12]
+ 8004850:	60b9      	str	r1, [r7, #8]
+ 8004852:	607a      	str	r2, [r7, #4]
 	sd_write_array_float(folder_name, file_name, LOG_DATA_SIZE_TIM2, store_data_float2_, OVER_WRITE); //write
- 8004858:	68fb      	ldr	r3, [r7, #12]
- 800485a:	1d1a      	adds	r2, r3, #4
- 800485c:	2300      	movs	r3, #0
- 800485e:	9300      	str	r3, [sp, #0]
- 8004860:	4613      	mov	r3, r2
- 8004862:	2201      	movs	r2, #1
- 8004864:	6879      	ldr	r1, [r7, #4]
- 8004866:	68b8      	ldr	r0, [r7, #8]
- 8004868:	f7fc fe58 	bl	800151c <sd_write_array_float>
+ 8004854:	68fb      	ldr	r3, [r7, #12]
+ 8004856:	1d1a      	adds	r2, r3, #4
+ 8004858:	2300      	movs	r3, #0
+ 800485a:	9300      	str	r3, [sp, #0]
+ 800485c:	4613      	mov	r3, r2
+ 800485e:	2201      	movs	r2, #1
+ 8004860:	6879      	ldr	r1, [r7, #4]
+ 8004862:	68b8      	ldr	r0, [r7, #8]
+ 8004864:	f7fc fe5a 	bl	800151c <sd_write_array_float>
 }
- 800486c:	bf00      	nop
- 800486e:	3710      	adds	r7, #16
- 8004870:	46bd      	mov	sp, r7
- 8004872:	bd80      	pop	{r7, pc}
+ 8004868:	bf00      	nop
+ 800486a:	3710      	adds	r7, #16
+ 800486c:	46bd      	mov	sp, r7
+ 800486e:	bd80      	pop	{r7, pc}
 
-08004874 <_ZN6Logger20saveDistanceAndThetaEPKcS1_S1_>:
+08004870 <_ZN6Logger20saveDistanceAndThetaEPKcS1_S1_>:
 
 void Logger::saveDistanceAndTheta(const char *folder_name, const char *file_name1, const char *file_name2)
 {
- 8004874:	b580      	push	{r7, lr}
- 8004876:	b086      	sub	sp, #24
- 8004878:	af02      	add	r7, sp, #8
- 800487a:	60f8      	str	r0, [r7, #12]
- 800487c:	60b9      	str	r1, [r7, #8]
- 800487e:	607a      	str	r2, [r7, #4]
- 8004880:	603b      	str	r3, [r7, #0]
+ 8004870:	b580      	push	{r7, lr}
+ 8004872:	b086      	sub	sp, #24
+ 8004874:	af02      	add	r7, sp, #8
+ 8004876:	60f8      	str	r0, [r7, #12]
+ 8004878:	60b9      	str	r1, [r7, #8]
+ 800487a:	607a      	str	r2, [r7, #4]
+ 800487c:	603b      	str	r3, [r7, #0]
 	sd_write_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance_, OVER_WRITE); //write
- 8004882:	68fb      	ldr	r3, [r7, #12]
- 8004884:	f103 0208 	add.w	r2, r3, #8
- 8004888:	2300      	movs	r3, #0
- 800488a:	9300      	str	r3, [sp, #0]
- 800488c:	4613      	mov	r3, r2
- 800488e:	f241 7270 	movw	r2, #6000	; 0x1770
- 8004892:	6879      	ldr	r1, [r7, #4]
- 8004894:	68b8      	ldr	r0, [r7, #8]
- 8004896:	f7fc fe41 	bl	800151c <sd_write_array_float>
+ 800487e:	68fb      	ldr	r3, [r7, #12]
+ 8004880:	f103 0208 	add.w	r2, r3, #8
+ 8004884:	2300      	movs	r3, #0
+ 8004886:	9300      	str	r3, [sp, #0]
+ 8004888:	4613      	mov	r3, r2
+ 800488a:	f241 7270 	movw	r2, #6000	; 0x1770
+ 800488e:	6879      	ldr	r1, [r7, #4]
+ 8004890:	68b8      	ldr	r0, [r7, #8]
+ 8004892:	f7fc fe43 	bl	800151c <sd_write_array_float>
 	sd_write_array_float(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta_, OVER_WRITE); //write
- 800489a:	68fb      	ldr	r3, [r7, #12]
- 800489c:	f503 43bb 	add.w	r3, r3, #23936	; 0x5d80
- 80048a0:	3348      	adds	r3, #72	; 0x48
- 80048a2:	2200      	movs	r2, #0
- 80048a4:	9200      	str	r2, [sp, #0]
- 80048a6:	f241 7270 	movw	r2, #6000	; 0x1770
- 80048aa:	6839      	ldr	r1, [r7, #0]
- 80048ac:	68b8      	ldr	r0, [r7, #8]
- 80048ae:	f7fc fe35 	bl	800151c <sd_write_array_float>
+ 8004896:	68fb      	ldr	r3, [r7, #12]
+ 8004898:	f503 43bb 	add.w	r3, r3, #23936	; 0x5d80
+ 800489c:	3348      	adds	r3, #72	; 0x48
+ 800489e:	2200      	movs	r2, #0
+ 80048a0:	9200      	str	r2, [sp, #0]
+ 80048a2:	f241 7270 	movw	r2, #6000	; 0x1770
+ 80048a6:	6839      	ldr	r1, [r7, #0]
+ 80048a8:	68b8      	ldr	r0, [r7, #8]
+ 80048aa:	f7fc fe37 	bl	800151c <sd_write_array_float>
 }
- 80048b2:	bf00      	nop
- 80048b4:	3710      	adds	r7, #16
- 80048b6:	46bd      	mov	sp, r7
- 80048b8:	bd80      	pop	{r7, pc}
+ 80048ae:	bf00      	nop
+ 80048b0:	3710      	adds	r7, #16
+ 80048b2:	46bd      	mov	sp, r7
+ 80048b4:	bd80      	pop	{r7, pc}
 
-080048ba <_ZN6Logger21saveDistanceAndTheta2EPKcS1_S1_>:
+080048b6 <_ZN6Logger21saveDistanceAndTheta2EPKcS1_S1_>:
 
 void Logger::saveDistanceAndTheta2(const char *folder_name, const char *file_name1, const char *file_name2)
 {
- 80048ba:	b580      	push	{r7, lr}
- 80048bc:	b086      	sub	sp, #24
- 80048be:	af02      	add	r7, sp, #8
- 80048c0:	60f8      	str	r0, [r7, #12]
- 80048c2:	60b9      	str	r1, [r7, #8]
- 80048c4:	607a      	str	r2, [r7, #4]
- 80048c6:	603b      	str	r3, [r7, #0]
+ 80048b6:	b580      	push	{r7, lr}
+ 80048b8:	b086      	sub	sp, #24
+ 80048ba:	af02      	add	r7, sp, #8
+ 80048bc:	60f8      	str	r0, [r7, #12]
+ 80048be:	60b9      	str	r1, [r7, #8]
+ 80048c0:	607a      	str	r2, [r7, #4]
+ 80048c2:	603b      	str	r3, [r7, #0]
 	sd_write_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance2_, OVER_WRITE); //write
- 80048c8:	68fb      	ldr	r3, [r7, #12]
- 80048ca:	f503 433b 	add.w	r3, r3, #47872	; 0xbb00
- 80048ce:	3388      	adds	r3, #136	; 0x88
- 80048d0:	2200      	movs	r2, #0
- 80048d2:	9200      	str	r2, [sp, #0]
- 80048d4:	f241 7270 	movw	r2, #6000	; 0x1770
- 80048d8:	6879      	ldr	r1, [r7, #4]
- 80048da:	68b8      	ldr	r0, [r7, #8]
- 80048dc:	f7fc fe1e 	bl	800151c <sd_write_array_float>
+ 80048c4:	68fb      	ldr	r3, [r7, #12]
+ 80048c6:	f503 433b 	add.w	r3, r3, #47872	; 0xbb00
+ 80048ca:	3388      	adds	r3, #136	; 0x88
+ 80048cc:	2200      	movs	r2, #0
+ 80048ce:	9200      	str	r2, [sp, #0]
+ 80048d0:	f241 7270 	movw	r2, #6000	; 0x1770
+ 80048d4:	6879      	ldr	r1, [r7, #4]
+ 80048d6:	68b8      	ldr	r0, [r7, #8]
+ 80048d8:	f7fc fe20 	bl	800151c <sd_write_array_float>
 	sd_write_array_float(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta2_, OVER_WRITE); //write
- 80048e0:	68fb      	ldr	r3, [r7, #12]
- 80048e2:	f503 338c 	add.w	r3, r3, #71680	; 0x11800
- 80048e6:	f503 73a4 	add.w	r3, r3, #328	; 0x148
- 80048ea:	2200      	movs	r2, #0
- 80048ec:	9200      	str	r2, [sp, #0]
- 80048ee:	f241 7270 	movw	r2, #6000	; 0x1770
- 80048f2:	6839      	ldr	r1, [r7, #0]
- 80048f4:	68b8      	ldr	r0, [r7, #8]
- 80048f6:	f7fc fe11 	bl	800151c <sd_write_array_float>
+ 80048dc:	68fb      	ldr	r3, [r7, #12]
+ 80048de:	f503 338c 	add.w	r3, r3, #71680	; 0x11800
+ 80048e2:	f503 73a4 	add.w	r3, r3, #328	; 0x148
+ 80048e6:	2200      	movs	r2, #0
+ 80048e8:	9200      	str	r2, [sp, #0]
+ 80048ea:	f241 7270 	movw	r2, #6000	; 0x1770
+ 80048ee:	6839      	ldr	r1, [r7, #0]
+ 80048f0:	68b8      	ldr	r0, [r7, #8]
+ 80048f2:	f7fc fe13 	bl	800151c <sd_write_array_float>
 }
- 80048fa:	bf00      	nop
- 80048fc:	3710      	adds	r7, #16
- 80048fe:	46bd      	mov	sp, r7
- 8004900:	bd80      	pop	{r7, pc}
+ 80048f6:	bf00      	nop
+ 80048f8:	3710      	adds	r7, #16
+ 80048fa:	46bd      	mov	sp, r7
+ 80048fc:	bd80      	pop	{r7, pc}
 
-08004902 <_ZN6Logger22importDistanceAndThetaEPKcS1_S1_>:
+080048fe <_ZN6Logger22importDistanceAndThetaEPKcS1_S1_>:
 
 void Logger::importDistanceAndTheta(const char *folder_name, const char *file_name1, const char *file_name2)
 {
- 8004902:	b580      	push	{r7, lr}
- 8004904:	b084      	sub	sp, #16
- 8004906:	af00      	add	r7, sp, #0
- 8004908:	60f8      	str	r0, [r7, #12]
- 800490a:	60b9      	str	r1, [r7, #8]
- 800490c:	607a      	str	r2, [r7, #4]
- 800490e:	603b      	str	r3, [r7, #0]
+ 80048fe:	b580      	push	{r7, lr}
+ 8004900:	b084      	sub	sp, #16
+ 8004902:	af00      	add	r7, sp, #0
+ 8004904:	60f8      	str	r0, [r7, #12]
+ 8004906:	60b9      	str	r1, [r7, #8]
+ 8004908:	607a      	str	r2, [r7, #4]
+ 800490a:	603b      	str	r3, [r7, #0]
 	sd_read_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance_); //read
- 8004910:	68fb      	ldr	r3, [r7, #12]
- 8004912:	3308      	adds	r3, #8
- 8004914:	f241 7270 	movw	r2, #6000	; 0x1770
- 8004918:	6879      	ldr	r1, [r7, #4]
- 800491a:	68b8      	ldr	r0, [r7, #8]
- 800491c:	f7fc fe64 	bl	80015e8 <sd_read_array_float>
+ 800490c:	68fb      	ldr	r3, [r7, #12]
+ 800490e:	3308      	adds	r3, #8
+ 8004910:	f241 7270 	movw	r2, #6000	; 0x1770
+ 8004914:	6879      	ldr	r1, [r7, #4]
+ 8004916:	68b8      	ldr	r0, [r7, #8]
+ 8004918:	f7fc fe66 	bl	80015e8 <sd_read_array_float>
 	sd_read_array_float(folder_name, file_name2, LOG_DATA_SIZE_DIS, store_theta_); //read
- 8004920:	68fb      	ldr	r3, [r7, #12]
- 8004922:	f503 43bb 	add.w	r3, r3, #23936	; 0x5d80
- 8004926:	3348      	adds	r3, #72	; 0x48
- 8004928:	f241 7270 	movw	r2, #6000	; 0x1770
- 800492c:	6839      	ldr	r1, [r7, #0]
- 800492e:	68b8      	ldr	r0, [r7, #8]
- 8004930:	f7fc fe5a 	bl	80015e8 <sd_read_array_float>
+ 800491c:	68fb      	ldr	r3, [r7, #12]
+ 800491e:	f503 43bb 	add.w	r3, r3, #23936	; 0x5d80
+ 8004922:	3348      	adds	r3, #72	; 0x48
+ 8004924:	f241 7270 	movw	r2, #6000	; 0x1770
+ 8004928:	6839      	ldr	r1, [r7, #0]
+ 800492a:	68b8      	ldr	r0, [r7, #8]
+ 800492c:	f7fc fe5c 	bl	80015e8 <sd_read_array_float>
 }
- 8004934:	bf00      	nop
- 8004936:	3710      	adds	r7, #16
- 8004938:	46bd      	mov	sp, r7
- 800493a:	bd80      	pop	{r7, pc}
+ 8004930:	bf00      	nop
+ 8004932:	3710      	adds	r7, #16
+ 8004934:	46bd      	mov	sp, r7
+ 8004936:	bd80      	pop	{r7, pc}
 
-0800493c <_ZN6Logger10resetLogs2Ev>:
+08004938 <_ZN6Logger10resetLogs2Ev>:
 	log_index_tim_ = 0;
 	log_index_dis_ = 0;
 }
 
 void Logger::resetLogs2()
 {
- 800493c:	b480      	push	{r7}
- 800493e:	b08b      	sub	sp, #44	; 0x2c
- 8004940:	af00      	add	r7, sp, #0
- 8004942:	6078      	str	r0, [r7, #4]
+ 8004938:	b480      	push	{r7}
+ 800493a:	b08b      	sub	sp, #44	; 0x2c
+ 800493c:	af00      	add	r7, sp, #0
+ 800493e:	6078      	str	r0, [r7, #4]
 	for(auto &log : store_distance2_){
- 8004944:	687b      	ldr	r3, [r7, #4]
- 8004946:	f503 433b 	add.w	r3, r3, #47872	; 0xbb00
- 800494a:	3388      	adds	r3, #136	; 0x88
- 800494c:	61fb      	str	r3, [r7, #28]
+ 8004940:	687b      	ldr	r3, [r7, #4]
+ 8004942:	f503 433b 	add.w	r3, r3, #47872	; 0xbb00
+ 8004946:	3388      	adds	r3, #136	; 0x88
+ 8004948:	61fb      	str	r3, [r7, #28]
+ 800494a:	69fb      	ldr	r3, [r7, #28]
+ 800494c:	627b      	str	r3, [r7, #36]	; 0x24
  800494e:	69fb      	ldr	r3, [r7, #28]
- 8004950:	627b      	str	r3, [r7, #36]	; 0x24
- 8004952:	69fb      	ldr	r3, [r7, #28]
- 8004954:	f503 43bb 	add.w	r3, r3, #23936	; 0x5d80
- 8004958:	3340      	adds	r3, #64	; 0x40
- 800495a:	61bb      	str	r3, [r7, #24]
- 800495c:	6a7a      	ldr	r2, [r7, #36]	; 0x24
- 800495e:	69bb      	ldr	r3, [r7, #24]
- 8004960:	429a      	cmp	r2, r3
- 8004962:	d009      	beq.n	8004978 <_ZN6Logger10resetLogs2Ev+0x3c>
- 8004964:	6a7b      	ldr	r3, [r7, #36]	; 0x24
- 8004966:	617b      	str	r3, [r7, #20]
+ 8004950:	f503 43bb 	add.w	r3, r3, #23936	; 0x5d80
+ 8004954:	3340      	adds	r3, #64	; 0x40
+ 8004956:	61bb      	str	r3, [r7, #24]
+ 8004958:	6a7a      	ldr	r2, [r7, #36]	; 0x24
+ 800495a:	69bb      	ldr	r3, [r7, #24]
+ 800495c:	429a      	cmp	r2, r3
+ 800495e:	d009      	beq.n	8004974 <_ZN6Logger10resetLogs2Ev+0x3c>
+ 8004960:	6a7b      	ldr	r3, [r7, #36]	; 0x24
+ 8004962:	617b      	str	r3, [r7, #20]
 		log = 0;
- 8004968:	697b      	ldr	r3, [r7, #20]
- 800496a:	f04f 0200 	mov.w	r2, #0
- 800496e:	601a      	str	r2, [r3, #0]
+ 8004964:	697b      	ldr	r3, [r7, #20]
+ 8004966:	f04f 0200 	mov.w	r2, #0
+ 800496a:	601a      	str	r2, [r3, #0]
 	for(auto &log : store_distance2_){
- 8004970:	6a7b      	ldr	r3, [r7, #36]	; 0x24
- 8004972:	3304      	adds	r3, #4
- 8004974:	627b      	str	r3, [r7, #36]	; 0x24
- 8004976:	e7f1      	b.n	800495c <_ZN6Logger10resetLogs2Ev+0x20>
+ 800496c:	6a7b      	ldr	r3, [r7, #36]	; 0x24
+ 800496e:	3304      	adds	r3, #4
+ 8004970:	627b      	str	r3, [r7, #36]	; 0x24
+ 8004972:	e7f1      	b.n	8004958 <_ZN6Logger10resetLogs2Ev+0x20>
 	}
 	for(auto &log : store_theta2_){
- 8004978:	687b      	ldr	r3, [r7, #4]
- 800497a:	f503 338c 	add.w	r3, r3, #71680	; 0x11800
- 800497e:	f503 73a4 	add.w	r3, r3, #328	; 0x148
- 8004982:	613b      	str	r3, [r7, #16]
+ 8004974:	687b      	ldr	r3, [r7, #4]
+ 8004976:	f503 338c 	add.w	r3, r3, #71680	; 0x11800
+ 800497a:	f503 73a4 	add.w	r3, r3, #328	; 0x148
+ 800497e:	613b      	str	r3, [r7, #16]
+ 8004980:	693b      	ldr	r3, [r7, #16]
+ 8004982:	623b      	str	r3, [r7, #32]
  8004984:	693b      	ldr	r3, [r7, #16]
- 8004986:	623b      	str	r3, [r7, #32]
- 8004988:	693b      	ldr	r3, [r7, #16]
- 800498a:	f503 43bb 	add.w	r3, r3, #23936	; 0x5d80
- 800498e:	3340      	adds	r3, #64	; 0x40
- 8004990:	60fb      	str	r3, [r7, #12]
- 8004992:	6a3a      	ldr	r2, [r7, #32]
- 8004994:	68fb      	ldr	r3, [r7, #12]
- 8004996:	429a      	cmp	r2, r3
- 8004998:	d009      	beq.n	80049ae <_ZN6Logger10resetLogs2Ev+0x72>
- 800499a:	6a3b      	ldr	r3, [r7, #32]
- 800499c:	60bb      	str	r3, [r7, #8]
+ 8004986:	f503 43bb 	add.w	r3, r3, #23936	; 0x5d80
+ 800498a:	3340      	adds	r3, #64	; 0x40
+ 800498c:	60fb      	str	r3, [r7, #12]
+ 800498e:	6a3a      	ldr	r2, [r7, #32]
+ 8004990:	68fb      	ldr	r3, [r7, #12]
+ 8004992:	429a      	cmp	r2, r3
+ 8004994:	d009      	beq.n	80049aa <_ZN6Logger10resetLogs2Ev+0x72>
+ 8004996:	6a3b      	ldr	r3, [r7, #32]
+ 8004998:	60bb      	str	r3, [r7, #8]
 		log = 0;
- 800499e:	68bb      	ldr	r3, [r7, #8]
- 80049a0:	f04f 0200 	mov.w	r2, #0
- 80049a4:	601a      	str	r2, [r3, #0]
+ 800499a:	68bb      	ldr	r3, [r7, #8]
+ 800499c:	f04f 0200 	mov.w	r2, #0
+ 80049a0:	601a      	str	r2, [r3, #0]
 	for(auto &log : store_theta2_){
- 80049a6:	6a3b      	ldr	r3, [r7, #32]
- 80049a8:	3304      	adds	r3, #4
- 80049aa:	623b      	str	r3, [r7, #32]
- 80049ac:	e7f1      	b.n	8004992 <_ZN6Logger10resetLogs2Ev+0x56>
+ 80049a2:	6a3b      	ldr	r3, [r7, #32]
+ 80049a4:	3304      	adds	r3, #4
+ 80049a6:	623b      	str	r3, [r7, #32]
+ 80049a8:	e7f1      	b.n	800498e <_ZN6Logger10resetLogs2Ev+0x56>
 	}
 
 	log_index_tim_ = 0;
- 80049ae:	687b      	ldr	r3, [r7, #4]
- 80049b0:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80049b4:	f503 7385 	add.w	r3, r3, #266	; 0x10a
- 80049b8:	2200      	movs	r2, #0
- 80049ba:	801a      	strh	r2, [r3, #0]
+ 80049aa:	687b      	ldr	r3, [r7, #4]
+ 80049ac:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80049b0:	f503 7385 	add.w	r3, r3, #266	; 0x10a
+ 80049b4:	2200      	movs	r2, #0
+ 80049b6:	801a      	strh	r2, [r3, #0]
 	log_index_dis_ = 0;
- 80049bc:	687b      	ldr	r3, [r7, #4]
- 80049be:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80049c2:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 80049c6:	2200      	movs	r2, #0
- 80049c8:	801a      	strh	r2, [r3, #0]
+ 80049b8:	687b      	ldr	r3, [r7, #4]
+ 80049ba:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80049be:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 80049c2:	2200      	movs	r2, #0
+ 80049c4:	801a      	strh	r2, [r3, #0]
 }
- 80049ca:	bf00      	nop
- 80049cc:	372c      	adds	r7, #44	; 0x2c
- 80049ce:	46bd      	mov	sp, r7
- 80049d0:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80049d4:	4770      	bx	lr
+ 80049c6:	bf00      	nop
+ 80049c8:	372c      	adds	r7, #44	; 0x2c
+ 80049ca:	46bd      	mov	sp, r7
+ 80049cc:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80049d0:	4770      	bx	lr
 
-080049d6 <_ZN6Logger8resetIdxEv>:
+080049d2 <_ZN6Logger8resetIdxEv>:
 void Logger::resetIdx()
 {
- 80049d6:	b480      	push	{r7}
- 80049d8:	b083      	sub	sp, #12
- 80049da:	af00      	add	r7, sp, #0
- 80049dc:	6078      	str	r0, [r7, #4]
+ 80049d2:	b480      	push	{r7}
+ 80049d4:	b083      	sub	sp, #12
+ 80049d6:	af00      	add	r7, sp, #0
+ 80049d8:	6078      	str	r0, [r7, #4]
 	log_index_tim_ = 0;
- 80049de:	687b      	ldr	r3, [r7, #4]
- 80049e0:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80049e4:	f503 7385 	add.w	r3, r3, #266	; 0x10a
- 80049e8:	2200      	movs	r2, #0
- 80049ea:	801a      	strh	r2, [r3, #0]
+ 80049da:	687b      	ldr	r3, [r7, #4]
+ 80049dc:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80049e0:	f503 7385 	add.w	r3, r3, #266	; 0x10a
+ 80049e4:	2200      	movs	r2, #0
+ 80049e6:	801a      	strh	r2, [r3, #0]
 	log_index_dis_ = 0;
- 80049ec:	687b      	ldr	r3, [r7, #4]
- 80049ee:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 80049f2:	f503 7387 	add.w	r3, r3, #270	; 0x10e
- 80049f6:	2200      	movs	r2, #0
- 80049f8:	801a      	strh	r2, [r3, #0]
+ 80049e8:	687b      	ldr	r3, [r7, #4]
+ 80049ea:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 80049ee:	f503 7387 	add.w	r3, r3, #270	; 0x10e
+ 80049f2:	2200      	movs	r2, #0
+ 80049f4:	801a      	strh	r2, [r3, #0]
 }
- 80049fa:	bf00      	nop
- 80049fc:	370c      	adds	r7, #12
- 80049fe:	46bd      	mov	sp, r7
- 8004a00:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8004a04:	4770      	bx	lr
+ 80049f6:	bf00      	nop
+ 80049f8:	370c      	adds	r7, #12
+ 80049fa:	46bd      	mov	sp, r7
+ 80049fc:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8004a00:	4770      	bx	lr
 
-08004a06 <_ZN6Logger5startEv>:
+08004a02 <_ZN6Logger5startEv>:
 
 void Logger::start()
 {
- 8004a06:	b480      	push	{r7}
- 8004a08:	b083      	sub	sp, #12
- 8004a0a:	af00      	add	r7, sp, #0
- 8004a0c:	6078      	str	r0, [r7, #4]
+ 8004a02:	b480      	push	{r7}
+ 8004a04:	b083      	sub	sp, #12
+ 8004a06:	af00      	add	r7, sp, #0
+ 8004a08:	6078      	str	r0, [r7, #4]
 	recording_flag_ = true;
- 8004a0e:	687b      	ldr	r3, [r7, #4]
- 8004a10:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004a14:	f503 7384 	add.w	r3, r3, #264	; 0x108
- 8004a18:	2201      	movs	r2, #1
- 8004a1a:	701a      	strb	r2, [r3, #0]
+ 8004a0a:	687b      	ldr	r3, [r7, #4]
+ 8004a0c:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004a10:	f503 7384 	add.w	r3, r3, #264	; 0x108
+ 8004a14:	2201      	movs	r2, #1
+ 8004a16:	701a      	strb	r2, [r3, #0]
 }
- 8004a1c:	bf00      	nop
- 8004a1e:	370c      	adds	r7, #12
- 8004a20:	46bd      	mov	sp, r7
- 8004a22:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8004a26:	4770      	bx	lr
+ 8004a18:	bf00      	nop
+ 8004a1a:	370c      	adds	r7, #12
+ 8004a1c:	46bd      	mov	sp, r7
+ 8004a1e:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8004a22:	4770      	bx	lr
 
-08004a28 <_ZN6Logger4stopEv>:
+08004a24 <_ZN6Logger4stopEv>:
 
 void Logger::stop()
 {
- 8004a28:	b480      	push	{r7}
- 8004a2a:	b083      	sub	sp, #12
- 8004a2c:	af00      	add	r7, sp, #0
- 8004a2e:	6078      	str	r0, [r7, #4]
+ 8004a24:	b480      	push	{r7}
+ 8004a26:	b083      	sub	sp, #12
+ 8004a28:	af00      	add	r7, sp, #0
+ 8004a2a:	6078      	str	r0, [r7, #4]
 	recording_flag_ = false;
- 8004a30:	687b      	ldr	r3, [r7, #4]
- 8004a32:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
- 8004a36:	f503 7384 	add.w	r3, r3, #264	; 0x108
- 8004a3a:	2200      	movs	r2, #0
- 8004a3c:	701a      	strb	r2, [r3, #0]
+ 8004a2c:	687b      	ldr	r3, [r7, #4]
+ 8004a2e:	f503 33bb 	add.w	r3, r3, #95744	; 0x17600
+ 8004a32:	f503 7384 	add.w	r3, r3, #264	; 0x108
+ 8004a36:	2200      	movs	r2, #0
+ 8004a38:	701a      	strb	r2, [r3, #0]
 }
- 8004a3e:	bf00      	nop
- 8004a40:	370c      	adds	r7, #12
- 8004a42:	46bd      	mov	sp, r7
- 8004a44:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8004a48:	4770      	bx	lr
+ 8004a3a:	bf00      	nop
+ 8004a3c:	370c      	adds	r7, #12
+ 8004a3e:	46bd      	mov	sp, r7
+ 8004a40:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8004a44:	4770      	bx	lr
 
-08004a4a <_ZN5MotorC1Ev>:
+08004a46 <_ZN5MotorC1Ev>:
 
 #include "Motor.hpp"
 #include "G_variables.h"
 
 
 Motor::Motor() : temp_left_counter_period_(0), temp_right_counter_period_(0){}
- 8004a4a:	b480      	push	{r7}
- 8004a4c:	b083      	sub	sp, #12
- 8004a4e:	af00      	add	r7, sp, #0
- 8004a50:	6078      	str	r0, [r7, #4]
- 8004a52:	687b      	ldr	r3, [r7, #4]
- 8004a54:	2200      	movs	r2, #0
- 8004a56:	801a      	strh	r2, [r3, #0]
- 8004a58:	687b      	ldr	r3, [r7, #4]
- 8004a5a:	2200      	movs	r2, #0
- 8004a5c:	805a      	strh	r2, [r3, #2]
- 8004a5e:	687b      	ldr	r3, [r7, #4]
- 8004a60:	4618      	mov	r0, r3
- 8004a62:	370c      	adds	r7, #12
- 8004a64:	46bd      	mov	sp, r7
- 8004a66:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8004a6a:	4770      	bx	lr
+ 8004a46:	b480      	push	{r7}
+ 8004a48:	b083      	sub	sp, #12
+ 8004a4a:	af00      	add	r7, sp, #0
+ 8004a4c:	6078      	str	r0, [r7, #4]
+ 8004a4e:	687b      	ldr	r3, [r7, #4]
+ 8004a50:	2200      	movs	r2, #0
+ 8004a52:	801a      	strh	r2, [r3, #0]
+ 8004a54:	687b      	ldr	r3, [r7, #4]
+ 8004a56:	2200      	movs	r2, #0
+ 8004a58:	805a      	strh	r2, [r3, #2]
+ 8004a5a:	687b      	ldr	r3, [r7, #4]
+ 8004a5c:	4618      	mov	r0, r3
+ 8004a5e:	370c      	adds	r7, #12
+ 8004a60:	46bd      	mov	sp, r7
+ 8004a62:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8004a66:	4770      	bx	lr
 
-08004a6c <_ZN5Motor4initEv>:
+08004a68 <_ZN5Motor4initEv>:
 
 void Motor::init()
 {
- 8004a6c:	b580      	push	{r7, lr}
- 8004a6e:	b082      	sub	sp, #8
- 8004a70:	af00      	add	r7, sp, #0
- 8004a72:	6078      	str	r0, [r7, #4]
+ 8004a68:	b580      	push	{r7, lr}
+ 8004a6a:	b082      	sub	sp, #8
+ 8004a6c:	af00      	add	r7, sp, #0
+ 8004a6e:	6078      	str	r0, [r7, #4]
 	//PWM start
 	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);
- 8004a74:	2108      	movs	r1, #8
- 8004a76:	4805      	ldr	r0, [pc, #20]	; (8004a8c <_ZN5Motor4initEv+0x20>)
- 8004a78:	f00a f86e 	bl	800eb58 <HAL_TIM_PWM_Start>
+ 8004a70:	2108      	movs	r1, #8
+ 8004a72:	4805      	ldr	r0, [pc, #20]	; (8004a88 <_ZN5Motor4initEv+0x20>)
+ 8004a74:	f00a f870 	bl	800eb58 <HAL_TIM_PWM_Start>
 	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4);
- 8004a7c:	210c      	movs	r1, #12
- 8004a7e:	4803      	ldr	r0, [pc, #12]	; (8004a8c <_ZN5Motor4initEv+0x20>)
- 8004a80:	f00a f86a 	bl	800eb58 <HAL_TIM_PWM_Start>
+ 8004a78:	210c      	movs	r1, #12
+ 8004a7a:	4803      	ldr	r0, [pc, #12]	; (8004a88 <_ZN5Motor4initEv+0x20>)
+ 8004a7c:	f00a f86c 	bl	800eb58 <HAL_TIM_PWM_Start>
 
 }
- 8004a84:	bf00      	nop
- 8004a86:	3708      	adds	r7, #8
- 8004a88:	46bd      	mov	sp, r7
- 8004a8a:	bd80      	pop	{r7, pc}
- 8004a8c:	2003f8c4 	.word	0x2003f8c4
+ 8004a80:	bf00      	nop
+ 8004a82:	3708      	adds	r7, #8
+ 8004a84:	46bd      	mov	sp, r7
+ 8004a86:	bd80      	pop	{r7, pc}
+ 8004a88:	2003f8c4 	.word	0x2003f8c4
 
-08004a90 <_ZN5Motor9motorCtrlEv>:
+08004a8c <_ZN5Motor9motorCtrlEv>:
 
 void Motor::motorCtrl()
 {
- 8004a90:	b580      	push	{r7, lr}
- 8004a92:	b084      	sub	sp, #16
- 8004a94:	af00      	add	r7, sp, #0
- 8004a96:	6078      	str	r0, [r7, #4]
+ 8004a8c:	b580      	push	{r7, lr}
+ 8004a8e:	b084      	sub	sp, #16
+ 8004a90:	af00      	add	r7, sp, #0
+ 8004a92:	6078      	str	r0, [r7, #4]
 	uint16_t left_counter_period, right_counter_period;
 
 	if(temp_left_counter_period_ < 0) {
- 8004a98:	687b      	ldr	r3, [r7, #4]
- 8004a9a:	f9b3 3000 	ldrsh.w	r3, [r3]
- 8004a9e:	2b00      	cmp	r3, #0
- 8004aa0:	da0d      	bge.n	8004abe <_ZN5Motor9motorCtrlEv+0x2e>
+ 8004a94:	687b      	ldr	r3, [r7, #4]
+ 8004a96:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 8004a9a:	2b00      	cmp	r3, #0
+ 8004a9c:	da0d      	bge.n	8004aba <_ZN5Motor9motorCtrlEv+0x2e>
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_RESET);
- 8004aa2:	2200      	movs	r2, #0
- 8004aa4:	f44f 7100 	mov.w	r1, #512	; 0x200
- 8004aa8:	481f      	ldr	r0, [pc, #124]	; (8004b28 <_ZN5Motor9motorCtrlEv+0x98>)
- 8004aaa:	f006 f93b 	bl	800ad24 <HAL_GPIO_WritePin>
+ 8004a9e:	2200      	movs	r2, #0
+ 8004aa0:	f44f 7100 	mov.w	r1, #512	; 0x200
+ 8004aa4:	481f      	ldr	r0, [pc, #124]	; (8004b24 <_ZN5Motor9motorCtrlEv+0x98>)
+ 8004aa6:	f006 f93d 	bl	800ad24 <HAL_GPIO_WritePin>
 		left_counter_period = -1 * temp_left_counter_period_;
- 8004aae:	687b      	ldr	r3, [r7, #4]
- 8004ab0:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 8004aaa:	687b      	ldr	r3, [r7, #4]
+ 8004aac:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 8004ab0:	b29b      	uxth	r3, r3
+ 8004ab2:	425b      	negs	r3, r3
  8004ab4:	b29b      	uxth	r3, r3
- 8004ab6:	425b      	negs	r3, r3
- 8004ab8:	b29b      	uxth	r3, r3
- 8004aba:	81fb      	strh	r3, [r7, #14]
- 8004abc:	e00a      	b.n	8004ad4 <_ZN5Motor9motorCtrlEv+0x44>
+ 8004ab6:	81fb      	strh	r3, [r7, #14]
+ 8004ab8:	e00a      	b.n	8004ad0 <_ZN5Motor9motorCtrlEv+0x44>
 	}
 	else{
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_SET);
- 8004abe:	2201      	movs	r2, #1
- 8004ac0:	f44f 7100 	mov.w	r1, #512	; 0x200
- 8004ac4:	4818      	ldr	r0, [pc, #96]	; (8004b28 <_ZN5Motor9motorCtrlEv+0x98>)
- 8004ac6:	f006 f92d 	bl	800ad24 <HAL_GPIO_WritePin>
+ 8004aba:	2201      	movs	r2, #1
+ 8004abc:	f44f 7100 	mov.w	r1, #512	; 0x200
+ 8004ac0:	4818      	ldr	r0, [pc, #96]	; (8004b24 <_ZN5Motor9motorCtrlEv+0x98>)
+ 8004ac2:	f006 f92f 	bl	800ad24 <HAL_GPIO_WritePin>
 		left_counter_period = temp_left_counter_period_;
- 8004aca:	687b      	ldr	r3, [r7, #4]
- 8004acc:	f9b3 3000 	ldrsh.w	r3, [r3]
- 8004ad0:	b29b      	uxth	r3, r3
- 8004ad2:	81fb      	strh	r3, [r7, #14]
+ 8004ac6:	687b      	ldr	r3, [r7, #4]
+ 8004ac8:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 8004acc:	b29b      	uxth	r3, r3
+ 8004ace:	81fb      	strh	r3, [r7, #14]
 	}
 
 	if(temp_right_counter_period_ < 0) {
- 8004ad4:	687b      	ldr	r3, [r7, #4]
- 8004ad6:	f9b3 3002 	ldrsh.w	r3, [r3, #2]
- 8004ada:	2b00      	cmp	r3, #0
- 8004adc:	da0d      	bge.n	8004afa <_ZN5Motor9motorCtrlEv+0x6a>
+ 8004ad0:	687b      	ldr	r3, [r7, #4]
+ 8004ad2:	f9b3 3002 	ldrsh.w	r3, [r3, #2]
+ 8004ad6:	2b00      	cmp	r3, #0
+ 8004ad8:	da0d      	bge.n	8004af6 <_ZN5Motor9motorCtrlEv+0x6a>
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_SET);
- 8004ade:	2201      	movs	r2, #1
- 8004ae0:	f44f 6180 	mov.w	r1, #1024	; 0x400
- 8004ae4:	4810      	ldr	r0, [pc, #64]	; (8004b28 <_ZN5Motor9motorCtrlEv+0x98>)
- 8004ae6:	f006 f91d 	bl	800ad24 <HAL_GPIO_WritePin>
+ 8004ada:	2201      	movs	r2, #1
+ 8004adc:	f44f 6180 	mov.w	r1, #1024	; 0x400
+ 8004ae0:	4810      	ldr	r0, [pc, #64]	; (8004b24 <_ZN5Motor9motorCtrlEv+0x98>)
+ 8004ae2:	f006 f91f 	bl	800ad24 <HAL_GPIO_WritePin>
 		right_counter_period = -1 * temp_right_counter_period_;
- 8004aea:	687b      	ldr	r3, [r7, #4]
- 8004aec:	f9b3 3002 	ldrsh.w	r3, [r3, #2]
+ 8004ae6:	687b      	ldr	r3, [r7, #4]
+ 8004ae8:	f9b3 3002 	ldrsh.w	r3, [r3, #2]
+ 8004aec:	b29b      	uxth	r3, r3
+ 8004aee:	425b      	negs	r3, r3
  8004af0:	b29b      	uxth	r3, r3
- 8004af2:	425b      	negs	r3, r3
- 8004af4:	b29b      	uxth	r3, r3
- 8004af6:	81bb      	strh	r3, [r7, #12]
- 8004af8:	e00a      	b.n	8004b10 <_ZN5Motor9motorCtrlEv+0x80>
+ 8004af2:	81bb      	strh	r3, [r7, #12]
+ 8004af4:	e00a      	b.n	8004b0c <_ZN5Motor9motorCtrlEv+0x80>
 	}
 	else{
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_RESET);
- 8004afa:	2200      	movs	r2, #0
- 8004afc:	f44f 6180 	mov.w	r1, #1024	; 0x400
- 8004b00:	4809      	ldr	r0, [pc, #36]	; (8004b28 <_ZN5Motor9motorCtrlEv+0x98>)
- 8004b02:	f006 f90f 	bl	800ad24 <HAL_GPIO_WritePin>
+ 8004af6:	2200      	movs	r2, #0
+ 8004af8:	f44f 6180 	mov.w	r1, #1024	; 0x400
+ 8004afc:	4809      	ldr	r0, [pc, #36]	; (8004b24 <_ZN5Motor9motorCtrlEv+0x98>)
+ 8004afe:	f006 f911 	bl	800ad24 <HAL_GPIO_WritePin>
 		right_counter_period = temp_right_counter_period_;
- 8004b06:	687b      	ldr	r3, [r7, #4]
- 8004b08:	f9b3 3002 	ldrsh.w	r3, [r3, #2]
- 8004b0c:	b29b      	uxth	r3, r3
- 8004b0e:	81bb      	strh	r3, [r7, #12]
+ 8004b02:	687b      	ldr	r3, [r7, #4]
+ 8004b04:	f9b3 3002 	ldrsh.w	r3, [r3, #2]
+ 8004b08:	b29b      	uxth	r3, r3
+ 8004b0a:	81bb      	strh	r3, [r7, #12]
 	}
 
 	__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3, left_counter_period);
- 8004b10:	89fa      	ldrh	r2, [r7, #14]
- 8004b12:	4b06      	ldr	r3, [pc, #24]	; (8004b2c <_ZN5Motor9motorCtrlEv+0x9c>)
- 8004b14:	681b      	ldr	r3, [r3, #0]
- 8004b16:	63da      	str	r2, [r3, #60]	; 0x3c
+ 8004b0c:	89fa      	ldrh	r2, [r7, #14]
+ 8004b0e:	4b06      	ldr	r3, [pc, #24]	; (8004b28 <_ZN5Motor9motorCtrlEv+0x9c>)
+ 8004b10:	681b      	ldr	r3, [r3, #0]
+ 8004b12:	63da      	str	r2, [r3, #60]	; 0x3c
 	__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, right_counter_period);
- 8004b18:	89ba      	ldrh	r2, [r7, #12]
- 8004b1a:	4b04      	ldr	r3, [pc, #16]	; (8004b2c <_ZN5Motor9motorCtrlEv+0x9c>)
- 8004b1c:	681b      	ldr	r3, [r3, #0]
- 8004b1e:	641a      	str	r2, [r3, #64]	; 0x40
+ 8004b14:	89ba      	ldrh	r2, [r7, #12]
+ 8004b16:	4b04      	ldr	r3, [pc, #16]	; (8004b28 <_ZN5Motor9motorCtrlEv+0x9c>)
+ 8004b18:	681b      	ldr	r3, [r3, #0]
+ 8004b1a:	641a      	str	r2, [r3, #64]	; 0x40
 }
- 8004b20:	bf00      	nop
- 8004b22:	3710      	adds	r7, #16
- 8004b24:	46bd      	mov	sp, r7
- 8004b26:	bd80      	pop	{r7, pc}
- 8004b28:	40020c00 	.word	0x40020c00
- 8004b2c:	2003f8c4 	.word	0x2003f8c4
+ 8004b1c:	bf00      	nop
+ 8004b1e:	3710      	adds	r7, #16
+ 8004b20:	46bd      	mov	sp, r7
+ 8004b22:	bd80      	pop	{r7, pc}
+ 8004b24:	40020c00 	.word	0x40020c00
+ 8004b28:	2003f8c4 	.word	0x2003f8c4
 
-08004b30 <_ZN5Motor8setRatioEdd>:
+08004b2c <_ZN5Motor8setRatioEdd>:
 
 void Motor::setRatio(double left_ratio, double right_ratio)
 {
- 8004b30:	b590      	push	{r4, r7, lr}
- 8004b32:	b087      	sub	sp, #28
- 8004b34:	af00      	add	r7, sp, #0
- 8004b36:	6178      	str	r0, [r7, #20]
- 8004b38:	ed87 0b02 	vstr	d0, [r7, #8]
- 8004b3c:	ed87 1b00 	vstr	d1, [r7]
+ 8004b2c:	b590      	push	{r4, r7, lr}
+ 8004b2e:	b087      	sub	sp, #28
+ 8004b30:	af00      	add	r7, sp, #0
+ 8004b32:	6178      	str	r0, [r7, #20]
+ 8004b34:	ed87 0b02 	vstr	d0, [r7, #8]
+ 8004b38:	ed87 1b00 	vstr	d1, [r7]
 	if(left_ratio > 1) left_ratio = 1;
- 8004b40:	f04f 0200 	mov.w	r2, #0
- 8004b44:	4b30      	ldr	r3, [pc, #192]	; (8004c08 <_ZN5Motor8setRatioEdd+0xd8>)
- 8004b46:	e9d7 0102 	ldrd	r0, r1, [r7, #8]
- 8004b4a:	f7fb fffd 	bl	8000b48 <__aeabi_dcmpgt>
- 8004b4e:	4603      	mov	r3, r0
- 8004b50:	2b00      	cmp	r3, #0
- 8004b52:	d005      	beq.n	8004b60 <_ZN5Motor8setRatioEdd+0x30>
- 8004b54:	f04f 0300 	mov.w	r3, #0
- 8004b58:	4c2b      	ldr	r4, [pc, #172]	; (8004c08 <_ZN5Motor8setRatioEdd+0xd8>)
- 8004b5a:	e9c7 3402 	strd	r3, r4, [r7, #8]
- 8004b5e:	e00e      	b.n	8004b7e <_ZN5Motor8setRatioEdd+0x4e>
+ 8004b3c:	f04f 0200 	mov.w	r2, #0
+ 8004b40:	4b30      	ldr	r3, [pc, #192]	; (8004c04 <_ZN5Motor8setRatioEdd+0xd8>)
+ 8004b42:	e9d7 0102 	ldrd	r0, r1, [r7, #8]
+ 8004b46:	f7fb ffff 	bl	8000b48 <__aeabi_dcmpgt>
+ 8004b4a:	4603      	mov	r3, r0
+ 8004b4c:	2b00      	cmp	r3, #0
+ 8004b4e:	d005      	beq.n	8004b5c <_ZN5Motor8setRatioEdd+0x30>
+ 8004b50:	f04f 0300 	mov.w	r3, #0
+ 8004b54:	4c2b      	ldr	r4, [pc, #172]	; (8004c04 <_ZN5Motor8setRatioEdd+0xd8>)
+ 8004b56:	e9c7 3402 	strd	r3, r4, [r7, #8]
+ 8004b5a:	e00e      	b.n	8004b7a <_ZN5Motor8setRatioEdd+0x4e>
 	else if(left_ratio < -1) left_ratio = -1;
- 8004b60:	f04f 0200 	mov.w	r2, #0
- 8004b64:	4b29      	ldr	r3, [pc, #164]	; (8004c0c <_ZN5Motor8setRatioEdd+0xdc>)
- 8004b66:	e9d7 0102 	ldrd	r0, r1, [r7, #8]
- 8004b6a:	f7fb ffcf 	bl	8000b0c <__aeabi_dcmplt>
- 8004b6e:	4603      	mov	r3, r0
- 8004b70:	2b00      	cmp	r3, #0
- 8004b72:	d004      	beq.n	8004b7e <_ZN5Motor8setRatioEdd+0x4e>
- 8004b74:	f04f 0300 	mov.w	r3, #0
- 8004b78:	4c24      	ldr	r4, [pc, #144]	; (8004c0c <_ZN5Motor8setRatioEdd+0xdc>)
- 8004b7a:	e9c7 3402 	strd	r3, r4, [r7, #8]
+ 8004b5c:	f04f 0200 	mov.w	r2, #0
+ 8004b60:	4b29      	ldr	r3, [pc, #164]	; (8004c08 <_ZN5Motor8setRatioEdd+0xdc>)
+ 8004b62:	e9d7 0102 	ldrd	r0, r1, [r7, #8]
+ 8004b66:	f7fb ffd1 	bl	8000b0c <__aeabi_dcmplt>
+ 8004b6a:	4603      	mov	r3, r0
+ 8004b6c:	2b00      	cmp	r3, #0
+ 8004b6e:	d004      	beq.n	8004b7a <_ZN5Motor8setRatioEdd+0x4e>
+ 8004b70:	f04f 0300 	mov.w	r3, #0
+ 8004b74:	4c24      	ldr	r4, [pc, #144]	; (8004c08 <_ZN5Motor8setRatioEdd+0xdc>)
+ 8004b76:	e9c7 3402 	strd	r3, r4, [r7, #8]
 	if(right_ratio > 1) right_ratio = 1;
- 8004b7e:	f04f 0200 	mov.w	r2, #0
- 8004b82:	4b21      	ldr	r3, [pc, #132]	; (8004c08 <_ZN5Motor8setRatioEdd+0xd8>)
- 8004b84:	e9d7 0100 	ldrd	r0, r1, [r7]
- 8004b88:	f7fb ffde 	bl	8000b48 <__aeabi_dcmpgt>
- 8004b8c:	4603      	mov	r3, r0
- 8004b8e:	2b00      	cmp	r3, #0
- 8004b90:	d005      	beq.n	8004b9e <_ZN5Motor8setRatioEdd+0x6e>
- 8004b92:	f04f 0300 	mov.w	r3, #0
- 8004b96:	4c1c      	ldr	r4, [pc, #112]	; (8004c08 <_ZN5Motor8setRatioEdd+0xd8>)
- 8004b98:	e9c7 3400 	strd	r3, r4, [r7]
- 8004b9c:	e00e      	b.n	8004bbc <_ZN5Motor8setRatioEdd+0x8c>
+ 8004b7a:	f04f 0200 	mov.w	r2, #0
+ 8004b7e:	4b21      	ldr	r3, [pc, #132]	; (8004c04 <_ZN5Motor8setRatioEdd+0xd8>)
+ 8004b80:	e9d7 0100 	ldrd	r0, r1, [r7]
+ 8004b84:	f7fb ffe0 	bl	8000b48 <__aeabi_dcmpgt>
+ 8004b88:	4603      	mov	r3, r0
+ 8004b8a:	2b00      	cmp	r3, #0
+ 8004b8c:	d005      	beq.n	8004b9a <_ZN5Motor8setRatioEdd+0x6e>
+ 8004b8e:	f04f 0300 	mov.w	r3, #0
+ 8004b92:	4c1c      	ldr	r4, [pc, #112]	; (8004c04 <_ZN5Motor8setRatioEdd+0xd8>)
+ 8004b94:	e9c7 3400 	strd	r3, r4, [r7]
+ 8004b98:	e00e      	b.n	8004bb8 <_ZN5Motor8setRatioEdd+0x8c>
 	else if(right_ratio < -1) right_ratio = -1;
- 8004b9e:	f04f 0200 	mov.w	r2, #0
- 8004ba2:	4b1a      	ldr	r3, [pc, #104]	; (8004c0c <_ZN5Motor8setRatioEdd+0xdc>)
- 8004ba4:	e9d7 0100 	ldrd	r0, r1, [r7]
- 8004ba8:	f7fb ffb0 	bl	8000b0c <__aeabi_dcmplt>
- 8004bac:	4603      	mov	r3, r0
- 8004bae:	2b00      	cmp	r3, #0
- 8004bb0:	d004      	beq.n	8004bbc <_ZN5Motor8setRatioEdd+0x8c>
- 8004bb2:	f04f 0300 	mov.w	r3, #0
- 8004bb6:	4c15      	ldr	r4, [pc, #84]	; (8004c0c <_ZN5Motor8setRatioEdd+0xdc>)
- 8004bb8:	e9c7 3400 	strd	r3, r4, [r7]
+ 8004b9a:	f04f 0200 	mov.w	r2, #0
+ 8004b9e:	4b1a      	ldr	r3, [pc, #104]	; (8004c08 <_ZN5Motor8setRatioEdd+0xdc>)
+ 8004ba0:	e9d7 0100 	ldrd	r0, r1, [r7]
+ 8004ba4:	f7fb ffb2 	bl	8000b0c <__aeabi_dcmplt>
+ 8004ba8:	4603      	mov	r3, r0
+ 8004baa:	2b00      	cmp	r3, #0
+ 8004bac:	d004      	beq.n	8004bb8 <_ZN5Motor8setRatioEdd+0x8c>
+ 8004bae:	f04f 0300 	mov.w	r3, #0
+ 8004bb2:	4c15      	ldr	r4, [pc, #84]	; (8004c08 <_ZN5Motor8setRatioEdd+0xdc>)
+ 8004bb4:	e9c7 3400 	strd	r3, r4, [r7]
 
 	temp_left_counter_period_ = (int)((double)MAX_COUNTER_PERIOD * left_ratio);
- 8004bbc:	f04f 0200 	mov.w	r2, #0
- 8004bc0:	4b13      	ldr	r3, [pc, #76]	; (8004c10 <_ZN5Motor8setRatioEdd+0xe0>)
- 8004bc2:	e9d7 0102 	ldrd	r0, r1, [r7, #8]
- 8004bc6:	f7fb fd2f 	bl	8000628 <__aeabi_dmul>
- 8004bca:	4603      	mov	r3, r0
- 8004bcc:	460c      	mov	r4, r1
- 8004bce:	4618      	mov	r0, r3
- 8004bd0:	4621      	mov	r1, r4
- 8004bd2:	f7fb ffd9 	bl	8000b88 <__aeabi_d2iz>
- 8004bd6:	4603      	mov	r3, r0
- 8004bd8:	b21a      	sxth	r2, r3
- 8004bda:	697b      	ldr	r3, [r7, #20]
- 8004bdc:	801a      	strh	r2, [r3, #0]
+ 8004bb8:	f04f 0200 	mov.w	r2, #0
+ 8004bbc:	4b13      	ldr	r3, [pc, #76]	; (8004c0c <_ZN5Motor8setRatioEdd+0xe0>)
+ 8004bbe:	e9d7 0102 	ldrd	r0, r1, [r7, #8]
+ 8004bc2:	f7fb fd31 	bl	8000628 <__aeabi_dmul>
+ 8004bc6:	4603      	mov	r3, r0
+ 8004bc8:	460c      	mov	r4, r1
+ 8004bca:	4618      	mov	r0, r3
+ 8004bcc:	4621      	mov	r1, r4
+ 8004bce:	f7fb ffdb 	bl	8000b88 <__aeabi_d2iz>
+ 8004bd2:	4603      	mov	r3, r0
+ 8004bd4:	b21a      	sxth	r2, r3
+ 8004bd6:	697b      	ldr	r3, [r7, #20]
+ 8004bd8:	801a      	strh	r2, [r3, #0]
 	temp_right_counter_period_ = (int)((double)MAX_COUNTER_PERIOD * right_ratio);
- 8004bde:	f04f 0200 	mov.w	r2, #0
- 8004be2:	4b0b      	ldr	r3, [pc, #44]	; (8004c10 <_ZN5Motor8setRatioEdd+0xe0>)
- 8004be4:	e9d7 0100 	ldrd	r0, r1, [r7]
- 8004be8:	f7fb fd1e 	bl	8000628 <__aeabi_dmul>
- 8004bec:	4603      	mov	r3, r0
- 8004bee:	460c      	mov	r4, r1
- 8004bf0:	4618      	mov	r0, r3
- 8004bf2:	4621      	mov	r1, r4
- 8004bf4:	f7fb ffc8 	bl	8000b88 <__aeabi_d2iz>
- 8004bf8:	4603      	mov	r3, r0
- 8004bfa:	b21a      	sxth	r2, r3
- 8004bfc:	697b      	ldr	r3, [r7, #20]
- 8004bfe:	805a      	strh	r2, [r3, #2]
+ 8004bda:	f04f 0200 	mov.w	r2, #0
+ 8004bde:	4b0b      	ldr	r3, [pc, #44]	; (8004c0c <_ZN5Motor8setRatioEdd+0xe0>)
+ 8004be0:	e9d7 0100 	ldrd	r0, r1, [r7]
+ 8004be4:	f7fb fd20 	bl	8000628 <__aeabi_dmul>
+ 8004be8:	4603      	mov	r3, r0
+ 8004bea:	460c      	mov	r4, r1
+ 8004bec:	4618      	mov	r0, r3
+ 8004bee:	4621      	mov	r1, r4
+ 8004bf0:	f7fb ffca 	bl	8000b88 <__aeabi_d2iz>
+ 8004bf4:	4603      	mov	r3, r0
+ 8004bf6:	b21a      	sxth	r2, r3
+ 8004bf8:	697b      	ldr	r3, [r7, #20]
+ 8004bfa:	805a      	strh	r2, [r3, #2]
 
 }
- 8004c00:	bf00      	nop
- 8004c02:	371c      	adds	r7, #28
- 8004c04:	46bd      	mov	sp, r7
- 8004c06:	bd90      	pop	{r4, r7, pc}
- 8004c08:	3ff00000 	.word	0x3ff00000
- 8004c0c:	bff00000 	.word	0xbff00000
- 8004c10:	409c2000 	.word	0x409c2000
+ 8004bfc:	bf00      	nop
+ 8004bfe:	371c      	adds	r7, #28
+ 8004c00:	46bd      	mov	sp, r7
+ 8004c02:	bd90      	pop	{r4, r7, pc}
+ 8004c04:	3ff00000 	.word	0x3ff00000
+ 8004c08:	bff00000 	.word	0xbff00000
+ 8004c0c:	409c2000 	.word	0x409c2000
 
-08004c14 <_ZN8OdometryC1EP7EncoderP3IMUP12VelocityCtrl>:
+08004c10 <_ZN8OdometryC1EP7EncoderP3IMUP12VelocityCtrl>:
 
 #define DELTA_T 0.001
 
 float monitor_x, monitor_y, monitor_theta;
 
 Odometry::Odometry(Encoder *encoder, IMU *imu, VelocityCtrl *velocity_ctrl) : x_robot_(0), y_robot_(0), theta_(0), x_sens_(0), y_sens_(0)
- 8004c14:	b490      	push	{r4, r7}
- 8004c16:	b084      	sub	sp, #16
- 8004c18:	af00      	add	r7, sp, #0
- 8004c1a:	60f8      	str	r0, [r7, #12]
- 8004c1c:	60b9      	str	r1, [r7, #8]
- 8004c1e:	607a      	str	r2, [r7, #4]
- 8004c20:	603b      	str	r3, [r7, #0]
- 8004c22:	68fa      	ldr	r2, [r7, #12]
- 8004c24:	f04f 0300 	mov.w	r3, #0
- 8004c28:	f04f 0400 	mov.w	r4, #0
- 8004c2c:	e9c2 3404 	strd	r3, r4, [r2, #16]
- 8004c30:	68fa      	ldr	r2, [r7, #12]
- 8004c32:	f04f 0300 	mov.w	r3, #0
- 8004c36:	f04f 0400 	mov.w	r4, #0
- 8004c3a:	e9c2 3406 	strd	r3, r4, [r2, #24]
- 8004c3e:	68fa      	ldr	r2, [r7, #12]
- 8004c40:	f04f 0300 	mov.w	r3, #0
- 8004c44:	f04f 0400 	mov.w	r4, #0
- 8004c48:	e9c2 3408 	strd	r3, r4, [r2, #32]
- 8004c4c:	68fa      	ldr	r2, [r7, #12]
- 8004c4e:	f04f 0300 	mov.w	r3, #0
- 8004c52:	f04f 0400 	mov.w	r4, #0
- 8004c56:	e9c2 340a 	strd	r3, r4, [r2, #40]	; 0x28
- 8004c5a:	68fa      	ldr	r2, [r7, #12]
- 8004c5c:	f04f 0300 	mov.w	r3, #0
- 8004c60:	f04f 0400 	mov.w	r4, #0
- 8004c64:	e9c2 340c 	strd	r3, r4, [r2, #48]	; 0x30
+ 8004c10:	b490      	push	{r4, r7}
+ 8004c12:	b084      	sub	sp, #16
+ 8004c14:	af00      	add	r7, sp, #0
+ 8004c16:	60f8      	str	r0, [r7, #12]
+ 8004c18:	60b9      	str	r1, [r7, #8]
+ 8004c1a:	607a      	str	r2, [r7, #4]
+ 8004c1c:	603b      	str	r3, [r7, #0]
+ 8004c1e:	68fa      	ldr	r2, [r7, #12]
+ 8004c20:	f04f 0300 	mov.w	r3, #0
+ 8004c24:	f04f 0400 	mov.w	r4, #0
+ 8004c28:	e9c2 3404 	strd	r3, r4, [r2, #16]
+ 8004c2c:	68fa      	ldr	r2, [r7, #12]
+ 8004c2e:	f04f 0300 	mov.w	r3, #0
+ 8004c32:	f04f 0400 	mov.w	r4, #0
+ 8004c36:	e9c2 3406 	strd	r3, r4, [r2, #24]
+ 8004c3a:	68fa      	ldr	r2, [r7, #12]
+ 8004c3c:	f04f 0300 	mov.w	r3, #0
+ 8004c40:	f04f 0400 	mov.w	r4, #0
+ 8004c44:	e9c2 3408 	strd	r3, r4, [r2, #32]
+ 8004c48:	68fa      	ldr	r2, [r7, #12]
+ 8004c4a:	f04f 0300 	mov.w	r3, #0
+ 8004c4e:	f04f 0400 	mov.w	r4, #0
+ 8004c52:	e9c2 340a 	strd	r3, r4, [r2, #40]	; 0x28
+ 8004c56:	68fa      	ldr	r2, [r7, #12]
+ 8004c58:	f04f 0300 	mov.w	r3, #0
+ 8004c5c:	f04f 0400 	mov.w	r4, #0
+ 8004c60:	e9c2 340c 	strd	r3, r4, [r2, #48]	; 0x30
 {
 	encoder_ = encoder;
- 8004c68:	68fb      	ldr	r3, [r7, #12]
- 8004c6a:	68ba      	ldr	r2, [r7, #8]
- 8004c6c:	601a      	str	r2, [r3, #0]
+ 8004c64:	68fb      	ldr	r3, [r7, #12]
+ 8004c66:	68ba      	ldr	r2, [r7, #8]
+ 8004c68:	601a      	str	r2, [r3, #0]
 	imu_ = imu;
- 8004c6e:	68fb      	ldr	r3, [r7, #12]
- 8004c70:	687a      	ldr	r2, [r7, #4]
- 8004c72:	605a      	str	r2, [r3, #4]
+ 8004c6a:	68fb      	ldr	r3, [r7, #12]
+ 8004c6c:	687a      	ldr	r2, [r7, #4]
+ 8004c6e:	605a      	str	r2, [r3, #4]
 	velocity_ctrl_ = velocity_ctrl;
- 8004c74:	68fb      	ldr	r3, [r7, #12]
- 8004c76:	683a      	ldr	r2, [r7, #0]
- 8004c78:	609a      	str	r2, [r3, #8]
+ 8004c70:	68fb      	ldr	r3, [r7, #12]
+ 8004c72:	683a      	ldr	r2, [r7, #0]
+ 8004c74:	609a      	str	r2, [r3, #8]
 }
- 8004c7a:	68fb      	ldr	r3, [r7, #12]
- 8004c7c:	4618      	mov	r0, r3
- 8004c7e:	3710      	adds	r7, #16
- 8004c80:	46bd      	mov	sp, r7
- 8004c82:	bc90      	pop	{r4, r7}
- 8004c84:	4770      	bx	lr
+ 8004c76:	68fb      	ldr	r3, [r7, #12]
+ 8004c78:	4618      	mov	r0, r3
+ 8004c7a:	3710      	adds	r7, #16
+ 8004c7c:	46bd      	mov	sp, r7
+ 8004c7e:	bc90      	pop	{r4, r7}
+ 8004c80:	4770      	bx	lr
+ 8004c82:	0000      	movs	r0, r0
+ 8004c84:	0000      	movs	r0, r0
 	...
 
 08004c88 <_ZN8Odometry12calcPotitionEv>:
@@ -10324,20 +10326,17 @@ uint16_t SideSensor::getStatus()
  8005406:	f85d 7b04 	ldr.w	r7, [sp], #4
  800540a:	4770      	bx	lr
 
-0800540c <_ZN10SideSensor16getWhiteLineCntREv>:
-{
-	return white_line_cnt_l_;
-}
+0800540c <_ZN10SideSensor16getWhiteLineCntLEv>:
 
-uint16_t SideSensor::getWhiteLineCntR()
+uint16_t SideSensor::getWhiteLineCntL()
 {
  800540c:	b480      	push	{r7}
  800540e:	b083      	sub	sp, #12
  8005410:	af00      	add	r7, sp, #0
  8005412:	6078      	str	r0, [r7, #4]
-	return white_line_cnt_r_;
+	return white_line_cnt_l_;
  8005414:	687b      	ldr	r3, [r7, #4]
- 8005416:	889b      	ldrh	r3, [r3, #4]
+ 8005416:	885b      	ldrh	r3, [r3, #2]
 }
  8005418:	4618      	mov	r0, r3
  800541a:	370c      	adds	r7, #12
@@ -10346,6 +10345,9 @@ uint16_t SideSensor::getWhiteLineCntR()
  8005422:	4770      	bx	lr
 
 08005424 <_ZN10SideSensor17resetWhiteLineCntEv>:
+{
+	return white_line_cnt_r_;
+}
 
 void SideSensor::resetWhiteLineCnt()
 {
@@ -10494,7 +10496,7 @@ void SystemIdentification::inOutputStore(float output)
  80054fc:	681b      	ldr	r3, [r3, #0]
  80054fe:	ed97 0a00 	vldr	s0, [r7]
  8005502:	4618      	mov	r0, r3
- 8005504:	f7ff f86c 	bl	80045e0 <_ZN6Logger8storeLogEf>
+ 8005504:	f7ff f86a 	bl	80045dc <_ZN6Logger8storeLogEf>
 		logger_->storeLog2(inputVal_);
  8005508:	687b      	ldr	r3, [r7, #4]
  800550a:	681a      	ldr	r2, [r3, #0]
@@ -10502,7 +10504,7 @@ void SystemIdentification::inOutputStore(float output)
  800550e:	edd3 7a80 	vldr	s15, [r3, #512]	; 0x200
  8005512:	eeb0 0a67 	vmov.f32	s0, s15
  8005516:	4610      	mov	r0, r2
- 8005518:	f7ff f89e 	bl	8004658 <_ZN6Logger9storeLog2Ef>
+ 8005518:	f7ff f89c 	bl	8004654 <_ZN6Logger9storeLog2Ef>
 	}
 
 }
@@ -10525,14 +10527,14 @@ void SystemIdentification::inOutputSave()
  8005530:	4a07      	ldr	r2, [pc, #28]	; (8005550 <_ZN20SystemIdentification12inOutputSaveEv+0x2c>)
  8005532:	4908      	ldr	r1, [pc, #32]	; (8005554 <_ZN20SystemIdentification12inOutputSaveEv+0x30>)
  8005534:	4618      	mov	r0, r3
- 8005536:	f7ff f976 	bl	8004826 <_ZN6Logger8saveLogsEPKcS1_>
+ 8005536:	f7ff f974 	bl	8004822 <_ZN6Logger8saveLogsEPKcS1_>
 	logger_->saveLogs2("sysident", "INPUT.txt");
  800553a:	687b      	ldr	r3, [r7, #4]
  800553c:	681b      	ldr	r3, [r3, #0]
  800553e:	4a06      	ldr	r2, [pc, #24]	; (8005558 <_ZN20SystemIdentification12inOutputSaveEv+0x34>)
  8005540:	4904      	ldr	r1, [pc, #16]	; (8005554 <_ZN20SystemIdentification12inOutputSaveEv+0x30>)
  8005542:	4618      	mov	r0, r3
- 8005544:	f7ff f982 	bl	800484c <_ZN6Logger9saveLogs2EPKcS1_>
+ 8005544:	f7ff f980 	bl	8004848 <_ZN6Logger9saveLogs2EPKcS1_>
 }
  8005548:	bf00      	nop
  800554a:	3708      	adds	r7, #8
@@ -10611,7 +10613,7 @@ void SystemIdentification::updateMsig()
  80055ee:	ec43 2b11 	vmov	d1, r2, r3
  80055f2:	ec46 5b10 	vmov	d0, r5, r6
  80055f6:	4620      	mov	r0, r4
- 80055f8:	f7ff fa9a 	bl	8004b30 <_ZN5Motor8setRatioEdd>
+ 80055f8:	f7ff fa98 	bl	8004b2c <_ZN5Motor8setRatioEdd>
 
 	}
 
@@ -10654,7 +10656,7 @@ void SystemIdentification::start()
  8005630:	687b      	ldr	r3, [r7, #4]
  8005632:	681b      	ldr	r3, [r3, #0]
  8005634:	4618      	mov	r0, r3
- 8005636:	f7ff f9e6 	bl	8004a06 <_ZN6Logger5startEv>
+ 8005636:	f7ff f9e4 	bl	8004a02 <_ZN6Logger5startEv>
 	processing_flag_ = true;
  800563a:	687b      	ldr	r3, [r7, #4]
  800563c:	2201      	movs	r2, #1
@@ -10680,7 +10682,7 @@ void SystemIdentification::stop()
  8005658:	687b      	ldr	r3, [r7, #4]
  800565a:	681b      	ldr	r3, [r3, #0]
  800565c:	4618      	mov	r0, r3
- 800565e:	f7ff f9e3 	bl	8004a28 <_ZN6Logger4stopEv>
+ 800565e:	f7ff f9e1 	bl	8004a24 <_ZN6Logger4stopEv>
 	processing_flag_ = false;
  8005662:	687b      	ldr	r3, [r7, #4]
  8005664:	2200      	movs	r2, #0
@@ -10695,7 +10697,7 @@ void SystemIdentification::stop()
  8005676:	ed9f 1b06 	vldr	d1, [pc, #24]	; 8005690 <_ZN20SystemIdentification4stopEv+0x40>
  800567a:	ed9f 0b05 	vldr	d0, [pc, #20]	; 8005690 <_ZN20SystemIdentification4stopEv+0x40>
  800567e:	4618      	mov	r0, r3
- 8005680:	f7ff fa56 	bl	8004b30 <_ZN5Motor8setRatioEdd>
+ 8005680:	f7ff fa54 	bl	8004b2c <_ZN5Motor8setRatioEdd>
 }
  8005684:	bf00      	nop
  8005686:	3708      	adds	r7, #8
@@ -10963,7 +10965,7 @@ void VelocityCtrl::pidTranslationOnly()
  80058c0:	ec43 2b11 	vmov	d1, r2, r3
  80058c4:	ec46 5b10 	vmov	d0, r5, r6
  80058c8:	4620      	mov	r0, r4
- 80058ca:	f7ff f931 	bl	8004b30 <_ZN5Motor8setRatioEdd>
+ 80058ca:	f7ff f92f 	bl	8004b2c <_ZN5Motor8setRatioEdd>
 
 	v_pre_diff = v_diff;
  80058ce:	4a07      	ldr	r2, [pc, #28]	; (80058ec <_ZN12VelocityCtrl18pidTranslationOnlyEv+0x14c>)
@@ -11167,7 +11169,7 @@ void VelocityCtrl::stop()
  8005a04:	ed9f 1b06 	vldr	d1, [pc, #24]	; 8005a20 <_ZN12VelocityCtrl4stopEv+0x30>
  8005a08:	ed9f 0b05 	vldr	d0, [pc, #20]	; 8005a20 <_ZN12VelocityCtrl4stopEv+0x30>
  8005a0c:	4618      	mov	r0, r3
- 8005a0e:	f7ff f88f 	bl	8004b30 <_ZN5Motor8setRatioEdd>
+ 8005a0e:	f7ff f88d 	bl	8004b2c <_ZN5Motor8setRatioEdd>
 
 }
  8005a12:	bf00      	nop
@@ -15940,7 +15942,7 @@ void cppInit(void)
 	// -----------initialize-------//
 	if(logger.sdCardInit() == true){ //sd mount successfull
  8007532:	4829      	ldr	r0, [pc, #164]	; (80075d8 <cppInit+0x100>)
- 8007534:	f7fd f80c 	bl	8004550 <_ZN6Logger10sdCardInitEv>
+ 8007534:	f7fd f80a 	bl	800454c <_ZN6Logger10sdCardInitEv>
  8007538:	4603      	mov	r3, r0
  800753a:	2b00      	cmp	r3, #0
  800753c:	d007      	beq.n	800754e <cppInit+0x76>
@@ -15968,7 +15970,7 @@ void cppInit(void)
  800755e:	f7fa fdb5 	bl	80020cc <_ZN10LineSensor8ADCStartEv>
 	motor.init();
  8007562:	4820      	ldr	r0, [pc, #128]	; (80075e4 <cppInit+0x10c>)
- 8007564:	f7fd fa82 	bl	8004a6c <_ZN5Motor4initEv>
+ 8007564:	f7fd fa80 	bl	8004a68 <_ZN5Motor4initEv>
 	encoder.init();
  8007568:	481f      	ldr	r0, [pc, #124]	; (80075e8 <cppInit+0x110>)
  800756a:	f7f9 fe1f 	bl	80011ac <_ZN7Encoder4initEv>
@@ -16080,7 +16082,7 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
  8007646:	4816      	ldr	r0, [pc, #88]	; (80076a0 <cppFlip1ms+0x88>)
- 8007648:	f7fd fa22 	bl	8004a90 <_ZN5Motor9motorCtrlEv>
+ 8007648:	f7fd fa20 	bl	8004a8c <_ZN5Motor9motorCtrlEv>
 
 	//logger.storeLog(velocity_ctrl.getCurrentVelocity());
 	//logger.storeLog(imu.getOmega());
@@ -17182,10 +17184,10 @@ void cppLoop(void)
 			line_trace.setMode(FIRST_RUNNING);
  800803a:	2100      	movs	r1, #0
  800803c:	4895      	ldr	r0, [pc, #596]	; (8008294 <cppLoop+0xba4>)
- 800803e:	f7fc f8f7 	bl	8004230 <_ZN9LineTrace7setModeEs>
+ 800803e:	f7fc f8f5 	bl	800422c <_ZN9LineTrace7setModeEs>
 			line_trace.running();
  8008042:	4894      	ldr	r0, [pc, #592]	; (8008294 <cppLoop+0xba4>)
- 8008044:	f7fb fff6 	bl	8004034 <_ZN9LineTrace7runningEv>
+ 8008044:	f7fb fff4 	bl	8004030 <_ZN9LineTrace7runningEv>
 
 			led.LR(0, -1);
  8008048:	f04f 32ff 	mov.w	r2, #4294967295
@@ -17423,7 +17425,7 @@ void cppLoop(void)
 			line_trace.setMode(SECOND_RUNNING);
  8008222:	2101      	movs	r1, #1
  8008224:	481b      	ldr	r0, [pc, #108]	; (8008294 <cppLoop+0xba4>)
- 8008226:	f7fc f803 	bl	8004230 <_ZN9LineTrace7setModeEs>
+ 8008226:	f7fc f801 	bl	800422c <_ZN9LineTrace7setModeEs>
 			line_trace.setTargetVelocity(adj_min_velocity);
  800822a:	4b20      	ldr	r3, [pc, #128]	; (80082ac <cppLoop+0xbbc>)
  800822c:	edd3 7a00 	vldr	s15, [r3]
@@ -17448,7 +17450,7 @@ void cppLoop(void)
 
 			line_trace.running();
  8008260:	480c      	ldr	r0, [pc, #48]	; (8008294 <cppLoop+0xba4>)
- 8008262:	f7fb fee7 	bl	8004034 <_ZN9LineTrace7runningEv>
+ 8008262:	f7fb fee5 	bl	8004030 <_ZN9LineTrace7runningEv>
 
 			led.LR(0, -1);
  8008266:	f04f 32ff 	mov.w	r2, #4294967295
@@ -17824,7 +17826,7 @@ void cppLoop(void)
 			line_trace.setMode(THIRD_RUNNING);
  80085ac:	2102      	movs	r1, #2
  80085ae:	4892      	ldr	r0, [pc, #584]	; (80087f8 <cppLoop+0x1108>)
- 80085b0:	f7fb fe3e 	bl	8004230 <_ZN9LineTrace7setModeEs>
+ 80085b0:	f7fb fe3c 	bl	800422c <_ZN9LineTrace7setModeEs>
 			line_trace.setTargetVelocity(adj_min_velocity2);
  80085b4:	4b8d      	ldr	r3, [pc, #564]	; (80087ec <cppLoop+0x10fc>)
  80085b6:	edd3 7a00 	vldr	s15, [r3]
@@ -17849,7 +17851,7 @@ void cppLoop(void)
 
 			line_trace.running();
  80085ea:	4883      	ldr	r0, [pc, #524]	; (80087f8 <cppLoop+0x1108>)
- 80085ec:	f7fb fd22 	bl	8004034 <_ZN9LineTrace7runningEv>
+ 80085ec:	f7fb fd20 	bl	8004030 <_ZN9LineTrace7runningEv>
 
 			led.LR(0, -1);
  80085f0:	f04f 32ff 	mov.w	r2, #4294967295
@@ -19160,7 +19162,7 @@ void cppLoop(void)
 			line_trace.setMode(THIRD_RUNNING);
  8009172:	2102      	movs	r1, #2
  8009174:	4891      	ldr	r0, [pc, #580]	; (80093bc <cppLoop+0x1ccc>)
- 8009176:	f7fb f85b 	bl	8004230 <_ZN9LineTrace7setModeEs>
+ 8009176:	f7fb f859 	bl	800422c <_ZN9LineTrace7setModeEs>
 			line_trace.setTargetVelocity(adj_max_velocity2);
  800917a:	4b93      	ldr	r3, [pc, #588]	; (80093c8 <cppLoop+0x1cd8>)
  800917c:	edd3 7a00 	vldr	s15, [r3]
@@ -19238,12 +19240,12 @@ void cppLoop(void)
 
 			logger.start();
  8009212:	4870      	ldr	r0, [pc, #448]	; (80093d4 <cppLoop+0x1ce4>)
- 8009214:	f7fb fbf7 	bl	8004a06 <_ZN6Logger5startEv>
+ 8009214:	f7fb fbf5 	bl	8004a02 <_ZN6Logger5startEv>
 			motor.setRatio(0.3, -0.3);
  8009218:	ed9f 1b59 	vldr	d1, [pc, #356]	; 8009380 <cppLoop+0x1c90>
  800921c:	ed9f 0b5a 	vldr	d0, [pc, #360]	; 8009388 <cppLoop+0x1c98>
  8009220:	486d      	ldr	r0, [pc, #436]	; (80093d8 <cppLoop+0x1ce8>)
- 8009222:	f7fb fc85 	bl	8004b30 <_ZN5Motor8setRatioEdd>
+ 8009222:	f7fb fc83 	bl	8004b2c <_ZN5Motor8setRatioEdd>
 
 			HAL_Delay(1000);
  8009226:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
@@ -19251,18 +19253,18 @@ void cppLoop(void)
 
 			logger.stop();
  800922e:	4869      	ldr	r0, [pc, #420]	; (80093d4 <cppLoop+0x1ce4>)
- 8009230:	f7fb fbfa 	bl	8004a28 <_ZN6Logger4stopEv>
+ 8009230:	f7fb fbf8 	bl	8004a24 <_ZN6Logger4stopEv>
 			motor.setRatio(0.0, 0.0);
  8009234:	ed9f 1b56 	vldr	d1, [pc, #344]	; 8009390 <cppLoop+0x1ca0>
  8009238:	ed9f 0b55 	vldr	d0, [pc, #340]	; 8009390 <cppLoop+0x1ca0>
  800923c:	4866      	ldr	r0, [pc, #408]	; (80093d8 <cppLoop+0x1ce8>)
- 800923e:	f7fb fc77 	bl	8004b30 <_ZN5Motor8setRatioEdd>
+ 800923e:	f7fb fc75 	bl	8004b2c <_ZN5Motor8setRatioEdd>
 
 			logger.saveLogs("SYSIDENT", "STEPRES.txt");
  8009242:	4a66      	ldr	r2, [pc, #408]	; (80093dc <cppLoop+0x1cec>)
  8009244:	4966      	ldr	r1, [pc, #408]	; (80093e0 <cppLoop+0x1cf0>)
  8009246:	4863      	ldr	r0, [pc, #396]	; (80093d4 <cppLoop+0x1ce4>)
- 8009248:	f7fb faed 	bl	8004826 <_ZN6Logger8saveLogsEPKcS1_>
+ 8009248:	f7fb faeb 	bl	8004822 <_ZN6Logger8saveLogsEPKcS1_>
 
 			led.LR(-1, 0);
  800924c:	2200      	movs	r2, #0
@@ -19318,7 +19320,7 @@ void cppLoop(void)
 
 			logger.start();
  80092ae:	4849      	ldr	r0, [pc, #292]	; (80093d4 <cppLoop+0x1ce4>)
- 80092b0:	f7fb fba9 	bl	8004a06 <_ZN6Logger5startEv>
+ 80092b0:	f7fb fba7 	bl	8004a02 <_ZN6Logger5startEv>
 			velocity_ctrl.start();
  80092b4:	484d      	ldr	r0, [pc, #308]	; (80093ec <cppLoop+0x1cfc>)
  80092b6:	f7fc fb88 	bl	80059ca <_ZN12VelocityCtrl5startEv>
@@ -19334,7 +19336,7 @@ void cppLoop(void)
 
 			logger.stop();
  80092d0:	4840      	ldr	r0, [pc, #256]	; (80093d4 <cppLoop+0x1ce4>)
- 80092d2:	f7fb fba9 	bl	8004a28 <_ZN6Logger4stopEv>
+ 80092d2:	f7fb fba7 	bl	8004a24 <_ZN6Logger4stopEv>
 			velocity_ctrl.stop();
  80092d6:	4845      	ldr	r0, [pc, #276]	; (80093ec <cppLoop+0x1cfc>)
  80092d8:	f7fc fb8a 	bl	80059f0 <_ZN12VelocityCtrl4stopEv>
@@ -19343,7 +19345,7 @@ void cppLoop(void)
  80092dc:	4a45      	ldr	r2, [pc, #276]	; (80093f4 <cppLoop+0x1d04>)
  80092de:	4940      	ldr	r1, [pc, #256]	; (80093e0 <cppLoop+0x1cf0>)
  80092e0:	483c      	ldr	r0, [pc, #240]	; (80093d4 <cppLoop+0x1ce4>)
- 80092e2:	f7fb faa0 	bl	8004826 <_ZN6Logger8saveLogsEPKcS1_>
+ 80092e2:	f7fb fa9e 	bl	8004822 <_ZN6Logger8saveLogsEPKcS1_>
 
 			led.LR(-1, 0);
  80092e6:	2200      	movs	r2, #0
@@ -19511,7 +19513,7 @@ void cppLoop(void)
 			line_trace.setMode(THIRD_RUNNING);
  800946a:	2102      	movs	r1, #2
  800946c:	485a      	ldr	r0, [pc, #360]	; (80095d8 <cppLoop+0x1ee8>)
- 800946e:	f7fa fedf 	bl	8004230 <_ZN9LineTrace7setModeEs>
+ 800946e:	f7fa fedd 	bl	800422c <_ZN9LineTrace7setModeEs>
 			line_trace.setTargetVelocity(adj_min_velocity2);
  8009472:	4b5a      	ldr	r3, [pc, #360]	; (80095dc <cppLoop+0x1eec>)
  8009474:	edd3 7a00 	vldr	s15, [r3]
@@ -19536,7 +19538,7 @@ void cppLoop(void)
 
 			line_trace.running();
  80094a8:	484b      	ldr	r0, [pc, #300]	; (80095d8 <cppLoop+0x1ee8>)
- 80094aa:	f7fa fdc3 	bl	8004034 <_ZN9LineTrace7runningEv>
+ 80094aa:	f7fa fdc1 	bl	8004030 <_ZN9LineTrace7runningEv>
 
 			led.LR(0, -1);
  80094ae:	f04f 32ff 	mov.w	r2, #4294967295
@@ -19602,7 +19604,7 @@ void cppLoop(void)
 			line_trace.setMode(SECOND_RUNNING);
  8009520:	2101      	movs	r1, #1
  8009522:	482d      	ldr	r0, [pc, #180]	; (80095d8 <cppLoop+0x1ee8>)
- 8009524:	f7fa fe84 	bl	8004230 <_ZN9LineTrace7setModeEs>
+ 8009524:	f7fa fe82 	bl	800422c <_ZN9LineTrace7setModeEs>
 			line_trace.setTargetVelocity(adj_min_velocity);
  8009528:	4b2f      	ldr	r3, [pc, #188]	; (80095e8 <cppLoop+0x1ef8>)
  800952a:	edd3 7a00 	vldr	s15, [r3]
@@ -19627,7 +19629,7 @@ void cppLoop(void)
 
 			line_trace.running();
  800955e:	481e      	ldr	r0, [pc, #120]	; (80095d8 <cppLoop+0x1ee8>)
- 8009560:	f7fa fd68 	bl	8004034 <_ZN9LineTrace7runningEv>
+ 8009560:	f7fa fd66 	bl	8004030 <_ZN9LineTrace7runningEv>
 
 			led.LR(0, -1);
  8009564:	f04f 32ff 	mov.w	r2, #4294967295
@@ -19742,13 +19744,13 @@ JoyStick joy_stick;
  8009614:	f7f8 fb8e 	bl	8001d34 <_ZN8JoyStickC1Ev>
 Motor motor;
  8009618:	481c      	ldr	r0, [pc, #112]	; (800968c <_Z41__static_initialization_and_destruction_0ii+0xa0>)
- 800961a:	f7fb fa16 	bl	8004a4a <_ZN5MotorC1Ev>
+ 800961a:	f7fb fa14 	bl	8004a46 <_ZN5MotorC1Ev>
 IMU imu;
  800961e:	481c      	ldr	r0, [pc, #112]	; (8009690 <_Z41__static_initialization_and_destruction_0ii+0xa4>)
  8009620:	f7f8 f994 	bl	800194c <_ZN3IMUC1Ev>
 Logger logger;
  8009624:	481b      	ldr	r0, [pc, #108]	; (8009694 <_Z41__static_initialization_and_destruction_0ii+0xa8>)
- 8009626:	f7fa ff6b 	bl	8004500 <_ZN6LoggerC1Ev>
+ 8009626:	f7fa ff69 	bl	80044fc <_ZN6LoggerC1Ev>
 Encoder encoder;
  800962a:	481b      	ldr	r0, [pc, #108]	; (8009698 <_Z41__static_initialization_and_destruction_0ii+0xac>)
  800962c:	f7f7 fd92 	bl	8001154 <_ZN7EncoderC1Ev>
@@ -19763,7 +19765,7 @@ Odometry odometry(&encoder, &imu, &velocity_ctrl);
  800963e:	4a14      	ldr	r2, [pc, #80]	; (8009690 <_Z41__static_initialization_and_destruction_0ii+0xa4>)
  8009640:	4915      	ldr	r1, [pc, #84]	; (8009698 <_Z41__static_initialization_and_destruction_0ii+0xac>)
  8009642:	4817      	ldr	r0, [pc, #92]	; (80096a0 <_Z41__static_initialization_and_destruction_0ii+0xb4>)
- 8009644:	f7fb fae6 	bl	8004c14 <_ZN8OdometryC1EP7EncoderP3IMUP12VelocityCtrl>
+ 8009644:	f7fb fae4 	bl	8004c10 <_ZN8OdometryC1EP7EncoderP3IMUP12VelocityCtrl>
 LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &logger, &imu);
  8009648:	4b11      	ldr	r3, [pc, #68]	; (8009690 <_Z41__static_initialization_and_destruction_0ii+0xa4>)
  800964a:	9304      	str	r3, [sp, #16]
