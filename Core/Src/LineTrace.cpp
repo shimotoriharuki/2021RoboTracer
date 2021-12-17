@@ -28,10 +28,10 @@ float mon_ref_dis, mon_current_dis;
 uint16_t mon_vel_idx, mon_i;
 float mon_tar_vel;
 
-#define REVERSE
+//#define REVERSE
 
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu) :
-				kp_(0), kd_(0), ki_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
+				kp_(0), kd_(0), ki_(0), kp_fast_(0), kd_fast_(0), ki_fast_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), min_velocity_(0), min_velocity2_(0), logging_flag_(false),
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), all_sideline_idx_(0),
@@ -176,9 +176,16 @@ void LineTrace::pidTrace()
 		i_reset_flag_ = false;
 	}
 
-	p = kp_ * diff;
-	d = kd_ * (diff - pre_diff) / DELTA_T;
-	i += ki_ * diff * DELTA_T;
+	if(target_velocity_ >= 3){
+		p = kp_fast_ * diff;
+		d = kd_fast_ * (diff - pre_diff) / DELTA_T;
+		i += ki_fast_ * diff * DELTA_T;
+	}
+	else{
+		p = kp_ * diff;
+		d = kd_ * (diff - pre_diff) / DELTA_T;
+		i += ki_ * diff * DELTA_T;
+	}
 
 	float rotation_ratio = p + d + i;
 
@@ -521,6 +528,12 @@ void LineTrace::init()
 	sd_read_array_float("PARAMS", "KD.TXT", 1, &temp_kd);
 	setGain(temp_kp, temp_ki, temp_kd);
 
+	float temp_kp_fast, temp_ki_fast, temp_kd_fast;
+	sd_read_array_float("PARAMS", "KPFAST.TXT", 1, &temp_kp_fast);
+	sd_read_array_float("PARAMS", "KIFAST.TXT", 1, &temp_ki_fast);
+	sd_read_array_float("PARAMS", "KDFAST.TXT", 1, &temp_kd_fast);
+	setGainFast(temp_kp_fast, temp_ki_fast, temp_kd_fast);
+
 	float temp_velocity, temp_max_velocity, temp_max_velocity2, temp_min_velocity, temp_min_velocity2;
 	sd_read_array_float("PARAMS", "TARVEL1.TXT", 1, &temp_velocity);
 	sd_read_array_float("PARAMS", "TARVEL2.TXT", 1, &temp_max_velocity);
@@ -546,6 +559,12 @@ void LineTrace::setGain(float kp, float ki, float kd)
 	kd_ = kd;
 }
 
+void LineTrace::setGainFast(float kp, float ki, float kd)
+{
+	kp_fast_ = kp;
+	ki_fast_ = ki;
+	kd_fast_ = kd;
+}
 
 void LineTrace::setVeloGain(float kp, float ki, float kd)
 {
@@ -569,6 +588,20 @@ float LineTrace::getKd()
 	return kd_;
 }
 
+float LineTrace::getKpFast()
+{
+	return kp_fast_;
+}
+
+float LineTrace::getKiFast()
+{
+	return ki_fast_;
+}
+
+float LineTrace::getKdFast()
+{
+	return kd_fast_;
+}
 float LineTrace::getKpV()
 {
 	return kp_velo_;
@@ -815,7 +848,6 @@ void LineTrace::running()
 #ifdef REVERSE
 			if(side_sensor_->getWhiteLineCntL() == 1){
 #else
-			}
 			if(side_sensor_->getWhiteLineCntR() == 1){
 #endif
 				/*

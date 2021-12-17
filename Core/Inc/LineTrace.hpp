@@ -48,6 +48,7 @@ private:
 	IMU *imu_;
 
 	float kp_, kd_, ki_;
+	float kp_fast_, kd_fast_, ki_fast_;
 	float kp_velo_, kd_velo_, ki_velo_;
 	bool excution_flag_;
 	bool i_reset_flag_;
@@ -110,10 +111,14 @@ public:
 	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *, IMU *);
 	void init();
 	void setGain(float, float, float);
+	void setGainFast(float, float, float);
 	void setVeloGain(float, float, float);
 	float getKp();
 	float getKi();
 	float getKd();
+	float getKpFast();
+	float getKiFast();
+	float getKdFast();
 	float getKpV();
 	float getKiV();
 	float getKdV();
