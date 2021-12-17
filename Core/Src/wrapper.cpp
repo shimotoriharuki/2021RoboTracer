@@ -782,6 +782,7 @@ void cppLoop(void)
 			line_trace.setMode(THIRD_RUNNING);
 			line_trace.setTargetVelocity(adj_max_velocity2);
 			line_trace.setMaxVelocity(adj_max_velocity2);
+			line_trace.setMinVelocity(adj_max_velocity2);
 			line_trace.createVelocityTabeleFromSD();
 
 			led.LR(-1, 0);
@@ -881,8 +882,9 @@ void cppLoop(void)
 
 			led.LR(1, -1);
 			line_trace.setMode(THIRD_RUNNING);
-			line_trace.setTargetVelocity(adj_max_velocity2);
+			line_trace.setTargetVelocity(adj_min_velocity2);
 			line_trace.setMaxVelocity(adj_max_velocity2);
+			line_trace.setMinVelocity(adj_max_velocity2);
 			line_trace.createVelocityTabeleFromSD();
 
 			line_trace.running();
@@ -906,8 +908,9 @@ void cppLoop(void)
 
 			led.LR(1, -1);
 			line_trace.setMode(SECOND_RUNNING);
-			line_trace.setTargetVelocity(adj_max_velocity);
+			line_trace.setTargetVelocity(adj_min_velocity);
 			line_trace.setMaxVelocity(adj_max_velocity);
+			line_trace.setMinVelocity(adj_min_velocity);
 			line_trace.createVelocityTabeleFromSD();
 
 			line_trace.running();
