@@ -82,9 +82,10 @@ float LineTrace::calcAngle()
 {
 	getSensorValues();
 
+
 	float sum_sensor_value = sensor_values_[5] + sensor_values_[6] + sensor_values_[7];
 
-	float angle = (-12 * sensor_values_[5] + 0 * sensor_values_[6] + 12 + sensor_values_[7]) / sum_sensor_value;
+	float angle = (-ANGLE_BETWEEN_SENSORS * sensor_values_[5] + 0 * sensor_values_[6] + ANGLE_BETWEEN_SENSORS + sensor_values_[7]) / sum_sensor_value;
 
 	/*
 
