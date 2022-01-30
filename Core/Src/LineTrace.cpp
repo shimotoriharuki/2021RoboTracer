@@ -478,6 +478,7 @@ void LineTrace::accelerateProcessing(const float am, const float *p_distance)
 }
 
 void LineTrace::updateTargetVelocity()
+
 {
 	if(velocity_play_flag_ == true){
 		//if(encoder_->getTotalDistance() >= ref_distance_){
