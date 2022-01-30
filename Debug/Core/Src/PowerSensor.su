@@ -1,5 +1,5 @@
 PowerSensor.cpp:18:6:void PowerSensor::init()	16	static
-PowerSensor.cpp:24:6:void PowerSensor::updateValues()	24	static
+PowerSensor.cpp:24:6:void PowerSensor::updateValues()	16	static
 PowerSensor.cpp:33:6:void PowerSensor::getCurrentValue(float&, float&)	24	static
 PowerSensor.cpp:39:7:float PowerSensor::getButteryVoltage()	16	static
 PowerSensor.cpp:45:6:bool PowerSensor::butteryCheck()	24	static

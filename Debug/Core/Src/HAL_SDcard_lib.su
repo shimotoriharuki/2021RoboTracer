@@ -1,13 +1,13 @@
 HAL_SDcard_lib.c:38:9:user_fopen	24	static
 HAL_SDcard_lib.c:55:9:user_fclose	16	static
-HAL_SDcard_lib.c:70:9:sd_write_float	40	static
+HAL_SDcard_lib.c:70:9:sd_write_float	32	static
 HAL_SDcard_lib.c:96:9:sd_write_long	24	static
 HAL_SDcard_lib.c:121:9:sd_read_float	24	static
-HAL_SDcard_lib.c:143:9:sd_write_double	40	static
+HAL_SDcard_lib.c:143:9:sd_write_double	32	static
 HAL_SDcard_lib.c:168:9:sd_read_double	24	static
-HAL_SDcard_lib.c:189:9:sd_write_array_float	48	static
+HAL_SDcard_lib.c:189:9:sd_write_array_float	40	static
 HAL_SDcard_lib.c:222:9:sd_read_array_float	32	static
-HAL_SDcard_lib.c:249:9:sd_write_array_double	48	static
+HAL_SDcard_lib.c:249:9:sd_write_array_double	40	static
 HAL_SDcard_lib.c:282:9:sd_read_array_double	32	static
 HAL_SDcard_lib.c:309:9:sd_write_array_int	32	static
 HAL_SDcard_lib.c:349:9:sd_read_array_int	32	static

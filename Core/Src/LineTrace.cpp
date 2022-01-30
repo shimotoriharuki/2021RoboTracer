@@ -82,6 +82,12 @@ float LineTrace::calcAngle()
 {
 	getSensorValues();
 
+	float sum_sensor_value = sensor_values_[5] + sensor_values_[6] + sensor_values_[7];
+
+	float angle = (-12 * sensor_values_[5] + 0 * sensor_values_[6] + 12 + sensor_values_[7]) / sum_sensor_value;
+
+	/*
+
 	float standard_angle;
 	uint16_t standard_index;
 	calcStandardAngle(standard_angle, standard_index);
@@ -104,6 +110,8 @@ float LineTrace::calcAngle()
 	monitor_steering_angle = steering_angle;
 
 	return steering_angle;
+
+	*/
 }
 
 void LineTrace::getSensorValues()
