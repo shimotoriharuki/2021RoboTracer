@@ -49,6 +49,8 @@ float mon_v, mon_w;
 uint16_t mon_cnt;
 float mon_zg, mon_offset;
 
+float mon_soiya = 0;
+
 void batteryLowMode()
 {
 	lcd_clear();
@@ -846,14 +848,28 @@ void cppLoop(void)
 		break;
 
 	case 13:
+
 		led.fullColor('~');
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Msig");
+		lcd_printf("Steer");
 		lcd_locate(0,1);
-		lcd_printf("Record");
+		lcd_printf("Trace");
 
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+
+			line_trace.setTargetVelocity(0.1);
+			led.LR(1, -1);
+
+			line_trace.setMode(FIRST_RUNNING);
+			line_trace.running();
+
+			led.LR(0, -1);
+		}
+
+		/*
 		if(joy_stick.getValue() == JOY_C){
 			led.LR(-1, 1);
 			HAL_Delay(1500);
@@ -866,6 +882,7 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
+		*/
 		break;
 
 	case 14:

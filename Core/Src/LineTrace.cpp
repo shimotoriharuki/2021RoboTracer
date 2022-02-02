@@ -12,6 +12,21 @@
 
 #define R_DIFF 0.08
 
+float mon_steer_angle;
+float mon_sens0;
+float mon_sens1;
+float mon_sens2;
+float mon_sens3;
+float mon_sens4;
+float mon_sens5;
+float mon_sens6;
+float mon_sens7;
+float mon_sens8;
+float mon_sens9;
+float mon_sens10;
+float mon_sens11;
+float mon_sens12;
+
 float monitor_std_angle;
 float monitor_norm_l, monitor_norm_r;
 float monitor_delta_theta;
@@ -70,7 +85,7 @@ float LineTrace::calcError()
 	mon_diff = diff;
 
 	diff = ((R_DIFF)*(diff) + (1.0 - (R_DIFF))* (pre_diff));
-	mon_diff_lpf = diff;
+	//mon_diff_lpf = diff;
 
 	pre_diff = diff;
 
@@ -82,54 +97,58 @@ float LineTrace::calcAngle()
 {
 	getSensorValues();
 
+	float den = 0;
+	float num = 0;
+	float angle_list[SENSOR_NUM] = {-1.02, -0.85, -0.68, -0.51, -0.34, -0.17, 0, 0.17, 0.34, 0.51, 0.68, 0.85, 1.02};
 
-	float sum_sensor_value = sensor_values_[5] + sensor_values_[6] + sensor_values_[7];
+	for(uint16_t i = 0; i < SENSOR_NUM; i++){
+		num += angle_list[i] * sensor_digital_values_[i];
+		den += sensor_digital_values_[i];
+	}
 
-	float angle = (-ANGLE_BETWEEN_SENSORS * sensor_values_[5] + 0 * sensor_values_[6] + ANGLE_BETWEEN_SENSORS + sensor_values_[7]) / sum_sensor_value;
+	float angle = 0;
+	if(den != 0) angle = num / den;
+	else angle = 0;
 
-	/*
+	mon_steer_angle = angle;
 
-	float standard_angle;
-	uint16_t standard_index;
-	calcStandardAngle(standard_angle, standard_index);
-
-	float norm_l, norm_r;
-	calcNormalizedSensorValue(standard_index, norm_l, norm_r);
-
-	float delta_theta;
-	calcDeltaTheta(norm_l, norm_r, delta_theta);
-
-	float steering_angle = standard_angle + delta_theta;
-
-	monitor_std_angle = standard_angle;
-
-	monitor_norm_l = norm_l;
-	monitor_norm_r = norm_r;
-
-	monitor_delta_theta = delta_theta;
-
-	monitor_steering_angle = steering_angle;
-
-	return steering_angle;
-
-	*/
+	return angle;
 }
 
 void LineTrace::getSensorValues()
 {
-	sensor_values_[0] = line_sensor_->sensor[0];
-	sensor_values_[1] = line_sensor_->sensor[1];
-	sensor_values_[2] = line_sensor_->sensor[2];
-	sensor_values_[3] = line_sensor_->sensor[3];
-	sensor_values_[4] = line_sensor_->sensor[4];
-	sensor_values_[5] = line_sensor_->sensor[5];
-	sensor_values_[6] = (line_sensor_->sensor[6] + line_sensor_->sensor[7]) / 2;
-	sensor_values_[7] = line_sensor_->sensor[8];
-	sensor_values_[8] = line_sensor_->sensor[9];
-	sensor_values_[9] = line_sensor_->sensor[10];
-	sensor_values_[10] = line_sensor_->sensor[11];
-	sensor_values_[11] = line_sensor_->sensor[12];
-	sensor_values_[12] = line_sensor_->sensor[13];
+	sensor_values_[0] = 1000 - line_sensor_->sensor[0];
+	sensor_values_[1] = 1000 - line_sensor_->sensor[1];
+	sensor_values_[2] = 1000 - line_sensor_->sensor[2];
+	sensor_values_[3] = 1000 - line_sensor_->sensor[3];
+	sensor_values_[4] = 1000 - line_sensor_->sensor[4];
+	sensor_values_[5] = 1000 - line_sensor_->sensor[5];
+	sensor_values_[6] = 1000 - (line_sensor_->sensor[6] + line_sensor_->sensor[7]) / 2;
+	sensor_values_[7] = 1000 - line_sensor_->sensor[8];
+	sensor_values_[8] = 1000 - line_sensor_->sensor[9];
+	sensor_values_[9] = 1000 - line_sensor_->sensor[10];
+	sensor_values_[10] = 1000 - line_sensor_->sensor[11];
+	sensor_values_[11] = 1000 - line_sensor_->sensor[12];
+	sensor_values_[12] = 1000 - line_sensor_->sensor[13];
+
+	for(uint16_t i = 0; i < 12; i++){
+		if(sensor_values_[i] >= 500) sensor_digital_values_[i] = 1;
+		else sensor_digital_values_[i] = 0;
+	}
+
+	mon_sens0 = sensor_digital_values_[0];
+	mon_sens1 = sensor_digital_values_[1];
+	mon_sens2 = sensor_digital_values_[2];
+	mon_sens3 = sensor_digital_values_[3];
+	mon_sens4 = sensor_digital_values_[4];
+	mon_sens5 = sensor_digital_values_[5];
+	mon_sens6 = sensor_digital_values_[6];
+	mon_sens7 = sensor_digital_values_[7];
+	mon_sens8 = sensor_digital_values_[8];
+	mon_sens9 = sensor_digital_values_[9];
+	mon_sens10 = sensor_digital_values_[10];
+	mon_sens11 = sensor_digital_values_[11];
+	mon_sens12 = sensor_digital_values_[12];
 }
 
 void LineTrace::calcStandardAngle(float &angle, uint16_t &index)
@@ -233,18 +252,19 @@ void LineTrace::pidAngularVelocityTrace()
 void LineTrace::steeringAngleTrace()
 {
 	float steering_angle = calcAngle();
-	float r = tan(steering_angle / CENTER_OF_ROTATION_TO_CENTER_OF_SENSOR);
 
+	float r = 0;
 	//float current_velocity = velocity_ctrl_->getCurrentVelocity();
 	float current_velocity = 0.1;
 	float target_omega = 0;
 
-	if(r >= 10000) target_omega = 0;
-	else if(r != 0) target_omega = current_velocity / r; //Division by zero prevention
+	if(steering_angle != 0){
+		r = CENTER_OF_ROTATION_TO_CENTER_OF_SENSOR / tan(steering_angle);
+		target_omega = current_velocity / r;
+	}
+	else target_omega = 0;
 
 	velocity_ctrl_->setVelocity(target_velocity_, target_omega);
-
-	//velocity_ctrl_->setVelocity(target_velocity_, 0);
 
 	monitor_target_omega = target_omega;
 	monitor_r = r;
@@ -487,7 +507,6 @@ void LineTrace::accelerateProcessing(const float am, const float *p_distance)
 }
 
 void LineTrace::updateTargetVelocity()
-
 {
 	if(velocity_play_flag_ == true){
 		//if(encoder_->getTotalDistance() >= ref_distance_){
@@ -725,11 +744,13 @@ float LineTrace::getMaxDec()
 }
 void LineTrace::flip()
 {
+	//calcAngle();
+
 	if(excution_flag_ == true){
 		// ---- line following processing -----//
-		pidTrace();
+		//pidTrace();
 		//pidAngularVelocityTrace();
-		//steeringAngleTrace();
+		steeringAngleTrace();
 
 
 		if(isTargetDistance(10) == true){
@@ -847,7 +868,7 @@ void LineTrace::start()
 {
 	excution_flag_ = true;
 	i_reset_flag_ = true;
-	velocity_ctrl_->start();
+	//velocity_ctrl_->start();
 	side_sensor_->resetWhiteLineCnt();
 	crossline_idx_ = 0;
 	sideline_idx_ = 0;

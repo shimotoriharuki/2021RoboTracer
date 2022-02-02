@@ -24,7 +24,7 @@
 #define SENSOR_NUM 13
 #define CENTER_NUM 6
 #define PI 3.1415926535
-#define CENTER_OF_ROTATION_TO_CENTER_OF_SENSOR 0.060 //[m]
+#define CENTER_OF_ROTATION_TO_CENTER_OF_SENSOR 0.030 //[m]
 #define FIRST_RUNNING 0
 #define SECOND_RUNNING 1
 #define THIRD_RUNNING 2
@@ -54,6 +54,7 @@ private:
 	bool i_reset_flag_;
 	float normal_ratio_;
 	float sensor_values_[SENSOR_NUM];
+	float sensor_digital_values_[SENSOR_NUM];
 	float target_velocity_;
 	float max_velocity_;
 	float max_velocity2_;
