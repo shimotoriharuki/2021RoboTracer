@@ -120,7 +120,8 @@ void cppInit(void)
 	//velocity_ctrl.setVelocityGain(1.9842, 22.9078, 0.02079);
 	//velocity_ctrl.setOmegaGain(0.5, 5, 0);
 	//velocity_ctrl.setOmegaGain(0.05, 7, 0);
-	velocity_ctrl.setOmegaGain(0.069793, 0.86816, 0.0014027);
+	//velocity_ctrl.setOmegaGain(0.069793, 0.86816, 0.0014027);
+	velocity_ctrl.setOmegaGain(0.060, 0.86816, 0.000);
 	//velocity_ctrl.setOmegaGain(0.12175, 1.0604, 0.002614);
 	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
 
@@ -834,7 +835,7 @@ void cppLoop(void)
 
 			logger.start();
 			velocity_ctrl.start();
-			velocity_ctrl.setVelocity(1, 0);
+			velocity_ctrl.setVelocity(0, 3.14);
 
 			HAL_Delay(1000);
 

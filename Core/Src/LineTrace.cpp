@@ -102,8 +102,14 @@ float LineTrace::calcAngle()
 	float angle_list[SENSOR_NUM] = {-1.02, -0.85, -0.68, -0.51, -0.34, -0.17, 0, 0.17, 0.34, 0.51, 0.68, 0.85, 1.02};
 
 	for(uint16_t i = 0; i < SENSOR_NUM; i++){
+
 		num += angle_list[i] * sensor_digital_values_[i];
 		den += sensor_digital_values_[i];
+
+		/*
+		num += angle_list[i] * sensor_values_[i];
+		den += sensor_values_[i];
+		*/
 	}
 
 	float angle = 0;
@@ -254,8 +260,8 @@ void LineTrace::steeringAngleTrace()
 	float steering_angle = calcAngle();
 
 	float r = 0;
-	//float current_velocity = velocity_ctrl_->getCurrentVelocity();
-	float current_velocity = 0.1;
+	float current_velocity = velocity_ctrl_->getCurrentVelocity();
+	//float current_velocity = 0.1;
 	float target_omega = 0;
 
 	if(steering_angle != 0){
@@ -868,7 +874,7 @@ void LineTrace::start()
 {
 	excution_flag_ = true;
 	i_reset_flag_ = true;
-	//velocity_ctrl_->start();
+	velocity_ctrl_->start();
 	side_sensor_->resetWhiteLineCnt();
 	crossline_idx_ = 0;
 	sideline_idx_ = 0;
