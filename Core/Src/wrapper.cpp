@@ -25,6 +25,7 @@
 #include "SystemIdentification.hpp"
 
 #include "PathFollowing.hpp"
+#include "ECU.hpp"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
@@ -43,6 +44,8 @@ LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encode
 SystemIdentification sys_ident(&logger, &motor);
 
 PathFollowing path_following;
+
+ECU ecu;
 
 double mon_f, mon_d;
 float mon_v, mon_w;
@@ -798,6 +801,23 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
+		lcd_printf("ECU");
+		lcd_locate(0,1);
+		lcd_printf("TEST");
+
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(1000);
+			led.LR(-1, 1);
+
+			ecu.on();
+			HAL_Delay(1000);
+			ecu.off();
+
+			led.LR(-1, 0);
+		}
+		/*
+		lcd_clear();
+		lcd_locate(0,0);
 		lcd_printf("Step");
 		lcd_locate(0,1);
 		lcd_printf("Record");
@@ -818,6 +838,7 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
+		*/
 		break;
 
 	case 12:
@@ -861,11 +882,17 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 
-			line_trace.setTargetVelocity(0.1);
+			line_trace.setTargetVelocity(0.3);
 			led.LR(1, -1);
 
+			logger.resetIdx();
 			line_trace.setMode(FIRST_RUNNING);
+			logger.start();
 			line_trace.running();
+			logger.stop();
+
+			logger.saveLogs("STATELOG", "COMEGA.TXT");
+			logger.saveLogs2("STATELOG", "TOMEGA.TXT");
 
 			led.LR(0, -1);
 		}

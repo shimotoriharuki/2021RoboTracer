@@ -103,6 +103,7 @@ float LineTrace::calcAngle()
 
 	for(uint16_t i = 0; i < SENSOR_NUM; i++){
 
+
 		num += angle_list[i] * sensor_digital_values_[i];
 		den += sensor_digital_values_[i];
 
@@ -271,6 +272,7 @@ void LineTrace::steeringAngleTrace()
 	else target_omega = 0;
 
 	velocity_ctrl_->setVelocity(target_velocity_, target_omega);
+	target_omega_ = target_omega;
 
 	monitor_target_omega = target_omega;
 	monitor_r = r;
@@ -762,6 +764,8 @@ void LineTrace::flip()
 		if(isTargetDistance(10) == true){
 			// ---- Store Logs ------//
 			storeLogs();
+			logger_->storeLog(imu_->getOmega());
+			logger_->storeLog2(getTargetOmega());
 
 			// -------- Detect Robot stabilization ------//
 #ifdef REVERSE
@@ -974,6 +978,11 @@ void LineTrace::storeLogs()
 
 		mon_store_cnt++;
 	}
+}
+
+float LineTrace::getTargetOmega()
+{
+	return target_omega_;
 }
 
 void LineTrace::startVelocityPlay()

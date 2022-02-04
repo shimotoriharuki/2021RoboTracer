@@ -1,13 +1,13 @@
 PathFollowing.cpp:16:1:PathFollowing::PathFollowing()	16	static
 PathFollowing.cpp:32:6:void PathFollowing::calcXY(double, double, double&, double&)	48	static
-PathFollowing.cpp:39:6:bool PathFollowing::isNear(double, double, double)	40	static
+PathFollowing.cpp:39:6:bool PathFollowing::isNear(double, double, double)	48	static
 PathFollowing.cpp:51:6:void PathFollowing::init()	40	static
 PathFollowing.cpp:62:6:void PathFollowing::setGain(double, double, double)	40	static
 PathFollowing.cpp:69:8:double PathFollowing::getKxVal()	16	static
 PathFollowing.cpp:74:8:double PathFollowing::getKyVal()	16	static
 PathFollowing.cpp:79:8:double PathFollowing::getKtVal()	16	static
 PathFollowing.cpp:84:6:void PathFollowing::setTargetPathSingle(double, double, double)	40	static
-PathFollowing.cpp:91:6:void PathFollowing::setTargetPathMulti()	16	static
+PathFollowing.cpp:91:6:void PathFollowing::setTargetPathMulti()	24	static
 PathFollowing.cpp:100:6:bool PathFollowing::isTargetNear()	16	static
 PathFollowing.cpp:107:6:void PathFollowing::targetUpdate()	40	static
 PathFollowing.cpp:129:6:void PathFollowing::setCurrentPath(double, double, double)	40	static

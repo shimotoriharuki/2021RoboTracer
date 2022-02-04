@@ -11,8 +11,8 @@
 #include "stm32f4xx_hal.h"
 #include <vector>
 
-#define LOG_DATA_SIZE_TIM 1 //Time based size. Can record for 50 seconds every 10 ms. max 5000
-#define LOG_DATA_SIZE_TIM2 1 //Time based size. Can record for 50 seconds every 10 ms
+#define LOG_DATA_SIZE_TIM 2000 //Time based size. Can record for 50 seconds every 10 ms. max 5000
+#define LOG_DATA_SIZE_TIM2 2000 //Time based size. Can record for 50 seconds every 10 ms
 #define LOG_DATA_SIZE_DIS 6000 //Distance based size. Can record for 60 m every 10 mm
 
 class Logger{
