@@ -1,4 +1,4 @@
-Core/Src/ECU.o: ../Core/Src/ECU.cpp ../Core/Inc/ECU.hpp \
+Core/Src/ESC.o: ../Core/Src/ESC.cpp ../Core/Inc/ESC.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -36,7 +36,7 @@ Core/Src/ECU.o: ../Core/Src/ECU.cpp ../Core/Inc/ECU.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/G_variables.h ../Core/Inc/Macro.h
 
-../Core/Inc/ECU.hpp:
+../Core/Inc/ESC.hpp:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 

@@ -4,6 +4,7 @@
  *  Created on: Jun 9, 2021
  *      Author: Haruki Shimotori
  */
+#include <ESC.hpp>
 #include "wrapper.hpp"
 #include <stdio.h>
 
@@ -25,7 +26,7 @@
 #include "SystemIdentification.hpp"
 
 #include "PathFollowing.hpp"
-#include "ECU.hpp"
+#include "ESC.hpp"
 
 LineSensor line_sensor;
 SideSensor side_sensor;
@@ -45,9 +46,8 @@ SystemIdentification sys_ident(&logger, &motor);
 
 PathFollowing path_following;
 
-ECU ecu;
+ESC esc;
 
-double mon_f, mon_d;
 float mon_v, mon_w;
 uint16_t mon_cnt;
 float mon_zg, mon_offset;
@@ -133,6 +133,8 @@ void cppInit(void)
 	odometry.clearPotition();
 
 	path_following.init();
+
+	esc.init();
 
 }
 
@@ -809,9 +811,9 @@ void cppLoop(void)
 			HAL_Delay(1000);
 			led.LR(-1, 1);
 
-			ecu.on();
-			HAL_Delay(1000);
-			ecu.off();
+			esc.on();
+			HAL_Delay(5000);
+			esc.off();
 
 			led.LR(-1, 0);
 		}

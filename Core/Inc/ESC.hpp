@@ -1,21 +1,21 @@
 /*
- * ECU.hpp
+ * ESC.hpp
  *
  *  Created on: Feb 4, 2022
  *      Author: under
  */
 
-#ifndef INC_ECU_HPP_
-#define INC_ECU_HPP_
+#ifndef INC_ESC_HPP_
+#define INC_ESC_HPP_
 
 #include "stm32f4xx_hal.h"
 
-class ECU{
+class ESC{
 private:
 
-
 public:
-	ECU();
+	ESC();
+	void init();
 	void on();
 	void off();
 
@@ -23,4 +23,4 @@ public:
 
 
 
-#endif /* INC_ECU_HPP_ */
+#endif /* INC_ESC_HPP_ */

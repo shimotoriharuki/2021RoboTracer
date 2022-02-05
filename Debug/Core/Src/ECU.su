@@ -1,3 +1,0 @@
-ECU.cpp:11:1:ECU::ECU()	16	static
-ECU.cpp:19:6:void ECU::on()	16	static
-ECU.cpp:24:6:void ECU::off()	16	static
