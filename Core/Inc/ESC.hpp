@@ -16,7 +16,7 @@ private:
 public:
 	ESC();
 	void init();
-	void on();
+	void on(uint16_t, uint16_t, uint16_t, uint16_t);
 	void off();
 
 };

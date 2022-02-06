@@ -109,11 +109,11 @@ void cppInit(void)
 	imu.init();
 	line_trace.init();
 
-	line_sensor.calibration();
-	HAL_Delay(1000);
+	//line_sensor.calibration();
+	//HAL_Delay(1000);
 
 	led.fullColor('M');
-	imu.calibration();
+	//imu.calibration();
 
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	//line_trace.setGain(0.0005, 0.000002, 0);
@@ -803,7 +803,7 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("ECU");
+		lcd_printf("ESC");
 		lcd_locate(0,1);
 		lcd_printf("TEST");
 
@@ -811,8 +811,8 @@ void cppLoop(void)
 			HAL_Delay(1000);
 			led.LR(-1, 1);
 
-			esc.on();
-			HAL_Delay(5000);
+			esc.on(0, 500, 0, 0);
+			HAL_Delay(2000);
 			esc.off();
 
 			led.LR(-1, 0);

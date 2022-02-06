@@ -1,4 +1,4 @@
-ESC.cpp:14:1:ESC::ESC()	16	static
-ESC.cpp:19:6:void ESC::init()	16	static
-ESC.cpp:27:6:void ESC::on()	16	static
-ESC.cpp:32:6:void ESC::off()	16	static
+ESC.cpp:16:1:ESC::ESC()	16	static
+ESC.cpp:21:6:void ESC::init()	16	static
+ESC.cpp:33:6:void ESC::on(uint16_t, uint16_t, uint16_t, uint16_t)	24	static
+ESC.cpp:41:6:void ESC::off()	16	static
