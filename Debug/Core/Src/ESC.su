@@ -1,4 +1,6 @@
-ESC.cpp:16:1:ESC::ESC()	16	static
-ESC.cpp:21:6:void ESC::init()	16	static
-ESC.cpp:33:6:void ESC::on(uint16_t, uint16_t, uint16_t, uint16_t)	24	static
-ESC.cpp:41:6:void ESC::off()	16	static
+ESC.cpp:18:10:uint16_t ESC::getCounterPeriodTIM3(float)	16	static
+ESC.cpp:23:10:uint16_t ESC::getCounterPeriodTIM10_11(float)	16	static
+ESC.cpp:29:1:ESC::ESC()	16	static
+ESC.cpp:34:6:void ESC::init()	16	static
+ESC.cpp:46:6:void ESC::on(float, float, float, float)	32	static
+ESC.cpp:66:6:void ESC::off()	16	static

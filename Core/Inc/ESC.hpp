@@ -13,10 +13,13 @@
 class ESC{
 private:
 
+	uint16_t getCounterPeriodTIM3(float);
+	uint16_t getCounterPeriodTIM10_11(float);
+
 public:
 	ESC();
 	void init();
-	void on(uint16_t, uint16_t, uint16_t, uint16_t);
+	void on(float, float, float, float);
 	void off();
 
 };
