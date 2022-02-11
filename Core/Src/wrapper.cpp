@@ -109,11 +109,11 @@ void cppInit(void)
 	imu.init();
 	line_trace.init();
 
-	//line_sensor.calibration();
-	//HAL_Delay(1000);
+	line_sensor.calibration();
+	HAL_Delay(1000);
 
 	led.fullColor('M');
-	//imu.calibration();
+	imu.calibration();
 
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	//line_trace.setGain(0.0005, 0.000002, 0);
@@ -334,7 +334,10 @@ void cppLoop(void)
 			led.LR(1, -1);
 
 			line_trace.setMode(FIRST_RUNNING);
+			HAL_Delay(1000);
+			esc.on(0., 0., 0., 0.);
 			line_trace.running();
+			esc.off();
 
 			led.LR(0, -1);
 		}
@@ -811,8 +814,8 @@ void cppLoop(void)
 			HAL_Delay(1000);
 			led.LR(-1, 1);
 
-			esc.on(0.6, 0.6, 0.6, 0.6);
-			HAL_Delay(5000);
+			esc.on(0.5, 0.5, 0.5, 0.5);
+			HAL_Delay(2000);
 			esc.off();
 
 			led.LR(-1, 0);

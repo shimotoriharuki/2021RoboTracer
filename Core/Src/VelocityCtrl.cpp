@@ -142,8 +142,8 @@ void VelocityCtrl::flip()
 	//calcOmega();
 
 	if(excution_flag_ == true){
-		pid();
-		//pidTranslationOnly();
+		//pid();
+		pidTranslationOnly();
 	}
 
 

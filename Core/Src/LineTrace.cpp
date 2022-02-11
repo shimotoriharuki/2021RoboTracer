@@ -143,19 +143,19 @@ void LineTrace::getSensorValues()
 		else sensor_digital_values_[i] = 0;
 	}
 
-	mon_sens0 = sensor_digital_values_[0];
-	mon_sens1 = sensor_digital_values_[1];
-	mon_sens2 = sensor_digital_values_[2];
-	mon_sens3 = sensor_digital_values_[3];
-	mon_sens4 = sensor_digital_values_[4];
-	mon_sens5 = sensor_digital_values_[5];
-	mon_sens6 = sensor_digital_values_[6];
-	mon_sens7 = sensor_digital_values_[7];
-	mon_sens8 = sensor_digital_values_[8];
-	mon_sens9 = sensor_digital_values_[9];
-	mon_sens10 = sensor_digital_values_[10];
-	mon_sens11 = sensor_digital_values_[11];
-	mon_sens12 = sensor_digital_values_[12];
+	mon_sens0 = line_sensor_->sensor[0];
+	mon_sens1 = line_sensor_->sensor[1];
+	mon_sens2 = line_sensor_->sensor[2];
+	mon_sens3 = line_sensor_->sensor[3];
+	mon_sens4 = line_sensor_->sensor[4];
+	mon_sens5 = line_sensor_->sensor[5];
+	mon_sens6 = line_sensor_->sensor[6];
+	mon_sens7 = line_sensor_->sensor[7];
+	mon_sens8 = line_sensor_->sensor[8];
+	mon_sens9 = line_sensor_->sensor[9];
+	mon_sens10 = line_sensor_->sensor[10];
+	mon_sens11 = line_sensor_->sensor[11];
+	mon_sens12 = line_sensor_->sensor[12];
 }
 
 void LineTrace::calcStandardAngle(float &angle, uint16_t &index)
@@ -211,16 +211,9 @@ void LineTrace::pidTrace()
 		i_reset_flag_ = false;
 	}
 
-	if(target_velocity_ >= 2.5){
-		p = kp_fast_ * diff;
-		d = kd_fast_ * (diff - pre_diff) / DELTA_T;
-		i += ki_fast_ * diff * DELTA_T;
-	}
-	else{
-		p = kp_ * diff;
-		d = kd_ * (diff - pre_diff) / DELTA_T;
-		i += ki_ * diff * DELTA_T;
-	}
+	p = kp_ * diff;
+	d = kd_ * (diff - pre_diff) / DELTA_T;
+	i += ki_ * diff * DELTA_T;
 
 	float rotation_ratio = p + d + i;
 
@@ -756,9 +749,9 @@ void LineTrace::flip()
 
 	if(excution_flag_ == true){
 		// ---- line following processing -----//
-		//pidTrace();
+		pidTrace();
 		//pidAngularVelocityTrace();
-		steeringAngleTrace();
+		//steeringAngleTrace();
 
 
 		if(isTargetDistance(10) == true){
