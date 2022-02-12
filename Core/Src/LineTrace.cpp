@@ -46,7 +46,7 @@ float mon_tar_vel;
 //#define REVERSE
 
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu) :
-				kp_(0), kd_(0), ki_(0), kp_fast_(0), kd_fast_(0), ki_fast_(0), kp_velo_(0), kd_velo_(0), ki_velo_(0),
+				kp_(0), kd_(0), ki_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), min_velocity_(0), min_velocity2_(0), logging_flag_(false),
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), all_sideline_idx_(0),
@@ -295,11 +295,20 @@ void LineTrace::storeAllSideLineDistance()
 	if(all_sideline_idx_ >= SIDELINE_SIZE) all_sideline_idx_ = SIDELINE_SIZE - 1;
 }
 
-float LineTrace::calcRadius(float distance, float theta)
+void LineTrace::storeLogs()
 {
-	if(theta == 0) theta = 0.000001;
-	return distance / theta;
+	if(logging_flag_ == true){
+		if(mode_selector_ == FIRST_RUNNING)
+			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
+		else
+			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
+			//logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
+			logger_->storeDistanceAndTheta2(velocity_ctrl_->getCurrentVelocity(), odometry_->getTheta());
+
+		mon_store_cnt++;
+	}
 }
+
 
 // ---------------------------------------------------------------------------------------------------//
 // ----------------------------------Position correction----------------------------------------------//
@@ -543,7 +552,16 @@ bool LineTrace::isStable()
 	return ret;
 }
 
+float LineTrace::calcRadius(float distance, float theta)
+{
+	if(theta == 0) theta = 0.000001;
+	return distance / theta;
+}
+
 // -------public---------- //
+// ---------------------------------------------------------------------------------------------------//
+// ------------------------------------ Initialize----------------------------------------------------//
+// ---------------------------------------------------------------------------------------------------//
 void LineTrace::init()
 {
 	float temp_kp, temp_ki, temp_kd;
@@ -551,12 +569,6 @@ void LineTrace::init()
 	sd_read_array_float("PARAMS", "KI.TXT", 1, &temp_ki);
 	sd_read_array_float("PARAMS", "KD.TXT", 1, &temp_kd);
 	setGain(temp_kp, temp_ki, temp_kd);
-
-	float temp_kp_fast, temp_ki_fast, temp_kd_fast;
-	sd_read_array_float("PARAMS", "KPFAST.TXT", 1, &temp_kp_fast);
-	sd_read_array_float("PARAMS", "KIFAST.TXT", 1, &temp_ki_fast);
-	sd_read_array_float("PARAMS", "KDFAST.TXT", 1, &temp_kd_fast);
-	setGainFast(temp_kp_fast, temp_ki_fast, temp_kd_fast);
 
 	float temp_velocity, temp_max_velocity, temp_max_velocity2, temp_min_velocity, temp_min_velocity2;
 	sd_read_array_float("PARAMS", "TARVEL1.TXT", 1, &temp_velocity);
@@ -581,25 +593,14 @@ void LineTrace::init()
 	setMaxAccDec2(temp_acc2, temp_dec2);
 }
 
+// ---------------------------------------------------------------------------------------------------//
+// ------------------------------- Line following gain------------------------------------------------//
+// ---------------------------------------------------------------------------------------------------//
 void LineTrace::setGain(float kp, float ki, float kd)
 {
 	kp_ = kp;
 	ki_ = ki;
 	kd_ = kd;
-}
-
-void LineTrace::setGainFast(float kp, float ki, float kd)
-{
-	kp_fast_ = kp;
-	ki_fast_ = ki;
-	kd_fast_ = kd;
-}
-
-void LineTrace::setVeloGain(float kp, float ki, float kd)
-{
-	kp_velo_ = kp;
-	ki_velo_ = ki;
-	kd_velo_ = kd;
 }
 
 float LineTrace::getKp()
@@ -617,32 +618,9 @@ float LineTrace::getKd()
 	return kd_;
 }
 
-float LineTrace::getKpFast()
-{
-	return kp_fast_;
-}
-
-float LineTrace::getKiFast()
-{
-	return ki_fast_;
-}
-
-float LineTrace::getKdFast()
-{
-	return kd_fast_;
-}
-float LineTrace::getKpV()
-{
-	return kp_velo_;
-}
-float LineTrace::getKiV()
-{
-	return ki_velo_;
-}
-float LineTrace::getKdV()
-{
-	return kd_velo_;
-}
+// ---------------------------------------------------------------------------------------------------//
+// ------------------------------ Velocity setting----------------------------------------------------//
+// ---------------------------------------------------------------------------------------------------//
 
 void LineTrace::setNormalRatio(float ratio)
 {
@@ -673,6 +651,7 @@ void LineTrace::setMinVelocity2(float velocity)
 {
 	min_velocity2_ = velocity;
 }
+
 float LineTrace::getTargetVelocity()
 {
 	return target_velocity_;
@@ -697,11 +676,16 @@ float LineTrace::getMinVelocity2()
 {
 	return min_velocity2_;
 }
+
+// ---------------------------------------------------------------------------------------------------//
+// ------------------------------ Acceleration setting------------------------------------------------//
+// ---------------------------------------------------------------------------------------------------//
 void LineTrace::setMaxAccDec(const float acc, const float dec)
 {
 	max_acc_ = acc;
 	max_dec_ = dec;
 }
+
 void LineTrace::setMaxAccDec2(const float acc, const float dec)
 {
 	max_acc2_ = acc;
@@ -717,6 +701,7 @@ float LineTrace::getMaxDec2()
 {
 	return max_dec2_;
 }
+
 float LineTrace::getMaxAcc2()
 {
 	return max_acc2_;
@@ -726,6 +711,10 @@ float LineTrace::getMaxDec()
 {
 	return max_dec_;
 }
+
+// ---------------------------------------------------------------------------------------------------//
+// ---------------------------------------- Flip -----------------------------------------------------//
+// ---------------------------------------------------------------------------------------------------//
 void LineTrace::flip()
 {
 	//calcAngle();
@@ -741,7 +730,7 @@ void LineTrace::flip()
 			// ---- Store Logs ------//
 			storeLogs();
 			logger_->storeLog(imu_->getOmega());
-			logger_->storeLog2(getTargetOmega());
+			logger_->storeLog2(target_omega_);
 
 			// -------- Detect Robot stabilization ------//
 #ifdef REVERSE
@@ -835,19 +824,12 @@ void LineTrace::flip()
 	}
 }
 
-void LineTrace::flip100ns()
+// ---------------------------------------------------------------------------------------------------//
+// ---------------------------------- Mode set to stop------------------------------------------------//
+// ---------------------------------------------------------------------------------------------------//
+void LineTrace::setMode(int16_t mode)
 {
-	if(isTargetDistance(10) == true){
-		// ---- Target Velocity Updata ------//
-		updateTargetVelocity();
-
-		// ---- Store Logs ------//
-		storeLogs();
-
-		// ---reset total cnt ---//
-		encoder_->clearDistance10mm();
-		odometry_->clearPotition();
-	}
+	mode_selector_ = mode;
 }
 
 void LineTrace::start()
@@ -861,27 +843,6 @@ void LineTrace::start()
 	all_sideline_idx_ = 0;
 }
 
-void LineTrace::stop()
-{
-	excution_flag_ = false;
-	velocity_ctrl_->stop();
-
-	led_.LR(-1, 1);
-	if(mode_selector_ == FIRST_RUNNING){ //First running
-		logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
-	}
-	else{//Secondary run
-		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
-	}
-	sd_write_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_, OVER_WRITE);
-	sd_write_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_, OVER_WRITE);
-	sd_write_array_float("COURSLOG", "ASIDEDIS.TXT", SIDELINE_SIZE, all_sideline_distance_, OVER_WRITE);
-
-	led_.LR(-1, 0);
-
-	logger_->resetIdx();
-	logger_->resetLogs2();
-}
 
 void LineTrace::running()
 {
@@ -942,25 +903,31 @@ void LineTrace::running()
 	stop();
 }
 
-void LineTrace::storeLogs()
+void LineTrace::stop()
 {
-	if(logging_flag_ == true){
-		if(mode_selector_ == FIRST_RUNNING)
-			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
-		else
-			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
-			//logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
-			logger_->storeDistanceAndTheta2(velocity_ctrl_->getCurrentVelocity(), odometry_->getTheta());
+	excution_flag_ = false;
+	velocity_ctrl_->stop();
 
-		mon_store_cnt++;
+	led_.LR(-1, 1);
+	if(mode_selector_ == FIRST_RUNNING){ //First running
+		logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
 	}
+	else{//Secondary run
+		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
+	}
+	sd_write_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_, OVER_WRITE);
+	sd_write_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_, OVER_WRITE);
+	sd_write_array_float("COURSLOG", "ASIDEDIS.TXT", SIDELINE_SIZE, all_sideline_distance_, OVER_WRITE);
+
+	led_.LR(-1, 0);
+
+	logger_->resetIdx();
+	logger_->resetLogs2();
 }
 
-float LineTrace::getTargetOmega()
-{
-	return target_omega_;
-}
-
+// ---------------------------------------------------------------------------------------------------//
+// ------------------------------ Create velocity table-----------------------------------------------//
+// ---------------------------------------------------------------------------------------------------//
 void LineTrace::createVelocityTabele()
 {
 	const float *p_distance, *p_theta;
@@ -1049,11 +1016,3 @@ void LineTrace::createVelocityTabeleFromSD()
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 
 }
-
-void LineTrace::setMode(int16_t mode)
-{
-	mode_selector_ = mode;
-}
-
-
-

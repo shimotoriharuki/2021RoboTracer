@@ -48,8 +48,6 @@ private:
 	IMU *imu_;
 
 	float kp_, kd_, ki_;
-	float kp_fast_, kd_fast_, ki_fast_;
-	float kp_velo_, kd_velo_, ki_velo_;
 	bool excution_flag_;
 	bool i_reset_flag_;
 	float normal_ratio_;
@@ -64,7 +62,6 @@ private:
 	bool logging_flag_;
 	float ref_delta_distances_[LOG_DATA_SIZE_DIS];
 	float ref_distance_;
-	//float thetas[LOG_DATA_SIZE_DIS];
 	float velocity_table_[LOG_DATA_SIZE_DIS];
 	bool velocity_play_flag_;
 	uint16_t velocity_table_idx_;
@@ -101,7 +98,7 @@ private:
 	void storeCrossLineDistance();
 	void storeSideLineDistance();
 	void storeAllSideLineDistance();
-	float calcRadius(float, float);
+	void storeLogs();
 
 	// position correction
 	void correctionTotalDistanceFromCrossLine();
@@ -121,22 +118,23 @@ private:
 	bool isTargetDistance(float);
 	bool isCrossLine();
 	bool isStable();
+	float getTargetOmega();
+	float calcRadius(float, float);
 
 public:
 	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *, IMU *);
+
+	// Initialize
 	void init();
+
+	// Line following gain
 	void setGain(float, float, float);
-	void setGainFast(float, float, float);
-	void setVeloGain(float, float, float);
 	float getKp();
 	float getKi();
 	float getKd();
-	float getKpFast();
-	float getKiFast();
-	float getKdFast();
-	float getKpV();
-	float getKiV();
-	float getKdV();
+
+
+	// velocity setting
 	void setNormalRatio(float);
 	void setTargetVelocity(float);
 	void setMaxVelocity(float);
@@ -148,23 +146,27 @@ public:
 	float getMaxVelocity2();
 	float getMinVelocity();
 	float getMinVelocity2();
+
+	// Acceleration setting
 	void setMaxAccDec(const float, const float);
 	void setMaxAccDec2(const float, const float);
 	float getMaxAcc();
 	float getMaxDec();
 	float getMaxAcc2();
 	float getMaxDec2();
-	void flip();
-	void flip100ns();
-	void start();
-	void stop();
-	void running();
-	void storeLogs();
-	float getTargetOmega();
 
+	// Flip
+	void flip();
+
+	// mode set to stop
+	void setMode(int16_t);
+	void start();
+	void running();
+	void stop();
+
+	// create velocity table
 	void createVelocityTabele();
 	void createVelocityTabeleFromSD();
-	void setMode(int16_t);
 
 };
 

@@ -175,7 +175,6 @@ void cppFlip1ms(void)
 void cppFlip100ns(void)
 {
 	line_sensor.storeSensorValues();
-	//line_trace.flip100ns();
 }
 
 void cppFlip10ms(void)
@@ -210,15 +209,10 @@ void cppLoop(void)
 	static int16_t selector;
 	static int16_t selector_acc, selector_acc2;
 	static int16_t selector_vel, selector_vel2;
-	static int16_t selector_fast;
 
 	static float adj_kp = line_trace.getKp();
 	static float adj_ki= line_trace.getKi();
 	static float adj_kd = line_trace.getKd();
-
-	static float adj_kp_fast = line_trace.getKpFast();
-	static float adj_ki_fast = line_trace.getKiFast();
-	static float adj_kd_fast = line_trace.getKdFast();
 
 	static float adj_velocity = line_trace.getTargetVelocity();
 	static float adj_max_velocity = line_trace.getMaxVelocity();
@@ -658,90 +652,6 @@ void cppLoop(void)
 		break;
 
 	case 9:
-		led.fullColor('W');
-
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("F%4.2lf   ", line_trace.getKpFast()*1000);
-		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", line_trace.getKiFast()*100, line_trace.getKdFast()*10000);
-
-		if(joy_stick.getValue() == JOY_U){
-			led.LR(-1, 1);
-			HAL_Delay(300);
-
-			selector_fast++;
-			if(selector_fast >= 3) selector_fast = 0;
-
-			led.LR(-1, 0);
-		}
-		else if(joy_stick.getValue() == JOY_R){
-			led.LR(-1, 1);
-			HAL_Delay(100);
-
-			if(selector_fast == 0){
-				adj_kp_fast = adj_kp_fast + 0.00001;
-			}
-			else if(selector_fast == 1){
-				adj_ki_fast = adj_ki_fast + 0.0001;
-			}
-			else{
-				adj_kd_fast = adj_kd_fast + 0.000001;
-			}
-
-			led.fullColor('R');
-
-			led.LR(-1, 0);
-		}
-
-		else if(joy_stick.getValue() == JOY_L){
-			led.LR(-1, 1);
-			HAL_Delay(100);
-
-			if(selector_fast == 0){
-				adj_kp_fast = adj_kp_fast - 0.00001;
-			}
-			else if(selector_fast == 1){
-				adj_ki_fast = adj_ki_fast - 0.0001;
-			}
-			else{
-				adj_kd_fast = adj_kd_fast - 0.000001;
-			}
-
-			led.fullColor('R');
-
-			led.LR(-1, 0);
-		}
-		else if(joy_stick.getValue() == JOY_D){
-			led.LR(-1, 1);
-			HAL_Delay(300);
-
-			/*
-			float temp_kp, temp_ki, temp_kd;
-			sd_read_array_float("PARAMS", "KP.TXT", 1, &temp_kp);
-			sd_read_array_float("PARAMS", "KI.TXT", 1, &temp_ki);
-			sd_read_array_float("PARAMS", "KD.TXT", 1, &temp_kd);
-			line_trace.setGain(temp_kp, temp_ki, temp_kd);
-
-			adj_kp = temp_kp;
-			adj_ki = temp_kp;
-			adj_kd = temp_kp;
-			*/
-
-			led.LR(-1, 0);
-		}
-		else if(joy_stick.getValue() == JOY_C){
-			led.LR(-1, 1);
-			HAL_Delay(300);
-
-			sd_write_array_float("PARAMS", "KPFAST.TXT", 1, &adj_kp_fast, OVER_WRITE);
-			sd_write_array_float("PARAMS", "KIFAST.TXT", 1, &adj_ki_fast, OVER_WRITE);
-			sd_write_array_float("PARAMS", "KDFAST.TXT", 1, &adj_kd_fast, OVER_WRITE);
-			line_trace.setGainFast(adj_kp_fast, adj_ki_fast, adj_kd_fast);
-
-			led.LR(-1, 0);
-		}
-		/*
 		led.fullColor('~');
 
 		lcd_clear();
@@ -775,7 +685,6 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
-		*/
 		break;
 
 	case 10:
