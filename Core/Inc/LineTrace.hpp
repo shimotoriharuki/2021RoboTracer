@@ -83,32 +83,44 @@ private:
 	uint16_t correction_check_cnt_;
 	bool all_sideline_flag_;
 
+	// Sensor angle based line following
 	float calcError();
 	float calcAngle();
 	void getSensorValues();
 	void calcStandardAngle(float &, uint16_t &);
 	void calcNormalizedSensorValue(const uint16_t, float &, float &);
 	void calcDeltaTheta(const float, const float, float &);
-	void pidTrace();
-	void pidAngularVelocityTrace();
 	void steeringAngleTrace();
+
+	// Standard line following
+	void pidTrace();
+
+	// Logging
 	void loggerStart();
 	void loggerStop();
-	bool isCrossLine();
-	float calcRadius(float, float);
-	float radius2Velocity(float);
-	float radius2VelocityFnc(float);
-	void updateTargetVelocity();
-	bool isTargetDistance(float);
 	void storeCrossLineDistance();
 	void storeSideLineDistance();
 	void storeAllSideLineDistance();
+	float calcRadius(float, float);
+
+	// position correction
 	void correctionTotalDistanceFromCrossLine();
 	void correctionTotalDistanceFromSideMarker();
 	void correctionTotalDistanceFromAllSideMarker();
-	bool isStable();
+
+	// Acceleration / deceleration processing
+	float radius2Velocity(float);
+	float radius2VelocityFnc(float);
 	void decelerateProcessing(const float, const float *);
 	void accelerateProcessing(const float, const float *);
+	void startVelocityPlay();
+	void stopVelocityPlay();
+	void updateTargetVelocity();
+
+	// Status check
+	bool isTargetDistance(float);
+	bool isCrossLine();
+	bool isStable();
 
 public:
 	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *, IMU *);
@@ -152,8 +164,6 @@ public:
 
 	void createVelocityTabele();
 	void createVelocityTabeleFromSD();
-	void startVelocityPlay();
-	void stopVelocityPlay();
 	void setMode(int16_t);
 
 };

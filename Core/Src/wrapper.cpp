@@ -335,7 +335,7 @@ void cppLoop(void)
 
 			line_trace.setMode(FIRST_RUNNING);
 			HAL_Delay(1000);
-			esc.on(0., 0., 0., 0.);
+			esc.on(0.6, 0.6, 0.6, 0.6);
 			line_trace.running();
 			esc.off();
 

@@ -1782,16 +1782,12 @@ Discarded input sections
                 0x0000000000000000       0x98 Core/Src/LineTrace.o
  .text._ZN9LineTrace14calcDeltaThetaEffRf
                 0x0000000000000000       0xb0 Core/Src/LineTrace.o
- .bss._ZZN9LineTrace23pidAngularVelocityTraceEvE8pre_diff
-                0x0000000000000000        0x4 Core/Src/LineTrace.o
- .bss._ZZN9LineTrace23pidAngularVelocityTraceEvE1i
-                0x0000000000000000        0x4 Core/Src/LineTrace.o
- .text._ZN9LineTrace23pidAngularVelocityTraceEv
-                0x0000000000000000      0x120 Core/Src/LineTrace.o
  .text._ZN9LineTrace18steeringAngleTraceEv
                 0x0000000000000000       0xd0 Core/Src/LineTrace.o
  .text._ZN9LineTrace10calcRadiusEff
                 0x0000000000000000       0x44 Core/Src/LineTrace.o
+ .text._ZN9LineTrace40correctionTotalDistanceFromAllSideMarkerEv
+                0x0000000000000000       0xb0 Core/Src/LineTrace.o
  .text._ZN9LineTrace18radius2VelocityFncEf
                 0x0000000000000000       0xcc Core/Src/LineTrace.o
  .text._ZN9LineTrace11setVeloGainEfff
@@ -1806,8 +1802,6 @@ Discarded input sections
                 0x0000000000000000       0x1e Core/Src/LineTrace.o
  .text._ZN9LineTrace9flip100nsEv
                 0x0000000000000000       0x40 Core/Src/LineTrace.o
- .text._ZN9LineTrace40correctionTotalDistanceFromAllSideMarkerEv
-                0x0000000000000000       0xb0 Core/Src/LineTrace.o
  .debug_macro   0x0000000000000000      0xb32 Core/Src/LineTrace.o
  .debug_macro   0x0000000000000000      0x2ac Core/Src/LineTrace.o
  .debug_macro   0x0000000000000000       0x2e Core/Src/LineTrace.o
@@ -9588,223 +9582,224 @@ LOAD c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .text._ZN9LineTrace10loggerStopEv
                 0x0000000008002d9e       0x22 Core/Src/LineTrace.o
                 0x0000000008002d9e                LineTrace::loggerStop()
- .text._ZN9LineTrace11isCrossLineEv
-                0x0000000008002dc0      0x180 Core/Src/LineTrace.o
-                0x0000000008002dc0                LineTrace::isCrossLine()
- .text._ZN9LineTrace15radius2VelocityEf
-                0x0000000008002f40      0x16c Core/Src/LineTrace.o
-                0x0000000008002f40                LineTrace::radius2Velocity(float)
- .text._ZN9LineTrace20createVelocityTabeleEv
-                0x00000000080030ac      0x19c Core/Src/LineTrace.o
-                0x00000000080030ac                LineTrace::createVelocityTabele()
- .text._ZN9LineTrace26createVelocityTabeleFromSDEv
-                0x0000000008003248      0x1e0 Core/Src/LineTrace.o
-                0x0000000008003248                LineTrace::createVelocityTabeleFromSD()
- .text._ZN9LineTrace20decelerateProcessingEfPKf
-                0x0000000008003428      0x148 Core/Src/LineTrace.o
-                0x0000000008003428                LineTrace::decelerateProcessing(float, float const*)
- .text._ZN9LineTrace20accelerateProcessingEfPKf
-                0x0000000008003570      0x148 Core/Src/LineTrace.o
-                0x0000000008003570                LineTrace::accelerateProcessing(float, float const*)
- .text._ZN9LineTrace20updateTargetVelocityEv
-                0x00000000080036b8      0x13c Core/Src/LineTrace.o
-                0x00000000080036b8                LineTrace::updateTargetVelocity()
- .text._ZN9LineTrace8isStableEv
-                0x00000000080037f4       0xe4 Core/Src/LineTrace.o
-                0x00000000080037f4                LineTrace::isStable()
- .text._ZN9LineTrace4initEv
-                0x00000000080038d8      0x1dc Core/Src/LineTrace.o
-                0x00000000080038d8                LineTrace::init()
- .text._ZN9LineTrace7setGainEfff
-                0x0000000008003ab4       0x32 Core/Src/LineTrace.o
-                0x0000000008003ab4                LineTrace::setGain(float, float, float)
- .text._ZN9LineTrace11setGainFastEfff
-                0x0000000008003ae6       0x32 Core/Src/LineTrace.o
-                0x0000000008003ae6                LineTrace::setGainFast(float, float, float)
- .text._ZN9LineTrace5getKpEv
-                0x0000000008003b18       0x1e Core/Src/LineTrace.o
-                0x0000000008003b18                LineTrace::getKp()
- .text._ZN9LineTrace5getKiEv
-                0x0000000008003b36       0x1e Core/Src/LineTrace.o
-                0x0000000008003b36                LineTrace::getKi()
- .text._ZN9LineTrace5getKdEv
-                0x0000000008003b54       0x1e Core/Src/LineTrace.o
-                0x0000000008003b54                LineTrace::getKd()
- .text._ZN9LineTrace9getKpFastEv
-                0x0000000008003b72       0x1e Core/Src/LineTrace.o
-                0x0000000008003b72                LineTrace::getKpFast()
- .text._ZN9LineTrace9getKiFastEv
-                0x0000000008003b90       0x1e Core/Src/LineTrace.o
-                0x0000000008003b90                LineTrace::getKiFast()
- .text._ZN9LineTrace9getKdFastEv
-                0x0000000008003bae       0x1e Core/Src/LineTrace.o
-                0x0000000008003bae                LineTrace::getKdFast()
- .text._ZN9LineTrace17setTargetVelocityEf
-                0x0000000008003bcc       0x20 Core/Src/LineTrace.o
-                0x0000000008003bcc                LineTrace::setTargetVelocity(float)
- .text._ZN9LineTrace14setMaxVelocityEf
-                0x0000000008003bec       0x20 Core/Src/LineTrace.o
-                0x0000000008003bec                LineTrace::setMaxVelocity(float)
- .text._ZN9LineTrace15setMaxVelocity2Ef
-                0x0000000008003c0c       0x20 Core/Src/LineTrace.o
-                0x0000000008003c0c                LineTrace::setMaxVelocity2(float)
- .text._ZN9LineTrace14setMinVelocityEf
-                0x0000000008003c2c       0x20 Core/Src/LineTrace.o
-                0x0000000008003c2c                LineTrace::setMinVelocity(float)
- .text._ZN9LineTrace15setMinVelocity2Ef
-                0x0000000008003c4c       0x20 Core/Src/LineTrace.o
-                0x0000000008003c4c                LineTrace::setMinVelocity2(float)
- .text._ZN9LineTrace17getTargetVelocityEv
-                0x0000000008003c6c       0x20 Core/Src/LineTrace.o
-                0x0000000008003c6c                LineTrace::getTargetVelocity()
- .text._ZN9LineTrace14getMaxVelocityEv
-                0x0000000008003c8c       0x20 Core/Src/LineTrace.o
-                0x0000000008003c8c                LineTrace::getMaxVelocity()
- .text._ZN9LineTrace15getMaxVelocity2Ev
-                0x0000000008003cac       0x20 Core/Src/LineTrace.o
-                0x0000000008003cac                LineTrace::getMaxVelocity2()
- .text._ZN9LineTrace14getMinVelocityEv
-                0x0000000008003ccc       0x20 Core/Src/LineTrace.o
-                0x0000000008003ccc                LineTrace::getMinVelocity()
- .text._ZN9LineTrace15getMinVelocity2Ev
-                0x0000000008003cec       0x20 Core/Src/LineTrace.o
-                0x0000000008003cec                LineTrace::getMinVelocity2()
- .text._ZN9LineTrace12setMaxAccDecEff
-                0x0000000008003d0c       0x34 Core/Src/LineTrace.o
-                0x0000000008003d0c                LineTrace::setMaxAccDec(float, float)
- .text._ZN9LineTrace13setMaxAccDec2Eff
-                0x0000000008003d40       0x34 Core/Src/LineTrace.o
-                0x0000000008003d40                LineTrace::setMaxAccDec2(float, float)
- .text._ZN9LineTrace9getMaxAccEv
-                0x0000000008003d74       0x24 Core/Src/LineTrace.o
-                0x0000000008003d74                LineTrace::getMaxAcc()
- .text._ZN9LineTrace10getMaxDec2Ev
-                0x0000000008003d98       0x24 Core/Src/LineTrace.o
-                0x0000000008003d98                LineTrace::getMaxDec2()
- .text._ZN9LineTrace10getMaxAcc2Ev
-                0x0000000008003dbc       0x24 Core/Src/LineTrace.o
-                0x0000000008003dbc                LineTrace::getMaxAcc2()
- .text._ZN9LineTrace9getMaxDecEv
-                0x0000000008003de0       0x24 Core/Src/LineTrace.o
-                0x0000000008003de0                LineTrace::getMaxDec()
- .text._ZN9LineTrace4flipEv
-                0x0000000008003e04      0x2e0 Core/Src/LineTrace.o
-                0x0000000008003e04                LineTrace::flip()
- .text._ZN9LineTrace5startEv
-                0x00000000080040e4       0x58 Core/Src/LineTrace.o
-                0x00000000080040e4                LineTrace::start()
- .text._ZN9LineTrace4stopEv
-                0x000000000800413c       0xec Core/Src/LineTrace.o
-                0x000000000800413c                LineTrace::stop()
- .text._ZN9LineTrace7runningEv
-                0x0000000008004228       0xe8 Core/Src/LineTrace.o
-                0x0000000008004228                LineTrace::running()
- .text._ZN9LineTrace9storeLogsEv
-                0x0000000008004310       0xb4 Core/Src/LineTrace.o
-                0x0000000008004310                LineTrace::storeLogs()
- .text._ZN9LineTrace14getTargetOmegaEv
-                0x00000000080043c4       0x20 Core/Src/LineTrace.o
-                0x00000000080043c4                LineTrace::getTargetOmega()
- .text._ZN9LineTrace17startVelocityPlayEv
-                0x00000000080043e4       0x26 Core/Src/LineTrace.o
-                0x00000000080043e4                LineTrace::startVelocityPlay()
- .text._ZN9LineTrace16stopVelocityPlayEv
-                0x000000000800440a       0x3a Core/Src/LineTrace.o
-                0x000000000800440a                LineTrace::stopVelocityPlay()
- .text._ZN9LineTrace7setModeEs
-                0x0000000008004444       0x24 Core/Src/LineTrace.o
-                0x0000000008004444                LineTrace::setMode(short)
- .text._ZN9LineTrace16isTargetDistanceEf
-                0x0000000008004468       0x44 Core/Src/LineTrace.o
-                0x0000000008004468                LineTrace::isTargetDistance(float)
  .text._ZN9LineTrace22storeCrossLineDistanceEv
-                0x00000000080044ac       0x6c Core/Src/LineTrace.o
-                0x00000000080044ac                LineTrace::storeCrossLineDistance()
+                0x0000000008002dc0       0x6c Core/Src/LineTrace.o
+                0x0000000008002dc0                LineTrace::storeCrossLineDistance()
  .text._ZN9LineTrace21storeSideLineDistanceEv
-                0x0000000008004518       0x70 Core/Src/LineTrace.o
-                0x0000000008004518                LineTrace::storeSideLineDistance()
+                0x0000000008002e2c       0x70 Core/Src/LineTrace.o
+                0x0000000008002e2c                LineTrace::storeSideLineDistance()
  .text._ZN9LineTrace24storeAllSideLineDistanceEv
-                0x0000000008004588       0x70 Core/Src/LineTrace.o
-                0x0000000008004588                LineTrace::storeAllSideLineDistance()
+                0x0000000008002e9c       0x70 Core/Src/LineTrace.o
+                0x0000000008002e9c                LineTrace::storeAllSideLineDistance()
  .text._ZN9LineTrace36correctionTotalDistanceFromCrossLineEv
-                0x00000000080045f8       0x6a Core/Src/LineTrace.o
-                0x00000000080045f8                LineTrace::correctionTotalDistanceFromCrossLine()
- *fill*         0x0000000008004662        0x2 
+                0x0000000008002f0c       0x6a Core/Src/LineTrace.o
+                0x0000000008002f0c                LineTrace::correctionTotalDistanceFromCrossLine()
+ *fill*         0x0000000008002f76        0x2 
  .text._ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv
-                0x0000000008004664       0xb0 Core/Src/LineTrace.o
-                0x0000000008004664                LineTrace::correctionTotalDistanceFromSideMarker()
+                0x0000000008002f78       0xb0 Core/Src/LineTrace.o
+                0x0000000008002f78                LineTrace::correctionTotalDistanceFromSideMarker()
+ .text._ZN9LineTrace15radius2VelocityEf
+                0x0000000008003028      0x16c Core/Src/LineTrace.o
+                0x0000000008003028                LineTrace::radius2Velocity(float)
+ *fill*         0x0000000008003194        0x4 
+ .text._ZN9LineTrace20decelerateProcessingEfPKf
+                0x0000000008003198      0x148 Core/Src/LineTrace.o
+                0x0000000008003198                LineTrace::decelerateProcessing(float, float const*)
+ .text._ZN9LineTrace20accelerateProcessingEfPKf
+                0x00000000080032e0      0x148 Core/Src/LineTrace.o
+                0x00000000080032e0                LineTrace::accelerateProcessing(float, float const*)
+ .text._ZN9LineTrace17startVelocityPlayEv
+                0x0000000008003428       0x26 Core/Src/LineTrace.o
+                0x0000000008003428                LineTrace::startVelocityPlay()
+ .text._ZN9LineTrace16stopVelocityPlayEv
+                0x000000000800344e       0x3a Core/Src/LineTrace.o
+                0x000000000800344e                LineTrace::stopVelocityPlay()
+ .text._ZN9LineTrace20updateTargetVelocityEv
+                0x0000000008003488      0x13c Core/Src/LineTrace.o
+                0x0000000008003488                LineTrace::updateTargetVelocity()
+ .text._ZN9LineTrace16isTargetDistanceEf
+                0x00000000080035c4       0x44 Core/Src/LineTrace.o
+                0x00000000080035c4                LineTrace::isTargetDistance(float)
+ .text._ZN9LineTrace11isCrossLineEv
+                0x0000000008003608      0x180 Core/Src/LineTrace.o
+                0x0000000008003608                LineTrace::isCrossLine()
+ .text._ZN9LineTrace8isStableEv
+                0x0000000008003788       0xe4 Core/Src/LineTrace.o
+                0x0000000008003788                LineTrace::isStable()
+ .text._ZN9LineTrace4initEv
+                0x000000000800386c      0x1dc Core/Src/LineTrace.o
+                0x000000000800386c                LineTrace::init()
+ .text._ZN9LineTrace7setGainEfff
+                0x0000000008003a48       0x32 Core/Src/LineTrace.o
+                0x0000000008003a48                LineTrace::setGain(float, float, float)
+ .text._ZN9LineTrace11setGainFastEfff
+                0x0000000008003a7a       0x32 Core/Src/LineTrace.o
+                0x0000000008003a7a                LineTrace::setGainFast(float, float, float)
+ .text._ZN9LineTrace5getKpEv
+                0x0000000008003aac       0x1e Core/Src/LineTrace.o
+                0x0000000008003aac                LineTrace::getKp()
+ .text._ZN9LineTrace5getKiEv
+                0x0000000008003aca       0x1e Core/Src/LineTrace.o
+                0x0000000008003aca                LineTrace::getKi()
+ .text._ZN9LineTrace5getKdEv
+                0x0000000008003ae8       0x1e Core/Src/LineTrace.o
+                0x0000000008003ae8                LineTrace::getKd()
+ .text._ZN9LineTrace9getKpFastEv
+                0x0000000008003b06       0x1e Core/Src/LineTrace.o
+                0x0000000008003b06                LineTrace::getKpFast()
+ .text._ZN9LineTrace9getKiFastEv
+                0x0000000008003b24       0x1e Core/Src/LineTrace.o
+                0x0000000008003b24                LineTrace::getKiFast()
+ .text._ZN9LineTrace9getKdFastEv
+                0x0000000008003b42       0x1e Core/Src/LineTrace.o
+                0x0000000008003b42                LineTrace::getKdFast()
+ .text._ZN9LineTrace17setTargetVelocityEf
+                0x0000000008003b60       0x20 Core/Src/LineTrace.o
+                0x0000000008003b60                LineTrace::setTargetVelocity(float)
+ .text._ZN9LineTrace14setMaxVelocityEf
+                0x0000000008003b80       0x20 Core/Src/LineTrace.o
+                0x0000000008003b80                LineTrace::setMaxVelocity(float)
+ .text._ZN9LineTrace15setMaxVelocity2Ef
+                0x0000000008003ba0       0x20 Core/Src/LineTrace.o
+                0x0000000008003ba0                LineTrace::setMaxVelocity2(float)
+ .text._ZN9LineTrace14setMinVelocityEf
+                0x0000000008003bc0       0x20 Core/Src/LineTrace.o
+                0x0000000008003bc0                LineTrace::setMinVelocity(float)
+ .text._ZN9LineTrace15setMinVelocity2Ef
+                0x0000000008003be0       0x20 Core/Src/LineTrace.o
+                0x0000000008003be0                LineTrace::setMinVelocity2(float)
+ .text._ZN9LineTrace17getTargetVelocityEv
+                0x0000000008003c00       0x20 Core/Src/LineTrace.o
+                0x0000000008003c00                LineTrace::getTargetVelocity()
+ .text._ZN9LineTrace14getMaxVelocityEv
+                0x0000000008003c20       0x20 Core/Src/LineTrace.o
+                0x0000000008003c20                LineTrace::getMaxVelocity()
+ .text._ZN9LineTrace15getMaxVelocity2Ev
+                0x0000000008003c40       0x20 Core/Src/LineTrace.o
+                0x0000000008003c40                LineTrace::getMaxVelocity2()
+ .text._ZN9LineTrace14getMinVelocityEv
+                0x0000000008003c60       0x20 Core/Src/LineTrace.o
+                0x0000000008003c60                LineTrace::getMinVelocity()
+ .text._ZN9LineTrace15getMinVelocity2Ev
+                0x0000000008003c80       0x20 Core/Src/LineTrace.o
+                0x0000000008003c80                LineTrace::getMinVelocity2()
+ .text._ZN9LineTrace12setMaxAccDecEff
+                0x0000000008003ca0       0x34 Core/Src/LineTrace.o
+                0x0000000008003ca0                LineTrace::setMaxAccDec(float, float)
+ .text._ZN9LineTrace13setMaxAccDec2Eff
+                0x0000000008003cd4       0x34 Core/Src/LineTrace.o
+                0x0000000008003cd4                LineTrace::setMaxAccDec2(float, float)
+ .text._ZN9LineTrace9getMaxAccEv
+                0x0000000008003d08       0x24 Core/Src/LineTrace.o
+                0x0000000008003d08                LineTrace::getMaxAcc()
+ .text._ZN9LineTrace10getMaxDec2Ev
+                0x0000000008003d2c       0x24 Core/Src/LineTrace.o
+                0x0000000008003d2c                LineTrace::getMaxDec2()
+ .text._ZN9LineTrace10getMaxAcc2Ev
+                0x0000000008003d50       0x24 Core/Src/LineTrace.o
+                0x0000000008003d50                LineTrace::getMaxAcc2()
+ .text._ZN9LineTrace9getMaxDecEv
+                0x0000000008003d74       0x24 Core/Src/LineTrace.o
+                0x0000000008003d74                LineTrace::getMaxDec()
+ .text._ZN9LineTrace4flipEv
+                0x0000000008003d98      0x2e0 Core/Src/LineTrace.o
+                0x0000000008003d98                LineTrace::flip()
+ .text._ZN9LineTrace5startEv
+                0x0000000008004078       0x58 Core/Src/LineTrace.o
+                0x0000000008004078                LineTrace::start()
+ .text._ZN9LineTrace4stopEv
+                0x00000000080040d0       0xec Core/Src/LineTrace.o
+                0x00000000080040d0                LineTrace::stop()
+ .text._ZN9LineTrace7runningEv
+                0x00000000080041bc       0xe8 Core/Src/LineTrace.o
+                0x00000000080041bc                LineTrace::running()
+ .text._ZN9LineTrace9storeLogsEv
+                0x00000000080042a4       0xb4 Core/Src/LineTrace.o
+                0x00000000080042a4                LineTrace::storeLogs()
+ .text._ZN9LineTrace14getTargetOmegaEv
+                0x0000000008004358       0x20 Core/Src/LineTrace.o
+                0x0000000008004358                LineTrace::getTargetOmega()
+ .text._ZN9LineTrace20createVelocityTabeleEv
+                0x0000000008004378      0x19c Core/Src/LineTrace.o
+                0x0000000008004378                LineTrace::createVelocityTabele()
+ .text._ZN9LineTrace26createVelocityTabeleFromSDEv
+                0x0000000008004514      0x1e0 Core/Src/LineTrace.o
+                0x0000000008004514                LineTrace::createVelocityTabeleFromSD()
+ .text._ZN9LineTrace7setModeEs
+                0x00000000080046f4       0x24 Core/Src/LineTrace.o
+                0x00000000080046f4                LineTrace::setMode(short)
  .text._ZN6LoggerC2Ev
-                0x0000000008004714       0x4e Core/Src/Logger.o
-                0x0000000008004714                Logger::Logger()
-                0x0000000008004714                Logger::Logger()
- *fill*         0x0000000008004762        0x2 
+                0x0000000008004718       0x4e Core/Src/Logger.o
+                0x0000000008004718                Logger::Logger()
+                0x0000000008004718                Logger::Logger()
+ *fill*         0x0000000008004766        0x2 
  .text._ZN6Logger10sdCardInitEv
-                0x0000000008004764       0x90 Core/Src/Logger.o
-                0x0000000008004764                Logger::sdCardInit()
+                0x0000000008004768       0x90 Core/Src/Logger.o
+                0x0000000008004768                Logger::sdCardInit()
  .text._ZN6Logger8storeLogEf
-                0x00000000080047f4       0x7a Core/Src/Logger.o
-                0x00000000080047f4                Logger::storeLog(float)
+                0x00000000080047f8       0x7a Core/Src/Logger.o
+                0x00000000080047f8                Logger::storeLog(float)
  .text._ZN6Logger9storeLog2Ef
-                0x000000000800486e       0x7e Core/Src/Logger.o
-                0x000000000800486e                Logger::storeLog2(float)
+                0x0000000008004872       0x7e Core/Src/Logger.o
+                0x0000000008004872                Logger::storeLog2(float)
  .text._ZN6Logger21storeDistanceAndThetaEff
-                0x00000000080048ec       0x90 Core/Src/Logger.o
-                0x00000000080048ec                Logger::storeDistanceAndTheta(float, float)
+                0x00000000080048f0       0x90 Core/Src/Logger.o
+                0x00000000080048f0                Logger::storeDistanceAndTheta(float, float)
  .text._ZN6Logger22storeDistanceAndTheta2Eff
-                0x000000000800497c       0x90 Core/Src/Logger.o
-                0x000000000800497c                Logger::storeDistanceAndTheta2(float, float)
+                0x0000000008004980       0x90 Core/Src/Logger.o
+                0x0000000008004980                Logger::storeDistanceAndTheta2(float, float)
  .text._ZN6Logger23getDistanceArrayPointerEv
-                0x0000000008004a0c       0x1a Core/Src/Logger.o
-                0x0000000008004a0c                Logger::getDistanceArrayPointer()
+                0x0000000008004a10       0x1a Core/Src/Logger.o
+                0x0000000008004a10                Logger::getDistanceArrayPointer()
  .text._ZN6Logger20getThetaArrayPointerEv
-                0x0000000008004a26       0x1c Core/Src/Logger.o
-                0x0000000008004a26                Logger::getThetaArrayPointer()
+                0x0000000008004a2a       0x1c Core/Src/Logger.o
+                0x0000000008004a2a                Logger::getThetaArrayPointer()
  .text._ZN6Logger8saveLogsEPKcS1_
-                0x0000000008004a42       0x28 Core/Src/Logger.o
-                0x0000000008004a42                Logger::saveLogs(char const*, char const*)
+                0x0000000008004a46       0x28 Core/Src/Logger.o
+                0x0000000008004a46                Logger::saveLogs(char const*, char const*)
  .text._ZN6Logger9saveLogs2EPKcS1_
-                0x0000000008004a6a       0x2c Core/Src/Logger.o
-                0x0000000008004a6a                Logger::saveLogs2(char const*, char const*)
+                0x0000000008004a6e       0x2c Core/Src/Logger.o
+                0x0000000008004a6e                Logger::saveLogs2(char const*, char const*)
  .text._ZN6Logger20saveDistanceAndThetaEPKcS1_S1_
-                0x0000000008004a96       0x46 Core/Src/Logger.o
-                0x0000000008004a96                Logger::saveDistanceAndTheta(char const*, char const*, char const*)
+                0x0000000008004a9a       0x46 Core/Src/Logger.o
+                0x0000000008004a9a                Logger::saveDistanceAndTheta(char const*, char const*, char const*)
  .text._ZN6Logger21saveDistanceAndTheta2EPKcS1_S1_
-                0x0000000008004adc       0x48 Core/Src/Logger.o
-                0x0000000008004adc                Logger::saveDistanceAndTheta2(char const*, char const*, char const*)
+                0x0000000008004ae0       0x48 Core/Src/Logger.o
+                0x0000000008004ae0                Logger::saveDistanceAndTheta2(char const*, char const*, char const*)
  .text._ZN6Logger22importDistanceAndThetaEPKcS1_S1_
-                0x0000000008004b24       0x3c Core/Src/Logger.o
-                0x0000000008004b24                Logger::importDistanceAndTheta(char const*, char const*, char const*)
+                0x0000000008004b28       0x3c Core/Src/Logger.o
+                0x0000000008004b28                Logger::importDistanceAndTheta(char const*, char const*, char const*)
  .text._ZN6Logger10resetLogs2Ev
-                0x0000000008004b60       0x98 Core/Src/Logger.o
-                0x0000000008004b60                Logger::resetLogs2()
+                0x0000000008004b64       0x98 Core/Src/Logger.o
+                0x0000000008004b64                Logger::resetLogs2()
  .text._ZN6Logger8resetIdxEv
-                0x0000000008004bf8       0x30 Core/Src/Logger.o
-                0x0000000008004bf8                Logger::resetIdx()
+                0x0000000008004bfc       0x30 Core/Src/Logger.o
+                0x0000000008004bfc                Logger::resetIdx()
  .text._ZN6Logger5startEv
-                0x0000000008004c28       0x22 Core/Src/Logger.o
-                0x0000000008004c28                Logger::start()
+                0x0000000008004c2c       0x22 Core/Src/Logger.o
+                0x0000000008004c2c                Logger::start()
  .text._ZN6Logger4stopEv
-                0x0000000008004c4a       0x22 Core/Src/Logger.o
-                0x0000000008004c4a                Logger::stop()
+                0x0000000008004c4e       0x22 Core/Src/Logger.o
+                0x0000000008004c4e                Logger::stop()
  .text._ZN5MotorC2Ev
-                0x0000000008004c6c       0x22 Core/Src/Motor.o
-                0x0000000008004c6c                Motor::Motor()
-                0x0000000008004c6c                Motor::Motor()
- *fill*         0x0000000008004c8e        0x2 
+                0x0000000008004c70       0x22 Core/Src/Motor.o
+                0x0000000008004c70                Motor::Motor()
+                0x0000000008004c70                Motor::Motor()
+ *fill*         0x0000000008004c92        0x2 
  .text._ZN5Motor4initEv
-                0x0000000008004c90       0x24 Core/Src/Motor.o
-                0x0000000008004c90                Motor::init()
+                0x0000000008004c94       0x24 Core/Src/Motor.o
+                0x0000000008004c94                Motor::init()
  .text._ZN5Motor9motorCtrlEv
-                0x0000000008004cb4       0xa0 Core/Src/Motor.o
-                0x0000000008004cb4                Motor::motorCtrl()
+                0x0000000008004cb8       0xa0 Core/Src/Motor.o
+                0x0000000008004cb8                Motor::motorCtrl()
  .text._ZN5Motor8setRatioEdd
-                0x0000000008004d54       0xe4 Core/Src/Motor.o
-                0x0000000008004d54                Motor::setRatio(double, double)
+                0x0000000008004d58       0xe4 Core/Src/Motor.o
+                0x0000000008004d58                Motor::setRatio(double, double)
  .text._ZN8OdometryC2EP7EncoderP3IMUP12VelocityCtrl
-                0x0000000008004e38       0x72 Core/Src/Odometry.o
-                0x0000000008004e38                Odometry::Odometry(Encoder*, IMU*, VelocityCtrl*)
-                0x0000000008004e38                Odometry::Odometry(Encoder*, IMU*, VelocityCtrl*)
- *fill*         0x0000000008004eaa        0x6 
+                0x0000000008004e3c       0x72 Core/Src/Odometry.o
+                0x0000000008004e3c                Odometry::Odometry(Encoder*, IMU*, VelocityCtrl*)
+                0x0000000008004e3c                Odometry::Odometry(Encoder*, IMU*, VelocityCtrl*)
+ *fill*         0x0000000008004eae        0x2 
  .text._ZN8Odometry12calcPotitionEv
                 0x0000000008004eb0      0x218 Core/Src/Odometry.o
                 0x0000000008004eb0                Odometry::calcPotition()
@@ -11745,7 +11740,7 @@ LOAD c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x000000000000182d       0x22 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
 OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000    0x3af2a
+.debug_info     0x0000000000000000    0x3ae73
  .debug_info    0x0000000000000000     0x10b5 Core/Src/AQM0802.o
  .debug_info    0x00000000000010b5     0x160b Core/Src/ESC.o
  .debug_info    0x00000000000026c0     0x1900 Core/Src/Encoder.o
@@ -11756,46 +11751,46 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_info    0x0000000000007ab4      0x2fa Core/Src/Joystick.o
  .debug_info    0x0000000000007dae      0x34a Core/Src/LED.o
  .debug_info    0x00000000000080f8     0x2c00 Core/Src/LineSensor.o
- .debug_info    0x000000000000acf8     0x47df Core/Src/LineTrace.o
- .debug_info    0x000000000000f4d7     0x2010 Core/Src/Logger.o
- .debug_info    0x00000000000114e7     0x164d Core/Src/Motor.o
- .debug_info    0x0000000000012b34     0x153a Core/Src/Odometry.o
- .debug_info    0x000000000001406e     0x269c Core/Src/PathFollowing.o
- .debug_info    0x000000000001670a      0x919 Core/Src/PowerSensor.o
- .debug_info    0x0000000000017023      0x29a Core/Src/RotarySwitch.o
- .debug_info    0x00000000000172bd      0x698 Core/Src/SideSensor.o
- .debug_info    0x0000000000017955      0xd3b Core/Src/SystemIdentification.o
- .debug_info    0x0000000000018690     0x1496 Core/Src/VelocityCtrl.o
- .debug_info    0x0000000000019b26     0x303a Core/Src/main.o
- .debug_info    0x000000000001cb60      0xb98 Core/Src/path_following.o
- .debug_info    0x000000000001d6f8     0x1e9f Core/Src/stm32f4xx_hal_msp.o
- .debug_info    0x000000000001f597      0xae2 Core/Src/stm32f4xx_it.o
- .debug_info    0x0000000000020079      0x985 Core/Src/sysmem.o
- .debug_info    0x00000000000209fe      0x56e Core/Src/system_stm32f4xx.o
- .debug_info    0x0000000000020f6c     0x3a10 Core/Src/wrapper.o
- .debug_info    0x000000000002497c       0x22 Core/Startup/startup_stm32f469vgtx.o
- .debug_info    0x000000000002499e      0x9c5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_info    0x0000000000025363      0xcee Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
- .debug_info    0x0000000000026051      0xe6a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_info    0x0000000000026ebb      0x968 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .debug_info    0x0000000000027823      0x7cf Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_info    0x0000000000027ff2     0x2433 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_info    0x000000000002a425      0x747 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
- .debug_info    0x000000000002ab6c      0x92a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_info    0x000000000002b496      0x8a8 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- .debug_info    0x000000000002bd3e     0x18b9 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
- .debug_info    0x000000000002d5f7     0x163a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_info    0x000000000002ec31     0x24a9 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_info    0x00000000000310da     0x1157 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
- .debug_info    0x0000000000032231     0x124c Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
- .debug_info    0x000000000003347d     0x10ee Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
- .debug_info    0x000000000003456b      0xd89 FATFS/App/fatfs.o
- .debug_info    0x00000000000352f4      0xa46 FATFS/Target/bsp_driver_sd.o
- .debug_info    0x0000000000035d3a      0x265 FATFS/Target/fatfs_platform.o
- .debug_info    0x0000000000035f9f      0xdbe FATFS/Target/sd_diskio.o
- .debug_info    0x0000000000036d5d      0xcdc Middlewares/Third_Party/FatFs/src/diskio.o
- .debug_info    0x0000000000037a39     0x287d Middlewares/Third_Party/FatFs/src/ff.o
- .debug_info    0x000000000003a2b6      0xc74 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
+ .debug_info    0x000000000000acf8     0x4743 Core/Src/LineTrace.o
+ .debug_info    0x000000000000f43b     0x2010 Core/Src/Logger.o
+ .debug_info    0x000000000001144b     0x164d Core/Src/Motor.o
+ .debug_info    0x0000000000012a98     0x153a Core/Src/Odometry.o
+ .debug_info    0x0000000000013fd2     0x269c Core/Src/PathFollowing.o
+ .debug_info    0x000000000001666e      0x919 Core/Src/PowerSensor.o
+ .debug_info    0x0000000000016f87      0x29a Core/Src/RotarySwitch.o
+ .debug_info    0x0000000000017221      0x698 Core/Src/SideSensor.o
+ .debug_info    0x00000000000178b9      0xd3b Core/Src/SystemIdentification.o
+ .debug_info    0x00000000000185f4     0x1496 Core/Src/VelocityCtrl.o
+ .debug_info    0x0000000000019a8a     0x303a Core/Src/main.o
+ .debug_info    0x000000000001cac4      0xb98 Core/Src/path_following.o
+ .debug_info    0x000000000001d65c     0x1e9f Core/Src/stm32f4xx_hal_msp.o
+ .debug_info    0x000000000001f4fb      0xae2 Core/Src/stm32f4xx_it.o
+ .debug_info    0x000000000001ffdd      0x985 Core/Src/sysmem.o
+ .debug_info    0x0000000000020962      0x56e Core/Src/system_stm32f4xx.o
+ .debug_info    0x0000000000020ed0     0x39f5 Core/Src/wrapper.o
+ .debug_info    0x00000000000248c5       0x22 Core/Startup/startup_stm32f469vgtx.o
+ .debug_info    0x00000000000248e7      0x9c5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_info    0x00000000000252ac      0xcee Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+ .debug_info    0x0000000000025f9a      0xe6a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_info    0x0000000000026e04      0x968 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_info    0x000000000002776c      0x7cf Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_info    0x0000000000027f3b     0x2433 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_info    0x000000000002a36e      0x747 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_info    0x000000000002aab5      0x92a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_info    0x000000000002b3df      0x8a8 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_info    0x000000000002bc87     0x18b9 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
+ .debug_info    0x000000000002d540     0x163a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_info    0x000000000002eb7a     0x24a9 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_info    0x0000000000031023     0x1157 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_info    0x000000000003217a     0x124c Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_info    0x00000000000333c6     0x10ee Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
+ .debug_info    0x00000000000344b4      0xd89 FATFS/App/fatfs.o
+ .debug_info    0x000000000003523d      0xa46 FATFS/Target/bsp_driver_sd.o
+ .debug_info    0x0000000000035c83      0x265 FATFS/Target/fatfs_platform.o
+ .debug_info    0x0000000000035ee8      0xdbe FATFS/Target/sd_diskio.o
+ .debug_info    0x0000000000036ca6      0xcdc Middlewares/Third_Party/FatFs/src/diskio.o
+ .debug_info    0x0000000000037982     0x287d Middlewares/Third_Party/FatFs/src/ff.o
+ .debug_info    0x000000000003a1ff      0xc74 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
 .debug_abbrev   0x0000000000000000     0x7bbd
  .debug_abbrev  0x0000000000000000      0x23e Core/Src/AQM0802.o
@@ -11849,7 +11844,7 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_abbrev  0x00000000000076e2      0x2a5 Middlewares/Third_Party/FatFs/src/ff.o
  .debug_abbrev  0x0000000000007987      0x236 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
-.debug_aranges  0x0000000000000000     0x2350
+.debug_aranges  0x0000000000000000     0x2348
  .debug_aranges
                 0x0000000000000000       0x50 Core/Src/AQM0802.o
  .debug_aranges
@@ -11871,87 +11866,87 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_aranges
                 0x00000000000002d0       0x50 Core/Src/LineSensor.o
  .debug_aranges
-                0x0000000000000320      0x248 Core/Src/LineTrace.o
+                0x0000000000000320      0x240 Core/Src/LineTrace.o
  .debug_aranges
-                0x0000000000000568       0xc0 Core/Src/Logger.o
+                0x0000000000000560       0xc0 Core/Src/Logger.o
  .debug_aranges
-                0x0000000000000628       0x38 Core/Src/Motor.o
+                0x0000000000000620       0x38 Core/Src/Motor.o
  .debug_aranges
-                0x0000000000000660       0x58 Core/Src/Odometry.o
+                0x0000000000000658       0x58 Core/Src/Odometry.o
  .debug_aranges
-                0x00000000000006b8       0xa8 Core/Src/PathFollowing.o
+                0x00000000000006b0       0xa8 Core/Src/PathFollowing.o
  .debug_aranges
-                0x0000000000000760       0x40 Core/Src/PowerSensor.o
+                0x0000000000000758       0x40 Core/Src/PowerSensor.o
  .debug_aranges
-                0x00000000000007a0       0x20 Core/Src/RotarySwitch.o
+                0x0000000000000798       0x20 Core/Src/RotarySwitch.o
  .debug_aranges
-                0x00000000000007c0       0x68 Core/Src/SideSensor.o
+                0x00000000000007b8       0x68 Core/Src/SideSensor.o
  .debug_aranges
-                0x0000000000000828       0x58 Core/Src/SystemIdentification.o
+                0x0000000000000820       0x58 Core/Src/SystemIdentification.o
  .debug_aranges
-                0x0000000000000880       0x80 Core/Src/VelocityCtrl.o
+                0x0000000000000878       0x80 Core/Src/VelocityCtrl.o
  .debug_aranges
-                0x0000000000000900       0xe0 Core/Src/main.o
+                0x00000000000008f8       0xe0 Core/Src/main.o
  .debug_aranges
-                0x00000000000009e0       0x30 Core/Src/path_following.o
+                0x00000000000009d8       0x30 Core/Src/path_following.o
  .debug_aranges
-                0x0000000000000a10       0xa8 Core/Src/stm32f4xx_hal_msp.o
+                0x0000000000000a08       0xa8 Core/Src/stm32f4xx_hal_msp.o
  .debug_aranges
-                0x0000000000000ab8       0x98 Core/Src/stm32f4xx_it.o
+                0x0000000000000ab0       0x98 Core/Src/stm32f4xx_it.o
  .debug_aranges
-                0x0000000000000b50       0x20 Core/Src/sysmem.o
+                0x0000000000000b48       0x20 Core/Src/sysmem.o
  .debug_aranges
-                0x0000000000000b70       0x28 Core/Src/system_stm32f4xx.o
+                0x0000000000000b68       0x28 Core/Src/system_stm32f4xx.o
  .debug_aranges
-                0x0000000000000b98       0x68 Core/Src/wrapper.o
+                0x0000000000000b90       0x68 Core/Src/wrapper.o
  .debug_aranges
-                0x0000000000000c00       0x28 Core/Startup/startup_stm32f469vgtx.o
+                0x0000000000000bf8       0x28 Core/Startup/startup_stm32f469vgtx.o
  .debug_aranges
-                0x0000000000000c28      0x100 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+                0x0000000000000c20      0x100 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
  .debug_aranges
-                0x0000000000000d28       0xe8 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+                0x0000000000000d20       0xe8 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
  .debug_aranges
-                0x0000000000000e10      0x118 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+                0x0000000000000e08      0x118 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
  .debug_aranges
-                0x0000000000000f28       0x90 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+                0x0000000000000f20       0x90 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
  .debug_aranges
-                0x0000000000000fb8       0x58 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+                0x0000000000000fb0       0x58 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
  .debug_aranges
-                0x0000000000001010      0x2a0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x0000000000001008      0x2a0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
  .debug_aranges
-                0x00000000000012b0       0x60 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+                0x00000000000012a8       0x60 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
  .debug_aranges
-                0x0000000000001310       0x88 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+                0x0000000000001308       0x88 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
  .debug_aranges
-                0x0000000000001398       0x70 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+                0x0000000000001390       0x70 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
  .debug_aranges
-                0x0000000000001408      0x168 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
+                0x0000000000001400      0x168 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
  .debug_aranges
-                0x0000000000001570      0x1d0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+                0x0000000000001568      0x1d0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
  .debug_aranges
-                0x0000000000001740      0x3a8 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+                0x0000000000001738      0x3a8 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
  .debug_aranges
-                0x0000000000001ae8      0x150 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+                0x0000000000001ae0      0x150 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
  .debug_aranges
-                0x0000000000001c38      0x1d0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+                0x0000000000001c30      0x1d0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
  .debug_aranges
-                0x0000000000001e08      0x178 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
+                0x0000000000001e00      0x178 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
  .debug_aranges
-                0x0000000000001f80       0x20 FATFS/App/fatfs.o
+                0x0000000000001f78       0x20 FATFS/App/fatfs.o
  .debug_aranges
-                0x0000000000001fa0       0xa0 FATFS/Target/bsp_driver_sd.o
+                0x0000000000001f98       0xa0 FATFS/Target/bsp_driver_sd.o
  .debug_aranges
-                0x0000000000002040       0x20 FATFS/Target/fatfs_platform.o
+                0x0000000000002038       0x20 FATFS/Target/fatfs_platform.o
  .debug_aranges
-                0x0000000000002060       0x60 FATFS/Target/sd_diskio.o
+                0x0000000000002058       0x60 FATFS/Target/sd_diskio.o
  .debug_aranges
-                0x00000000000020c0       0x48 Middlewares/Third_Party/FatFs/src/diskio.o
+                0x00000000000020b8       0x48 Middlewares/Third_Party/FatFs/src/diskio.o
  .debug_aranges
-                0x0000000000002108      0x208 Middlewares/Third_Party/FatFs/src/ff.o
+                0x0000000000002100      0x208 Middlewares/Third_Party/FatFs/src/ff.o
  .debug_aranges
-                0x0000000000002310       0x40 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
+                0x0000000000002308       0x40 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
-.debug_ranges   0x0000000000000000     0x2080
+.debug_ranges   0x0000000000000000     0x2078
  .debug_ranges  0x0000000000000000       0x40 Core/Src/AQM0802.o
  .debug_ranges  0x0000000000000040       0x38 Core/Src/ESC.o
  .debug_ranges  0x0000000000000078       0x70 Core/Src/Encoder.o
@@ -11962,46 +11957,46 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_ranges  0x0000000000000210       0x18 Core/Src/Joystick.o
  .debug_ranges  0x0000000000000228       0x18 Core/Src/LED.o
  .debug_ranges  0x0000000000000240       0x40 Core/Src/LineSensor.o
- .debug_ranges  0x0000000000000280      0x258 Core/Src/LineTrace.o
- .debug_ranges  0x00000000000004d8       0xb0 Core/Src/Logger.o
- .debug_ranges  0x0000000000000588       0x28 Core/Src/Motor.o
- .debug_ranges  0x00000000000005b0       0x48 Core/Src/Odometry.o
- .debug_ranges  0x00000000000005f8       0x98 Core/Src/PathFollowing.o
- .debug_ranges  0x0000000000000690       0x30 Core/Src/PowerSensor.o
- .debug_ranges  0x00000000000006c0       0x10 Core/Src/RotarySwitch.o
- .debug_ranges  0x00000000000006d0       0x58 Core/Src/SideSensor.o
- .debug_ranges  0x0000000000000728       0x48 Core/Src/SystemIdentification.o
- .debug_ranges  0x0000000000000770       0x70 Core/Src/VelocityCtrl.o
- .debug_ranges  0x00000000000007e0       0xd0 Core/Src/main.o
- .debug_ranges  0x00000000000008b0       0x20 Core/Src/path_following.o
- .debug_ranges  0x00000000000008d0       0x98 Core/Src/stm32f4xx_hal_msp.o
- .debug_ranges  0x0000000000000968       0x88 Core/Src/stm32f4xx_it.o
- .debug_ranges  0x00000000000009f0       0x10 Core/Src/sysmem.o
- .debug_ranges  0x0000000000000a00       0x18 Core/Src/system_stm32f4xx.o
- .debug_ranges  0x0000000000000a18       0x58 Core/Src/wrapper.o
- .debug_ranges  0x0000000000000a70       0x20 Core/Startup/startup_stm32f469vgtx.o
- .debug_ranges  0x0000000000000a90       0xf0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_ranges  0x0000000000000b80       0xd8 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
- .debug_ranges  0x0000000000000c58      0x108 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_ranges  0x0000000000000d60       0x80 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .debug_ranges  0x0000000000000de0       0x48 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_ranges  0x0000000000000e28      0x2b8 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_ranges  0x00000000000010e0       0x50 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
- .debug_ranges  0x0000000000001130       0x78 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_ranges  0x00000000000011a8       0x60 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- .debug_ranges  0x0000000000001208      0x158 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
- .debug_ranges  0x0000000000001360      0x1c0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_ranges  0x0000000000001520      0x398 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_ranges  0x00000000000018b8      0x140 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
- .debug_ranges  0x00000000000019f8      0x1c0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
- .debug_ranges  0x0000000000001bb8      0x168 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
- .debug_ranges  0x0000000000001d20       0x10 FATFS/App/fatfs.o
- .debug_ranges  0x0000000000001d30       0x90 FATFS/Target/bsp_driver_sd.o
- .debug_ranges  0x0000000000001dc0       0x10 FATFS/Target/fatfs_platform.o
- .debug_ranges  0x0000000000001dd0       0x50 FATFS/Target/sd_diskio.o
- .debug_ranges  0x0000000000001e20       0x38 Middlewares/Third_Party/FatFs/src/diskio.o
- .debug_ranges  0x0000000000001e58      0x1f8 Middlewares/Third_Party/FatFs/src/ff.o
- .debug_ranges  0x0000000000002050       0x30 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
+ .debug_ranges  0x0000000000000280      0x250 Core/Src/LineTrace.o
+ .debug_ranges  0x00000000000004d0       0xb0 Core/Src/Logger.o
+ .debug_ranges  0x0000000000000580       0x28 Core/Src/Motor.o
+ .debug_ranges  0x00000000000005a8       0x48 Core/Src/Odometry.o
+ .debug_ranges  0x00000000000005f0       0x98 Core/Src/PathFollowing.o
+ .debug_ranges  0x0000000000000688       0x30 Core/Src/PowerSensor.o
+ .debug_ranges  0x00000000000006b8       0x10 Core/Src/RotarySwitch.o
+ .debug_ranges  0x00000000000006c8       0x58 Core/Src/SideSensor.o
+ .debug_ranges  0x0000000000000720       0x48 Core/Src/SystemIdentification.o
+ .debug_ranges  0x0000000000000768       0x70 Core/Src/VelocityCtrl.o
+ .debug_ranges  0x00000000000007d8       0xd0 Core/Src/main.o
+ .debug_ranges  0x00000000000008a8       0x20 Core/Src/path_following.o
+ .debug_ranges  0x00000000000008c8       0x98 Core/Src/stm32f4xx_hal_msp.o
+ .debug_ranges  0x0000000000000960       0x88 Core/Src/stm32f4xx_it.o
+ .debug_ranges  0x00000000000009e8       0x10 Core/Src/sysmem.o
+ .debug_ranges  0x00000000000009f8       0x18 Core/Src/system_stm32f4xx.o
+ .debug_ranges  0x0000000000000a10       0x58 Core/Src/wrapper.o
+ .debug_ranges  0x0000000000000a68       0x20 Core/Startup/startup_stm32f469vgtx.o
+ .debug_ranges  0x0000000000000a88       0xf0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_ranges  0x0000000000000b78       0xd8 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+ .debug_ranges  0x0000000000000c50      0x108 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_ranges  0x0000000000000d58       0x80 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_ranges  0x0000000000000dd8       0x48 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_ranges  0x0000000000000e20      0x2b8 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_ranges  0x00000000000010d8       0x50 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_ranges  0x0000000000001128       0x78 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_ranges  0x00000000000011a0       0x60 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_ranges  0x0000000000001200      0x158 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
+ .debug_ranges  0x0000000000001358      0x1c0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_ranges  0x0000000000001518      0x398 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_ranges  0x00000000000018b0      0x140 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_ranges  0x00000000000019f0      0x1c0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_ranges  0x0000000000001bb0      0x168 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
+ .debug_ranges  0x0000000000001d18       0x10 FATFS/App/fatfs.o
+ .debug_ranges  0x0000000000001d28       0x90 FATFS/Target/bsp_driver_sd.o
+ .debug_ranges  0x0000000000001db8       0x10 FATFS/Target/fatfs_platform.o
+ .debug_ranges  0x0000000000001dc8       0x50 FATFS/Target/sd_diskio.o
+ .debug_ranges  0x0000000000001e18       0x38 Middlewares/Third_Party/FatFs/src/diskio.o
+ .debug_ranges  0x0000000000001e50      0x1f8 Middlewares/Third_Party/FatFs/src/ff.o
+ .debug_ranges  0x0000000000002048       0x30 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
 .debug_macro    0x0000000000000000    0x35499
  .debug_macro   0x0000000000000000      0x38d Core/Src/AQM0802.o
@@ -12207,7 +12202,7 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_macro   0x00000000000349fe      0x751 Middlewares/Third_Party/FatFs/src/ff.o
  .debug_macro   0x000000000003514f      0x34a Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
-.debug_line     0x0000000000000000    0x2662c
+.debug_line     0x0000000000000000    0x2660b
  .debug_line    0x0000000000000000      0x9d2 Core/Src/AQM0802.o
  .debug_line    0x00000000000009d2      0x819 Core/Src/ESC.o
  .debug_line    0x00000000000011eb      0x86d Core/Src/Encoder.o
@@ -12218,48 +12213,48 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_line    0x00000000000048ba      0x79e Core/Src/Joystick.o
  .debug_line    0x0000000000005058      0x7b2 Core/Src/LED.o
  .debug_line    0x000000000000580a     0x1418 Core/Src/LineSensor.o
- .debug_line    0x0000000000006c22     0x1c61 Core/Src/LineTrace.o
- .debug_line    0x0000000000008883     0x1464 Core/Src/Logger.o
- .debug_line    0x0000000000009ce7      0x7dc Core/Src/Motor.o
- .debug_line    0x000000000000a4c3      0xd4c Core/Src/Odometry.o
- .debug_line    0x000000000000b20f     0x13ba Core/Src/PathFollowing.o
- .debug_line    0x000000000000c5c9      0x7e1 Core/Src/PowerSensor.o
- .debug_line    0x000000000000cdaa      0x78e Core/Src/RotarySwitch.o
- .debug_line    0x000000000000d538      0x851 Core/Src/SideSensor.o
- .debug_line    0x000000000000dd89     0x101a Core/Src/SystemIdentification.o
- .debug_line    0x000000000000eda3      0xa81 Core/Src/VelocityCtrl.o
- .debug_line    0x000000000000f824      0xd58 Core/Src/main.o
- .debug_line    0x000000000001057c      0x536 Core/Src/path_following.o
- .debug_line    0x0000000000010ab2      0x9ee Core/Src/stm32f4xx_hal_msp.o
- .debug_line    0x00000000000114a0      0x88f Core/Src/stm32f4xx_it.o
- .debug_line    0x0000000000011d2f      0x4c7 Core/Src/sysmem.o
- .debug_line    0x00000000000121f6      0x783 Core/Src/system_stm32f4xx.o
- .debug_line    0x0000000000012979     0x17e0 Core/Src/wrapper.o
- .debug_line    0x0000000000014159       0x85 Core/Startup/startup_stm32f469vgtx.o
- .debug_line    0x00000000000141de      0x991 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_line    0x0000000000014b6f      0xbd4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
- .debug_line    0x0000000000015743      0xa91 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_line    0x00000000000161d4      0xa3b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .debug_line    0x0000000000016c0f      0x974 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_line    0x0000000000017583     0x1c1b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_line    0x000000000001919e      0x85f Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
- .debug_line    0x00000000000199fd      0x9c5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_line    0x000000000001a3c2      0xa5a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- .debug_line    0x000000000001ae1c     0x1080 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
- .debug_line    0x000000000001be9c     0x1129 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_line    0x000000000001cfc5     0x19e6 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_line    0x000000000001e9ab      0xd83 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
- .debug_line    0x000000000001f72e     0x107b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
- .debug_line    0x00000000000207a9      0xc13 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
- .debug_line    0x00000000000213bc      0x954 FATFS/App/fatfs.o
- .debug_line    0x0000000000021d10      0x8b8 FATFS/Target/bsp_driver_sd.o
- .debug_line    0x00000000000225c8      0x774 FATFS/Target/fatfs_platform.o
- .debug_line    0x0000000000022d3c      0xa6e FATFS/Target/sd_diskio.o
- .debug_line    0x00000000000237aa      0x98f Middlewares/Third_Party/FatFs/src/diskio.o
- .debug_line    0x0000000000024139     0x1b64 Middlewares/Third_Party/FatFs/src/ff.o
- .debug_line    0x0000000000025c9d      0x98f Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
+ .debug_line    0x0000000000006c22     0x1c40 Core/Src/LineTrace.o
+ .debug_line    0x0000000000008862     0x1464 Core/Src/Logger.o
+ .debug_line    0x0000000000009cc6      0x7dc Core/Src/Motor.o
+ .debug_line    0x000000000000a4a2      0xd4c Core/Src/Odometry.o
+ .debug_line    0x000000000000b1ee     0x13ba Core/Src/PathFollowing.o
+ .debug_line    0x000000000000c5a8      0x7e1 Core/Src/PowerSensor.o
+ .debug_line    0x000000000000cd89      0x78e Core/Src/RotarySwitch.o
+ .debug_line    0x000000000000d517      0x851 Core/Src/SideSensor.o
+ .debug_line    0x000000000000dd68     0x101a Core/Src/SystemIdentification.o
+ .debug_line    0x000000000000ed82      0xa81 Core/Src/VelocityCtrl.o
+ .debug_line    0x000000000000f803      0xd58 Core/Src/main.o
+ .debug_line    0x000000000001055b      0x536 Core/Src/path_following.o
+ .debug_line    0x0000000000010a91      0x9ee Core/Src/stm32f4xx_hal_msp.o
+ .debug_line    0x000000000001147f      0x88f Core/Src/stm32f4xx_it.o
+ .debug_line    0x0000000000011d0e      0x4c7 Core/Src/sysmem.o
+ .debug_line    0x00000000000121d5      0x783 Core/Src/system_stm32f4xx.o
+ .debug_line    0x0000000000012958     0x17e0 Core/Src/wrapper.o
+ .debug_line    0x0000000000014138       0x85 Core/Startup/startup_stm32f469vgtx.o
+ .debug_line    0x00000000000141bd      0x991 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_line    0x0000000000014b4e      0xbd4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+ .debug_line    0x0000000000015722      0xa91 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_line    0x00000000000161b3      0xa3b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_line    0x0000000000016bee      0x974 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_line    0x0000000000017562     0x1c1b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_line    0x000000000001917d      0x85f Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_line    0x00000000000199dc      0x9c5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_line    0x000000000001a3a1      0xa5a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_line    0x000000000001adfb     0x1080 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
+ .debug_line    0x000000000001be7b     0x1129 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_line    0x000000000001cfa4     0x19e6 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_line    0x000000000001e98a      0xd83 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_line    0x000000000001f70d     0x107b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_line    0x0000000000020788      0xc13 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
+ .debug_line    0x000000000002139b      0x954 FATFS/App/fatfs.o
+ .debug_line    0x0000000000021cef      0x8b8 FATFS/Target/bsp_driver_sd.o
+ .debug_line    0x00000000000225a7      0x774 FATFS/Target/fatfs_platform.o
+ .debug_line    0x0000000000022d1b      0xa6e FATFS/Target/sd_diskio.o
+ .debug_line    0x0000000000023789      0x98f Middlewares/Third_Party/FatFs/src/diskio.o
+ .debug_line    0x0000000000024118     0x1b64 Middlewares/Third_Party/FatFs/src/ff.o
+ .debug_line    0x0000000000025c7c      0x98f Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
-.debug_str      0x0000000000000000   0x11101c
+.debug_str      0x0000000000000000   0x110fdb
  .debug_str     0x0000000000000000    0xfd7ce Core/Src/AQM0802.o
                                       0xfdc9d (size before relaxing)
  .debug_str     0x00000000000fd7ce     0x117d Core/Src/ESC.o
@@ -12280,85 +12275,85 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
                                       0xf9a59 (size before relaxing)
  .debug_str     0x0000000000102d6e     0x1c64 Core/Src/LineSensor.o
                                      0x103947 (size before relaxing)
- .debug_str     0x00000000001049d2     0x2bb0 Core/Src/LineTrace.o
-                                     0x104948 (size before relaxing)
- .debug_str     0x0000000000107582       0x45 Core/Src/Logger.o
+ .debug_str     0x00000000001049d2     0x2b6f Core/Src/LineTrace.o
+                                     0x104907 (size before relaxing)
+ .debug_str     0x0000000000107541       0x45 Core/Src/Logger.o
                                      0x101b8a (size before relaxing)
- .debug_str     0x00000000001075c7       0x4d Core/Src/Motor.o
+ .debug_str     0x0000000000107586       0x4d Core/Src/Motor.o
                                       0xfac24 (size before relaxing)
- .debug_str     0x0000000000107614       0xb9 Core/Src/Odometry.o
+ .debug_str     0x00000000001075d3       0xb9 Core/Src/Odometry.o
                                       0xff9d8 (size before relaxing)
- .debug_str     0x00000000001076cd     0x22d4 Core/Src/PathFollowing.o
+ .debug_str     0x000000000010768c     0x22d4 Core/Src/PathFollowing.o
                                      0x103339 (size before relaxing)
- .debug_str     0x00000000001099a1      0x171 Core/Src/PowerSensor.o
+ .debug_str     0x0000000000109960      0x171 Core/Src/PowerSensor.o
                                       0xfa1e2 (size before relaxing)
- .debug_str     0x0000000000109b12       0x1d Core/Src/RotarySwitch.o
+ .debug_str     0x0000000000109ad1       0x1d Core/Src/RotarySwitch.o
                                       0xf9a1a (size before relaxing)
- .debug_str     0x0000000000109b2f       0x6f Core/Src/SideSensor.o
+ .debug_str     0x0000000000109aee       0x6f Core/Src/SideSensor.o
                                       0xf9ccf (size before relaxing)
- .debug_str     0x0000000000109b9e      0x248 Core/Src/SystemIdentification.o
+ .debug_str     0x0000000000109b5d      0x248 Core/Src/SystemIdentification.o
                                       0xfcfe5 (size before relaxing)
- .debug_str     0x0000000000109de6       0xc0 Core/Src/VelocityCtrl.o
+ .debug_str     0x0000000000109da5       0xc0 Core/Src/VelocityCtrl.o
                                       0xfe3e7 (size before relaxing)
- .debug_str     0x0000000000109ea6      0xcb0 Core/Src/main.o
+ .debug_str     0x0000000000109e65      0xcb0 Core/Src/main.o
                                       0xfe931 (size before relaxing)
- .debug_str     0x000000000010ab56       0xee Core/Src/path_following.o
+ .debug_str     0x000000000010ab15       0xee Core/Src/path_following.o
                                        0x8bad (size before relaxing)
- .debug_str     0x000000000010ac44      0x1a7 Core/Src/stm32f4xx_hal_msp.o
+ .debug_str     0x000000000010ac03      0x1a7 Core/Src/stm32f4xx_hal_msp.o
                                       0xfab18 (size before relaxing)
- .debug_str     0x000000000010adeb      0x142 Core/Src/stm32f4xx_it.o
+ .debug_str     0x000000000010adaa      0x142 Core/Src/stm32f4xx_it.o
                                       0xf9ccf (size before relaxing)
- .debug_str     0x000000000010af2d      0x4e1 Core/Src/sysmem.o
+ .debug_str     0x000000000010aeec      0x4e1 Core/Src/sysmem.o
                                        0x5f6f (size before relaxing)
- .debug_str     0x000000000010b40e       0xc4 Core/Src/system_stm32f4xx.o
+ .debug_str     0x000000000010b3cd       0xc4 Core/Src/system_stm32f4xx.o
                                       0xf969a (size before relaxing)
- .debug_str     0x000000000010b4d2      0x26b Core/Src/wrapper.o
-                                     0x1044d5 (size before relaxing)
- .debug_str     0x000000000010b73d       0x36 Core/Startup/startup_stm32f469vgtx.o
+ .debug_str     0x000000000010b491      0x26b Core/Src/wrapper.o
+                                     0x104494 (size before relaxing)
+ .debug_str     0x000000000010b6fc       0x36 Core/Startup/startup_stm32f469vgtx.o
                                          0x7c (size before relaxing)
- .debug_str     0x000000000010b773      0x5c3 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_str     0x000000000010b732      0x5c3 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
                                       0xfa21c (size before relaxing)
- .debug_str     0x000000000010bd36      0x29d Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+ .debug_str     0x000000000010bcf5      0x29d Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
                                       0xf9c1e (size before relaxing)
- .debug_str     0x000000000010bfd3      0x389 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_str     0x000000000010bf92      0x389 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
                                       0xf9fbd (size before relaxing)
- .debug_str     0x000000000010c35c      0x31d Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_str     0x000000000010c31b      0x31d Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
                                       0xf9a9c (size before relaxing)
- .debug_str     0x000000000010c679      0x1de Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_str     0x000000000010c638      0x1de Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
                                       0xf98d9 (size before relaxing)
- .debug_str     0x000000000010c857      0xa9e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_str     0x000000000010c816      0xa9e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
                                       0xfa5f9 (size before relaxing)
- .debug_str     0x000000000010d2f5      0x135 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_str     0x000000000010d2b4      0x135 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
                                       0xf987d (size before relaxing)
- .debug_str     0x000000000010d42a      0x24e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_str     0x000000000010d3e9      0x24e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
                                       0xf9a8c (size before relaxing)
- .debug_str     0x000000000010d678      0x175 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_str     0x000000000010d637      0x175 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
                                       0xf99c7 (size before relaxing)
- .debug_str     0x000000000010d7ed      0x6d5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
+ .debug_str     0x000000000010d7ac      0x6d5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
                                       0xfa173 (size before relaxing)
- .debug_str     0x000000000010dec2      0x545 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_str     0x000000000010de81      0x545 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
                                       0xf9ef5 (size before relaxing)
- .debug_str     0x000000000010e407      0xbeb Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_str     0x000000000010e3c6      0xbeb Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
                                       0xfa793 (size before relaxing)
- .debug_str     0x000000000010eff2      0x40e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_str     0x000000000010efb1      0x40e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
                                       0xf9f93 (size before relaxing)
- .debug_str     0x000000000010f400      0x507 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_str     0x000000000010f3bf      0x507 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
                                       0xf9ed3 (size before relaxing)
- .debug_str     0x000000000010f907      0x436 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
+ .debug_str     0x000000000010f8c6      0x436 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
                                       0xf9aeb (size before relaxing)
- .debug_str     0x000000000010fd3d       0x23 FATFS/App/fatfs.o
+ .debug_str     0x000000000010fcfc       0x23 FATFS/App/fatfs.o
                                       0xfcdea (size before relaxing)
- .debug_str     0x000000000010fd60      0x164 FATFS/Target/bsp_driver_sd.o
+ .debug_str     0x000000000010fd1f      0x164 FATFS/Target/bsp_driver_sd.o
                                       0xf9c87 (size before relaxing)
- .debug_str     0x000000000010fec4       0x38 FATFS/Target/fatfs_platform.o
+ .debug_str     0x000000000010fe83       0x38 FATFS/Target/fatfs_platform.o
                                       0xf95d6 (size before relaxing)
- .debug_str     0x000000000010fefc       0xc9 FATFS/Target/sd_diskio.o
+ .debug_str     0x000000000010febb       0xc9 FATFS/Target/sd_diskio.o
                                       0xfceb5 (size before relaxing)
- .debug_str     0x000000000010ffc5       0x63 Middlewares/Third_Party/FatFs/src/diskio.o
+ .debug_str     0x000000000010ff84       0x63 Middlewares/Third_Party/FatFs/src/diskio.o
                                       0xfcd17 (size before relaxing)
- .debug_str     0x0000000000110028      0xf52 Middlewares/Third_Party/FatFs/src/ff.o
+ .debug_str     0x000000000010ffe7      0xf52 Middlewares/Third_Party/FatFs/src/ff.o
                                       0xfdf30 (size before relaxing)
- .debug_str     0x0000000000110f7a       0xa2 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
+ .debug_str     0x0000000000110f39       0xa2 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
                                       0xfcd68 (size before relaxing)
 
 .comment        0x0000000000000000       0x7b
@@ -12413,7 +12408,7 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .comment       0x000000000000007b       0x7c Middlewares/Third_Party/FatFs/src/ff.o
  .comment       0x000000000000007b       0x7c Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
-.debug_frame    0x0000000000000000     0xa7b8
+.debug_frame    0x0000000000000000     0xa790
  .debug_frame   0x0000000000000000      0x114 Core/Src/AQM0802.o
  .debug_frame   0x0000000000000114       0xf8 Core/Src/ESC.o
  .debug_frame   0x000000000000020c      0x214 Core/Src/Encoder.o
@@ -12424,104 +12419,104 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_frame   0x0000000000000924       0x5c Core/Src/Joystick.o
  .debug_frame   0x0000000000000980       0x58 Core/Src/LED.o
  .debug_frame   0x00000000000009d8      0x130 Core/Src/LineSensor.o
- .debug_frame   0x0000000000000b08      0xae0 Core/Src/LineTrace.o
- .debug_frame   0x00000000000015e8      0x340 Core/Src/Logger.o
- .debug_frame   0x0000000000001928       0xa8 Core/Src/Motor.o
- .debug_frame   0x00000000000019d0      0x154 Core/Src/Odometry.o
- .debug_frame   0x0000000000001b24      0x2e4 Core/Src/PathFollowing.o
- .debug_frame   0x0000000000001e08       0xd0 Core/Src/PowerSensor.o
- .debug_frame   0x0000000000001ed8       0x34 Core/Src/RotarySwitch.o
- .debug_frame   0x0000000000001f0c      0x19c Core/Src/SideSensor.o
- .debug_frame   0x00000000000020a8      0x140 Core/Src/SystemIdentification.o
- .debug_frame   0x00000000000021e8      0x228 Core/Src/VelocityCtrl.o
- .debug_frame   0x0000000000002410      0x358 Core/Src/main.o
- .debug_frame   0x0000000000002768       0x88 Core/Src/path_following.o
- .debug_frame   0x00000000000027f0      0x29c Core/Src/stm32f4xx_hal_msp.o
- .debug_frame   0x0000000000002a8c      0x1c8 Core/Src/stm32f4xx_it.o
- .debug_frame   0x0000000000002c54       0x34 Core/Src/sysmem.o
- .debug_frame   0x0000000000002c88       0x58 Core/Src/system_stm32f4xx.o
- .debug_frame   0x0000000000002ce0      0x158 Core/Src/wrapper.o
- .debug_frame   0x0000000000002e38      0x3b4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_frame   0x00000000000031ec      0x3fc Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
- .debug_frame   0x00000000000035e8      0x498 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_frame   0x0000000000003a80      0x250 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .debug_frame   0x0000000000003cd0      0x14c Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_frame   0x0000000000003e1c      0xc5c Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_frame   0x0000000000004a78      0x14c Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
- .debug_frame   0x0000000000004bc4      0x1f0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_frame   0x0000000000004db4      0x1b4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- .debug_frame   0x0000000000004f68      0x650 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
- .debug_frame   0x00000000000055b8      0x824 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_frame   0x0000000000005ddc     0x10f0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_frame   0x0000000000006ecc      0x5c0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
- .debug_frame   0x000000000000748c      0x844 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
- .debug_frame   0x0000000000007cd0      0x690 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
- .debug_frame   0x0000000000008360       0x2c FATFS/App/fatfs.o
- .debug_frame   0x000000000000838c      0x258 FATFS/Target/bsp_driver_sd.o
- .debug_frame   0x00000000000085e4       0x34 FATFS/Target/fatfs_platform.o
- .debug_frame   0x0000000000008618      0x14c FATFS/Target/sd_diskio.o
- .debug_frame   0x0000000000008764       0xec Middlewares/Third_Party/FatFs/src/diskio.o
- .debug_frame   0x0000000000008850      0x94c Middlewares/Third_Party/FatFs/src/ff.o
- .debug_frame   0x000000000000919c       0xc8 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
- .debug_frame   0x0000000000009264       0x40 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libstdc++_nano.a(guard.o)
- .debug_frame   0x00000000000092a4       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_cos.o)
- .debug_frame   0x00000000000092d0       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_sin.o)
- .debug_frame   0x00000000000092fc       0x40 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-e_rem_pio2.o)
- .debug_frame   0x000000000000933c       0x4c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-k_cos.o)
- .debug_frame   0x0000000000009388       0x54 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-k_rem_pio2.o)
- .debug_frame   0x00000000000093dc       0x40 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-k_sin.o)
- .debug_frame   0x000000000000941c       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_fabs.o)
- .debug_frame   0x000000000000943c       0x30 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_floor.o)
- .debug_frame   0x000000000000946c       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_scalbn.o)
- .debug_frame   0x0000000000009498       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_copysign.o)
- .debug_frame   0x00000000000094b8       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-errno.o)
- .debug_frame   0x00000000000094d8       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
- .debug_frame   0x0000000000009504       0x28 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x000000000000952c       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)
- .debug_frame   0x000000000000954c       0x8c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-vfprintf_float.o)
- .debug_frame   0x00000000000095d8       0x60 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-vfprintf_i.o)
- .debug_frame   0x0000000000009638       0x40 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-vfscanf_float.o)
- .debug_frame   0x0000000000009678       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-sf_nan.o)
- .debug_frame   0x0000000000009698       0x7c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-snprintf.o)
- .debug_frame   0x0000000000009714       0x6c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-sprintf.o)
- .debug_frame   0x0000000000009780       0x80 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-sscanf.o)
- .debug_frame   0x0000000000009800       0x88 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-stdio.o)
- .debug_frame   0x0000000000009888       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strcpy.o)
- .debug_frame   0x00000000000098a8      0x12c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strtod.o)
- .debug_frame   0x00000000000099d4       0x84 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strtol.o)
- .debug_frame   0x0000000000009a58       0x3c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-vsprintf.o)
- .debug_frame   0x0000000000009a94       0x70 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-dtoa.o)
- .debug_frame   0x0000000000009b04      0x11c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-findfp.o)
- .debug_frame   0x0000000000009c20       0x70 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-gdtoa-gethex.o)
- .debug_frame   0x0000000000009c90       0x74 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-gdtoa-hexnan.o)
- .debug_frame   0x0000000000009d04       0x68 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-locale.o)
- .debug_frame   0x0000000000009d6c       0x40 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-localeconv.o)
- .debug_frame   0x0000000000009dac       0x30 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-malloc.o)
- .debug_frame   0x0000000000009ddc       0x48 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-mbtowc_r.o)
- .debug_frame   0x0000000000009e24      0x244 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-mprec.o)
- .debug_frame   0x000000000000a068       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-callocr.o)
- .debug_frame   0x000000000000a094       0x38 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-freer.o)
- .debug_frame   0x000000000000a0cc       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x000000000000a0f8       0x90 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-svfprintf.o)
- .debug_frame   0x000000000000a188       0x78 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-svfscanf.o)
- .debug_frame   0x000000000000a200       0x60 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-vfscanf_i.o)
- .debug_frame   0x000000000000a260       0x5c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-reent.o)
- .debug_frame   0x000000000000a2bc       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-sbrkr.o)
- .debug_frame   0x000000000000a2e8       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-sccl.o)
- .debug_frame   0x000000000000a314       0x28 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strncmp.o)
- .debug_frame   0x000000000000a33c       0x84 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strtoul.o)
- .debug_frame   0x000000000000a3c0       0x5c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-ungetc.o)
- .debug_frame   0x000000000000a41c       0x3c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-wctomb_r.o)
- .debug_frame   0x000000000000a458       0x28 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memmove.o)
- .debug_frame   0x000000000000a480       0x30 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-mlock.o)
- .debug_frame   0x000000000000a4b0       0x3c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-reallocr.o)
- .debug_frame   0x000000000000a4ec       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-msizer.o)
- .debug_frame   0x000000000000a50c       0xac c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_addsubdf3.o)
- .debug_frame   0x000000000000a5b8       0x50 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_muldivdf3.o)
- .debug_frame   0x000000000000a608       0xc4 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_cmpdf2.o)
- .debug_frame   0x000000000000a6cc       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_unorddf2.o)
- .debug_frame   0x000000000000a6ec       0x24 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_fixdfsi.o)
- .debug_frame   0x000000000000a710       0x24 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_fixunsdfsi.o)
- .debug_frame   0x000000000000a734       0x24 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_truncdfsf2.o)
- .debug_frame   0x000000000000a758       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_aeabi_uldivmod.o)
- .debug_frame   0x000000000000a784       0x34 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x0000000000000b08      0xab8 Core/Src/LineTrace.o
+ .debug_frame   0x00000000000015c0      0x340 Core/Src/Logger.o
+ .debug_frame   0x0000000000001900       0xa8 Core/Src/Motor.o
+ .debug_frame   0x00000000000019a8      0x154 Core/Src/Odometry.o
+ .debug_frame   0x0000000000001afc      0x2e4 Core/Src/PathFollowing.o
+ .debug_frame   0x0000000000001de0       0xd0 Core/Src/PowerSensor.o
+ .debug_frame   0x0000000000001eb0       0x34 Core/Src/RotarySwitch.o
+ .debug_frame   0x0000000000001ee4      0x19c Core/Src/SideSensor.o
+ .debug_frame   0x0000000000002080      0x140 Core/Src/SystemIdentification.o
+ .debug_frame   0x00000000000021c0      0x228 Core/Src/VelocityCtrl.o
+ .debug_frame   0x00000000000023e8      0x358 Core/Src/main.o
+ .debug_frame   0x0000000000002740       0x88 Core/Src/path_following.o
+ .debug_frame   0x00000000000027c8      0x29c Core/Src/stm32f4xx_hal_msp.o
+ .debug_frame   0x0000000000002a64      0x1c8 Core/Src/stm32f4xx_it.o
+ .debug_frame   0x0000000000002c2c       0x34 Core/Src/sysmem.o
+ .debug_frame   0x0000000000002c60       0x58 Core/Src/system_stm32f4xx.o
+ .debug_frame   0x0000000000002cb8      0x158 Core/Src/wrapper.o
+ .debug_frame   0x0000000000002e10      0x3b4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_frame   0x00000000000031c4      0x3fc Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+ .debug_frame   0x00000000000035c0      0x498 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_frame   0x0000000000003a58      0x250 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_frame   0x0000000000003ca8      0x14c Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_frame   0x0000000000003df4      0xc5c Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_frame   0x0000000000004a50      0x14c Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_frame   0x0000000000004b9c      0x1f0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_frame   0x0000000000004d8c      0x1b4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_frame   0x0000000000004f40      0x650 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
+ .debug_frame   0x0000000000005590      0x824 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_frame   0x0000000000005db4     0x10f0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_frame   0x0000000000006ea4      0x5c0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_frame   0x0000000000007464      0x844 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_frame   0x0000000000007ca8      0x690 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
+ .debug_frame   0x0000000000008338       0x2c FATFS/App/fatfs.o
+ .debug_frame   0x0000000000008364      0x258 FATFS/Target/bsp_driver_sd.o
+ .debug_frame   0x00000000000085bc       0x34 FATFS/Target/fatfs_platform.o
+ .debug_frame   0x00000000000085f0      0x14c FATFS/Target/sd_diskio.o
+ .debug_frame   0x000000000000873c       0xec Middlewares/Third_Party/FatFs/src/diskio.o
+ .debug_frame   0x0000000000008828      0x94c Middlewares/Third_Party/FatFs/src/ff.o
+ .debug_frame   0x0000000000009174       0xc8 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
+ .debug_frame   0x000000000000923c       0x40 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libstdc++_nano.a(guard.o)
+ .debug_frame   0x000000000000927c       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_cos.o)
+ .debug_frame   0x00000000000092a8       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_sin.o)
+ .debug_frame   0x00000000000092d4       0x40 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-e_rem_pio2.o)
+ .debug_frame   0x0000000000009314       0x4c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-k_cos.o)
+ .debug_frame   0x0000000000009360       0x54 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-k_rem_pio2.o)
+ .debug_frame   0x00000000000093b4       0x40 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-k_sin.o)
+ .debug_frame   0x00000000000093f4       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_fabs.o)
+ .debug_frame   0x0000000000009414       0x30 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_floor.o)
+ .debug_frame   0x0000000000009444       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_scalbn.o)
+ .debug_frame   0x0000000000009470       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a(lib_a-s_copysign.o)
+ .debug_frame   0x0000000000009490       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-errno.o)
+ .debug_frame   0x00000000000094b0       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
+ .debug_frame   0x00000000000094dc       0x28 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x0000000000009504       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)
+ .debug_frame   0x0000000000009524       0x8c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-vfprintf_float.o)
+ .debug_frame   0x00000000000095b0       0x60 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-vfprintf_i.o)
+ .debug_frame   0x0000000000009610       0x40 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-vfscanf_float.o)
+ .debug_frame   0x0000000000009650       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-sf_nan.o)
+ .debug_frame   0x0000000000009670       0x7c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-snprintf.o)
+ .debug_frame   0x00000000000096ec       0x6c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-sprintf.o)
+ .debug_frame   0x0000000000009758       0x80 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-sscanf.o)
+ .debug_frame   0x00000000000097d8       0x88 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-stdio.o)
+ .debug_frame   0x0000000000009860       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strcpy.o)
+ .debug_frame   0x0000000000009880      0x12c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strtod.o)
+ .debug_frame   0x00000000000099ac       0x84 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strtol.o)
+ .debug_frame   0x0000000000009a30       0x3c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-vsprintf.o)
+ .debug_frame   0x0000000000009a6c       0x70 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-dtoa.o)
+ .debug_frame   0x0000000000009adc      0x11c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-findfp.o)
+ .debug_frame   0x0000000000009bf8       0x70 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-gdtoa-gethex.o)
+ .debug_frame   0x0000000000009c68       0x74 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-gdtoa-hexnan.o)
+ .debug_frame   0x0000000000009cdc       0x68 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-locale.o)
+ .debug_frame   0x0000000000009d44       0x40 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-localeconv.o)
+ .debug_frame   0x0000000000009d84       0x30 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-malloc.o)
+ .debug_frame   0x0000000000009db4       0x48 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-mbtowc_r.o)
+ .debug_frame   0x0000000000009dfc      0x244 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-mprec.o)
+ .debug_frame   0x000000000000a040       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-callocr.o)
+ .debug_frame   0x000000000000a06c       0x38 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x000000000000a0a4       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x000000000000a0d0       0x90 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-svfprintf.o)
+ .debug_frame   0x000000000000a160       0x78 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-svfscanf.o)
+ .debug_frame   0x000000000000a1d8       0x60 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-vfscanf_i.o)
+ .debug_frame   0x000000000000a238       0x5c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-reent.o)
+ .debug_frame   0x000000000000a294       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x000000000000a2c0       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-sccl.o)
+ .debug_frame   0x000000000000a2ec       0x28 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strncmp.o)
+ .debug_frame   0x000000000000a314       0x84 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-strtoul.o)
+ .debug_frame   0x000000000000a398       0x5c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-ungetc.o)
+ .debug_frame   0x000000000000a3f4       0x3c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-wctomb_r.o)
+ .debug_frame   0x000000000000a430       0x28 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memmove.o)
+ .debug_frame   0x000000000000a458       0x30 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-mlock.o)
+ .debug_frame   0x000000000000a488       0x3c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-reallocr.o)
+ .debug_frame   0x000000000000a4c4       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-nano-msizer.o)
+ .debug_frame   0x000000000000a4e4       0xac c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_addsubdf3.o)
+ .debug_frame   0x000000000000a590       0x50 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_muldivdf3.o)
+ .debug_frame   0x000000000000a5e0       0xc4 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_cmpdf2.o)
+ .debug_frame   0x000000000000a6a4       0x20 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_unorddf2.o)
+ .debug_frame   0x000000000000a6c4       0x24 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_fixdfsi.o)
+ .debug_frame   0x000000000000a6e8       0x24 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_fixunsdfsi.o)
+ .debug_frame   0x000000000000a70c       0x24 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_truncdfsf2.o)
+ .debug_frame   0x000000000000a730       0x2c c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x000000000000a75c       0x34 c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_udivmoddi4.o)
