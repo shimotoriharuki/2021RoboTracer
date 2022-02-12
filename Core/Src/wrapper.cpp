@@ -41,12 +41,12 @@ Logger logger;
 Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
-LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &logger, &imu);
+ESC esc;
+LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &logger, &imu, &esc);
 SystemIdentification sys_ident(&logger, &motor);
 
 PathFollowing path_following;
 
-ESC esc;
 
 float mon_v, mon_w;
 uint16_t mon_cnt;
@@ -328,8 +328,8 @@ void cppLoop(void)
 			led.LR(1, -1);
 
 			line_trace.setMode(FIRST_RUNNING);
-			HAL_Delay(1000);
-			esc.on(0.6, 0.6, 0.6, 0.6);
+			esc.on(0.5, 0.5, 0.5, 0.5);
+			HAL_Delay(3000);
 			line_trace.running();
 			esc.off();
 

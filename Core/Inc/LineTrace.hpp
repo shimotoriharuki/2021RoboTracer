@@ -17,6 +17,7 @@
 #include "Encoder.hpp"
 #include "Odometry.hpp"
 #include "Logger.hpp"
+#include "ESC.hpp"
 
 #define DELTA_T 0.001
 #define ANGLE_BETWEEN_SENSORS 0.17104 //[rad]
@@ -46,6 +47,7 @@ private:
 	Odometry *odometry_;
 	Logger *logger_;
 	IMU *imu_;
+    ESC *esc_;
 
 	float kp_, kd_, ki_;
 	bool excution_flag_;
@@ -122,7 +124,7 @@ private:
 	float calcRadius(float, float);
 
 public:
-	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *, IMU *);
+	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *, IMU *, ESC *);
 
 	// Initialize
 	void init();

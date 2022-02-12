@@ -154,7 +154,7 @@ bool LineSensor::emergencyStop()
 	static bool flag = false;
 
 	for(const auto & s : sensor){
-		if(s >= 700) out_cnt++;
+		if(s >= 550) out_cnt++;
 	}
 
 	if(out_cnt >= AD_DATA_SIZE){

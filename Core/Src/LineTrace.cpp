@@ -45,7 +45,7 @@ float mon_tar_vel;
 
 //#define REVERSE
 
-LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu) :
+LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu, ESC *esc) :
 				kp_(0), kd_(0), ki_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), min_velocity_(0), min_velocity2_(0), logging_flag_(false),
@@ -61,6 +61,7 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	odometry_ = odometry;
 	logger_ = logger;
 	imu_ = imu;
+	esc_ = esc;
 
 	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
 		velocity_table_[i] = 0;
@@ -810,6 +811,7 @@ void LineTrace::flip()
 		// ----- emergency stop processing------//
 		if(line_sensor_->emergencyStop() == true){
 			velocity_ctrl_->setTranslationVelocityOnly(0, 0);
+			esc_->off();
 			//led_.LR(1, -1);
 		}
 		else{
