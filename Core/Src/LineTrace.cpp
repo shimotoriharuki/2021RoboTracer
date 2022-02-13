@@ -538,7 +538,7 @@ bool LineTrace::isStable()
 		stable_cnt_reset_flag_ = false;
 	}
 
-	if(radius >= 2000){ //150
+	if(radius >= 2000){
 		stable_cnt++;
 	}
 	else{
@@ -717,15 +717,17 @@ float LineTrace::getMaxDec()
 // ---------------------------------------------------------------------------------------------------//
 void LineTrace::flip()
 {
-	//calcAngle();
-
 	if(excution_flag_ == true){
 		// ---- line following processing -----//
 		pidTrace();
-		//pidAngularVelocityTrace();
 		//steeringAngleTrace();
 
 
+		// ---- Target Velocity Updata ------//
+		updateTargetVelocity();
+
+
+		// ----- Processing at regular distances -----//
 		if(isTargetDistance(10) == true){
 			// ---- Store Logs ------//
 			storeLogs();
@@ -742,21 +744,19 @@ void LineTrace::flip()
 			odometry_->clearPotition();
 		}
 
-		// ---- Target Velocity Updata ------//
-		updateTargetVelocity();
 
 		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
 			side_sensor_->enableIgnore();
 			encoder_->clearCrossLineIgnoreDistance();
+			// Note: Store cross line distance here.
 		}
 
 		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 200){
 			side_sensor_->disableIgnore();
-
 		}
 
-		// ------- Store side line distance ------//
+		// ------- Store side line distance or correction distance------//
 		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x02) == 0x02){ //stabilizing and side sensor is white
 			//storeSideLineDistance();
 			if(mode_selector_ == FIRST_RUNNING){
@@ -775,6 +775,7 @@ void LineTrace::flip()
 		else led_.LR(-1, 0);
 
 		// ------ All sideline storing -------//
+		/*
 		if(all_sideline_flag_ == false && (side_sensor_->getStatus() & 0x02) == 0x02){
 			all_sideline_flag_ = true;
 
@@ -789,9 +790,9 @@ void LineTrace::flip()
 		else if(all_sideline_flag_ == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){
 			all_sideline_flag_ = false;
 		}
+		*/
 
-
-		// ----- emergency stop processing------//
+		// ----- Emergency stop processing------//
 		if(line_sensor_->emergencyStop() == true){
 			velocity_ctrl_->setTranslationVelocityOnly(0, 0);
 			esc_->off();
@@ -801,6 +802,7 @@ void LineTrace::flip()
 			//led_.LR(0, -1);
 		}
 
+		// ---------Confirmation when corrected ------------//
 		correction_check_cnt_++;
 		if(correction_check_cnt_ >= 10000) correction_check_cnt_ = 10000;
 
@@ -839,14 +841,6 @@ void LineTrace::running()
 		switch(stage){
 		case 0:
 			if(side_sensor_->getWhiteLineCntR() == 1){
-				/*
-				if(mode_selector_ == FIRST_RUNNING){ // Other than first running
-					loggerStart();
-				}
-				else{ // Other than first running
-					startVelocityPlay();
-				}
-				*/
 				loggerStart();
 				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
 					startVelocityPlay();
