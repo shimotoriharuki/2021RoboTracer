@@ -8,13 +8,15 @@
 #include "SideSensor.hpp"
 
 uint16_t mon_status;
+bool mon_status_L, mon_status_R;
 uint16_t mon_cnt_l, mon_cnt_r;
 
-SideSensor::SideSensor() : status_(0), white_line_cnt_l_(0), white_line_cnt_r_(0), ignore_flag_(false)
+SideSensor::SideSensor() : status_(0), status_L_(false), status_R_(false), white_line_cnt_l_(0), white_line_cnt_r_(0), ignore_flag_(false)
 {
 
 }
 
+/*
 void SideSensor::updateStatus(uint16_t gpio_pin)
 {
 	static bool white_flag1 = false;
@@ -89,6 +91,7 @@ void SideSensor::updateStatus(uint16_t gpio_pin)
 	}
 
 }
+*/
 
 void SideSensor::updateStatus()
 {
@@ -107,6 +110,7 @@ void SideSensor::updateStatus()
 			}
 			if(cnt_r >= 5){
 				status_ |= 0x01;
+				status_R_ = true;
 				white_flag1 = true;
 				cnt_r = 0;
 			}
@@ -121,6 +125,7 @@ void SideSensor::updateStatus()
 			}
 			if(cnt_r >= 5){
 				status_ ^= 0x01;
+				status_R_ = false;
 				white_flag1 = false;
 
 				white_line_cnt_r_++;
@@ -138,6 +143,7 @@ void SideSensor::updateStatus()
 			}
 			if(cnt_l >= 5){
 				status_ |= 0x02;
+				status_L_ = true;
 				white_flag2 = true;
 				cnt_l = 0;
 			}
@@ -152,6 +158,7 @@ void SideSensor::updateStatus()
 			}
 			if(cnt_l >= 5){
 				status_ ^= 0x02;
+				status_L_ = false;
 				white_flag2 = false;
 
 				white_line_cnt_l_++;
@@ -161,12 +168,24 @@ void SideSensor::updateStatus()
 		}
 
 		mon_status = status_;
+		mon_status_L = status_L_;
+		mon_status_R = status_R_;
 	}
 
 }
 uint16_t SideSensor::getStatus()
 {
 	return status_;
+}
+
+bool SideSensor::getStatusL()
+{
+	return status_L_;
+}
+
+bool SideSensor::getStatusR()
+{
+	return status_R_;
 }
 
 uint16_t SideSensor::getWhiteLineCntL()

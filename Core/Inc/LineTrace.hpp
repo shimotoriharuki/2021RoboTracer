@@ -30,9 +30,7 @@
 #define SECOND_RUNNING 1
 #define THIRD_RUNNING 2
 #define CROSSLINE_SIZE 100
-#define SIDELINE_SIZE 1000
-//#define MAX_DEC 5
-//#define MAX_ACC 8
+#define SIDELINE_SIZE 500
 #define R_RADIUS 0.05
 
 class LineTrace
@@ -136,7 +134,7 @@ public:
 	float getKd();
 
 
-	// velocity setting
+	// Velocity setting
 	void setNormalRatio(float);
 	void setTargetVelocity(float);
 	void setMaxVelocity(float);

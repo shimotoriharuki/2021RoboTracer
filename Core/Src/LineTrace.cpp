@@ -252,7 +252,6 @@ void LineTrace::pidTrace()
 
 }
 
-
 // ---------------------------------------------------------------------------------------//
 // -------------------------------------Logging-------------------------------------------//
 // ---------------------------------------------------------------------------------------//
@@ -758,7 +757,6 @@ void LineTrace::flip()
 
 		// ------- Store side line distance or correction distance------//
 		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x02) == 0x02){ //stabilizing and side sensor is white
-			//storeSideLineDistance();
 			if(mode_selector_ == FIRST_RUNNING){
 				storeSideLineDistance();
 			}

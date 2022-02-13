@@ -18,15 +18,18 @@ class SideSensor{
 private:
 
 	uint16_t status_;
+	bool status_L_, status_R_;
 	uint16_t white_line_cnt_l_, white_line_cnt_r_;
 	bool ignore_flag_;
 
 public:
 
 	SideSensor();
-	void updateStatus(uint16_t);
+	//void updateStatus(uint16_t);
 	void updateStatus();
 	uint16_t getStatus();
+	bool getStatusL();
+	bool getStatusR();
 	uint16_t getWhiteLineCntL();
 	uint16_t getWhiteLineCntR();
 	void resetWhiteLineCnt();
