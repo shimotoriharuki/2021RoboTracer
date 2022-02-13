@@ -12171,7 +12171,7 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_macro   0x0000000000034a0d      0x751 Middlewares/Third_Party/FatFs/src/ff.o
  .debug_macro   0x000000000003515e      0x34a Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
-.debug_line     0x0000000000000000    0x264d8
+.debug_line     0x0000000000000000    0x264d6
  .debug_line    0x0000000000000000      0x9d2 Core/Src/AQM0802.o
  .debug_line    0x00000000000009d2      0x819 Core/Src/ESC.o
  .debug_line    0x00000000000011eb      0x86d Core/Src/Encoder.o
@@ -12182,46 +12182,46 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_line    0x00000000000048ba      0x79e Core/Src/Joystick.o
  .debug_line    0x0000000000005058      0x7b2 Core/Src/LED.o
  .debug_line    0x000000000000580a     0x1418 Core/Src/LineSensor.o
- .debug_line    0x0000000000006c22     0x1b7d Core/Src/LineTrace.o
- .debug_line    0x000000000000879f     0x1464 Core/Src/Logger.o
- .debug_line    0x0000000000009c03      0x7dc Core/Src/Motor.o
- .debug_line    0x000000000000a3df      0xd4c Core/Src/Odometry.o
- .debug_line    0x000000000000b12b     0x13ba Core/Src/PathFollowing.o
- .debug_line    0x000000000000c4e5      0x7e1 Core/Src/PowerSensor.o
- .debug_line    0x000000000000ccc6      0x78e Core/Src/RotarySwitch.o
- .debug_line    0x000000000000d454      0x851 Core/Src/SideSensor.o
- .debug_line    0x000000000000dca5     0x101a Core/Src/SystemIdentification.o
- .debug_line    0x000000000000ecbf      0xa81 Core/Src/VelocityCtrl.o
- .debug_line    0x000000000000f740      0xd58 Core/Src/main.o
- .debug_line    0x0000000000010498      0x536 Core/Src/path_following.o
- .debug_line    0x00000000000109ce      0x9ee Core/Src/stm32f4xx_hal_msp.o
- .debug_line    0x00000000000113bc      0x88f Core/Src/stm32f4xx_it.o
- .debug_line    0x0000000000011c4b      0x4c7 Core/Src/sysmem.o
- .debug_line    0x0000000000012112      0x783 Core/Src/system_stm32f4xx.o
- .debug_line    0x0000000000012895     0x1770 Core/Src/wrapper.o
- .debug_line    0x0000000000014005       0x85 Core/Startup/startup_stm32f469vgtx.o
- .debug_line    0x000000000001408a      0x991 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_line    0x0000000000014a1b      0xbd4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
- .debug_line    0x00000000000155ef      0xa91 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_line    0x0000000000016080      0xa3b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .debug_line    0x0000000000016abb      0x974 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_line    0x000000000001742f     0x1c1b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_line    0x000000000001904a      0x85f Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
- .debug_line    0x00000000000198a9      0x9c5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_line    0x000000000001a26e      0xa5a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- .debug_line    0x000000000001acc8     0x1080 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
- .debug_line    0x000000000001bd48     0x1129 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_line    0x000000000001ce71     0x19e6 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_line    0x000000000001e857      0xd83 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
- .debug_line    0x000000000001f5da     0x107b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
- .debug_line    0x0000000000020655      0xc13 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
- .debug_line    0x0000000000021268      0x954 FATFS/App/fatfs.o
- .debug_line    0x0000000000021bbc      0x8b8 FATFS/Target/bsp_driver_sd.o
- .debug_line    0x0000000000022474      0x774 FATFS/Target/fatfs_platform.o
- .debug_line    0x0000000000022be8      0xa6e FATFS/Target/sd_diskio.o
- .debug_line    0x0000000000023656      0x98f Middlewares/Third_Party/FatFs/src/diskio.o
- .debug_line    0x0000000000023fe5     0x1b64 Middlewares/Third_Party/FatFs/src/ff.o
- .debug_line    0x0000000000025b49      0x98f Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
+ .debug_line    0x0000000000006c22     0x1b7b Core/Src/LineTrace.o
+ .debug_line    0x000000000000879d     0x1464 Core/Src/Logger.o
+ .debug_line    0x0000000000009c01      0x7dc Core/Src/Motor.o
+ .debug_line    0x000000000000a3dd      0xd4c Core/Src/Odometry.o
+ .debug_line    0x000000000000b129     0x13ba Core/Src/PathFollowing.o
+ .debug_line    0x000000000000c4e3      0x7e1 Core/Src/PowerSensor.o
+ .debug_line    0x000000000000ccc4      0x78e Core/Src/RotarySwitch.o
+ .debug_line    0x000000000000d452      0x851 Core/Src/SideSensor.o
+ .debug_line    0x000000000000dca3     0x101a Core/Src/SystemIdentification.o
+ .debug_line    0x000000000000ecbd      0xa81 Core/Src/VelocityCtrl.o
+ .debug_line    0x000000000000f73e      0xd58 Core/Src/main.o
+ .debug_line    0x0000000000010496      0x536 Core/Src/path_following.o
+ .debug_line    0x00000000000109cc      0x9ee Core/Src/stm32f4xx_hal_msp.o
+ .debug_line    0x00000000000113ba      0x88f Core/Src/stm32f4xx_it.o
+ .debug_line    0x0000000000011c49      0x4c7 Core/Src/sysmem.o
+ .debug_line    0x0000000000012110      0x783 Core/Src/system_stm32f4xx.o
+ .debug_line    0x0000000000012893     0x1770 Core/Src/wrapper.o
+ .debug_line    0x0000000000014003       0x85 Core/Startup/startup_stm32f469vgtx.o
+ .debug_line    0x0000000000014088      0x991 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_line    0x0000000000014a19      0xbd4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+ .debug_line    0x00000000000155ed      0xa91 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_line    0x000000000001607e      0xa3b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_line    0x0000000000016ab9      0x974 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_line    0x000000000001742d     0x1c1b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_line    0x0000000000019048      0x85f Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_line    0x00000000000198a7      0x9c5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_line    0x000000000001a26c      0xa5a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_line    0x000000000001acc6     0x1080 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
+ .debug_line    0x000000000001bd46     0x1129 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_line    0x000000000001ce6f     0x19e6 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_line    0x000000000001e855      0xd83 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_line    0x000000000001f5d8     0x107b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_line    0x0000000000020653      0xc13 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
+ .debug_line    0x0000000000021266      0x954 FATFS/App/fatfs.o
+ .debug_line    0x0000000000021bba      0x8b8 FATFS/Target/bsp_driver_sd.o
+ .debug_line    0x0000000000022472      0x774 FATFS/Target/fatfs_platform.o
+ .debug_line    0x0000000000022be6      0xa6e FATFS/Target/sd_diskio.o
+ .debug_line    0x0000000000023654      0x98f Middlewares/Third_Party/FatFs/src/diskio.o
+ .debug_line    0x0000000000023fe3     0x1b64 Middlewares/Third_Party/FatFs/src/ff.o
+ .debug_line    0x0000000000025b47      0x98f Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
 .debug_str      0x0000000000000000   0x110e1b
  .debug_str     0x0000000000000000    0xfd7ce Core/Src/AQM0802.o

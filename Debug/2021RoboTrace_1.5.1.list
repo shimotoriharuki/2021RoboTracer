@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  000354a8  00000000  00000000  00076b60  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   000264d8  00000000  00000000  000ac008  2**0
+ 17 .debug_line   000264d6  00000000  00000000  000ac008  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    00110e1b  00000000  00000000  000d24e0  2**0
+ 18 .debug_str    00110e1b  00000000  00000000  000d24de  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  001e32fb  2**0
+ 19 .comment      0000007b  00000000  00000000  001e32f9  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000a604  00000000  00000000  001e3378  2**2
+ 20 .debug_frame  0000a604  00000000  00000000  001e3374  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -4850,10 +4850,10 @@ bool LineSensor::emergencyStop()
  80029b6:	4770      	bx	lr
 
 080029b8 <_ZN9LineTraceC1EP5MotorP10LineSensorP12VelocityCtrlP10SideSensorP7EncoderP8OdometryP6LoggerP3IMUP3ESC>:
+float mon_ref_dis, mon_current_dis;
 uint16_t mon_vel_idx, mon_i;
 float mon_tar_vel;
 
-//#define REVERSE
 
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu, ESC *esc) :
  80029b8:	b480      	push	{r7}
@@ -7509,9 +7509,6 @@ void LineTrace::flip()
  8003eb4:	f000 fcd5 	bl	8004862 <_ZN6Logger9storeLog2Ef>
 
 			// -------- Detect Robot stabilization ------//
-#ifdef REVERSE
-			if(isStable() == true && (~(side_sensor_->getStatus()) & 0x01) == 0x01){ // Stabilizing and side sensor is black
-#else
 			if(isStable() == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){ // Stabilizing and side sensor is black
  8003eb8:	6878      	ldr	r0, [r7, #4]
  8003eba:	f7ff fd25 	bl	8003908 <_ZN9LineTrace8isStableEv>
@@ -7532,7 +7529,6 @@ void LineTrace::flip()
  8003ede:	2300      	movs	r3, #0
  8003ee0:	2b00      	cmp	r3, #0
  8003ee2:	d005      	beq.n	8003ef0 <_ZN9LineTrace4flipEv+0x98>
-#endif
 				stable_flag_ = true;
  8003ee4:	687b      	ldr	r3, [r7, #4]
  8003ee6:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
@@ -7606,10 +7602,9 @@ void LineTrace::flip()
  8003f64:	4618      	mov	r0, r3
  8003f66:	f001 fb86 	bl	8005676 <_ZN10SideSensor13disableIgnoreEv>
 
+		}
+
 		// ------- Store side line distance ------//
-#ifdef REVERSE
-		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x01) == 0x01){ //stabilizing and side sensor is white
-#else
 		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x02) == 0x02){ //stabilizing and side sensor is white
  8003f6a:	687b      	ldr	r3, [r7, #4]
  8003f6c:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
@@ -7630,7 +7625,6 @@ void LineTrace::flip()
  8003f90:	2300      	movs	r3, #0
  8003f92:	2b00      	cmp	r3, #0
  8003f94:	d020      	beq.n	8003fd8 <_ZN9LineTrace4flipEv+0x180>
-#endif
 			//storeSideLineDistance();
 			if(mode_selector_ == FIRST_RUNNING){
  8003f96:	687b      	ldr	r3, [r7, #4]
@@ -7693,9 +7687,6 @@ void LineTrace::flip()
  8004004:	f7fe f972 	bl	80022ec <_ZN3LED2LREaa>
 
 		// ------ All sideline storing -------//
-#ifdef REVERSE
-		if(all_sideline_flag_ == false && (side_sensor_->getStatus() & 0x01) == 0x01){
-#else
 		if(all_sideline_flag_ == false && (side_sensor_->getStatus() & 0x02) == 0x02){
  8004008:	687b      	ldr	r3, [r7, #4]
  800400a:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
@@ -7718,7 +7709,6 @@ void LineTrace::flip()
  8004034:	2300      	movs	r3, #0
  8004036:	2b00      	cmp	r3, #0
  8004038:	d011      	beq.n	800405e <_ZN9LineTrace4flipEv+0x206>
-#endif
 			all_sideline_flag_ = true;
  800403a:	687b      	ldr	r3, [r7, #4]
  800403c:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
@@ -7737,11 +7727,11 @@ void LineTrace::flip()
  8004056:	6878      	ldr	r0, [r7, #4]
  8004058:	f7fe ff86 	bl	8002f68 <_ZN9LineTrace24storeAllSideLineDistanceEv>
  800405c:	e01c      	b.n	8004098 <_ZN9LineTrace4flipEv+0x240>
+			else{
+				//correctionTotalDistanceFromAllSideMarker();
+				//correction_check_cnt_ = 0;
 			}
 		}
-#ifdef REVERSE
-		else if(all_sideline_flag_ == true && (~(side_sensor_->getStatus()) & 0x01) == 0x01){
-#else
 		else if(all_sideline_flag_ == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){
  800405e:	687b      	ldr	r3, [r7, #4]
  8004060:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
@@ -7763,7 +7753,6 @@ void LineTrace::flip()
  8004086:	2300      	movs	r3, #0
  8004088:	2b00      	cmp	r3, #0
  800408a:	d005      	beq.n	8004098 <_ZN9LineTrace4flipEv+0x240>
-#endif
 			all_sideline_flag_ = false;
  800408c:	687b      	ldr	r3, [r7, #4]
  800408e:	f503 435d 	add.w	r3, r3, #56576	; 0xdd00
@@ -7963,9 +7952,6 @@ void LineTrace::running()
  80041dc:	d030      	beq.n	8004240 <_ZN9LineTrace7runningEv+0x88>
  80041de:	e054      	b.n	800428a <_ZN9LineTrace7runningEv+0xd2>
 		case 0:
-#ifdef REVERSE
-			if(side_sensor_->getWhiteLineCntL() == 1){
-#else
 			if(side_sensor_->getWhiteLineCntR() == 1){
  80041e0:	687b      	ldr	r3, [r7, #4]
  80041e2:	691b      	ldr	r3, [r3, #16]
@@ -8025,9 +8011,6 @@ void LineTrace::running()
  800423e:	e021      	b.n	8004284 <_ZN9LineTrace7runningEv+0xcc>
 
 		case 10:
-#ifdef REVERSE
-			if(side_sensor_->getWhiteLineCntL() == 2){
-#else
 			if(side_sensor_->getWhiteLineCntR() == 2){
  8004240:	687b      	ldr	r3, [r7, #4]
  8004242:	691b      	ldr	r3, [r3, #16]
@@ -8041,7 +8024,6 @@ void LineTrace::running()
  8004254:	b2db      	uxtb	r3, r3
  8004256:	2b00      	cmp	r3, #0
  8004258:	d016      	beq.n	8004288 <_ZN9LineTrace7runningEv+0xd0>
-#endif
 				loggerStop();
  800425a:	6878      	ldr	r0, [r7, #4]
  800425c:	f7fe fe03 	bl	8002e66 <_ZN9LineTrace10loggerStopEv>
