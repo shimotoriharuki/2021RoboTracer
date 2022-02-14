@@ -734,7 +734,7 @@ void LineTrace::flip()
 			logger_->storeLog2(target_omega_);
 
 			// -------- Detect Robot stabilization ------//
-			if(isStable() == true && (~(side_sensor_->getStatus()) & 0x02) == 0x02){ // Stabilizing and side sensor is black
+			if(isStable() == true && side_sensor_->getStatusL()){ // Stabilizing and side sensor is black
 				stable_flag_ = true;
 			}
 
@@ -756,7 +756,7 @@ void LineTrace::flip()
 		}
 
 		// ------- Store side line distance or correction distance------//
-		if(stable_flag_ == true && (side_sensor_->getStatus() & 0x02) == 0x02){ //stabilizing and side sensor is white
+		if(stable_flag_ == true && side_sensor_->getStatusL()){ //stabilizing and side sensor is white
 			if(mode_selector_ == FIRST_RUNNING){
 				storeSideLineDistance();
 			}
