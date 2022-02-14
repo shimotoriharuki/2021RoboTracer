@@ -734,7 +734,7 @@ void LineTrace::flip()
 			logger_->storeLog2(target_omega_);
 
 			// -------- Detect Robot stabilization ------//
-			if(isStable() == true && side_sensor_->getStatusL()){ // Stabilizing and side sensor is black
+			if(isStable() == true && side_sensor_->getStatusL() == false){ // Stabilizing and side sensor is black
 				stable_flag_ = true;
 			}
 
@@ -743,6 +743,19 @@ void LineTrace::flip()
 			odometry_->clearPotition();
 		}
 
+		// ------- Store side line distance or correction distance------//
+		if(stable_flag_ == true && side_sensor_->getStatusL() == true){ //Stabilizing and side sensor is white
+			if(mode_selector_ == FIRST_RUNNING){
+				storeSideLineDistance();
+			}
+			else{
+				correctionTotalDistanceFromSideMarker();
+				correction_check_cnt_ = 0;
+			}
+
+			stable_flag_ = false;
+			stable_cnt_reset_flag_ = true;
+		}
 
 		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
@@ -755,19 +768,6 @@ void LineTrace::flip()
 			side_sensor_->disableIgnore();
 		}
 
-		// ------- Store side line distance or correction distance------//
-		if(stable_flag_ == true && side_sensor_->getStatusL()){ //stabilizing and side sensor is white
-			if(mode_selector_ == FIRST_RUNNING){
-				storeSideLineDistance();
-			}
-			else{
-				correctionTotalDistanceFromSideMarker();
-				correction_check_cnt_ = 0;
-			}
-
-			stable_flag_ = false;
-			stable_cnt_reset_flag_ = true;
-		}
 
 		if(stable_flag_ == true) led_.LR(-1, 1);
 		else led_.LR(-1, 0);
