@@ -723,8 +723,8 @@ void cppLoop(void)
 			HAL_Delay(1000);
 			led.LR(-1, 1);
 
-			esc.on(0.5, 0.5, 0.5, 0.5);
-			HAL_Delay(2000);
+			esc.on(0.2, 0.2, 0.2, 0.2);
+			HAL_Delay(5000);
 			esc.off();
 
 			led.LR(-1, 0);

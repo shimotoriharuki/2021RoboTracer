@@ -14,6 +14,20 @@
 
 float mon_sens, mon_sens_lpf;
 
+float mon_sens0;
+float mon_sens1;
+float mon_sens2;
+float mon_sens3;
+float mon_sens4;
+float mon_sens5;
+float mon_sens6;
+float mon_sens7;
+float mon_sens8;
+float mon_sens9;
+float mon_sens10;
+float mon_sens11;
+float mon_sens12;
+
 LineSensor::LineSensor()
 {
 	for(auto &av : analog_val_){
@@ -79,6 +93,20 @@ void LineSensor::updateSensorValues()
 
 	mon_sens = store_vals_[5][5];
 	mon_sens_lpf = sensor[5];
+
+	mon_sens0 = sensor[0];
+	mon_sens1 = sensor[1];
+	mon_sens2 = sensor[2];
+	mon_sens3 = sensor[3];
+	mon_sens4 = sensor[4];
+	mon_sens5 = sensor[5];
+	mon_sens6 = sensor[6];
+	mon_sens7 = sensor[7];
+	mon_sens8 = sensor[8];
+	mon_sens9 = sensor[9];
+	mon_sens10 = sensor[10];
+	mon_sens11 = sensor[11];
+	mon_sens12 = sensor[12];
 }
 
 void LineSensor::calibration()
@@ -153,11 +181,16 @@ bool LineSensor::emergencyStop()
 	static uint16_t cnt = 0;
 	static bool flag = false;
 
+	/*
 	for(const auto & s : sensor){
 		if(s >= 550) out_cnt++;
 	}
+	*/
+	for(uint16_t i = 3; i <= 10; i++){
+		if(sensor[i] >= 550) out_cnt++;
+	}
 
-	if(out_cnt >= AD_DATA_SIZE){
+	if(out_cnt >= 8){
 		cnt++;
 	}
 	else{

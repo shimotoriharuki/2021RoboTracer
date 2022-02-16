@@ -13,19 +13,6 @@
 #define R_DIFF 0.08
 
 float mon_steer_angle;
-float mon_sens0;
-float mon_sens1;
-float mon_sens2;
-float mon_sens3;
-float mon_sens4;
-float mon_sens5;
-float mon_sens6;
-float mon_sens7;
-float mon_sens8;
-float mon_sens9;
-float mon_sens10;
-float mon_sens11;
-float mon_sens12;
 
 float monitor_std_angle;
 float monitor_norm_l, monitor_norm_r;
@@ -84,8 +71,12 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 float LineTrace::calcError()
 {
 	static float pre_diff;
+	/*
 	float diff = (line_sensor_->sensor[0] + line_sensor_->sensor[1] + line_sensor_->sensor[2] + line_sensor_->sensor[3] + line_sensor_->sensor[4] + line_sensor_->sensor[5] + line_sensor_->sensor[6])
 			- (line_sensor_->sensor[7] + line_sensor_->sensor[8] + line_sensor_->sensor[9] + line_sensor_->sensor[10] + line_sensor_->sensor[11] + line_sensor_->sensor[12] + line_sensor_->sensor[13]);
+	*/
+	float diff = (line_sensor_->sensor[3] + line_sensor_->sensor[4] + line_sensor_->sensor[5])
+			- (line_sensor_->sensor[8] + line_sensor_->sensor[9] + line_sensor_->sensor[10]);
 	mon_diff = diff;
 
 	diff = ((R_DIFF)*(diff) + (1.0 - (R_DIFF))* (pre_diff));
@@ -147,19 +138,6 @@ void LineTrace::getSensorValues()
 		else sensor_digital_values_[i] = 0;
 	}
 
-	mon_sens0 = line_sensor_->sensor[0];
-	mon_sens1 = line_sensor_->sensor[1];
-	mon_sens2 = line_sensor_->sensor[2];
-	mon_sens3 = line_sensor_->sensor[3];
-	mon_sens4 = line_sensor_->sensor[4];
-	mon_sens5 = line_sensor_->sensor[5];
-	mon_sens6 = line_sensor_->sensor[6];
-	mon_sens7 = line_sensor_->sensor[7];
-	mon_sens8 = line_sensor_->sensor[8];
-	mon_sens9 = line_sensor_->sensor[9];
-	mon_sens10 = line_sensor_->sensor[10];
-	mon_sens11 = line_sensor_->sensor[11];
-	mon_sens12 = line_sensor_->sensor[12];
 }
 
 void LineTrace::calcStandardAngle(float &angle, uint16_t &index)
