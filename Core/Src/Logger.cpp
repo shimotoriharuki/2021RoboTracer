@@ -11,7 +11,7 @@
 #include "Macro.h"
 #include "AQM0802.h"
 
-Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_tim2_(0), log_index_dis_(0){}
+Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_tim2_(0), log_index_tim_uint_(0), log_index_tim2_uint_(0), log_index_dis_(0){}
 
 bool Logger::sdCardInit()
 {
@@ -52,22 +52,6 @@ bool Logger::sdCardInit()
 
 	return ret;
 }
-void Logger::storeLogs(float *data, uint8_t save_num)
-{
-	if(recording_flag_ == true){
-
-
-	}
-
-}
-void Logger::storeLogs(uint16_t *data, uint8_t save_num)
-{
-	if(recording_flag_ == true){
-
-
-	}
-
-}
 void Logger::storeLog(float data)
 {
 	if(recording_flag_ == true){
@@ -78,6 +62,7 @@ void Logger::storeLog(float data)
 		if(log_index_tim_ >= LOG_DATA_SIZE_TIM) log_index_tim_ = 0;
 	}
 }
+
 void Logger::storeLog2(float data)
 {
 	if(recording_flag_ == true){
@@ -91,6 +76,24 @@ void Logger::storeLog2(float data)
 
 void Logger::storeLog(uint16_t data)
 {
+	if(recording_flag_ == true){
+		store_data_uint_[log_index_tim_uint_] = data;
+
+		log_index_tim_uint_++;
+
+		if(log_index_tim_uint_ >= LOG_DATA_SIZE_TIM) log_index_tim_uint_ = 0;
+	}
+
+}
+void Logger::storeLog2(uint16_t data)
+{
+	if(recording_flag_ == true){
+		store_data_uint2_[log_index_tim2_uint_] = data;
+
+		log_index_tim2_uint_++;
+
+		if(log_index_tim2_uint_ >= LOG_DATA_SIZE_TIM2) log_index_tim2_uint_ = 0;
+	}
 
 }
 

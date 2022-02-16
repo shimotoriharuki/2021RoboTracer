@@ -20,6 +20,8 @@ class Logger{
 private:
 	float store_data_float_[LOG_DATA_SIZE_TIM];
 	float store_data_float2_[LOG_DATA_SIZE_TIM2];
+	float store_data_uint_[LOG_DATA_SIZE_TIM];
+	float store_data_uint2_[LOG_DATA_SIZE_TIM2];
 	//uint16_t store_data_uint16_[LOG_DATA_SIZE_TIM];
 
 	float  store_distance_[LOG_DATA_SIZE_DIS];
@@ -32,6 +34,8 @@ private:
 
 	uint16_t log_index_tim_;
 	uint16_t log_index_tim2_;
+	uint16_t log_index_tim_uint_;
+	uint16_t log_index_tim2_uint_;
 	uint16_t log_index_dis_;
 
 public:
@@ -39,11 +43,10 @@ public:
 	Logger();
 	bool sdCardInit();
 
-	void storeLogs(float *, uint8_t);
-	void storeLogs(uint16_t *, uint8_t);
 	void storeLog(float);
 	void storeLog2(float);
 	void storeLog(uint16_t);
+	void storeLog2(uint16_t);
 	void storeDistanceAndTheta(float , float);
 	void storeDistanceAndTheta2(float , float);
 	const float *getDistanceArrayPointer();

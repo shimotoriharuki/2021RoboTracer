@@ -24,6 +24,8 @@ public:
 	void init();
 	void motorCtrl(); //call by timer interrupt in
 	void setRatio(double, double);
+	uint16_t getLeftCounterPeriod();
+	uint16_t getRightCounterPeriod();
 
 };
 

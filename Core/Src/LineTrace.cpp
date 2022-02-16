@@ -223,7 +223,6 @@ void LineTrace::pidTrace()
 
 	float rotation_ratio = p + d + i;
 
-	//motor_->setRatio(left_ratio, right_ratio);
 	velocity_ctrl_->setTranslationVelocityOnly(target_velocity_, rotation_ratio);
 
 	pre_diff = diff;

@@ -58,3 +58,13 @@ void Motor::setRatio(double left_ratio, double right_ratio)
 	temp_right_counter_period_ = (int)((double)MAX_COUNTER_PERIOD * right_ratio);
 
 }
+
+uint16_t Motor::getLeftCounterPeriod()
+{
+	return temp_left_counter_period_;
+}
+
+uint16_t Motor::getRightCounterPeriod()
+{
+	return temp_right_counter_period_;
+}

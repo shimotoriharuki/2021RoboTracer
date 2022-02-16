@@ -328,8 +328,8 @@ void cppLoop(void)
 			led.LR(1, -1);
 
 			line_trace.setMode(FIRST_RUNNING);
-			esc.on(0.5, 0.5, 0.5, 0.5);
 			HAL_Delay(3000);
+			esc.on(0.5, 0.5, 0.5, 0.5);
 			line_trace.running();
 			esc.off();
 
