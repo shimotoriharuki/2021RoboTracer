@@ -20,8 +20,8 @@ class Logger{
 private:
 	float store_data_float_[LOG_DATA_SIZE_TIM];
 	float store_data_float2_[LOG_DATA_SIZE_TIM2];
-	float store_data_uint_[LOG_DATA_SIZE_TIM];
-	float store_data_uint2_[LOG_DATA_SIZE_TIM2];
+	int16_t store_data_int_[LOG_DATA_SIZE_TIM];
+	int16_t store_data_int2_[LOG_DATA_SIZE_TIM2];
 	//uint16_t store_data_uint16_[LOG_DATA_SIZE_TIM];
 
 	float  store_distance_[LOG_DATA_SIZE_DIS];
@@ -34,8 +34,8 @@ private:
 
 	uint16_t log_index_tim_;
 	uint16_t log_index_tim2_;
-	uint16_t log_index_tim_uint_;
-	uint16_t log_index_tim2_uint_;
+	uint16_t log_index_tim_int_;
+	uint16_t log_index_tim2_int_;
 	uint16_t log_index_dis_;
 
 public:
@@ -45,8 +45,8 @@ public:
 
 	void storeLog(float);
 	void storeLog2(float);
-	void storeLog(uint16_t);
-	void storeLog2(uint16_t);
+	void storeLogInt(int16_t);
+	void storeLog2Int(int16_t);
 	void storeDistanceAndTheta(float , float);
 	void storeDistanceAndTheta2(float , float);
 	const float *getDistanceArrayPointer();
@@ -54,6 +54,8 @@ public:
 
 	void saveLogs(const char *, const char *);
 	void saveLogs2(const char *, const char *);
+	void saveLogsInt(const char *, const char *);
+	void saveLogs2Int(const char *, const char *);
 	void saveDistanceAndTheta(const char *, const char *, const char *);
 	void saveDistanceAndTheta2(const char *, const char *, const char *);
 	void importDistanceAndTheta(const char *, const char *, const char *);

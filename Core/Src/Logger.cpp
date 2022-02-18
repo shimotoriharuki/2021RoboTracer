@@ -11,7 +11,7 @@
 #include "Macro.h"
 #include "AQM0802.h"
 
-Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_tim2_(0), log_index_tim_uint_(0), log_index_tim2_uint_(0), log_index_dis_(0){}
+Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_tim2_(0), log_index_tim_int_(0), log_index_tim2_int_(0), log_index_dis_(0){}
 
 bool Logger::sdCardInit()
 {
@@ -74,25 +74,25 @@ void Logger::storeLog2(float data)
 	}
 }
 
-void Logger::storeLog(uint16_t data)
+void Logger::storeLogInt(int16_t data)
 {
 	if(recording_flag_ == true){
-		store_data_uint_[log_index_tim_uint_] = data;
+		store_data_int_[log_index_tim_int_] = data;
 
-		log_index_tim_uint_++;
+		log_index_tim_int_++;
 
-		if(log_index_tim_uint_ >= LOG_DATA_SIZE_TIM) log_index_tim_uint_ = 0;
+		if(log_index_tim_int_ >= LOG_DATA_SIZE_TIM) log_index_tim_int_ = 0;
 	}
 
 }
-void Logger::storeLog2(uint16_t data)
+void Logger::storeLog2Int(int16_t data)
 {
 	if(recording_flag_ == true){
-		store_data_uint2_[log_index_tim2_uint_] = data;
+		store_data_int2_[log_index_tim2_int_] = data;
 
-		log_index_tim2_uint_++;
+		log_index_tim2_int_++;
 
-		if(log_index_tim2_uint_ >= LOG_DATA_SIZE_TIM2) log_index_tim2_uint_ = 0;
+		if(log_index_tim2_int_ >= LOG_DATA_SIZE_TIM2) log_index_tim2_int_ = 0;
 	}
 
 }
@@ -139,6 +139,14 @@ void Logger::saveLogs2(const char *folder_name, const char *file_name)
 	sd_write_array_float(folder_name, file_name, LOG_DATA_SIZE_TIM2, store_data_float2_, OVER_WRITE); //write
 }
 
+void Logger::saveLogsInt(const char *folder_name, const char *file_name)
+{
+	sd_write_array_int(folder_name, file_name, LOG_DATA_SIZE_TIM, store_data_int_, OVER_WRITE); //write
+}
+void Logger::saveLogs2Int(const char *folder_name, const char *file_name)
+{
+	sd_write_array_int(folder_name, file_name, LOG_DATA_SIZE_TIM2, store_data_int2_, OVER_WRITE); //write
+}
 void Logger::saveDistanceAndTheta(const char *folder_name, const char *file_name1, const char *file_name2)
 {
 	sd_write_array_float(folder_name, file_name1, LOG_DATA_SIZE_DIS, store_distance_, OVER_WRITE); //write

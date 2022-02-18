@@ -33,8 +33,8 @@ FRESULT sd_read_array_float(const char *, const char * , short, float *);		//SD�
 FRESULT sd_write_array_double(const char *, const char * , short, double *, char); 	 //SDに書き込み
 FRESULT sd_read_array_double(const char *, const char * , short, double *);		//SDから読み込み
 
-FRESULT sd_write_array_int(const char *, const char * , short, int *, char); 	 //SDに書き込み
-FRESULT sd_read_array_int(const char *, const char * , short, int *);		//SDから読み込み
+FRESULT sd_write_array_int(const char *, const char * , short, int16_t *, char); 	 //SDに書き込み
+FRESULT sd_read_array_int(const char *, const char * , short, int16_t *);		//SDから読み込み
 
 void bufclear(void);
 

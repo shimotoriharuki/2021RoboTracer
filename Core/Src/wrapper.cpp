@@ -186,6 +186,9 @@ void cppFlip10ms(void)
 		twice_cnt = 0;
 	}
 
+	logger.storeLogInt(motor.getLeftCounterPeriod());
+	logger.storeLog2Int(motor.getRightCounterPeriod());
+
 
 	/*
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
@@ -327,11 +330,24 @@ void cppLoop(void)
 			line_trace.setTargetVelocity(adj_velocity);
 			led.LR(1, -1);
 
-			line_trace.setMode(FIRST_RUNNING);
+			// BLDC on
 			HAL_Delay(3000);
 			esc.on(0.5, 0.5, 0.5, 0.5);
+
+			// Record start
+			logger.start();
+
+			// Run
+			line_trace.setMode(FIRST_RUNNING);
 			line_trace.running();
+
+			// BLDC off
 			esc.off();
+
+			// Record stop and save
+			logger.stop();
+			logger.saveLogsInt("STATELOG", "LPERIOD.txt");
+			logger.saveLogs2Int("STATELOG", "RPERIOD.txt");
 
 			led.LR(0, -1);
 		}

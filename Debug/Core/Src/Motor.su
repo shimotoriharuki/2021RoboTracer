@@ -2,5 +2,5 @@ Motor.cpp:14:1:Motor::Motor()	16	static
 Motor.cpp:16:6:void Motor::init()	16	static
 Motor.cpp:24:6:void Motor::motorCtrl()	24	static
 Motor.cpp:50:6:void Motor::setRatio(double, double)	40	static
-Motor.cpp:62:10:uint16_t Motor::getLeftCounterPeriod()	16	static
-Motor.cpp:67:10:uint16_t Motor::getRightCounterPeriod()	16	static
+Motor.cpp:62:9:int16_t Motor::getLeftCounterPeriod()	16	static
+Motor.cpp:67:9:int16_t Motor::getRightCounterPeriod()	16	static

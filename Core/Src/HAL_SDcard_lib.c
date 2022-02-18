@@ -306,7 +306,7 @@ FRESULT sd_read_array_double(const char *p_folder_name, const char *p_file_name,
 //* 戻り値：　FRESULT:
 //* 備考 : なし
 //************************************************************************/
-FRESULT sd_write_array_int(const char *p_folder_name, const char *p_file_name, short size, int *data, char state){
+FRESULT sd_write_array_int(const char *p_folder_name, const char *p_file_name, short size, int16_t *data, char state){
 	FRESULT ret = 0;
 
 	create_path(p_folder_name, p_file_name);
@@ -346,7 +346,7 @@ FRESULT sd_write_array_int(const char *p_folder_name, const char *p_file_name, s
 //* 戻り値：　FRESULT:
 //* 備考 : なし
 //************************************************************************/
-FRESULT sd_read_array_int(const char  *p_folder_name, const char *p_file_name, short size, int *data){
+FRESULT sd_read_array_int(const char  *p_folder_name, const char *p_file_name, short size, int16_t *data){
 	FRESULT ret = 0;
 	short i = 0;
 
