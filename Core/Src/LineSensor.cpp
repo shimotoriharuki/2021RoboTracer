@@ -197,7 +197,7 @@ bool LineSensor::emergencyStop()
 		cnt = 0;
 	}
 
-	if(cnt >= 50){
+	if(cnt >= 100){
 		flag = true;
 	}
 	else flag = false;
