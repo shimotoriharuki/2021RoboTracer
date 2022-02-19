@@ -332,7 +332,7 @@ void cppLoop(void)
 
 			// BLDC on
 			HAL_Delay(3000);
-			esc.on(0.5, 0.5, 0.5, 0.5);
+			esc.on(0.2, 0.2, 0.2, 0.2);
 
 			// Record start
 			logger.start();
