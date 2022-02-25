@@ -118,15 +118,10 @@ void cppInit(void)
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	//line_trace.setGain(0.0005, 0.000002, 0);
 
-	//velocity_ctrl.setVelocityGain(1.5, 20, 0);
-	velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243);
-	//velocity_ctrl.setVelocityGain(1.9842, 22.9078, 0.02079);
-	//velocity_ctrl.setOmegaGain(0.5, 5, 0);
-	//velocity_ctrl.setOmegaGain(0.05, 7, 0);
-	//velocity_ctrl.setOmegaGain(0.069793, 0.86816, 0.0014027);
-	velocity_ctrl.setOmegaGain(0.060, 0.86816, 0.000);
-	//velocity_ctrl.setOmegaGain(0.12175, 1.0604, 0.002614);
-	//velocity_ctrl.setOmegaGain(0.0, 0, 0);
+	//velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243); //2s
+	velocity_ctrl.setVelocityGain(1.8295/1.5, 16.1174/1.5, 0.025243/1.5); //3s
+
+	velocity_ctrl.setOmegaGain(0.060, 0.86816, 0.000); //2s
 
 
 	//encoder.clearDistance();
@@ -332,7 +327,8 @@ void cppLoop(void)
 
 			// BLDC on
 			HAL_Delay(3000);
-			esc.on(0.2, 0.2, 0.2, 0.2);
+			esc.on(0.5, 0.5, 0.5, 0.5);
+			HAL_Delay(1000);
 
 			// Record start
 			logger.start();
