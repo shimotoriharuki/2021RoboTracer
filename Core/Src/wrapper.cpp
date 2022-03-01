@@ -327,7 +327,7 @@ void cppLoop(void)
 
 			// BLDC on
 			HAL_Delay(3000);
-			esc.on(0.5, 0.5, 0.5, 0.5);
+			esc.on(0.35, 0.35, 0.35, 0.35);
 			HAL_Delay(1000);
 
 			// Record start
@@ -735,7 +735,7 @@ void cppLoop(void)
 			HAL_Delay(1000);
 			led.LR(-1, 1);
 
-			esc.on(0.2, 0.2, 0.2, 0.2);
+			esc.on(0.5, 0.5, 0.5, 0.5);
 			HAL_Delay(5000);
 			esc.off();
 

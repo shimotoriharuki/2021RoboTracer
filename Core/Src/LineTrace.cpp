@@ -72,13 +72,13 @@ float LineTrace::calcError()
 {
 	static float pre_diff;
 
+	/*
 	float diff = (line_sensor_->sensor[0] + line_sensor_->sensor[1] + line_sensor_->sensor[2] + line_sensor_->sensor[3] + line_sensor_->sensor[4] + line_sensor_->sensor[5] + line_sensor_->sensor[6])
 			- (line_sensor_->sensor[7] + line_sensor_->sensor[8] + line_sensor_->sensor[9] + line_sensor_->sensor[10] + line_sensor_->sensor[11] + line_sensor_->sensor[12] + line_sensor_->sensor[13]);
+	*/
 
-	/*
 	float diff = (line_sensor_->sensor[3] + line_sensor_->sensor[4] + line_sensor_->sensor[5])
 			- (line_sensor_->sensor[8] + line_sensor_->sensor[9] + line_sensor_->sensor[10]);
-	*/
 	mon_diff = diff;
 
 	diff = ((R_DIFF)*(diff) + (1.0 - (R_DIFF))* (pre_diff));

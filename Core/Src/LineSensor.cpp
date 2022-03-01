@@ -87,7 +87,8 @@ void LineSensor::updateSensorValues()
 			}
 		}
 
-		sensor[ad_cnt] = ((R_LINESENSE)*(temp_val[5]) + (1.0 - (R_LINESENSE))* (pre_sensor[ad_cnt]));
+		//sensor[ad_cnt] = ((R_LINESENSE)*(temp_val[5]) + (1.0 - (R_LINESENSE))* (pre_sensor[ad_cnt]));
+		sensor[ad_cnt] = temp_val[5];
 		pre_sensor[ad_cnt] = temp_val[5];
 	}
 
