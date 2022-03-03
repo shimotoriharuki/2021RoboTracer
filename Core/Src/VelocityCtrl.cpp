@@ -9,6 +9,8 @@
 //#include "ICM_20648.h"
 #include <stdio.h>
 
+float mon_current_velocity;
+
 VelocityCtrl::VelocityCtrl(Motor *motor, Encoder *encoder, IMU *imu) :
 target_velocity_(0), target_omega_(0), current_velocity_(0), current_omega_(0), v_kp_(0), v_kd_(0), v_ki_(0),
 	o_kp_(0), o_kd_(0), o_ki_(0), excution_flag_(false), i_reset_flag_(false), rotation_ratio_(0)
@@ -28,6 +30,7 @@ float VelocityCtrl::calcVelocity()
 	float enc_cnt = (enc_l + enc_r) / 2;
 
 	current_velocity_ = VELOCITY_PER_CNT * enc_cnt;
+	mon_current_velocity = current_velocity_;
 
 	return current_velocity_;
 }

@@ -119,7 +119,7 @@ void cppInit(void)
 	//line_trace.setGain(0.0005, 0.000002, 0);
 
 	//velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243); //2s
-	velocity_ctrl.setVelocityGain(1.8295/1.5, 16.1174/1.5, 0.025243/1.5); //3s
+	velocity_ctrl.setVelocityGain(1.0154, 6.5511, 0.0010088); //3s
 
 	velocity_ctrl.setOmegaGain(0.060, 0.86816, 0.000); //2s
 
@@ -145,13 +145,13 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-	//logger.storeLog(velocity_ctrl.getCurrentVelocity());
+	logger.storeLog(velocity_ctrl.getCurrentVelocity());
 	//logger.storeLog(imu.getOmega());
 
 	static uint16_t twice_cnt;
 	twice_cnt++;
 	if(twice_cnt >= 2){ //2ms
-		sys_ident.inOutputStore(imu.getOmega());
+		sys_ident.inOutputStore(velocity_ctrl.getCurrentVelocity());
 		twice_cnt = 0;
 	}
 
@@ -176,7 +176,7 @@ void cppFlip10ms(void)
 {
 	static uint16_t twice_cnt;
 	twice_cnt++;
-	if(twice_cnt >= 7){ //70ms
+	if(twice_cnt >= 17){ //170ms
 		sys_ident.updateMsig();
 		twice_cnt = 0;
 	}
@@ -407,7 +407,14 @@ void cppLoop(void)
 			line_trace.setMinVelocity(adj_min_velocity);
 			line_trace.createVelocityTabele();
 
+			HAL_Delay(3000);
+			esc.on(0.35, 0.35, 0.35, 0.35);
+			HAL_Delay(1000);
+
 			line_trace.running();
+
+			// BLDC off
+			esc.off();
 
 			led.LR(0, -1);
 		}
@@ -725,6 +732,7 @@ void cppLoop(void)
 	case 11:
 		led.fullColor('~');
 
+		/*
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("ESC");
@@ -741,7 +749,8 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
-		/*
+		*/
+
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("Step");
@@ -752,19 +761,24 @@ void cppLoop(void)
 			HAL_Delay(1500);
 			led.LR(-1, 1);
 
+			HAL_Delay(3000);
+			esc.on(0.35, 0.35, 0.35, 0.35);
+			HAL_Delay(1000);
+
 			logger.start();
-			motor.setRatio(0.3, -0.3);
+			motor.setRatio(0.4, 0.4);
 
 			HAL_Delay(1000);
 
 			logger.stop();
 			motor.setRatio(0.0, 0.0);
+			esc.off();
 
 			logger.saveLogs("SYSIDENT", "STEPRES.txt");
 
 			led.LR(-1, 0);
 		}
-		*/
+
 		break;
 
 	case 12:
@@ -780,14 +794,19 @@ void cppLoop(void)
 			HAL_Delay(1500);
 			led.LR(-1, 1);
 
+			HAL_Delay(3000);
+			esc.on(0.35, 0.35, 0.35, 0.35);
+			HAL_Delay(1000);
+
 			logger.start();
 			velocity_ctrl.start();
-			velocity_ctrl.setVelocity(0, 3.14);
+			velocity_ctrl.setVelocity(1, 0);
 
 			HAL_Delay(1000);
 
 			logger.stop();
 			velocity_ctrl.stop();
+			esc.off();
 
 			logger.saveLogs("SYSIDENT", "PIDRES.txt");
 
@@ -798,6 +817,7 @@ void cppLoop(void)
 	case 13:
 
 		led.fullColor('~');
+		/*
 
 		lcd_clear();
 		lcd_locate(0,0);
@@ -822,21 +842,31 @@ void cppLoop(void)
 
 			led.LR(0, -1);
 		}
+		*/
 
-		/*
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("Msig");
+		lcd_locate(0,1);
+		lcd_printf("Response");
 		if(joy_stick.getValue() == JOY_C){
 			led.LR(-1, 1);
 			HAL_Delay(1500);
 
+			HAL_Delay(3000);
+			esc.on(0.35, 0.35, 0.35, 0.35);
+			HAL_Delay(1000);
+
 			sys_ident.setInputRatio(0.3);
 			sys_ident.start();
-			HAL_Delay(17500);
+			HAL_Delay(17000);
 			sys_ident.stop();
+
+			esc.off();
 			sys_ident.inOutputSave();
 
 			led.LR(-1, 0);
 		}
-		*/
 		break;
 
 	case 14:

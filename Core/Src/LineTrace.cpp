@@ -743,7 +743,7 @@ void LineTrace::flip()
 			// Note: Store cross line distance here.
 		}
 
-		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 200){
+		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 90){
 			side_sensor_->disableIgnore();
 		}
 
