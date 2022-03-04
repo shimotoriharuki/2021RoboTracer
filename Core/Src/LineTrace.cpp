@@ -458,8 +458,8 @@ bool LineTrace::isTargetDistance(float target_distance)
 bool LineTrace::isCrossLine()
 {
 	static uint16_t cnt = 0;
-	float sensor_edge_val_l = (line_sensor_->sensor[0] + line_sensor_->sensor[1] + line_sensor_->sensor[2]) / 3;
-	float sensor_edge_val_r = (line_sensor_->sensor[11] + line_sensor_->sensor[12] + line_sensor_->sensor[13]) / 3;
+	float sensor_edge_val_l = (line_sensor_->sensor[0] + line_sensor_->sensor[1]) / 2;
+	float sensor_edge_val_r = (line_sensor_->sensor[12] + line_sensor_->sensor[13]) / 2;
 	static bool flag = false;
 	static bool white_flag = false;
 	mon_ave_l = sensor_edge_val_l;
@@ -740,7 +740,7 @@ void LineTrace::flip()
 
 
 		// ----- Processing at regular distances -----//
-		if(isTargetDistance(10) == true){
+		if(isTargetDistance(50) == true){
 			// ---- Store Logs ------//
 			storeLogs();
 			//logger_->storeLog(imu_->getOmega());
