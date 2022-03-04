@@ -48,6 +48,7 @@ private:
     ESC *esc_;
 
 	float kp_, kd_, ki_;
+	float kp_slow_, kd_slow_, ki_slow_;
 	bool excution_flag_;
 	bool i_reset_flag_;
 	float normal_ratio_;
@@ -132,6 +133,10 @@ public:
 	float getKp();
 	float getKi();
 	float getKd();
+	void setGainSlow(float, float, float);
+	float getKpSlow();
+	float getKiSlow();
+	float getKdSlow();
 
 
 	// Velocity setting

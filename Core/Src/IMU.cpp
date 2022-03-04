@@ -15,7 +15,7 @@
 
 #define PI 3.1415926535
 
-//int16_t mon_zg_;
+float mon_zg;
 
 IMU::IMU() : xa_(0), ya_(0), za_(0), xg_(0), yg_(0), zg_(0), offset_(0)
 {
@@ -74,6 +74,7 @@ void IMU::updateValues()
 
 	pre_zg = zg_;
 
+	mon_zg= zg_;
 	/*
 	// heap value
 	int16_t temp_val[STORE_NUM];
@@ -102,7 +103,9 @@ void IMU::updateValues()
 float IMU::getOmega()
 {
 	float corrected_zg = float(zg_) - offset_;
-	return -(corrected_zg / 16.4) * PI / 180;
+	float omega = -(corrected_zg / 16.4) * PI / 180;
+
+	return omega;
 }
 
 void IMU::calibration()

@@ -219,9 +219,16 @@ void LineTrace::pidTrace()
 		i_reset_flag_ = false;
 	}
 
-	p = kp_ * diff;
-	d = kd_ * (diff - pre_diff) / DELTA_T;
-	i += ki_ * diff * DELTA_T;
+	if(mode_selector_ == FIRST_RUNNING){
+		p = kp_slow_ * diff;
+		d = kd_slow_ * (diff - pre_diff) / DELTA_T;
+		i += ki_slow_ * diff * DELTA_T;
+	}
+	else{
+		p = kp_ * diff;
+		d = kd_ * (diff - pre_diff) / DELTA_T;
+		i += ki_ * diff * DELTA_T;
+	}
 
 	float rotation_ratio = p + d + i;
 
@@ -548,6 +555,12 @@ void LineTrace::init()
 	sd_read_array_float("PARAMS", "KD.TXT", 1, &temp_kd);
 	setGain(temp_kp, temp_ki, temp_kd);
 
+	float temp_kp_slow, temp_ki_slow, temp_kd_slow;
+	sd_read_array_float("PARAMS", "KP_SLOW.TXT", 1, &temp_kp_slow);
+	sd_read_array_float("PARAMS", "KI_SLOW.TXT", 1, &temp_ki_slow);
+	sd_read_array_float("PARAMS", "KD_SLOW.TXT", 1, &temp_kd_slow);
+	setGainSlow(temp_kp_slow, temp_ki_slow, temp_kd_slow);
+
 	float temp_velocity, temp_max_velocity, temp_max_velocity2, temp_min_velocity, temp_min_velocity2;
 	sd_read_array_float("PARAMS", "TARVEL1.TXT", 1, &temp_velocity);
 	sd_read_array_float("PARAMS", "TARVEL2.TXT", 1, &temp_max_velocity);
@@ -596,6 +609,27 @@ float LineTrace::getKd()
 	return kd_;
 }
 
+void LineTrace::setGainSlow(float kp, float ki, float kd)
+{
+	kp_slow_ = kp;
+	ki_slow_ = ki;
+	kd_slow_ = kd;
+}
+
+float LineTrace::getKpSlow()
+{
+	return kp_slow_;
+}
+
+float LineTrace::getKiSlow()
+{
+	return ki_slow_;
+}
+
+float LineTrace::getKdSlow()
+{
+	return kd_slow_;
+}
 // ---------------------------------------------------------------------------------------------------//
 // ------------------------------ Velocity setting----------------------------------------------------//
 // ---------------------------------------------------------------------------------------------------//
@@ -709,8 +743,8 @@ void LineTrace::flip()
 		if(isTargetDistance(10) == true){
 			// ---- Store Logs ------//
 			storeLogs();
-			logger_->storeLog(imu_->getOmega());
-			logger_->storeLog2(target_omega_);
+			//logger_->storeLog(imu_->getOmega());
+			//logger_->storeLog2(target_omega_);
 
 			// -------- Detect Robot stabilization ------//
 			if(isStable() == true && side_sensor_->getStatusL() == false){ // Stabilizing and side sensor is black
@@ -743,7 +777,7 @@ void LineTrace::flip()
 			// Note: Store cross line distance here.
 		}
 
-		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 90){
+		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 70){
 			side_sensor_->disableIgnore();
 		}
 
