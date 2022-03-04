@@ -316,6 +316,7 @@ void cppLoop(void)
 			//HAL_Delay(1000);
 
 			// Record start
+			HAL_Delay(1000);
 			logger.start();
 
 			// Run
@@ -821,7 +822,13 @@ lcd_clear();
 			line_trace.setMinVelocity(adj_max_velocity2);
 			line_trace.createVelocityTabeleFromSD();
 
+			HAL_Delay(3000);
+			esc.on(0.35, 0.35, 0.35, 0.35);
+			HAL_Delay(1000);
+
 			line_trace.running();
+
+			esc.off();
 
 			led.LR(0, -1);
 		}
@@ -872,7 +879,13 @@ lcd_clear();
 			line_trace.setMinVelocity(adj_min_velocity);
 			line_trace.createVelocityTabeleFromSD();
 
+			HAL_Delay(3000);
+			esc.on(0.35, 0.35, 0.35, 0.35);
+			HAL_Delay(1000);
+
 			line_trace.running();
+
+			esc.off();
 
 			led.LR(0, -1);
 		}

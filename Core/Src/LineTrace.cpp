@@ -288,7 +288,7 @@ void LineTrace::storeLogs()
 		else
 			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
 			//logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
-			logger_->storeDistanceAndTheta2(velocity_ctrl_->getCurrentVelocity(), odometry_->getTheta());
+			logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
 
 		mon_store_cnt++;
 	}
@@ -425,12 +425,10 @@ void LineTrace::stopVelocityPlay()
 void LineTrace::updateTargetVelocity()
 {
 	if(velocity_play_flag_ == true){
-		//if(encoder_->getTotalDistance() >= ref_distance_){
-			while(encoder_->getTotalDistance() >= ref_distance_){
-				ref_distance_ += ref_delta_distances_[velocity_table_idx_];
-				velocity_table_idx_++;
-			}
-		//}
+		while(encoder_->getTotalDistance()*0.9527 >= ref_distance_){
+			ref_distance_ += ref_delta_distances_[velocity_table_idx_];
+			velocity_table_idx_++;
+		}
 
 		if(velocity_table_idx_ >= LOG_DATA_SIZE_DIS) velocity_table_idx_ = LOG_DATA_SIZE_DIS - 1;
 
@@ -530,7 +528,7 @@ bool LineTrace::isStable()
 		stable_cnt = 0;
 	}
 
-	if(stable_cnt >= 23){ //230mm
+	if(stable_cnt >= 5){ //250mm
 		ret = true;
 	}
 
@@ -734,10 +732,8 @@ void LineTrace::flip()
 		pidTrace();
 		//steeringAngleTrace();
 
-
 		// ---- Target Velocity Updata ------//
 		updateTargetVelocity();
-
 
 		// ----- Processing at regular distances -----//
 		if(isTargetDistance(50) == true){
