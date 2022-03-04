@@ -288,7 +288,7 @@ void LineTrace::storeLogs()
 		else
 			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
 			//logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
-			logger_->storeDistanceAndTheta2(encoder_->getDistance10mm()*0.9527, odometry_->getTheta());
+			logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
 
 		mon_store_cnt++;
 	}
@@ -481,7 +481,7 @@ bool LineTrace::isCrossLine()
 				storeCrossLineDistance();
 			}
 			else{
-				correctionTotalDistanceFromCrossLine();
+				//correctionTotalDistanceFromCrossLine();
 				correction_check_cnt_ = 0;
 			}
 		}
@@ -758,7 +758,7 @@ void LineTrace::flip()
 				storeSideLineDistance();
 			}
 			else{
-				correctionTotalDistanceFromSideMarker();
+				//correctionTotalDistanceFromSideMarker();
 				correction_check_cnt_ = 0;
 			}
 
