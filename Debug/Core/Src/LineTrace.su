@@ -23,7 +23,7 @@ LineTrace.cpp:378:6:void LineTrace::decelerateProcessing(float, const float*)	48
 LineTrace.cpp:395:6:void LineTrace::accelerateProcessing(float, const float*)	48	static
 LineTrace.cpp:412:6:void LineTrace::startVelocityPlay()	16	static
 LineTrace.cpp:418:6:void LineTrace::stopVelocityPlay()	16	static
-LineTrace.cpp:425:6:void LineTrace::updateTargetVelocity()	16	static
+LineTrace.cpp:425:6:void LineTrace::updateTargetVelocity()	32	static
 LineTrace.cpp:446:6:bool LineTrace::isTargetDistance(float)	24	static
 LineTrace.cpp:456:6:bool LineTrace::isCrossLine()	24	static
 LineTrace.cpp:508:6:bool LineTrace::isStable()	40	static

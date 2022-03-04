@@ -288,7 +288,7 @@ void LineTrace::storeLogs()
 		else
 			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
 			//logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
-			logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
+			logger_->storeDistanceAndTheta2(encoder_->getDistance10mm()*0.9527, odometry_->getTheta());
 
 		mon_store_cnt++;
 	}
