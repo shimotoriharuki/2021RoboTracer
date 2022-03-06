@@ -481,7 +481,7 @@ bool LineTrace::isCrossLine()
 				storeCrossLineDistance();
 			}
 			else{
-				//correctionTotalDistanceFromCrossLine();
+				//errectionTotalDistanceFromCrossLine();
 				correction_check_cnt_ = 0;
 			}
 		}
@@ -733,9 +733,10 @@ void LineTrace::flip()
 		//steeringAngleTrace();
 
 		// ---- Target Velocity Updata ------//
-		updateTargetVelocity();
+		//updateTargetVelocity();
 
 		// ----- Processing at regular distances -----//
+		/*
 		if(isTargetDistance(50) == true){
 			// ---- Store Logs ------//
 			storeLogs();
@@ -751,8 +752,10 @@ void LineTrace::flip()
 			encoder_->clearDistance10mm();
 			odometry_->clearPotition();
 		}
+		*/
 
 		// ------- Store side line distance or correction distance------//
+		/*
 		if(stable_flag_ == true && side_sensor_->getStatusL() == true){ //Stabilizing and side sensor is white
 			if(mode_selector_ == FIRST_RUNNING){
 				storeSideLineDistance();
@@ -765,6 +768,7 @@ void LineTrace::flip()
 			stable_flag_ = false;
 			stable_cnt_reset_flag_ = true;
 		}
+		*/
 
 		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
@@ -778,8 +782,10 @@ void LineTrace::flip()
 		}
 
 
+		/*
 		if(stable_flag_ == true) led_.LR(-1, 1);
 		else led_.LR(-1, 0);
+		*/
 
 		// ------ All sideline storing -------//
 		/*
