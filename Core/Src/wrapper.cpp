@@ -146,14 +146,14 @@ void cppFlip1ms(void)
 
 	//logger.storeLog(velocity_ctrl.getCurrentVelocity());
 	//logger.storeLog(imu.getOmega());
-
+/*
 	static uint16_t twice_cnt;
 	twice_cnt++;
 	if(twice_cnt >= 2){ //2ms
 		sys_ident.inOutputStore(velocity_ctrl.getCurrentVelocity());
 		twice_cnt = 0;
 	}
-
+*/
 	//mon_cnt = twice_cnt;
 	/*
 	*/
