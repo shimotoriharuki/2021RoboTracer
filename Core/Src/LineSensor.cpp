@@ -69,7 +69,6 @@ void LineSensor::storeSensorValues()
 void LineSensor::updateSensorValues()
 {
 	float temp_val[10];
-	static float pre_sensor[AD_DATA_SIZE];
 
 	for(uint8_t ad_cnt = 0; ad_cnt < AD_DATA_SIZE; ad_cnt++){
 		for(uint8_t store_cnt = 0; store_cnt < 10; store_cnt++){
@@ -89,7 +88,6 @@ void LineSensor::updateSensorValues()
 
 		//sensor[ad_cnt] = ((R_LINESENSE)*(temp_val[5]) + (1.0 - (R_LINESENSE))* (pre_sensor[ad_cnt]));
 		sensor[ad_cnt] = temp_val[5];
-		pre_sensor[ad_cnt] = temp_val[5];
 	}
 
 	mon_sens = store_vals_[5][5];
