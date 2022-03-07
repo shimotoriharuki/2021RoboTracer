@@ -296,7 +296,7 @@ void LineTrace::storeLogs()
 // ---------------------------------------------------------------------------------------------------//
 void LineTrace::correctionTotalDistanceFromCrossLine()
 {
-	encoder_->setTotalDistance(crossline_distance_[crossline_idx_]);
+	encoder_->setTotalDistance(crossline_distance_[crossline_idx_] / DISTANCE_CORRECTION_CONST);
 	crossline_idx_++;
 
 	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
@@ -419,7 +419,7 @@ void LineTrace::stopVelocityPlay()
 void LineTrace::updateTargetVelocity()
 {
 	if(velocity_play_flag_ == true){
-		while(encoder_->getTotalDistance()*0.9527 >= ref_distance_){
+		while(encoder_->getTotalDistance() * DISTANCE_CORRECTION_CONST >= ref_distance_){
 			ref_distance_ += ref_delta_distances_[velocity_table_idx_];
 			velocity_table_idx_++;
 		}

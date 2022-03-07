@@ -14,7 +14,7 @@ LineTrace.cpp:255:6:void LineTrace::storeCrossLineDistance()	24	static
 LineTrace.cpp:263:6:void LineTrace::storeSideLineDistance()	24	static
 LineTrace.cpp:271:6:void LineTrace::storeAllSideLineDistance()	24	static
 LineTrace.cpp:279:6:void LineTrace::storeLogs()	32	static
-LineTrace.cpp:297:6:void LineTrace::correctionTotalDistanceFromCrossLine()	16	static
+LineTrace.cpp:297:6:void LineTrace::correctionTotalDistanceFromCrossLine()	24	static
 LineTrace.cpp:306:6:void LineTrace::correctionTotalDistanceFromSideMarker()	32	static
 LineTrace.cpp:321:6:void LineTrace::correctionTotalDistanceFromAllSideMarker()	32	static
 LineTrace.cpp:339:7:float LineTrace::radius2Velocity(float)	24	static
