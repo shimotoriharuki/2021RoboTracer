@@ -73,7 +73,8 @@ void LineSensor::updateSensorValues()
 			}
 		}
 
-		sensor[ad_cnt] = ((R_LINESENSE)*(temp_val[5]) + (1.0 - (R_LINESENSE))* (pre_sensor[ad_cnt]));
+		//sensor[ad_cnt] = ((R_LINESENSE)*(temp_val[5]) + (1.0 - (R_LINESENSE))* (pre_sensor[ad_cnt]));
+		sensor[ad_cnt] = temp_val[5];
 		pre_sensor[ad_cnt] = temp_val[5];
 	}
 
@@ -153,8 +154,15 @@ bool LineSensor::emergencyStop()
 	static uint16_t cnt = 0;
 	static bool flag = false;
 
+	/*
 	for(const auto & s : sensor){
 		if(s >= 700) out_cnt++;
+	}
+	*/
+	for(uint16_t i = 3; i <= 10; i++)
+	{
+		if(s >= 700) out_cnt++;
+
 	}
 
 	if(out_cnt >= AD_DATA_SIZE){
