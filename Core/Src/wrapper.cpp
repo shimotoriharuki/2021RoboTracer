@@ -28,7 +28,7 @@
 #include "PathFollowing.hpp"
 #include "ESC.hpp"
 
-#define BLDC_POWER 0.30
+#define BLDC_POWER 0.32
 
 LineSensor line_sensor;
 SideSensor side_sensor;
@@ -396,7 +396,7 @@ void cppLoop(void)
 			line_trace.createVelocityTabele();
 
 			HAL_Delay(3000);
-			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
+			esc.on(BLDC_POWER*1.2, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(1000);
 
 			line_trace.running();

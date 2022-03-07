@@ -70,7 +70,7 @@ void IMU::updateValues()
 	zg_ = zg;
 
 	//static int16_t pre_zg;
-	//zg_ = ((R_IMU)*(zg_) + (1.0 - (R_IMU))* (pre_zg)); // lowpath filter
+	zg_ = ((R_IMU)*(zg_) + (1.0 - (R_IMU))* (pre_zg)); // lowpath filter
 
 
 	mon_zg= zg_;
