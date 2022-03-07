@@ -161,11 +161,10 @@ bool LineSensor::emergencyStop()
 	*/
 	for(uint16_t i = 3; i <= 10; i++)
 	{
-		if(s >= 700) out_cnt++;
-
+		if(sensor[i] >= 700) out_cnt++;
 	}
 
-	if(out_cnt >= AD_DATA_SIZE){
+	if(out_cnt >= 8){
 		cnt++;
 	}
 	else{
