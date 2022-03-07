@@ -114,7 +114,8 @@ void cppInit(void)
 	//line_trace.setGain(0.0005, 0.000002, 0);
 
 	//velocity_ctrl.setVelocityGain(1.5, 20, 0);
-	velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243);
+	//velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243);
+	velocity_ctrl.setVelocityGain(1.0154, 6.5511, 0.0010088); //3s
 	//velocity_ctrl.setVelocityGain(1.9842, 22.9078, 0.02079);
 	//velocity_ctrl.setOmegaGain(0.5, 5, 0);
 	//velocity_ctrl.setOmegaGain(0.05, 7, 0);
