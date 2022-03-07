@@ -72,7 +72,6 @@ float LineTrace::calcError()
 	//diff = ((R_DIFF)*(diff) + (1.0 - (R_DIFF))* (pre_diff));
 	mon_diff_lpf = diff;
 
-	pre_diff = diff;
 
 	return diff;
 
