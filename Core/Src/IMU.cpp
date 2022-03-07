@@ -69,10 +69,10 @@ void IMU::updateValues()
 	yg_ = yg;
 	zg_ = zg;
 
-	//static int16_t pre_zg;
+	static int16_t pre_zg;
 	zg_ = ((R_IMU)*(zg_) + (1.0 - (R_IMU))* (pre_zg)); // lowpath filter
 
-
+	pre_zg = zg_;
 	mon_zg= zg_;
 	/*
 	// heap value
