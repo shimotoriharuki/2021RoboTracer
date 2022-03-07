@@ -232,9 +232,9 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Slow%4.2lf", line_trace.getKpSlow()*1000);
+		lcd_printf("Slow%4.2lf", abs(line_trace.getKpSlow()*1000));
 		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", line_trace.getKiSlow()*100, line_trace.getKdSlow()*10000);
+		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKiSlow()*100), abs(line_trace.getKdSlow()*10000));
 
 		if(joy_stick.getValue() == JOY_U){
 			led.LR(-1, 1);
@@ -897,9 +897,9 @@ lcd_clear();
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Fast%4.2lf", line_trace.getKp()*1000);
+		lcd_printf("Fast%4.2lf", abs(line_trace.getKp()*1000));
 		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", line_trace.getKi()*100, line_trace.getKd()*10000);
+		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKi()*100), abs(line_trace.getKd()*10000));
 
 		if(joy_stick.getValue() == JOY_U){
 			led.LR(-1, 1);

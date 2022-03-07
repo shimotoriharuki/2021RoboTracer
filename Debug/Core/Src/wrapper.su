@@ -1,3 +1,4 @@
+std_abs.h:74:3:constexpr float std::abs(float)	16	static
 wrapper.cpp:56:6:void batteryLowMode()	8	static
 wrapper.cpp:77:6:void cppInit()	16	static
 wrapper.cpp:135:6:void cppFlip1ms()	8	static
