@@ -477,7 +477,7 @@ bool LineTrace::isCrossLine()
 				storeCrossLineDistance();
 			}
 			else{
-				//errectionTotalDistanceFromCrossLine();
+				correctionTotalDistanceFromCrossLine();
 				correction_check_cnt_ = 0;
 			}
 		}
