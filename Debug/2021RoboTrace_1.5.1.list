@@ -35,15 +35,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  15 .debug_ranges 00002070  00000000  00000000  000752d8  2**3
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_macro  000354a8  00000000  00000000  00077348  2**0
+ 16 .debug_macro  000354ae  00000000  00000000  00077348  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   00026578  00000000  00000000  000ac7f0  2**0
+ 17 .debug_line   00026578  00000000  00000000  000ac7f6  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    00111072  00000000  00000000  000d2d68  2**0
+ 18 .debug_str    00111082  00000000  00000000  000d2d6e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  001e3dda  2**0
+ 19 .comment      0000007b  00000000  00000000  001e3df0  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000a760  00000000  00000000  001e3e58  2**2
+ 20 .debug_frame  0000a760  00000000  00000000  001e3e6c  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -16403,7 +16403,7 @@ void cppLoop(void)
  80079a8:	08007e81 	.word	0x08007e81
  80079ac:	08007fd3 	.word	0x08007fd3
  80079b0:	080080cb 	.word	0x080080cb
- 80079b4:	08008361 	.word	0x08008361
+ 80079b4:	0800835d 	.word	0x0800835d
  80079b8:	08008499 	.word	0x08008499
  80079bc:	0800871d 	.word	0x0800871d
  80079c0:	08008967 	.word	0x08008967
@@ -16413,7 +16413,7 @@ void cppLoop(void)
  80079d0:	08008e2f 	.word	0x08008e2f
  80079d4:	08008ef5 	.word	0x08008ef5
  80079d8:	08008fd9 	.word	0x08008fd9
- 80079dc:	08009111 	.word	0x08009111
+ 80079dc:	0800910d 	.word	0x0800910d
 	case 0:
 		led.fullColor('W');
  80079e0:	2157      	movs	r1, #87	; 0x57
@@ -16851,7 +16851,7 @@ void cppLoop(void)
  8007dd4:	4819      	ldr	r0, [pc, #100]	; (8007e3c <cppLoop+0x944>)
  8007dd6:	f7fa fad9 	bl	800238c <_ZN3LED2LREaa>
 			//HAL_Delay(3000);
-			//esc.on(0.35, 0.35, 0.35, 0.35);
+			//esc.on(BLCD_POWER, BLCD_POWER, BLDC_POWER, BLDC_POWER);
 			//HAL_Delay(1000);
 
 			// Record start
@@ -17175,12 +17175,12 @@ void cppLoop(void)
 			HAL_Delay(3000);
  8008088:	f640 30b8 	movw	r0, #3000	; 0xbb8
  800808c:	f001 fb40 	bl	8009710 <HAL_Delay>
-			esc.on(0.35, 0.35, 0.35, 0.35);
- 8008090:	eddf 1a49 	vldr	s3, [pc, #292]	; 80081b8 <cppLoop+0xcc0>
- 8008094:	ed9f 1a48 	vldr	s2, [pc, #288]	; 80081b8 <cppLoop+0xcc0>
- 8008098:	eddf 0a47 	vldr	s1, [pc, #284]	; 80081b8 <cppLoop+0xcc0>
- 800809c:	ed9f 0a46 	vldr	s0, [pc, #280]	; 80081b8 <cppLoop+0xcc0>
- 80080a0:	4846      	ldr	r0, [pc, #280]	; (80081bc <cppLoop+0xcc4>)
+			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
+ 8008090:	eef5 1a00 	vmov.f32	s3, #80	; 0x3e800000  0.250
+ 8008094:	eeb5 1a00 	vmov.f32	s2, #80	; 0x3e800000  0.250
+ 8008098:	eef5 0a00 	vmov.f32	s1, #80	; 0x3e800000  0.250
+ 800809c:	eeb5 0a00 	vmov.f32	s0, #80	; 0x3e800000  0.250
+ 80080a0:	4845      	ldr	r0, [pc, #276]	; (80081b8 <cppLoop+0xcc0>)
  80080a2:	f7f9 f8d5 	bl	8001250 <_ZN3ESC2onEffff>
 			HAL_Delay(1000);
  80080a6:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
@@ -17192,7 +17192,7 @@ void cppLoop(void)
 
 			// BLDC off
 			esc.off();
- 80080b4:	4841      	ldr	r0, [pc, #260]	; (80081bc <cppLoop+0xcc4>)
+ 80080b4:	4840      	ldr	r0, [pc, #256]	; (80081b8 <cppLoop+0xcc0>)
  80080b6:	f7f9 f965 	bl	8001384 <_ZN3ESC3offEv>
 
 			led.LR(0, -1);
@@ -17256,7 +17256,7 @@ void cppLoop(void)
  8008130:	2300      	movne	r3, #0
  8008132:	b2db      	uxtb	r3, r3
  8008134:	2b00      	cmp	r3, #0
- 8008136:	d045      	beq.n	80081c4 <cppLoop+0xccc>
+ 8008136:	d043      	beq.n	80081c0 <cppLoop+0xcc8>
 			led.LR(-1, 1);
  8008138:	2201      	movs	r2, #1
  800813a:	f04f 31ff 	mov.w	r1, #4294967295
@@ -17267,20 +17267,20 @@ void cppLoop(void)
  8008148:	f001 fae2 	bl	8009710 <HAL_Delay>
 
 			selector_vel++;
- 800814c:	4b1c      	ldr	r3, [pc, #112]	; (80081c0 <cppLoop+0xcc8>)
+ 800814c:	4b1b      	ldr	r3, [pc, #108]	; (80081bc <cppLoop+0xcc4>)
  800814e:	f9b3 3000 	ldrsh.w	r3, [r3]
  8008152:	b29b      	uxth	r3, r3
  8008154:	3301      	adds	r3, #1
  8008156:	b29b      	uxth	r3, r3
  8008158:	b21a      	sxth	r2, r3
- 800815a:	4b19      	ldr	r3, [pc, #100]	; (80081c0 <cppLoop+0xcc8>)
+ 800815a:	4b18      	ldr	r3, [pc, #96]	; (80081bc <cppLoop+0xcc4>)
  800815c:	801a      	strh	r2, [r3, #0]
 			if(selector_vel >= 2) selector_vel = 0;
- 800815e:	4b18      	ldr	r3, [pc, #96]	; (80081c0 <cppLoop+0xcc8>)
+ 800815e:	4b17      	ldr	r3, [pc, #92]	; (80081bc <cppLoop+0xcc4>)
  8008160:	f9b3 3000 	ldrsh.w	r3, [r3]
  8008164:	2b01      	cmp	r3, #1
  8008166:	dd02      	ble.n	800816e <cppLoop+0xc76>
- 8008168:	4b15      	ldr	r3, [pc, #84]	; (80081c0 <cppLoop+0xcc8>)
+ 8008168:	4b14      	ldr	r3, [pc, #80]	; (80081bc <cppLoop+0xcc4>)
  800816a:	2200      	movs	r2, #0
  800816c:	801a      	strh	r2, [r3, #0]
 
@@ -17311,302 +17311,302 @@ void cppLoop(void)
  80081ac:	08019884 	.word	0x08019884
  80081b0:	2004227c 	.word	0x2004227c
  80081b4:	0801983c 	.word	0x0801983c
- 80081b8:	3eb33333 	.word	0x3eb33333
- 80081bc:	2001db48 	.word	0x2001db48
- 80081c0:	20042230 	.word	0x20042230
+ 80081b8:	2001db48 	.word	0x2001db48
+ 80081bc:	20042230 	.word	0x20042230
 		else if(joy_stick.getValue() == JOY_R){
- 80081c4:	48a4      	ldr	r0, [pc, #656]	; (8008458 <cppLoop+0xf60>)
- 80081c6:	f7f9 ffc1 	bl	800214c <_ZN8JoyStick8getValueEv>
- 80081ca:	4603      	mov	r3, r0
- 80081cc:	2b10      	cmp	r3, #16
- 80081ce:	bf0c      	ite	eq
- 80081d0:	2301      	moveq	r3, #1
- 80081d2:	2300      	movne	r3, #0
- 80081d4:	b2db      	uxtb	r3, r3
- 80081d6:	2b00      	cmp	r3, #0
- 80081d8:	d03c      	beq.n	8008254 <cppLoop+0xd5c>
+ 80081c0:	48a5      	ldr	r0, [pc, #660]	; (8008458 <cppLoop+0xf60>)
+ 80081c2:	f7f9 ffc3 	bl	800214c <_ZN8JoyStick8getValueEv>
+ 80081c6:	4603      	mov	r3, r0
+ 80081c8:	2b10      	cmp	r3, #16
+ 80081ca:	bf0c      	ite	eq
+ 80081cc:	2301      	moveq	r3, #1
+ 80081ce:	2300      	movne	r3, #0
+ 80081d0:	b2db      	uxtb	r3, r3
+ 80081d2:	2b00      	cmp	r3, #0
+ 80081d4:	d03c      	beq.n	8008250 <cppLoop+0xd58>
 			led.LR(-1, 1);
- 80081da:	2201      	movs	r2, #1
- 80081dc:	f04f 31ff 	mov.w	r1, #4294967295
- 80081e0:	489e      	ldr	r0, [pc, #632]	; (800845c <cppLoop+0xf64>)
- 80081e2:	f7fa f8d3 	bl	800238c <_ZN3LED2LREaa>
+ 80081d6:	2201      	movs	r2, #1
+ 80081d8:	f04f 31ff 	mov.w	r1, #4294967295
+ 80081dc:	489f      	ldr	r0, [pc, #636]	; (800845c <cppLoop+0xf64>)
+ 80081de:	f7fa f8d5 	bl	800238c <_ZN3LED2LREaa>
 			HAL_Delay(100);
- 80081e6:	2064      	movs	r0, #100	; 0x64
- 80081e8:	f001 fa92 	bl	8009710 <HAL_Delay>
+ 80081e2:	2064      	movs	r0, #100	; 0x64
+ 80081e4:	f001 fa94 	bl	8009710 <HAL_Delay>
 			if(selector_vel == 0)
- 80081ec:	4b9c      	ldr	r3, [pc, #624]	; (8008460 <cppLoop+0xf68>)
- 80081ee:	f9b3 3000 	ldrsh.w	r3, [r3]
- 80081f2:	2b00      	cmp	r3, #0
- 80081f4:	d113      	bne.n	800821e <cppLoop+0xd26>
+ 80081e8:	4b9d      	ldr	r3, [pc, #628]	; (8008460 <cppLoop+0xf68>)
+ 80081ea:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 80081ee:	2b00      	cmp	r3, #0
+ 80081f0:	d113      	bne.n	800821a <cppLoop+0xd22>
 				adj_max_velocity = adj_max_velocity + 0.1;
- 80081f6:	4b9b      	ldr	r3, [pc, #620]	; (8008464 <cppLoop+0xf6c>)
- 80081f8:	681b      	ldr	r3, [r3, #0]
- 80081fa:	4618      	mov	r0, r3
- 80081fc:	f7f8 f9bc 	bl	8000578 <__aeabi_f2d>
- 8008200:	a393      	add	r3, pc, #588	; (adr r3, 8008450 <cppLoop+0xf58>)
- 8008202:	e9d3 2300 	ldrd	r2, r3, [r3]
- 8008206:	f7f8 f859 	bl	80002bc <__adddf3>
- 800820a:	4603      	mov	r3, r0
- 800820c:	460c      	mov	r4, r1
- 800820e:	4618      	mov	r0, r3
- 8008210:	4621      	mov	r1, r4
- 8008212:	f7f8 fd01 	bl	8000c18 <__aeabi_d2f>
- 8008216:	4602      	mov	r2, r0
- 8008218:	4b92      	ldr	r3, [pc, #584]	; (8008464 <cppLoop+0xf6c>)
- 800821a:	601a      	str	r2, [r3, #0]
- 800821c:	e012      	b.n	8008244 <cppLoop+0xd4c>
+ 80081f2:	4b9c      	ldr	r3, [pc, #624]	; (8008464 <cppLoop+0xf6c>)
+ 80081f4:	681b      	ldr	r3, [r3, #0]
+ 80081f6:	4618      	mov	r0, r3
+ 80081f8:	f7f8 f9be 	bl	8000578 <__aeabi_f2d>
+ 80081fc:	a394      	add	r3, pc, #592	; (adr r3, 8008450 <cppLoop+0xf58>)
+ 80081fe:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 8008202:	f7f8 f85b 	bl	80002bc <__adddf3>
+ 8008206:	4603      	mov	r3, r0
+ 8008208:	460c      	mov	r4, r1
+ 800820a:	4618      	mov	r0, r3
+ 800820c:	4621      	mov	r1, r4
+ 800820e:	f7f8 fd03 	bl	8000c18 <__aeabi_d2f>
+ 8008212:	4602      	mov	r2, r0
+ 8008214:	4b93      	ldr	r3, [pc, #588]	; (8008464 <cppLoop+0xf6c>)
+ 8008216:	601a      	str	r2, [r3, #0]
+ 8008218:	e012      	b.n	8008240 <cppLoop+0xd48>
 				adj_min_velocity = adj_min_velocity + 0.1;
- 800821e:	4b92      	ldr	r3, [pc, #584]	; (8008468 <cppLoop+0xf70>)
- 8008220:	681b      	ldr	r3, [r3, #0]
- 8008222:	4618      	mov	r0, r3
- 8008224:	f7f8 f9a8 	bl	8000578 <__aeabi_f2d>
- 8008228:	a389      	add	r3, pc, #548	; (adr r3, 8008450 <cppLoop+0xf58>)
- 800822a:	e9d3 2300 	ldrd	r2, r3, [r3]
- 800822e:	f7f8 f845 	bl	80002bc <__adddf3>
- 8008232:	4603      	mov	r3, r0
- 8008234:	460c      	mov	r4, r1
- 8008236:	4618      	mov	r0, r3
- 8008238:	4621      	mov	r1, r4
- 800823a:	f7f8 fced 	bl	8000c18 <__aeabi_d2f>
- 800823e:	4602      	mov	r2, r0
- 8008240:	4b89      	ldr	r3, [pc, #548]	; (8008468 <cppLoop+0xf70>)
- 8008242:	601a      	str	r2, [r3, #0]
+ 800821a:	4b93      	ldr	r3, [pc, #588]	; (8008468 <cppLoop+0xf70>)
+ 800821c:	681b      	ldr	r3, [r3, #0]
+ 800821e:	4618      	mov	r0, r3
+ 8008220:	f7f8 f9aa 	bl	8000578 <__aeabi_f2d>
+ 8008224:	a38a      	add	r3, pc, #552	; (adr r3, 8008450 <cppLoop+0xf58>)
+ 8008226:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 800822a:	f7f8 f847 	bl	80002bc <__adddf3>
+ 800822e:	4603      	mov	r3, r0
+ 8008230:	460c      	mov	r4, r1
+ 8008232:	4618      	mov	r0, r3
+ 8008234:	4621      	mov	r1, r4
+ 8008236:	f7f8 fcef 	bl	8000c18 <__aeabi_d2f>
+ 800823a:	4602      	mov	r2, r0
+ 800823c:	4b8a      	ldr	r3, [pc, #552]	; (8008468 <cppLoop+0xf70>)
+ 800823e:	601a      	str	r2, [r3, #0]
 			led.LR(-1, 0);
- 8008244:	2200      	movs	r2, #0
- 8008246:	f04f 31ff 	mov.w	r1, #4294967295
- 800824a:	4884      	ldr	r0, [pc, #528]	; (800845c <cppLoop+0xf64>)
- 800824c:	f7fa f89e 	bl	800238c <_ZN3LED2LREaa>
+ 8008240:	2200      	movs	r2, #0
+ 8008242:	f04f 31ff 	mov.w	r1, #4294967295
+ 8008246:	4885      	ldr	r0, [pc, #532]	; (800845c <cppLoop+0xf64>)
+ 8008248:	f7fa f8a0 	bl	800238c <_ZN3LED2LREaa>
 		break;
- 8008250:	f001 b91e 	b.w	8009490 <cppLoop+0x1f98>
+ 800824c:	f001 b920 	b.w	8009490 <cppLoop+0x1f98>
 		else if(joy_stick.getValue() == JOY_L){
- 8008254:	4880      	ldr	r0, [pc, #512]	; (8008458 <cppLoop+0xf60>)
- 8008256:	f7f9 ff79 	bl	800214c <_ZN8JoyStick8getValueEv>
- 800825a:	4603      	mov	r3, r0
- 800825c:	2b01      	cmp	r3, #1
- 800825e:	bf0c      	ite	eq
- 8008260:	2301      	moveq	r3, #1
- 8008262:	2300      	movne	r3, #0
- 8008264:	b2db      	uxtb	r3, r3
- 8008266:	2b00      	cmp	r3, #0
- 8008268:	d03c      	beq.n	80082e4 <cppLoop+0xdec>
+ 8008250:	4881      	ldr	r0, [pc, #516]	; (8008458 <cppLoop+0xf60>)
+ 8008252:	f7f9 ff7b 	bl	800214c <_ZN8JoyStick8getValueEv>
+ 8008256:	4603      	mov	r3, r0
+ 8008258:	2b01      	cmp	r3, #1
+ 800825a:	bf0c      	ite	eq
+ 800825c:	2301      	moveq	r3, #1
+ 800825e:	2300      	movne	r3, #0
+ 8008260:	b2db      	uxtb	r3, r3
+ 8008262:	2b00      	cmp	r3, #0
+ 8008264:	d03c      	beq.n	80082e0 <cppLoop+0xde8>
 			led.LR(-1, 1);
- 800826a:	2201      	movs	r2, #1
- 800826c:	f04f 31ff 	mov.w	r1, #4294967295
- 8008270:	487a      	ldr	r0, [pc, #488]	; (800845c <cppLoop+0xf64>)
- 8008272:	f7fa f88b 	bl	800238c <_ZN3LED2LREaa>
+ 8008266:	2201      	movs	r2, #1
+ 8008268:	f04f 31ff 	mov.w	r1, #4294967295
+ 800826c:	487b      	ldr	r0, [pc, #492]	; (800845c <cppLoop+0xf64>)
+ 800826e:	f7fa f88d 	bl	800238c <_ZN3LED2LREaa>
 			HAL_Delay(100);
- 8008276:	2064      	movs	r0, #100	; 0x64
- 8008278:	f001 fa4a 	bl	8009710 <HAL_Delay>
+ 8008272:	2064      	movs	r0, #100	; 0x64
+ 8008274:	f001 fa4c 	bl	8009710 <HAL_Delay>
 			if(selector_vel == 0)
- 800827c:	4b78      	ldr	r3, [pc, #480]	; (8008460 <cppLoop+0xf68>)
- 800827e:	f9b3 3000 	ldrsh.w	r3, [r3]
- 8008282:	2b00      	cmp	r3, #0
- 8008284:	d113      	bne.n	80082ae <cppLoop+0xdb6>
+ 8008278:	4b79      	ldr	r3, [pc, #484]	; (8008460 <cppLoop+0xf68>)
+ 800827a:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 800827e:	2b00      	cmp	r3, #0
+ 8008280:	d113      	bne.n	80082aa <cppLoop+0xdb2>
 				adj_max_velocity = adj_max_velocity - 0.1;
- 8008286:	4b77      	ldr	r3, [pc, #476]	; (8008464 <cppLoop+0xf6c>)
- 8008288:	681b      	ldr	r3, [r3, #0]
- 800828a:	4618      	mov	r0, r3
- 800828c:	f7f8 f974 	bl	8000578 <__aeabi_f2d>
- 8008290:	a36f      	add	r3, pc, #444	; (adr r3, 8008450 <cppLoop+0xf58>)
- 8008292:	e9d3 2300 	ldrd	r2, r3, [r3]
- 8008296:	f7f8 f80f 	bl	80002b8 <__aeabi_dsub>
- 800829a:	4603      	mov	r3, r0
- 800829c:	460c      	mov	r4, r1
- 800829e:	4618      	mov	r0, r3
- 80082a0:	4621      	mov	r1, r4
- 80082a2:	f7f8 fcb9 	bl	8000c18 <__aeabi_d2f>
- 80082a6:	4602      	mov	r2, r0
- 80082a8:	4b6e      	ldr	r3, [pc, #440]	; (8008464 <cppLoop+0xf6c>)
- 80082aa:	601a      	str	r2, [r3, #0]
- 80082ac:	e012      	b.n	80082d4 <cppLoop+0xddc>
+ 8008282:	4b78      	ldr	r3, [pc, #480]	; (8008464 <cppLoop+0xf6c>)
+ 8008284:	681b      	ldr	r3, [r3, #0]
+ 8008286:	4618      	mov	r0, r3
+ 8008288:	f7f8 f976 	bl	8000578 <__aeabi_f2d>
+ 800828c:	a370      	add	r3, pc, #448	; (adr r3, 8008450 <cppLoop+0xf58>)
+ 800828e:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 8008292:	f7f8 f811 	bl	80002b8 <__aeabi_dsub>
+ 8008296:	4603      	mov	r3, r0
+ 8008298:	460c      	mov	r4, r1
+ 800829a:	4618      	mov	r0, r3
+ 800829c:	4621      	mov	r1, r4
+ 800829e:	f7f8 fcbb 	bl	8000c18 <__aeabi_d2f>
+ 80082a2:	4602      	mov	r2, r0
+ 80082a4:	4b6f      	ldr	r3, [pc, #444]	; (8008464 <cppLoop+0xf6c>)
+ 80082a6:	601a      	str	r2, [r3, #0]
+ 80082a8:	e012      	b.n	80082d0 <cppLoop+0xdd8>
 				adj_min_velocity = adj_min_velocity - 0.1;
- 80082ae:	4b6e      	ldr	r3, [pc, #440]	; (8008468 <cppLoop+0xf70>)
- 80082b0:	681b      	ldr	r3, [r3, #0]
- 80082b2:	4618      	mov	r0, r3
- 80082b4:	f7f8 f960 	bl	8000578 <__aeabi_f2d>
- 80082b8:	a365      	add	r3, pc, #404	; (adr r3, 8008450 <cppLoop+0xf58>)
- 80082ba:	e9d3 2300 	ldrd	r2, r3, [r3]
- 80082be:	f7f7 fffb 	bl	80002b8 <__aeabi_dsub>
- 80082c2:	4603      	mov	r3, r0
- 80082c4:	460c      	mov	r4, r1
- 80082c6:	4618      	mov	r0, r3
- 80082c8:	4621      	mov	r1, r4
- 80082ca:	f7f8 fca5 	bl	8000c18 <__aeabi_d2f>
- 80082ce:	4602      	mov	r2, r0
- 80082d0:	4b65      	ldr	r3, [pc, #404]	; (8008468 <cppLoop+0xf70>)
- 80082d2:	601a      	str	r2, [r3, #0]
+ 80082aa:	4b6f      	ldr	r3, [pc, #444]	; (8008468 <cppLoop+0xf70>)
+ 80082ac:	681b      	ldr	r3, [r3, #0]
+ 80082ae:	4618      	mov	r0, r3
+ 80082b0:	f7f8 f962 	bl	8000578 <__aeabi_f2d>
+ 80082b4:	a366      	add	r3, pc, #408	; (adr r3, 8008450 <cppLoop+0xf58>)
+ 80082b6:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 80082ba:	f7f7 fffd 	bl	80002b8 <__aeabi_dsub>
+ 80082be:	4603      	mov	r3, r0
+ 80082c0:	460c      	mov	r4, r1
+ 80082c2:	4618      	mov	r0, r3
+ 80082c4:	4621      	mov	r1, r4
+ 80082c6:	f7f8 fca7 	bl	8000c18 <__aeabi_d2f>
+ 80082ca:	4602      	mov	r2, r0
+ 80082cc:	4b66      	ldr	r3, [pc, #408]	; (8008468 <cppLoop+0xf70>)
+ 80082ce:	601a      	str	r2, [r3, #0]
 			led.LR(-1, 0);
- 80082d4:	2200      	movs	r2, #0
- 80082d6:	f04f 31ff 	mov.w	r1, #4294967295
- 80082da:	4860      	ldr	r0, [pc, #384]	; (800845c <cppLoop+0xf64>)
- 80082dc:	f7fa f856 	bl	800238c <_ZN3LED2LREaa>
+ 80082d0:	2200      	movs	r2, #0
+ 80082d2:	f04f 31ff 	mov.w	r1, #4294967295
+ 80082d6:	4861      	ldr	r0, [pc, #388]	; (800845c <cppLoop+0xf64>)
+ 80082d8:	f7fa f858 	bl	800238c <_ZN3LED2LREaa>
 		break;
- 80082e0:	f001 b8d6 	b.w	8009490 <cppLoop+0x1f98>
+ 80082dc:	f001 b8d8 	b.w	8009490 <cppLoop+0x1f98>
 		else if(joy_stick.getValue() == JOY_C){
- 80082e4:	485c      	ldr	r0, [pc, #368]	; (8008458 <cppLoop+0xf60>)
- 80082e6:	f7f9 ff31 	bl	800214c <_ZN8JoyStick8getValueEv>
- 80082ea:	4603      	mov	r3, r0
- 80082ec:	2b02      	cmp	r3, #2
- 80082ee:	bf0c      	ite	eq
- 80082f0:	2301      	moveq	r3, #1
- 80082f2:	2300      	movne	r3, #0
- 80082f4:	b2db      	uxtb	r3, r3
- 80082f6:	2b00      	cmp	r3, #0
- 80082f8:	f001 80ca 	beq.w	8009490 <cppLoop+0x1f98>
+ 80082e0:	485d      	ldr	r0, [pc, #372]	; (8008458 <cppLoop+0xf60>)
+ 80082e2:	f7f9 ff33 	bl	800214c <_ZN8JoyStick8getValueEv>
+ 80082e6:	4603      	mov	r3, r0
+ 80082e8:	2b02      	cmp	r3, #2
+ 80082ea:	bf0c      	ite	eq
+ 80082ec:	2301      	moveq	r3, #1
+ 80082ee:	2300      	movne	r3, #0
+ 80082f0:	b2db      	uxtb	r3, r3
+ 80082f2:	2b00      	cmp	r3, #0
+ 80082f4:	f001 80cc 	beq.w	8009490 <cppLoop+0x1f98>
 			led.LR(-1, 1);
- 80082fc:	2201      	movs	r2, #1
- 80082fe:	f04f 31ff 	mov.w	r1, #4294967295
- 8008302:	4856      	ldr	r0, [pc, #344]	; (800845c <cppLoop+0xf64>)
- 8008304:	f7fa f842 	bl	800238c <_ZN3LED2LREaa>
+ 80082f8:	2201      	movs	r2, #1
+ 80082fa:	f04f 31ff 	mov.w	r1, #4294967295
+ 80082fe:	4857      	ldr	r0, [pc, #348]	; (800845c <cppLoop+0xf64>)
+ 8008300:	f7fa f844 	bl	800238c <_ZN3LED2LREaa>
 			HAL_Delay(300);
- 8008308:	f44f 7096 	mov.w	r0, #300	; 0x12c
- 800830c:	f001 fa00 	bl	8009710 <HAL_Delay>
+ 8008304:	f44f 7096 	mov.w	r0, #300	; 0x12c
+ 8008308:	f001 fa02 	bl	8009710 <HAL_Delay>
 			sd_write_array_float("PARAMS", "TARVEL2.TXT", 1, &adj_max_velocity, OVER_WRITE);
- 8008310:	2300      	movs	r3, #0
- 8008312:	9300      	str	r3, [sp, #0]
- 8008314:	4b53      	ldr	r3, [pc, #332]	; (8008464 <cppLoop+0xf6c>)
- 8008316:	2201      	movs	r2, #1
- 8008318:	4954      	ldr	r1, [pc, #336]	; (800846c <cppLoop+0xf74>)
- 800831a:	4855      	ldr	r0, [pc, #340]	; (8008470 <cppLoop+0xf78>)
- 800831c:	f7f9 fa90 	bl	8001840 <sd_write_array_float>
+ 800830c:	2300      	movs	r3, #0
+ 800830e:	9300      	str	r3, [sp, #0]
+ 8008310:	4b54      	ldr	r3, [pc, #336]	; (8008464 <cppLoop+0xf6c>)
+ 8008312:	2201      	movs	r2, #1
+ 8008314:	4955      	ldr	r1, [pc, #340]	; (800846c <cppLoop+0xf74>)
+ 8008316:	4856      	ldr	r0, [pc, #344]	; (8008470 <cppLoop+0xf78>)
+ 8008318:	f7f9 fa92 	bl	8001840 <sd_write_array_float>
 			sd_write_array_float("PARAMS", "MINVEL.TXT", 1, &adj_min_velocity, OVER_WRITE);
- 8008320:	2300      	movs	r3, #0
- 8008322:	9300      	str	r3, [sp, #0]
- 8008324:	4b50      	ldr	r3, [pc, #320]	; (8008468 <cppLoop+0xf70>)
- 8008326:	2201      	movs	r2, #1
- 8008328:	4952      	ldr	r1, [pc, #328]	; (8008474 <cppLoop+0xf7c>)
- 800832a:	4851      	ldr	r0, [pc, #324]	; (8008470 <cppLoop+0xf78>)
- 800832c:	f7f9 fa88 	bl	8001840 <sd_write_array_float>
+ 800831c:	2300      	movs	r3, #0
+ 800831e:	9300      	str	r3, [sp, #0]
+ 8008320:	4b51      	ldr	r3, [pc, #324]	; (8008468 <cppLoop+0xf70>)
+ 8008322:	2201      	movs	r2, #1
+ 8008324:	4953      	ldr	r1, [pc, #332]	; (8008474 <cppLoop+0xf7c>)
+ 8008326:	4852      	ldr	r0, [pc, #328]	; (8008470 <cppLoop+0xf78>)
+ 8008328:	f7f9 fa8a 	bl	8001840 <sd_write_array_float>
 			line_trace.setMaxVelocity(adj_max_velocity);
- 8008330:	4b4c      	ldr	r3, [pc, #304]	; (8008464 <cppLoop+0xf6c>)
- 8008332:	edd3 7a00 	vldr	s15, [r3]
- 8008336:	eeb0 0a67 	vmov.f32	s0, s15
- 800833a:	484f      	ldr	r0, [pc, #316]	; (8008478 <cppLoop+0xf80>)
- 800833c:	f7fb faad 	bl	800389a <_ZN9LineTrace14setMaxVelocityEf>
+ 800832c:	4b4d      	ldr	r3, [pc, #308]	; (8008464 <cppLoop+0xf6c>)
+ 800832e:	edd3 7a00 	vldr	s15, [r3]
+ 8008332:	eeb0 0a67 	vmov.f32	s0, s15
+ 8008336:	4850      	ldr	r0, [pc, #320]	; (8008478 <cppLoop+0xf80>)
+ 8008338:	f7fb faaf 	bl	800389a <_ZN9LineTrace14setMaxVelocityEf>
 			line_trace.setMinVelocity(adj_min_velocity);
- 8008340:	4b49      	ldr	r3, [pc, #292]	; (8008468 <cppLoop+0xf70>)
- 8008342:	edd3 7a00 	vldr	s15, [r3]
- 8008346:	eeb0 0a67 	vmov.f32	s0, s15
- 800834a:	484b      	ldr	r0, [pc, #300]	; (8008478 <cppLoop+0xf80>)
- 800834c:	f7fb fac5 	bl	80038da <_ZN9LineTrace14setMinVelocityEf>
+ 800833c:	4b4a      	ldr	r3, [pc, #296]	; (8008468 <cppLoop+0xf70>)
+ 800833e:	edd3 7a00 	vldr	s15, [r3]
+ 8008342:	eeb0 0a67 	vmov.f32	s0, s15
+ 8008346:	484c      	ldr	r0, [pc, #304]	; (8008478 <cppLoop+0xf80>)
+ 8008348:	f7fb fac7 	bl	80038da <_ZN9LineTrace14setMinVelocityEf>
 			led.LR(-1, 0);
- 8008350:	2200      	movs	r2, #0
- 8008352:	f04f 31ff 	mov.w	r1, #4294967295
- 8008356:	4841      	ldr	r0, [pc, #260]	; (800845c <cppLoop+0xf64>)
- 8008358:	f7fa f818 	bl	800238c <_ZN3LED2LREaa>
+ 800834c:	2200      	movs	r2, #0
+ 800834e:	f04f 31ff 	mov.w	r1, #4294967295
+ 8008352:	4842      	ldr	r0, [pc, #264]	; (800845c <cppLoop+0xf64>)
+ 8008354:	f7fa f81a 	bl	800238c <_ZN3LED2LREaa>
 		break;
- 800835c:	f001 b898 	b.w	8009490 <cppLoop+0x1f98>
+ 8008358:	f001 b89a 	b.w	8009490 <cppLoop+0x1f98>
 
 	case 5:
 		led.fullColor('M');
- 8008360:	214d      	movs	r1, #77	; 0x4d
- 8008362:	483e      	ldr	r0, [pc, #248]	; (800845c <cppLoop+0xf64>)
- 8008364:	f7f9 ff56 	bl	8002214 <_ZN3LED9fullColorEc>
+ 800835c:	214d      	movs	r1, #77	; 0x4d
+ 800835e:	483f      	ldr	r0, [pc, #252]	; (800845c <cppLoop+0xf64>)
+ 8008360:	f7f9 ff58 	bl	8002214 <_ZN3LED9fullColorEc>
 
 		lcd_clear();
- 8008368:	f7f8 fe9a 	bl	80010a0 <lcd_clear>
+ 8008364:	f7f8 fe9c 	bl	80010a0 <lcd_clear>
 		lcd_locate(0,0);
- 800836c:	2100      	movs	r1, #0
- 800836e:	2000      	movs	r0, #0
- 8008370:	f7f8 fea6 	bl	80010c0 <lcd_locate>
+ 8008368:	2100      	movs	r1, #0
+ 800836a:	2000      	movs	r0, #0
+ 800836c:	f7f8 fea8 	bl	80010c0 <lcd_locate>
 		lcd_printf("3:   %3.1f", adj_max_velocity2);
- 8008374:	4b41      	ldr	r3, [pc, #260]	; (800847c <cppLoop+0xf84>)
- 8008376:	681b      	ldr	r3, [r3, #0]
- 8008378:	4618      	mov	r0, r3
- 800837a:	f7f8 f8fd 	bl	8000578 <__aeabi_f2d>
- 800837e:	4603      	mov	r3, r0
- 8008380:	460c      	mov	r4, r1
- 8008382:	461a      	mov	r2, r3
- 8008384:	4623      	mov	r3, r4
- 8008386:	483e      	ldr	r0, [pc, #248]	; (8008480 <cppLoop+0xf88>)
- 8008388:	f7f8 fec4 	bl	8001114 <lcd_printf>
+ 8008370:	4b42      	ldr	r3, [pc, #264]	; (800847c <cppLoop+0xf84>)
+ 8008372:	681b      	ldr	r3, [r3, #0]
+ 8008374:	4618      	mov	r0, r3
+ 8008376:	f7f8 f8ff 	bl	8000578 <__aeabi_f2d>
+ 800837a:	4603      	mov	r3, r0
+ 800837c:	460c      	mov	r4, r1
+ 800837e:	461a      	mov	r2, r3
+ 8008380:	4623      	mov	r3, r4
+ 8008382:	483f      	ldr	r0, [pc, #252]	; (8008480 <cppLoop+0xf88>)
+ 8008384:	f7f8 fec6 	bl	8001114 <lcd_printf>
 		lcd_locate(0,1);
- 800838c:	2101      	movs	r1, #1
- 800838e:	2000      	movs	r0, #0
- 8008390:	f7f8 fe96 	bl	80010c0 <lcd_locate>
+ 8008388:	2101      	movs	r1, #1
+ 800838a:	2000      	movs	r0, #0
+ 800838c:	f7f8 fe98 	bl	80010c0 <lcd_locate>
 		lcd_printf("Start%3.1f", adj_min_velocity2);
- 8008394:	4b3b      	ldr	r3, [pc, #236]	; (8008484 <cppLoop+0xf8c>)
- 8008396:	681b      	ldr	r3, [r3, #0]
- 8008398:	4618      	mov	r0, r3
- 800839a:	f7f8 f8ed 	bl	8000578 <__aeabi_f2d>
- 800839e:	4603      	mov	r3, r0
- 80083a0:	460c      	mov	r4, r1
- 80083a2:	461a      	mov	r2, r3
- 80083a4:	4623      	mov	r3, r4
- 80083a6:	4838      	ldr	r0, [pc, #224]	; (8008488 <cppLoop+0xf90>)
- 80083a8:	f7f8 feb4 	bl	8001114 <lcd_printf>
+ 8008390:	4b3c      	ldr	r3, [pc, #240]	; (8008484 <cppLoop+0xf8c>)
+ 8008392:	681b      	ldr	r3, [r3, #0]
+ 8008394:	4618      	mov	r0, r3
+ 8008396:	f7f8 f8ef 	bl	8000578 <__aeabi_f2d>
+ 800839a:	4603      	mov	r3, r0
+ 800839c:	460c      	mov	r4, r1
+ 800839e:	461a      	mov	r2, r3
+ 80083a0:	4623      	mov	r3, r4
+ 80083a2:	4839      	ldr	r0, [pc, #228]	; (8008488 <cppLoop+0xf90>)
+ 80083a4:	f7f8 feb6 	bl	8001114 <lcd_printf>
 
 		if(joy_stick.getValue() == JOY_C){
- 80083ac:	482a      	ldr	r0, [pc, #168]	; (8008458 <cppLoop+0xf60>)
- 80083ae:	f7f9 fecd 	bl	800214c <_ZN8JoyStick8getValueEv>
- 80083b2:	4603      	mov	r3, r0
- 80083b4:	2b02      	cmp	r3, #2
- 80083b6:	bf0c      	ite	eq
- 80083b8:	2301      	moveq	r3, #1
- 80083ba:	2300      	movne	r3, #0
- 80083bc:	b2db      	uxtb	r3, r3
- 80083be:	2b00      	cmp	r3, #0
- 80083c0:	f001 8068 	beq.w	8009494 <cppLoop+0x1f9c>
+ 80083a8:	482b      	ldr	r0, [pc, #172]	; (8008458 <cppLoop+0xf60>)
+ 80083aa:	f7f9 fecf 	bl	800214c <_ZN8JoyStick8getValueEv>
+ 80083ae:	4603      	mov	r3, r0
+ 80083b0:	2b02      	cmp	r3, #2
+ 80083b2:	bf0c      	ite	eq
+ 80083b4:	2301      	moveq	r3, #1
+ 80083b6:	2300      	movne	r3, #0
+ 80083b8:	b2db      	uxtb	r3, r3
+ 80083ba:	2b00      	cmp	r3, #0
+ 80083bc:	f001 806a 	beq.w	8009494 <cppLoop+0x1f9c>
 			HAL_Delay(500);
- 80083c4:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
- 80083c8:	f001 f9a2 	bl	8009710 <HAL_Delay>
+ 80083c0:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
+ 80083c4:	f001 f9a4 	bl	8009710 <HAL_Delay>
 
 			led.LR(1, -1);
- 80083cc:	f04f 32ff 	mov.w	r2, #4294967295
- 80083d0:	2101      	movs	r1, #1
- 80083d2:	4822      	ldr	r0, [pc, #136]	; (800845c <cppLoop+0xf64>)
- 80083d4:	f7f9 ffda 	bl	800238c <_ZN3LED2LREaa>
+ 80083c8:	f04f 32ff 	mov.w	r2, #4294967295
+ 80083cc:	2101      	movs	r1, #1
+ 80083ce:	4823      	ldr	r0, [pc, #140]	; (800845c <cppLoop+0xf64>)
+ 80083d0:	f7f9 ffdc 	bl	800238c <_ZN3LED2LREaa>
 			line_trace.setGain(adj_kp, adj_ki, adj_kd);
- 80083d8:	4b2c      	ldr	r3, [pc, #176]	; (800848c <cppLoop+0xf94>)
- 80083da:	edd3 7a00 	vldr	s15, [r3]
- 80083de:	4b2c      	ldr	r3, [pc, #176]	; (8008490 <cppLoop+0xf98>)
- 80083e0:	ed93 7a00 	vldr	s14, [r3]
- 80083e4:	4b2b      	ldr	r3, [pc, #172]	; (8008494 <cppLoop+0xf9c>)
- 80083e6:	edd3 6a00 	vldr	s13, [r3]
- 80083ea:	eeb0 1a66 	vmov.f32	s2, s13
- 80083ee:	eef0 0a47 	vmov.f32	s1, s14
- 80083f2:	eeb0 0a67 	vmov.f32	s0, s15
- 80083f6:	4820      	ldr	r0, [pc, #128]	; (8008478 <cppLoop+0xf80>)
- 80083f8:	f7fb f9a4 	bl	8003744 <_ZN9LineTrace7setGainEfff>
+ 80083d4:	4b2d      	ldr	r3, [pc, #180]	; (800848c <cppLoop+0xf94>)
+ 80083d6:	edd3 7a00 	vldr	s15, [r3]
+ 80083da:	4b2d      	ldr	r3, [pc, #180]	; (8008490 <cppLoop+0xf98>)
+ 80083dc:	ed93 7a00 	vldr	s14, [r3]
+ 80083e0:	4b2c      	ldr	r3, [pc, #176]	; (8008494 <cppLoop+0xf9c>)
+ 80083e2:	edd3 6a00 	vldr	s13, [r3]
+ 80083e6:	eeb0 1a66 	vmov.f32	s2, s13
+ 80083ea:	eef0 0a47 	vmov.f32	s1, s14
+ 80083ee:	eeb0 0a67 	vmov.f32	s0, s15
+ 80083f2:	4821      	ldr	r0, [pc, #132]	; (8008478 <cppLoop+0xf80>)
+ 80083f4:	f7fb f9a6 	bl	8003744 <_ZN9LineTrace7setGainEfff>
 			line_trace.setMode(THIRD_RUNNING);
- 80083fc:	2102      	movs	r1, #2
- 80083fe:	481e      	ldr	r0, [pc, #120]	; (8008478 <cppLoop+0xf80>)
- 8008400:	f7fb fbe6 	bl	8003bd0 <_ZN9LineTrace7setModeEs>
+ 80083f8:	2102      	movs	r1, #2
+ 80083fa:	481f      	ldr	r0, [pc, #124]	; (8008478 <cppLoop+0xf80>)
+ 80083fc:	f7fb fbe8 	bl	8003bd0 <_ZN9LineTrace7setModeEs>
 			line_trace.setTargetVelocity(adj_min_velocity2);
- 8008404:	4b1f      	ldr	r3, [pc, #124]	; (8008484 <cppLoop+0xf8c>)
- 8008406:	edd3 7a00 	vldr	s15, [r3]
- 800840a:	eeb0 0a67 	vmov.f32	s0, s15
- 800840e:	481a      	ldr	r0, [pc, #104]	; (8008478 <cppLoop+0xf80>)
- 8008410:	f7fb fa33 	bl	800387a <_ZN9LineTrace17setTargetVelocityEf>
+ 8008400:	4b20      	ldr	r3, [pc, #128]	; (8008484 <cppLoop+0xf8c>)
+ 8008402:	edd3 7a00 	vldr	s15, [r3]
+ 8008406:	eeb0 0a67 	vmov.f32	s0, s15
+ 800840a:	481b      	ldr	r0, [pc, #108]	; (8008478 <cppLoop+0xf80>)
+ 800840c:	f7fb fa35 	bl	800387a <_ZN9LineTrace17setTargetVelocityEf>
 			line_trace.setMaxVelocity2(adj_max_velocity2);
- 8008414:	4b19      	ldr	r3, [pc, #100]	; (800847c <cppLoop+0xf84>)
- 8008416:	edd3 7a00 	vldr	s15, [r3]
- 800841a:	eeb0 0a67 	vmov.f32	s0, s15
- 800841e:	4816      	ldr	r0, [pc, #88]	; (8008478 <cppLoop+0xf80>)
- 8008420:	f7fb fa4b 	bl	80038ba <_ZN9LineTrace15setMaxVelocity2Ef>
+ 8008410:	4b1a      	ldr	r3, [pc, #104]	; (800847c <cppLoop+0xf84>)
+ 8008412:	edd3 7a00 	vldr	s15, [r3]
+ 8008416:	eeb0 0a67 	vmov.f32	s0, s15
+ 800841a:	4817      	ldr	r0, [pc, #92]	; (8008478 <cppLoop+0xf80>)
+ 800841c:	f7fb fa4d 	bl	80038ba <_ZN9LineTrace15setMaxVelocity2Ef>
 			line_trace.setMinVelocity2(adj_min_velocity2);
- 8008424:	4b17      	ldr	r3, [pc, #92]	; (8008484 <cppLoop+0xf8c>)
- 8008426:	edd3 7a00 	vldr	s15, [r3]
- 800842a:	eeb0 0a67 	vmov.f32	s0, s15
- 800842e:	4812      	ldr	r0, [pc, #72]	; (8008478 <cppLoop+0xf80>)
- 8008430:	f7fb fa63 	bl	80038fa <_ZN9LineTrace15setMinVelocity2Ef>
+ 8008420:	4b18      	ldr	r3, [pc, #96]	; (8008484 <cppLoop+0xf8c>)
+ 8008422:	edd3 7a00 	vldr	s15, [r3]
+ 8008426:	eeb0 0a67 	vmov.f32	s0, s15
+ 800842a:	4813      	ldr	r0, [pc, #76]	; (8008478 <cppLoop+0xf80>)
+ 800842c:	f7fb fa65 	bl	80038fa <_ZN9LineTrace15setMinVelocity2Ef>
 			line_trace.createVelocityTabele();
- 8008434:	4810      	ldr	r0, [pc, #64]	; (8008478 <cppLoop+0xf80>)
- 8008436:	f7fb fcf3 	bl	8003e20 <_ZN9LineTrace20createVelocityTabeleEv>
+ 8008430:	4811      	ldr	r0, [pc, #68]	; (8008478 <cppLoop+0xf80>)
+ 8008432:	f7fb fcf5 	bl	8003e20 <_ZN9LineTrace20createVelocityTabeleEv>
 
 			line_trace.running();
- 800843a:	480f      	ldr	r0, [pc, #60]	; (8008478 <cppLoop+0xf80>)
- 800843c:	f7fb fc06 	bl	8003c4c <_ZN9LineTrace7runningEv>
+ 8008436:	4810      	ldr	r0, [pc, #64]	; (8008478 <cppLoop+0xf80>)
+ 8008438:	f7fb fc08 	bl	8003c4c <_ZN9LineTrace7runningEv>
 
 			led.LR(0, -1);
- 8008440:	f04f 32ff 	mov.w	r2, #4294967295
- 8008444:	2100      	movs	r1, #0
- 8008446:	4805      	ldr	r0, [pc, #20]	; (800845c <cppLoop+0xf64>)
- 8008448:	f7f9 ffa0 	bl	800238c <_ZN3LED2LREaa>
+ 800843c:	f04f 32ff 	mov.w	r2, #4294967295
+ 8008440:	2100      	movs	r1, #0
+ 8008442:	4806      	ldr	r0, [pc, #24]	; (800845c <cppLoop+0xf64>)
+ 8008444:	f7f9 ffa2 	bl	800238c <_ZN3LED2LREaa>
 		}
 
 		break;
- 800844c:	f001 b822 	b.w	8009494 <cppLoop+0x1f9c>
+ 8008448:	f001 b824 	b.w	8009494 <cppLoop+0x1f9c>
+ 800844c:	f3af 8000 	nop.w
  8008450:	9999999a 	.word	0x9999999a
  8008454:	3fb99999 	.word	0x3fb99999
  8008458:	200005ac 	.word	0x200005ac
@@ -18716,18 +18716,18 @@ lcd_clear();
  8008df6:	48b1      	ldr	r0, [pc, #708]	; (80090bc <cppLoop+0x1bc4>)
  8008df8:	f7f9 fac8 	bl	800238c <_ZN3LED2LREaa>
 
-			esc.on(0.35, 0.35, 0.35, 0.35);
- 8008dfc:	eddf 1ab3 	vldr	s3, [pc, #716]	; 80090cc <cppLoop+0x1bd4>
- 8008e00:	ed9f 1ab2 	vldr	s2, [pc, #712]	; 80090cc <cppLoop+0x1bd4>
- 8008e04:	eddf 0ab1 	vldr	s1, [pc, #708]	; 80090cc <cppLoop+0x1bd4>
- 8008e08:	ed9f 0ab0 	vldr	s0, [pc, #704]	; 80090cc <cppLoop+0x1bd4>
- 8008e0c:	48b0      	ldr	r0, [pc, #704]	; (80090d0 <cppLoop+0x1bd8>)
+			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
+ 8008dfc:	eef5 1a00 	vmov.f32	s3, #80	; 0x3e800000  0.250
+ 8008e00:	eeb5 1a00 	vmov.f32	s2, #80	; 0x3e800000  0.250
+ 8008e04:	eef5 0a00 	vmov.f32	s1, #80	; 0x3e800000  0.250
+ 8008e08:	eeb5 0a00 	vmov.f32	s0, #80	; 0x3e800000  0.250
+ 8008e0c:	48af      	ldr	r0, [pc, #700]	; (80090cc <cppLoop+0x1bd4>)
  8008e0e:	f7f8 fa1f 	bl	8001250 <_ZN3ESC2onEffff>
 			HAL_Delay(3000);
  8008e12:	f640 30b8 	movw	r0, #3000	; 0xbb8
  8008e16:	f000 fc7b 	bl	8009710 <HAL_Delay>
 			esc.off();
- 8008e1a:	48ad      	ldr	r0, [pc, #692]	; (80090d0 <cppLoop+0x1bd8>)
+ 8008e1a:	48ac      	ldr	r0, [pc, #688]	; (80090cc <cppLoop+0x1bd4>)
  8008e1c:	f7f8 fab2 	bl	8001384 <_ZN3ESC3offEv>
 
 			led.LR(-1, 0);
@@ -18756,14 +18756,14 @@ lcd_clear();
  8008e3c:	2000      	movs	r0, #0
  8008e3e:	f7f8 f93f 	bl	80010c0 <lcd_locate>
 		lcd_printf("PID");
- 8008e42:	48a4      	ldr	r0, [pc, #656]	; (80090d4 <cppLoop+0x1bdc>)
+ 8008e42:	48a3      	ldr	r0, [pc, #652]	; (80090d0 <cppLoop+0x1bd8>)
  8008e44:	f7f8 f966 	bl	8001114 <lcd_printf>
 		lcd_locate(0,1);
  8008e48:	2101      	movs	r1, #1
  8008e4a:	2000      	movs	r0, #0
  8008e4c:	f7f8 f938 	bl	80010c0 <lcd_locate>
 		lcd_printf("Response");
- 8008e50:	48a1      	ldr	r0, [pc, #644]	; (80090d8 <cppLoop+0x1be0>)
+ 8008e50:	48a0      	ldr	r0, [pc, #640]	; (80090d4 <cppLoop+0x1bdc>)
  8008e52:	f7f8 f95f 	bl	8001114 <lcd_printf>
 
 		if(joy_stick.getValue() == JOY_C){
@@ -18789,27 +18789,27 @@ lcd_clear();
 			HAL_Delay(3000);
  8008e82:	f640 30b8 	movw	r0, #3000	; 0xbb8
  8008e86:	f000 fc43 	bl	8009710 <HAL_Delay>
-			esc.on(0.35, 0.35, 0.35, 0.35);
- 8008e8a:	eddf 1a90 	vldr	s3, [pc, #576]	; 80090cc <cppLoop+0x1bd4>
- 8008e8e:	ed9f 1a8f 	vldr	s2, [pc, #572]	; 80090cc <cppLoop+0x1bd4>
- 8008e92:	eddf 0a8e 	vldr	s1, [pc, #568]	; 80090cc <cppLoop+0x1bd4>
- 8008e96:	ed9f 0a8d 	vldr	s0, [pc, #564]	; 80090cc <cppLoop+0x1bd4>
- 8008e9a:	488d      	ldr	r0, [pc, #564]	; (80090d0 <cppLoop+0x1bd8>)
+			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
+ 8008e8a:	eef5 1a00 	vmov.f32	s3, #80	; 0x3e800000  0.250
+ 8008e8e:	eeb5 1a00 	vmov.f32	s2, #80	; 0x3e800000  0.250
+ 8008e92:	eef5 0a00 	vmov.f32	s1, #80	; 0x3e800000  0.250
+ 8008e96:	eeb5 0a00 	vmov.f32	s0, #80	; 0x3e800000  0.250
+ 8008e9a:	488c      	ldr	r0, [pc, #560]	; (80090cc <cppLoop+0x1bd4>)
  8008e9c:	f7f8 f9d8 	bl	8001250 <_ZN3ESC2onEffff>
 			HAL_Delay(1000);
  8008ea0:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8008ea4:	f000 fc34 	bl	8009710 <HAL_Delay>
 
 			logger.start();
- 8008ea8:	488c      	ldr	r0, [pc, #560]	; (80090dc <cppLoop+0x1be4>)
+ 8008ea8:	488b      	ldr	r0, [pc, #556]	; (80090d8 <cppLoop+0x1be0>)
  8008eaa:	f7fb fb86 	bl	80045ba <_ZN6Logger5startEv>
 			velocity_ctrl.start();
- 8008eae:	488c      	ldr	r0, [pc, #560]	; (80090e0 <cppLoop+0x1be8>)
+ 8008eae:	488b      	ldr	r0, [pc, #556]	; (80090dc <cppLoop+0x1be4>)
  8008eb0:	f7fc fc9f 	bl	80057f2 <_ZN12VelocityCtrl5startEv>
 			velocity_ctrl.setVelocity(1, 0);
- 8008eb4:	eddf 0a8b 	vldr	s1, [pc, #556]	; 80090e4 <cppLoop+0x1bec>
+ 8008eb4:	eddf 0a8a 	vldr	s1, [pc, #552]	; 80090e0 <cppLoop+0x1be8>
  8008eb8:	eeb7 0a00 	vmov.f32	s0, #112	; 0x3f800000  1.0
- 8008ebc:	4888      	ldr	r0, [pc, #544]	; (80090e0 <cppLoop+0x1be8>)
+ 8008ebc:	4887      	ldr	r0, [pc, #540]	; (80090dc <cppLoop+0x1be4>)
  8008ebe:	f7fc fc2b 	bl	8005718 <_ZN12VelocityCtrl11setVelocityEff>
 
 			HAL_Delay(1000);
@@ -18817,19 +18817,19 @@ lcd_clear();
  8008ec6:	f000 fc23 	bl	8009710 <HAL_Delay>
 
 			logger.stop();
- 8008eca:	4884      	ldr	r0, [pc, #528]	; (80090dc <cppLoop+0x1be4>)
+ 8008eca:	4883      	ldr	r0, [pc, #524]	; (80090d8 <cppLoop+0x1be0>)
  8008ecc:	f7fb fb85 	bl	80045da <_ZN6Logger4stopEv>
 			velocity_ctrl.stop();
- 8008ed0:	4883      	ldr	r0, [pc, #524]	; (80090e0 <cppLoop+0x1be8>)
+ 8008ed0:	4882      	ldr	r0, [pc, #520]	; (80090dc <cppLoop+0x1be4>)
  8008ed2:	f7fc fca1 	bl	8005818 <_ZN12VelocityCtrl4stopEv>
 			esc.off();
- 8008ed6:	487e      	ldr	r0, [pc, #504]	; (80090d0 <cppLoop+0x1bd8>)
+ 8008ed6:	487d      	ldr	r0, [pc, #500]	; (80090cc <cppLoop+0x1bd4>)
  8008ed8:	f7f8 fa54 	bl	8001384 <_ZN3ESC3offEv>
 
 			logger.saveLogs("SYSIDENT", "PIDRES.txt");
- 8008edc:	4a82      	ldr	r2, [pc, #520]	; (80090e8 <cppLoop+0x1bf0>)
- 8008ede:	4983      	ldr	r1, [pc, #524]	; (80090ec <cppLoop+0x1bf4>)
- 8008ee0:	487e      	ldr	r0, [pc, #504]	; (80090dc <cppLoop+0x1be4>)
+ 8008edc:	4a81      	ldr	r2, [pc, #516]	; (80090e4 <cppLoop+0x1bec>)
+ 8008ede:	4982      	ldr	r1, [pc, #520]	; (80090e8 <cppLoop+0x1bf0>)
+ 8008ee0:	487d      	ldr	r0, [pc, #500]	; (80090d8 <cppLoop+0x1be0>)
  8008ee2:	f7fb fa61 	bl	80043a8 <_ZN6Logger8saveLogsEPKcS1_>
 
 			led.LR(-1, 0);
@@ -18855,14 +18855,14 @@ lcd_clear();
  8008f02:	2000      	movs	r0, #0
  8008f04:	f7f8 f8dc 	bl	80010c0 <lcd_locate>
 		lcd_printf("LogRun2    ");
- 8008f08:	4879      	ldr	r0, [pc, #484]	; (80090f0 <cppLoop+0x1bf8>)
+ 8008f08:	4878      	ldr	r0, [pc, #480]	; (80090ec <cppLoop+0x1bf4>)
  8008f0a:	f7f8 f903 	bl	8001114 <lcd_printf>
 		lcd_locate(0,1);
  8008f0e:	2101      	movs	r1, #1
  8008f10:	2000      	movs	r0, #0
  8008f12:	f7f8 f8d5 	bl	80010c0 <lcd_locate>
 		lcd_printf("Start%3.1f", adj_max_velocity2);
- 8008f16:	4b77      	ldr	r3, [pc, #476]	; (80090f4 <cppLoop+0x1bfc>)
+ 8008f16:	4b76      	ldr	r3, [pc, #472]	; (80090f0 <cppLoop+0x1bf8>)
  8008f18:	681b      	ldr	r3, [r3, #0]
  8008f1a:	4618      	mov	r0, r3
  8008f1c:	f7f7 fb2c 	bl	8000578 <__aeabi_f2d>
@@ -18870,7 +18870,7 @@ lcd_clear();
  8008f22:	460c      	mov	r4, r1
  8008f24:	461a      	mov	r2, r3
  8008f26:	4623      	mov	r3, r4
- 8008f28:	4873      	ldr	r0, [pc, #460]	; (80090f8 <cppLoop+0x1c00>)
+ 8008f28:	4872      	ldr	r0, [pc, #456]	; (80090f4 <cppLoop+0x1bfc>)
  8008f2a:	f7f8 f8f3 	bl	8001114 <lcd_printf>
 
 		if(joy_stick.getValue() == JOY_C){
@@ -18895,50 +18895,50 @@ lcd_clear();
  8008f56:	f7f9 fa19 	bl	800238c <_ZN3LED2LREaa>
 			line_trace.setMode(THIRD_RUNNING);
  8008f5a:	2102      	movs	r1, #2
- 8008f5c:	4867      	ldr	r0, [pc, #412]	; (80090fc <cppLoop+0x1c04>)
+ 8008f5c:	4866      	ldr	r0, [pc, #408]	; (80090f8 <cppLoop+0x1c00>)
  8008f5e:	f7fa fe37 	bl	8003bd0 <_ZN9LineTrace7setModeEs>
 			line_trace.setTargetVelocity(adj_min_velocity2);
- 8008f62:	4b67      	ldr	r3, [pc, #412]	; (8009100 <cppLoop+0x1c08>)
+ 8008f62:	4b66      	ldr	r3, [pc, #408]	; (80090fc <cppLoop+0x1c04>)
  8008f64:	edd3 7a00 	vldr	s15, [r3]
  8008f68:	eeb0 0a67 	vmov.f32	s0, s15
- 8008f6c:	4863      	ldr	r0, [pc, #396]	; (80090fc <cppLoop+0x1c04>)
+ 8008f6c:	4862      	ldr	r0, [pc, #392]	; (80090f8 <cppLoop+0x1c00>)
  8008f6e:	f7fa fc84 	bl	800387a <_ZN9LineTrace17setTargetVelocityEf>
 			line_trace.setMaxVelocity(adj_max_velocity2);
- 8008f72:	4b60      	ldr	r3, [pc, #384]	; (80090f4 <cppLoop+0x1bfc>)
+ 8008f72:	4b5f      	ldr	r3, [pc, #380]	; (80090f0 <cppLoop+0x1bf8>)
  8008f74:	edd3 7a00 	vldr	s15, [r3]
  8008f78:	eeb0 0a67 	vmov.f32	s0, s15
- 8008f7c:	485f      	ldr	r0, [pc, #380]	; (80090fc <cppLoop+0x1c04>)
+ 8008f7c:	485e      	ldr	r0, [pc, #376]	; (80090f8 <cppLoop+0x1c00>)
  8008f7e:	f7fa fc8c 	bl	800389a <_ZN9LineTrace14setMaxVelocityEf>
 			line_trace.setMinVelocity(adj_max_velocity2);
- 8008f82:	4b5c      	ldr	r3, [pc, #368]	; (80090f4 <cppLoop+0x1bfc>)
+ 8008f82:	4b5b      	ldr	r3, [pc, #364]	; (80090f0 <cppLoop+0x1bf8>)
  8008f84:	edd3 7a00 	vldr	s15, [r3]
  8008f88:	eeb0 0a67 	vmov.f32	s0, s15
- 8008f8c:	485b      	ldr	r0, [pc, #364]	; (80090fc <cppLoop+0x1c04>)
+ 8008f8c:	485a      	ldr	r0, [pc, #360]	; (80090f8 <cppLoop+0x1c00>)
  8008f8e:	f7fa fca4 	bl	80038da <_ZN9LineTrace14setMinVelocityEf>
 			line_trace.createVelocityTabeleFromSD();
- 8008f92:	485a      	ldr	r0, [pc, #360]	; (80090fc <cppLoop+0x1c04>)
+ 8008f92:	4859      	ldr	r0, [pc, #356]	; (80090f8 <cppLoop+0x1c00>)
  8008f94:	f7fb f812 	bl	8003fbc <_ZN9LineTrace26createVelocityTabeleFromSDEv>
 
 			HAL_Delay(3000);
  8008f98:	f640 30b8 	movw	r0, #3000	; 0xbb8
  8008f9c:	f000 fbb8 	bl	8009710 <HAL_Delay>
-			esc.on(0.35, 0.35, 0.35, 0.35);
- 8008fa0:	eddf 1a4a 	vldr	s3, [pc, #296]	; 80090cc <cppLoop+0x1bd4>
- 8008fa4:	ed9f 1a49 	vldr	s2, [pc, #292]	; 80090cc <cppLoop+0x1bd4>
- 8008fa8:	eddf 0a48 	vldr	s1, [pc, #288]	; 80090cc <cppLoop+0x1bd4>
- 8008fac:	ed9f 0a47 	vldr	s0, [pc, #284]	; 80090cc <cppLoop+0x1bd4>
- 8008fb0:	4847      	ldr	r0, [pc, #284]	; (80090d0 <cppLoop+0x1bd8>)
+			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
+ 8008fa0:	eef5 1a00 	vmov.f32	s3, #80	; 0x3e800000  0.250
+ 8008fa4:	eeb5 1a00 	vmov.f32	s2, #80	; 0x3e800000  0.250
+ 8008fa8:	eef5 0a00 	vmov.f32	s1, #80	; 0x3e800000  0.250
+ 8008fac:	eeb5 0a00 	vmov.f32	s0, #80	; 0x3e800000  0.250
+ 8008fb0:	4846      	ldr	r0, [pc, #280]	; (80090cc <cppLoop+0x1bd4>)
  8008fb2:	f7f8 f94d 	bl	8001250 <_ZN3ESC2onEffff>
 			HAL_Delay(1000);
  8008fb6:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8008fba:	f000 fba9 	bl	8009710 <HAL_Delay>
 
 			line_trace.running();
- 8008fbe:	484f      	ldr	r0, [pc, #316]	; (80090fc <cppLoop+0x1c04>)
+ 8008fbe:	484e      	ldr	r0, [pc, #312]	; (80090f8 <cppLoop+0x1c00>)
  8008fc0:	f7fa fe44 	bl	8003c4c <_ZN9LineTrace7runningEv>
 
 			esc.off();
- 8008fc4:	4842      	ldr	r0, [pc, #264]	; (80090d0 <cppLoop+0x1bd8>)
+ 8008fc4:	4841      	ldr	r0, [pc, #260]	; (80090cc <cppLoop+0x1bd4>)
  8008fc6:	f7f8 f9dd 	bl	8001384 <_ZN3ESC3offEv>
 
 			led.LR(0, -1);
@@ -18967,14 +18967,14 @@ lcd_clear();
  8008fe6:	2000      	movs	r0, #0
  8008fe8:	f7f8 f86a 	bl	80010c0 <lcd_locate>
 		lcd_printf("LogRun1    ");
- 8008fec:	4845      	ldr	r0, [pc, #276]	; (8009104 <cppLoop+0x1c0c>)
+ 8008fec:	4844      	ldr	r0, [pc, #272]	; (8009100 <cppLoop+0x1c08>)
  8008fee:	f7f8 f891 	bl	8001114 <lcd_printf>
 		lcd_locate(0,1);
  8008ff2:	2101      	movs	r1, #1
  8008ff4:	2000      	movs	r0, #0
  8008ff6:	f7f8 f863 	bl	80010c0 <lcd_locate>
 		lcd_printf("Start%3.1f", adj_max_velocity);
- 8008ffa:	4b43      	ldr	r3, [pc, #268]	; (8009108 <cppLoop+0x1c10>)
+ 8008ffa:	4b42      	ldr	r3, [pc, #264]	; (8009104 <cppLoop+0x1c0c>)
  8008ffc:	681b      	ldr	r3, [r3, #0]
  8008ffe:	4618      	mov	r0, r3
  8009000:	f7f7 faba 	bl	8000578 <__aeabi_f2d>
@@ -18982,7 +18982,7 @@ lcd_clear();
  8009006:	460c      	mov	r4, r1
  8009008:	461a      	mov	r2, r3
  800900a:	4623      	mov	r3, r4
- 800900c:	483a      	ldr	r0, [pc, #232]	; (80090f8 <cppLoop+0x1c00>)
+ 800900c:	4839      	ldr	r0, [pc, #228]	; (80090f4 <cppLoop+0x1bfc>)
  800900e:	f7f8 f881 	bl	8001114 <lcd_printf>
 
 		if(joy_stick.getValue() == JOY_C){
@@ -19007,50 +19007,50 @@ lcd_clear();
  800903a:	f7f9 f9a7 	bl	800238c <_ZN3LED2LREaa>
 			line_trace.setMode(SECOND_RUNNING);
  800903e:	2101      	movs	r1, #1
- 8009040:	482e      	ldr	r0, [pc, #184]	; (80090fc <cppLoop+0x1c04>)
+ 8009040:	482d      	ldr	r0, [pc, #180]	; (80090f8 <cppLoop+0x1c00>)
  8009042:	f7fa fdc5 	bl	8003bd0 <_ZN9LineTrace7setModeEs>
 			line_trace.setTargetVelocity(adj_min_velocity);
- 8009046:	4b31      	ldr	r3, [pc, #196]	; (800910c <cppLoop+0x1c14>)
+ 8009046:	4b30      	ldr	r3, [pc, #192]	; (8009108 <cppLoop+0x1c10>)
  8009048:	edd3 7a00 	vldr	s15, [r3]
  800904c:	eeb0 0a67 	vmov.f32	s0, s15
- 8009050:	482a      	ldr	r0, [pc, #168]	; (80090fc <cppLoop+0x1c04>)
+ 8009050:	4829      	ldr	r0, [pc, #164]	; (80090f8 <cppLoop+0x1c00>)
  8009052:	f7fa fc12 	bl	800387a <_ZN9LineTrace17setTargetVelocityEf>
 			line_trace.setMaxVelocity(adj_max_velocity);
- 8009056:	4b2c      	ldr	r3, [pc, #176]	; (8009108 <cppLoop+0x1c10>)
+ 8009056:	4b2b      	ldr	r3, [pc, #172]	; (8009104 <cppLoop+0x1c0c>)
  8009058:	edd3 7a00 	vldr	s15, [r3]
  800905c:	eeb0 0a67 	vmov.f32	s0, s15
- 8009060:	4826      	ldr	r0, [pc, #152]	; (80090fc <cppLoop+0x1c04>)
+ 8009060:	4825      	ldr	r0, [pc, #148]	; (80090f8 <cppLoop+0x1c00>)
  8009062:	f7fa fc1a 	bl	800389a <_ZN9LineTrace14setMaxVelocityEf>
 			line_trace.setMinVelocity(adj_min_velocity);
- 8009066:	4b29      	ldr	r3, [pc, #164]	; (800910c <cppLoop+0x1c14>)
+ 8009066:	4b28      	ldr	r3, [pc, #160]	; (8009108 <cppLoop+0x1c10>)
  8009068:	edd3 7a00 	vldr	s15, [r3]
  800906c:	eeb0 0a67 	vmov.f32	s0, s15
- 8009070:	4822      	ldr	r0, [pc, #136]	; (80090fc <cppLoop+0x1c04>)
+ 8009070:	4821      	ldr	r0, [pc, #132]	; (80090f8 <cppLoop+0x1c00>)
  8009072:	f7fa fc32 	bl	80038da <_ZN9LineTrace14setMinVelocityEf>
 			line_trace.createVelocityTabeleFromSD();
- 8009076:	4821      	ldr	r0, [pc, #132]	; (80090fc <cppLoop+0x1c04>)
+ 8009076:	4820      	ldr	r0, [pc, #128]	; (80090f8 <cppLoop+0x1c00>)
  8009078:	f7fa ffa0 	bl	8003fbc <_ZN9LineTrace26createVelocityTabeleFromSDEv>
 
 			HAL_Delay(3000);
  800907c:	f640 30b8 	movw	r0, #3000	; 0xbb8
  8009080:	f000 fb46 	bl	8009710 <HAL_Delay>
-			esc.on(0.35, 0.35, 0.35, 0.35);
- 8009084:	eddf 1a11 	vldr	s3, [pc, #68]	; 80090cc <cppLoop+0x1bd4>
- 8009088:	ed9f 1a10 	vldr	s2, [pc, #64]	; 80090cc <cppLoop+0x1bd4>
- 800908c:	eddf 0a0f 	vldr	s1, [pc, #60]	; 80090cc <cppLoop+0x1bd4>
- 8009090:	ed9f 0a0e 	vldr	s0, [pc, #56]	; 80090cc <cppLoop+0x1bd4>
- 8009094:	480e      	ldr	r0, [pc, #56]	; (80090d0 <cppLoop+0x1bd8>)
+			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
+ 8009084:	eef5 1a00 	vmov.f32	s3, #80	; 0x3e800000  0.250
+ 8009088:	eeb5 1a00 	vmov.f32	s2, #80	; 0x3e800000  0.250
+ 800908c:	eef5 0a00 	vmov.f32	s1, #80	; 0x3e800000  0.250
+ 8009090:	eeb5 0a00 	vmov.f32	s0, #80	; 0x3e800000  0.250
+ 8009094:	480d      	ldr	r0, [pc, #52]	; (80090cc <cppLoop+0x1bd4>)
  8009096:	f7f8 f8db 	bl	8001250 <_ZN3ESC2onEffff>
 			HAL_Delay(1000);
  800909a:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  800909e:	f000 fb37 	bl	8009710 <HAL_Delay>
 
 			line_trace.running();
- 80090a2:	4816      	ldr	r0, [pc, #88]	; (80090fc <cppLoop+0x1c04>)
+ 80090a2:	4815      	ldr	r0, [pc, #84]	; (80090f8 <cppLoop+0x1c00>)
  80090a4:	f7fa fdd2 	bl	8003c4c <_ZN9LineTrace7runningEv>
 
 			esc.off();
- 80090a8:	4809      	ldr	r0, [pc, #36]	; (80090d0 <cppLoop+0x1bd8>)
+ 80090a8:	4808      	ldr	r0, [pc, #32]	; (80090cc <cppLoop+0x1bd4>)
  80090aa:	f7f8 f96b 	bl	8001384 <_ZN3ESC3offEv>
 
 			led.LR(0, -1);
@@ -19066,319 +19066,319 @@ lcd_clear();
  80090c0:	08019964 	.word	0x08019964
  80090c4:	08019968 	.word	0x08019968
  80090c8:	200005ac 	.word	0x200005ac
- 80090cc:	3eb33333 	.word	0x3eb33333
- 80090d0:	2001db48 	.word	0x2001db48
- 80090d4:	08019970 	.word	0x08019970
- 80090d8:	08019974 	.word	0x08019974
- 80090dc:	200005dc 	.word	0x200005dc
- 80090e0:	2001dac8 	.word	0x2001dac8
- 80090e4:	00000000 	.word	0x00000000
- 80090e8:	08019980 	.word	0x08019980
- 80090ec:	0801998c 	.word	0x0801998c
- 80090f0:	08019998 	.word	0x08019998
- 80090f4:	20042274 	.word	0x20042274
- 80090f8:	0801983c 	.word	0x0801983c
- 80090fc:	2001db4c 	.word	0x2001db4c
- 8009100:	20042284 	.word	0x20042284
- 8009104:	080199a4 	.word	0x080199a4
- 8009108:	2004226c 	.word	0x2004226c
- 800910c:	2004227c 	.word	0x2004227c
+ 80090cc:	2001db48 	.word	0x2001db48
+ 80090d0:	08019970 	.word	0x08019970
+ 80090d4:	08019974 	.word	0x08019974
+ 80090d8:	200005dc 	.word	0x200005dc
+ 80090dc:	2001dac8 	.word	0x2001dac8
+ 80090e0:	00000000 	.word	0x00000000
+ 80090e4:	08019980 	.word	0x08019980
+ 80090e8:	0801998c 	.word	0x0801998c
+ 80090ec:	08019998 	.word	0x08019998
+ 80090f0:	20042274 	.word	0x20042274
+ 80090f4:	0801983c 	.word	0x0801983c
+ 80090f8:	2001db4c 	.word	0x2001db4c
+ 80090fc:	20042284 	.word	0x20042284
+ 8009100:	080199a4 	.word	0x080199a4
+ 8009104:	2004226c 	.word	0x2004226c
+ 8009108:	2004227c 	.word	0x2004227c
 
 	case 15:
 		led.fullColor('W');
- 8009110:	2157      	movs	r1, #87	; 0x57
- 8009112:	48ab      	ldr	r0, [pc, #684]	; (80093c0 <cppLoop+0x1ec8>)
- 8009114:	f7f9 f87e 	bl	8002214 <_ZN3LED9fullColorEc>
+ 800910c:	2157      	movs	r1, #87	; 0x57
+ 800910e:	48ac      	ldr	r0, [pc, #688]	; (80093c0 <cppLoop+0x1ec8>)
+ 8009110:	f7f9 f880 	bl	8002214 <_ZN3LED9fullColorEc>
 
 		lcd_clear();
- 8009118:	f7f7 ffc2 	bl	80010a0 <lcd_clear>
+ 8009114:	f7f7 ffc4 	bl	80010a0 <lcd_clear>
 		lcd_locate(0,0);
- 800911c:	2100      	movs	r1, #0
- 800911e:	2000      	movs	r0, #0
- 8009120:	f7f7 ffce 	bl	80010c0 <lcd_locate>
+ 8009118:	2100      	movs	r1, #0
+ 800911a:	2000      	movs	r0, #0
+ 800911c:	f7f7 ffd0 	bl	80010c0 <lcd_locate>
 		lcd_printf("Fast%4.2lf", abs(line_trace.getKp()*1000));
- 8009124:	48a7      	ldr	r0, [pc, #668]	; (80093c4 <cppLoop+0x1ecc>)
- 8009126:	f7fa fb26 	bl	8003776 <_ZN9LineTrace5getKpEv>
- 800912a:	eeb0 7a40 	vmov.f32	s14, s0
- 800912e:	eddf 7aa6 	vldr	s15, [pc, #664]	; 80093c8 <cppLoop+0x1ed0>
- 8009132:	ee67 7a27 	vmul.f32	s15, s14, s15
- 8009136:	eeb0 0a67 	vmov.f32	s0, s15
- 800913a:	f7f9 fc97 	bl	8002a6c <_ZSt3absf>
- 800913e:	ee10 3a10 	vmov	r3, s0
- 8009142:	4618      	mov	r0, r3
- 8009144:	f7f7 fa18 	bl	8000578 <__aeabi_f2d>
- 8009148:	4603      	mov	r3, r0
- 800914a:	460c      	mov	r4, r1
- 800914c:	461a      	mov	r2, r3
- 800914e:	4623      	mov	r3, r4
- 8009150:	489e      	ldr	r0, [pc, #632]	; (80093cc <cppLoop+0x1ed4>)
- 8009152:	f7f7 ffdf 	bl	8001114 <lcd_printf>
+ 8009120:	48a8      	ldr	r0, [pc, #672]	; (80093c4 <cppLoop+0x1ecc>)
+ 8009122:	f7fa fb28 	bl	8003776 <_ZN9LineTrace5getKpEv>
+ 8009126:	eeb0 7a40 	vmov.f32	s14, s0
+ 800912a:	eddf 7aa7 	vldr	s15, [pc, #668]	; 80093c8 <cppLoop+0x1ed0>
+ 800912e:	ee67 7a27 	vmul.f32	s15, s14, s15
+ 8009132:	eeb0 0a67 	vmov.f32	s0, s15
+ 8009136:	f7f9 fc99 	bl	8002a6c <_ZSt3absf>
+ 800913a:	ee10 3a10 	vmov	r3, s0
+ 800913e:	4618      	mov	r0, r3
+ 8009140:	f7f7 fa1a 	bl	8000578 <__aeabi_f2d>
+ 8009144:	4603      	mov	r3, r0
+ 8009146:	460c      	mov	r4, r1
+ 8009148:	461a      	mov	r2, r3
+ 800914a:	4623      	mov	r3, r4
+ 800914c:	489f      	ldr	r0, [pc, #636]	; (80093cc <cppLoop+0x1ed4>)
+ 800914e:	f7f7 ffe1 	bl	8001114 <lcd_printf>
 		lcd_locate(0,1);
- 8009156:	2101      	movs	r1, #1
- 8009158:	2000      	movs	r0, #0
- 800915a:	f7f7 ffb1 	bl	80010c0 <lcd_locate>
+ 8009152:	2101      	movs	r1, #1
+ 8009154:	2000      	movs	r0, #0
+ 8009156:	f7f7 ffb3 	bl	80010c0 <lcd_locate>
 		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKi()*100), abs(line_trace.getKd()*10000));
- 800915e:	4899      	ldr	r0, [pc, #612]	; (80093c4 <cppLoop+0x1ecc>)
- 8009160:	f7fa fb18 	bl	8003794 <_ZN9LineTrace5getKiEv>
- 8009164:	eeb0 7a40 	vmov.f32	s14, s0
- 8009168:	eddf 7a99 	vldr	s15, [pc, #612]	; 80093d0 <cppLoop+0x1ed8>
- 800916c:	ee67 7a27 	vmul.f32	s15, s14, s15
- 8009170:	eeb0 0a67 	vmov.f32	s0, s15
- 8009174:	f7f9 fc7a 	bl	8002a6c <_ZSt3absf>
- 8009178:	ee10 3a10 	vmov	r3, s0
- 800917c:	4618      	mov	r0, r3
- 800917e:	f7f7 f9fb 	bl	8000578 <__aeabi_f2d>
- 8009182:	4605      	mov	r5, r0
- 8009184:	460e      	mov	r6, r1
- 8009186:	488f      	ldr	r0, [pc, #572]	; (80093c4 <cppLoop+0x1ecc>)
- 8009188:	f7fa fb13 	bl	80037b2 <_ZN9LineTrace5getKdEv>
- 800918c:	eeb0 7a40 	vmov.f32	s14, s0
- 8009190:	eddf 7a90 	vldr	s15, [pc, #576]	; 80093d4 <cppLoop+0x1edc>
- 8009194:	ee67 7a27 	vmul.f32	s15, s14, s15
- 8009198:	eeb0 0a67 	vmov.f32	s0, s15
- 800919c:	f7f9 fc66 	bl	8002a6c <_ZSt3absf>
- 80091a0:	ee10 3a10 	vmov	r3, s0
- 80091a4:	4618      	mov	r0, r3
- 80091a6:	f7f7 f9e7 	bl	8000578 <__aeabi_f2d>
- 80091aa:	4603      	mov	r3, r0
- 80091ac:	460c      	mov	r4, r1
- 80091ae:	e9cd 3400 	strd	r3, r4, [sp]
- 80091b2:	462a      	mov	r2, r5
- 80091b4:	4633      	mov	r3, r6
- 80091b6:	4888      	ldr	r0, [pc, #544]	; (80093d8 <cppLoop+0x1ee0>)
- 80091b8:	f7f7 ffac 	bl	8001114 <lcd_printf>
+ 800915a:	489a      	ldr	r0, [pc, #616]	; (80093c4 <cppLoop+0x1ecc>)
+ 800915c:	f7fa fb1a 	bl	8003794 <_ZN9LineTrace5getKiEv>
+ 8009160:	eeb0 7a40 	vmov.f32	s14, s0
+ 8009164:	eddf 7a9a 	vldr	s15, [pc, #616]	; 80093d0 <cppLoop+0x1ed8>
+ 8009168:	ee67 7a27 	vmul.f32	s15, s14, s15
+ 800916c:	eeb0 0a67 	vmov.f32	s0, s15
+ 8009170:	f7f9 fc7c 	bl	8002a6c <_ZSt3absf>
+ 8009174:	ee10 3a10 	vmov	r3, s0
+ 8009178:	4618      	mov	r0, r3
+ 800917a:	f7f7 f9fd 	bl	8000578 <__aeabi_f2d>
+ 800917e:	4605      	mov	r5, r0
+ 8009180:	460e      	mov	r6, r1
+ 8009182:	4890      	ldr	r0, [pc, #576]	; (80093c4 <cppLoop+0x1ecc>)
+ 8009184:	f7fa fb15 	bl	80037b2 <_ZN9LineTrace5getKdEv>
+ 8009188:	eeb0 7a40 	vmov.f32	s14, s0
+ 800918c:	eddf 7a91 	vldr	s15, [pc, #580]	; 80093d4 <cppLoop+0x1edc>
+ 8009190:	ee67 7a27 	vmul.f32	s15, s14, s15
+ 8009194:	eeb0 0a67 	vmov.f32	s0, s15
+ 8009198:	f7f9 fc68 	bl	8002a6c <_ZSt3absf>
+ 800919c:	ee10 3a10 	vmov	r3, s0
+ 80091a0:	4618      	mov	r0, r3
+ 80091a2:	f7f7 f9e9 	bl	8000578 <__aeabi_f2d>
+ 80091a6:	4603      	mov	r3, r0
+ 80091a8:	460c      	mov	r4, r1
+ 80091aa:	e9cd 3400 	strd	r3, r4, [sp]
+ 80091ae:	462a      	mov	r2, r5
+ 80091b0:	4633      	mov	r3, r6
+ 80091b2:	4889      	ldr	r0, [pc, #548]	; (80093d8 <cppLoop+0x1ee0>)
+ 80091b4:	f7f7 ffae 	bl	8001114 <lcd_printf>
 
 		if(joy_stick.getValue() == JOY_U){
- 80091bc:	4887      	ldr	r0, [pc, #540]	; (80093dc <cppLoop+0x1ee4>)
- 80091be:	f7f8 ffc5 	bl	800214c <_ZN8JoyStick8getValueEv>
- 80091c2:	4603      	mov	r3, r0
- 80091c4:	2b08      	cmp	r3, #8
- 80091c6:	bf0c      	ite	eq
- 80091c8:	2301      	moveq	r3, #1
- 80091ca:	2300      	movne	r3, #0
- 80091cc:	b2db      	uxtb	r3, r3
- 80091ce:	2b00      	cmp	r3, #0
- 80091d0:	d021      	beq.n	8009216 <cppLoop+0x1d1e>
+ 80091b8:	4888      	ldr	r0, [pc, #544]	; (80093dc <cppLoop+0x1ee4>)
+ 80091ba:	f7f8 ffc7 	bl	800214c <_ZN8JoyStick8getValueEv>
+ 80091be:	4603      	mov	r3, r0
+ 80091c0:	2b08      	cmp	r3, #8
+ 80091c2:	bf0c      	ite	eq
+ 80091c4:	2301      	moveq	r3, #1
+ 80091c6:	2300      	movne	r3, #0
+ 80091c8:	b2db      	uxtb	r3, r3
+ 80091ca:	2b00      	cmp	r3, #0
+ 80091cc:	d021      	beq.n	8009212 <cppLoop+0x1d1a>
 			led.LR(-1, 1);
- 80091d2:	2201      	movs	r2, #1
- 80091d4:	f04f 31ff 	mov.w	r1, #4294967295
- 80091d8:	4879      	ldr	r0, [pc, #484]	; (80093c0 <cppLoop+0x1ec8>)
- 80091da:	f7f9 f8d7 	bl	800238c <_ZN3LED2LREaa>
+ 80091ce:	2201      	movs	r2, #1
+ 80091d0:	f04f 31ff 	mov.w	r1, #4294967295
+ 80091d4:	487a      	ldr	r0, [pc, #488]	; (80093c0 <cppLoop+0x1ec8>)
+ 80091d6:	f7f9 f8d9 	bl	800238c <_ZN3LED2LREaa>
 			HAL_Delay(300);
- 80091de:	f44f 7096 	mov.w	r0, #300	; 0x12c
- 80091e2:	f000 fa95 	bl	8009710 <HAL_Delay>
+ 80091da:	f44f 7096 	mov.w	r0, #300	; 0x12c
+ 80091de:	f000 fa97 	bl	8009710 <HAL_Delay>
 
 			selector++;
- 80091e6:	4b7e      	ldr	r3, [pc, #504]	; (80093e0 <cppLoop+0x1ee8>)
- 80091e8:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 80091e2:	4b7f      	ldr	r3, [pc, #508]	; (80093e0 <cppLoop+0x1ee8>)
+ 80091e4:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 80091e8:	b29b      	uxth	r3, r3
+ 80091ea:	3301      	adds	r3, #1
  80091ec:	b29b      	uxth	r3, r3
- 80091ee:	3301      	adds	r3, #1
- 80091f0:	b29b      	uxth	r3, r3
- 80091f2:	b21a      	sxth	r2, r3
- 80091f4:	4b7a      	ldr	r3, [pc, #488]	; (80093e0 <cppLoop+0x1ee8>)
- 80091f6:	801a      	strh	r2, [r3, #0]
+ 80091ee:	b21a      	sxth	r2, r3
+ 80091f0:	4b7b      	ldr	r3, [pc, #492]	; (80093e0 <cppLoop+0x1ee8>)
+ 80091f2:	801a      	strh	r2, [r3, #0]
 			if(selector >= 3) selector = 0;
- 80091f8:	4b79      	ldr	r3, [pc, #484]	; (80093e0 <cppLoop+0x1ee8>)
- 80091fa:	f9b3 3000 	ldrsh.w	r3, [r3]
- 80091fe:	2b02      	cmp	r3, #2
- 8009200:	dd02      	ble.n	8009208 <cppLoop+0x1d10>
- 8009202:	4b77      	ldr	r3, [pc, #476]	; (80093e0 <cppLoop+0x1ee8>)
- 8009204:	2200      	movs	r2, #0
- 8009206:	801a      	strh	r2, [r3, #0]
+ 80091f4:	4b7a      	ldr	r3, [pc, #488]	; (80093e0 <cppLoop+0x1ee8>)
+ 80091f6:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 80091fa:	2b02      	cmp	r3, #2
+ 80091fc:	dd02      	ble.n	8009204 <cppLoop+0x1d0c>
+ 80091fe:	4b78      	ldr	r3, [pc, #480]	; (80093e0 <cppLoop+0x1ee8>)
+ 8009200:	2200      	movs	r2, #0
+ 8009202:	801a      	strh	r2, [r3, #0]
 
 			led.LR(-1, 0);
- 8009208:	2200      	movs	r2, #0
- 800920a:	f04f 31ff 	mov.w	r1, #4294967295
- 800920e:	486c      	ldr	r0, [pc, #432]	; (80093c0 <cppLoop+0x1ec8>)
- 8009210:	f7f9 f8bc 	bl	800238c <_ZN3LED2LREaa>
+ 8009204:	2200      	movs	r2, #0
+ 8009206:	f04f 31ff 	mov.w	r1, #4294967295
+ 800920a:	486d      	ldr	r0, [pc, #436]	; (80093c0 <cppLoop+0x1ec8>)
+ 800920c:	f7f9 f8be 	bl	800238c <_ZN3LED2LREaa>
 			sd_write_array_float("PARAMS", "KD.TXT", 1, &adj_kd, OVER_WRITE);
 			line_trace.setGain(adj_kp, adj_ki, adj_kd);
 
 			led.LR(-1, 0);
 		}
 		break;
- 8009214:	e152      	b.n	80094bc <cppLoop+0x1fc4>
+ 8009210:	e154      	b.n	80094bc <cppLoop+0x1fc4>
 		else if(joy_stick.getValue() == JOY_R){
- 8009216:	4871      	ldr	r0, [pc, #452]	; (80093dc <cppLoop+0x1ee4>)
- 8009218:	f7f8 ff98 	bl	800214c <_ZN8JoyStick8getValueEv>
- 800921c:	4603      	mov	r3, r0
- 800921e:	2b10      	cmp	r3, #16
- 8009220:	bf0c      	ite	eq
- 8009222:	2301      	moveq	r3, #1
- 8009224:	2300      	movne	r3, #0
- 8009226:	b2db      	uxtb	r3, r3
- 8009228:	2b00      	cmp	r3, #0
- 800922a:	d058      	beq.n	80092de <cppLoop+0x1de6>
+ 8009212:	4872      	ldr	r0, [pc, #456]	; (80093dc <cppLoop+0x1ee4>)
+ 8009214:	f7f8 ff9a 	bl	800214c <_ZN8JoyStick8getValueEv>
+ 8009218:	4603      	mov	r3, r0
+ 800921a:	2b10      	cmp	r3, #16
+ 800921c:	bf0c      	ite	eq
+ 800921e:	2301      	moveq	r3, #1
+ 8009220:	2300      	movne	r3, #0
+ 8009222:	b2db      	uxtb	r3, r3
+ 8009224:	2b00      	cmp	r3, #0
+ 8009226:	d058      	beq.n	80092da <cppLoop+0x1de2>
 			led.LR(-1, 1);
- 800922c:	2201      	movs	r2, #1
- 800922e:	f04f 31ff 	mov.w	r1, #4294967295
- 8009232:	4863      	ldr	r0, [pc, #396]	; (80093c0 <cppLoop+0x1ec8>)
- 8009234:	f7f9 f8aa 	bl	800238c <_ZN3LED2LREaa>
+ 8009228:	2201      	movs	r2, #1
+ 800922a:	f04f 31ff 	mov.w	r1, #4294967295
+ 800922e:	4864      	ldr	r0, [pc, #400]	; (80093c0 <cppLoop+0x1ec8>)
+ 8009230:	f7f9 f8ac 	bl	800238c <_ZN3LED2LREaa>
 			HAL_Delay(100);
- 8009238:	2064      	movs	r0, #100	; 0x64
- 800923a:	f000 fa69 	bl	8009710 <HAL_Delay>
+ 8009234:	2064      	movs	r0, #100	; 0x64
+ 8009236:	f000 fa6b 	bl	8009710 <HAL_Delay>
 			if(selector == 0){
- 800923e:	4b68      	ldr	r3, [pc, #416]	; (80093e0 <cppLoop+0x1ee8>)
- 8009240:	f9b3 3000 	ldrsh.w	r3, [r3]
- 8009244:	2b00      	cmp	r3, #0
- 8009246:	d113      	bne.n	8009270 <cppLoop+0x1d78>
+ 800923a:	4b69      	ldr	r3, [pc, #420]	; (80093e0 <cppLoop+0x1ee8>)
+ 800923c:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 8009240:	2b00      	cmp	r3, #0
+ 8009242:	d113      	bne.n	800926c <cppLoop+0x1d74>
 				adj_kp = adj_kp + 0.00001;
- 8009248:	4b66      	ldr	r3, [pc, #408]	; (80093e4 <cppLoop+0x1eec>)
- 800924a:	681b      	ldr	r3, [r3, #0]
- 800924c:	4618      	mov	r0, r3
- 800924e:	f7f7 f993 	bl	8000578 <__aeabi_f2d>
- 8009252:	a355      	add	r3, pc, #340	; (adr r3, 80093a8 <cppLoop+0x1eb0>)
- 8009254:	e9d3 2300 	ldrd	r2, r3, [r3]
- 8009258:	f7f7 f830 	bl	80002bc <__adddf3>
- 800925c:	4603      	mov	r3, r0
- 800925e:	460c      	mov	r4, r1
- 8009260:	4618      	mov	r0, r3
- 8009262:	4621      	mov	r1, r4
- 8009264:	f7f7 fcd8 	bl	8000c18 <__aeabi_d2f>
- 8009268:	4602      	mov	r2, r0
- 800926a:	4b5e      	ldr	r3, [pc, #376]	; (80093e4 <cppLoop+0x1eec>)
- 800926c:	601a      	str	r2, [r3, #0]
- 800926e:	e02b      	b.n	80092c8 <cppLoop+0x1dd0>
+ 8009244:	4b67      	ldr	r3, [pc, #412]	; (80093e4 <cppLoop+0x1eec>)
+ 8009246:	681b      	ldr	r3, [r3, #0]
+ 8009248:	4618      	mov	r0, r3
+ 800924a:	f7f7 f995 	bl	8000578 <__aeabi_f2d>
+ 800924e:	a356      	add	r3, pc, #344	; (adr r3, 80093a8 <cppLoop+0x1eb0>)
+ 8009250:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 8009254:	f7f7 f832 	bl	80002bc <__adddf3>
+ 8009258:	4603      	mov	r3, r0
+ 800925a:	460c      	mov	r4, r1
+ 800925c:	4618      	mov	r0, r3
+ 800925e:	4621      	mov	r1, r4
+ 8009260:	f7f7 fcda 	bl	8000c18 <__aeabi_d2f>
+ 8009264:	4602      	mov	r2, r0
+ 8009266:	4b5f      	ldr	r3, [pc, #380]	; (80093e4 <cppLoop+0x1eec>)
+ 8009268:	601a      	str	r2, [r3, #0]
+ 800926a:	e02b      	b.n	80092c4 <cppLoop+0x1dcc>
 			else if(selector == 1){
- 8009270:	4b5b      	ldr	r3, [pc, #364]	; (80093e0 <cppLoop+0x1ee8>)
- 8009272:	f9b3 3000 	ldrsh.w	r3, [r3]
- 8009276:	2b01      	cmp	r3, #1
- 8009278:	d113      	bne.n	80092a2 <cppLoop+0x1daa>
+ 800926c:	4b5c      	ldr	r3, [pc, #368]	; (80093e0 <cppLoop+0x1ee8>)
+ 800926e:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 8009272:	2b01      	cmp	r3, #1
+ 8009274:	d113      	bne.n	800929e <cppLoop+0x1da6>
 				adj_ki = adj_ki + 0.0001;
- 800927a:	4b5b      	ldr	r3, [pc, #364]	; (80093e8 <cppLoop+0x1ef0>)
- 800927c:	681b      	ldr	r3, [r3, #0]
- 800927e:	4618      	mov	r0, r3
- 8009280:	f7f7 f97a 	bl	8000578 <__aeabi_f2d>
- 8009284:	a34a      	add	r3, pc, #296	; (adr r3, 80093b0 <cppLoop+0x1eb8>)
- 8009286:	e9d3 2300 	ldrd	r2, r3, [r3]
- 800928a:	f7f7 f817 	bl	80002bc <__adddf3>
- 800928e:	4603      	mov	r3, r0
- 8009290:	460c      	mov	r4, r1
- 8009292:	4618      	mov	r0, r3
- 8009294:	4621      	mov	r1, r4
- 8009296:	f7f7 fcbf 	bl	8000c18 <__aeabi_d2f>
- 800929a:	4602      	mov	r2, r0
- 800929c:	4b52      	ldr	r3, [pc, #328]	; (80093e8 <cppLoop+0x1ef0>)
- 800929e:	601a      	str	r2, [r3, #0]
- 80092a0:	e012      	b.n	80092c8 <cppLoop+0x1dd0>
+ 8009276:	4b5c      	ldr	r3, [pc, #368]	; (80093e8 <cppLoop+0x1ef0>)
+ 8009278:	681b      	ldr	r3, [r3, #0]
+ 800927a:	4618      	mov	r0, r3
+ 800927c:	f7f7 f97c 	bl	8000578 <__aeabi_f2d>
+ 8009280:	a34b      	add	r3, pc, #300	; (adr r3, 80093b0 <cppLoop+0x1eb8>)
+ 8009282:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 8009286:	f7f7 f819 	bl	80002bc <__adddf3>
+ 800928a:	4603      	mov	r3, r0
+ 800928c:	460c      	mov	r4, r1
+ 800928e:	4618      	mov	r0, r3
+ 8009290:	4621      	mov	r1, r4
+ 8009292:	f7f7 fcc1 	bl	8000c18 <__aeabi_d2f>
+ 8009296:	4602      	mov	r2, r0
+ 8009298:	4b53      	ldr	r3, [pc, #332]	; (80093e8 <cppLoop+0x1ef0>)
+ 800929a:	601a      	str	r2, [r3, #0]
+ 800929c:	e012      	b.n	80092c4 <cppLoop+0x1dcc>
 				adj_kd = adj_kd + 0.000001;
- 80092a2:	4b52      	ldr	r3, [pc, #328]	; (80093ec <cppLoop+0x1ef4>)
- 80092a4:	681b      	ldr	r3, [r3, #0]
- 80092a6:	4618      	mov	r0, r3
- 80092a8:	f7f7 f966 	bl	8000578 <__aeabi_f2d>
- 80092ac:	a342      	add	r3, pc, #264	; (adr r3, 80093b8 <cppLoop+0x1ec0>)
- 80092ae:	e9d3 2300 	ldrd	r2, r3, [r3]
- 80092b2:	f7f7 f803 	bl	80002bc <__adddf3>
- 80092b6:	4603      	mov	r3, r0
- 80092b8:	460c      	mov	r4, r1
- 80092ba:	4618      	mov	r0, r3
- 80092bc:	4621      	mov	r1, r4
- 80092be:	f7f7 fcab 	bl	8000c18 <__aeabi_d2f>
- 80092c2:	4602      	mov	r2, r0
- 80092c4:	4b49      	ldr	r3, [pc, #292]	; (80093ec <cppLoop+0x1ef4>)
- 80092c6:	601a      	str	r2, [r3, #0]
+ 800929e:	4b53      	ldr	r3, [pc, #332]	; (80093ec <cppLoop+0x1ef4>)
+ 80092a0:	681b      	ldr	r3, [r3, #0]
+ 80092a2:	4618      	mov	r0, r3
+ 80092a4:	f7f7 f968 	bl	8000578 <__aeabi_f2d>
+ 80092a8:	a343      	add	r3, pc, #268	; (adr r3, 80093b8 <cppLoop+0x1ec0>)
+ 80092aa:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 80092ae:	f7f7 f805 	bl	80002bc <__adddf3>
+ 80092b2:	4603      	mov	r3, r0
+ 80092b4:	460c      	mov	r4, r1
+ 80092b6:	4618      	mov	r0, r3
+ 80092b8:	4621      	mov	r1, r4
+ 80092ba:	f7f7 fcad 	bl	8000c18 <__aeabi_d2f>
+ 80092be:	4602      	mov	r2, r0
+ 80092c0:	4b4a      	ldr	r3, [pc, #296]	; (80093ec <cppLoop+0x1ef4>)
+ 80092c2:	601a      	str	r2, [r3, #0]
 			led.fullColor('R');
- 80092c8:	2152      	movs	r1, #82	; 0x52
- 80092ca:	483d      	ldr	r0, [pc, #244]	; (80093c0 <cppLoop+0x1ec8>)
- 80092cc:	f7f8 ffa2 	bl	8002214 <_ZN3LED9fullColorEc>
+ 80092c4:	2152      	movs	r1, #82	; 0x52
+ 80092c6:	483e      	ldr	r0, [pc, #248]	; (80093c0 <cppLoop+0x1ec8>)
+ 80092c8:	f7f8 ffa4 	bl	8002214 <_ZN3LED9fullColorEc>
 			led.LR(-1, 0);
- 80092d0:	2200      	movs	r2, #0
- 80092d2:	f04f 31ff 	mov.w	r1, #4294967295
- 80092d6:	483a      	ldr	r0, [pc, #232]	; (80093c0 <cppLoop+0x1ec8>)
- 80092d8:	f7f9 f858 	bl	800238c <_ZN3LED2LREaa>
+ 80092cc:	2200      	movs	r2, #0
+ 80092ce:	f04f 31ff 	mov.w	r1, #4294967295
+ 80092d2:	483b      	ldr	r0, [pc, #236]	; (80093c0 <cppLoop+0x1ec8>)
+ 80092d4:	f7f9 f85a 	bl	800238c <_ZN3LED2LREaa>
 		break;
- 80092dc:	e0ee      	b.n	80094bc <cppLoop+0x1fc4>
+ 80092d8:	e0f0      	b.n	80094bc <cppLoop+0x1fc4>
 		else if(joy_stick.getValue() == JOY_L){
- 80092de:	483f      	ldr	r0, [pc, #252]	; (80093dc <cppLoop+0x1ee4>)
- 80092e0:	f7f8 ff34 	bl	800214c <_ZN8JoyStick8getValueEv>
- 80092e4:	4603      	mov	r3, r0
- 80092e6:	2b01      	cmp	r3, #1
- 80092e8:	bf0c      	ite	eq
- 80092ea:	2301      	moveq	r3, #1
- 80092ec:	2300      	movne	r3, #0
- 80092ee:	b2db      	uxtb	r3, r3
- 80092f0:	2b00      	cmp	r3, #0
- 80092f2:	d07d      	beq.n	80093f0 <cppLoop+0x1ef8>
+ 80092da:	4840      	ldr	r0, [pc, #256]	; (80093dc <cppLoop+0x1ee4>)
+ 80092dc:	f7f8 ff36 	bl	800214c <_ZN8JoyStick8getValueEv>
+ 80092e0:	4603      	mov	r3, r0
+ 80092e2:	2b01      	cmp	r3, #1
+ 80092e4:	bf0c      	ite	eq
+ 80092e6:	2301      	moveq	r3, #1
+ 80092e8:	2300      	movne	r3, #0
+ 80092ea:	b2db      	uxtb	r3, r3
+ 80092ec:	2b00      	cmp	r3, #0
+ 80092ee:	d07f      	beq.n	80093f0 <cppLoop+0x1ef8>
 			led.LR(-1, 1);
- 80092f4:	2201      	movs	r2, #1
- 80092f6:	f04f 31ff 	mov.w	r1, #4294967295
- 80092fa:	4831      	ldr	r0, [pc, #196]	; (80093c0 <cppLoop+0x1ec8>)
- 80092fc:	f7f9 f846 	bl	800238c <_ZN3LED2LREaa>
+ 80092f0:	2201      	movs	r2, #1
+ 80092f2:	f04f 31ff 	mov.w	r1, #4294967295
+ 80092f6:	4832      	ldr	r0, [pc, #200]	; (80093c0 <cppLoop+0x1ec8>)
+ 80092f8:	f7f9 f848 	bl	800238c <_ZN3LED2LREaa>
 			HAL_Delay(100);
- 8009300:	2064      	movs	r0, #100	; 0x64
- 8009302:	f000 fa05 	bl	8009710 <HAL_Delay>
+ 80092fc:	2064      	movs	r0, #100	; 0x64
+ 80092fe:	f000 fa07 	bl	8009710 <HAL_Delay>
 			if(selector == 0){
- 8009306:	4b36      	ldr	r3, [pc, #216]	; (80093e0 <cppLoop+0x1ee8>)
- 8009308:	f9b3 3000 	ldrsh.w	r3, [r3]
- 800930c:	2b00      	cmp	r3, #0
- 800930e:	d113      	bne.n	8009338 <cppLoop+0x1e40>
+ 8009302:	4b37      	ldr	r3, [pc, #220]	; (80093e0 <cppLoop+0x1ee8>)
+ 8009304:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 8009308:	2b00      	cmp	r3, #0
+ 800930a:	d113      	bne.n	8009334 <cppLoop+0x1e3c>
 				adj_kp = adj_kp - 0.00001;
- 8009310:	4b34      	ldr	r3, [pc, #208]	; (80093e4 <cppLoop+0x1eec>)
- 8009312:	681b      	ldr	r3, [r3, #0]
- 8009314:	4618      	mov	r0, r3
- 8009316:	f7f7 f92f 	bl	8000578 <__aeabi_f2d>
- 800931a:	a323      	add	r3, pc, #140	; (adr r3, 80093a8 <cppLoop+0x1eb0>)
- 800931c:	e9d3 2300 	ldrd	r2, r3, [r3]
- 8009320:	f7f6 ffca 	bl	80002b8 <__aeabi_dsub>
- 8009324:	4603      	mov	r3, r0
- 8009326:	460c      	mov	r4, r1
- 8009328:	4618      	mov	r0, r3
- 800932a:	4621      	mov	r1, r4
- 800932c:	f7f7 fc74 	bl	8000c18 <__aeabi_d2f>
- 8009330:	4602      	mov	r2, r0
- 8009332:	4b2c      	ldr	r3, [pc, #176]	; (80093e4 <cppLoop+0x1eec>)
- 8009334:	601a      	str	r2, [r3, #0]
- 8009336:	e02b      	b.n	8009390 <cppLoop+0x1e98>
+ 800930c:	4b35      	ldr	r3, [pc, #212]	; (80093e4 <cppLoop+0x1eec>)
+ 800930e:	681b      	ldr	r3, [r3, #0]
+ 8009310:	4618      	mov	r0, r3
+ 8009312:	f7f7 f931 	bl	8000578 <__aeabi_f2d>
+ 8009316:	a324      	add	r3, pc, #144	; (adr r3, 80093a8 <cppLoop+0x1eb0>)
+ 8009318:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 800931c:	f7f6 ffcc 	bl	80002b8 <__aeabi_dsub>
+ 8009320:	4603      	mov	r3, r0
+ 8009322:	460c      	mov	r4, r1
+ 8009324:	4618      	mov	r0, r3
+ 8009326:	4621      	mov	r1, r4
+ 8009328:	f7f7 fc76 	bl	8000c18 <__aeabi_d2f>
+ 800932c:	4602      	mov	r2, r0
+ 800932e:	4b2d      	ldr	r3, [pc, #180]	; (80093e4 <cppLoop+0x1eec>)
+ 8009330:	601a      	str	r2, [r3, #0]
+ 8009332:	e02b      	b.n	800938c <cppLoop+0x1e94>
 			else if(selector == 1){
- 8009338:	4b29      	ldr	r3, [pc, #164]	; (80093e0 <cppLoop+0x1ee8>)
- 800933a:	f9b3 3000 	ldrsh.w	r3, [r3]
- 800933e:	2b01      	cmp	r3, #1
- 8009340:	d113      	bne.n	800936a <cppLoop+0x1e72>
+ 8009334:	4b2a      	ldr	r3, [pc, #168]	; (80093e0 <cppLoop+0x1ee8>)
+ 8009336:	f9b3 3000 	ldrsh.w	r3, [r3]
+ 800933a:	2b01      	cmp	r3, #1
+ 800933c:	d113      	bne.n	8009366 <cppLoop+0x1e6e>
 				adj_ki = adj_ki - 0.0001;
- 8009342:	4b29      	ldr	r3, [pc, #164]	; (80093e8 <cppLoop+0x1ef0>)
- 8009344:	681b      	ldr	r3, [r3, #0]
- 8009346:	4618      	mov	r0, r3
- 8009348:	f7f7 f916 	bl	8000578 <__aeabi_f2d>
- 800934c:	a318      	add	r3, pc, #96	; (adr r3, 80093b0 <cppLoop+0x1eb8>)
- 800934e:	e9d3 2300 	ldrd	r2, r3, [r3]
- 8009352:	f7f6 ffb1 	bl	80002b8 <__aeabi_dsub>
- 8009356:	4603      	mov	r3, r0
- 8009358:	460c      	mov	r4, r1
- 800935a:	4618      	mov	r0, r3
- 800935c:	4621      	mov	r1, r4
- 800935e:	f7f7 fc5b 	bl	8000c18 <__aeabi_d2f>
- 8009362:	4602      	mov	r2, r0
- 8009364:	4b20      	ldr	r3, [pc, #128]	; (80093e8 <cppLoop+0x1ef0>)
- 8009366:	601a      	str	r2, [r3, #0]
- 8009368:	e012      	b.n	8009390 <cppLoop+0x1e98>
+ 800933e:	4b2a      	ldr	r3, [pc, #168]	; (80093e8 <cppLoop+0x1ef0>)
+ 8009340:	681b      	ldr	r3, [r3, #0]
+ 8009342:	4618      	mov	r0, r3
+ 8009344:	f7f7 f918 	bl	8000578 <__aeabi_f2d>
+ 8009348:	a319      	add	r3, pc, #100	; (adr r3, 80093b0 <cppLoop+0x1eb8>)
+ 800934a:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 800934e:	f7f6 ffb3 	bl	80002b8 <__aeabi_dsub>
+ 8009352:	4603      	mov	r3, r0
+ 8009354:	460c      	mov	r4, r1
+ 8009356:	4618      	mov	r0, r3
+ 8009358:	4621      	mov	r1, r4
+ 800935a:	f7f7 fc5d 	bl	8000c18 <__aeabi_d2f>
+ 800935e:	4602      	mov	r2, r0
+ 8009360:	4b21      	ldr	r3, [pc, #132]	; (80093e8 <cppLoop+0x1ef0>)
+ 8009362:	601a      	str	r2, [r3, #0]
+ 8009364:	e012      	b.n	800938c <cppLoop+0x1e94>
 				adj_kd = adj_kd - 0.000001;
- 800936a:	4b20      	ldr	r3, [pc, #128]	; (80093ec <cppLoop+0x1ef4>)
- 800936c:	681b      	ldr	r3, [r3, #0]
- 800936e:	4618      	mov	r0, r3
- 8009370:	f7f7 f902 	bl	8000578 <__aeabi_f2d>
- 8009374:	a310      	add	r3, pc, #64	; (adr r3, 80093b8 <cppLoop+0x1ec0>)
- 8009376:	e9d3 2300 	ldrd	r2, r3, [r3]
- 800937a:	f7f6 ff9d 	bl	80002b8 <__aeabi_dsub>
- 800937e:	4603      	mov	r3, r0
- 8009380:	460c      	mov	r4, r1
- 8009382:	4618      	mov	r0, r3
- 8009384:	4621      	mov	r1, r4
- 8009386:	f7f7 fc47 	bl	8000c18 <__aeabi_d2f>
- 800938a:	4602      	mov	r2, r0
- 800938c:	4b17      	ldr	r3, [pc, #92]	; (80093ec <cppLoop+0x1ef4>)
- 800938e:	601a      	str	r2, [r3, #0]
+ 8009366:	4b21      	ldr	r3, [pc, #132]	; (80093ec <cppLoop+0x1ef4>)
+ 8009368:	681b      	ldr	r3, [r3, #0]
+ 800936a:	4618      	mov	r0, r3
+ 800936c:	f7f7 f904 	bl	8000578 <__aeabi_f2d>
+ 8009370:	a311      	add	r3, pc, #68	; (adr r3, 80093b8 <cppLoop+0x1ec0>)
+ 8009372:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 8009376:	f7f6 ff9f 	bl	80002b8 <__aeabi_dsub>
+ 800937a:	4603      	mov	r3, r0
+ 800937c:	460c      	mov	r4, r1
+ 800937e:	4618      	mov	r0, r3
+ 8009380:	4621      	mov	r1, r4
+ 8009382:	f7f7 fc49 	bl	8000c18 <__aeabi_d2f>
+ 8009386:	4602      	mov	r2, r0
+ 8009388:	4b18      	ldr	r3, [pc, #96]	; (80093ec <cppLoop+0x1ef4>)
+ 800938a:	601a      	str	r2, [r3, #0]
 			led.fullColor('R');
- 8009390:	2152      	movs	r1, #82	; 0x52
- 8009392:	480b      	ldr	r0, [pc, #44]	; (80093c0 <cppLoop+0x1ec8>)
- 8009394:	f7f8 ff3e 	bl	8002214 <_ZN3LED9fullColorEc>
+ 800938c:	2152      	movs	r1, #82	; 0x52
+ 800938e:	480c      	ldr	r0, [pc, #48]	; (80093c0 <cppLoop+0x1ec8>)
+ 8009390:	f7f8 ff40 	bl	8002214 <_ZN3LED9fullColorEc>
 			led.LR(-1, 0);
- 8009398:	2200      	movs	r2, #0
- 800939a:	f04f 31ff 	mov.w	r1, #4294967295
- 800939e:	4808      	ldr	r0, [pc, #32]	; (80093c0 <cppLoop+0x1ec8>)
- 80093a0:	f7f8 fff4 	bl	800238c <_ZN3LED2LREaa>
+ 8009394:	2200      	movs	r2, #0
+ 8009396:	f04f 31ff 	mov.w	r1, #4294967295
+ 800939a:	4809      	ldr	r0, [pc, #36]	; (80093c0 <cppLoop+0x1ec8>)
+ 800939c:	f7f8 fff6 	bl	800238c <_ZN3LED2LREaa>
 		break;
- 80093a4:	e08a      	b.n	80094bc <cppLoop+0x1fc4>
- 80093a6:	bf00      	nop
+ 80093a0:	e08c      	b.n	80094bc <cppLoop+0x1fc4>
+ 80093a2:	bf00      	nop
+ 80093a4:	f3af 8000 	nop.w
  80093a8:	88e368f1 	.word	0x88e368f1
  80093ac:	3ee4f8b5 	.word	0x3ee4f8b5
  80093b0:	eb1c432d 	.word	0xeb1c432d

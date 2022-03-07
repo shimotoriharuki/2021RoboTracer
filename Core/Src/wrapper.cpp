@@ -28,6 +28,8 @@
 #include "PathFollowing.hpp"
 #include "ESC.hpp"
 
+#define BLDC_POWER 0.25
+
 LineSensor line_sensor;
 SideSensor side_sensor;
 JoyStick joy_stick;
@@ -312,7 +314,7 @@ void cppLoop(void)
 
 			// BLDC on
 			//HAL_Delay(3000);
-			//esc.on(0.35, 0.35, 0.35, 0.35);
+			//esc.on(BLCD_POWER, BLCD_POWER, BLDC_POWER, BLDC_POWER);
 			//HAL_Delay(1000);
 
 			// Record start
@@ -394,7 +396,7 @@ void cppLoop(void)
 			line_trace.createVelocityTabele();
 
 			HAL_Delay(3000);
-			esc.on(0.35, 0.35, 0.35, 0.35);
+			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(1000);
 
 			line_trace.running();
@@ -729,7 +731,7 @@ lcd_clear();
 			HAL_Delay(1000);
 			led.LR(-1, 1);
 
-			esc.on(0.35, 0.35, 0.35, 0.35);
+			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(3000);
 			esc.off();
 
@@ -783,7 +785,7 @@ lcd_clear();
 			led.LR(-1, 1);
 
 			HAL_Delay(3000);
-			esc.on(0.35, 0.35, 0.35, 0.35);
+			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(1000);
 
 			logger.start();
@@ -823,7 +825,7 @@ lcd_clear();
 			line_trace.createVelocityTabeleFromSD();
 
 			HAL_Delay(3000);
-			esc.on(0.35, 0.35, 0.35, 0.35);
+			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(1000);
 
 			line_trace.running();
@@ -880,7 +882,7 @@ lcd_clear();
 			line_trace.createVelocityTabeleFromSD();
 
 			HAL_Delay(3000);
-			esc.on(0.35, 0.35, 0.35, 0.35);
+			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(1000);
 
 			line_trace.running();

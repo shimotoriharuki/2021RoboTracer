@@ -11892,7 +11892,7 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_ranges  0x0000000000001e48      0x1f8 Middlewares/Third_Party/FatFs/src/ff.o
  .debug_ranges  0x0000000000002040       0x30 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
-.debug_macro    0x0000000000000000    0x354a8
+.debug_macro    0x0000000000000000    0x354ae
  .debug_macro   0x0000000000000000      0x38d Core/Src/AQM0802.o
  .debug_macro   0x000000000000038d      0xa5a Core/Src/AQM0802.o
  .debug_macro   0x0000000000000de7      0x2ac Core/Src/AQM0802.o
@@ -12069,32 +12069,32 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_macro   0x0000000000030cdc       0xee Core/Src/sysmem.o
  .debug_macro   0x0000000000030dca      0x23b Core/Src/sysmem.o
  .debug_macro   0x0000000000031005      0x229 Core/Src/system_stm32f4xx.o
- .debug_macro   0x000000000003122e      0x75f Core/Src/wrapper.o
- .debug_macro   0x000000000003198d       0x10 Core/Src/wrapper.o
- .debug_macro   0x000000000003199d      0x283 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_macro   0x0000000000031c20      0x224 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
- .debug_macro   0x0000000000031e44      0x223 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_macro   0x0000000000032067      0x229 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .debug_macro   0x0000000000032290      0x259 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_macro   0x00000000000324e9      0x26a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_macro   0x0000000000032753      0x23b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
- .debug_macro   0x000000000003298e      0x247 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_macro   0x0000000000032bd5      0x223 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- .debug_macro   0x0000000000032df8      0x224 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
- .debug_macro   0x000000000003301c      0x232 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_macro   0x000000000003324e      0x224 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_macro   0x0000000000033472      0x223 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
- .debug_macro   0x0000000000033695      0x224 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
- .debug_macro   0x00000000000338b9      0x224 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
- .debug_macro   0x0000000000033add      0x35d FATFS/App/fatfs.o
- .debug_macro   0x0000000000033e3a      0x23b FATFS/Target/bsp_driver_sd.o
- .debug_macro   0x0000000000034075      0x22c FATFS/Target/fatfs_platform.o
- .debug_macro   0x00000000000342a1      0x390 FATFS/Target/sd_diskio.o
- .debug_macro   0x0000000000034631       0x16 FATFS/Target/sd_diskio.o
- .debug_macro   0x0000000000034647       0x7c FATFS/Target/sd_diskio.o
- .debug_macro   0x00000000000346c3      0x34a Middlewares/Third_Party/FatFs/src/diskio.o
- .debug_macro   0x0000000000034a0d      0x751 Middlewares/Third_Party/FatFs/src/ff.o
- .debug_macro   0x000000000003515e      0x34a Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
+ .debug_macro   0x000000000003122e      0x765 Core/Src/wrapper.o
+ .debug_macro   0x0000000000031993       0x10 Core/Src/wrapper.o
+ .debug_macro   0x00000000000319a3      0x283 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_macro   0x0000000000031c26      0x224 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+ .debug_macro   0x0000000000031e4a      0x223 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_macro   0x000000000003206d      0x229 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_macro   0x0000000000032296      0x259 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_macro   0x00000000000324ef      0x26a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_macro   0x0000000000032759      0x23b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_macro   0x0000000000032994      0x247 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_macro   0x0000000000032bdb      0x223 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_macro   0x0000000000032dfe      0x224 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
+ .debug_macro   0x0000000000033022      0x232 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_macro   0x0000000000033254      0x224 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_macro   0x0000000000033478      0x223 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_macro   0x000000000003369b      0x224 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_macro   0x00000000000338bf      0x224 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
+ .debug_macro   0x0000000000033ae3      0x35d FATFS/App/fatfs.o
+ .debug_macro   0x0000000000033e40      0x23b FATFS/Target/bsp_driver_sd.o
+ .debug_macro   0x000000000003407b      0x22c FATFS/Target/fatfs_platform.o
+ .debug_macro   0x00000000000342a7      0x390 FATFS/Target/sd_diskio.o
+ .debug_macro   0x0000000000034637       0x16 FATFS/Target/sd_diskio.o
+ .debug_macro   0x000000000003464d       0x7c FATFS/Target/sd_diskio.o
+ .debug_macro   0x00000000000346c9      0x34a Middlewares/Third_Party/FatFs/src/diskio.o
+ .debug_macro   0x0000000000034a13      0x751 Middlewares/Third_Party/FatFs/src/ff.o
+ .debug_macro   0x0000000000035164      0x34a Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
 .debug_line     0x0000000000000000    0x26578
  .debug_line    0x0000000000000000      0x9d2 Core/Src/AQM0802.o
@@ -12148,7 +12148,7 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_line    0x0000000000024085     0x1b64 Middlewares/Third_Party/FatFs/src/ff.o
  .debug_line    0x0000000000025be9      0x98f Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
-.debug_str      0x0000000000000000   0x111072
+.debug_str      0x0000000000000000   0x111082
  .debug_str     0x0000000000000000    0xfd7d6 Core/Src/AQM0802.o
                                       0xfdc9d (size before relaxing)
  .debug_str     0x00000000000fd7d6     0x1176 Core/Src/ESC.o
@@ -12201,53 +12201,53 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
                                        0x5f6f (size before relaxing)
  .debug_str     0x000000000010b47b       0xc4 Core/Src/system_stm32f4xx.o
                                       0xf969a (size before relaxing)
- .debug_str     0x000000000010b53f      0x254 Core/Src/wrapper.o
-                                     0x10451e (size before relaxing)
- .debug_str     0x000000000010b793       0x36 Core/Startup/startup_stm32f469vgtx.o
+ .debug_str     0x000000000010b53f      0x264 Core/Src/wrapper.o
+                                     0x10452e (size before relaxing)
+ .debug_str     0x000000000010b7a3       0x36 Core/Startup/startup_stm32f469vgtx.o
                                          0x7c (size before relaxing)
- .debug_str     0x000000000010b7c9      0x5c3 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_str     0x000000000010b7d9      0x5c3 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
                                       0xfa21c (size before relaxing)
- .debug_str     0x000000000010bd8c      0x29d Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+ .debug_str     0x000000000010bd9c      0x29d Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
                                       0xf9c1e (size before relaxing)
- .debug_str     0x000000000010c029      0x389 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_str     0x000000000010c039      0x389 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
                                       0xf9fbd (size before relaxing)
- .debug_str     0x000000000010c3b2      0x31d Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_str     0x000000000010c3c2      0x31d Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
                                       0xf9a9c (size before relaxing)
- .debug_str     0x000000000010c6cf      0x1de Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_str     0x000000000010c6df      0x1de Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
                                       0xf98d9 (size before relaxing)
- .debug_str     0x000000000010c8ad      0xa9e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_str     0x000000000010c8bd      0xa9e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
                                       0xfa5f9 (size before relaxing)
- .debug_str     0x000000000010d34b      0x135 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_str     0x000000000010d35b      0x135 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
                                       0xf987d (size before relaxing)
- .debug_str     0x000000000010d480      0x24e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_str     0x000000000010d490      0x24e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
                                       0xf9a8c (size before relaxing)
- .debug_str     0x000000000010d6ce      0x175 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_str     0x000000000010d6de      0x175 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
                                       0xf99c7 (size before relaxing)
- .debug_str     0x000000000010d843      0x6d5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
+ .debug_str     0x000000000010d853      0x6d5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
                                       0xfa173 (size before relaxing)
- .debug_str     0x000000000010df18      0x545 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_str     0x000000000010df28      0x545 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
                                       0xf9ef5 (size before relaxing)
- .debug_str     0x000000000010e45d      0xbeb Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_str     0x000000000010e46d      0xbeb Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
                                       0xfa793 (size before relaxing)
- .debug_str     0x000000000010f048      0x40e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_str     0x000000000010f058      0x40e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
                                       0xf9f93 (size before relaxing)
- .debug_str     0x000000000010f456      0x507 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_str     0x000000000010f466      0x507 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
                                       0xf9ed3 (size before relaxing)
- .debug_str     0x000000000010f95d      0x436 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
+ .debug_str     0x000000000010f96d      0x436 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
                                       0xf9aeb (size before relaxing)
- .debug_str     0x000000000010fd93       0x23 FATFS/App/fatfs.o
+ .debug_str     0x000000000010fda3       0x23 FATFS/App/fatfs.o
                                       0xfcdea (size before relaxing)
- .debug_str     0x000000000010fdb6      0x164 FATFS/Target/bsp_driver_sd.o
+ .debug_str     0x000000000010fdc6      0x164 FATFS/Target/bsp_driver_sd.o
                                       0xf9c87 (size before relaxing)
- .debug_str     0x000000000010ff1a       0x38 FATFS/Target/fatfs_platform.o
+ .debug_str     0x000000000010ff2a       0x38 FATFS/Target/fatfs_platform.o
                                       0xf95d6 (size before relaxing)
- .debug_str     0x000000000010ff52       0xc9 FATFS/Target/sd_diskio.o
+ .debug_str     0x000000000010ff62       0xc9 FATFS/Target/sd_diskio.o
                                       0xfceb5 (size before relaxing)
- .debug_str     0x000000000011001b       0x63 Middlewares/Third_Party/FatFs/src/diskio.o
+ .debug_str     0x000000000011002b       0x63 Middlewares/Third_Party/FatFs/src/diskio.o
                                       0xfcd17 (size before relaxing)
- .debug_str     0x000000000011007e      0xf52 Middlewares/Third_Party/FatFs/src/ff.o
+ .debug_str     0x000000000011008e      0xf52 Middlewares/Third_Party/FatFs/src/ff.o
                                       0xfdf30 (size before relaxing)
- .debug_str     0x0000000000110fd0       0xa2 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
+ .debug_str     0x0000000000110fe0       0xa2 Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
                                       0xfcd68 (size before relaxing)
 
 .comment        0x0000000000000000       0x7b
