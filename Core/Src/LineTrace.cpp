@@ -64,7 +64,6 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 // --------private--------- //
 float LineTrace::calcError()
 {
-	static float pre_diff;
 	//float diff = (line_sensor_->sensor[0] + line_sensor_->sensor[1] + line_sensor_->sensor[2] + line_sensor_->sensor[3] + line_sensor_->sensor[4] + line_sensor_->sensor[5] + line_sensor_->sensor[6])
 	//		- (line_sensor_->sensor[7] + line_sensor_->sensor[8] + line_sensor_->sensor[9] + line_sensor_->sensor[10] + line_sensor_->sensor[11] + line_sensor_->sensor[12] + line_sensor_->sensor[13]);
 	float diff = (line_sensor_->sensor[3] + line_sensor_->sensor[4] + line_sensor_->sensor[5]) - (line_sensor_->sensor[8] + line_sensor_->sensor[9] + line_sensor_->sensor[10]);
@@ -176,17 +175,9 @@ void LineTrace::pidTrace()
 		i = 0;
 		i_reset_flag_ = false;
 	}
-
-	if(target_velocity_ >= 2.5){
-		p = kp_fast_ * diff;
-		d = kd_fast_ * (diff - pre_diff) / DELTA_T;
-		i += ki_fast_ * diff * DELTA_T;
-	}
-	else{
-		p = kp_ * diff;
-		d = kd_ * (diff - pre_diff) / DELTA_T;
-		i += ki_ * diff * DELTA_T;
-	}
+	p = kp_ * diff;
+	d = kd_ * (diff - pre_diff) / DELTA_T;
+	i += ki_ * diff * DELTA_T;
 
 	float rotation_ratio = p + d + i;
 
