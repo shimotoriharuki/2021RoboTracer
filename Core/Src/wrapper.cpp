@@ -28,7 +28,7 @@
 #include "PathFollowing.hpp"
 #include "ESC.hpp"
 
-#define BLDC_POWER 0.45
+#define BLDC_POWER 0.30
 
 LineSensor line_sensor;
 SideSensor side_sensor;
