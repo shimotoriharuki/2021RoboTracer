@@ -100,7 +100,6 @@ void SideSensor::updateStatus()
 	static uint16_t cnt_l, cnt_r;
 
 	if(ignore_flag_ == false){
-
 		if(white_flag1 == false){
 			if(!HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_2)){
 				cnt_r++;
@@ -108,7 +107,7 @@ void SideSensor::updateStatus()
 			else{
 				cnt_r = 0;
 			}
-			if(cnt_r >= 5){
+			if(cnt_r >= 2){
 				status_ |= 0x01;
 				status_R_ = true;
 				white_flag1 = true;
@@ -141,7 +140,7 @@ void SideSensor::updateStatus()
 			else{
 				cnt_l = 0;
 			}
-			if(cnt_l >= 5){
+			if(cnt_l >= 2){
 				status_ |= 0x02;
 				status_L_ = true;
 				white_flag2 = true;

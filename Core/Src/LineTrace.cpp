@@ -865,6 +865,7 @@ void LineTrace::running()
 
 		case 10:
 			if(side_sensor_->getWhiteLineCntR() == 2){
+				led_.fullColor('W');
 				loggerStop();
 				stopVelocityPlay();
 				HAL_Delay(100); //Run through after the goal
