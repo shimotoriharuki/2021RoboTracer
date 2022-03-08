@@ -450,8 +450,8 @@ bool LineTrace::isTargetDistance(float target_distance)
 bool LineTrace::isCrossLine()
 {
 	static uint16_t cnt = 0;
-	float sensor_edge_val_l = (line_sensor_->sensor[0] + line_sensor_->sensor[1]) / 2;
-	float sensor_edge_val_r = (line_sensor_->sensor[12] + line_sensor_->sensor[13]) / 2;
+	float sensor_edge_val_l = (line_sensor_->sensor[3] + line_sensor_->sensor[4]) / 2;
+	float sensor_edge_val_r = (line_sensor_->sensor[9] + line_sensor_->sensor[10]) / 2;
 	static bool flag = false;
 	static bool white_flag = false;
 	mon_ave_l = sensor_edge_val_l;
@@ -769,16 +769,18 @@ void LineTrace::flip()
 			side_sensor_->enableIgnore();
 			encoder_->clearCrossLineIgnoreDistance();
 			// Note: Store cross line distance here.
+			led_.LR(1, -1);
 		}
 
 		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 90){
 			side_sensor_->disableIgnore();
+			led_.LR(0, -1);
 		}
 
 
 
-		if(stable_flag_ == true) led_.LR(-1, 1);
-		else led_.LR(-1, 0);
+		//if(stable_flag_ == true) led_.LR(-1, 1);
+		//else led_.LR(-1, 0);
 
 
 		// ------ All sideline storing -------//
