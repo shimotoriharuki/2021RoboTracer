@@ -309,7 +309,7 @@ void LineTrace::correctionTotalDistanceFromSideMarker()
 		float temp_sideline_distance = sideline_distance_[i];
 		float diff = abs(temp_sideline_distance - encoder_->getTotalDistance());
 		if(diff <= 80){
-			encoder_->setTotalDistance(sideline_distance_[i]);
+			encoder_->setTotalDistance(sideline_distance_[i] / DISTANCE_CORRECTION_CONST);
 			break;
 		}
 	}
