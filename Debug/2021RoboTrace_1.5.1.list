@@ -6555,24 +6555,24 @@ bool LineTrace::isCrossLine()
  8003780:	af00      	add	r7, sp, #0
  8003782:	6078      	str	r0, [r7, #4]
 	static uint16_t cnt = 0;
-	float sensor_edge_val_l = (line_sensor_->sensor[0] + line_sensor_->sensor[1]) / 2;
+	float sensor_edge_val_l = (line_sensor_->sensor[3] + line_sensor_->sensor[4]) / 2;
  8003784:	687b      	ldr	r3, [r7, #4]
  8003786:	685b      	ldr	r3, [r3, #4]
- 8003788:	ed93 7ab0 	vldr	s14, [r3, #704]	; 0x2c0
+ 8003788:	ed93 7ab3 	vldr	s14, [r3, #716]	; 0x2cc
  800378c:	687b      	ldr	r3, [r7, #4]
  800378e:	685b      	ldr	r3, [r3, #4]
- 8003790:	edd3 7ab1 	vldr	s15, [r3, #708]	; 0x2c4
+ 8003790:	edd3 7ab4 	vldr	s15, [r3, #720]	; 0x2d0
  8003794:	ee37 7a27 	vadd.f32	s14, s14, s15
  8003798:	eef0 6a00 	vmov.f32	s13, #0	; 0x40000000  2.0
  800379c:	eec7 7a26 	vdiv.f32	s15, s14, s13
  80037a0:	edc7 7a03 	vstr	s15, [r7, #12]
-	float sensor_edge_val_r = (line_sensor_->sensor[12] + line_sensor_->sensor[13]) / 2;
+	float sensor_edge_val_r = (line_sensor_->sensor[9] + line_sensor_->sensor[10]) / 2;
  80037a4:	687b      	ldr	r3, [r7, #4]
  80037a6:	685b      	ldr	r3, [r3, #4]
- 80037a8:	ed93 7abc 	vldr	s14, [r3, #752]	; 0x2f0
+ 80037a8:	ed93 7ab9 	vldr	s14, [r3, #740]	; 0x2e4
  80037ac:	687b      	ldr	r3, [r7, #4]
  80037ae:	685b      	ldr	r3, [r3, #4]
- 80037b0:	edd3 7abd 	vldr	s15, [r3, #756]	; 0x2f4
+ 80037b0:	edd3 7aba 	vldr	s15, [r3, #744]	; 0x2e8
  80037b4:	ee37 7a27 	vadd.f32	s14, s14, s15
  80037b8:	eef0 6a00 	vmov.f32	s13, #0	; 0x40000000  2.0
  80037bc:	eec7 7a26 	vdiv.f32	s15, s14, s13

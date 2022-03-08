@@ -465,7 +465,7 @@ bool LineTrace::isCrossLine()
 			cnt = 0;
 		}
 
-		if(cnt >= 3){
+		if(cnt >= 1){
 			flag = true;
 			white_flag = true;
 			cnt = 0;
