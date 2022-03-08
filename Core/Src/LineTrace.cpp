@@ -305,13 +305,24 @@ void LineTrace::correctionTotalDistanceFromCrossLine()
 
 void LineTrace::correctionTotalDistanceFromSideMarker()
 {
+	/*
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
 		float temp_sideline_distance = sideline_distance_[i];
-		float diff = abs(temp_sideline_distance - encoder_->getTotalDistance());
+		float diff = abs(temp_sideline_distance - encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST);
 		if(diff <= 80){
 			encoder_->setTotalDistance(sideline_distance_[i] / DISTANCE_CORRECTION_CONST);
 			break;
 		}
+	}
+	*/
+	while(sideline_idx_ <= SIDELINE_SIZE){
+		float temp_sideline_distance = sideline_distance_[sideline_idx_];
+		float diff = abs(temp_sideline_distance - encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST);
+		if(diff <= 80){
+			encoder_->setTotalDistance(sideline_distance_[sideline_idx_] / DISTANCE_CORRECTION_CONST);
+			break;
+		}
+		sideline_idx_++;
 	}
 
 	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
@@ -475,9 +486,9 @@ bool LineTrace::isCrossLine()
 				storeCrossLineDistance();
 			}
 			else{
-				correctionTotalDistanceFromCrossLine();
-				correction_check_cnt_ = 0;
+				//correctionTotalDistanceFromCrossLine();
 			}
+			//correction_check_cnt_ = 0;
 		}
 	}
 	else{
@@ -751,12 +762,13 @@ void LineTrace::flip()
 		// ------- Store side line distance or correction distance------//
 
 		if(stable_flag_ == true && side_sensor_->getStatusL() == true){ //Stabilizing and side sensor is white
+			correction_check_cnt_ = 0;
+
 			if(mode_selector_ == FIRST_RUNNING){
 				storeSideLineDistance();
 			}
 			else{
 				correctionTotalDistanceFromSideMarker();
-				correction_check_cnt_ = 0;
 			}
 
 			stable_flag_ = false;
@@ -815,8 +827,8 @@ void LineTrace::flip()
 		correction_check_cnt_++;
 		if(correction_check_cnt_ >= 10000) correction_check_cnt_ = 10000;
 
-		if(correction_check_cnt_ <= 200) led_.LR(-1, 1);
-		else led_.LR(-1, 0);
+		if(correction_check_cnt_ <= 200) led_.fullColor('R');
+		else led_.fullColor('B');
 	}
 }
 
