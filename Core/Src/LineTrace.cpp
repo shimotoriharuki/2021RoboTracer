@@ -283,8 +283,8 @@ void LineTrace::storeLogs()
 			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
 		else
 			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
-			//logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
-			logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
+			logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
+			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
 
 		mon_store_cnt++;
 	}
@@ -305,6 +305,9 @@ void LineTrace::correctionTotalDistanceFromCrossLine()
 
 void LineTrace::correctionTotalDistanceFromSideMarker()
 {
+	encoder_->setTotalDistance(sideline_distance_[sideline_idx_] / DISTANCE_CORRECTION_CONST);
+	sideline_idx_++;
+
 	/*
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
 		float temp_sideline_distance = sideline_distance_[i];
@@ -315,6 +318,8 @@ void LineTrace::correctionTotalDistanceFromSideMarker()
 		}
 	}
 	*/
+
+	/*
 	while(sideline_idx_ <= SIDELINE_SIZE){
 		float temp_sideline_distance = sideline_distance_[sideline_idx_];
 		float diff = abs(temp_sideline_distance - encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST);
@@ -324,6 +329,7 @@ void LineTrace::correctionTotalDistanceFromSideMarker()
 		}
 		sideline_idx_++;
 	}
+	*/
 
 	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
 
