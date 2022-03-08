@@ -107,7 +107,7 @@ void SideSensor::updateStatus()
 			else{
 				cnt_r = 0;
 			}
-			if(cnt_r >= 2){
+			if(cnt_r >= 5){
 				status_ |= 0x01;
 				status_R_ = true;
 				white_flag1 = true;
@@ -122,7 +122,7 @@ void SideSensor::updateStatus()
 			else{
 				cnt_r = 0;
 			}
-			if(cnt_r >= 2){
+			if(cnt_r >= 5){
 				status_ ^= 0x01;
 				status_R_ = false;
 				white_flag1 = false;
@@ -140,7 +140,7 @@ void SideSensor::updateStatus()
 			else{
 				cnt_l = 0;
 			}
-			if(cnt_l >= 2){
+			if(cnt_l >= 5){
 				status_ |= 0x02;
 				status_L_ = true;
 				white_flag2 = true;
@@ -155,7 +155,7 @@ void SideSensor::updateStatus()
 			else{
 				cnt_l = 0;
 			}
-			if(cnt_l >= 2){
+			if(cnt_l >= 5){
 				status_ ^= 0x02;
 				status_L_ = false;
 				white_flag2 = false;

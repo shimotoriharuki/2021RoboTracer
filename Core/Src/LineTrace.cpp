@@ -755,7 +755,7 @@ void LineTrace::flip()
 				storeSideLineDistance();
 			}
 			else{
-				//correctionTotalDistanceFromSideMarker();
+				correctionTotalDistanceFromSideMarker();
 				correction_check_cnt_ = 0;
 			}
 
@@ -769,12 +769,12 @@ void LineTrace::flip()
 			side_sensor_->enableIgnore();
 			encoder_->clearCrossLineIgnoreDistance();
 			// Note: Store cross line distance here.
-			led_.LR(1, -1);
+			//led_.LR(1, -1);
 		}
 
-		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 90){
+		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 70){
 			side_sensor_->disableIgnore();
-			led_.LR(0, -1);
+			//led_.LR(0, -1);
 		}
 
 
@@ -815,7 +815,7 @@ void LineTrace::flip()
 		correction_check_cnt_++;
 		if(correction_check_cnt_ >= 10000) correction_check_cnt_ = 10000;
 
-		if(correction_check_cnt_ <= 80) led_.LR(-1, 1);
+		if(correction_check_cnt_ <= 200) led_.LR(-1, 1);
 		else led_.LR(-1, 0);
 	}
 }
@@ -865,7 +865,7 @@ void LineTrace::running()
 
 		case 10:
 			if(side_sensor_->getWhiteLineCntR() == 2){
-				led_.fullColor('W');
+				led_.fullColor('M');
 				loggerStop();
 				stopVelocityPlay();
 				HAL_Delay(100); //Run through after the goal

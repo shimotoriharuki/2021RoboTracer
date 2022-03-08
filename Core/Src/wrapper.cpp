@@ -395,8 +395,8 @@ void cppLoop(void)
 			line_trace.setMinVelocity(adj_min_velocity);
 			line_trace.createVelocityTabele();
 
-			HAL_Delay(3000);
-			esc.on(BLDC_POWER*1.2, BLDC_POWER, BLDC_POWER, BLDC_POWER);
+			//HAL_Delay(3000);
+			//esc.on(BLDC_POWER*1.2, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(1000);
 
 			line_trace.running();
@@ -824,8 +824,8 @@ lcd_clear();
 			line_trace.setMinVelocity(adj_max_velocity2);
 			line_trace.createVelocityTabeleFromSD();
 
-			HAL_Delay(3000);
-			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
+			//HAL_Delay(3000);
+			//esc.on(BLDC_POWER*1.2, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(1000);
 
 			line_trace.running();
@@ -881,8 +881,8 @@ lcd_clear();
 			line_trace.setMinVelocity(adj_min_velocity);
 			line_trace.createVelocityTabeleFromSD();
 
-			HAL_Delay(3000);
-			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
+			//HAL_Delay(3000);
+			//esc.on(BLDC_POWER*1.2, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(1000);
 
 			line_trace.running();
