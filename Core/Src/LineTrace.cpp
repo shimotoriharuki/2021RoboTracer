@@ -322,7 +322,6 @@ void LineTrace::storeLogs()
 // ---------------------------------------------------------------------------------------------------//
 void LineTrace::correctionTotalDistanceFromCrossLine()
 {
-	correction_check_cnt_ = 0;
 	/*
 	encoder_->setTotalDistance(crossline_distance_[crossline_idx_] / DISTANCE_CORRECTION_CONST);
 	crossline_idx_++;
@@ -362,6 +361,7 @@ void LineTrace::correctionTotalDistanceFromSideMarker()
 	sideline_idx_++;
 	*/
 
+	/*
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
 		float temp_sideline_distance = sideline_distance_[i];
 		float diff = abs(temp_sideline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
@@ -371,19 +371,18 @@ void LineTrace::correctionTotalDistanceFromSideMarker()
 			break;
 		}
 	}
+	*/
 
-	/*
 	while(sideline_idx_ <= SIDELINE_SIZE){
 		float temp_sideline_distance = sideline_distance_[sideline_idx_];
 		float diff = abs(temp_sideline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
-		if(diff <= 200){
+		if(diff <= 230){
 			correction_check_cnt_ = 0;
 			encoder_->setTotalDistance(sideline_distance_[sideline_idx_] / DISTANCE_CORRECTION_CONST);
 			break;
 		}
 		sideline_idx_++;
 	}
-	*/
 
 	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
 
@@ -545,12 +544,12 @@ bool LineTrace::isCrossLine()
 
 			stable_cnt_reset_flag_ = true; //Because the conditions do not differ between when you tremble and when you do not tremble
 			if(mode_selector_ == FIRST_RUNNING){
-				store_check_cnt_ = 0;
+				//store_check_cnt_ = 0;
 				storeCrossLineDistance();
 			}
 			else{
-				store_check_cnt_ = 0;
-				correctionTotalDistanceFromCrossLine();
+				//store_check_cnt_ = 0;
+				//correctionTotalDistanceFromCrossLine();
 				storeCrossLineDistance2(); //for correction check
 			}
 			//correction_check_cnt_ = 0;
@@ -830,12 +829,12 @@ void LineTrace::flip()
 			//correction_check_cnt_ = 0;
 
 			if(mode_selector_ == FIRST_RUNNING){
-				//store_check_cnt_ = 0;
+				store_check_cnt_ = 0;
 				storeSideLineDistance();
 			}
 			else{
-				//store_check_cnt_ = 0;
-				//correctionTotalDistanceFromSideMarker();
+				store_check_cnt_ = 0;
+				correctionTotalDistanceFromSideMarker();
 				storeSideLineDistance2(); //for correction check
 			}
 
