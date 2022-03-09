@@ -56,6 +56,9 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	for(uint16_t i = 0; i < CROSSLINE_SIZE; i++){
 		crossline_distance_[i] = 0;
 	}
+	for(uint16_t i = 0; i < CROSSLINE_SIZE; i++){
+		crossline_distance2_[i] = 0;
+	}
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
 		sideline_distance_[i] = 0;
 	}
@@ -266,6 +269,14 @@ void LineTrace::storeCrossLineDistance()
 	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
 }
 
+void LineTrace::storeCrossLineDistance2()
+{
+	crossline_distance2_[crossline_idx2_] = encoder_->getTotalDistance();
+	crossline_idx2_++;
+
+	if(crossline_idx2_ >= CROSSLINE_SIZE) crossline_idx2_ = CROSSLINE_SIZE - 1;
+}
+
 void LineTrace::storeSideLineDistance()
 {
 	sideline_distance_[sideline_idx_] = encoder_->getTotalDistance();
@@ -311,6 +322,7 @@ void LineTrace::storeLogs()
 // ---------------------------------------------------------------------------------------------------//
 void LineTrace::correctionTotalDistanceFromCrossLine()
 {
+	correction_check_cnt_ = 0;
 	encoder_->setTotalDistance(crossline_distance_[crossline_idx_] / DISTANCE_CORRECTION_CONST);
 	crossline_idx_++;
 
@@ -377,7 +389,7 @@ float LineTrace::radius2Velocity(float radius)
 	float velocity;
 
 	if(mode_selector_ == SECOND_RUNNING){
-		if(radius < 300) velocity = min_velocity_;
+		if(radius < 400) velocity = min_velocity_;
 		else if(radius < 800) velocity = 1.7;
 		else if(radius < 1400) velocity = 2.0;
 		else velocity = max_velocity_;
@@ -508,10 +520,13 @@ bool LineTrace::isCrossLine()
 
 			stable_cnt_reset_flag_ = true; //Because the conditions do not differ between when you tremble and when you do not tremble
 			if(mode_selector_ == FIRST_RUNNING){
+				store_check_cnt_ = 0;
 				storeCrossLineDistance();
 			}
 			else{
-				//correctionTotalDistanceFromCrossLine();
+				store_check_cnt_ = 0;
+				correctionTotalDistanceFromCrossLine();
+				storeCrossLineDistance2(); //for correction check
 			}
 			//correction_check_cnt_ = 0;
 		}
@@ -790,12 +805,12 @@ void LineTrace::flip()
 			//correction_check_cnt_ = 0;
 
 			if(mode_selector_ == FIRST_RUNNING){
-				store_check_cnt_ = 0;
+				//store_check_cnt_ = 0;
 				storeSideLineDistance();
 			}
 			else{
-				store_check_cnt_ = 0;
-				correctionTotalDistanceFromSideMarker();
+				//store_check_cnt_ = 0;
+				//correctionTotalDistanceFromSideMarker();
 				storeSideLineDistance2(); //for correction check
 			}
 
@@ -944,6 +959,7 @@ void LineTrace::stop()
 	}
 	else{//Secondary run
 		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
+		sd_write_array_float("COURSLOG", "CROSSDI2.TXT", CROSSLINE_SIZE, crossline_distance2_, OVER_WRITE);
 		sd_write_array_float("COURSLOG", "SIDEDIS2.TXT", SIDELINE_SIZE, sideline_distance2_, OVER_WRITE);
 	}
 	//sd_write_array_float("COURSLOG", "ASIDEDIS.TXT", SIDELINE_SIZE, all_sideline_distance_, OVER_WRITE);

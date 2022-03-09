@@ -69,10 +69,12 @@ private:
 	uint16_t velocity_table_idx_;
 	int16_t mode_selector_;
 	float crossline_distance_[CROSSLINE_SIZE];
+	float crossline_distance2_[CROSSLINE_SIZE];
 	float sideline_distance_[SIDELINE_SIZE];
 	float sideline_distance2_[SIDELINE_SIZE];
 	//float all_sideline_distance_[SIDELINE_SIZE];
 	uint16_t crossline_idx_;
+	uint16_t crossline_idx2_;
 	uint16_t sideline_idx_;
 	uint16_t sideline_idx2_;
 	uint16_t all_sideline_idx_;
@@ -101,6 +103,7 @@ private:
 	void loggerStart();
 	void loggerStop();
 	void storeCrossLineDistance();
+	void storeCrossLineDistance2();
 	void storeSideLineDistance();
 	void storeSideLineDistance2();
 	//void storeAllSideLineDistance();
