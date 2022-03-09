@@ -328,14 +328,27 @@ void LineTrace::correctionTotalDistanceFromCrossLine()
 	crossline_idx_++;
 	*/
 
-	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
+	/*
+	for(uint16_t i = 0; i < CROSSLINE_SIZE; i++){
 		float temp_crossline_distance = crossline_distance_[i];
 		float diff = abs(temp_crossline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
-		if(diff <= 200){
+		if(diff <= 100){
 			correction_check_cnt_ = 0;
 			encoder_->setTotalDistance(crossline_distance_[i] / DISTANCE_CORRECTION_CONST);
 			break;
 		}
+	}
+	*/
+
+	while(crossline_idx_ <= CROSSLINE_SIZE){
+		float temp_crossline_distance = crossline_distance_[crossline_idx_];
+		float diff = abs(temp_crossline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
+		if(diff <= 200){
+			correction_check_cnt_ = 0;
+			encoder_->setTotalDistance(crossline_distance_[crossline_idx_] / DISTANCE_CORRECTION_CONST);
+			break;
+		}
+		crossline_idx_++;
 	}
 
 	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
@@ -352,7 +365,7 @@ void LineTrace::correctionTotalDistanceFromSideMarker()
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
 		float temp_sideline_distance = sideline_distance_[i];
 		float diff = abs(temp_sideline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
-		if(diff <= 200){
+		if(diff <= 230){
 			correction_check_cnt_ = 0;
 			encoder_->setTotalDistance(sideline_distance_[i] / DISTANCE_CORRECTION_CONST);
 			break;
