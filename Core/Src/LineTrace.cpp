@@ -474,6 +474,8 @@ void LineTrace::startVelocityPlay()
 {
 	encoder_->clearTotalDistance();
 	velocity_play_flag_ = true;
+	velocity_table_idx_ = 0;
+	ref_distance_ = 0;
 }
 
 void LineTrace::stopVelocityPlay()
@@ -493,13 +495,14 @@ void LineTrace::updateTargetVelocity()
 
 		if(velocity_table_idx_ >= LOG_DATA_SIZE_DIS) velocity_table_idx_ = LOG_DATA_SIZE_DIS - 1;
 
+		setTargetVelocity(velocity_table_[velocity_table_idx_]);
+
+		/*
 		mon_ref_dis = ref_distance_;
 		mon_current_dis = encoder_->getTotalDistance();
 		mon_vel_idx = velocity_table_idx_;
-
-		setTargetVelocity(velocity_table_[velocity_table_idx_]);
-
 		mon_tar_vel = velocity_table_[velocity_table_idx_];
+		*/
 
 	}
 }

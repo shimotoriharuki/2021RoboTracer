@@ -225,6 +225,8 @@ void Logger::resetIdx()
 
 void Logger::start()
 {
+	log_index_tim_ = 0;
+	log_index_tim2_ = 0;
 	recording_flag_ = true;
 }
 

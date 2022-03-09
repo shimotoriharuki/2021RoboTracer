@@ -182,8 +182,8 @@ void cppFlip10ms(void)
 		twice_cnt = 0;
 	}
 
-	logger.storeLogInt(motor.getLeftCounterPeriod());
-	logger.storeLog2Int(motor.getRightCounterPeriod());
+	logger.storeLog(line_trace.getTargetVelocity());
+	logger.storeLog2(velocity_ctrl.getCurrentVelocity());
 
 
 	/*
@@ -319,7 +319,7 @@ void cppLoop(void)
 
 			// Record start
 			HAL_Delay(1000);
-			logger.start();
+			//logger.start();
 
 			// Run
 			line_trace.setMode(FIRST_RUNNING);
@@ -329,9 +329,9 @@ void cppLoop(void)
 			//esc.off();
 
 			// Record stop and save
-			logger.stop();
-			logger.saveLogsInt("STATELOG", "LPERIOD.txt");
-			logger.saveLogs2Int("STATELOG", "RPERIOD.txt");
+			//logger.stop();
+			//logger.saveLogsInt("STATELOG", "LPERIOD.txt");
+			//logger.saveLogs2Int("STATELOG", "RPERIOD.txt");
 
 			led.LR(0, -1);
 		}
@@ -395,14 +395,15 @@ void cppLoop(void)
 			line_trace.setMinVelocity(adj_min_velocity);
 			line_trace.createVelocityTabele();
 
-			//HAL_Delay(3000);
-			//esc.on(BLDC_POWER*1.2, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(1000);
+
+			logger.start();
 
 			line_trace.running();
 
-			// BLDC off
-			esc.off();
+			logger.stop();
+			logger.saveLogs("STATELOG", "TARVEL.txt");
+			logger.saveLogs2("STATELOG", "CURVEL.txt");
 
 			led.LR(0, -1);
 		}
@@ -881,13 +882,16 @@ lcd_clear();
 			line_trace.setMinVelocity(adj_min_velocity);
 			line_trace.createVelocityTabeleFromSD();
 
-			//HAL_Delay(3000);
-			//esc.on(BLDC_POWER*1.2, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(1000);
+
+			logger.start();
 
 			line_trace.running();
 
-			esc.off();
+			logger.stop();
+			logger.saveLogs("STATELOG", "CURVEL.txt");
+			logger.saveLogs2("STATELOG", "TARVEL.txt");
+;
 
 			led.LR(0, -1);
 		}

@@ -19,4 +19,4 @@ Logger.cpp:195:6:void Logger::resetLogs1()	48	static
 Logger.cpp:208:6:void Logger::resetLogs2()	48	static
 Logger.cpp:220:6:void Logger::resetIdx()	16	static
 Logger.cpp:226:6:void Logger::start()	16	static
-Logger.cpp:231:6:void Logger::stop()	16	static
+Logger.cpp:233:6:void Logger::stop()	16	static
