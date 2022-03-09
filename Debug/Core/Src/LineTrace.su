@@ -1,4 +1,3 @@
-std_abs.h:70:3:constexpr double std::abs(double)	16	static
 std_abs.h:74:3:constexpr float std::abs(float)	16	static
 LineTrace.cpp:34:1:LineTrace::LineTrace(Motor*, LineSensor*, VelocityCtrl*, SideSensor*, Encoder*, Odometry*, Logger*, IMU*, ESC*)	40	static
 LineTrace.cpp:80:7:float LineTrace::calcError()	24	static
@@ -16,15 +15,15 @@ LineTrace.cpp:272:6:void LineTrace::storeCrossLineDistance2()	24	static
 LineTrace.cpp:280:6:void LineTrace::storeSideLineDistance()	24	static
 LineTrace.cpp:288:6:void LineTrace::storeSideLineDistance2()	24	static
 LineTrace.cpp:305:6:void LineTrace::storeLogs()	32	static
-LineTrace.cpp:323:6:void LineTrace::correctionTotalDistanceFromCrossLine()	40	static
-LineTrace.cpp:357:6:void LineTrace::correctionTotalDistanceFromSideMarker()	40	static
+LineTrace.cpp:323:6:void LineTrace::correctionTotalDistanceFromCrossLine()	32	static
+LineTrace.cpp:357:6:void LineTrace::correctionTotalDistanceFromSideMarker()	32	static
 LineTrace.cpp:406:7:float LineTrace::radius2Velocity(float)	24	static
 LineTrace.cpp:429:7:float LineTrace::radius2VelocityFnc(float)	48	static
 LineTrace.cpp:439:6:void LineTrace::decelerateProcessing(float, const float*)	48	static
 LineTrace.cpp:456:6:void LineTrace::accelerateProcessing(float, const float*)	48	static
 LineTrace.cpp:473:6:void LineTrace::startVelocityPlay()	16	static
 LineTrace.cpp:479:6:void LineTrace::stopVelocityPlay()	16	static
-LineTrace.cpp:486:6:void LineTrace::updateTargetVelocity()	32	static
+LineTrace.cpp:486:6:void LineTrace::updateTargetVelocity()	16	static
 LineTrace.cpp:507:6:bool LineTrace::isTargetDistance(float)	24	static
 LineTrace.cpp:517:6:bool LineTrace::isCrossLine()	24	static
 LineTrace.cpp:571:6:bool LineTrace::isStable()	40	static
