@@ -35,8 +35,9 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				kp_(0), kd_(0), ki_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), min_velocity_(0), min_velocity2_(0), logging_flag_(false),
-				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), all_sideline_idx_(0),
-				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), correction_check_cnt_(0), all_sideline_flag_(false)
+				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), sideline_idx2_(0), all_sideline_idx_(0),
+				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), correction_check_cnt_(0),
+				store_check_cnt_(0), all_sideline_flag_(false)
 
 {
 	motor_ = motor;
@@ -59,8 +60,13 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 		sideline_distance_[i] = 0;
 	}
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
+		sideline_distance2_[i] = 0;
+	}
+	/*
+	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
 		all_sideline_distance_[i] = 0;
 	}
+	*/
 }
 
 // --------private functions--------- //
@@ -268,6 +274,14 @@ void LineTrace::storeSideLineDistance()
 	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
 }
 
+void LineTrace::storeSideLineDistance2()
+{
+	sideline_distance2_[sideline_idx2_] = encoder_->getTotalDistance();
+	sideline_idx2_++;
+
+	if(sideline_idx2_ >= SIDELINE_SIZE) sideline_idx2_ = SIDELINE_SIZE - 1;
+}
+/*
 void LineTrace::storeAllSideLineDistance()
 {
 	all_sideline_distance_[all_sideline_idx_] = encoder_->getTotalDistance();
@@ -275,6 +289,7 @@ void LineTrace::storeAllSideLineDistance()
 
 	if(all_sideline_idx_ >= SIDELINE_SIZE) all_sideline_idx_ = SIDELINE_SIZE - 1;
 }
+*/
 
 void LineTrace::storeLogs()
 {
@@ -305,25 +320,27 @@ void LineTrace::correctionTotalDistanceFromCrossLine()
 
 void LineTrace::correctionTotalDistanceFromSideMarker()
 {
+	/*
 	encoder_->setTotalDistance(sideline_distance_[sideline_idx_] / DISTANCE_CORRECTION_CONST);
 	sideline_idx_++;
+	*/
 
-	/*
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
 		float temp_sideline_distance = sideline_distance_[i];
-		float diff = abs(temp_sideline_distance - encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST);
-		if(diff <= 80){
+		float diff = abs(temp_sideline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
+		if(diff <= 250){
+			correction_check_cnt_ = 0;
 			encoder_->setTotalDistance(sideline_distance_[i] / DISTANCE_CORRECTION_CONST);
 			break;
 		}
 	}
-	*/
 
 	/*
 	while(sideline_idx_ <= SIDELINE_SIZE){
 		float temp_sideline_distance = sideline_distance_[sideline_idx_];
-		float diff = abs(temp_sideline_distance - encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST);
-		if(diff <= 80){
+		float diff = abs(temp_sideline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
+		if(diff <= 250){
+			correction_check_cnt_ = 0;
 			encoder_->setTotalDistance(sideline_distance_[sideline_idx_] / DISTANCE_CORRECTION_CONST);
 			break;
 		}
@@ -335,6 +352,7 @@ void LineTrace::correctionTotalDistanceFromSideMarker()
 
 }
 
+/*
 void LineTrace::correctionTotalDistanceFromAllSideMarker()
 {
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
@@ -349,6 +367,7 @@ void LineTrace::correctionTotalDistanceFromAllSideMarker()
 	if(all_sideline_idx_ >= SIDELINE_SIZE) all_sideline_idx_ = SIDELINE_SIZE - 1;
 
 }
+*/
 
 // ---------------------------------------------------------------------------------------------------//
 // ------------------------ Acceleration / deceleration processing------------------------------------//
@@ -768,13 +787,16 @@ void LineTrace::flip()
 		// ------- Store side line distance or correction distance------//
 
 		if(stable_flag_ == true && side_sensor_->getStatusL() == true){ //Stabilizing and side sensor is white
-			correction_check_cnt_ = 0;
+			//correction_check_cnt_ = 0;
 
 			if(mode_selector_ == FIRST_RUNNING){
+				store_check_cnt_ = 0;
 				storeSideLineDistance();
 			}
 			else{
+				store_check_cnt_ = 0;
 				correctionTotalDistanceFromSideMarker();
+				storeSideLineDistance2(); //for correction check
 			}
 
 			stable_flag_ = false;
@@ -833,8 +855,14 @@ void LineTrace::flip()
 		correction_check_cnt_++;
 		if(correction_check_cnt_ >= 10000) correction_check_cnt_ = 10000;
 
-		if(correction_check_cnt_ <= 200) led_.fullColor('R');
+		if(correction_check_cnt_ <= 300) led_.fullColor('R');
 		else led_.fullColor('B');
+
+		store_check_cnt_++;
+		if(store_check_cnt_>= 10000) store_check_cnt_ = 10000;
+
+		if(store_check_cnt_ <= 200) led_.LR(1, -1);
+		else led_.LR(0, -1);
 	}
 }
 
@@ -854,6 +882,7 @@ void LineTrace::start()
 	side_sensor_->resetWhiteLineCnt();
 	crossline_idx_ = 0;
 	sideline_idx_ = 0;
+	sideline_idx2_ = 0;
 	all_sideline_idx_ = 0;
 }
 
@@ -910,13 +939,14 @@ void LineTrace::stop()
 	led_.LR(-1, 1);
 	if(mode_selector_ == FIRST_RUNNING){ //First running
 		logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
+		sd_write_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_, OVER_WRITE);
+		sd_write_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_, OVER_WRITE);
 	}
 	else{//Secondary run
 		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
+		sd_write_array_float("COURSLOG", "SIDEDIS2.TXT", SIDELINE_SIZE, sideline_distance2_, OVER_WRITE);
 	}
-	sd_write_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_, OVER_WRITE);
-	sd_write_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_, OVER_WRITE);
-	sd_write_array_float("COURSLOG", "ASIDEDIS.TXT", SIDELINE_SIZE, all_sideline_distance_, OVER_WRITE);
+	//sd_write_array_float("COURSLOG", "ASIDEDIS.TXT", SIDELINE_SIZE, all_sideline_distance_, OVER_WRITE);
 
 	led_.LR(-1, 0);
 

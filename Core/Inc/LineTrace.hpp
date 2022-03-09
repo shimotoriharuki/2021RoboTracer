@@ -70,9 +70,11 @@ private:
 	int16_t mode_selector_;
 	float crossline_distance_[CROSSLINE_SIZE];
 	float sideline_distance_[SIDELINE_SIZE];
-	float all_sideline_distance_[SIDELINE_SIZE];
+	float sideline_distance2_[SIDELINE_SIZE];
+	//float all_sideline_distance_[SIDELINE_SIZE];
 	uint16_t crossline_idx_;
 	uint16_t sideline_idx_;
+	uint16_t sideline_idx2_;
 	uint16_t all_sideline_idx_;
 	bool ignore_crossline_flag_;
 	bool stable_flag_;
@@ -80,6 +82,7 @@ private:
 	float max_acc_, max_dec_;
 	float max_acc2_, max_dec2_;
 	uint16_t correction_check_cnt_;
+	uint16_t store_check_cnt_;
 	bool all_sideline_flag_;
 
 	// Sensor angle based line following
@@ -99,13 +102,14 @@ private:
 	void loggerStop();
 	void storeCrossLineDistance();
 	void storeSideLineDistance();
-	void storeAllSideLineDistance();
+	void storeSideLineDistance2();
+	//void storeAllSideLineDistance();
 	void storeLogs();
 
 	// position correction
 	void correctionTotalDistanceFromCrossLine();
 	void correctionTotalDistanceFromSideMarker();
-	void correctionTotalDistanceFromAllSideMarker();
+	//void correctionTotalDistanceFromAllSideMarker();
 
 	// Acceleration / deceleration processing
 	float radius2Velocity(float);
