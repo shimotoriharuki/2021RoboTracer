@@ -202,6 +202,7 @@ void Logger::resetLogs1()
 	}
 
 	log_index_tim_ = 0;
+	log_index_tim2_ = 0;
 	log_index_dis_ = 0;
 }
 
@@ -215,11 +216,13 @@ void Logger::resetLogs2()
 	}
 
 	log_index_tim_ = 0;
+	log_index_tim2_ = 0;
 	log_index_dis_ = 0;
 }
 void Logger::resetIdx()
 {
 	log_index_tim_ = 0;
+	log_index_tim2_ = 0;
 	log_index_dis_ = 0;
 }
 

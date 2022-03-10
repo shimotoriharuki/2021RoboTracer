@@ -24,8 +24,8 @@ void SystemIdentification::init()
 void SystemIdentification::inOutputStore(float output)
 {
 	if(processing_flag_ == true){
-		logger_->storeLog(output);
-		logger_->storeLog2(inputVal_);
+		//logger_->storeLog(output);
+		//logger_->storeLog2(inputVal_);
 	}
 
 }

@@ -120,7 +120,8 @@ void cppInit(void)
 	//line_trace.setGain(0.0005, 0.000002, 0);
 
 	//velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243); //2s
-	velocity_ctrl.setVelocityGain(1.0154, 6.5511, 0.0010088); //3s
+	//velocity_ctrl.setVelocityGain(1.0154, 6.5511, 0.0010088); //3s dorone
+	velocity_ctrl.setVelocityGain(1.2, 10.6, 0.0); //3s
 
 	velocity_ctrl.setOmegaGain(0.060, 0.86816, 0.000); //2s
 
@@ -175,12 +176,14 @@ void cppFlip100ns(void)
 
 void cppFlip10ms(void)
 {
+	/*
 	static uint16_t twice_cnt;
 	twice_cnt++;
 	if(twice_cnt >= 17){ //170ms
 		sys_ident.updateMsig();
 		twice_cnt = 0;
 	}
+	*/
 
 	logger.storeLog(line_trace.getTargetVelocity());
 	logger.storeLog2(velocity_ctrl.getCurrentVelocity());
@@ -323,7 +326,14 @@ void cppLoop(void)
 
 			// Run
 			line_trace.setMode(FIRST_RUNNING);
+
+			logger.start();
+
 			line_trace.running();
+
+			logger.stop();
+			logger.saveLogs("STATELOG", "TARVEL.txt");
+			logger.saveLogs2("STATELOG", "CURVEL.txt");
 
 			// BLDC off
 			//esc.off();

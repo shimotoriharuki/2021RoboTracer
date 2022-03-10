@@ -16,7 +16,7 @@ Logger.cpp:150:6:void Logger::saveDistanceAndTheta(const char*, const char*, con
 Logger.cpp:156:6:void Logger::saveDistanceAndTheta2(const char*, const char*, const char*)	32	static
 Logger.cpp:162:6:void Logger::importDistanceAndTheta(const char*, const char*, const char*)	24	static
 Logger.cpp:195:6:void Logger::resetLogs1()	48	static
-Logger.cpp:208:6:void Logger::resetLogs2()	48	static
-Logger.cpp:220:6:void Logger::resetIdx()	16	static
-Logger.cpp:226:6:void Logger::start()	16	static
-Logger.cpp:233:6:void Logger::stop()	16	static
+Logger.cpp:209:6:void Logger::resetLogs2()	48	static
+Logger.cpp:222:6:void Logger::resetIdx()	16	static
+Logger.cpp:229:6:void Logger::start()	16	static
+Logger.cpp:236:6:void Logger::stop()	16	static
