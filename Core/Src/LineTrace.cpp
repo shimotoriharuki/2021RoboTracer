@@ -322,14 +322,16 @@ void LineTrace::storeLogs()
 // ---------------------------------------------------------------------------------------------------//
 void LineTrace::correctionTotalDistanceFromCrossLine()
 {
+	/*
 	encoder_->setTotalDistance(crossline_distance_[crossline_idx_] / DISTANCE_CORRECTION_CONST);
 	crossline_idx_++;
 	correction_check_cnt_ = 0;
+	*/
 	/*
 	for(uint16_t i = 0; i < CROSSLINE_SIZE; i++){
 		float temp_crossline_distance = crossline_distance_[i];
 		float diff = abs(temp_crossline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
-		if(diff <= 100){
+		if(diff <= 250){
 			correction_check_cnt_ = 0;
 			encoder_->setTotalDistance(crossline_distance_[i] / DISTANCE_CORRECTION_CONST);
 			break;
@@ -337,18 +339,17 @@ void LineTrace::correctionTotalDistanceFromCrossLine()
 	}
 	*/
 
-	/*
 	while(crossline_idx_ <= CROSSLINE_SIZE){
 		float temp_crossline_distance = crossline_distance_[crossline_idx_];
 		float diff = abs(temp_crossline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
-		if(diff <= 200){
+		if(diff <= 250){
 			correction_check_cnt_ = 0;
 			encoder_->setTotalDistance(crossline_distance_[crossline_idx_] / DISTANCE_CORRECTION_CONST);
+			crossline_idx_++;
 			break;
 		}
 		crossline_idx_++;
 	}
-	*/
 
 	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
 
@@ -417,8 +418,9 @@ float LineTrace::radius2Velocity(float radius)
 	*/
 	if(mode_selector_ == SECOND_RUNNING){
 		if(radius < 400) velocity = min_velocity_;
-		if(radius < 450) velocity = 1.6;
-		else if(radius < 600) velocity = 2.0;
+		//if(radius < 450) velocity = 1.5;
+		else if(radius < 500) velocity = 1.5;
+		else if(radius < 650) velocity = 2.0;
 		else if(radius < 2000) velocity = 3.0;
 		else velocity = max_velocity_;
 	}
@@ -575,7 +577,7 @@ bool LineTrace::isCrossLine()
 			cnt = 0;
 		}
 
-		if(cnt >= 10){
+		if(cnt >= 5){
 			flag = false;
 			white_flag = false;
 			cnt = 0;
@@ -863,7 +865,7 @@ void LineTrace::flip()
 			//led_.LR(1, -1);
 		}
 
-		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 70){
+		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 60){
 			side_sensor_->disableIgnore();
 			//led_.LR(0, -1);
 		}
