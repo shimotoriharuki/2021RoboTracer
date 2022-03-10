@@ -37,11 +37,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  000354b4  00000000  00000000  000773e8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   000265fa  00000000  00000000  000ac89c  2**0
+ 17 .debug_line   000265f9  00000000  00000000  000ac89c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    001110e6  00000000  00000000  000d2e96  2**0
+ 18 .debug_str    001110e6  00000000  00000000  000d2e95  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  001e3f7c  2**0
+ 19 .comment      0000007b  00000000  00000000  001e3f7b  2**0
                   CONTENTS, READONLY
  20 .debug_frame  0000a75c  00000000  00000000  001e3ff8  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -6481,8 +6481,13 @@ void LineTrace::updateTargetVelocity()
  80036b8:	3350      	adds	r3, #80	; 0x50
  80036ba:	781b      	ldrb	r3, [r3, #0]
  80036bc:	2b00      	cmp	r3, #0
- 80036be:	d05f      	beq.n	8003780 <_ZN9LineTrace20updateTargetVelocityEv+0xd6>
+ 80036be:	d05e      	beq.n	800377e <_ZN9LineTrace20updateTargetVelocityEv+0xd4>
 		while(encoder_->getTotalDistance() * DISTANCE_CORRECTION_CONST >= ref_distance_){
+			ref_distance_ += ref_delta_distances_[velocity_table_idx_];
+			velocity_table_idx_++;
+		}
+		*/
+		if(encoder_->getTotalDistance() * DISTANCE_CORRECTION_CONST >= ref_distance_){
  80036c0:	687b      	ldr	r3, [r7, #4]
  80036c2:	695b      	ldr	r3, [r3, #20]
  80036c4:	4618      	mov	r0, r3
@@ -6499,7 +6504,7 @@ void LineTrace::updateTargetVelocity()
  80036e6:	2300      	movlt	r3, #0
  80036e8:	b2db      	uxtb	r3, r3
  80036ea:	2b00      	cmp	r3, #0
- 80036ec:	d026      	beq.n	800373c <_ZN9LineTrace20updateTargetVelocityEv+0x92>
+ 80036ec:	d025      	beq.n	800373a <_ZN9LineTrace20updateTargetVelocityEv+0x90>
 			ref_distance_ += ref_delta_distances_[velocity_table_idx_];
  80036ee:	687b      	ldr	r3, [r7, #4]
  80036f0:	f503 43bd 	add.w	r3, r3, #24192	; 0x5e80
@@ -6531,88 +6536,87 @@ void LineTrace::updateTargetVelocity()
  8003732:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
  8003736:	3352      	adds	r3, #82	; 0x52
  8003738:	801a      	strh	r2, [r3, #0]
-		while(encoder_->getTotalDistance() * DISTANCE_CORRECTION_CONST >= ref_distance_){
- 800373a:	e7c1      	b.n	80036c0 <_ZN9LineTrace20updateTargetVelocityEv+0x16>
 		}
 
 		if(velocity_table_idx_ >= LOG_DATA_SIZE_DIS) velocity_table_idx_ = LOG_DATA_SIZE_DIS - 1;
- 800373c:	687b      	ldr	r3, [r7, #4]
- 800373e:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8003742:	3352      	adds	r3, #82	; 0x52
- 8003744:	881b      	ldrh	r3, [r3, #0]
- 8003746:	f241 726f 	movw	r2, #5999	; 0x176f
- 800374a:	4293      	cmp	r3, r2
- 800374c:	d906      	bls.n	800375c <_ZN9LineTrace20updateTargetVelocityEv+0xb2>
- 800374e:	687b      	ldr	r3, [r7, #4]
- 8003750:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8003754:	3352      	adds	r3, #82	; 0x52
- 8003756:	f241 726f 	movw	r2, #5999	; 0x176f
- 800375a:	801a      	strh	r2, [r3, #0]
+ 800373a:	687b      	ldr	r3, [r7, #4]
+ 800373c:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 8003740:	3352      	adds	r3, #82	; 0x52
+ 8003742:	881b      	ldrh	r3, [r3, #0]
+ 8003744:	f241 726f 	movw	r2, #5999	; 0x176f
+ 8003748:	4293      	cmp	r3, r2
+ 800374a:	d906      	bls.n	800375a <_ZN9LineTrace20updateTargetVelocityEv+0xb0>
+ 800374c:	687b      	ldr	r3, [r7, #4]
+ 800374e:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 8003752:	3352      	adds	r3, #82	; 0x52
+ 8003754:	f241 726f 	movw	r2, #5999	; 0x176f
+ 8003758:	801a      	strh	r2, [r3, #0]
 
 		setTargetVelocity(velocity_table_[velocity_table_idx_]);
- 800375c:	687b      	ldr	r3, [r7, #4]
- 800375e:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
- 8003762:	3352      	adds	r3, #82	; 0x52
- 8003764:	881b      	ldrh	r3, [r3, #0]
- 8003766:	687a      	ldr	r2, [r7, #4]
- 8003768:	f503 53bd 	add.w	r3, r3, #6048	; 0x17a0
- 800376c:	3304      	adds	r3, #4
- 800376e:	009b      	lsls	r3, r3, #2
- 8003770:	4413      	add	r3, r2
- 8003772:	edd3 7a00 	vldr	s15, [r3]
- 8003776:	eeb0 0a67 	vmov.f32	s0, s15
- 800377a:	6878      	ldr	r0, [r7, #4]
- 800377c:	f000 fadd 	bl	8003d3a <_ZN9LineTrace17setTargetVelocityEf>
+ 800375a:	687b      	ldr	r3, [r7, #4]
+ 800375c:	f503 433c 	add.w	r3, r3, #48128	; 0xbc00
+ 8003760:	3352      	adds	r3, #82	; 0x52
+ 8003762:	881b      	ldrh	r3, [r3, #0]
+ 8003764:	687a      	ldr	r2, [r7, #4]
+ 8003766:	f503 53bd 	add.w	r3, r3, #6048	; 0x17a0
+ 800376a:	3304      	adds	r3, #4
+ 800376c:	009b      	lsls	r3, r3, #2
+ 800376e:	4413      	add	r3, r2
+ 8003770:	edd3 7a00 	vldr	s15, [r3]
+ 8003774:	eeb0 0a67 	vmov.f32	s0, s15
+ 8003778:	6878      	ldr	r0, [r7, #4]
+ 800377a:	f000 fade 	bl	8003d3a <_ZN9LineTrace17setTargetVelocityEf>
 		mon_vel_idx = velocity_table_idx_;
 		mon_tar_vel = velocity_table_[velocity_table_idx_];
 		*/
 
 	}
 }
- 8003780:	bf00      	nop
- 8003782:	3708      	adds	r7, #8
- 8003784:	46bd      	mov	sp, r7
- 8003786:	bd80      	pop	{r7, pc}
+ 800377e:	bf00      	nop
+ 8003780:	3708      	adds	r7, #8
+ 8003782:	46bd      	mov	sp, r7
+ 8003784:	bd80      	pop	{r7, pc}
 
-08003788 <_ZN9LineTrace16isTargetDistanceEf>:
+08003786 <_ZN9LineTrace16isTargetDistanceEf>:
 
 bool LineTrace::isTargetDistance(float target_distance)
 {
- 8003788:	b580      	push	{r7, lr}
- 800378a:	b084      	sub	sp, #16
- 800378c:	af00      	add	r7, sp, #0
- 800378e:	6078      	str	r0, [r7, #4]
- 8003790:	ed87 0a00 	vstr	s0, [r7]
+ 8003786:	b580      	push	{r7, lr}
+ 8003788:	b084      	sub	sp, #16
+ 800378a:	af00      	add	r7, sp, #0
+ 800378c:	6078      	str	r0, [r7, #4]
+ 800378e:	ed87 0a00 	vstr	s0, [r7]
 	bool ret = false;
- 8003794:	2300      	movs	r3, #0
- 8003796:	73fb      	strb	r3, [r7, #15]
+ 8003792:	2300      	movs	r3, #0
+ 8003794:	73fb      	strb	r3, [r7, #15]
 	if(encoder_->getDistance10mm() >= target_distance){
- 8003798:	687b      	ldr	r3, [r7, #4]
- 800379a:	695b      	ldr	r3, [r3, #20]
- 800379c:	4618      	mov	r0, r3
- 800379e:	f7fd ff92 	bl	80016c6 <_ZN7Encoder15getDistance10mmEv>
- 80037a2:	eeb0 7a40 	vmov.f32	s14, s0
- 80037a6:	edd7 7a00 	vldr	s15, [r7]
- 80037aa:	eef4 7ac7 	vcmpe.f32	s15, s14
- 80037ae:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
- 80037b2:	bf94      	ite	ls
- 80037b4:	2301      	movls	r3, #1
- 80037b6:	2300      	movhi	r3, #0
- 80037b8:	b2db      	uxtb	r3, r3
- 80037ba:	2b00      	cmp	r3, #0
- 80037bc:	d001      	beq.n	80037c2 <_ZN9LineTrace16isTargetDistanceEf+0x3a>
+ 8003796:	687b      	ldr	r3, [r7, #4]
+ 8003798:	695b      	ldr	r3, [r3, #20]
+ 800379a:	4618      	mov	r0, r3
+ 800379c:	f7fd ff93 	bl	80016c6 <_ZN7Encoder15getDistance10mmEv>
+ 80037a0:	eeb0 7a40 	vmov.f32	s14, s0
+ 80037a4:	edd7 7a00 	vldr	s15, [r7]
+ 80037a8:	eef4 7ac7 	vcmpe.f32	s15, s14
+ 80037ac:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
+ 80037b0:	bf94      	ite	ls
+ 80037b2:	2301      	movls	r3, #1
+ 80037b4:	2300      	movhi	r3, #0
+ 80037b6:	b2db      	uxtb	r3, r3
+ 80037b8:	2b00      	cmp	r3, #0
+ 80037ba:	d001      	beq.n	80037c0 <_ZN9LineTrace16isTargetDistanceEf+0x3a>
 		ret = true;
- 80037be:	2301      	movs	r3, #1
- 80037c0:	73fb      	strb	r3, [r7, #15]
+ 80037bc:	2301      	movs	r3, #1
+ 80037be:	73fb      	strb	r3, [r7, #15]
 	}
 
 	return ret;
- 80037c2:	7bfb      	ldrb	r3, [r7, #15]
+ 80037c0:	7bfb      	ldrb	r3, [r7, #15]
 }
- 80037c4:	4618      	mov	r0, r3
- 80037c6:	3710      	adds	r7, #16
- 80037c8:	46bd      	mov	sp, r7
- 80037ca:	bd80      	pop	{r7, pc}
+ 80037c2:	4618      	mov	r0, r3
+ 80037c4:	3710      	adds	r7, #16
+ 80037c6:	46bd      	mov	sp, r7
+ 80037c8:	bd80      	pop	{r7, pc}
+	...
 
 080037cc <_ZN9LineTrace11isCrossLineEv>:
 
@@ -7697,7 +7701,7 @@ void LineTrace::flip()
 		if(isTargetDistance(50) == true){
  8003f94:	ed9f 0a8e 	vldr	s0, [pc, #568]	; 80041d0 <_ZN9LineTrace4flipEv+0x25c>
  8003f98:	6878      	ldr	r0, [r7, #4]
- 8003f9a:	f7ff fbf5 	bl	8003788 <_ZN9LineTrace16isTargetDistanceEf>
+ 8003f9a:	f7ff fbf4 	bl	8003786 <_ZN9LineTrace16isTargetDistanceEf>
  8003f9e:	4603      	mov	r3, r0
  8003fa0:	2b00      	cmp	r3, #0
  8003fa2:	d028      	beq.n	8003ff6 <_ZN9LineTrace4flipEv+0x82>

@@ -488,7 +488,13 @@ void LineTrace::stopVelocityPlay()
 void LineTrace::updateTargetVelocity()
 {
 	if(velocity_play_flag_ == true){
+		/*
 		while(encoder_->getTotalDistance() * DISTANCE_CORRECTION_CONST >= ref_distance_){
+			ref_distance_ += ref_delta_distances_[velocity_table_idx_];
+			velocity_table_idx_++;
+		}
+		*/
+		if(encoder_->getTotalDistance() * DISTANCE_CORRECTION_CONST >= ref_distance_){
 			ref_distance_ += ref_delta_distances_[velocity_table_idx_];
 			velocity_table_idx_++;
 		}
