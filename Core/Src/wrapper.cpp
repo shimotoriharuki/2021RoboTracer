@@ -494,7 +494,13 @@ void cppLoop(void)
 			line_trace.setMinVelocity2(adj_min_velocity2);
 			line_trace.createVelocityTabele();
 
+			logger.start();
+
 			line_trace.running();
+
+			logger.stop();
+			logger.saveLogs("STATELOG", "TARVEL.txt");
+			logger.saveLogs2("STATELOG", "CURVEL.txt");
 
 			led.LR(0, -1);
 		}
