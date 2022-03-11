@@ -420,6 +420,7 @@ float LineTrace::radius2Velocity(float radius)
 		if(radius < 400) velocity = min_velocity_;
 		else if(radius < 500) velocity = 1.5;
 		else if(radius < 650) velocity = 2.0;
+		else if(radius < 1500) velocity = 2.5;
 		else if(radius < 2000) velocity = 3.0;
 		else velocity = max_velocity_;
 	}
@@ -428,6 +429,7 @@ float LineTrace::radius2Velocity(float radius)
 		if(radius < 400) velocity = min_velocity2_;
 		else if(radius < 500) velocity = 1.5;
 		else if(radius < 650) velocity = 2.0;
+		else if(radius < 1500) velocity = 2.5;
 		else if(radius < 2000) velocity = 3.0;
 		else velocity = max_velocity2_;
 	}
