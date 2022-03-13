@@ -9488,9 +9488,8 @@ LOAD c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x0000000008003258       0xbc Core/Src/LineTrace.o
                 0x0000000008003258                LineTrace::correctionTotalDistanceFromSideMarker()
  .text._ZN9LineTrace15radius2VelocityEf
-                0x0000000008003314      0x178 Core/Src/LineTrace.o
+                0x0000000008003314      0x17c Core/Src/LineTrace.o
                 0x0000000008003314                LineTrace::radius2Velocity(float)
- *fill*         0x000000000800348c        0x4 
  .text._ZN9LineTrace20decelerateProcessingEfPKf
                 0x0000000008003490      0x148 Core/Src/LineTrace.o
                 0x0000000008003490                LineTrace::decelerateProcessing(float, float const*)
