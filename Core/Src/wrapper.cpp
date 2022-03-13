@@ -54,6 +54,7 @@ float mon_v, mon_w;
 uint16_t mon_cnt;
 
 float mon_soiya = 0;
+uint16_t mon_A, mon_B;
 
 void batteryLowMode()
 {
@@ -204,6 +205,12 @@ void cppFlip10ms(void)
 void cppExit(uint16_t gpio_pin)
 {
 	//side_sensor.updateStatus(gpio_pin);
+	if(gpio_pin == GPIO_PIN_12){
+		mon_A ^= 1;
+	}
+	else if(gpio_pin == GPIO_PIN_15){
+		mon_B ^= 1;
+	}
 }
 
 void cppLoop(void)
