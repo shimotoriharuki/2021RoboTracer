@@ -15,7 +15,7 @@
 class Encoder{
 
 private:
-	float cnt_l_, cnt_r_;
+	float cnt_l_, cnt_r_, cnt_c_;
 	float distance_; //[mm]
 	float total_cnt_l_, total_cnt_r_;
 	float distance_10mm_;

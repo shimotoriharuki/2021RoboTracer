@@ -21,8 +21,9 @@ float monitor_distance;
 float monitor_cnt_l;
 float monitor_cnt_l_lpf;
 uint16_t monA, monB;
+float mon_cnt_c;
 
-Encoder::Encoder() : cnt_l_(0), cnt_r_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0), distance_10mm_(0), total_distance_(0), cross_line_ignore_distance_(0){}
+Encoder::Encoder() : cnt_l_(0), cnt_r_(0), cnt_c_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0), distance_10mm_(0), total_distance_(0), cross_line_ignore_distance_(0){}
 
 void Encoder::init()
 {
@@ -61,12 +62,35 @@ void Encoder::update()
 }
 
 void Encoder::exitCnt(uint16_t gpio_pin){
-	if(gpio_pin == GPIO_PIN_12){
+	static uint16_t flag_A = 0;
+	static uint16_t flag_B = 0;
+
+	if(gpio_pin == GPIO_PIN_12){ //A
+		flag_A ^= 1;
+
+		if((flag_A == 1 && flag_B == 0) || (flag_A == 0 && flag_B == 1)){
+			cnt_c_++;
+		}
+		else if((flag_A == 1 && flag_B == 1) || (flag_A == 0 && flag_B == 0)){
+			cnt_c_--;
+		}
+
 		monA ^= 1;
 	}
-	if(gpio_pin == GPIO_PIN_15){
+	if(gpio_pin == GPIO_PIN_15){ //B
+		flag_B ^= 1;
+
+		if((flag_A == 1 && flag_B == 1) || (flag_A == 0 && flag_B == 0)){
+			cnt_c_++;
+		}
+		else if((flag_A == 0 && flag_B == 1) || (flag_A == 1 && flag_B == 0)){
+			cnt_c_--;
+		}
+
 		monB ^= 1;
 	}
+
+	mon_cnt_c = cnt_c_;
 }
 
 void Encoder::clear()
