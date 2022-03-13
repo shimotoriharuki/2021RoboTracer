@@ -26,6 +26,7 @@ public:
 	Encoder();
 	void init();
 	void update();
+	void exitCnt(uint16_t);
 	void clear();
 	void getCnt(float &, float &);
 	float getDistance();

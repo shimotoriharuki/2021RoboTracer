@@ -20,6 +20,7 @@
 float monitor_distance;
 float monitor_cnt_l;
 float monitor_cnt_l_lpf;
+uint16_t monA, monB;
 
 Encoder::Encoder() : cnt_l_(0), cnt_r_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0), distance_10mm_(0), total_distance_(0), cross_line_ignore_distance_(0){}
 
@@ -29,6 +30,8 @@ void Encoder::init()
 	HAL_TIM_Encoder_Start(&htim8,TIM_CHANNEL_ALL);
 	TIM1 -> CNT = CNT_OFFSET;
 	TIM8 -> CNT = CNT_OFFSET;
+	monA = 0;
+	monB = 0;
 }
 
 void Encoder::update()
@@ -55,6 +58,15 @@ void Encoder::update()
 	total_distance_ += distance_;
 	cross_line_ignore_distance_ += distance_;
 	monitor_distance = distance_10mm_;
+}
+
+void Encoder::exitCnt(uint16_t gpio_pin){
+	if(gpio_pin == GPIO_PIN_12){
+		monA ^= 1;
+	}
+	if(gpio_pin == GPIO_PIN_15){
+		monB ^= 1;
+	}
 }
 
 void Encoder::clear()
