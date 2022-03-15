@@ -64,6 +64,7 @@ void Encoder::update()
 	distance_ = DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	distance_10mm_ += distance_;
 	total_distance_ += distance_;
+	distance_center_ += DISTANCE_PER_CNT_CENTER * cnt_c_;
 	cross_line_ignore_distance_ += distance_;
 	monitor_distance = distance_10mm_;
 }
@@ -76,10 +77,10 @@ void Encoder::extiCnt(uint16_t gpio_pin){
 		flag_A ^= 1;
 
 		if((flag_A == 1 && flag_B == 0) || (flag_A == 0 && flag_B == 1)){
-			cnt_c_--;
+			cnt_c_++;
 		}
 		else if((flag_A == 1 && flag_B == 1) || (flag_A == 0 && flag_B == 0)){
-			cnt_c_++;
+			cnt_c_--;
 		}
 
 		monA ^= 1;
@@ -88,18 +89,15 @@ void Encoder::extiCnt(uint16_t gpio_pin){
 		flag_B ^= 1;
 
 		if((flag_A == 1 && flag_B == 1) || (flag_A == 0 && flag_B == 0)){
-			cnt_c_--;
+			cnt_c_++;
 		}
 		else if((flag_A == 0 && flag_B == 1) || (flag_A == 1 && flag_B == 0)){
-			cnt_c_++;
+			cnt_c_--;
 		}
 
 		monB ^= 1;
 	}
 
-	distance_center_ = DISTANCE_PER_CNT_CENTER * cnt_c_;
-
-	mon_distance_c = distance_center_;
 	mon_cnt_c = cnt_c_;
 }
 
@@ -107,6 +105,7 @@ void Encoder::clear()
 {
 	cnt_l_ = 0;
 	cnt_r_ = 0;
+	cnt_c_ = 0;
 	TIM1 -> CNT = CNT_OFFSET;
 	TIM8 -> CNT = CNT_OFFSET;
 	distance_ = 0;
@@ -171,7 +170,6 @@ void Encoder::clearTotalDistance()
 void Encoder::clearCenterDistance()
 {
 	distance_center_ = 0;
-	cnt_c_ = 0;
 }
 
 float Encoder::getCrossLineIgnoreDistance()
