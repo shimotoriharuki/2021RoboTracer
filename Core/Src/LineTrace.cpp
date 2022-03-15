@@ -250,7 +250,7 @@ void LineTrace::loggerStart()
 {
 	encoder_->clearDistance10mm();
 	odometry_->clearPotition();
-	logger_->resetLogs2();
+	logger_->resetDistanceThetaLogs2();
 
 	logging_flag_ = true;
 }
@@ -951,6 +951,7 @@ void LineTrace::running()
 		switch(stage){
 		case 0:
 			if(side_sensor_->getWhiteLineCntR() == 1){
+				logger_->start();
 				loggerStart();
 				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
 					startVelocityPlay();
@@ -967,6 +968,8 @@ void LineTrace::running()
 		case 10:
 			if(side_sensor_->getWhiteLineCntR() == 2){
 				led_.fullColor('M');
+
+				logger_->stop();
 				loggerStop();
 				stopVelocityPlay();
 				HAL_Delay(100); //Run through after the goal
@@ -1006,7 +1009,7 @@ void LineTrace::stop()
 	led_.LR(-1, 0);
 
 	logger_->resetIdx();
-	logger_->resetLogs2();
+	logger_->resetDistanceThetaLogs2();
 }
 
 // ---------------------------------------------------------------------------------------------------//

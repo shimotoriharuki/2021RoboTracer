@@ -180,9 +180,12 @@ void cppFlip10ms(void)
 	}
 	*/
 
+	/*
 	logger.storeLog(line_trace.getTargetVelocity());
 	logger.storeLog2(velocity_ctrl.getCurrentVelocity());
-
+	*/
+	logger.storeLog(encoder.getTotalDistance());
+	logger.storeLog2(encoder.getCenterDistance());
 
 	/*
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
@@ -199,7 +202,7 @@ void cppFlip10ms(void)
 void cppExit(uint16_t gpio_pin)
 {
 
-	encoder.exitCnt(gpio_pin);
+	encoder.extiCnt(gpio_pin);
 
 }
 
@@ -324,13 +327,17 @@ void cppLoop(void)
 			// Run
 			line_trace.setMode(FIRST_RUNNING);
 
-			logger.start();
+			//logger.start();
+			encoder.clearTotalDistance();
+			encoder.clearCenterDistance();
+			logger.resetLogs();
+			logger.resetLogs2();
 
 			line_trace.running();
 
-			logger.stop();
-			logger.saveLogs("STATELOG", "TARVEL.txt");
-			logger.saveLogs2("STATELOG", "CURVEL.txt");
+			//logger.stop();
+			logger.saveLogs("STATELOG", "MOTORDIS.txt");
+			logger.saveLogs2("STATELOG", "PULEYDIS.txt");
 
 			// BLDC off
 			//esc.off();
@@ -404,13 +411,17 @@ void cppLoop(void)
 
 			HAL_Delay(1000);
 
-			logger.start();
+			//logger.start();
+			encoder.clearTotalDistance();
+			encoder.clearCenterDistance();
+			logger.resetLogs();
+			logger.resetLogs2();
 
 			line_trace.running();
 
-			logger.stop();
-			logger.saveLogs("STATELOG", "TARVEL.txt");
-			logger.saveLogs2("STATELOG", "CURVEL.txt");
+			//logger.stop();
+			logger.saveLogs("STATELOG", "MOTORDI2.txt");
+			logger.saveLogs2("STATELOG", "PULEYDI2.txt");
 
 			led.LR(0, -1);
 		}

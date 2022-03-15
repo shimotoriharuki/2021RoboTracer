@@ -192,7 +192,7 @@ void Logger::continuousWriteStop()
 }
 */
 
-void Logger::resetLogs1()
+void Logger::resetDistanceThetaLogs()
 {
 	for(auto &log : store_distance_){
 		log = 0;
@@ -201,12 +201,10 @@ void Logger::resetLogs1()
 		log = 0;
 	}
 
-	log_index_tim_ = 0;
-	log_index_tim2_ = 0;
 	log_index_dis_ = 0;
 }
 
-void Logger::resetLogs2()
+void Logger::resetDistanceThetaLogs2()
 {
 	for(auto &log : store_distance2_){
 		log = 0;
@@ -215,10 +213,29 @@ void Logger::resetLogs2()
 		log = 0;
 	}
 
-	log_index_tim_ = 0;
-	log_index_tim2_ = 0;
 	log_index_dis_ = 0;
 }
+
+void Logger::resetLogs()
+{
+	for(auto &log : store_data_float_){
+		log = 0;
+	}
+
+	log_index_tim_ = 0;
+
+}
+
+void Logger::resetLogs2()
+{
+	for(auto &log : store_data_float2_){
+		log = 0;
+	}
+
+	log_index_tim2_ = 0;
+
+}
+
 void Logger::resetIdx()
 {
 	log_index_tim_ = 0;

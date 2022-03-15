@@ -11,19 +11,23 @@
 #define MAX_ENCODER_CNT 65535
 #define CNT_OFFSET 32768
 #define WHEEL_RADIUS 10.75 //[mm]
+#define PULLEY_RADIUS 15 //[mm]
 #define PI 3.1415926535
 #define ENCODER_RESOLUTION 4096
+#define ENCODER_RESOLUTION_CENTER 1200
 #define REDUCTION_RATIO 0.35 //Gear reduction ratio
 #define DISTANCE_PER_CNT (2 * PI * WHEEL_RADIUS * REDUCTION_RATIO / ENCODER_RESOLUTION) //[mm per cnt]
+#define DISTANCE_PER_CNT_CENTER (2 * PI * PULLEY_RADIUS / ENCODER_RESOLUTION_CENTER) //[mm per cnt]
 #define CORRECTION_COEFFICIENT float(1.0874883*1.0324*1.01)
 
 float monitor_distance;
 float monitor_cnt_l;
 float monitor_cnt_l_lpf;
 uint16_t monA, monB;
-float mon_cnt_c;
+float mon_cnt_c, mon_distance_c;
 
-Encoder::Encoder() : cnt_l_(0), cnt_r_(0), cnt_c_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0), distance_10mm_(0), total_distance_(0), cross_line_ignore_distance_(0){}
+Encoder::Encoder() : cnt_l_(0), cnt_r_(0), cnt_c_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0), distance_10mm_(0),
+		total_distance_(0), cross_line_ignore_distance_(0), distance_center_(0){}
 
 void Encoder::init()
 {
@@ -37,17 +41,20 @@ void Encoder::init()
 
 void Encoder::update()
 {
-	static float pre_cnt_l, pre_cnt_r;
+	//static float pre_cnt_l, pre_cnt_r;
 	float cnt_l = (float(CNT_OFFSET) - float(TIM1 -> CNT)) * CORRECTION_COEFFICIENT;
 	float cnt_r = (float(TIM8 -> CNT) - float(CNT_OFFSET)) * CORRECTION_COEFFICIENT;
 	monitor_cnt_l = cnt_l;
 
-	cnt_l_ = ((R_ENC)*(cnt_l) + (1.0 - (R_ENC))* (pre_cnt_l)); // lowpath filter
-	cnt_r_ = ((R_ENC)*(cnt_r) + (1.0 - (R_ENC))* (pre_cnt_r)); // lowpath filter
+	//cnt_l_ = ((R_ENC)*(cnt_l) + (1.0 - (R_ENC))* (pre_cnt_l)); // lowpath filter
+	//cnt_r_ = ((R_ENC)*(cnt_r) + (1.0 - (R_ENC))* (pre_cnt_r)); // lowpath filter
+
+	cnt_l_ = cnt_l;
+	cnt_r_ = cnt_r;
 	monitor_cnt_l_lpf = cnt_l_;
 
-	pre_cnt_l = cnt_l_;
-	pre_cnt_r = cnt_r_;
+	//pre_cnt_l = cnt_l_;
+	//pre_cnt_r = cnt_r_;
 
 
 	//total_cnt_l_ += cnt_l_;
@@ -61,7 +68,7 @@ void Encoder::update()
 	monitor_distance = distance_10mm_;
 }
 
-void Encoder::exitCnt(uint16_t gpio_pin){
+void Encoder::extiCnt(uint16_t gpio_pin){
 	static uint16_t flag_A = 0;
 	static uint16_t flag_B = 0;
 
@@ -69,10 +76,10 @@ void Encoder::exitCnt(uint16_t gpio_pin){
 		flag_A ^= 1;
 
 		if((flag_A == 1 && flag_B == 0) || (flag_A == 0 && flag_B == 1)){
-			cnt_c_++;
+			cnt_c_--;
 		}
 		else if((flag_A == 1 && flag_B == 1) || (flag_A == 0 && flag_B == 0)){
-			cnt_c_--;
+			cnt_c_++;
 		}
 
 		monA ^= 1;
@@ -81,15 +88,18 @@ void Encoder::exitCnt(uint16_t gpio_pin){
 		flag_B ^= 1;
 
 		if((flag_A == 1 && flag_B == 1) || (flag_A == 0 && flag_B == 0)){
-			cnt_c_++;
+			cnt_c_--;
 		}
 		else if((flag_A == 0 && flag_B == 1) || (flag_A == 1 && flag_B == 0)){
-			cnt_c_--;
+			cnt_c_++;
 		}
 
 		monB ^= 1;
 	}
 
+	distance_center_ = DISTANCE_PER_CNT_CENTER * cnt_c_;
+
+	mon_distance_c = distance_center_;
 	mon_cnt_c = cnt_c_;
 }
 
@@ -123,6 +133,11 @@ float Encoder::getTotalDistance()
 	return total_distance_;
 }
 
+float Encoder::getCenterDistance()
+{
+	return distance_center_;
+}
+
 void Encoder::setTotalDistance(float true_distance){
 	total_distance_ = true_distance;
 }
@@ -151,6 +166,12 @@ void Encoder::clearDistance10mm()
 void Encoder::clearTotalDistance()
 {
 	total_distance_ = 0;
+}
+
+void Encoder::clearCenterDistance()
+{
+	distance_center_ = 0;
+	cnt_c_ = 0;
 }
 
 float Encoder::getCrossLineIgnoreDistance()

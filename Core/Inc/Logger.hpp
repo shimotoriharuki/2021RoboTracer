@@ -59,7 +59,9 @@ public:
 	void saveDistanceAndTheta(const char *, const char *, const char *);
 	void saveDistanceAndTheta2(const char *, const char *, const char *);
 	void importDistanceAndTheta(const char *, const char *, const char *);
-	void resetLogs1();
+	void resetDistanceThetaLogs();
+	void resetDistanceThetaLogs2();
+	void resetLogs();
 	void resetLogs2();
 	void resetIdx();
 

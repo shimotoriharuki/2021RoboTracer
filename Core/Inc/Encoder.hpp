@@ -21,22 +21,26 @@ private:
 	float distance_10mm_;
 	float total_distance_;
 	float cross_line_ignore_distance_;
+	float distance_center_;
 
 public:
 	Encoder();
 	void init();
 	void update();
-	void exitCnt(uint16_t);
+	void extiCnt(uint16_t);
 	void clear();
 	void getCnt(float &, float &);
 	float getDistance();
 	float getDistance10mm();
 	float getTotalDistance();
+	float getCenterDistance();
 	void setTotalDistance(float);
+
 	void clearDistance();
 	//float getTotalCnt();
 	void clearDistance10mm();
 	void clearTotalDistance();
+	void clearCenterDistance();
 	float getCrossLineIgnoreDistance();
 	void clearCrossLineIgnoreDistance();
 };
