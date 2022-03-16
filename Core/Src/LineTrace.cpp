@@ -35,7 +35,7 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				kp_(0), kd_(0), ki_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), min_velocity_(0), min_velocity2_(0), logging_flag_(false),
-				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), sideline_idx2_(0), all_sideline_idx_(0),
+				velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), sideline_idx2_(0), all_sideline_idx_(0),
 				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), correction_check_cnt_(0),
 				store_check_cnt_(0), all_sideline_flag_(false)
 
@@ -306,7 +306,8 @@ void LineTrace::storeLogs()
 {
 	if(logging_flag_ == true){
 		if(mode_selector_ == FIRST_RUNNING)
-			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
+			//logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
+			logger_->storeDistanceAndTheta(encoder_->getTotalDistance(), odometry_->getTheta());
 		else
 			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
 			logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
@@ -487,14 +488,12 @@ void LineTrace::startVelocityPlay()
 	encoder_->clearTotalDistance();
 	velocity_play_flag_ = true;
 	velocity_table_idx_ = 0;
-	ref_distance_ = 0;
 }
 
 void LineTrace::stopVelocityPlay()
 {
 	velocity_play_flag_ = false;
 	velocity_table_idx_ = 0;
-	ref_distance_ = 0;
 }
 
 void LineTrace::updateTargetVelocity()
@@ -506,14 +505,13 @@ void LineTrace::updateTargetVelocity()
 			velocity_table_idx_++;
 		}
 		*/
-		if(encoder_->getTotalDistance() * DISTANCE_CORRECTION_CONST >= ref_distance_){
-			ref_distance_ += ref_delta_distances_[velocity_table_idx_];
+		if(encoder_->getTotalDistance() * DISTANCE_CORRECTION_CONST >= ref_distances_[velocity_table_idx_]){
 			velocity_table_idx_++;
 		}
 
-		if(velocity_table_idx_ >= LOG_DATA_SIZE_DIS) velocity_table_idx_ = LOG_DATA_SIZE_DIS - 1;
-
 		setTargetVelocity(velocity_table_[velocity_table_idx_]);
+
+		if(velocity_table_idx_ >= LOG_DATA_SIZE_DIS) velocity_table_idx_ = LOG_DATA_SIZE_DIS - 1;
 
 		/*
 		mon_ref_dis = ref_distance_;
@@ -824,8 +822,6 @@ void LineTrace::flip()
 		if(isTargetDistance(10) == true){
 			// ---- Store Logs ------//
 			storeLogs();
-			//logger_->storeLog(imu_->getOmega());
-			//logger_->storeLog2(target_omega_);
 
 			// -------- Detect Robot stabilization ------//
 			if(isStable() == true && side_sensor_->getStatusL() == false){ // Stabilizing and side sensor is black
@@ -966,7 +962,7 @@ void LineTrace::running()
 			break;
 
 		case 10:
-			if(side_sensor_->getWhiteLineCntR() == 6){
+			if(side_sensor_->getWhiteLineCntR() == 2){
 				led_.fullColor('M');
 
 				logger_->stop();
@@ -1022,8 +1018,9 @@ void LineTrace::createVelocityTabele()
 	p_theta= logger_->getThetaArrayPointer();
 
 	float temp_distance, temp_theta;
+	float pre_distance = 0;
 	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
-		temp_distance = p_distance[i];
+		temp_distance = p_distance[i] - pre_distance;
 		temp_theta = p_theta[i];
 
 		if(temp_theta == 0) temp_theta = 0.00001;
@@ -1032,9 +1029,10 @@ void LineTrace::createVelocityTabele()
 
 		velocity_table_[i] = radius2Velocity(radius);
 
-		ref_delta_distances_[i] = p_distance[i]; //copy
-	}
+		ref_distances_[i] = p_distance[i]; //copy
 
+		pre_distance = p_distance[i];
+	}
 
 	if(mode_selector_ == SECOND_RUNNING){
 		velocity_table_[0] = min_velocity_;
@@ -1066,22 +1064,20 @@ void LineTrace::createVelocityTabeleFromSD()
 	p_theta= logger_->getThetaArrayPointer();
 
 	float temp_distance, temp_theta;
-	//float pre_radius = 0;;
+	float pre_distance = 0;
 	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
-
-		temp_distance = p_distance[i];
+		temp_distance = p_distance[i] - pre_distance;
 		temp_theta = p_theta[i];
 
 		if(temp_theta == 0) temp_theta = 0.00001;
-		float radius_origin = abs(temp_distance / temp_theta);
-		if(radius_origin >= 5000) radius_origin = 5000;
+		float radius = abs(temp_distance / temp_theta);
+		if(radius >= 5000) radius = 5000;
 
-		//float radius_lpf = ((R_RADIUS)*(radius_origin) + (1.0 - (R_RADIUS))* (pre_radius));
-		//velocity_table_[i] = radius_lpf;
-		velocity_table_[i] = radius2Velocity(radius_origin);
-		//pre_radius = radius_origin;
+		velocity_table_[i] = radius2Velocity(radius);
 
-		ref_delta_distances_[i] = p_distance[i]; //copy
+		ref_distances_[i] = p_distance[i]; //copy
+
+		pre_distance = p_distance[i];
 	}
 
 	if(mode_selector_ == SECOND_RUNNING){

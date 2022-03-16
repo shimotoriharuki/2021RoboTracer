@@ -62,8 +62,8 @@ private:
 	float min_velocity_;
 	float min_velocity2_;
 	bool logging_flag_;
-	float ref_delta_distances_[LOG_DATA_SIZE_DIS];
-	float ref_distance_;
+	float ref_distances_[LOG_DATA_SIZE_DIS];
+	//float ref_distance_;
 	float velocity_table_[LOG_DATA_SIZE_DIS];
 	bool velocity_play_flag_;
 	uint16_t velocity_table_idx_;
