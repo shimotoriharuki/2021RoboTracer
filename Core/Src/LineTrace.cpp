@@ -241,6 +241,7 @@ void LineTrace::pidTrace()
 
 	pre_diff = diff;
 
+
 }
 
 // ---------------------------------------------------------------------------------------//
@@ -417,12 +418,18 @@ float LineTrace::radius2Velocity(float radius)
 		else velocity = max_velocity_;
 	}
 	*/
+	/*
 	if(mode_selector_ == SECOND_RUNNING){
 		if(radius < 400) velocity = min_velocity_;
 		else if(radius < 500) velocity = 1.5;
 		else if(radius < 650) velocity = 2.0;
 		else if(radius < 1500) velocity = 2.5;
 		else if(radius < 2000) velocity = 3.0;
+		else velocity = max_velocity_;
+	}
+	*/
+	if(mode_selector_ == SECOND_RUNNING){
+		if(radius < 400) velocity = min_velocity_;
 		else velocity = max_velocity_;
 	}
 
@@ -499,26 +506,25 @@ void LineTrace::stopVelocityPlay()
 void LineTrace::updateTargetVelocity()
 {
 	if(velocity_play_flag_ == true){
-		/*
-		while(encoder_->getTotalDistance() * DISTANCE_CORRECTION_CONST >= ref_distance_){
-			ref_distance_ += ref_delta_distances_[velocity_table_idx_];
+		while(encoder_->getTotalDistance() * DISTANCE_CORRECTION_CONST >= ref_distances_[velocity_table_idx_]){
 			velocity_table_idx_++;
 		}
-		*/
+		/*
 		if(encoder_->getTotalDistance() * DISTANCE_CORRECTION_CONST >= ref_distances_[velocity_table_idx_]){
 			velocity_table_idx_++;
 		}
+		*/
 
 		setTargetVelocity(velocity_table_[velocity_table_idx_]);
 
 		if(velocity_table_idx_ >= LOG_DATA_SIZE_DIS) velocity_table_idx_ = LOG_DATA_SIZE_DIS - 1;
 
-		/*
-		mon_ref_dis = ref_distance_;
+
+		mon_ref_dis = ref_distances_[velocity_table_idx_];
 		mon_current_dis = encoder_->getTotalDistance();
 		mon_vel_idx = velocity_table_idx_;
 		mon_tar_vel = velocity_table_[velocity_table_idx_];
-		*/
+
 
 	}
 }
@@ -947,14 +953,15 @@ void LineTrace::running()
 		switch(stage){
 		case 0:
 			if(side_sensor_->getWhiteLineCntR() == 1){
+				encoder_->clearCrossLineIgnoreDistance();
+				encoder_->clearTotalDistance();
+
 				logger_->start();
 				loggerStart();
 				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
 					startVelocityPlay();
 				}
 
-				encoder_->clearCrossLineIgnoreDistance();
-				encoder_->clearTotalDistance();
 				led_.LR(0, -1);
 				stage = 10;
 			}
