@@ -565,7 +565,7 @@ bool LineTrace::isCrossLine()
 			}
 			else{
 				store_check_cnt_ = 0;
-				correctionTotalDistanceFromCrossLine();
+				//correctionTotalDistanceFromCrossLine();
 				storeCrossLineDistance2(); //for correction check
 			}
 		}
@@ -849,7 +849,7 @@ void LineTrace::flip()
 			}
 			else{
 				store_check_cnt_ = 0;
-				correctionTotalDistanceFromSideMarker();
+				//correctionTotalDistanceFromSideMarker();
 				storeSideLineDistance2(); //for correction check
 			}
 
@@ -966,7 +966,7 @@ void LineTrace::running()
 			break;
 
 		case 10:
-			if(side_sensor_->getWhiteLineCntR() == 2){
+			if(side_sensor_->getWhiteLineCntR() == 6){
 				led_.fullColor('M');
 
 				logger_->stop();

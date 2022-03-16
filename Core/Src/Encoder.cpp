@@ -74,6 +74,8 @@ void Encoder::extiCnt(uint16_t gpio_pin){
 	static uint16_t flag_B = 0;
 
 	if(gpio_pin == GPIO_PIN_12){ //A
+		cnt_c_++;
+		/*
 		flag_A ^= 1;
 
 		if((flag_A == 1 && flag_B == 0) || (flag_A == 0 && flag_B == 1)){
@@ -83,9 +85,11 @@ void Encoder::extiCnt(uint16_t gpio_pin){
 			cnt_c_--;
 		}
 
+		*/
 		monA ^= 1;
 	}
 	if(gpio_pin == GPIO_PIN_15){ //B
+		/*
 		flag_B ^= 1;
 
 		if((flag_A == 1 && flag_B == 1) || (flag_A == 0 && flag_B == 0)){
@@ -94,6 +98,7 @@ void Encoder::extiCnt(uint16_t gpio_pin){
 		else if((flag_A == 0 && flag_B == 1) || (flag_A == 1 && flag_B == 0)){
 			cnt_c_--;
 		}
+		*/
 
 		monB ^= 1;
 	}
