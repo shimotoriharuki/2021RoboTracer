@@ -3390,8 +3390,8 @@ void IMU::calibration()
 	offset_ = sum / num;
  8001eac:	466b      	mov	r3, sp
  8001eae:	461e      	mov	r6, r3
-	HAL_Delay(1000);
- 8001eb0:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
+	HAL_Delay(800);
+ 8001eb0:	f44f 7048 	mov.w	r0, #800	; 0x320
  8001eb4:	f008 f840 	bl	8009f38 <HAL_Delay>
 	lcd_clear();
  8001eb8:	f7ff f8f2 	bl	80010a0 <lcd_clear>
@@ -3464,8 +3464,8 @@ void IMU::calibration()
  8001f56:	009b      	lsls	r3, r3, #2
  8001f58:	4413      	add	r3, r2
  8001f5a:	edc3 7a00 	vstr	s15, [r3]
-		HAL_Delay(2);
- 8001f5e:	2002      	movs	r0, #2
+		HAL_Delay(1);
+ 8001f5e:	2001      	movs	r0, #1
  8001f60:	f007 ffea 	bl	8009f38 <HAL_Delay>
 	for(uint16_t i = 0; i < num; i++){
  8001f64:	8bfb      	ldrh	r3, [r7, #30]
@@ -12880,9 +12880,9 @@ static void MX_SDIO_SD_Init(void)
  80065b6:	4b05      	ldr	r3, [pc, #20]	; (80065cc <MX_SDIO_SD_Init+0x38>)
  80065b8:	2200      	movs	r2, #0
  80065ba:	615a      	str	r2, [r3, #20]
-  hsd.Init.ClockDiv = 2;
+  hsd.Init.ClockDiv = 4;
  80065bc:	4b03      	ldr	r3, [pc, #12]	; (80065cc <MX_SDIO_SD_Init+0x38>)
- 80065be:	2202      	movs	r2, #2
+ 80065be:	2204      	movs	r2, #4
  80065c0:	619a      	str	r2, [r3, #24]
   /* USER CODE BEGIN SDIO_Init 2 */
 
@@ -12938,9 +12938,9 @@ static void MX_SPI2_Init(void)
  80065fe:	4b0e      	ldr	r3, [pc, #56]	; (8006638 <MX_SPI2_Init+0x64>)
  8006600:	f44f 7200 	mov.w	r2, #512	; 0x200
  8006604:	619a      	str	r2, [r3, #24]
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
  8006606:	4b0c      	ldr	r3, [pc, #48]	; (8006638 <MX_SPI2_Init+0x64>)
- 8006608:	2228      	movs	r2, #40	; 0x28
+ 8006608:	2220      	movs	r2, #32
  800660a:	61da      	str	r2, [r3, #28]
   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
  800660c:	4b0a      	ldr	r3, [pc, #40]	; (8006638 <MX_SPI2_Init+0x64>)
@@ -16664,8 +16664,8 @@ void cppInit(void)
  8007b4a:	4623      	mov	r3, r4
  8007b4c:	482c      	ldr	r0, [pc, #176]	; (8007c00 <cppInit+0x100>)
  8007b4e:	f7f9 fae1 	bl	8001114 <lcd_printf>
-	HAL_Delay(1000);
- 8007b52:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
+	HAL_Delay(800);
+ 8007b52:	f44f 7048 	mov.w	r0, #800	; 0x320
  8007b56:	f002 f9ef 	bl	8009f38 <HAL_Delay>
 
 	//if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
@@ -17419,7 +17419,7 @@ void cppLoop(void)
  80081ec:	2100      	movs	r1, #0
  80081ee:	2000      	movs	r0, #0
  80081f0:	f7f8 ff66 	bl	80010c0 <lcd_locate>
-		lcd_printf("Slow%4.2lf", abs(line_trace.getKpSlow()*1000));
+		lcd_printf("Slow%4.2lf", abs(line_trace.getKpSlow()*10000));
  80081f4:	483c      	ldr	r0, [pc, #240]	; (80082e8 <cppLoop+0x5f0>)
  80081f6:	f7fb fddc 	bl	8003db2 <_ZN9LineTrace9getKpSlowEv>
  80081fa:	eeb0 7a40 	vmov.f32	s14, s0
@@ -17440,7 +17440,7 @@ void cppLoop(void)
  8008226:	2101      	movs	r1, #1
  8008228:	2000      	movs	r0, #0
  800822a:	f7f8 ff49 	bl	80010c0 <lcd_locate>
-		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKiSlow()*100), abs(line_trace.getKdSlow()*10000));
+		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKiSlow()*1000), abs(line_trace.getKdSlow()*100000));
  800822e:	482e      	ldr	r0, [pc, #184]	; (80082e8 <cppLoop+0x5f0>)
  8008230:	f7fb fdce 	bl	8003dd0 <_ZN9LineTrace9getKiSlowEv>
  8008234:	eeb0 7a40 	vmov.f32	s14, s0
@@ -17536,10 +17536,10 @@ void cppLoop(void)
  8008318:	200481fc 	.word	0x200481fc
  800831c:	200005b4 	.word	0x200005b4
  8008320:	200005bc 	.word	0x200005bc
- 8008324:	447a0000 	.word	0x447a0000
+ 8008324:	461c4000 	.word	0x461c4000
  8008328:	0801a020 	.word	0x0801a020
- 800832c:	42c80000 	.word	0x42c80000
- 8008330:	461c4000 	.word	0x461c4000
+ 800832c:	447a0000 	.word	0x447a0000
+ 8008330:	47c35000 	.word	0x47c35000
  8008334:	0801a02c 	.word	0x0801a02c
  8008338:	200005b0 	.word	0x200005b0
  800833c:	20048180 	.word	0x20048180
@@ -17567,7 +17567,7 @@ void cppLoop(void)
  800836a:	f9b3 3000 	ldrsh.w	r3, [r3]
  800836e:	2b00      	cmp	r3, #0
  8008370:	d113      	bne.n	800839a <cppLoop+0x6a2>
-				adj_kp_slow = adj_kp_slow + 0.00001;
+				adj_kp_slow = adj_kp_slow + 0.000001;
  8008372:	4bb4      	ldr	r3, [pc, #720]	; (8008644 <cppLoop+0x94c>)
  8008374:	681b      	ldr	r3, [r3, #0]
  8008376:	4618      	mov	r0, r3
@@ -17589,7 +17589,7 @@ void cppLoop(void)
  800839c:	f9b3 3000 	ldrsh.w	r3, [r3]
  80083a0:	2b01      	cmp	r3, #1
  80083a2:	d113      	bne.n	80083cc <cppLoop+0x6d4>
-				adj_ki_slow = adj_ki_slow + 0.0001;
+				adj_ki_slow = adj_ki_slow + 0.00001;
  80083a4:	4ba8      	ldr	r3, [pc, #672]	; (8008648 <cppLoop+0x950>)
  80083a6:	681b      	ldr	r3, [r3, #0]
  80083a8:	4618      	mov	r0, r3
@@ -17606,7 +17606,7 @@ void cppLoop(void)
  80083c6:	4ba0      	ldr	r3, [pc, #640]	; (8008648 <cppLoop+0x950>)
  80083c8:	601a      	str	r2, [r3, #0]
  80083ca:	e012      	b.n	80083f2 <cppLoop+0x6fa>
-				adj_kd_slow = adj_kd_slow + 0.000001;
+				adj_kd_slow = adj_kd_slow + 0.0000001;
  80083cc:	4b9f      	ldr	r3, [pc, #636]	; (800864c <cppLoop+0x954>)
  80083ce:	681b      	ldr	r3, [r3, #0]
  80083d0:	4618      	mov	r0, r3
@@ -17657,7 +17657,7 @@ void cppLoop(void)
  8008434:	f9b3 3000 	ldrsh.w	r3, [r3]
  8008438:	2b00      	cmp	r3, #0
  800843a:	d113      	bne.n	8008464 <cppLoop+0x76c>
-				adj_kp_slow = adj_kp_slow - 0.00001;
+				adj_kp_slow = adj_kp_slow - 0.000001;
  800843c:	4b81      	ldr	r3, [pc, #516]	; (8008644 <cppLoop+0x94c>)
  800843e:	681b      	ldr	r3, [r3, #0]
  8008440:	4618      	mov	r0, r3
@@ -17679,7 +17679,7 @@ void cppLoop(void)
  8008466:	f9b3 3000 	ldrsh.w	r3, [r3]
  800846a:	2b01      	cmp	r3, #1
  800846c:	d113      	bne.n	8008496 <cppLoop+0x79e>
-				adj_ki_slow = adj_ki_slow - 0.0001;
+				adj_ki_slow = adj_ki_slow - 0.00001;
  800846e:	4b76      	ldr	r3, [pc, #472]	; (8008648 <cppLoop+0x950>)
  8008470:	681b      	ldr	r3, [r3, #0]
  8008472:	4618      	mov	r0, r3
@@ -17696,7 +17696,7 @@ void cppLoop(void)
  8008490:	4b6d      	ldr	r3, [pc, #436]	; (8008648 <cppLoop+0x950>)
  8008492:	601a      	str	r2, [r3, #0]
  8008494:	e012      	b.n	80084bc <cppLoop+0x7c4>
-				adj_kd_slow = adj_kd_slow - 0.000001;
+				adj_kd_slow = adj_kd_slow - 0.0000001;
  8008496:	4b6d      	ldr	r3, [pc, #436]	; (800864c <cppLoop+0x954>)
  8008498:	681b      	ldr	r3, [r3, #0]
  800849a:	4618      	mov	r0, r3
@@ -17894,12 +17894,12 @@ void cppLoop(void)
 
 		break;
  800861c:	f001 bb46 	b.w	8009cac <cppLoop+0x1fb4>
- 8008620:	88e368f1 	.word	0x88e368f1
- 8008624:	3ee4f8b5 	.word	0x3ee4f8b5
- 8008628:	eb1c432d 	.word	0xeb1c432d
- 800862c:	3f1a36e2 	.word	0x3f1a36e2
- 8008630:	a0b5ed8d 	.word	0xa0b5ed8d
- 8008634:	3eb0c6f7 	.word	0x3eb0c6f7
+ 8008620:	a0b5ed8d 	.word	0xa0b5ed8d
+ 8008624:	3eb0c6f7 	.word	0x3eb0c6f7
+ 8008628:	88e368f1 	.word	0x88e368f1
+ 800862c:	3ee4f8b5 	.word	0x3ee4f8b5
+ 8008630:	9abcaf48 	.word	0x9abcaf48
+ 8008634:	3e7ad7f2 	.word	0x3e7ad7f2
  8008638:	200005b0 	.word	0x200005b0
  800863c:	200005bc 	.word	0x200005bc
  8008640:	20048180 	.word	0x20048180
@@ -20121,7 +20121,7 @@ lcd_clear();
  8009940:	2100      	movs	r1, #0
  8009942:	2000      	movs	r0, #0
  8009944:	f7f7 fbbc 	bl	80010c0 <lcd_locate>
-		lcd_printf("Fast%4.2lf", abs(line_trace.getKp()*1000));
+		lcd_printf("Fast%4.2lf", abs(line_trace.getKp()*10000));
  8009948:	48a8      	ldr	r0, [pc, #672]	; (8009bec <cppLoop+0x1ef4>)
  800994a:	f7fa f9ec 	bl	8003d26 <_ZN9LineTrace5getKpEv>
  800994e:	eeb0 7a40 	vmov.f32	s14, s0
@@ -20142,7 +20142,7 @@ lcd_clear();
  800997a:	2101      	movs	r1, #1
  800997c:	2000      	movs	r0, #0
  800997e:	f7f7 fb9f 	bl	80010c0 <lcd_locate>
-		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKi()*100), abs(line_trace.getKd()*10000));
+		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKi()*1000), abs(line_trace.getKd()*100000));
  8009982:	489a      	ldr	r0, [pc, #616]	; (8009bec <cppLoop+0x1ef4>)
  8009984:	f7fa f9de 	bl	8003d44 <_ZN9LineTrace5getKiEv>
  8009988:	eeb0 7a40 	vmov.f32	s14, s0
@@ -20247,7 +20247,7 @@ lcd_clear();
  8009a64:	f9b3 3000 	ldrsh.w	r3, [r3]
  8009a68:	2b00      	cmp	r3, #0
  8009a6a:	d113      	bne.n	8009a94 <cppLoop+0x1d9c>
-				adj_kp = adj_kp + 0.00001;
+				adj_kp = adj_kp + 0.000001;
  8009a6c:	4b67      	ldr	r3, [pc, #412]	; (8009c0c <cppLoop+0x1f14>)
  8009a6e:	681b      	ldr	r3, [r3, #0]
  8009a70:	4618      	mov	r0, r3
@@ -20269,7 +20269,7 @@ lcd_clear();
  8009a96:	f9b3 3000 	ldrsh.w	r3, [r3]
  8009a9a:	2b01      	cmp	r3, #1
  8009a9c:	d113      	bne.n	8009ac6 <cppLoop+0x1dce>
-				adj_ki = adj_ki + 0.0001;
+				adj_ki = adj_ki + 0.00001;
  8009a9e:	4b5c      	ldr	r3, [pc, #368]	; (8009c10 <cppLoop+0x1f18>)
  8009aa0:	681b      	ldr	r3, [r3, #0]
  8009aa2:	4618      	mov	r0, r3
@@ -20286,7 +20286,7 @@ lcd_clear();
  8009ac0:	4b53      	ldr	r3, [pc, #332]	; (8009c10 <cppLoop+0x1f18>)
  8009ac2:	601a      	str	r2, [r3, #0]
  8009ac4:	e012      	b.n	8009aec <cppLoop+0x1df4>
-				adj_kd = adj_kd + 0.000001;
+				adj_kd = adj_kd + 0.0000001;
  8009ac6:	4b53      	ldr	r3, [pc, #332]	; (8009c14 <cppLoop+0x1f1c>)
  8009ac8:	681b      	ldr	r3, [r3, #0]
  8009aca:	4618      	mov	r0, r3
@@ -20337,7 +20337,7 @@ lcd_clear();
  8009b2c:	f9b3 3000 	ldrsh.w	r3, [r3]
  8009b30:	2b00      	cmp	r3, #0
  8009b32:	d113      	bne.n	8009b5c <cppLoop+0x1e64>
-				adj_kp = adj_kp - 0.00001;
+				adj_kp = adj_kp - 0.000001;
  8009b34:	4b35      	ldr	r3, [pc, #212]	; (8009c0c <cppLoop+0x1f14>)
  8009b36:	681b      	ldr	r3, [r3, #0]
  8009b38:	4618      	mov	r0, r3
@@ -20359,7 +20359,7 @@ lcd_clear();
  8009b5e:	f9b3 3000 	ldrsh.w	r3, [r3]
  8009b62:	2b01      	cmp	r3, #1
  8009b64:	d113      	bne.n	8009b8e <cppLoop+0x1e96>
-				adj_ki = adj_ki - 0.0001;
+				adj_ki = adj_ki - 0.00001;
  8009b66:	4b2a      	ldr	r3, [pc, #168]	; (8009c10 <cppLoop+0x1f18>)
  8009b68:	681b      	ldr	r3, [r3, #0]
  8009b6a:	4618      	mov	r0, r3
@@ -20376,7 +20376,7 @@ lcd_clear();
  8009b88:	4b21      	ldr	r3, [pc, #132]	; (8009c10 <cppLoop+0x1f18>)
  8009b8a:	601a      	str	r2, [r3, #0]
  8009b8c:	e012      	b.n	8009bb4 <cppLoop+0x1ebc>
-				adj_kd = adj_kd - 0.000001;
+				adj_kd = adj_kd - 0.0000001;
  8009b8e:	4b21      	ldr	r3, [pc, #132]	; (8009c14 <cppLoop+0x1f1c>)
  8009b90:	681b      	ldr	r3, [r3, #0]
  8009b92:	4618      	mov	r0, r3
@@ -20405,18 +20405,18 @@ lcd_clear();
  8009bc8:	e08c      	b.n	8009ce4 <cppLoop+0x1fec>
  8009bca:	bf00      	nop
  8009bcc:	f3af 8000 	nop.w
- 8009bd0:	88e368f1 	.word	0x88e368f1
- 8009bd4:	3ee4f8b5 	.word	0x3ee4f8b5
- 8009bd8:	eb1c432d 	.word	0xeb1c432d
- 8009bdc:	3f1a36e2 	.word	0x3f1a36e2
- 8009be0:	a0b5ed8d 	.word	0xa0b5ed8d
- 8009be4:	3eb0c6f7 	.word	0x3eb0c6f7
+ 8009bd0:	a0b5ed8d 	.word	0xa0b5ed8d
+ 8009bd4:	3eb0c6f7 	.word	0x3eb0c6f7
+ 8009bd8:	88e368f1 	.word	0x88e368f1
+ 8009bdc:	3ee4f8b5 	.word	0x3ee4f8b5
+ 8009be0:	9abcaf48 	.word	0x9abcaf48
+ 8009be4:	3e7ad7f2 	.word	0x3e7ad7f2
  8009be8:	200005bc 	.word	0x200005bc
  8009bec:	2002390c 	.word	0x2002390c
- 8009bf0:	447a0000 	.word	0x447a0000
+ 8009bf0:	461c4000 	.word	0x461c4000
  8009bf4:	0801a1e8 	.word	0x0801a1e8
- 8009bf8:	42c80000 	.word	0x42c80000
- 8009bfc:	461c4000 	.word	0x461c4000
+ 8009bf8:	447a0000 	.word	0x447a0000
+ 8009bfc:	47c35000 	.word	0x47c35000
  8009c00:	0801a02c 	.word	0x0801a02c
  8009c04:	200005b0 	.word	0x200005b0
  8009c08:	20048180 	.word	0x20048180

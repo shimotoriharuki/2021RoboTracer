@@ -90,7 +90,7 @@ void cppInit(void)
 	lcd_printf("Voltage");
 	lcd_locate(0,1);
 	lcd_printf("%f", power_sensor.getButteryVoltage());
-	HAL_Delay(1000);
+	HAL_Delay(800);
 
 	//if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
 
@@ -237,9 +237,9 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Slow%4.2lf", abs(line_trace.getKpSlow()*1000));
+		lcd_printf("Slow%4.2lf", abs(line_trace.getKpSlow()*10000));
 		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKiSlow()*100), abs(line_trace.getKdSlow()*10000));
+		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKiSlow()*1000), abs(line_trace.getKdSlow()*100000));
 
 		if(joy_stick.getValue() == JOY_U){
 			led.LR(-1, 1);
@@ -255,13 +255,13 @@ void cppLoop(void)
 			HAL_Delay(100);
 
 			if(selector == 0){
-				adj_kp_slow = adj_kp_slow + 0.00001;
+				adj_kp_slow = adj_kp_slow + 0.000001;
 			}
 			else if(selector == 1){
-				adj_ki_slow = adj_ki_slow + 0.0001;
+				adj_ki_slow = adj_ki_slow + 0.00001;
 			}
 			else{
-				adj_kd_slow = adj_kd_slow + 0.000001;
+				adj_kd_slow = adj_kd_slow + 0.0000001;
 			}
 
 			led.fullColor('R');
@@ -274,13 +274,13 @@ void cppLoop(void)
 			HAL_Delay(100);
 
 			if(selector == 0){
-				adj_kp_slow = adj_kp_slow - 0.00001;
+				adj_kp_slow = adj_kp_slow - 0.000001;
 			}
 			else if(selector == 1){
-				adj_ki_slow = adj_ki_slow - 0.0001;
+				adj_ki_slow = adj_ki_slow - 0.00001;
 			}
 			else{
-				adj_kd_slow = adj_kd_slow - 0.000001;
+				adj_kd_slow = adj_kd_slow - 0.0000001;
 			}
 
 			led.fullColor('R');
@@ -919,9 +919,9 @@ lcd_clear();
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Fast%4.2lf", abs(line_trace.getKp()*1000));
+		lcd_printf("Fast%4.2lf", abs(line_trace.getKp()*10000));
 		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKi()*100), abs(line_trace.getKd()*10000));
+		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKi()*1000), abs(line_trace.getKd()*100000));
 
 		if(joy_stick.getValue() == JOY_U){
 			led.LR(-1, 1);
@@ -937,13 +937,13 @@ lcd_clear();
 			HAL_Delay(100);
 
 			if(selector == 0){
-				adj_kp = adj_kp + 0.00001;
+				adj_kp = adj_kp + 0.000001;
 			}
 			else if(selector == 1){
-				adj_ki = adj_ki + 0.0001;
+				adj_ki = adj_ki + 0.00001;
 			}
 			else{
-				adj_kd = adj_kd + 0.000001;
+				adj_kd = adj_kd + 0.0000001;
 			}
 
 			led.fullColor('R');
@@ -956,13 +956,13 @@ lcd_clear();
 			HAL_Delay(100);
 
 			if(selector == 0){
-				adj_kp = adj_kp - 0.00001;
+				adj_kp = adj_kp - 0.000001;
 			}
 			else if(selector == 1){
-				adj_ki = adj_ki - 0.0001;
+				adj_ki = adj_ki - 0.00001;
 			}
 			else{
-				adj_kd = adj_kd - 0.000001;
+				adj_kd = adj_kd - 0.0000001;
 			}
 
 			led.fullColor('R');

@@ -109,7 +109,7 @@ float IMU::getOmega()
 
 void IMU::calibration()
 {
-	HAL_Delay(1000);
+	HAL_Delay(800);
 
 	lcd_clear();
 	lcd_locate(0,0);
@@ -121,7 +121,7 @@ void IMU::calibration()
 	float zg_vals[num];
 	for(uint16_t i = 0; i < num; i++){
 		zg_vals[i] = float(zg_);
-		HAL_Delay(2);
+		HAL_Delay(1);
 	}
 
 	float sum;
