@@ -543,7 +543,7 @@ bool LineTrace::isCrossLine()
 	mon_ave_r = sensor_edge_val_r;
 
 	if(white_flag == false){
-		if(sensor_edge_val_l < 600 && sensor_edge_val_r < 600){
+		if(sensor_edge_val_l < 650 && sensor_edge_val_r < 650){
 			cnt++;
 		}
 		else{
@@ -554,6 +554,9 @@ bool LineTrace::isCrossLine()
 			flag = true;
 			white_flag = true;
 			cnt = 0;
+
+			side_sensor_->enableIgnore();
+			encoder_->clearCrossLineIgnoreDistance();
 
 			stable_cnt_reset_flag_ = true; //Because the conditions do not differ between when you tremble and when you do not tremble
 			if(mode_selector_ == FIRST_RUNNING){
@@ -857,13 +860,13 @@ void LineTrace::flip()
 
 		// ----- cross line ignore processing ------//
 		if(isCrossLine() == true){ //detect cross line
-			side_sensor_->enableIgnore();
-			encoder_->clearCrossLineIgnoreDistance();
+			//side_sensor_->enableIgnore(); //moved to isCrossLine function
+			//encoder_->clearCrossLineIgnoreDistance();//moved to isCrossLine function
 			// Note: Store cross line distance here.
 			//led_.LR(1, -1);
 		}
 
-		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 60){
+		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 100){
 			side_sensor_->disableIgnore();
 			//led_.LR(0, -1);
 		}

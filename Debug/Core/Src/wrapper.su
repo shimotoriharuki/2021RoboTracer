@@ -3,7 +3,7 @@ wrapper.cpp:58:6:void batteryLowMode()	8	static
 wrapper.cpp:79:6:void cppInit()	16	static
 wrapper.cpp:138:6:void cppFlip1ms()	8	static
 wrapper.cpp:172:6:void cppFlip100ns()	8	static
-wrapper.cpp:177:6:void cppFlip10ms()	8	static
+wrapper.cpp:177:6:void cppFlip10ms()	4	static
 wrapper.cpp:204:6:void cppExit(uint16_t)	16	static
 wrapper.cpp:209:6:void cppLoop()	40	static
 wrapper.cpp:994:6:void prameterSttingMode()	4	static
