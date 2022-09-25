@@ -86,10 +86,7 @@ float LineTrace::calcError()
 
 	float diff = (line_sensor_->sensor[3] + line_sensor_->sensor[4] + line_sensor_->sensor[5])
 			- (line_sensor_->sensor[8] + line_sensor_->sensor[9] + line_sensor_->sensor[10]);
-	mon_diff = diff;
-
-	//diff = ((R_DIFF)*(diff) + (1.0 - (R_DIFF))* (pre_diff));
-	//mon_diff_lpf = diff;
+	//mon_diff = diff;
 
 	return diff;
 

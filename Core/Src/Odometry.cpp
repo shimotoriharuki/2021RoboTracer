@@ -24,20 +24,20 @@ void Odometry::calcPotition()
 {
 	//float current_velocity = velocity_ctrl_->getCurrentVelocity();
 	double current_omega = imu_->getOmega();
-	float distance = encoder_->getDistance();
+	//float distance = encoder_->getDistance();
 
 	delta_theta_ = current_omega * DELTA_T;
 
-	x_robot_ = x_robot_ + distance * cos(theta_ + delta_theta_ / 2);
-	y_robot_ = y_robot_ + distance * sin(theta_ + delta_theta_ / 2);
+	//x_robot_ = x_robot_ + distance * cos(theta_ + delta_theta_ / 2);
+	//y_robot_ = y_robot_ + distance * sin(theta_ + delta_theta_ / 2);
 	theta_= theta_ + delta_theta_;
 
-	x_sens_ = x_robot_ + SENSOR_LENGTH * cos(theta_); //calculate a sensor position from robot's center position
-	y_sens_ = y_robot_ + SENSOR_LENGTH * sin(theta_);
+	//x_sens_ = x_robot_ + SENSOR_LENGTH * cos(theta_); //calculate a sensor position from robot's center position
+	//y_sens_ = y_robot_ + SENSOR_LENGTH * sin(theta_);
 
-	monitor_x = x_sens_;
-	monitor_y = y_sens_;
-	monitor_theta = theta_;
+	//monitor_x = x_sens_;
+	//monitor_y = y_sens_;
+	//monitor_theta = theta_;
 }
 
 void Odometry::flip()
