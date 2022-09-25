@@ -33,17 +33,20 @@ void Encoder::init()
 
 void Encoder::update()
 {
-	static float pre_cnt_l, pre_cnt_r;
+	//static float pre_cnt_l, pre_cnt_r;
 	float cnt_l = (float(CNT_OFFSET) - float(TIM1 -> CNT)) * CORRECTION_COEFFICIENT;
 	float cnt_r = (float(TIM8 -> CNT) - float(CNT_OFFSET)) * CORRECTION_COEFFICIENT;
 	monitor_cnt_l = cnt_l;
 
-	cnt_l_ = ((R_ENC)*(cnt_l) + (1.0 - (R_ENC))* (pre_cnt_l)); // lowpath filter
-	cnt_r_ = ((R_ENC)*(cnt_r) + (1.0 - (R_ENC))* (pre_cnt_r)); // lowpath filter
-	monitor_cnt_l_lpf = cnt_l_;
+	cnt_l_ = cnt_l;
+	cnt_r_ = cnt_r;
 
-	pre_cnt_l = cnt_l_;
-	pre_cnt_r = cnt_r_;
+	//cnt_l_ = ((R_ENC)*(cnt_l) + (1.0 - (R_ENC))* (pre_cnt_l)); // lowpath filter
+	//cnt_r_ = ((R_ENC)*(cnt_r) + (1.0 - (R_ENC))* (pre_cnt_r)); // lowpath filter
+	//monitor_cnt_l_lpf = cnt_l_;
+
+	//pre_cnt_l = cnt_l_;
+	//pre_cnt_r = cnt_r_;
 
 
 	//total_cnt_l_ += cnt_l_;

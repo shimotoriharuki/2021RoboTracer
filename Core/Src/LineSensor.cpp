@@ -90,6 +90,7 @@ void LineSensor::updateSensorValues()
 		sensor[ad_cnt] = temp_val[5];
 	}
 
+	/*
 	mon_sens = store_vals_[5][5];
 	mon_sens_lpf = sensor[5];
 
@@ -106,6 +107,7 @@ void LineSensor::updateSensorValues()
 	mon_sens10 = sensor[10];
 	mon_sens11 = sensor[11];
 	mon_sens12 = sensor[12];
+	*/
 }
 
 void LineSensor::calibration()
