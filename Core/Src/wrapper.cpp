@@ -185,8 +185,8 @@ void cppFlip10ms(void)
 	}
 	*/
 
-	logger.storeLog(line_trace.getTargetVelocity());
-	logger.storeLog2(velocity_ctrl.getCurrentVelocity());
+	//logger.storeLog(line_trace.getTargetVelocity());
+	//logger.storeLog2(velocity_ctrl.getCurrentVelocity());
 
 
 	/*

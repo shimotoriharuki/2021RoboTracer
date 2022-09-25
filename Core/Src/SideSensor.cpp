@@ -128,7 +128,7 @@ void SideSensor::updateStatus()
 				white_flag1 = false;
 
 				white_line_cnt_r_++;
-				mon_cnt_r = white_line_cnt_r_;
+				//mon_cnt_r = white_line_cnt_r_;
 			}
 		}
 
@@ -161,14 +161,14 @@ void SideSensor::updateStatus()
 				white_flag2 = false;
 
 				white_line_cnt_l_++;
-				mon_cnt_l = white_line_cnt_l_;
+				//mon_cnt_l = white_line_cnt_l_;
 			}
 
 		}
 
-		mon_status = status_;
-		mon_status_L = status_L_;
-		mon_status_R = status_R_;
+		//mon_status = status_;
+		//mon_status_L = status_L_;
+		//mon_status_R = status_R_;
 	}
 
 }
