@@ -839,7 +839,6 @@ void LineTrace::flip()
 
 
 		// ------- Store side line distance or correction distance------//
-
 		if(stable_flag_ == true && side_sensor_->getStatusL() == true){ //Stabilizing and side sensor is white
 			//correction_check_cnt_ = 0;
 
@@ -954,7 +953,8 @@ void LineTrace::running()
 	while(goal_flag == false){
 		switch(stage){
 		case 0:
-			if(side_sensor_->getWhiteLineCntR() == 1){
+			//if(side_sensor_->getWhiteLineCntR() == 1){
+			if(side_sensor_->getStatusR() == true){
 				loggerStart();
 				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
 					startVelocityPlay();
@@ -963,26 +963,31 @@ void LineTrace::running()
 				encoder_->clearCrossLineIgnoreDistance();
 				encoder_->clearTotalDistance();
 				led_.LR(0, -1);
-				stage = 10;
+				stage = 5;
 			}
 
 			break;
 
+		case 5:
+			if(side_sensor_->getStatusR() == false) stage = 10;
+
+			break;
 		case 10:
 			//if(side_sensor_->getWhiteLineCntR() == 2){
-			if(side_sensor_->getStatusR() == true && side_sensor_->getStatusL() == false){
+			if(side_sensor_->getStatusL() == true){
+				goal_judge_flag = false;
+				encoder_->clearGoalJudgeDistance();
+				led_.fullColor('B');
+			}
+
+			if(goal_judge_flag == false && side_sensor_->getStatusR() == true && encoder_->getGoalJudgeDistance() >= 25){
 				goal_judge_flag = true;
 				encoder_->clearGoalJudgeDistance();
 				ignore_check_cnt_ = 0;
 
 				led_.fullColor('Y');
 			}
-
-			if(goal_judge_flag == true && side_sensor_->getStatusL() == true){
-				goal_judge_flag = false;
-				led_.fullColor('B');
-			}
-			else if(goal_judge_flag == true && encoder_->getGoalJudgeDistance() >= 100){
+			else if(goal_judge_flag == true && encoder_->getGoalJudgeDistance() >= 30){
 				led_.fullColor('M');
 				loggerStop();
 				stopVelocityPlay();
@@ -992,6 +997,7 @@ void LineTrace::running()
 				HAL_Delay(500); //Stop for a while on the spot
 
 				goal_flag = true;
+				goal_judge_flag = false;
 
 			}
 

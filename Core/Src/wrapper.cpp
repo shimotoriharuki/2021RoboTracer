@@ -143,7 +143,7 @@ void cppFlip1ms(void)
 	line_trace.flip();
 	velocity_ctrl.flip();
 	odometry.flip();
-	side_sensor.updateStatus();
+	//side_sensor.updateStatus();
 
 	motor.motorCtrl();
 
@@ -203,7 +203,12 @@ void cppFlip10ms(void)
 
 void cppExit(uint16_t gpio_pin)
 {
-	//side_sensor.updateStatus(gpio_pin);
+	if(gpio_pin == GPIO_PIN_2){ //Right
+		side_sensor.updateStatusRightExti();
+	}
+	else if(gpio_pin == GPIO_PIN_8){ //Left
+		side_sensor.updateStatusLeftExti();
+	}
 }
 
 void cppLoop(void)

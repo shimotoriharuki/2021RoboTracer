@@ -25,7 +25,8 @@ private:
 public:
 
 	SideSensor();
-	//void updateStatus(uint16_t);
+	void updateStatusLeftExti();
+	void updateStatusRightExti();
 	void updateStatus();
 	uint16_t getStatus();
 	bool getStatusL();
