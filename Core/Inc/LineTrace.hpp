@@ -85,6 +85,7 @@ private:
 	float max_acc2_, max_dec2_;
 	uint16_t correction_check_cnt_;
 	uint16_t store_check_cnt_;
+	uint16_t ignore_check_cnt_;
 	bool all_sideline_flag_;
 
 	// Sensor angle based line following

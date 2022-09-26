@@ -37,7 +37,7 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), min_velocity_(0), min_velocity2_(0), logging_flag_(false),
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), sideline_idx2_(0), all_sideline_idx_(0),
 				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), correction_check_cnt_(0),
-				store_check_cnt_(0), all_sideline_flag_(false)
+				store_check_cnt_(0), ignore_check_cnt_(0), all_sideline_flag_(false)
 
 {
 	motor_ = motor;
@@ -555,7 +555,7 @@ bool LineTrace::isCrossLine()
 			white_flag = true;
 			cnt = 0;
 
-			side_sensor_->enableIgnore();
+			//side_sensor_->enableIgnore();
 			encoder_->clearCrossLineIgnoreDistance();
 
 			stable_cnt_reset_flag_ = true; //Because the conditions do not differ between when you tremble and when you do not tremble
@@ -824,8 +824,8 @@ void LineTrace::flip()
 		if(isTargetDistance(10) == true){
 			// ---- Store Logs ------//
 			storeLogs();
-			//logger_->storeLog(imu_->getOmega());
-			//logger_->storeLog2(target_omega_);
+			logger_->storeLog(imu_->getOmega());
+			logger_->storeLog2(target_omega_);
 
 			// -------- Detect Robot stabilization ------//
 			if(isStable() == true && side_sensor_->getStatusL() == false){ // Stabilizing and side sensor is black
@@ -910,13 +910,16 @@ void LineTrace::flip()
 		if(correction_check_cnt_ >= 10000) correction_check_cnt_ = 10000;
 
 		if(correction_check_cnt_ <= 300) led_.fullColor('R');
-		else led_.fullColor('B');
 
 		store_check_cnt_++;
 		if(store_check_cnt_>= 10000) store_check_cnt_ = 10000;
 
 		if(store_check_cnt_ <= 200) led_.LR(1, -1);
 		else led_.LR(0, -1);
+
+		ignore_check_cnt_++;
+		if(ignore_check_cnt_>= 10000) ignore_check_cnt_= 10000;
+
 	}
 }
 
@@ -967,15 +970,19 @@ void LineTrace::running()
 
 		case 10:
 			//if(side_sensor_->getWhiteLineCntR() == 2){
-			if(side_sensor_->getStatusR() == true){
+			if(side_sensor_->getStatusR() == true && side_sensor_->getStatusL() == false){
 				goal_judge_flag = true;
 				encoder_->clearGoalJudgeDistance();
+				ignore_check_cnt_ = 0;
+
+				led_.fullColor('Y');
 			}
 
-			if(goal_judge_flag == true && side_sensor_->getStatusL()){
+			if(goal_judge_flag == true && side_sensor_->getStatusL() == true){
 				goal_judge_flag = false;
+				led_.fullColor('B');
 			}
-			else if(goal_judge_flag == true && encoder_->getGoalJudgeDistance() > 100){
+			else if(goal_judge_flag == true && encoder_->getGoalJudgeDistance() >= 100){
 				led_.fullColor('M');
 				loggerStop();
 				stopVelocityPlay();

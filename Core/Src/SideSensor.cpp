@@ -22,14 +22,14 @@ void SideSensor::updateStatus()
 
 	if(ignore_flag_ == false){
 		if(status_R_== false){
-			if(!HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_2) && HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_8) ){ // Right is white and Left is black
+			if(!HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_2)){ // Right is white
 				cnt_r++;
 			}
 			else{
 				cnt_r = 0;
 			}
-			if(cnt_r >= 5){
-				status_ |= 0x01;
+			if(cnt_r >= 2){
+				//status_ |= 0x01;
 				status_R_ = true;
 				cnt_r = 0;
 			}
@@ -42,8 +42,8 @@ void SideSensor::updateStatus()
 			else{
 				cnt_r = 0;
 			}
-			if(cnt_r >= 5){
-				status_ ^= 0x01;
+			if(cnt_r >= 2){
+				//status_ ^= 0x01;
 				status_R_ = false;
 
 				white_line_cnt_r_++;
@@ -53,28 +53,28 @@ void SideSensor::updateStatus()
 
 
 		if(status_L_== false){
-			if(!HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_8) && HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_2)){ //Left is white and Right is black
+			if(!HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_8)){ //Left is white
 				cnt_l++;
 			}
 			else{
 				cnt_l = 0;
 			}
-			if(cnt_l >= 5){
-				status_ |= 0x02;
+			if(cnt_l >= 2){
+				//status_ |= 0x02;
 				status_L_ = true;
 				cnt_l = 0;
 			}
 
 		}
-		if(status_L_== true){
+		else if(status_L_== true){
 			if(HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_8)){ //Left is black
 				cnt_l++;
 			}
 			else{
 				cnt_l = 0;
 			}
-			if(cnt_l >= 5){
-				status_ ^= 0x02;
+			if(cnt_l >= 2){
+				//status_ ^= 0x02;
 				status_L_ = false;
 
 				white_line_cnt_l_++;
@@ -84,8 +84,8 @@ void SideSensor::updateStatus()
 		}
 
 		//mon_status = status_;
-		//mon_status_L = status_L_;
-		//mon_status_R = status_R_;
+		mon_status_L = status_L_;
+		mon_status_R = status_R_;
 	}
 
 }
