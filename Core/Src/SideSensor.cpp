@@ -18,22 +18,26 @@ SideSensor::SideSensor() : status_(0), status_L_(false), status_R_(false), white
 
 void SideSensor::updateStatusRightExti()
 {
-	if(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_2) == GPIO_PIN_SET){ // 立ち上がり
-		status_R_ = false;
-	}
-	else{
-		status_R_ = true;
+	if(ignore_flag_ == false){
+		if(HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_2) == GPIO_PIN_SET){ // 立ち上がり
+			status_R_ = false;
+		}
+		else{
+			status_R_ = true;
+		}
 	}
 	mon_status_R = status_R_;
 }
 
 void SideSensor::updateStatusLeftExti()
 {
-	if(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_8) == GPIO_PIN_SET){ // 立ち上がり
-		status_L_ = false;
-	}
-	else{
-		status_L_ = true;
+	if(ignore_flag_ == false){
+		if(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_8) == GPIO_PIN_SET){ // 立ち上がり
+			status_L_ = false;
+		}
+		else{
+			status_L_ = true;
+		}
 	}
 	mon_status_L = status_L_;
 }

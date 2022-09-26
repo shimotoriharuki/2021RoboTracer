@@ -555,7 +555,7 @@ bool LineTrace::isCrossLine()
 			white_flag = true;
 			cnt = 0;
 
-			//side_sensor_->enableIgnore();
+			side_sensor_->enableIgnore();
 			encoder_->clearCrossLineIgnoreDistance();
 
 			stable_cnt_reset_flag_ = true; //Because the conditions do not differ between when you tremble and when you do not tremble
@@ -980,7 +980,7 @@ void LineTrace::running()
 				led_.fullColor('B');
 			}
 
-			if(goal_judge_flag == false && side_sensor_->getStatusR() == true && encoder_->getGoalJudgeDistance() >= 25){
+			if(goal_judge_flag == false && side_sensor_->getStatusR() == true && encoder_->getGoalJudgeDistance() >= 30){
 				goal_judge_flag = true;
 				encoder_->clearGoalJudgeDistance();
 				ignore_check_cnt_ = 0;
