@@ -945,6 +945,7 @@ void LineTrace::running()
 {
 	uint16_t stage = 0;
 	bool goal_flag = false;
+	bool goal_judge_flag = false;
 	start();
 
 	while(goal_flag == false){
@@ -965,7 +966,16 @@ void LineTrace::running()
 			break;
 
 		case 10:
-			if(side_sensor_->getWhiteLineCntR() == 2){
+			//if(side_sensor_->getWhiteLineCntR() == 2){
+			if(side_sensor_->getStatusR() == true){
+				goal_judge_flag = true;
+				encoder_->clearGoalJudgeDistance();
+			}
+
+			if(goal_judge_flag == true && side_sensor_->getStatusL()){
+				goal_judge_flag = false;
+			}
+			else if(goal_judge_flag == true && encoder_->getGoalJudgeDistance() > 100){
 				led_.fullColor('M');
 				loggerStop();
 				stopVelocityPlay();
