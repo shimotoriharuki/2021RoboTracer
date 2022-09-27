@@ -21,6 +21,8 @@ private:
 	bool status_L_, status_R_;
 	uint16_t white_line_cnt_l_, white_line_cnt_r_;
 	bool ignore_flag_;
+	uint16_t timer_R_, timer_L_;
+	bool rise_fall_flag_R_, rise_fall_flag_L_;
 
 public:
 

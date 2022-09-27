@@ -143,7 +143,7 @@ void cppFlip1ms(void)
 	line_trace.flip();
 	velocity_ctrl.flip();
 	odometry.flip();
-	//side_sensor.updateStatus();
+	side_sensor.updateStatus();
 
 	motor.motorCtrl();
 

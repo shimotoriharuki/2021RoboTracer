@@ -1,13 +1,13 @@
-SideSensor.cpp:14:1:SideSensor::SideSensor()	16	static
-SideSensor.cpp:19:6:void SideSensor::updateStatusRightExti()	16	static
-SideSensor.cpp:32:6:void SideSensor::updateStatusLeftExti()	16	static
+SideSensor.cpp:15:1:SideSensor::SideSensor()	16	static
+SideSensor.cpp:21:6:void SideSensor::updateStatusRightExti()	16	static
+SideSensor.cpp:33:6:void SideSensor::updateStatusLeftExti()	16	static
 SideSensor.cpp:45:6:void SideSensor::updateStatus()	16	static
-SideSensor.cpp:118:10:uint16_t SideSensor::getStatus()	16	static
-SideSensor.cpp:123:6:bool SideSensor::getStatusL()	16	static
-SideSensor.cpp:128:6:bool SideSensor::getStatusR()	16	static
-SideSensor.cpp:133:10:uint16_t SideSensor::getWhiteLineCntL()	16	static
-SideSensor.cpp:138:10:uint16_t SideSensor::getWhiteLineCntR()	16	static
-SideSensor.cpp:143:6:void SideSensor::resetWhiteLineCnt()	16	static
-SideSensor.cpp:149:6:void SideSensor::enableIgnore()	16	static
-SideSensor.cpp:154:6:void SideSensor::disableIgnore()	16	static
-SideSensor.cpp:159:6:bool SideSensor::getIgnoreFlag()	16	static
+SideSensor.cpp:148:10:uint16_t SideSensor::getStatus()	16	static
+SideSensor.cpp:153:6:bool SideSensor::getStatusL()	16	static
+SideSensor.cpp:158:6:bool SideSensor::getStatusR()	16	static
+SideSensor.cpp:163:10:uint16_t SideSensor::getWhiteLineCntL()	16	static
+SideSensor.cpp:168:10:uint16_t SideSensor::getWhiteLineCntR()	16	static
+SideSensor.cpp:173:6:void SideSensor::resetWhiteLineCnt()	16	static
+SideSensor.cpp:179:6:void SideSensor::enableIgnore()	16	static
+SideSensor.cpp:184:6:void SideSensor::disableIgnore()	16	static
+SideSensor.cpp:189:6:bool SideSensor::getIgnoreFlag()	16	static
