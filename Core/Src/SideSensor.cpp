@@ -49,21 +49,21 @@ void SideSensor::updateStatus() // called timer flip
 	if(timer_R_ >= 10000) timer_R_ = 10000;
 	if(timer_L_ >= 10000) timer_L_ = 10000;
 
-	//if(ignore_flag_ == false){
+	if(ignore_flag_ == false){
 		if(rise_fall_flag_R_ == true && timer_R_ >= 2){
 			status_R_ = false;
 		}
 		else if(rise_fall_flag_R_ == false && timer_R_ >= 2){
 			status_R_ = true;
 		}
+	}
 
-		if(rise_fall_flag_L_ == true && timer_L_ >= 2){
-			status_L_ = false;
-		}
-		else if(rise_fall_flag_L_ == false && timer_L_ >= 2){
-			status_L_ = true;
-		}
-	//}
+	if(rise_fall_flag_L_ == true && timer_L_ >= 2){
+		status_L_ = false;
+	}
+	else if(rise_fall_flag_L_ == false && timer_L_ >= 2){
+		status_L_ = true;
+	}
 
 	mon_status_R = status_R_;
 	mon_status_L = status_L_;
