@@ -919,6 +919,9 @@ void LineTrace::flip()
 		ignore_check_cnt_++;
 		if(ignore_check_cnt_>= 10000) ignore_check_cnt_= 10000;
 
+		if(ignore_check_cnt_ <= 200) led_.fullColor('Y');
+		else led_.fullColor('B');
+
 	}
 }
 
