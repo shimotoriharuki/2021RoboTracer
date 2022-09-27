@@ -303,10 +303,12 @@ void LineTrace::storeLogs()
 {
 	if(logging_flag_ == true){
 		if(mode_selector_ == FIRST_RUNNING)
-			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
+			//logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
+			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getDeltaTheta());
 		else
 			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
-			logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
+			//logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
+			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getDeltaTheta());
 			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
 
 		mon_store_cnt++;
