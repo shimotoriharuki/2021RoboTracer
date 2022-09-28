@@ -959,6 +959,7 @@ void LineTrace::running()
 			//if(side_sensor_->getWhiteLineCntR() == 1){
 			if(side_sensor_->getStatusR() == true){
 				loggerStart();
+				logger_->start();
 				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
 					startVelocityPlay();
 				}

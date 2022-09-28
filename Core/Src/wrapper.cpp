@@ -340,7 +340,7 @@ void cppLoop(void)
 
 			logger.resetLogsTim1();
 			logger.resetLogsTim2();
-			logger.start();
+			//logger.start();
 
 			line_trace.running();
 
@@ -422,7 +422,7 @@ void cppLoop(void)
 
 			logger.resetLogsTim1();
 			logger.resetLogsTim2();
-			logger.start();
+			//logger.start();
 
 			line_trace.running();
 
@@ -509,7 +509,7 @@ void cppLoop(void)
 			line_trace.setMinVelocity2(adj_min_velocity2);
 			line_trace.createVelocityTabele();
 
-			logger.start();
+			//logger.start();
 
 			line_trace.running();
 
@@ -935,7 +935,7 @@ void cppLoop(void)
 
 			HAL_Delay(1000);
 
-			logger.start();
+			//logger.start();
 
 			line_trace.running();
 

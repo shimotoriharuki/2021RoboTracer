@@ -58,6 +58,6 @@ LineTrace.cpp:814:6:void LineTrace::flip()	16	static
 LineTrace.cpp:931:6:void LineTrace::setMode(int16_t)	16	static
 LineTrace.cpp:936:6:void LineTrace::start()	16	static
 LineTrace.cpp:949:6:void LineTrace::running()	24	static
-LineTrace.cpp:1014:6:void LineTrace::stop()	24	static
-LineTrace.cpp:1041:6:void LineTrace::createVelocityTabele()	56	static
-LineTrace.cpp:1081:6:void LineTrace::createVelocityTabeleFromSD()	56	static
+LineTrace.cpp:1015:6:void LineTrace::stop()	24	static
+LineTrace.cpp:1042:6:void LineTrace::createVelocityTabele()	56	static
+LineTrace.cpp:1082:6:void LineTrace::createVelocityTabeleFromSD()	56	static
