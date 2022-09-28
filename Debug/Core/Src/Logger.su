@@ -1,22 +1,24 @@
-Logger.cpp:16:1:Logger::Logger()	16	static
-Logger.cpp:18:6:bool Logger::sdCardInit()	24	static
-Logger.cpp:57:6:void Logger::storeLog(float)	16	static
-Logger.cpp:69:6:void Logger::storeLog2(float)	16	static
-Logger.cpp:81:6:void Logger::storeLogInt(int16_t)	16	static
-Logger.cpp:92:6:void Logger::storeLog2Int(int16_t)	16	static
-Logger.cpp:104:6:void Logger::storeDistanceAndTheta(float, float)	24	static
-Logger.cpp:116:6:void Logger::storeDistanceAndTheta2(float, float)	24	static
-Logger.cpp:127:14:const float* Logger::getDistanceArrayPointer()	16	static
-Logger.cpp:132:14:const float* Logger::getThetaArrayPointer()	16	static
-Logger.cpp:137:6:void Logger::saveLogs(const char*, const char*)	32	static
-Logger.cpp:141:6:void Logger::saveLogs2(const char*, const char*)	32	static
-Logger.cpp:146:6:void Logger::saveLogsInt(const char*, const char*)	32	static
-Logger.cpp:150:6:void Logger::saveLogs2Int(const char*, const char*)	32	static
-Logger.cpp:154:6:void Logger::saveDistanceAndTheta(const char*, const char*, const char*)	32	static
-Logger.cpp:160:6:void Logger::saveDistanceAndTheta2(const char*, const char*, const char*)	32	static
-Logger.cpp:166:6:void Logger::importDistanceAndTheta(const char*, const char*, const char*)	24	static
-Logger.cpp:199:6:void Logger::resetLogs1()	64	static
-Logger.cpp:216:6:void Logger::resetLogs2()	64	static
-Logger.cpp:232:6:void Logger::resetIdx()	16	static
-Logger.cpp:239:6:void Logger::start()	16	static
-Logger.cpp:246:6:void Logger::stop()	16	static
+Logger.cpp:17:1:Logger::Logger()	16	static
+Logger.cpp:19:6:bool Logger::sdCardInit()	24	static
+Logger.cpp:58:6:void Logger::storeLog(float)	16	static
+Logger.cpp:71:6:void Logger::storeLog2(float)	16	static
+Logger.cpp:84:6:void Logger::storeLogInt(int16_t)	16	static
+Logger.cpp:95:6:void Logger::storeLog2Int(int16_t)	16	static
+Logger.cpp:107:6:void Logger::storeDistanceAndTheta(float, float)	24	static
+Logger.cpp:119:6:void Logger::storeDistanceAndTheta2(float, float)	24	static
+Logger.cpp:130:14:const float* Logger::getDistanceArrayPointer()	16	static
+Logger.cpp:135:14:const float* Logger::getThetaArrayPointer()	16	static
+Logger.cpp:140:6:void Logger::saveLogs(const char*, const char*)	32	static
+Logger.cpp:144:6:void Logger::saveLogs2(const char*, const char*)	32	static
+Logger.cpp:149:6:void Logger::saveLogsInt(const char*, const char*)	32	static
+Logger.cpp:153:6:void Logger::saveLogs2Int(const char*, const char*)	32	static
+Logger.cpp:157:6:void Logger::saveDistanceAndTheta(const char*, const char*, const char*)	32	static
+Logger.cpp:163:6:void Logger::saveDistanceAndTheta2(const char*, const char*, const char*)	32	static
+Logger.cpp:169:6:void Logger::importDistanceAndTheta(const char*, const char*, const char*)	24	static
+Logger.cpp:202:6:void Logger::resetLogsDis1()	48	static
+Logger.cpp:214:6:void Logger::resetLogsDis2()	48	static
+Logger.cpp:226:6:void Logger::resetLogsTim1()	32	static
+Logger.cpp:235:6:void Logger::resetLogsTim2()	32	static
+Logger.cpp:243:6:void Logger::resetIdx()	16	static
+Logger.cpp:250:6:void Logger::start()	16	static
+Logger.cpp:257:6:void Logger::stop()	16	static

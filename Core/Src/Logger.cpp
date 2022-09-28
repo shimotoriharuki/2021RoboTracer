@@ -12,6 +12,7 @@
 #include "AQM0802.h"
 
 uint16_t mon_idx1, mon_idx2;
+float mon_data1, mon_data2, mon_data3;
 
 Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_tim2_(0), log_index_tim_int_(0), log_index_tim2_int_(0), log_index_dis_(0){}
 
@@ -61,6 +62,7 @@ void Logger::storeLog(float data)
 
 		log_index_tim_++;
 		mon_idx1 = log_index_tim_;
+		mon_data1 = data;
 
 		if(log_index_tim_ >= LOG_DATA_SIZE_TIM) log_index_tim_ = 0;
 	}
@@ -73,6 +75,7 @@ void Logger::storeLog2(float data)
 
 		log_index_tim2_++;
 		mon_idx2 = log_index_tim2_;
+		mon_data2 = data;
 
 		if(log_index_tim2_ >= LOG_DATA_SIZE_TIM2) log_index_tim2_ = 0;
 	}
@@ -196,7 +199,7 @@ void Logger::continuousWriteStop()
 }
 */
 
-void Logger::resetLogs1()
+void Logger::resetLogsDis1()
 {
 	for(auto &log : store_distance_){
 		log = 0;
@@ -204,16 +207,11 @@ void Logger::resetLogs1()
 	for(auto &log : store_theta_){
 		log = 0;
 	}
-	for(auto &log : store_data_float_){
-		log = 0;
-	}
 
 	log_index_tim_ = 0;
-	//log_index_tim2_ = 0;
-	log_index_dis_ = 0;
 }
 
-void Logger::resetLogs2()
+void Logger::resetLogsDis2()
 {
 	for(auto &log : store_distance2_){
 		log = 0;
@@ -221,13 +219,26 @@ void Logger::resetLogs2()
 	for(auto &log : store_theta2_){
 		log = 0;
 	}
+
+	log_index_tim2_ = 0;
+}
+
+void Logger::resetLogsTim1()
+{
+	for(auto &log : store_data_float_){
+		log = 0;
+	}
+
+	log_index_tim_ = 0;
+}
+
+void Logger::resetLogsTim2()
+{
 	for(auto &log : store_data_float2_){
 		log = 0;
 	}
 
-	//log_index_tim_ = 0;
 	log_index_tim2_ = 0;
-	log_index_dis_ = 0;
 }
 void Logger::resetIdx()
 {

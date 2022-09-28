@@ -247,7 +247,7 @@ void LineTrace::loggerStart()
 {
 	encoder_->clearDistance10mm();
 	odometry_->clearPotition();
-	logger_->resetLogs2();
+	logger_->resetLogsDis2();
 
 	logging_flag_ = true;
 }
@@ -1032,7 +1032,7 @@ void LineTrace::stop()
 	led_.LR(-1, 0);
 
 	logger_->resetIdx();
-	logger_->resetLogs2();
+	//logger_->resetLogsDis2();
 }
 
 // ---------------------------------------------------------------------------------------------------//

@@ -185,8 +185,8 @@ void cppFlip10ms(void)
 	}
 	*/
 
-	logger.storeLog2(line_trace.getTargetVelocity());
-	logger.storeLog(velocity_ctrl.getCurrentVelocity());
+	logger.storeLog(line_trace.getTargetVelocity());
+	logger.storeLog2(velocity_ctrl.getCurrentVelocity());
 	/*
 	static float tim;
 	tim++;
@@ -338,8 +338,8 @@ void cppLoop(void)
 			// Run
 			line_trace.setMode(FIRST_RUNNING);
 
-			logger.resetLogs1();
-			logger.resetLogs2();
+			logger.resetLogsTim1();
+			logger.resetLogsTim2();
 			logger.start();
 
 			line_trace.running();
@@ -420,8 +420,8 @@ void cppLoop(void)
 
 			HAL_Delay(1000);
 
-			logger.resetLogs1();
-			logger.resetLogs2();
+			logger.resetLogsTim1();
+			logger.resetLogsTim2();
 			logger.start();
 
 			line_trace.running();
@@ -779,8 +779,8 @@ void cppLoop(void)
 		lcd_printf("TEST");
 		if(joy_stick.getValue() == JOY_C){
 			led.fullColor('R');
-			logger.resetLogs1();
-			logger.resetLogs2();
+			logger.resetLogsTim1();
+			logger.resetLogsTim2();
 			logger.start();
 
 			HAL_Delay(1000);
@@ -940,8 +940,8 @@ void cppLoop(void)
 			line_trace.running();
 
 			logger.stop();
-			logger.saveLogs("STATELOG", "CURVEL.txt");
-			logger.saveLogs2("STATELOG", "TARVEL.txt");
+			logger.saveLogs("STATELOG", "TARVEL.txt");
+			logger.saveLogs2("STATELOG", "CURVEL.txt");
 ;
 
 			led.LR(0, -1);
