@@ -200,9 +200,12 @@ void Logger::resetLogs1()
 	for(auto &log : store_theta_){
 		log = 0;
 	}
+	for(auto &log : store_data_float_){
+		log = 0;
+	}
 
 	log_index_tim_ = 0;
-	log_index_tim2_ = 0;
+	//log_index_tim2_ = 0;
 	log_index_dis_ = 0;
 }
 
@@ -214,8 +217,11 @@ void Logger::resetLogs2()
 	for(auto &log : store_theta2_){
 		log = 0;
 	}
+	for(auto &log : store_data_float2_){
+		log = 0;
+	}
 
-	log_index_tim_ = 0;
+	//log_index_tim_ = 0;
 	log_index_tim2_ = 0;
 	log_index_dis_ = 0;
 }

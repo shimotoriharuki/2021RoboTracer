@@ -331,6 +331,8 @@ void cppLoop(void)
 			// Run
 			line_trace.setMode(FIRST_RUNNING);
 
+			logger.resetLogs1();
+			logger.resetLogs2();
 			logger.start();
 
 			line_trace.running();
@@ -411,6 +413,8 @@ void cppLoop(void)
 
 			HAL_Delay(1000);
 
+			logger.resetLogs1();
+			logger.resetLogs2();
 			logger.start();
 
 			line_trace.running();
