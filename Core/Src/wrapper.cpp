@@ -881,8 +881,10 @@ void cppLoop(void)
 			HAL_Delay(1000);
 
 			line_trace.running();
-
-			esc.off();
+			logger.stop();
+			logger.saveLogs("STATELOG", "TARVEL.txt");
+			logger.saveLogs2("STATELOG", "CURVEL.txt");
+			//esc.off();
 
 			led.LR(0, -1);
 		}
