@@ -11,6 +11,8 @@
 #include "Macro.h"
 #include "AQM0802.h"
 
+uint16_t mon_idx1, mon_idx2;
+
 Logger::Logger() : recording_flag_(false), log_index_tim_(0), log_index_tim2_(0), log_index_tim_int_(0), log_index_tim2_int_(0), log_index_dis_(0){}
 
 bool Logger::sdCardInit()
@@ -58,6 +60,7 @@ void Logger::storeLog(float data)
 		store_data_float_[log_index_tim_] = data;
 
 		log_index_tim_++;
+		mon_idx1 = log_index_tim_;
 
 		if(log_index_tim_ >= LOG_DATA_SIZE_TIM) log_index_tim_ = 0;
 	}
@@ -69,6 +72,7 @@ void Logger::storeLog2(float data)
 		store_data_float2_[log_index_tim2_] = data;
 
 		log_index_tim2_++;
+		mon_idx2 = log_index_tim2_;
 
 		if(log_index_tim2_ >= LOG_DATA_SIZE_TIM2) log_index_tim2_ = 0;
 	}

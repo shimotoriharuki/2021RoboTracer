@@ -826,8 +826,6 @@ void LineTrace::flip()
 		if(isTargetDistance(10) == true){
 			// ---- Store Logs ------//
 			storeLogs();
-			logger_->storeLog(imu_->getOmega());
-			logger_->storeLog2(target_omega_);
 
 			// -------- Detect Robot stabilization ------//
 			if(isStable() == true && side_sensor_->getStatusL() == false){ // Stabilizing and side sensor is black

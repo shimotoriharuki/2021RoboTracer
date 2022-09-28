@@ -185,9 +185,16 @@ void cppFlip10ms(void)
 	}
 	*/
 
-	logger.storeLog(line_trace.getTargetVelocity());
-	logger.storeLog2(velocity_ctrl.getCurrentVelocity());
+	logger.storeLog2(line_trace.getTargetVelocity());
+	logger.storeLog(velocity_ctrl.getCurrentVelocity());
+	/*
+	static float tim;
+	tim++;
+	if(tim >= 100000) tim = 0;
 
+	logger.storeLog(tim);
+	logger.storeLog2(tim);
+	*/
 
 	/*
 	path_following.setCurrentPath(odometry.getX(), odometry.getY(), odometry.getTheta());
@@ -746,7 +753,8 @@ void cppLoop(void)
 	case 11:
 		led.fullColor('~');
 
-lcd_clear();
+		/*
+		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("ESC");
 		lcd_locate(0,1);
@@ -762,7 +770,26 @@ lcd_clear();
 
 			led.LR(-1, 0);
 		}
+		*/
 
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("LOG");
+		lcd_locate(0,1);
+		lcd_printf("TEST");
+		if(joy_stick.getValue() == JOY_C){
+			led.fullColor('R');
+			logger.resetLogs1();
+			logger.resetLogs2();
+			logger.start();
+
+			HAL_Delay(1000);
+
+			logger.stop();
+			logger.saveLogs("STATELOG", "TARVEL.txt");
+			logger.saveLogs2("STATELOG", "CURVEL.txt");
+			led.fullColor('~');
+		}
 
 		/*
 		lcd_clear();
