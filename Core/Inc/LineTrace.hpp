@@ -80,6 +80,7 @@ private:
 	uint16_t all_sideline_idx_;
 	bool ignore_crossline_flag_;
 	bool stable_flag_;
+	bool stable_flag_force_;
 	bool stable_cnt_reset_flag_;
 	float max_acc_, max_dec_;
 	float max_acc2_, max_dec2_;

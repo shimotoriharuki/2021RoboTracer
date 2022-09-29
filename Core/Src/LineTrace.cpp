@@ -36,7 +36,7 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), max_velocity2_(0), min_velocity_(0), min_velocity2_(0), logging_flag_(false),
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), sideline_idx2_(0), all_sideline_idx_(0),
-				ignore_crossline_flag_(false), stable_flag_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), correction_check_cnt_(0),
+				ignore_crossline_flag_(false), stable_flag_(false), stable_flag_force_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), correction_check_cnt_(0),
 				store_check_cnt_(0), ignore_check_cnt_(0), all_sideline_flag_(false)
 
 {
@@ -545,7 +545,7 @@ bool LineTrace::isCrossLine()
 	mon_ave_r = sensor_edge_val_r;
 
 	//if(white_flag == false){
-		if(sensor_edge_val_l < 650 && sensor_edge_val_r < 650 && encoder_->getCrossLineIgnoreDistance() >= 50){
+		if(sensor_edge_val_l < 650 && sensor_edge_val_r < 650 && encoder_->getCrossLineIgnoreDistance() >= 60){
 			cnt++;
 		}
 		else{
@@ -562,6 +562,7 @@ bool LineTrace::isCrossLine()
 			encoder_->clearCrossLineIgnoreDistance();
 
 			stable_cnt_reset_flag_ = true; //Because the conditions do not differ between when you tremble and when you do not tremble
+			stable_flag_force_ = true;
 			if(mode_selector_ == FIRST_RUNNING){
 				store_check_cnt_ = 0;
 				storeCrossLineDistance();
@@ -840,9 +841,16 @@ void LineTrace::flip()
 			odometry_->clearPotition();
 		}
 
+		// ----- cross line ignore processing ------//
+		if(isCrossLine() == true){ //detect cross line
+			//side_sensor_->enableIgnore(); //moved to isCrossLine function
+			//encoder_->clearCrossLineIgnoreDistance();//moved to isCrossLine function
+			// Note: Store cross line distance here.
+			//led_.LR(1, -1);
+		}
 
 		// ------- Store side line distance or correction distance------//
-		if(stable_flag_ == true && side_sensor_->getStatusL() == true){ //Stabilizing and side sensor is white
+		if((stable_flag_force_ == true || stable_flag_ == true) && side_sensor_->getStatusL() == true && encoder_->getSideLineIgnoreDistance() >= 120){ //Stabilizing and side sensor is white
 			//correction_check_cnt_ = 0;
 
 			if(mode_selector_ == FIRST_RUNNING){
@@ -856,17 +864,11 @@ void LineTrace::flip()
 			}
 
 			stable_flag_ = false;
+			stable_flag_force_ = false;
 			stable_cnt_reset_flag_ = true;
 		}
 
 
-		// ----- cross line ignore processing ------//
-		if(isCrossLine() == true){ //detect cross line
-			//side_sensor_->enableIgnore(); //moved to isCrossLine function
-			//encoder_->clearCrossLineIgnoreDistance();//moved to isCrossLine function
-			// Note: Store cross line distance here.
-			//led_.LR(1, -1);
-		}
 
 		if(side_sensor_->getIgnoreFlag() == true && encoder_->getSideLineIgnoreDistance() >= 100){
 			side_sensor_->disableIgnore();
