@@ -544,20 +544,21 @@ bool LineTrace::isCrossLine()
 	mon_ave_l = sensor_edge_val_l;
 	mon_ave_r = sensor_edge_val_r;
 
-	if(white_flag == false){
-		if(sensor_edge_val_l < 650 && sensor_edge_val_r < 650){
+	//if(white_flag == false){
+		if(sensor_edge_val_l < 650 && sensor_edge_val_r < 650 && encoder_->getCrossLineIgnoreDistance() >= 50){
 			cnt++;
 		}
 		else{
 			cnt = 0;
 		}
 
-		if(cnt >= 1){
+		if(cnt >= 3){
 			flag = true;
 			white_flag = true;
 			cnt = 0;
 
 			side_sensor_->enableIgnore();
+			encoder_->clearSideLineIgnoreDistance();
 			encoder_->clearCrossLineIgnoreDistance();
 
 			stable_cnt_reset_flag_ = true; //Because the conditions do not differ between when you tremble and when you do not tremble
@@ -571,7 +572,8 @@ bool LineTrace::isCrossLine()
 				storeCrossLineDistance2(); //for correction check
 			}
 		}
-	}
+	//}
+	/*
 	else{
 		if(sensor_edge_val_l > 500 && sensor_edge_val_r > 500){
 			cnt++;
@@ -580,13 +582,14 @@ bool LineTrace::isCrossLine()
 			cnt = 0;
 		}
 
-		if(cnt >= 5){
+		if(cnt >= 3){
 			flag = false;
 			white_flag = false;
 			cnt = 0;
 		}
 
 	}
+	*/
 
 	return flag;
 }
@@ -865,7 +868,7 @@ void LineTrace::flip()
 			//led_.LR(1, -1);
 		}
 
-		if(side_sensor_->getIgnoreFlag() == true && encoder_->getCrossLineIgnoreDistance() >= 100){
+		if(side_sensor_->getIgnoreFlag() == true && encoder_->getSideLineIgnoreDistance() >= 100){
 			side_sensor_->disableIgnore();
 			//led_.LR(0, -1);
 		}
@@ -904,23 +907,6 @@ void LineTrace::flip()
 			//led_.LR(0, -1);
 		}
 
-		// ---------Confirmation when corrected ------------//
-		correction_check_cnt_++;
-		if(correction_check_cnt_ >= 10000) correction_check_cnt_ = 10000;
-
-		if(correction_check_cnt_ <= 300) led_.fullColor('R');
-
-		store_check_cnt_++;
-		if(store_check_cnt_>= 10000) store_check_cnt_ = 10000;
-
-		if(store_check_cnt_ <= 200) led_.LR(1, -1);
-		else led_.LR(0, -1);
-
-		ignore_check_cnt_++;
-		if(ignore_check_cnt_>= 10000) ignore_check_cnt_= 10000;
-
-		if(ignore_check_cnt_ <= 200) led_.fullColor('Y');
-		else led_.fullColor('B');
 
 	}
 }
@@ -964,6 +950,7 @@ void LineTrace::running()
 					startVelocityPlay();
 				}
 
+				encoder_->clearSideLineIgnoreDistance();
 				encoder_->clearCrossLineIgnoreDistance();
 				encoder_->clearTotalDistance();
 				led_.LR(0, -1);
@@ -1007,6 +994,24 @@ void LineTrace::running()
 
 			break;
 		}
+
+		// ---------Confirmation when corrected ------------//
+		correction_check_cnt_++;
+		if(correction_check_cnt_ >= 10000) correction_check_cnt_ = 10000;
+
+		if(correction_check_cnt_ <= 300) led_.fullColor('R');
+
+		store_check_cnt_++;
+		if(store_check_cnt_>= 10000) store_check_cnt_ = 10000;
+
+		if(store_check_cnt_ <= 200) led_.LR(1, -1);
+		else led_.LR(0, -1);
+
+		ignore_check_cnt_++;
+		if(ignore_check_cnt_>= 10000) ignore_check_cnt_= 10000;
+
+		if(ignore_check_cnt_ <= 200) led_.fullColor('Y');
+		else led_.fullColor('B');
 	}
 
 	stop();

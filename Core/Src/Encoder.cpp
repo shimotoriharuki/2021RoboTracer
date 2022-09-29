@@ -22,7 +22,7 @@ float monitor_cnt_l;
 float monitor_cnt_l_lpf;
 
 Encoder::Encoder() : cnt_l_(0), cnt_r_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0), distance_10mm_(0), total_distance_(0),
-		cross_line_ignore_distance_(0), goal_judge_distance_(0){}
+		side_line_ignore_distance_(), cross_line_ignore_distance_(0), goal_judge_distance_(0){}
 
 void Encoder::init()
 {
@@ -46,6 +46,7 @@ void Encoder::update()
 	distance_ = DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	distance_10mm_ += distance_;
 	total_distance_ += distance_;
+	side_line_ignore_distance_ += distance_;
 	cross_line_ignore_distance_ += distance_;
 	goal_judge_distance_ += distance_;
 	//monitor_distance = distance_10mm_;
@@ -111,6 +112,15 @@ void Encoder::clearTotalDistance()
 	total_distance_ = 0;
 }
 
+float Encoder::getSideLineIgnoreDistance()
+{
+	return side_line_ignore_distance_;
+}
+
+void Encoder::clearSideLineIgnoreDistance()
+{
+	side_line_ignore_distance_ = 0;
+}
 float Encoder::getCrossLineIgnoreDistance()
 {
 	return cross_line_ignore_distance_;

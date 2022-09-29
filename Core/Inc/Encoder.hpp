@@ -20,6 +20,7 @@ private:
 	float total_cnt_l_, total_cnt_r_;
 	float distance_10mm_;
 	float total_distance_;
+	float side_line_ignore_distance_;
 	float cross_line_ignore_distance_;
 	float goal_judge_distance_;
 
@@ -37,6 +38,8 @@ public:
 	//float getTotalCnt();
 	void clearDistance10mm();
 	void clearTotalDistance();
+	float getSideLineIgnoreDistance();
+	void clearSideLineIgnoreDistance();
 	float getCrossLineIgnoreDistance();
 	void clearCrossLineIgnoreDistance();
 	float getGoalJudgeDistance();
