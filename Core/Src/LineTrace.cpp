@@ -537,8 +537,10 @@ bool LineTrace::isTargetDistance(float target_distance)
 bool LineTrace::isCrossLine()
 {
 	static uint16_t cnt = 0;
-	float sensor_edge_val_l = (line_sensor_->sensor[3] + line_sensor_->sensor[4]) / 2;
-	float sensor_edge_val_r = (line_sensor_->sensor[9] + line_sensor_->sensor[10]) / 2;
+	//float sensor_edge_val_l = (line_sensor_->sensor[3] + line_sensor_->sensor[4]) / 2;
+	//float sensor_edge_val_r = (line_sensor_->sensor[9] + line_sensor_->sensor[10]) / 2;
+	float sensor_edge_val_l = (line_sensor_->sensor[0] + line_sensor_->sensor[1]) / 2;
+	float sensor_edge_val_r = (line_sensor_->sensor[12] + line_sensor_->sensor[13]) / 2;
 	static bool flag = false;
 	static bool white_flag = false;
 	mon_ave_l = sensor_edge_val_l;
@@ -562,7 +564,7 @@ bool LineTrace::isCrossLine()
 			encoder_->clearCrossLineIgnoreDistance();
 
 			stable_cnt_reset_flag_ = true; //Because the conditions do not differ between when you tremble and when you do not tremble
-			stable_flag_force_ = true;
+			//stable_flag_force_ = true;
 			if(mode_selector_ == FIRST_RUNNING){
 				store_check_cnt_ = 0;
 				storeCrossLineDistance();
@@ -850,7 +852,8 @@ void LineTrace::flip()
 		}
 
 		// ------- Store side line distance or correction distance------//
-		if((stable_flag_force_ == true || stable_flag_ == true) && side_sensor_->getStatusL() == true && encoder_->getSideLineIgnoreDistance() >= 120){ //Stabilizing and side sensor is white
+		if(stable_flag_ == true && side_sensor_->getStatusL() == true){ //Stabilizing and side sensor is white
+		//if((stable_flag_force_ == true || stable_flag_ == true) && side_sensor_->getStatusL() == true && encoder_->getSideLineIgnoreDistance() >= 120){ //Stabilizing and side sensor is white
 			//correction_check_cnt_ = 0;
 
 			if(mode_selector_ == FIRST_RUNNING){
@@ -1006,7 +1009,7 @@ void LineTrace::running()
 		store_check_cnt_++;
 		if(store_check_cnt_>= 10000) store_check_cnt_ = 10000;
 
-		if(store_check_cnt_ <= 200) led_.LR(1, -1);
+		if(store_check_cnt_ <= 500) led_.LR(1, -1);
 		else led_.LR(0, -1);
 
 		ignore_check_cnt_++;
