@@ -222,8 +222,8 @@ void cppLoop(void)
 {
 	static int16_t selector_gain;
 	static int16_t selector_run;
-	static int16_t selector_acc, selector_acc2;
-	static int16_t selector_vel, selector_vel2;
+	static int16_t selector_acc;
+	static int16_t selector_vel;
 
 	static float adj_kp = line_trace.getKp();
 	static float adj_ki= line_trace.getKi();
@@ -235,14 +235,22 @@ void cppLoop(void)
 
 	static float adj_velocity = line_trace.getTargetVelocity();
 	static float adj_max_velocity = line_trace.getMaxVelocity();
-	static float adj_max_velocity2 = line_trace.getMaxVelocity2();
 	static float adj_min_velocity = line_trace.getMinVelocity();
+	static float adj_max_velocity2 = line_trace.getMaxVelocity2();
 	static float adj_min_velocity2 = line_trace.getMinVelocity2();
+	static float adj_max_velocity3 = line_trace.getMaxVelocity3();
+	static float adj_min_velocity3 = line_trace.getMinVelocity3();
+	static float adj_max_velocity4 = line_trace.getMaxVelocity4();
+	static float adj_min_velocity4 = line_trace.getMinVelocity4();
 
 	static float adj_acc = line_trace.getMaxAcc();
 	static float adj_dec = line_trace.getMaxDec();
 	static float adj_acc2 = line_trace.getMaxAcc2();
 	static float adj_dec2 = line_trace.getMaxDec2();
+	static float adj_acc3 = line_trace.getMaxAcc3();
+	static float adj_dec3 = line_trace.getMaxDec3();
+	static float adj_acc4 = line_trace.getMaxAcc4();
+	static float adj_dec4 = line_trace.getMaxDec4();
 
 	switch(rotary_switch.getValue()){
 	/*-------------------------------------------------------------------------*/
@@ -464,7 +472,7 @@ void cppLoop(void)
 				led.LR(-1, 1);
 				HAL_Delay(300);
 
-				sd_write_array_float("PARAMS", "TARVEL1.TXT", 1, &adj_velocity, OVER_WRITE);
+				sd_write_array_float("PARAMS", "TARVEL.TXT", 1, &adj_velocity, OVER_WRITE);
 				line_trace.setTargetVelocity(adj_velocity);
 
 				led.LR(-1, 0);
@@ -564,7 +572,7 @@ void cppLoop(void)
 				HAL_Delay(300);
 
 				sd_write_array_float("PARAMS", "TARVEL2.TXT", 1, &adj_max_velocity, OVER_WRITE);
-				sd_write_array_float("PARAMS", "MINVEL.TXT", 1, &adj_min_velocity, OVER_WRITE);
+				sd_write_array_float("PARAMS", "MINVEL2.TXT", 1, &adj_min_velocity, OVER_WRITE);
 				line_trace.setMaxVelocity(adj_max_velocity);
 				line_trace.setMinVelocity(adj_min_velocity);
 
@@ -629,8 +637,8 @@ void cppLoop(void)
 				led.LR(-1, 1);
 				HAL_Delay(300);
 
-				selector_vel2++;
-				if(selector_vel2 >= 2) selector_vel2 = 0;
+				selector_vel++;
+				if(selector_vel >= 2) selector_vel = 0;
 
 				led.LR(-1, 0);
 			}
@@ -638,7 +646,7 @@ void cppLoop(void)
 				led.LR(-1, 1);
 				HAL_Delay(100);
 
-				if(selector_vel2 == 0)
+				if(selector_vel == 0)
 					adj_max_velocity2 = adj_max_velocity2 + 0.1;
 				else
 					adj_min_velocity2 = adj_min_velocity2 + 0.1;
@@ -650,7 +658,7 @@ void cppLoop(void)
 				led.LR(-1, 1);
 				HAL_Delay(100);
 
-				if(selector_vel2 == 0)
+				if(selector_vel == 0)
 					adj_max_velocity2 = adj_max_velocity2 - 0.1;
 				else
 					adj_min_velocity2 = adj_min_velocity2 - 0.1;
@@ -662,7 +670,7 @@ void cppLoop(void)
 				HAL_Delay(300);
 
 				sd_write_array_float("PARAMS", "TARVEL3.TXT", 1, &adj_max_velocity2, OVER_WRITE);
-				sd_write_array_float("PARAMS", "MINVEL2.TXT", 1, &adj_min_velocity2, OVER_WRITE);
+				sd_write_array_float("PARAMS", "MINVEL3.TXT", 1, &adj_min_velocity2, OVER_WRITE);
 				line_trace.setMaxVelocity2(adj_max_velocity2);
 				line_trace.setMinVelocity2(adj_min_velocity2);
 
@@ -673,6 +681,198 @@ void cppLoop(void)
 		break;
 
 	case 5:
+		led.fullColor('B');
+
+		if(joy_stick.getValue() == JOY_D){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			selector_run++;
+			if(selector_run >= 2) selector_run = 0;
+
+			led.LR(-1, 0);
+		}
+
+		if(selector_run == 0){
+			lcd_clear();
+			lcd_locate(0,0);
+			lcd_printf("4:   %3.1f", adj_max_velocity3);
+			lcd_locate(0,1);
+			lcd_printf("Start%3.1f", adj_min_velocity3);
+
+			if(joy_stick.getValue() == JOY_C){
+				HAL_Delay(500);
+
+				led.LR(1, -1);
+				line_trace.setGain(adj_kp, adj_ki, adj_kd);
+				line_trace.setMode(FOURTH_RUNNING);
+				line_trace.setTargetVelocity(adj_min_velocity3);
+				line_trace.setMaxVelocity3(adj_max_velocity3);
+				line_trace.setMinVelocity3(adj_min_velocity3);
+				line_trace.createVelocityTabele();
+
+				//logger.start();
+
+				line_trace.running();
+
+				logger.stop();
+				logger.saveLogs("STATELOG", "TARVEL.txt");
+				logger.saveLogs2("STATELOG", "CURVEL.txt");
+
+				led.LR(0, -1);
+			}
+		}
+		else{
+			lcd_clear();
+			lcd_locate(0,0);
+			lcd_printf("4:   %3.1f", line_trace.getMaxVelocity3());
+			lcd_locate(0,1);
+			lcd_printf("%Vel: %3.1f", line_trace.getMinVelocity3());
+
+			if(joy_stick.getValue() == JOY_U){
+				led.LR(-1, 1);
+				HAL_Delay(300);
+
+				selector_vel++;
+				if(selector_vel >= 2) selector_vel = 0;
+
+				led.LR(-1, 0);
+			}
+			else if(joy_stick.getValue() == JOY_R){
+				led.LR(-1, 1);
+				HAL_Delay(100);
+
+				if(selector_vel == 0)
+					adj_max_velocity3 = adj_max_velocity3 + 0.1;
+				else
+					adj_min_velocity3 = adj_min_velocity3 + 0.1;
+
+				led.LR(-1, 0);
+			}
+
+			else if(joy_stick.getValue() == JOY_L){
+				led.LR(-1, 1);
+				HAL_Delay(100);
+
+				if(selector_vel == 0)
+					adj_max_velocity3 = adj_max_velocity3 - 0.1;
+				else
+					adj_min_velocity3 = adj_min_velocity3 - 0.1;
+
+				led.LR(-1, 0);
+			}
+			else if(joy_stick.getValue() == JOY_C){
+				led.LR(-1, 1);
+				HAL_Delay(300);
+
+				sd_write_array_float("PARAMS", "TARVEL4.TXT", 1, &adj_max_velocity3, OVER_WRITE);
+				sd_write_array_float("PARAMS", "MINVEL4.TXT", 1, &adj_min_velocity3, OVER_WRITE);
+				line_trace.setMaxVelocity3(adj_max_velocity3);
+				line_trace.setMinVelocity3(adj_min_velocity3);
+
+				led.LR(-1, 0);
+			}
+
+		}
+
+		break;
+
+	case 6:
+		led.fullColor('R');
+
+		if(joy_stick.getValue() == JOY_D){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			selector_run++;
+			if(selector_run >= 2) selector_run = 0;
+
+			led.LR(-1, 0);
+		}
+
+		if(selector_run == 0){
+			lcd_clear();
+			lcd_locate(0,0);
+			lcd_printf("5:   %3.1f", adj_max_velocity4);
+			lcd_locate(0,1);
+			lcd_printf("Start%3.1f", adj_min_velocity4);
+
+			if(joy_stick.getValue() == JOY_C){
+				HAL_Delay(500);
+
+				led.LR(1, -1);
+				line_trace.setGain(adj_kp, adj_ki, adj_kd);
+				line_trace.setMode(FIFTH_RUNNING);
+				line_trace.setTargetVelocity(adj_min_velocity4);
+				line_trace.setMaxVelocity4(adj_max_velocity4);
+				line_trace.setMinVelocity4(adj_min_velocity4);
+				line_trace.createVelocityTabele();
+
+				//logger.start();
+
+				line_trace.running();
+
+				logger.stop();
+				logger.saveLogs("STATELOG", "TARVEL.txt");
+				logger.saveLogs2("STATELOG", "CURVEL.txt");
+
+				led.LR(0, -1);
+			}
+		}
+		else{
+			lcd_clear();
+			lcd_locate(0,0);
+			lcd_printf("5:   %3.1f", line_trace.getMaxVelocity4());
+			lcd_locate(0,1);
+			lcd_printf("%Vel: %3.1f", line_trace.getMinVelocity4());
+
+			if(joy_stick.getValue() == JOY_U){
+				led.LR(-1, 1);
+				HAL_Delay(300);
+
+				selector_vel++;
+				if(selector_vel >= 2) selector_vel = 0;
+
+				led.LR(-1, 0);
+			}
+			else if(joy_stick.getValue() == JOY_R){
+				led.LR(-1, 1);
+				HAL_Delay(100);
+
+				if(selector_vel == 0)
+					adj_max_velocity4 = adj_max_velocity4 + 0.1;
+				else
+					adj_min_velocity4 = adj_min_velocity4 + 0.1;
+
+				led.LR(-1, 0);
+			}
+
+			else if(joy_stick.getValue() == JOY_L){
+				led.LR(-1, 1);
+				HAL_Delay(100);
+
+				if(selector_vel == 0)
+					adj_max_velocity4 = adj_max_velocity4 - 0.1;
+				else
+					adj_min_velocity4 = adj_min_velocity4 - 0.1;
+
+				led.LR(-1, 0);
+			}
+			else if(joy_stick.getValue() == JOY_C){
+				led.LR(-1, 1);
+				HAL_Delay(300);
+
+				sd_write_array_float("PARAMS", "TARVEL5.TXT", 1, &adj_max_velocity4, OVER_WRITE);
+				sd_write_array_float("PARAMS", "MINVEL5.TXT", 1, &adj_min_velocity4, OVER_WRITE);
+				line_trace.setMaxVelocity4(adj_max_velocity4);
+				line_trace.setMinVelocity4(adj_min_velocity4);
+
+				led.LR(-1, 0);
+			}
+
+		}
+		break;
+	case 7:
 		led.fullColor('W');
 
 		lcd_clear();
@@ -729,7 +929,7 @@ void cppLoop(void)
 		}
 		break;
 
-	case 6:
+	case 8 :
 		led.fullColor('W');
 
 		lcd_clear();
@@ -742,8 +942,8 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(300);
 
-			selector_acc2++;
-			if(selector_acc2 >= 2) selector_acc2 = 0;
+			selector_acc++;
+			if(selector_acc >= 2) selector_acc = 0;
 
 			led.LR(-1, 0);
 		}
@@ -751,7 +951,7 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(100);
 
-			if(selector_acc2 == 0){
+			if(selector_acc == 0){
 				adj_acc2 = adj_acc2 + 0.1;
 			}
 			else{
@@ -765,7 +965,7 @@ void cppLoop(void)
 			led.LR(-1, 1);
 			HAL_Delay(100);
 
-			if(selector_acc2 == 0){
+			if(selector_acc == 0){
 				adj_acc2 = adj_acc2 - 0.1;
 			}
 			else{
@@ -786,17 +986,145 @@ void cppLoop(void)
 		}
 		break;
 
-	case 7:
-
-		break;
-
-	case 8:
-		break;
 
 	case 9:
+		led.fullColor('W');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("ACC3:%3.1f", line_trace.getMaxAcc3());
+		lcd_locate(0,1);
+		lcd_printf("DEC3:%3.1f", line_trace.getMaxDec3());
+
+		if(joy_stick.getValue() == JOY_D){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			selector_acc++;
+			if(selector_acc >= 2) selector_acc = 0;
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_R){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			if(selector_acc == 0){
+				adj_acc3 = adj_acc3 + 0.1;
+			}
+			else{
+				adj_dec3 = adj_dec3 + 0.1;
+			}
+
+			led.LR(-1, 0);
+		}
+
+		else if(joy_stick.getValue() == JOY_L){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			if(selector_acc == 0){
+				adj_acc3 = adj_acc3 - 0.1;
+			}
+			else{
+				adj_dec3 = adj_dec3 - 0.1;
+			}
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			sd_write_array_float("PARAMS", "ACC3.TXT", 1, &adj_acc3, OVER_WRITE);
+			sd_write_array_float("PARAMS", "DEC3.TXT", 1, &adj_dec3, OVER_WRITE);
+			line_trace.setMaxAccDec3(adj_acc3, adj_dec3);
+
+			led.LR(-1, 0);
+		}
 		break;
 
 	case 10:
+		led.fullColor('W');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("ACC4:%3.1f", line_trace.getMaxAcc4());
+		lcd_locate(0,1);
+		lcd_printf("DEC4:%3.1f", line_trace.getMaxDec4());
+
+		if(joy_stick.getValue() == JOY_D){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			selector_acc++;
+			if(selector_acc >= 2) selector_acc = 0;
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_R){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			if(selector_acc == 0){
+				adj_acc4 = adj_acc4 + 0.1;
+			}
+			else{
+				adj_dec4 = adj_dec4 + 0.1;
+			}
+
+			led.LR(-1, 0);
+		}
+
+		else if(joy_stick.getValue() == JOY_L){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			if(selector_acc == 0){
+				adj_acc4 = adj_acc4 - 0.1;
+			}
+			else{
+				adj_dec4 = adj_dec4 - 0.1;
+			}
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(300);
+
+			sd_write_array_float("PARAMS", "ACC4.TXT", 1, &adj_acc4, OVER_WRITE);
+			sd_write_array_float("PARAMS", "DEC4.TXT", 1, &adj_dec4, OVER_WRITE);
+			line_trace.setMaxAccDec4(adj_acc4, adj_dec4);
+
+			led.LR(-1, 0);
+		}
+		break;
+
+	case 11:
+		led.fullColor('~');
+
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("Create  ");
+		lcd_locate(0,1);
+		lcd_printf("VelTable");
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+			led.LR(-1, 1);
+
+			line_trace.setMode(THIRD_RUNNING);
+			line_trace.setTargetVelocity(adj_max_velocity2);
+			line_trace.setMaxVelocity(adj_max_velocity2);
+			line_trace.setMinVelocity(adj_max_velocity2);
+			line_trace.createVelocityTabeleFromSD();
+
+			led.LR(-1, 0);
+		}
+
+		break;
+
+	case 12:
 		led.fullColor('~');
 
 		lcd_clear();
@@ -830,34 +1158,6 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
-		break;
-
-	case 11:
-		led.fullColor('~');
-
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("Create  ");
-		lcd_locate(0,1);
-		lcd_printf("VelTable");
-		if(joy_stick.getValue() == JOY_C){
-			HAL_Delay(500);
-			led.LR(-1, 1);
-
-			line_trace.setMode(THIRD_RUNNING);
-			line_trace.setTargetVelocity(adj_max_velocity2);
-			line_trace.setMaxVelocity(adj_max_velocity2);
-			line_trace.setMinVelocity(adj_max_velocity2);
-			line_trace.createVelocityTabeleFromSD();
-
-			led.LR(-1, 0);
-		}
-
-		break;
-
-	case 12:
-		led.fullColor('~');
-
 		/*
 		lcd_clear();
 		lcd_locate(0,0);
@@ -877,6 +1177,7 @@ void cppLoop(void)
 		}
 		*/
 
+		/*
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("LOG");
@@ -895,6 +1196,7 @@ void cppLoop(void)
 			logger.saveLogs2("STATELOG", "CURVEL.txt");
 			led.fullColor('~');
 		}
+		*/
 
 		/*
 		lcd_clear();

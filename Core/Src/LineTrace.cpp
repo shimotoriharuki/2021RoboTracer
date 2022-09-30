@@ -34,10 +34,12 @@ float mon_tar_vel;
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu, ESC *esc) :
 				kp_(0), kd_(0), ki_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
-				target_velocity_(0), max_velocity_(0), max_velocity2_(0), min_velocity_(0), min_velocity2_(0), logging_flag_(false),
+				target_velocity_(0), max_velocity_(0), min_velocity_(0), max_velocity2_(0),  min_velocity2_(0), max_velocity3_(0),  min_velocity3_(0), max_velocity4_(0),  min_velocity4_(0),
+				logging_flag_(false),
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), sideline_idx2_(0), all_sideline_idx_(0),
-				ignore_crossline_flag_(false), stable_flag_(false), stable_flag_force_(false), stable_cnt_reset_flag_(false), max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), correction_check_cnt_(0),
-				store_check_cnt_(0), ignore_check_cnt_(0), all_sideline_flag_(false)
+				ignore_crossline_flag_(false), stable_flag_(false), stable_flag_force_(false), stable_cnt_reset_flag_(false),
+				max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), max_acc3_(0), max_dec3_(0), max_acc4_(0), max_dec4_(0),
+				correction_check_cnt_(0), store_check_cnt_(0), ignore_check_cnt_(0), all_sideline_flag_(false)
 
 {
 	motor_ = motor;
@@ -463,6 +465,22 @@ float LineTrace::radius2Velocity(float radius)
 		else if(radius < 2000) velocity = 3.0;
 		else velocity = max_velocity2_;
 	}
+	else if(mode_selector_ == FOURTH_RUNNING){
+		if(radius < 400) velocity = min_velocity3_;
+		else if(radius < 500) velocity = 1.7;
+		else if(radius < 650) velocity = 2.0;
+		else if(radius < 1500) velocity = 2.5;
+		else if(radius < 2000) velocity = 3.0;
+		else velocity = max_velocity3_;
+	}
+	else if(mode_selector_ == FIFTH_RUNNING){
+		if(radius < 400) velocity = min_velocity4_;
+		else if(radius < 500) velocity = 1.7;
+		else if(radius < 650) velocity = 2.0;
+		else if(radius < 1500) velocity = 2.5;
+		else if(radius < 2000) velocity = 3.0;
+		else velocity = max_velocity4_;
+	}
 	else velocity = 1.3;
 
 	return velocity;
@@ -682,17 +700,27 @@ void LineTrace::init()
 	sd_read_array_float("PARAMS", "KD_SLOW.TXT", 1, &temp_kd_slow);
 	setGainSlow(temp_kp_slow, temp_ki_slow, temp_kd_slow);
 
-	float temp_velocity, temp_max_velocity, temp_max_velocity2, temp_min_velocity, temp_min_velocity2;
-	sd_read_array_float("PARAMS", "TARVEL1.TXT", 1, &temp_velocity);
+	float temp_velocity, temp_max_velocity, temp_min_velocity, temp_max_velocity2, temp_min_velocity2,
+		temp_max_velocity3, temp_min_velocity3, temp_max_velocity4, temp_min_velocity4;
+	sd_read_array_float("PARAMS", "TARVEL.TXT", 1, &temp_velocity);
 	sd_read_array_float("PARAMS", "TARVEL2.TXT", 1, &temp_max_velocity);
+	sd_read_array_float("PARAMS", "MINVEL2.TXT", 1, &temp_min_velocity);
 	sd_read_array_float("PARAMS", "TARVEL3.TXT", 1, &temp_max_velocity2);
-	sd_read_array_float("PARAMS", "MINVEL.TXT", 1, &temp_min_velocity);
-	sd_read_array_float("PARAMS", "MINVEL2.TXT", 1, &temp_min_velocity2);
+	sd_read_array_float("PARAMS", "MINVEL3.TXT", 1, &temp_min_velocity2);
+	sd_read_array_float("PARAMS", "TARVEL4.TXT", 1, &temp_max_velocity3);
+	sd_read_array_float("PARAMS", "MINVEL4.TXT", 1, &temp_min_velocity3);
+	sd_read_array_float("PARAMS", "TARVEL5.TXT", 1, &temp_max_velocity4);
+	sd_read_array_float("PARAMS", "MINVEL5.TXT", 1, &temp_min_velocity4);
+
 	setTargetVelocity(temp_velocity);
 	setMaxVelocity(temp_max_velocity);
-	setMaxVelocity2(temp_max_velocity2);
 	setMinVelocity(temp_min_velocity);
+	setMaxVelocity2(temp_max_velocity2);
 	setMinVelocity2(temp_min_velocity2);
+	setMaxVelocity3(temp_max_velocity3);
+	setMinVelocity3(temp_min_velocity3);
+	setMaxVelocity4(temp_max_velocity4);
+	setMinVelocity4(temp_min_velocity4);
 
 	float temp_acc, temp_dec;
 	sd_read_array_float("PARAMS", "ACC.TXT", 1, &temp_acc);
@@ -703,6 +731,16 @@ void LineTrace::init()
 	sd_read_array_float("PARAMS", "ACC2.TXT", 1, &temp_acc2);
 	sd_read_array_float("PARAMS", "DEC2.TXT", 1, &temp_dec2);
 	setMaxAccDec2(temp_acc2, temp_dec2);
+
+	float temp_acc3 = 0, temp_dec3 = 0;
+	sd_read_array_float("PARAMS", "ACC3.TXT", 1, &temp_acc3);
+	sd_read_array_float("PARAMS", "DEC3.TXT", 1, &temp_dec3);
+	setMaxAccDec3(temp_acc3, temp_dec3);
+
+	float temp_acc4 = 0, temp_dec4 = 0;
+	sd_read_array_float("PARAMS", "ACC4.TXT", 1, &temp_acc4);
+	sd_read_array_float("PARAMS", "DEC4.TXT", 1, &temp_dec4);
+	setMaxAccDec4(temp_acc4, temp_dec4);
 }
 
 // ---------------------------------------------------------------------------------------------------//
@@ -770,19 +808,39 @@ void LineTrace::setMaxVelocity(float velocity)
 	max_velocity_ = velocity;
 }
 
-void LineTrace::setMaxVelocity2(float velocity)
-{
-	max_velocity2_ = velocity;
-}
-
 void LineTrace::setMinVelocity(float velocity)
 {
 	min_velocity_ = velocity;
 }
 
+void LineTrace::setMaxVelocity2(float velocity)
+{
+	max_velocity2_ = velocity;
+}
+
 void LineTrace::setMinVelocity2(float velocity)
 {
 	min_velocity2_ = velocity;
+}
+
+void LineTrace::setMaxVelocity3(float velocity)
+{
+	max_velocity3_ = velocity;
+}
+
+void LineTrace::setMinVelocity3(float velocity)
+{
+	min_velocity3_ = velocity;
+}
+
+void LineTrace::setMaxVelocity4(float velocity)
+{
+	max_velocity4_ = velocity;
+}
+
+void LineTrace::setMinVelocity4(float velocity)
+{
+	min_velocity4_ = velocity;
 }
 
 float LineTrace::getTargetVelocity()
@@ -795,14 +853,14 @@ float LineTrace::getMaxVelocity()
 	return max_velocity_;
 }
 
-float LineTrace::getMaxVelocity2()
-{
-	return max_velocity2_;
-}
-
 float LineTrace::getMinVelocity()
 {
 	return min_velocity_;
+}
+
+float LineTrace::getMaxVelocity2()
+{
+	return max_velocity2_;
 }
 
 float LineTrace::getMinVelocity2()
@@ -810,6 +868,26 @@ float LineTrace::getMinVelocity2()
 	return min_velocity2_;
 }
 
+float LineTrace::getMaxVelocity3()
+{
+	return max_velocity3_;
+}
+
+float LineTrace::getMinVelocity3()
+{
+	return min_velocity3_;
+}
+
+float LineTrace::getMaxVelocity4()
+
+{
+	return max_velocity4_;
+}
+
+float LineTrace::getMinVelocity4()
+{
+	return min_velocity4_;
+}
 // ---------------------------------------------------------------------------------------------------//
 // ------------------------------ Acceleration setting------------------------------------------------//
 // ---------------------------------------------------------------------------------------------------//
@@ -825,14 +903,26 @@ void LineTrace::setMaxAccDec2(const float acc, const float dec)
 	max_dec2_ = dec;
 }
 
+void LineTrace::setMaxAccDec3(const float acc, const float dec)
+{
+	max_acc3_ = acc;
+	max_dec3_ = dec;
+}
+
+void LineTrace::setMaxAccDec4(const float acc, const float dec)
+{
+	max_acc4_ = acc;
+	max_dec4_ = dec;
+}
+
 float LineTrace::getMaxAcc()
 {
 	return max_acc_;
 }
 
-float LineTrace::getMaxDec2()
+float LineTrace::getMaxDec()
 {
-	return max_dec2_;
+	return max_dec_;
 }
 
 float LineTrace::getMaxAcc2()
@@ -840,9 +930,29 @@ float LineTrace::getMaxAcc2()
 	return max_acc2_;
 }
 
-float LineTrace::getMaxDec()
+float LineTrace::getMaxDec2()
 {
-	return max_dec_;
+	return max_dec2_;
+}
+
+float LineTrace::getMaxAcc3()
+{
+	return max_acc3_;
+}
+
+float LineTrace::getMaxDec3()
+{
+	return max_dec3_;
+}
+
+float LineTrace::getMaxAcc4()
+{
+	return max_acc4_;
+}
+
+float LineTrace::getMaxDec4()
+{
+	return max_dec4_;
 }
 
 // ---------------------------------------------------------------------------------------------------//
@@ -1120,6 +1230,20 @@ void LineTrace::createVelocityTabele()
 		// ----- Accelerate processing -----//
 		accelerateProcessing(max_acc2_, p_distance);
 	}
+	else if(mode_selector_ == FOURTH_RUNNING){
+		velocity_table_[0] = min_velocity3_;
+		// ----- Decelerate processing -----//
+		decelerateProcessing(max_dec3_, p_distance);
+		// ----- Accelerate processing -----//
+		accelerateProcessing(max_acc3_, p_distance);
+	}
+	else if(mode_selector_ == FIFTH_RUNNING){
+		velocity_table_[0] = min_velocity4_;
+		// ----- Decelerate processing -----//
+		decelerateProcessing(max_dec4_, p_distance);
+		// ----- Accelerate processing -----//
+		accelerateProcessing(max_acc4_, p_distance);
+	}
 
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 
@@ -1167,6 +1291,20 @@ void LineTrace::createVelocityTabeleFromSD()
 		decelerateProcessing(max_dec2_, p_distance);
 		// ----- Accelerate processing -----//
 		accelerateProcessing(max_acc2_, p_distance);
+	}
+	else if(mode_selector_ == FOURTH_RUNNING){
+		velocity_table_[0] = min_velocity3_;
+		// ----- Decelerate processing -----//
+		decelerateProcessing(max_dec3_, p_distance);
+		// ----- Accelerate processing -----//
+		accelerateProcessing(max_acc3_, p_distance);
+	}
+	else if(mode_selector_ == FIFTH_RUNNING){
+		velocity_table_[0] = min_velocity4_;
+		// ----- Decelerate processing -----//
+		decelerateProcessing(max_dec4_, p_distance);
+		// ----- Accelerate processing -----//
+		accelerateProcessing(max_acc4_, p_distance);
 	}
 
 

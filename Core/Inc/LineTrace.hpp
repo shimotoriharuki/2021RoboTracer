@@ -29,6 +29,8 @@
 #define FIRST_RUNNING 0
 #define SECOND_RUNNING 1
 #define THIRD_RUNNING 2
+#define FOURTH_RUNNING 3
+#define FIFTH_RUNNING 4
 #define CROSSLINE_SIZE 100
 #define SIDELINE_SIZE 500
 #define R_RADIUS 0.05
@@ -57,10 +59,10 @@ private:
 	float sensor_digital_values_[SENSOR_NUM];
 	float target_velocity_;
 	float target_omega_;
-	float max_velocity_;
-	float max_velocity2_;
-	float min_velocity_;
-	float min_velocity2_;
+	float max_velocity_, min_velocity_;
+	float max_velocity2_, min_velocity2_;
+	float max_velocity3_, min_velocity3_;
+	float max_velocity4_, min_velocity4_;
 	bool logging_flag_;
 	float ref_delta_distances_[LOG_DATA_SIZE_DIS];
 	float ref_distance_;
@@ -84,6 +86,8 @@ private:
 	bool stable_cnt_reset_flag_;
 	float max_acc_, max_dec_;
 	float max_acc2_, max_dec2_;
+	float max_acc3_, max_dec3_;
+	float max_acc4_, max_dec4_;
 	uint16_t correction_check_cnt_;
 	uint16_t store_check_cnt_;
 	uint16_t ignore_check_cnt_;
@@ -157,22 +161,36 @@ public:
 	void setNormalRatio(float);
 	void setTargetVelocity(float);
 	void setMaxVelocity(float);
-	void setMaxVelocity2(float);
 	void setMinVelocity(float);
+	void setMaxVelocity2(float);
 	void setMinVelocity2(float);
+	void setMaxVelocity3(float);
+	void setMinVelocity3(float);
+	void setMaxVelocity4(float);
+	void setMinVelocity4(float);
 	float getTargetVelocity();
 	float getMaxVelocity();
-	float getMaxVelocity2();
 	float getMinVelocity();
+	float getMaxVelocity2();
 	float getMinVelocity2();
+	float getMaxVelocity3();
+	float getMinVelocity3();
+	float getMaxVelocity4();
+	float getMinVelocity4();
 
 	// Acceleration setting
 	void setMaxAccDec(const float, const float);
 	void setMaxAccDec2(const float, const float);
+	void setMaxAccDec3(const float, const float);
+	void setMaxAccDec4(const float, const float);
 	float getMaxAcc();
 	float getMaxDec();
 	float getMaxAcc2();
 	float getMaxDec2();
+	float getMaxAcc3();
+	float getMaxDec3();
+	float getMaxAcc4();
+	float getMaxDec4();
 
 	// Flip
 	void flip();
