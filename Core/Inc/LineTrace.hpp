@@ -108,6 +108,10 @@ private:
 	void storeCrossLineDistance2();
 	void storeSideLineDistance();
 	void storeSideLineDistance2();
+	void clearCrossLineDistance();
+	void clearCrossLineDistance2();
+	void clearSideLineDistance();
+	void clearSideLineDistance2();
 	//void storeAllSideLineDistance();
 	void storeLogs();
 

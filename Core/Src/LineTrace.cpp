@@ -289,6 +289,37 @@ void LineTrace::storeSideLineDistance2()
 
 	if(sideline_idx2_ >= SIDELINE_SIZE) sideline_idx2_ = SIDELINE_SIZE - 1;
 }
+
+void LineTrace::clearCrossLineDistance()
+{
+	for(auto &c : crossline_distance_){
+		c = 0;
+	}
+}
+
+void LineTrace::clearCrossLineDistance2()
+{
+	for(auto &c : crossline_distance2_){
+		c = 0;
+	}
+
+}
+
+void LineTrace::clearSideLineDistance()
+{
+	for(auto &s : sideline_distance_){
+		s = 0;
+	}
+
+}
+
+void LineTrace::clearSideLineDistance2()
+{
+	for(auto &s : sideline_distance2_){
+		s = 0;
+	}
+
+}
 /*
 void LineTrace::storeAllSideLineDistance()
 {
@@ -542,7 +573,7 @@ bool LineTrace::isCrossLine()
 	float sensor_edge_val_l = (line_sensor_->sensor[0] + line_sensor_->sensor[1]) / 2;
 	float sensor_edge_val_r = (line_sensor_->sensor[12] + line_sensor_->sensor[13]) / 2;
 	static bool flag = false;
-	static bool white_flag = false;
+	//static bool white_flag = false;
 	mon_ave_l = sensor_edge_val_l;
 	mon_ave_r = sensor_edge_val_r;
 
@@ -556,7 +587,7 @@ bool LineTrace::isCrossLine()
 
 		if(cnt >= 3){
 			flag = true;
-			white_flag = true;
+			//white_flag = true;
 			cnt = 0;
 
 			side_sensor_->enableIgnore();
@@ -930,7 +961,12 @@ void LineTrace::start()
 	i_reset_flag_ = true;
 	velocity_ctrl_->start();
 	side_sensor_->resetWhiteLineCnt();
+	//clearSideLineDistance();
+	clearSideLineDistance2();
+	//clearCrossLineDistance();
+	clearCrossLineDistance2();
 	crossline_idx_ = 0;
+	crossline_idx2_ = 0;
 	sideline_idx_ = 0;
 	sideline_idx2_ = 0;
 	all_sideline_idx_ = 0;
