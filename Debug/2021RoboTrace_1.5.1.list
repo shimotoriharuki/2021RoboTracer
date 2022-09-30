@@ -18856,7 +18856,7 @@ void cppLoop(void)
  8008d3c:	2100      	movs	r1, #0
  8008d3e:	2000      	movs	r0, #0
  8008d40:	f7f8 f9be 	bl	80010c0 <lcd_locate>
-		lcd_printf("Fast:%4.2lf", abs(line_trace.getKp()*10000));
+		lcd_printf("Fast%4.2lf", abs(line_trace.getKp()*10000));
  8008d44:	484c      	ldr	r0, [pc, #304]	; (8008e78 <cppLoop+0xc58>)
  8008d46:	f7fb f8ec 	bl	8003f22 <_ZN9LineTrace5getKpEv>
  8008d4a:	eeb0 7a40 	vmov.f32	s14, s0
@@ -21437,7 +21437,7 @@ void cppLoop(void)
  800a408:	2100      	movs	r1, #0
  800a40a:	2000      	movs	r0, #0
  800a40c:	f7f6 fe58 	bl	80010c0 <lcd_locate>
-		lcd_printf("ACC:%4.1f", line_trace.getMaxAcc());
+		lcd_printf("ACC2:%3.1f", line_trace.getMaxAcc());
  800a410:	4829      	ldr	r0, [pc, #164]	; (800a4b8 <cppLoop+0x2298>)
  800a412:	f7f9 ff90 	bl	8004336 <_ZN9LineTrace9getMaxAccEv>
  800a416:	ee10 3a10 	vmov	r3, s0
@@ -21453,7 +21453,7 @@ void cppLoop(void)
  800a42e:	2101      	movs	r1, #1
  800a430:	2000      	movs	r0, #0
  800a432:	f7f6 fe45 	bl	80010c0 <lcd_locate>
-		lcd_printf("DEC:%4.1f", line_trace.getMaxDec());
+		lcd_printf("DEC2:%3.1f", line_trace.getMaxDec());
  800a436:	4820      	ldr	r0, [pc, #128]	; (800a4b8 <cppLoop+0x2298>)
  800a438:	f7f9 ff8f 	bl	800435a <_ZN9LineTrace9getMaxDecEv>
  800a43c:	ee10 3a10 	vmov	r3, s0
@@ -21724,7 +21724,7 @@ void cppLoop(void)
  800a692:	2100      	movs	r1, #0
  800a694:	2000      	movs	r0, #0
  800a696:	f7f6 fd13 	bl	80010c0 <lcd_locate>
-		lcd_printf("ACC2:%3.1f", line_trace.getMaxAcc2());
+		lcd_printf("ACC3:%3.1f", line_trace.getMaxAcc2());
  800a69a:	4857      	ldr	r0, [pc, #348]	; (800a7f8 <cppLoop+0x25d8>)
  800a69c:	f7f9 fe6f 	bl	800437e <_ZN9LineTrace10getMaxAcc2Ev>
  800a6a0:	ee10 3a10 	vmov	r3, s0
@@ -21740,7 +21740,7 @@ void cppLoop(void)
  800a6b8:	2101      	movs	r1, #1
  800a6ba:	2000      	movs	r0, #0
  800a6bc:	f7f6 fd00 	bl	80010c0 <lcd_locate>
-		lcd_printf("DEC2:%3.1f", line_trace.getMaxDec2());
+		lcd_printf("DEC3:%3.1f", line_trace.getMaxDec2());
  800a6c0:	484d      	ldr	r0, [pc, #308]	; (800a7f8 <cppLoop+0x25d8>)
  800a6c2:	f7f9 fe6e 	bl	80043a2 <_ZN9LineTrace10getMaxDec2Ev>
  800a6c6:	ee10 3a10 	vmov	r3, s0
@@ -22013,7 +22013,7 @@ void cppLoop(void)
  800a91e:	2100      	movs	r1, #0
  800a920:	2000      	movs	r0, #0
  800a922:	f7f6 fbcd 	bl	80010c0 <lcd_locate>
-		lcd_printf("ACC3:%3.1f", line_trace.getMaxAcc3());
+		lcd_printf("ACC4:%3.1f", line_trace.getMaxAcc3());
  800a926:	487a      	ldr	r0, [pc, #488]	; (800ab10 <cppLoop+0x28f0>)
  800a928:	f7f9 fd4d 	bl	80043c6 <_ZN9LineTrace10getMaxAcc3Ev>
  800a92c:	ee10 3a10 	vmov	r3, s0
@@ -22029,7 +22029,7 @@ void cppLoop(void)
  800a944:	2101      	movs	r1, #1
  800a946:	2000      	movs	r0, #0
  800a948:	f7f6 fbba 	bl	80010c0 <lcd_locate>
-		lcd_printf("DEC3:%3.1f", line_trace.getMaxDec3());
+		lcd_printf("DEC4:%3.1f", line_trace.getMaxDec3());
  800a94c:	4870      	ldr	r0, [pc, #448]	; (800ab10 <cppLoop+0x28f0>)
  800a94e:	f7f9 fd4c 	bl	80043ea <_ZN9LineTrace10getMaxDec3Ev>
  800a952:	ee10 3a10 	vmov	r3, s0
@@ -22300,7 +22300,7 @@ void cppLoop(void)
  800aba4:	2100      	movs	r1, #0
  800aba6:	2000      	movs	r0, #0
  800aba8:	f7f6 fa8a 	bl	80010c0 <lcd_locate>
-		lcd_printf("ACC4:%3.1f", line_trace.getMaxAcc4());
+		lcd_printf("ACC5:%3.1f", line_trace.getMaxAcc4());
  800abac:	4895      	ldr	r0, [pc, #596]	; (800ae04 <cppLoop+0x2be4>)
  800abae:	f7f9 fc2e 	bl	800440e <_ZN9LineTrace10getMaxAcc4Ev>
  800abb2:	ee10 3a10 	vmov	r3, s0
@@ -22316,7 +22316,7 @@ void cppLoop(void)
  800abca:	2101      	movs	r1, #1
  800abcc:	2000      	movs	r0, #0
  800abce:	f7f6 fa77 	bl	80010c0 <lcd_locate>
-		lcd_printf("DEC4:%3.1f", line_trace.getMaxDec4());
+		lcd_printf("DEC5:%3.1f", line_trace.getMaxDec4());
  800abd2:	488c      	ldr	r0, [pc, #560]	; (800ae04 <cppLoop+0x2be4>)
  800abd4:	f7f9 fc2d 	bl	8004432 <_ZN9LineTrace10getMaxDec4Ev>
  800abd8:	ee10 3a10 	vmov	r3, s0

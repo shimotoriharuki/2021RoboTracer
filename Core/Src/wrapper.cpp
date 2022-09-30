@@ -333,7 +333,7 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Fast:%4.2lf", abs(line_trace.getKp()*10000));
+		lcd_printf("Fast%4.2lf", abs(line_trace.getKp()*10000));
 		lcd_locate(0,1);
 		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKi()*1000), abs(line_trace.getKd()*100000));
 
@@ -877,9 +877,9 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("ACC:%4.1f", line_trace.getMaxAcc());
+		lcd_printf("ACC2:%3.1f", line_trace.getMaxAcc());
 		lcd_locate(0,1);
-		lcd_printf("DEC:%4.1f", line_trace.getMaxDec());
+		lcd_printf("DEC2:%3.1f", line_trace.getMaxDec());
 
 		if(joy_stick.getValue() == JOY_D){
 			led.LR(-1, 1);
@@ -934,9 +934,9 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("ACC2:%3.1f", line_trace.getMaxAcc2());
+		lcd_printf("ACC3:%3.1f", line_trace.getMaxAcc2());
 		lcd_locate(0,1);
-		lcd_printf("DEC2:%3.1f", line_trace.getMaxDec2());
+		lcd_printf("DEC3:%3.1f", line_trace.getMaxDec2());
 
 		if(joy_stick.getValue() == JOY_D){
 			led.LR(-1, 1);
@@ -992,9 +992,9 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("ACC3:%3.1f", line_trace.getMaxAcc3());
+		lcd_printf("ACC4:%3.1f", line_trace.getMaxAcc3());
 		lcd_locate(0,1);
-		lcd_printf("DEC3:%3.1f", line_trace.getMaxDec3());
+		lcd_printf("DEC4:%3.1f", line_trace.getMaxDec3());
 
 		if(joy_stick.getValue() == JOY_D){
 			led.LR(-1, 1);
@@ -1049,9 +1049,9 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("ACC4:%3.1f", line_trace.getMaxAcc4());
+		lcd_printf("ACC5:%3.1f", line_trace.getMaxAcc4());
 		lcd_locate(0,1);
-		lcd_printf("DEC4:%3.1f", line_trace.getMaxDec4());
+		lcd_printf("DEC5:%3.1f", line_trace.getMaxDec4());
 
 		if(joy_stick.getValue() == JOY_D){
 			led.LR(-1, 1);
