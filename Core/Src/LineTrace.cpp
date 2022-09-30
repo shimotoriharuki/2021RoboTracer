@@ -393,7 +393,8 @@ void LineTrace::correctionTotalDistanceFromSideMarker()
 	for(uint16_t i = 0; i < SIDELINE_SIZE; i++){
 		float temp_sideline_distance = sideline_distance_[i];
 		float diff = abs(temp_sideline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
-		if(diff <= 230){
+		//if(diff <= 230){
+		if(diff <= 550){
 			correction_check_cnt_ = 0;
 			encoder_->setTotalDistance(sideline_distance_[i] / DISTANCE_CORRECTION_CONST);
 			break;
@@ -456,7 +457,6 @@ float LineTrace::radius2Velocity(float radius)
 		else if(radius < 2000) velocity = 3.0;
 		else velocity = max_velocity_;
 	}
-
 	else if(mode_selector_ == THIRD_RUNNING){
 		if(radius < 400) velocity = min_velocity2_;
 		else if(radius < 500) velocity = 1.7;
