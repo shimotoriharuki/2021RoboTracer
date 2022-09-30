@@ -225,12 +225,12 @@ void LineTrace::pidTrace()
 
 	if(mode_selector_ == FIRST_RUNNING){
 		p = kp_slow_ * diff;
-		d = kd_slow_ * (diff - pre_diff) / DELTA_T;
+		d = (kd_slow_ / 10) * (diff - pre_diff) / DELTA_T;
 		i += ki_slow_ * diff * DELTA_T;
 	}
 	else{
 		p = kp_ * diff;
-		d = kd_ * (diff - pre_diff) / DELTA_T;
+		d = (kd_ / 10) * (diff - pre_diff) / DELTA_T;
 		i += ki_ * diff * DELTA_T;
 	}
 
@@ -596,7 +596,7 @@ bool LineTrace::isCrossLine()
 	mon_ave_r = sensor_edge_val_r;
 
 	//if(white_flag == false){
-		if(sensor_edge_val_l < 650 && sensor_edge_val_r < 650 && encoder_->getCrossLineIgnoreDistance() >= 60){
+		if(sensor_edge_val_l < 700 && sensor_edge_val_r < 700 && encoder_->getCrossLineIgnoreDistance() >= 50){
 			cnt++;
 		}
 		else{

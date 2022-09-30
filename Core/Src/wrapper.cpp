@@ -263,7 +263,7 @@ void cppLoop(void)
 		lcd_locate(0,0);
 		lcd_printf("Slow%4.2lf", abs(line_trace.getKpSlow()*10000));
 		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKiSlow()*1000), abs(line_trace.getKdSlow()*100000));
+		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKiSlow()*1000), abs(line_trace.getKdSlow()*10000));
 
 		if(joy_stick.getValue() == JOY_D){
 			led.LR(-1, 1);
@@ -285,7 +285,7 @@ void cppLoop(void)
 				adj_ki_slow = adj_ki_slow + 0.00001;
 			}
 			else{
-				adj_kd_slow = adj_kd_slow + 0.0000001;
+				adj_kd_slow = adj_kd_slow + 0.000001;
 			}
 
 			led.fullColor('R');
@@ -304,7 +304,7 @@ void cppLoop(void)
 				adj_ki_slow = adj_ki_slow - 0.00001;
 			}
 			else{
-				adj_kd_slow = adj_kd_slow - 0.0000001;
+				adj_kd_slow = adj_kd_slow - 0.000001;
 			}
 
 			led.fullColor('R');
@@ -335,7 +335,7 @@ void cppLoop(void)
 		lcd_locate(0,0);
 		lcd_printf("Fast%4.2lf", abs(line_trace.getKp()*10000));
 		lcd_locate(0,1);
-		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKi()*1000), abs(line_trace.getKd()*100000));
+		lcd_printf("%4.2lf%4.2lf", abs(line_trace.getKi()*1000), abs(line_trace.getKd()*10000));
 
 		if(joy_stick.getValue() == JOY_D){
 			led.LR(-1, 1);
@@ -357,7 +357,7 @@ void cppLoop(void)
 				adj_ki = adj_ki + 0.00001;
 			}
 			else{
-				adj_kd = adj_kd + 0.0000001;
+				adj_kd = adj_kd + 0.000001;
 			}
 
 			led.fullColor('R');
@@ -376,7 +376,7 @@ void cppLoop(void)
 				adj_ki = adj_ki - 0.00001;
 			}
 			else{
-				adj_kd = adj_kd - 0.0000001;
+				adj_kd = adj_kd - 0.000001;
 			}
 
 			led.fullColor('R');

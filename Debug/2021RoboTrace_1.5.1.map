@@ -9573,560 +9573,560 @@ LOAD c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x0000000008002bd4       0x64 Core/Src/LineTrace.o
                 0x0000000008002bd4                LineTrace::calcError()
  .text._ZN9LineTrace8pidTraceEv
-                0x0000000008002c38      0x1c0 Core/Src/LineTrace.o
+                0x0000000008002c38      0x1d0 Core/Src/LineTrace.o
                 0x0000000008002c38                LineTrace::pidTrace()
  .text._ZN9LineTrace11loggerStartEv
-                0x0000000008002df8       0x36 Core/Src/LineTrace.o
-                0x0000000008002df8                LineTrace::loggerStart()
+                0x0000000008002e08       0x36 Core/Src/LineTrace.o
+                0x0000000008002e08                LineTrace::loggerStart()
  .text._ZN9LineTrace10loggerStopEv
-                0x0000000008002e2e       0x22 Core/Src/LineTrace.o
-                0x0000000008002e2e                LineTrace::loggerStop()
+                0x0000000008002e3e       0x22 Core/Src/LineTrace.o
+                0x0000000008002e3e                LineTrace::loggerStop()
  .text._ZN9LineTrace22storeCrossLineDistanceEv
-                0x0000000008002e50       0x6c Core/Src/LineTrace.o
-                0x0000000008002e50                LineTrace::storeCrossLineDistance()
+                0x0000000008002e60       0x6c Core/Src/LineTrace.o
+                0x0000000008002e60                LineTrace::storeCrossLineDistance()
  .text._ZN9LineTrace23storeCrossLineDistance2Ev
-                0x0000000008002ebc       0x6c Core/Src/LineTrace.o
-                0x0000000008002ebc                LineTrace::storeCrossLineDistance2()
+                0x0000000008002ecc       0x6c Core/Src/LineTrace.o
+                0x0000000008002ecc                LineTrace::storeCrossLineDistance2()
  .text._ZN9LineTrace21storeSideLineDistanceEv
-                0x0000000008002f28       0x70 Core/Src/LineTrace.o
-                0x0000000008002f28                LineTrace::storeSideLineDistance()
+                0x0000000008002f38       0x70 Core/Src/LineTrace.o
+                0x0000000008002f38                LineTrace::storeSideLineDistance()
  .text._ZN9LineTrace22storeSideLineDistance2Ev
-                0x0000000008002f98       0x70 Core/Src/LineTrace.o
-                0x0000000008002f98                LineTrace::storeSideLineDistance2()
+                0x0000000008002fa8       0x70 Core/Src/LineTrace.o
+                0x0000000008002fa8                LineTrace::storeSideLineDistance2()
  .text._ZN9LineTrace23clearCrossLineDistance2Ev
-                0x0000000008003008       0x46 Core/Src/LineTrace.o
-                0x0000000008003008                LineTrace::clearCrossLineDistance2()
+                0x0000000008003018       0x46 Core/Src/LineTrace.o
+                0x0000000008003018                LineTrace::clearCrossLineDistance2()
  .text._ZN9LineTrace22clearSideLineDistance2Ev
-                0x000000000800304e       0x46 Core/Src/LineTrace.o
-                0x000000000800304e                LineTrace::clearSideLineDistance2()
+                0x000000000800305e       0x46 Core/Src/LineTrace.o
+                0x000000000800305e                LineTrace::clearSideLineDistance2()
  .text._ZN9LineTrace9storeLogsEv
-                0x0000000008003094       0xb4 Core/Src/LineTrace.o
-                0x0000000008003094                LineTrace::storeLogs()
+                0x00000000080030a4       0xb4 Core/Src/LineTrace.o
+                0x00000000080030a4                LineTrace::storeLogs()
  .text._ZN9LineTrace36correctionTotalDistanceFromCrossLineEv
-                0x0000000008003148       0xf4 Core/Src/LineTrace.o
-                0x0000000008003148                LineTrace::correctionTotalDistanceFromCrossLine()
+                0x0000000008003158       0xf4 Core/Src/LineTrace.o
+                0x0000000008003158                LineTrace::correctionTotalDistanceFromCrossLine()
  .text._ZN9LineTrace37correctionTotalDistanceFromSideMarkerEv
-                0x000000000800323c       0xbc Core/Src/LineTrace.o
-                0x000000000800323c                LineTrace::correctionTotalDistanceFromSideMarker()
+                0x000000000800324c       0xbc Core/Src/LineTrace.o
+                0x000000000800324c                LineTrace::correctionTotalDistanceFromSideMarker()
  .text._ZN9LineTrace15radius2VelocityEf
-                0x00000000080032f8      0x2ac Core/Src/LineTrace.o
-                0x00000000080032f8                LineTrace::radius2Velocity(float)
- *fill*         0x00000000080035a4        0x4 
+                0x0000000008003308      0x2ac Core/Src/LineTrace.o
+                0x0000000008003308                LineTrace::radius2Velocity(float)
+ *fill*         0x00000000080035b4        0x4 
  .text._ZN9LineTrace20decelerateProcessingEfPKf
-                0x00000000080035a8      0x148 Core/Src/LineTrace.o
-                0x00000000080035a8                LineTrace::decelerateProcessing(float, float const*)
+                0x00000000080035b8      0x148 Core/Src/LineTrace.o
+                0x00000000080035b8                LineTrace::decelerateProcessing(float, float const*)
  .text._ZN9LineTrace20accelerateProcessingEfPKf
-                0x00000000080036f0      0x148 Core/Src/LineTrace.o
-                0x00000000080036f0                LineTrace::accelerateProcessing(float, float const*)
+                0x0000000008003700      0x148 Core/Src/LineTrace.o
+                0x0000000008003700                LineTrace::accelerateProcessing(float, float const*)
  .text._ZN9LineTrace17startVelocityPlayEv
-                0x0000000008003838       0x40 Core/Src/LineTrace.o
-                0x0000000008003838                LineTrace::startVelocityPlay()
+                0x0000000008003848       0x40 Core/Src/LineTrace.o
+                0x0000000008003848                LineTrace::startVelocityPlay()
  .text._ZN9LineTrace16stopVelocityPlayEv
-                0x0000000008003878       0x3a Core/Src/LineTrace.o
-                0x0000000008003878                LineTrace::stopVelocityPlay()
+                0x0000000008003888       0x3a Core/Src/LineTrace.o
+                0x0000000008003888                LineTrace::stopVelocityPlay()
  .text._ZN9LineTrace20updateTargetVelocityEv
-                0x00000000080038b2       0xdc Core/Src/LineTrace.o
-                0x00000000080038b2                LineTrace::updateTargetVelocity()
+                0x00000000080038c2       0xdc Core/Src/LineTrace.o
+                0x00000000080038c2                LineTrace::updateTargetVelocity()
  .text._ZN9LineTrace16isTargetDistanceEf
-                0x000000000800398e       0x44 Core/Src/LineTrace.o
-                0x000000000800398e                LineTrace::isTargetDistance(float)
- *fill*         0x00000000080039d2        0x2 
+                0x000000000800399e       0x44 Core/Src/LineTrace.o
+                0x000000000800399e                LineTrace::isTargetDistance(float)
+ *fill*         0x00000000080039e2        0x2 
  .text._ZN9LineTrace11isCrossLineEv
-                0x00000000080039d4      0x150 Core/Src/LineTrace.o
-                0x00000000080039d4                LineTrace::isCrossLine()
+                0x00000000080039e4      0x150 Core/Src/LineTrace.o
+                0x00000000080039e4                LineTrace::isCrossLine()
  .text._ZN9LineTrace8isStableEv
-                0x0000000008003b24       0xe4 Core/Src/LineTrace.o
-                0x0000000008003b24                LineTrace::isStable()
+                0x0000000008003b34       0xe4 Core/Src/LineTrace.o
+                0x0000000008003b34                LineTrace::isStable()
  .text._ZN9LineTrace4initEv
-                0x0000000008003c08      0x2e8 Core/Src/LineTrace.o
-                0x0000000008003c08                LineTrace::init()
+                0x0000000008003c18      0x2e8 Core/Src/LineTrace.o
+                0x0000000008003c18                LineTrace::init()
  .text._ZN9LineTrace7setGainEfff
-                0x0000000008003ef0       0x32 Core/Src/LineTrace.o
-                0x0000000008003ef0                LineTrace::setGain(float, float, float)
+                0x0000000008003f00       0x32 Core/Src/LineTrace.o
+                0x0000000008003f00                LineTrace::setGain(float, float, float)
  .text._ZN9LineTrace5getKpEv
-                0x0000000008003f22       0x1e Core/Src/LineTrace.o
-                0x0000000008003f22                LineTrace::getKp()
+                0x0000000008003f32       0x1e Core/Src/LineTrace.o
+                0x0000000008003f32                LineTrace::getKp()
  .text._ZN9LineTrace5getKiEv
-                0x0000000008003f40       0x1e Core/Src/LineTrace.o
-                0x0000000008003f40                LineTrace::getKi()
+                0x0000000008003f50       0x1e Core/Src/LineTrace.o
+                0x0000000008003f50                LineTrace::getKi()
  .text._ZN9LineTrace5getKdEv
-                0x0000000008003f5e       0x1e Core/Src/LineTrace.o
-                0x0000000008003f5e                LineTrace::getKd()
+                0x0000000008003f6e       0x1e Core/Src/LineTrace.o
+                0x0000000008003f6e                LineTrace::getKd()
  .text._ZN9LineTrace11setGainSlowEfff
-                0x0000000008003f7c       0x32 Core/Src/LineTrace.o
-                0x0000000008003f7c                LineTrace::setGainSlow(float, float, float)
+                0x0000000008003f8c       0x32 Core/Src/LineTrace.o
+                0x0000000008003f8c                LineTrace::setGainSlow(float, float, float)
  .text._ZN9LineTrace9getKpSlowEv
-                0x0000000008003fae       0x1e Core/Src/LineTrace.o
-                0x0000000008003fae                LineTrace::getKpSlow()
+                0x0000000008003fbe       0x1e Core/Src/LineTrace.o
+                0x0000000008003fbe                LineTrace::getKpSlow()
  .text._ZN9LineTrace9getKiSlowEv
-                0x0000000008003fcc       0x1e Core/Src/LineTrace.o
-                0x0000000008003fcc                LineTrace::getKiSlow()
+                0x0000000008003fdc       0x1e Core/Src/LineTrace.o
+                0x0000000008003fdc                LineTrace::getKiSlow()
  .text._ZN9LineTrace9getKdSlowEv
-                0x0000000008003fea       0x1e Core/Src/LineTrace.o
-                0x0000000008003fea                LineTrace::getKdSlow()
+                0x0000000008003ffa       0x1e Core/Src/LineTrace.o
+                0x0000000008003ffa                LineTrace::getKdSlow()
  .text._ZN9LineTrace14setNormalRatioEf
-                0x0000000008004008       0x1e Core/Src/LineTrace.o
-                0x0000000008004008                LineTrace::setNormalRatio(float)
+                0x0000000008004018       0x1e Core/Src/LineTrace.o
+                0x0000000008004018                LineTrace::setNormalRatio(float)
  .text._ZN9LineTrace17setTargetVelocityEf
-                0x0000000008004026       0x20 Core/Src/LineTrace.o
-                0x0000000008004026                LineTrace::setTargetVelocity(float)
+                0x0000000008004036       0x20 Core/Src/LineTrace.o
+                0x0000000008004036                LineTrace::setTargetVelocity(float)
  .text._ZN9LineTrace14setMaxVelocityEf
-                0x0000000008004046       0x20 Core/Src/LineTrace.o
-                0x0000000008004046                LineTrace::setMaxVelocity(float)
+                0x0000000008004056       0x20 Core/Src/LineTrace.o
+                0x0000000008004056                LineTrace::setMaxVelocity(float)
  .text._ZN9LineTrace14setMinVelocityEf
-                0x0000000008004066       0x20 Core/Src/LineTrace.o
-                0x0000000008004066                LineTrace::setMinVelocity(float)
+                0x0000000008004076       0x20 Core/Src/LineTrace.o
+                0x0000000008004076                LineTrace::setMinVelocity(float)
  .text._ZN9LineTrace15setMaxVelocity2Ef
-                0x0000000008004086       0x20 Core/Src/LineTrace.o
-                0x0000000008004086                LineTrace::setMaxVelocity2(float)
+                0x0000000008004096       0x20 Core/Src/LineTrace.o
+                0x0000000008004096                LineTrace::setMaxVelocity2(float)
  .text._ZN9LineTrace15setMinVelocity2Ef
-                0x00000000080040a6       0x20 Core/Src/LineTrace.o
-                0x00000000080040a6                LineTrace::setMinVelocity2(float)
+                0x00000000080040b6       0x20 Core/Src/LineTrace.o
+                0x00000000080040b6                LineTrace::setMinVelocity2(float)
  .text._ZN9LineTrace15setMaxVelocity3Ef
-                0x00000000080040c6       0x20 Core/Src/LineTrace.o
-                0x00000000080040c6                LineTrace::setMaxVelocity3(float)
+                0x00000000080040d6       0x20 Core/Src/LineTrace.o
+                0x00000000080040d6                LineTrace::setMaxVelocity3(float)
  .text._ZN9LineTrace15setMinVelocity3Ef
-                0x00000000080040e6       0x20 Core/Src/LineTrace.o
-                0x00000000080040e6                LineTrace::setMinVelocity3(float)
+                0x00000000080040f6       0x20 Core/Src/LineTrace.o
+                0x00000000080040f6                LineTrace::setMinVelocity3(float)
  .text._ZN9LineTrace15setMaxVelocity4Ef
-                0x0000000008004106       0x20 Core/Src/LineTrace.o
-                0x0000000008004106                LineTrace::setMaxVelocity4(float)
+                0x0000000008004116       0x20 Core/Src/LineTrace.o
+                0x0000000008004116                LineTrace::setMaxVelocity4(float)
  .text._ZN9LineTrace15setMinVelocity4Ef
-                0x0000000008004126       0x20 Core/Src/LineTrace.o
-                0x0000000008004126                LineTrace::setMinVelocity4(float)
+                0x0000000008004136       0x20 Core/Src/LineTrace.o
+                0x0000000008004136                LineTrace::setMinVelocity4(float)
  .text._ZN9LineTrace17getTargetVelocityEv
-                0x0000000008004146       0x20 Core/Src/LineTrace.o
-                0x0000000008004146                LineTrace::getTargetVelocity()
+                0x0000000008004156       0x20 Core/Src/LineTrace.o
+                0x0000000008004156                LineTrace::getTargetVelocity()
  .text._ZN9LineTrace14getMaxVelocityEv
-                0x0000000008004166       0x20 Core/Src/LineTrace.o
-                0x0000000008004166                LineTrace::getMaxVelocity()
+                0x0000000008004176       0x20 Core/Src/LineTrace.o
+                0x0000000008004176                LineTrace::getMaxVelocity()
  .text._ZN9LineTrace14getMinVelocityEv
-                0x0000000008004186       0x20 Core/Src/LineTrace.o
-                0x0000000008004186                LineTrace::getMinVelocity()
+                0x0000000008004196       0x20 Core/Src/LineTrace.o
+                0x0000000008004196                LineTrace::getMinVelocity()
  .text._ZN9LineTrace15getMaxVelocity2Ev
-                0x00000000080041a6       0x20 Core/Src/LineTrace.o
-                0x00000000080041a6                LineTrace::getMaxVelocity2()
+                0x00000000080041b6       0x20 Core/Src/LineTrace.o
+                0x00000000080041b6                LineTrace::getMaxVelocity2()
  .text._ZN9LineTrace15getMinVelocity2Ev
-                0x00000000080041c6       0x20 Core/Src/LineTrace.o
-                0x00000000080041c6                LineTrace::getMinVelocity2()
+                0x00000000080041d6       0x20 Core/Src/LineTrace.o
+                0x00000000080041d6                LineTrace::getMinVelocity2()
  .text._ZN9LineTrace15getMaxVelocity3Ev
-                0x00000000080041e6       0x20 Core/Src/LineTrace.o
-                0x00000000080041e6                LineTrace::getMaxVelocity3()
+                0x00000000080041f6       0x20 Core/Src/LineTrace.o
+                0x00000000080041f6                LineTrace::getMaxVelocity3()
  .text._ZN9LineTrace15getMinVelocity3Ev
-                0x0000000008004206       0x20 Core/Src/LineTrace.o
-                0x0000000008004206                LineTrace::getMinVelocity3()
+                0x0000000008004216       0x20 Core/Src/LineTrace.o
+                0x0000000008004216                LineTrace::getMinVelocity3()
  .text._ZN9LineTrace15getMaxVelocity4Ev
-                0x0000000008004226       0x20 Core/Src/LineTrace.o
-                0x0000000008004226                LineTrace::getMaxVelocity4()
+                0x0000000008004236       0x20 Core/Src/LineTrace.o
+                0x0000000008004236                LineTrace::getMaxVelocity4()
  .text._ZN9LineTrace15getMinVelocity4Ev
-                0x0000000008004246       0x20 Core/Src/LineTrace.o
-                0x0000000008004246                LineTrace::getMinVelocity4()
+                0x0000000008004256       0x20 Core/Src/LineTrace.o
+                0x0000000008004256                LineTrace::getMinVelocity4()
  .text._ZN9LineTrace12setMaxAccDecEff
-                0x0000000008004266       0x34 Core/Src/LineTrace.o
-                0x0000000008004266                LineTrace::setMaxAccDec(float, float)
+                0x0000000008004276       0x34 Core/Src/LineTrace.o
+                0x0000000008004276                LineTrace::setMaxAccDec(float, float)
  .text._ZN9LineTrace13setMaxAccDec2Eff
-                0x000000000800429a       0x34 Core/Src/LineTrace.o
-                0x000000000800429a                LineTrace::setMaxAccDec2(float, float)
+                0x00000000080042aa       0x34 Core/Src/LineTrace.o
+                0x00000000080042aa                LineTrace::setMaxAccDec2(float, float)
  .text._ZN9LineTrace13setMaxAccDec3Eff
-                0x00000000080042ce       0x34 Core/Src/LineTrace.o
-                0x00000000080042ce                LineTrace::setMaxAccDec3(float, float)
+                0x00000000080042de       0x34 Core/Src/LineTrace.o
+                0x00000000080042de                LineTrace::setMaxAccDec3(float, float)
  .text._ZN9LineTrace13setMaxAccDec4Eff
-                0x0000000008004302       0x34 Core/Src/LineTrace.o
-                0x0000000008004302                LineTrace::setMaxAccDec4(float, float)
+                0x0000000008004312       0x34 Core/Src/LineTrace.o
+                0x0000000008004312                LineTrace::setMaxAccDec4(float, float)
  .text._ZN9LineTrace9getMaxAccEv
-                0x0000000008004336       0x24 Core/Src/LineTrace.o
-                0x0000000008004336                LineTrace::getMaxAcc()
+                0x0000000008004346       0x24 Core/Src/LineTrace.o
+                0x0000000008004346                LineTrace::getMaxAcc()
  .text._ZN9LineTrace9getMaxDecEv
-                0x000000000800435a       0x24 Core/Src/LineTrace.o
-                0x000000000800435a                LineTrace::getMaxDec()
+                0x000000000800436a       0x24 Core/Src/LineTrace.o
+                0x000000000800436a                LineTrace::getMaxDec()
  .text._ZN9LineTrace10getMaxAcc2Ev
-                0x000000000800437e       0x24 Core/Src/LineTrace.o
-                0x000000000800437e                LineTrace::getMaxAcc2()
+                0x000000000800438e       0x24 Core/Src/LineTrace.o
+                0x000000000800438e                LineTrace::getMaxAcc2()
  .text._ZN9LineTrace10getMaxDec2Ev
-                0x00000000080043a2       0x24 Core/Src/LineTrace.o
-                0x00000000080043a2                LineTrace::getMaxDec2()
+                0x00000000080043b2       0x24 Core/Src/LineTrace.o
+                0x00000000080043b2                LineTrace::getMaxDec2()
  .text._ZN9LineTrace10getMaxAcc3Ev
-                0x00000000080043c6       0x24 Core/Src/LineTrace.o
-                0x00000000080043c6                LineTrace::getMaxAcc3()
+                0x00000000080043d6       0x24 Core/Src/LineTrace.o
+                0x00000000080043d6                LineTrace::getMaxAcc3()
  .text._ZN9LineTrace10getMaxDec3Ev
-                0x00000000080043ea       0x24 Core/Src/LineTrace.o
-                0x00000000080043ea                LineTrace::getMaxDec3()
+                0x00000000080043fa       0x24 Core/Src/LineTrace.o
+                0x00000000080043fa                LineTrace::getMaxDec3()
  .text._ZN9LineTrace10getMaxAcc4Ev
-                0x000000000800440e       0x24 Core/Src/LineTrace.o
-                0x000000000800440e                LineTrace::getMaxAcc4()
+                0x000000000800441e       0x24 Core/Src/LineTrace.o
+                0x000000000800441e                LineTrace::getMaxAcc4()
  .text._ZN9LineTrace10getMaxDec4Ev
-                0x0000000008004432       0x24 Core/Src/LineTrace.o
-                0x0000000008004432                LineTrace::getMaxDec4()
- *fill*         0x0000000008004456        0x2 
+                0x0000000008004442       0x24 Core/Src/LineTrace.o
+                0x0000000008004442                LineTrace::getMaxDec4()
+ *fill*         0x0000000008004466        0x2 
  .text._ZN9LineTrace4flipEv
-                0x0000000008004458      0x18c Core/Src/LineTrace.o
-                0x0000000008004458                LineTrace::flip()
+                0x0000000008004468      0x18c Core/Src/LineTrace.o
+                0x0000000008004468                LineTrace::flip()
  .text._ZN9LineTrace7setModeEs
-                0x00000000080045e4       0x24 Core/Src/LineTrace.o
-                0x00000000080045e4                LineTrace::setMode(short)
+                0x00000000080045f4       0x24 Core/Src/LineTrace.o
+                0x00000000080045f4                LineTrace::setMode(short)
  .text._ZN9LineTrace5startEv
-                0x0000000008004608       0x7c Core/Src/LineTrace.o
-                0x0000000008004608                LineTrace::start()
+                0x0000000008004618       0x7c Core/Src/LineTrace.o
+                0x0000000008004618                LineTrace::start()
  .text._ZN9LineTrace7runningEv
-                0x0000000008004684      0x2f4 Core/Src/LineTrace.o
-                0x0000000008004684                LineTrace::running()
+                0x0000000008004694      0x2f4 Core/Src/LineTrace.o
+                0x0000000008004694                LineTrace::running()
  .text._ZN9LineTrace4stopEv
-                0x0000000008004978       0xfc Core/Src/LineTrace.o
-                0x0000000008004978                LineTrace::stop()
+                0x0000000008004988       0xfc Core/Src/LineTrace.o
+                0x0000000008004988                LineTrace::stop()
  .text._ZN9LineTrace20createVelocityTabeleEv
-                0x0000000008004a74      0x240 Core/Src/LineTrace.o
-                0x0000000008004a74                LineTrace::createVelocityTabele()
+                0x0000000008004a84      0x240 Core/Src/LineTrace.o
+                0x0000000008004a84                LineTrace::createVelocityTabele()
  .text._ZN9LineTrace26createVelocityTabeleFromSDEv
-                0x0000000008004cb4      0x284 Core/Src/LineTrace.o
-                0x0000000008004cb4                LineTrace::createVelocityTabeleFromSD()
+                0x0000000008004cc4      0x284 Core/Src/LineTrace.o
+                0x0000000008004cc4                LineTrace::createVelocityTabeleFromSD()
  .text._ZN6LoggerC2Ev
-                0x0000000008004f38       0x6a Core/Src/Logger.o
-                0x0000000008004f38                Logger::Logger()
-                0x0000000008004f38                Logger::Logger()
- *fill*         0x0000000008004fa2        0x2 
+                0x0000000008004f48       0x6a Core/Src/Logger.o
+                0x0000000008004f48                Logger::Logger()
+                0x0000000008004f48                Logger::Logger()
+ *fill*         0x0000000008004fb2        0x2 
  .text._ZN6Logger10sdCardInitEv
-                0x0000000008004fa4       0x90 Core/Src/Logger.o
-                0x0000000008004fa4                Logger::sdCardInit()
+                0x0000000008004fb4       0x90 Core/Src/Logger.o
+                0x0000000008004fb4                Logger::sdCardInit()
  .text._ZN6Logger8storeLogEf
-                0x0000000008005034       0x9c Core/Src/Logger.o
-                0x0000000008005034                Logger::storeLog(float)
+                0x0000000008005044       0x9c Core/Src/Logger.o
+                0x0000000008005044                Logger::storeLog(float)
  .text._ZN6Logger9storeLog2Ef
-                0x00000000080050d0       0xa0 Core/Src/Logger.o
-                0x00000000080050d0                Logger::storeLog2(float)
+                0x00000000080050e0       0xa0 Core/Src/Logger.o
+                0x00000000080050e0                Logger::storeLog2(float)
  .text._ZN6Logger21storeDistanceAndThetaEff
-                0x0000000008005170       0x92 Core/Src/Logger.o
-                0x0000000008005170                Logger::storeDistanceAndTheta(float, float)
+                0x0000000008005180       0x92 Core/Src/Logger.o
+                0x0000000008005180                Logger::storeDistanceAndTheta(float, float)
  .text._ZN6Logger23getDistanceArrayPointerEv
-                0x0000000008005202       0x1c Core/Src/Logger.o
-                0x0000000008005202                Logger::getDistanceArrayPointer()
+                0x0000000008005212       0x1c Core/Src/Logger.o
+                0x0000000008005212                Logger::getDistanceArrayPointer()
  .text._ZN6Logger20getThetaArrayPointerEv
-                0x000000000800521e       0x1c Core/Src/Logger.o
-                0x000000000800521e                Logger::getThetaArrayPointer()
+                0x000000000800522e       0x1c Core/Src/Logger.o
+                0x000000000800522e                Logger::getThetaArrayPointer()
  .text._ZN6Logger8saveLogsEPKcS1_
-                0x000000000800523a       0x28 Core/Src/Logger.o
-                0x000000000800523a                Logger::saveLogs(char const*, char const*)
+                0x000000000800524a       0x28 Core/Src/Logger.o
+                0x000000000800524a                Logger::saveLogs(char const*, char const*)
  .text._ZN6Logger9saveLogs2EPKcS1_
-                0x0000000008005262       0x2c Core/Src/Logger.o
-                0x0000000008005262                Logger::saveLogs2(char const*, char const*)
+                0x0000000008005272       0x2c Core/Src/Logger.o
+                0x0000000008005272                Logger::saveLogs2(char const*, char const*)
  .text._ZN6Logger20saveDistanceAndThetaEPKcS1_S1_
-                0x000000000800528e       0x46 Core/Src/Logger.o
-                0x000000000800528e                Logger::saveDistanceAndTheta(char const*, char const*, char const*)
+                0x000000000800529e       0x46 Core/Src/Logger.o
+                0x000000000800529e                Logger::saveDistanceAndTheta(char const*, char const*, char const*)
  .text._ZN6Logger21saveDistanceAndTheta2EPKcS1_S1_
-                0x00000000080052d4       0x48 Core/Src/Logger.o
-                0x00000000080052d4                Logger::saveDistanceAndTheta2(char const*, char const*, char const*)
+                0x00000000080052e4       0x48 Core/Src/Logger.o
+                0x00000000080052e4                Logger::saveDistanceAndTheta2(char const*, char const*, char const*)
  .text._ZN6Logger22importDistanceAndThetaEPKcS1_S1_
-                0x000000000800531c       0x3e Core/Src/Logger.o
-                0x000000000800531c                Logger::importDistanceAndTheta(char const*, char const*, char const*)
+                0x000000000800532c       0x3e Core/Src/Logger.o
+                0x000000000800532c                Logger::importDistanceAndTheta(char const*, char const*, char const*)
  .text._ZN6Logger13resetLogsDis2Ev
-                0x000000000800535a       0x8c Core/Src/Logger.o
-                0x000000000800535a                Logger::resetLogsDis2()
+                0x000000000800536a       0x8c Core/Src/Logger.o
+                0x000000000800536a                Logger::resetLogsDis2()
  .text._ZN6Logger13resetLogsTim1Ev
-                0x00000000080053e6       0x50 Core/Src/Logger.o
-                0x00000000080053e6                Logger::resetLogsTim1()
+                0x00000000080053f6       0x50 Core/Src/Logger.o
+                0x00000000080053f6                Logger::resetLogsTim1()
  .text._ZN6Logger13resetLogsTim2Ev
-                0x0000000008005436       0x56 Core/Src/Logger.o
-                0x0000000008005436                Logger::resetLogsTim2()
+                0x0000000008005446       0x56 Core/Src/Logger.o
+                0x0000000008005446                Logger::resetLogsTim2()
  .text._ZN6Logger8resetIdxEv
-                0x000000000800548c       0x3e Core/Src/Logger.o
-                0x000000000800548c                Logger::resetIdx()
+                0x000000000800549c       0x3e Core/Src/Logger.o
+                0x000000000800549c                Logger::resetIdx()
  .text._ZN6Logger5startEv
-                0x00000000080054ca       0x3e Core/Src/Logger.o
-                0x00000000080054ca                Logger::start()
+                0x00000000080054da       0x3e Core/Src/Logger.o
+                0x00000000080054da                Logger::start()
  .text._ZN6Logger4stopEv
-                0x0000000008005508       0x22 Core/Src/Logger.o
-                0x0000000008005508                Logger::stop()
+                0x0000000008005518       0x22 Core/Src/Logger.o
+                0x0000000008005518                Logger::stop()
  .text._ZN5MotorC2Ev
-                0x000000000800552a       0x22 Core/Src/Motor.o
-                0x000000000800552a                Motor::Motor()
-                0x000000000800552a                Motor::Motor()
+                0x000000000800553a       0x22 Core/Src/Motor.o
+                0x000000000800553a                Motor::Motor()
+                0x000000000800553a                Motor::Motor()
  .text._ZN5Motor4initEv
-                0x000000000800554c       0x24 Core/Src/Motor.o
-                0x000000000800554c                Motor::init()
+                0x000000000800555c       0x24 Core/Src/Motor.o
+                0x000000000800555c                Motor::init()
  .text._ZN5Motor9motorCtrlEv
-                0x0000000008005570       0xa0 Core/Src/Motor.o
-                0x0000000008005570                Motor::motorCtrl()
+                0x0000000008005580       0xa0 Core/Src/Motor.o
+                0x0000000008005580                Motor::motorCtrl()
  .text._ZN5Motor8setRatioEdd
-                0x0000000008005610       0xe4 Core/Src/Motor.o
-                0x0000000008005610                Motor::setRatio(double, double)
+                0x0000000008005620       0xe4 Core/Src/Motor.o
+                0x0000000008005620                Motor::setRatio(double, double)
  .text._ZN8OdometryC2EP7EncoderP3IMUP12VelocityCtrl
-                0x00000000080056f4       0x72 Core/Src/Odometry.o
-                0x00000000080056f4                Odometry::Odometry(Encoder*, IMU*, VelocityCtrl*)
-                0x00000000080056f4                Odometry::Odometry(Encoder*, IMU*, VelocityCtrl*)
- *fill*         0x0000000008005766        0x2 
+                0x0000000008005704       0x72 Core/Src/Odometry.o
+                0x0000000008005704                Odometry::Odometry(Encoder*, IMU*, VelocityCtrl*)
+                0x0000000008005704                Odometry::Odometry(Encoder*, IMU*, VelocityCtrl*)
+ *fill*         0x0000000008005776        0x2 
  .text._ZN8Odometry12calcPotitionEv
-                0x0000000008005768       0x70 Core/Src/Odometry.o
-                0x0000000008005768                Odometry::calcPotition()
+                0x0000000008005778       0x70 Core/Src/Odometry.o
+                0x0000000008005778                Odometry::calcPotition()
  .text._ZN8Odometry4flipEv
-                0x00000000080057d8       0x16 Core/Src/Odometry.o
-                0x00000000080057d8                Odometry::flip()
+                0x00000000080057e8       0x16 Core/Src/Odometry.o
+                0x00000000080057e8                Odometry::flip()
  .text._ZN8Odometry8getThetaEv
-                0x00000000080057ee       0x22 Core/Src/Odometry.o
-                0x00000000080057ee                Odometry::getTheta()
+                0x00000000080057fe       0x22 Core/Src/Odometry.o
+                0x00000000080057fe                Odometry::getTheta()
  .text._ZN8Odometry13getDeltaThetaEv
-                0x0000000008005810       0x22 Core/Src/Odometry.o
-                0x0000000008005810                Odometry::getDeltaTheta()
+                0x0000000008005820       0x22 Core/Src/Odometry.o
+                0x0000000008005820                Odometry::getDeltaTheta()
  .text._ZN8Odometry13clearPotitionEv
-                0x0000000008005832       0x3c Core/Src/Odometry.o
-                0x0000000008005832                Odometry::clearPotition()
- *fill*         0x000000000800586e        0x2 
+                0x0000000008005842       0x3c Core/Src/Odometry.o
+                0x0000000008005842                Odometry::clearPotition()
+ *fill*         0x000000000800587e        0x2 
  .text._ZN13PathFollowingC2Ev
-                0x0000000008005870       0xf8 Core/Src/PathFollowing.o
-                0x0000000008005870                PathFollowing::PathFollowing()
-                0x0000000008005870                PathFollowing::PathFollowing()
+                0x0000000008005880       0xf8 Core/Src/PathFollowing.o
+                0x0000000008005880                PathFollowing::PathFollowing()
+                0x0000000008005880                PathFollowing::PathFollowing()
  .text._ZN13PathFollowing4initEv
-                0x0000000008005968       0x78 Core/Src/PathFollowing.o
-                0x0000000008005968                PathFollowing::init()
+                0x0000000008005978       0x78 Core/Src/PathFollowing.o
+                0x0000000008005978                PathFollowing::init()
  .text._ZN13PathFollowing7setGainEddd
-                0x00000000080059e0       0x40 Core/Src/PathFollowing.o
-                0x00000000080059e0                PathFollowing::setGain(double, double, double)
+                0x00000000080059f0       0x40 Core/Src/PathFollowing.o
+                0x00000000080059f0                PathFollowing::setGain(double, double, double)
  .text._ZN11PowerSensor4initEv
-                0x0000000008005a20       0x1c Core/Src/PowerSensor.o
-                0x0000000008005a20                PowerSensor::init()
- *fill*         0x0000000008005a3c        0x4 
+                0x0000000008005a30       0x1c Core/Src/PowerSensor.o
+                0x0000000008005a30                PowerSensor::init()
+ *fill*         0x0000000008005a4c        0x4 
  .text._ZN11PowerSensor12updateValuesEv
-                0x0000000008005a40       0x54 Core/Src/PowerSensor.o
-                0x0000000008005a40                PowerSensor::updateValues()
+                0x0000000008005a50       0x54 Core/Src/PowerSensor.o
+                0x0000000008005a50                PowerSensor::updateValues()
  .text._ZN11PowerSensor17getButteryVoltageEv
-                0x0000000008005a94       0x1e Core/Src/PowerSensor.o
-                0x0000000008005a94                PowerSensor::getButteryVoltage()
- *fill*         0x0000000008005ab2        0x2 
+                0x0000000008005aa4       0x1e Core/Src/PowerSensor.o
+                0x0000000008005aa4                PowerSensor::getButteryVoltage()
+ *fill*         0x0000000008005ac2        0x2 
  .text._ZN12RotarySwitch8getValueEv
-                0x0000000008005ab4       0x9c Core/Src/RotarySwitch.o
-                0x0000000008005ab4                RotarySwitch::getValue()
+                0x0000000008005ac4       0x9c Core/Src/RotarySwitch.o
+                0x0000000008005ac4                RotarySwitch::getValue()
  .text._ZN10SideSensorC2Ev
-                0x0000000008005b50       0x52 Core/Src/SideSensor.o
-                0x0000000008005b50                SideSensor::SideSensor()
-                0x0000000008005b50                SideSensor::SideSensor()
- *fill*         0x0000000008005ba2        0x2 
+                0x0000000008005b60       0x52 Core/Src/SideSensor.o
+                0x0000000008005b60                SideSensor::SideSensor()
+                0x0000000008005b60                SideSensor::SideSensor()
+ *fill*         0x0000000008005bb2        0x2 
  .text._ZN10SideSensor21updateStatusRightExtiEv
-                0x0000000008005ba4       0x48 Core/Src/SideSensor.o
-                0x0000000008005ba4                SideSensor::updateStatusRightExti()
+                0x0000000008005bb4       0x48 Core/Src/SideSensor.o
+                0x0000000008005bb4                SideSensor::updateStatusRightExti()
  .text._ZN10SideSensor20updateStatusLeftExtiEv
-                0x0000000008005bec       0x48 Core/Src/SideSensor.o
-                0x0000000008005bec                SideSensor::updateStatusLeftExti()
+                0x0000000008005bfc       0x48 Core/Src/SideSensor.o
+                0x0000000008005bfc                SideSensor::updateStatusLeftExti()
  .text._ZN10SideSensor12updateStatusEv
-                0x0000000008005c34       0xe4 Core/Src/SideSensor.o
-                0x0000000008005c34                SideSensor::updateStatus()
+                0x0000000008005c44       0xe4 Core/Src/SideSensor.o
+                0x0000000008005c44                SideSensor::updateStatus()
  .text._ZN10SideSensor10getStatusLEv
-                0x0000000008005d18       0x18 Core/Src/SideSensor.o
-                0x0000000008005d18                SideSensor::getStatusL()
+                0x0000000008005d28       0x18 Core/Src/SideSensor.o
+                0x0000000008005d28                SideSensor::getStatusL()
  .text._ZN10SideSensor10getStatusREv
-                0x0000000008005d30       0x18 Core/Src/SideSensor.o
-                0x0000000008005d30                SideSensor::getStatusR()
+                0x0000000008005d40       0x18 Core/Src/SideSensor.o
+                0x0000000008005d40                SideSensor::getStatusR()
  .text._ZN10SideSensor17resetWhiteLineCntEv
-                0x0000000008005d48       0x20 Core/Src/SideSensor.o
-                0x0000000008005d48                SideSensor::resetWhiteLineCnt()
+                0x0000000008005d58       0x20 Core/Src/SideSensor.o
+                0x0000000008005d58                SideSensor::resetWhiteLineCnt()
  .text._ZN10SideSensor12enableIgnoreEv
-                0x0000000008005d68       0x1a Core/Src/SideSensor.o
-                0x0000000008005d68                SideSensor::enableIgnore()
+                0x0000000008005d78       0x1a Core/Src/SideSensor.o
+                0x0000000008005d78                SideSensor::enableIgnore()
  .text._ZN10SideSensor13disableIgnoreEv
-                0x0000000008005d82       0x1a Core/Src/SideSensor.o
-                0x0000000008005d82                SideSensor::disableIgnore()
+                0x0000000008005d92       0x1a Core/Src/SideSensor.o
+                0x0000000008005d92                SideSensor::disableIgnore()
  .text._ZN10SideSensor13getIgnoreFlagEv
-                0x0000000008005d9c       0x18 Core/Src/SideSensor.o
-                0x0000000008005d9c                SideSensor::getIgnoreFlag()
+                0x0000000008005dac       0x18 Core/Src/SideSensor.o
+                0x0000000008005dac                SideSensor::getIgnoreFlag()
  .text._ZN20SystemIdentificationC2EP6LoggerP5Motor
-                0x0000000008005db4      0x390 Core/Src/SystemIdentification.o
-                0x0000000008005db4                SystemIdentification::SystemIdentification(Logger*, Motor*)
-                0x0000000008005db4                SystemIdentification::SystemIdentification(Logger*, Motor*)
+                0x0000000008005dc4      0x390 Core/Src/SystemIdentification.o
+                0x0000000008005dc4                SystemIdentification::SystemIdentification(Logger*, Motor*)
+                0x0000000008005dc4                SystemIdentification::SystemIdentification(Logger*, Motor*)
  .text._ZN12VelocityCtrlC2EP5MotorP7EncoderP3IMU
-                0x0000000008006144       0x96 Core/Src/VelocityCtrl.o
-                0x0000000008006144                VelocityCtrl::VelocityCtrl(Motor*, Encoder*, IMU*)
-                0x0000000008006144                VelocityCtrl::VelocityCtrl(Motor*, Encoder*, IMU*)
- *fill*         0x00000000080061da        0x6 
+                0x0000000008006154       0x96 Core/Src/VelocityCtrl.o
+                0x0000000008006154                VelocityCtrl::VelocityCtrl(Motor*, Encoder*, IMU*)
+                0x0000000008006154                VelocityCtrl::VelocityCtrl(Motor*, Encoder*, IMU*)
+ *fill*         0x00000000080061ea        0x6 
  .text._ZN12VelocityCtrl12calcVelocityEv
-                0x00000000080061e0       0x7c Core/Src/VelocityCtrl.o
-                0x00000000080061e0                VelocityCtrl::calcVelocity()
- *fill*         0x000000000800625c        0x4 
+                0x00000000080061f0       0x7c Core/Src/VelocityCtrl.o
+                0x00000000080061f0                VelocityCtrl::calcVelocity()
+ *fill*         0x000000000800626c        0x4 
  .text._ZN12VelocityCtrl18pidTranslationOnlyEv
-                0x0000000008006260      0x150 Core/Src/VelocityCtrl.o
-                0x0000000008006260                VelocityCtrl::pidTranslationOnly()
+                0x0000000008006270      0x150 Core/Src/VelocityCtrl.o
+                0x0000000008006270                VelocityCtrl::pidTranslationOnly()
  .text._ZN12VelocityCtrl11setVelocityEff
-                0x00000000080063b0       0x28 Core/Src/VelocityCtrl.o
-                0x00000000080063b0                VelocityCtrl::setVelocity(float, float)
+                0x00000000080063c0       0x28 Core/Src/VelocityCtrl.o
+                0x00000000080063c0                VelocityCtrl::setVelocity(float, float)
  .text._ZN12VelocityCtrl26setTranslationVelocityOnlyEff
-                0x00000000080063d8       0x28 Core/Src/VelocityCtrl.o
-                0x00000000080063d8                VelocityCtrl::setTranslationVelocityOnly(float, float)
+                0x00000000080063e8       0x28 Core/Src/VelocityCtrl.o
+                0x00000000080063e8                VelocityCtrl::setTranslationVelocityOnly(float, float)
  .text._ZN12VelocityCtrl15setVelocityGainEfff
-                0x0000000008006400       0x32 Core/Src/VelocityCtrl.o
-                0x0000000008006400                VelocityCtrl::setVelocityGain(float, float, float)
+                0x0000000008006410       0x32 Core/Src/VelocityCtrl.o
+                0x0000000008006410                VelocityCtrl::setVelocityGain(float, float, float)
  .text._ZN12VelocityCtrl12setOmegaGainEfff
-                0x0000000008006432       0x32 Core/Src/VelocityCtrl.o
-                0x0000000008006432                VelocityCtrl::setOmegaGain(float, float, float)
+                0x0000000008006442       0x32 Core/Src/VelocityCtrl.o
+                0x0000000008006442                VelocityCtrl::setOmegaGain(float, float, float)
  .text._ZN12VelocityCtrl4flipEv
-                0x0000000008006464       0x26 Core/Src/VelocityCtrl.o
-                0x0000000008006464                VelocityCtrl::flip()
+                0x0000000008006474       0x26 Core/Src/VelocityCtrl.o
+                0x0000000008006474                VelocityCtrl::flip()
  .text._ZN12VelocityCtrl5startEv
-                0x000000000800648a       0x24 Core/Src/VelocityCtrl.o
-                0x000000000800648a                VelocityCtrl::start()
- *fill*         0x00000000080064ae        0x2 
+                0x000000000800649a       0x24 Core/Src/VelocityCtrl.o
+                0x000000000800649a                VelocityCtrl::start()
+ *fill*         0x00000000080064be        0x2 
  .text._ZN12VelocityCtrl4stopEv
-                0x00000000080064b0       0x38 Core/Src/VelocityCtrl.o
-                0x00000000080064b0                VelocityCtrl::stop()
+                0x00000000080064c0       0x38 Core/Src/VelocityCtrl.o
+                0x00000000080064c0                VelocityCtrl::stop()
  .text._ZN12VelocityCtrl18getCurrentVelocityEv
-                0x00000000080064e8       0x1e Core/Src/VelocityCtrl.o
-                0x00000000080064e8                VelocityCtrl::getCurrentVelocity()
+                0x00000000080064f8       0x1e Core/Src/VelocityCtrl.o
+                0x00000000080064f8                VelocityCtrl::getCurrentVelocity()
  .text.HAL_GPIO_EXTI_Callback
-                0x0000000008006506       0x1a Core/Src/main.o
-                0x0000000008006506                HAL_GPIO_EXTI_Callback
+                0x0000000008006516       0x1a Core/Src/main.o
+                0x0000000008006516                HAL_GPIO_EXTI_Callback
  .text.HAL_TIM_PeriodElapsedCallback
-                0x0000000008006520       0xa4 Core/Src/main.o
-                0x0000000008006520                HAL_TIM_PeriodElapsedCallback
- .text.init     0x00000000080065c4       0x3c Core/Src/main.o
-                0x00000000080065c4                init
- .text.main     0x0000000008006600       0x5e Core/Src/main.o
-                0x0000000008006600                main
- *fill*         0x000000000800665e        0x2 
+                0x0000000008006530       0xa4 Core/Src/main.o
+                0x0000000008006530                HAL_TIM_PeriodElapsedCallback
+ .text.init     0x00000000080065d4       0x3c Core/Src/main.o
+                0x00000000080065d4                init
+ .text.main     0x0000000008006610       0x5e Core/Src/main.o
+                0x0000000008006610                main
+ *fill*         0x000000000800666e        0x2 
  .text.SystemClock_Config
-                0x0000000008006660      0x11c Core/Src/main.o
-                0x0000000008006660                SystemClock_Config
+                0x0000000008006670      0x11c Core/Src/main.o
+                0x0000000008006670                SystemClock_Config
  .text.MX_ADC2_Init
-                0x000000000800677c      0x210 Core/Src/main.o
+                0x000000000800678c      0x210 Core/Src/main.o
  .text.MX_I2C1_Init
-                0x000000000800698c       0x5c Core/Src/main.o
+                0x000000000800699c       0x5c Core/Src/main.o
  .text.MX_I2C2_Init
-                0x00000000080069e8       0x5c Core/Src/main.o
+                0x00000000080069f8       0x5c Core/Src/main.o
  .text.MX_SDIO_SD_Init
-                0x0000000008006a44       0x40 Core/Src/main.o
+                0x0000000008006a54       0x40 Core/Src/main.o
  .text.MX_SPI2_Init
-                0x0000000008006a84       0x6c Core/Src/main.o
+                0x0000000008006a94       0x6c Core/Src/main.o
  .text.MX_TIM1_Init
-                0x0000000008006af0      0x150 Core/Src/main.o
+                0x0000000008006b00      0x150 Core/Src/main.o
  .text.MX_TIM3_Init
-                0x0000000008006c40       0xc8 Core/Src/main.o
+                0x0000000008006c50       0xc8 Core/Src/main.o
  .text.MX_TIM4_Init
-                0x0000000008006d08       0xc8 Core/Src/main.o
+                0x0000000008006d18       0xc8 Core/Src/main.o
  .text.MX_TIM6_Init
-                0x0000000008006dd0       0x6c Core/Src/main.o
+                0x0000000008006de0       0x6c Core/Src/main.o
  .text.MX_TIM7_Init
-                0x0000000008006e3c       0x68 Core/Src/main.o
+                0x0000000008006e4c       0x68 Core/Src/main.o
  .text.MX_TIM8_Init
-                0x0000000008006ea4       0xb0 Core/Src/main.o
+                0x0000000008006eb4       0xb0 Core/Src/main.o
  .text.MX_TIM10_Init
-                0x0000000008006f54       0x9c Core/Src/main.o
+                0x0000000008006f64       0x9c Core/Src/main.o
  .text.MX_TIM11_Init
-                0x0000000008006ff0       0x9c Core/Src/main.o
+                0x0000000008007000       0x9c Core/Src/main.o
  .text.MX_TIM13_Init
-                0x000000000800708c       0x48 Core/Src/main.o
+                0x000000000800709c       0x48 Core/Src/main.o
  .text.MX_USART2_UART_Init
-                0x00000000080070d4       0x54 Core/Src/main.o
+                0x00000000080070e4       0x54 Core/Src/main.o
  .text.MX_DMA_Init
-                0x0000000008007128       0x60 Core/Src/main.o
+                0x0000000008007138       0x60 Core/Src/main.o
  .text.MX_GPIO_Init
-                0x0000000008007188      0x2a8 Core/Src/main.o
+                0x0000000008007198      0x2a8 Core/Src/main.o
  .text.Error_Handler
-                0x0000000008007430        0x8 Core/Src/main.o
-                0x0000000008007430                Error_Handler
+                0x0000000008007440        0x8 Core/Src/main.o
+                0x0000000008007440                Error_Handler
  .text.path_following_initialize
-                0x0000000008007438        0xe Core/Src/path_following.o
-                0x0000000008007438                path_following_initialize
- *fill*         0x0000000008007446        0x2 
+                0x0000000008007448        0xe Core/Src/path_following.o
+                0x0000000008007448                path_following_initialize
+ *fill*         0x0000000008007456        0x2 
  .text.HAL_MspInit
-                0x0000000008007448       0x50 Core/Src/stm32f4xx_hal_msp.o
-                0x0000000008007448                HAL_MspInit
+                0x0000000008007458       0x50 Core/Src/stm32f4xx_hal_msp.o
+                0x0000000008007458                HAL_MspInit
  .text.HAL_ADC_MspInit
-                0x0000000008007498      0x164 Core/Src/stm32f4xx_hal_msp.o
-                0x0000000008007498                HAL_ADC_MspInit
+                0x00000000080074a8      0x164 Core/Src/stm32f4xx_hal_msp.o
+                0x00000000080074a8                HAL_ADC_MspInit
  .text.HAL_I2C_MspInit
-                0x00000000080075fc       0xf8 Core/Src/stm32f4xx_hal_msp.o
-                0x00000000080075fc                HAL_I2C_MspInit
+                0x000000000800760c       0xf8 Core/Src/stm32f4xx_hal_msp.o
+                0x000000000800760c                HAL_I2C_MspInit
  .text.HAL_SD_MspInit
-                0x00000000080076f4      0x1e4 Core/Src/stm32f4xx_hal_msp.o
-                0x00000000080076f4                HAL_SD_MspInit
+                0x0000000008007704      0x1e4 Core/Src/stm32f4xx_hal_msp.o
+                0x0000000008007704                HAL_SD_MspInit
  .text.HAL_SPI_MspInit
-                0x00000000080078d8       0x90 Core/Src/stm32f4xx_hal_msp.o
-                0x00000000080078d8                HAL_SPI_MspInit
+                0x00000000080078e8       0x90 Core/Src/stm32f4xx_hal_msp.o
+                0x00000000080078e8                HAL_SPI_MspInit
  .text.HAL_TIM_PWM_MspInit
-                0x0000000008007968       0xe8 Core/Src/stm32f4xx_hal_msp.o
-                0x0000000008007968                HAL_TIM_PWM_MspInit
+                0x0000000008007978       0xe8 Core/Src/stm32f4xx_hal_msp.o
+                0x0000000008007978                HAL_TIM_PWM_MspInit
  .text.HAL_TIM_Base_MspInit
-                0x0000000008007a50      0x120 Core/Src/stm32f4xx_hal_msp.o
-                0x0000000008007a50                HAL_TIM_Base_MspInit
+                0x0000000008007a60      0x120 Core/Src/stm32f4xx_hal_msp.o
+                0x0000000008007a60                HAL_TIM_Base_MspInit
  .text.HAL_TIM_Encoder_MspInit
-                0x0000000008007b70       0xa0 Core/Src/stm32f4xx_hal_msp.o
-                0x0000000008007b70                HAL_TIM_Encoder_MspInit
+                0x0000000008007b80       0xa0 Core/Src/stm32f4xx_hal_msp.o
+                0x0000000008007b80                HAL_TIM_Encoder_MspInit
  .text.HAL_TIM_MspPostInit
-                0x0000000008007c10      0x1b4 Core/Src/stm32f4xx_hal_msp.o
-                0x0000000008007c10                HAL_TIM_MspPostInit
+                0x0000000008007c20      0x1b4 Core/Src/stm32f4xx_hal_msp.o
+                0x0000000008007c20                HAL_TIM_MspPostInit
  .text.HAL_UART_MspInit
-                0x0000000008007dc4       0x90 Core/Src/stm32f4xx_hal_msp.o
-                0x0000000008007dc4                HAL_UART_MspInit
+                0x0000000008007dd4       0x90 Core/Src/stm32f4xx_hal_msp.o
+                0x0000000008007dd4                HAL_UART_MspInit
  .text.NMI_Handler
-                0x0000000008007e54        0x6 Core/Src/stm32f4xx_it.o
-                0x0000000008007e54                NMI_Handler
+                0x0000000008007e64        0x6 Core/Src/stm32f4xx_it.o
+                0x0000000008007e64                NMI_Handler
  .text.HardFault_Handler
-                0x0000000008007e5a        0x6 Core/Src/stm32f4xx_it.o
-                0x0000000008007e5a                HardFault_Handler
+                0x0000000008007e6a        0x6 Core/Src/stm32f4xx_it.o
+                0x0000000008007e6a                HardFault_Handler
  .text.MemManage_Handler
-                0x0000000008007e60        0x6 Core/Src/stm32f4xx_it.o
-                0x0000000008007e60                MemManage_Handler
+                0x0000000008007e70        0x6 Core/Src/stm32f4xx_it.o
+                0x0000000008007e70                MemManage_Handler
  .text.BusFault_Handler
-                0x0000000008007e66        0x6 Core/Src/stm32f4xx_it.o
-                0x0000000008007e66                BusFault_Handler
+                0x0000000008007e76        0x6 Core/Src/stm32f4xx_it.o
+                0x0000000008007e76                BusFault_Handler
  .text.UsageFault_Handler
-                0x0000000008007e6c        0x6 Core/Src/stm32f4xx_it.o
-                0x0000000008007e6c                UsageFault_Handler
+                0x0000000008007e7c        0x6 Core/Src/stm32f4xx_it.o
+                0x0000000008007e7c                UsageFault_Handler
  .text.SVC_Handler
-                0x0000000008007e72        0xe Core/Src/stm32f4xx_it.o
-                0x0000000008007e72                SVC_Handler
+                0x0000000008007e82        0xe Core/Src/stm32f4xx_it.o
+                0x0000000008007e82                SVC_Handler
  .text.DebugMon_Handler
-                0x0000000008007e80        0xe Core/Src/stm32f4xx_it.o
-                0x0000000008007e80                DebugMon_Handler
+                0x0000000008007e90        0xe Core/Src/stm32f4xx_it.o
+                0x0000000008007e90                DebugMon_Handler
  .text.PendSV_Handler
-                0x0000000008007e8e        0xe Core/Src/stm32f4xx_it.o
-                0x0000000008007e8e                PendSV_Handler
+                0x0000000008007e9e        0xe Core/Src/stm32f4xx_it.o
+                0x0000000008007e9e                PendSV_Handler
  .text.SysTick_Handler
-                0x0000000008007e9c        0xc Core/Src/stm32f4xx_it.o
-                0x0000000008007e9c                SysTick_Handler
+                0x0000000008007eac        0xc Core/Src/stm32f4xx_it.o
+                0x0000000008007eac                SysTick_Handler
  .text.EXTI2_IRQHandler
-                0x0000000008007ea8        0xe Core/Src/stm32f4xx_it.o
-                0x0000000008007ea8                EXTI2_IRQHandler
+                0x0000000008007eb8        0xe Core/Src/stm32f4xx_it.o
+                0x0000000008007eb8                EXTI2_IRQHandler
  .text.EXTI9_5_IRQHandler
-                0x0000000008007eb6       0x10 Core/Src/stm32f4xx_it.o
-                0x0000000008007eb6                EXTI9_5_IRQHandler
- *fill*         0x0000000008007ec6        0x2 
+                0x0000000008007ec6       0x10 Core/Src/stm32f4xx_it.o
+                0x0000000008007ec6                EXTI9_5_IRQHandler
+ *fill*         0x0000000008007ed6        0x2 
  .text.TIM8_UP_TIM13_IRQHandler
-                0x0000000008007ec8       0x1c Core/Src/stm32f4xx_it.o
-                0x0000000008007ec8                TIM8_UP_TIM13_IRQHandler
+                0x0000000008007ed8       0x1c Core/Src/stm32f4xx_it.o
+                0x0000000008007ed8                TIM8_UP_TIM13_IRQHandler
  .text.SDIO_IRQHandler
-                0x0000000008007ee4       0x14 Core/Src/stm32f4xx_it.o
-                0x0000000008007ee4                SDIO_IRQHandler
+                0x0000000008007ef4       0x14 Core/Src/stm32f4xx_it.o
+                0x0000000008007ef4                SDIO_IRQHandler
  .text.TIM6_DAC_IRQHandler
-                0x0000000008007ef8       0x14 Core/Src/stm32f4xx_it.o
-                0x0000000008007ef8                TIM6_DAC_IRQHandler
+                0x0000000008007f08       0x14 Core/Src/stm32f4xx_it.o
+                0x0000000008007f08                TIM6_DAC_IRQHandler
  .text.TIM7_IRQHandler
-                0x0000000008007f0c       0x14 Core/Src/stm32f4xx_it.o
-                0x0000000008007f0c                TIM7_IRQHandler
+                0x0000000008007f1c       0x14 Core/Src/stm32f4xx_it.o
+                0x0000000008007f1c                TIM7_IRQHandler
  .text.DMA2_Stream2_IRQHandler
-                0x0000000008007f20       0x14 Core/Src/stm32f4xx_it.o
-                0x0000000008007f20                DMA2_Stream2_IRQHandler
+                0x0000000008007f30       0x14 Core/Src/stm32f4xx_it.o
+                0x0000000008007f30                DMA2_Stream2_IRQHandler
  .text.DMA2_Stream3_IRQHandler
-                0x0000000008007f34       0x14 Core/Src/stm32f4xx_it.o
-                0x0000000008007f34                DMA2_Stream3_IRQHandler
+                0x0000000008007f44       0x14 Core/Src/stm32f4xx_it.o
+                0x0000000008007f44                DMA2_Stream3_IRQHandler
  .text.DMA2_Stream6_IRQHandler
-                0x0000000008007f48       0x14 Core/Src/stm32f4xx_it.o
-                0x0000000008007f48                DMA2_Stream6_IRQHandler
- .text._sbrk    0x0000000008007f5c       0x6c Core/Src/sysmem.o
-                0x0000000008007f5c                _sbrk
+                0x0000000008007f58       0x14 Core/Src/stm32f4xx_it.o
+                0x0000000008007f58                DMA2_Stream6_IRQHandler
+ .text._sbrk    0x0000000008007f6c       0x6c Core/Src/sysmem.o
+                0x0000000008007f6c                _sbrk
  .text.SystemInit
-                0x0000000008007fc8       0x2c Core/Src/system_stm32f4xx.o
-                0x0000000008007fc8                SystemInit
- .text.cppInit  0x0000000008007ff4      0x144 Core/Src/wrapper.o
-                0x0000000008007ff4                cppInit
+                0x0000000008007fd8       0x2c Core/Src/system_stm32f4xx.o
+                0x0000000008007fd8                SystemInit
+ .text.cppInit  0x0000000008008004      0x144 Core/Src/wrapper.o
+                0x0000000008008004                cppInit
  .text.cppFlip1ms
-                0x0000000008008138       0x60 Core/Src/wrapper.o
-                0x0000000008008138                cppFlip1ms
+                0x0000000008008148       0x60 Core/Src/wrapper.o
+                0x0000000008008148                cppFlip1ms
  .text.cppFlip100ns
-                0x0000000008008198       0x14 Core/Src/wrapper.o
-                0x0000000008008198                cppFlip100ns
+                0x00000000080081a8       0x14 Core/Src/wrapper.o
+                0x00000000080081a8                cppFlip100ns
  .text.cppFlip10ms
-                0x00000000080081ac       0x3c Core/Src/wrapper.o
-                0x00000000080081ac                cppFlip10ms
- .text.cppExit  0x00000000080081e8       0x34 Core/Src/wrapper.o
-                0x00000000080081e8                cppExit
- *fill*         0x000000000800821c        0x4 
- .text.cppLoop  0x0000000008008220     0x30bc Core/Src/wrapper.o
-                0x0000000008008220                cppLoop
+                0x00000000080081bc       0x3c Core/Src/wrapper.o
+                0x00000000080081bc                cppFlip10ms
+ .text.cppExit  0x00000000080081f8       0x34 Core/Src/wrapper.o
+                0x00000000080081f8                cppExit
+ *fill*         0x000000000800822c        0x4 
+ .text.cppLoop  0x0000000008008230     0x30ac Core/Src/wrapper.o
+                0x0000000008008230                cppLoop
  .text._Z41__static_initialization_and_destruction_0ii
                 0x000000000800b2dc       0xd4 Core/Src/wrapper.o
  .text._GLOBAL__sub_I_line_sensor
@@ -12191,7 +12191,7 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_macro   0x0000000000034a25      0x751 Middlewares/Third_Party/FatFs/src/ff.o
  .debug_macro   0x0000000000035176      0x34a Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
-.debug_line     0x0000000000000000    0x26b40
+.debug_line     0x0000000000000000    0x26b3f
  .debug_line    0x0000000000000000      0x9d2 Core/Src/AQM0802.o
  .debug_line    0x00000000000009d2      0x819 Core/Src/ESC.o
  .debug_line    0x00000000000011eb      0x8ae Core/Src/Encoder.o
@@ -12218,30 +12218,30 @@ OUTPUT(2021RoboTrace_1.5.1.elf elf32-littlearm)
  .debug_line    0x000000000001178a      0x8b3 Core/Src/stm32f4xx_it.o
  .debug_line    0x000000000001203d      0x4c7 Core/Src/sysmem.o
  .debug_line    0x0000000000012504      0x783 Core/Src/system_stm32f4xx.o
- .debug_line    0x0000000000012c87     0x19e6 Core/Src/wrapper.o
- .debug_line    0x000000000001466d       0x85 Core/Startup/startup_stm32f469vgtx.o
- .debug_line    0x00000000000146f2      0x991 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_line    0x0000000000015083      0xbd4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
- .debug_line    0x0000000000015c57      0xa91 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_line    0x00000000000166e8      0xa3b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .debug_line    0x0000000000017123      0x974 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_line    0x0000000000017a97     0x1c1b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_line    0x00000000000196b2      0x85f Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
- .debug_line    0x0000000000019f11      0x9c5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_line    0x000000000001a8d6      0xa5a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- .debug_line    0x000000000001b330     0x1080 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
- .debug_line    0x000000000001c3b0     0x1129 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_line    0x000000000001d4d9     0x19e6 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_line    0x000000000001eebf      0xd83 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
- .debug_line    0x000000000001fc42     0x107b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
- .debug_line    0x0000000000020cbd      0xc13 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
- .debug_line    0x00000000000218d0      0x954 FATFS/App/fatfs.o
- .debug_line    0x0000000000022224      0x8b8 FATFS/Target/bsp_driver_sd.o
- .debug_line    0x0000000000022adc      0x774 FATFS/Target/fatfs_platform.o
- .debug_line    0x0000000000023250      0xa6e FATFS/Target/sd_diskio.o
- .debug_line    0x0000000000023cbe      0x98f Middlewares/Third_Party/FatFs/src/diskio.o
- .debug_line    0x000000000002464d     0x1b64 Middlewares/Third_Party/FatFs/src/ff.o
- .debug_line    0x00000000000261b1      0x98f Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
+ .debug_line    0x0000000000012c87     0x19e5 Core/Src/wrapper.o
+ .debug_line    0x000000000001466c       0x85 Core/Startup/startup_stm32f469vgtx.o
+ .debug_line    0x00000000000146f1      0x991 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_line    0x0000000000015082      0xbd4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+ .debug_line    0x0000000000015c56      0xa91 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_line    0x00000000000166e7      0xa3b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_line    0x0000000000017122      0x974 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_line    0x0000000000017a96     0x1c1b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_line    0x00000000000196b1      0x85f Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_line    0x0000000000019f10      0x9c5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_line    0x000000000001a8d5      0xa5a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_line    0x000000000001b32f     0x1080 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.o
+ .debug_line    0x000000000001c3af     0x1129 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_line    0x000000000001d4d8     0x19e6 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_line    0x000000000001eebe      0xd83 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_line    0x000000000001fc41     0x107b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_line    0x0000000000020cbc      0xc13 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.o
+ .debug_line    0x00000000000218cf      0x954 FATFS/App/fatfs.o
+ .debug_line    0x0000000000022223      0x8b8 FATFS/Target/bsp_driver_sd.o
+ .debug_line    0x0000000000022adb      0x774 FATFS/Target/fatfs_platform.o
+ .debug_line    0x000000000002324f      0xa6e FATFS/Target/sd_diskio.o
+ .debug_line    0x0000000000023cbd      0x98f Middlewares/Third_Party/FatFs/src/diskio.o
+ .debug_line    0x000000000002464c     0x1b64 Middlewares/Third_Party/FatFs/src/ff.o
+ .debug_line    0x00000000000261b0      0x98f Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
 
 .debug_str      0x0000000000000000   0x11185a
  .debug_str     0x0000000000000000    0xfd7d6 Core/Src/AQM0802.o
