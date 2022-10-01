@@ -6112,7 +6112,7 @@ float LineTrace::radius2Velocity(float radius)
  8003336:	687b      	ldr	r3, [r7, #4]
  8003338:	f8d3 30bc 	ldr.w	r3, [r3, #188]	; 0xbc
  800333c:	60fb      	str	r3, [r7, #12]
- 800333e:	e137      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 800333e:	e136      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 500) velocity = 1.5;
  8003340:	edd7 7a00 	vldr	s15, [r7]
  8003344:	ed9f 7aa0 	vldr	s14, [pc, #640]	; 80035c8 <_ZN9LineTrace15radius2VelocityEf+0x2c0>
@@ -6121,7 +6121,7 @@ float LineTrace::radius2Velocity(float radius)
  8003350:	d503      	bpl.n	800335a <_ZN9LineTrace15radius2VelocityEf+0x52>
  8003352:	f04f 537f 	mov.w	r3, #1069547520	; 0x3fc00000
  8003356:	60fb      	str	r3, [r7, #12]
- 8003358:	e12a      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 8003358:	e129      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 650) velocity = 2.0;
  800335a:	edd7 7a00 	vldr	s15, [r7]
  800335e:	ed9f 7a9b 	vldr	s14, [pc, #620]	; 80035cc <_ZN9LineTrace15radius2VelocityEf+0x2c4>
@@ -6130,7 +6130,7 @@ float LineTrace::radius2Velocity(float radius)
  800336a:	d503      	bpl.n	8003374 <_ZN9LineTrace15radius2VelocityEf+0x6c>
  800336c:	f04f 4380 	mov.w	r3, #1073741824	; 0x40000000
  8003370:	60fb      	str	r3, [r7, #12]
- 8003372:	e11d      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 8003372:	e11c      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 1500) velocity = 2.5;
  8003374:	edd7 7a00 	vldr	s15, [r7]
  8003378:	ed9f 7a95 	vldr	s14, [pc, #596]	; 80035d0 <_ZN9LineTrace15radius2VelocityEf+0x2c8>
@@ -6139,7 +6139,7 @@ float LineTrace::radius2Velocity(float radius)
  8003384:	d502      	bpl.n	800338c <_ZN9LineTrace15radius2VelocityEf+0x84>
  8003386:	4b93      	ldr	r3, [pc, #588]	; (80035d4 <_ZN9LineTrace15radius2VelocityEf+0x2cc>)
  8003388:	60fb      	str	r3, [r7, #12]
- 800338a:	e111      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 800338a:	e110      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 2000) velocity = 3.0;
  800338c:	edd7 7a00 	vldr	s15, [r7]
  8003390:	ed9f 7a91 	vldr	s14, [pc, #580]	; 80035d8 <_ZN9LineTrace15radius2VelocityEf+0x2d0>
@@ -6148,12 +6148,12 @@ float LineTrace::radius2Velocity(float radius)
  800339c:	d502      	bpl.n	80033a4 <_ZN9LineTrace15radius2VelocityEf+0x9c>
  800339e:	4b8f      	ldr	r3, [pc, #572]	; (80035dc <_ZN9LineTrace15radius2VelocityEf+0x2d4>)
  80033a0:	60fb      	str	r3, [r7, #12]
- 80033a2:	e105      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 80033a2:	e104      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else velocity = max_velocity_;
  80033a4:	687b      	ldr	r3, [r7, #4]
  80033a6:	f8d3 30b8 	ldr.w	r3, [r3, #184]	; 0xb8
  80033aa:	60fb      	str	r3, [r7, #12]
- 80033ac:	e100      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 80033ac:	e0ff      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 	}
 	else if(mode_selector_ == THIRD_RUNNING){
  80033ae:	687b      	ldr	r3, [r7, #4]
@@ -6171,7 +6171,7 @@ float LineTrace::radius2Velocity(float radius)
  80033d0:	687b      	ldr	r3, [r7, #4]
  80033d2:	f8d3 30c4 	ldr.w	r3, [r3, #196]	; 0xc4
  80033d6:	60fb      	str	r3, [r7, #12]
- 80033d8:	e0ea      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 80033d8:	e0e9      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 500) velocity = 1.5;
  80033da:	edd7 7a00 	vldr	s15, [r7]
  80033de:	ed9f 7a7a 	vldr	s14, [pc, #488]	; 80035c8 <_ZN9LineTrace15radius2VelocityEf+0x2c0>
@@ -6180,7 +6180,7 @@ float LineTrace::radius2Velocity(float radius)
  80033ea:	d503      	bpl.n	80033f4 <_ZN9LineTrace15radius2VelocityEf+0xec>
  80033ec:	f04f 537f 	mov.w	r3, #1069547520	; 0x3fc00000
  80033f0:	60fb      	str	r3, [r7, #12]
- 80033f2:	e0dd      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 80033f2:	e0dc      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 650) velocity = 2.0;
  80033f4:	edd7 7a00 	vldr	s15, [r7]
  80033f8:	ed9f 7a74 	vldr	s14, [pc, #464]	; 80035cc <_ZN9LineTrace15radius2VelocityEf+0x2c4>
@@ -6189,7 +6189,7 @@ float LineTrace::radius2Velocity(float radius)
  8003404:	d503      	bpl.n	800340e <_ZN9LineTrace15radius2VelocityEf+0x106>
  8003406:	f04f 4380 	mov.w	r3, #1073741824	; 0x40000000
  800340a:	60fb      	str	r3, [r7, #12]
- 800340c:	e0d0      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 800340c:	e0cf      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 1500) velocity = 2.5;
  800340e:	edd7 7a00 	vldr	s15, [r7]
  8003412:	ed9f 7a6f 	vldr	s14, [pc, #444]	; 80035d0 <_ZN9LineTrace15radius2VelocityEf+0x2c8>
@@ -6198,7 +6198,7 @@ float LineTrace::radius2Velocity(float radius)
  800341e:	d502      	bpl.n	8003426 <_ZN9LineTrace15radius2VelocityEf+0x11e>
  8003420:	4b6c      	ldr	r3, [pc, #432]	; (80035d4 <_ZN9LineTrace15radius2VelocityEf+0x2cc>)
  8003422:	60fb      	str	r3, [r7, #12]
- 8003424:	e0c4      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 8003424:	e0c3      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 2000) velocity = 3.3;
  8003426:	edd7 7a00 	vldr	s15, [r7]
  800342a:	ed9f 7a6b 	vldr	s14, [pc, #428]	; 80035d8 <_ZN9LineTrace15radius2VelocityEf+0x2d0>
@@ -6207,12 +6207,12 @@ float LineTrace::radius2Velocity(float radius)
  8003436:	d502      	bpl.n	800343e <_ZN9LineTrace15radius2VelocityEf+0x136>
  8003438:	4b69      	ldr	r3, [pc, #420]	; (80035e0 <_ZN9LineTrace15radius2VelocityEf+0x2d8>)
  800343a:	60fb      	str	r3, [r7, #12]
- 800343c:	e0b8      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 800343c:	e0b7      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else velocity = max_velocity2_;
  800343e:	687b      	ldr	r3, [r7, #4]
  8003440:	f8d3 30c0 	ldr.w	r3, [r3, #192]	; 0xc0
  8003444:	60fb      	str	r3, [r7, #12]
- 8003446:	e0b3      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 8003446:	e0b2      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 	}
 	else if(mode_selector_ == FOURTH_RUNNING){
  8003448:	687b      	ldr	r3, [r7, #4]
@@ -6230,7 +6230,7 @@ float LineTrace::radius2Velocity(float radius)
  800346a:	687b      	ldr	r3, [r7, #4]
  800346c:	f8d3 30cc 	ldr.w	r3, [r3, #204]	; 0xcc
  8003470:	60fb      	str	r3, [r7, #12]
- 8003472:	e09d      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 8003472:	e09c      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 500) velocity = 2.0;
  8003474:	edd7 7a00 	vldr	s15, [r7]
  8003478:	ed9f 7a53 	vldr	s14, [pc, #332]	; 80035c8 <_ZN9LineTrace15radius2VelocityEf+0x2c0>
@@ -6239,7 +6239,7 @@ float LineTrace::radius2Velocity(float radius)
  8003484:	d503      	bpl.n	800348e <_ZN9LineTrace15radius2VelocityEf+0x186>
  8003486:	f04f 4380 	mov.w	r3, #1073741824	; 0x40000000
  800348a:	60fb      	str	r3, [r7, #12]
- 800348c:	e090      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 800348c:	e08f      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 650) velocity = 2.0;
  800348e:	edd7 7a00 	vldr	s15, [r7]
  8003492:	ed9f 7a4e 	vldr	s14, [pc, #312]	; 80035cc <_ZN9LineTrace15radius2VelocityEf+0x2c4>
@@ -6248,7 +6248,7 @@ float LineTrace::radius2Velocity(float radius)
  800349e:	d503      	bpl.n	80034a8 <_ZN9LineTrace15radius2VelocityEf+0x1a0>
  80034a0:	f04f 4380 	mov.w	r3, #1073741824	; 0x40000000
  80034a4:	60fb      	str	r3, [r7, #12]
- 80034a6:	e083      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 80034a6:	e082      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 1100) velocity = 3.0;
  80034a8:	edd7 7a00 	vldr	s15, [r7]
  80034ac:	ed9f 7a4d 	vldr	s14, [pc, #308]	; 80035e4 <_ZN9LineTrace15radius2VelocityEf+0x2dc>
@@ -6257,7 +6257,7 @@ float LineTrace::radius2Velocity(float radius)
  80034b8:	d502      	bpl.n	80034c0 <_ZN9LineTrace15radius2VelocityEf+0x1b8>
  80034ba:	4b48      	ldr	r3, [pc, #288]	; (80035dc <_ZN9LineTrace15radius2VelocityEf+0x2d4>)
  80034bc:	60fb      	str	r3, [r7, #12]
- 80034be:	e077      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 80034be:	e076      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 1900) velocity = 3.0;
  80034c0:	edd7 7a00 	vldr	s15, [r7]
  80034c4:	ed9f 7a48 	vldr	s14, [pc, #288]	; 80035e8 <_ZN9LineTrace15radius2VelocityEf+0x2e0>
@@ -6266,7 +6266,7 @@ float LineTrace::radius2Velocity(float radius)
  80034d0:	d502      	bpl.n	80034d8 <_ZN9LineTrace15radius2VelocityEf+0x1d0>
  80034d2:	4b42      	ldr	r3, [pc, #264]	; (80035dc <_ZN9LineTrace15radius2VelocityEf+0x2d4>)
  80034d4:	60fb      	str	r3, [r7, #12]
- 80034d6:	e06b      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 80034d6:	e06a      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 2500) velocity = 3.5;
  80034d8:	edd7 7a00 	vldr	s15, [r7]
  80034dc:	ed9f 7a43 	vldr	s14, [pc, #268]	; 80035ec <_ZN9LineTrace15radius2VelocityEf+0x2e4>
@@ -6275,12 +6275,12 @@ float LineTrace::radius2Velocity(float radius)
  80034e8:	d502      	bpl.n	80034f0 <_ZN9LineTrace15radius2VelocityEf+0x1e8>
  80034ea:	4b41      	ldr	r3, [pc, #260]	; (80035f0 <_ZN9LineTrace15radius2VelocityEf+0x2e8>)
  80034ec:	60fb      	str	r3, [r7, #12]
- 80034ee:	e05f      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 80034ee:	e05e      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else velocity = max_velocity3_;
  80034f0:	687b      	ldr	r3, [r7, #4]
  80034f2:	f8d3 30c8 	ldr.w	r3, [r3, #200]	; 0xc8
  80034f6:	60fb      	str	r3, [r7, #12]
- 80034f8:	e05a      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 80034f8:	e059      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 	}
 	else if(mode_selector_ == FIFTH_RUNNING){
  80034fa:	687b      	ldr	r3, [r7, #4]
@@ -6288,7 +6288,7 @@ float LineTrace::radius2Velocity(float radius)
  8003500:	3364      	adds	r3, #100	; 0x64
  8003502:	f9b3 3000 	ldrsh.w	r3, [r3]
  8003506:	2b04      	cmp	r3, #4
- 8003508:	d150      	bne.n	80035ac <_ZN9LineTrace15radius2VelocityEf+0x2a4>
+ 8003508:	d14f      	bne.n	80035aa <_ZN9LineTrace15radius2VelocityEf+0x2a2>
 		if(radius < 400) velocity = min_velocity4_;
  800350a:	edd7 7a00 	vldr	s15, [r7]
  800350e:	ed9f 7a2d 	vldr	s14, [pc, #180]	; 80035c4 <_ZN9LineTrace15radius2VelocityEf+0x2bc>
@@ -6298,71 +6298,72 @@ float LineTrace::radius2Velocity(float radius)
  800351c:	687b      	ldr	r3, [r7, #4]
  800351e:	f8d3 30d4 	ldr.w	r3, [r3, #212]	; 0xd4
  8003522:	60fb      	str	r3, [r7, #12]
- 8003524:	e044      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
-		else if(radius < 500) velocity = 2.0;
+ 8003524:	e043      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
+		else if(radius < 500) velocity = 2.5;
  8003526:	edd7 7a00 	vldr	s15, [r7]
  800352a:	ed9f 7a27 	vldr	s14, [pc, #156]	; 80035c8 <_ZN9LineTrace15radius2VelocityEf+0x2c0>
  800352e:	eef4 7ac7 	vcmpe.f32	s15, s14
  8003532:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
- 8003536:	d503      	bpl.n	8003540 <_ZN9LineTrace15radius2VelocityEf+0x238>
- 8003538:	f04f 4380 	mov.w	r3, #1073741824	; 0x40000000
- 800353c:	60fb      	str	r3, [r7, #12]
- 800353e:	e037      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
-		else if(radius < 650) velocity = 2.0;
- 8003540:	edd7 7a00 	vldr	s15, [r7]
- 8003544:	ed9f 7a21 	vldr	s14, [pc, #132]	; 80035cc <_ZN9LineTrace15radius2VelocityEf+0x2c4>
- 8003548:	eef4 7ac7 	vcmpe.f32	s15, s14
- 800354c:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
- 8003550:	d503      	bpl.n	800355a <_ZN9LineTrace15radius2VelocityEf+0x252>
- 8003552:	f04f 4380 	mov.w	r3, #1073741824	; 0x40000000
- 8003556:	60fb      	str	r3, [r7, #12]
- 8003558:	e02a      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 8003536:	d502      	bpl.n	800353e <_ZN9LineTrace15radius2VelocityEf+0x236>
+ 8003538:	4b26      	ldr	r3, [pc, #152]	; (80035d4 <_ZN9LineTrace15radius2VelocityEf+0x2cc>)
+ 800353a:	60fb      	str	r3, [r7, #12]
+ 800353c:	e037      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
+		else if(radius < 650) velocity = 3.0;
+ 800353e:	edd7 7a00 	vldr	s15, [r7]
+ 8003542:	ed9f 7a22 	vldr	s14, [pc, #136]	; 80035cc <_ZN9LineTrace15radius2VelocityEf+0x2c4>
+ 8003546:	eef4 7ac7 	vcmpe.f32	s15, s14
+ 800354a:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
+ 800354e:	d502      	bpl.n	8003556 <_ZN9LineTrace15radius2VelocityEf+0x24e>
+ 8003550:	4b22      	ldr	r3, [pc, #136]	; (80035dc <_ZN9LineTrace15radius2VelocityEf+0x2d4>)
+ 8003552:	60fb      	str	r3, [r7, #12]
+ 8003554:	e02b      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else if(radius < 1100) velocity = 3.0;
- 800355a:	edd7 7a00 	vldr	s15, [r7]
- 800355e:	ed9f 7a21 	vldr	s14, [pc, #132]	; 80035e4 <_ZN9LineTrace15radius2VelocityEf+0x2dc>
- 8003562:	eef4 7ac7 	vcmpe.f32	s15, s14
- 8003566:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
- 800356a:	d502      	bpl.n	8003572 <_ZN9LineTrace15radius2VelocityEf+0x26a>
- 800356c:	4b1b      	ldr	r3, [pc, #108]	; (80035dc <_ZN9LineTrace15radius2VelocityEf+0x2d4>)
- 800356e:	60fb      	str	r3, [r7, #12]
- 8003570:	e01e      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
-		else if(radius < 1900) velocity = 3.0;
- 8003572:	edd7 7a00 	vldr	s15, [r7]
- 8003576:	ed9f 7a1c 	vldr	s14, [pc, #112]	; 80035e8 <_ZN9LineTrace15radius2VelocityEf+0x2e0>
- 800357a:	eef4 7ac7 	vcmpe.f32	s15, s14
- 800357e:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
- 8003582:	d502      	bpl.n	800358a <_ZN9LineTrace15radius2VelocityEf+0x282>
- 8003584:	4b15      	ldr	r3, [pc, #84]	; (80035dc <_ZN9LineTrace15radius2VelocityEf+0x2d4>)
- 8003586:	60fb      	str	r3, [r7, #12]
- 8003588:	e012      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
-		else if(radius < 2500) velocity = 3.5;
- 800358a:	edd7 7a00 	vldr	s15, [r7]
- 800358e:	ed9f 7a17 	vldr	s14, [pc, #92]	; 80035ec <_ZN9LineTrace15radius2VelocityEf+0x2e4>
- 8003592:	eef4 7ac7 	vcmpe.f32	s15, s14
- 8003596:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
- 800359a:	d502      	bpl.n	80035a2 <_ZN9LineTrace15radius2VelocityEf+0x29a>
- 800359c:	4b14      	ldr	r3, [pc, #80]	; (80035f0 <_ZN9LineTrace15radius2VelocityEf+0x2e8>)
- 800359e:	60fb      	str	r3, [r7, #12]
- 80035a0:	e006      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 8003556:	edd7 7a00 	vldr	s15, [r7]
+ 800355a:	ed9f 7a22 	vldr	s14, [pc, #136]	; 80035e4 <_ZN9LineTrace15radius2VelocityEf+0x2dc>
+ 800355e:	eef4 7ac7 	vcmpe.f32	s15, s14
+ 8003562:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
+ 8003566:	d502      	bpl.n	800356e <_ZN9LineTrace15radius2VelocityEf+0x266>
+ 8003568:	4b1c      	ldr	r3, [pc, #112]	; (80035dc <_ZN9LineTrace15radius2VelocityEf+0x2d4>)
+ 800356a:	60fb      	str	r3, [r7, #12]
+ 800356c:	e01f      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
+		else if(radius < 1900) velocity = 3.3;
+ 800356e:	edd7 7a00 	vldr	s15, [r7]
+ 8003572:	ed9f 7a1d 	vldr	s14, [pc, #116]	; 80035e8 <_ZN9LineTrace15radius2VelocityEf+0x2e0>
+ 8003576:	eef4 7ac7 	vcmpe.f32	s15, s14
+ 800357a:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
+ 800357e:	d502      	bpl.n	8003586 <_ZN9LineTrace15radius2VelocityEf+0x27e>
+ 8003580:	4b17      	ldr	r3, [pc, #92]	; (80035e0 <_ZN9LineTrace15radius2VelocityEf+0x2d8>)
+ 8003582:	60fb      	str	r3, [r7, #12]
+ 8003584:	e013      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
+		else if(radius < 2500) velocity = 4.0;
+ 8003586:	edd7 7a00 	vldr	s15, [r7]
+ 800358a:	ed9f 7a18 	vldr	s14, [pc, #96]	; 80035ec <_ZN9LineTrace15radius2VelocityEf+0x2e4>
+ 800358e:	eef4 7ac7 	vcmpe.f32	s15, s14
+ 8003592:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
+ 8003596:	d503      	bpl.n	80035a0 <_ZN9LineTrace15radius2VelocityEf+0x298>
+ 8003598:	f04f 4381 	mov.w	r3, #1082130432	; 0x40800000
+ 800359c:	60fb      	str	r3, [r7, #12]
+ 800359e:	e006      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 		else velocity = max_velocity4_;
- 80035a2:	687b      	ldr	r3, [r7, #4]
- 80035a4:	f8d3 30d0 	ldr.w	r3, [r3, #208]	; 0xd0
- 80035a8:	60fb      	str	r3, [r7, #12]
- 80035aa:	e001      	b.n	80035b0 <_ZN9LineTrace15radius2VelocityEf+0x2a8>
+ 80035a0:	687b      	ldr	r3, [r7, #4]
+ 80035a2:	f8d3 30d0 	ldr.w	r3, [r3, #208]	; 0xd0
+ 80035a6:	60fb      	str	r3, [r7, #12]
+ 80035a8:	e001      	b.n	80035ae <_ZN9LineTrace15radius2VelocityEf+0x2a6>
 	}
 	else velocity = 1.3;
- 80035ac:	4b11      	ldr	r3, [pc, #68]	; (80035f4 <_ZN9LineTrace15radius2VelocityEf+0x2ec>)
- 80035ae:	60fb      	str	r3, [r7, #12]
+ 80035aa:	4b12      	ldr	r3, [pc, #72]	; (80035f4 <_ZN9LineTrace15radius2VelocityEf+0x2ec>)
+ 80035ac:	60fb      	str	r3, [r7, #12]
 
 	return velocity;
- 80035b0:	68fb      	ldr	r3, [r7, #12]
- 80035b2:	ee07 3a90 	vmov	s15, r3
+ 80035ae:	68fb      	ldr	r3, [r7, #12]
+ 80035b0:	ee07 3a90 	vmov	s15, r3
 }
- 80035b6:	eeb0 0a67 	vmov.f32	s0, s15
- 80035ba:	3714      	adds	r7, #20
- 80035bc:	46bd      	mov	sp, r7
- 80035be:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80035c2:	4770      	bx	lr
+ 80035b4:	eeb0 0a67 	vmov.f32	s0, s15
+ 80035b8:	3714      	adds	r7, #20
+ 80035ba:	46bd      	mov	sp, r7
+ 80035bc:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80035c0:	4770      	bx	lr
+ 80035c2:	bf00      	nop
  80035c4:	43c80000 	.word	0x43c80000
  80035c8:	43fa0000 	.word	0x43fa0000
  80035cc:	44228000 	.word	0x44228000
