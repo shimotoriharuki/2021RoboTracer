@@ -28,6 +28,8 @@
 #include "PathFollowing.hpp"
 #include "ESC.hpp"
 
+#include "Logger2.hpp"
+
 #define BLDC_POWER 0.32
 
 LineSensor line_sensor;

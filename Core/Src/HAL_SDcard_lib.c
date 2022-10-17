@@ -11,7 +11,6 @@
 
 #include "HAL_SDcard_lib.h"
 
-
 #define BUFF_SIZE 128
 #define OVER_WRITE 0	//	上書き
 #define ADD_WRITE 1		//	追加書き

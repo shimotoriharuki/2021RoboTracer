@@ -1,0 +1,9 @@
+sdCard.cpp:13:6:void sdCard::openFile(const char*, const char*)	24	static
+sdCard.cpp:24:6:void sdCard::clearBuff()	24	static
+sdCard.cpp:31:1:sdCard::sdCard()	16	static
+sdCard.cpp:52:6:bool sdCard::mount_()	24	static
+sdCard.cpp:62:6:bool sdCard::unmout_()	24	static
+sdCard.cpp:72:6:void sdCard::userFopen_(const char*, const char*)	24	static
+sdCard.cpp:76:6:void sdCard::userFclose_()	16	static
+sdCard.cpp:83:6:void sdCard::write_(const char*, const char*, short int, float*, char)	48	static
+sdCard.cpp:106:6:void sdCard::read_(const char*, const char*, short int, float*)	32	static

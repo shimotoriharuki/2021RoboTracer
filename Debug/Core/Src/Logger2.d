@@ -1,5 +1,8 @@
-Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/ESC.hpp \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+Core/Src/Logger2.o: ../Core/Src/Logger2.cpp ../Core/Inc/Logger2.hpp \
+ ../Core/Inc/sdCard.hpp ../FATFS/App/fatfs.h \
+ ../Middlewares/Third_Party/FatFs/src/ff.h \
+ ../Middlewares/Third_Party/FatFs/src/integer.h ../FATFS/Target/ffconf.h \
+ ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -34,31 +37,24 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/ESC.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/wrapper.hpp ../Core/Inc/LineSensor.hpp ../Core/Inc/Macro.h \
- ../Core/Inc/LED.hpp ../Core/Inc/Joystick.hpp \
- ../Core/Inc/RotarySwitch.hpp ../Core/Inc/SideSensor.hpp \
- ../Core/Inc/Joystick.hpp ../Core/Inc/RotarySwitch.hpp \
- ../Core/Inc/Motor.hpp ../Core/Inc/LED.hpp ../Core/Inc/Encoder.hpp \
- ../Core/Inc/VelocityCtrl.hpp ../Core/Inc/Motor.hpp \
- ../Core/Inc/Encoder.hpp ../Core/Inc/IMU.hpp ../Core/Inc/LineTrace.hpp \
- ../Core/Inc/LineSensor.hpp ../Core/Inc/VelocityCtrl.hpp \
- ../Core/Inc/HAL_SDcard_lib.h ../FATFS/App/fatfs.h \
- ../Middlewares/Third_Party/FatFs/src/ff.h \
- ../Middlewares/Third_Party/FatFs/src/integer.h ../FATFS/Target/ffconf.h \
- ../Core/Inc/main.h ../FATFS/Target/bsp_driver_sd.h \
- ../FATFS/Target/fatfs_platform.h \
+ ../FATFS/Target/bsp_driver_sd.h ../FATFS/Target/fatfs_platform.h \
  ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
- ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
- ../Core/Inc/SideSensor.hpp ../Core/Inc/Odometry.hpp \
- ../Core/Inc/Logger.hpp ../Core/Inc/ESC.hpp ../Core/Inc/PowerSensor.hpp \
- ../Core/Inc/IMU.hpp ../Core/Inc/AQM0802.h ../Core/Inc/main.h \
- ../Core/Inc/Logger.hpp ../Core/Inc/Odometry.hpp \
- ../Core/Inc/HAL_SDcard_lib.h ../Core/Inc/SystemIdentification.hpp \
- ../Core/Inc/PathFollowing.hpp ../Core/Inc/rtwtypes.h \
- ../Core/Inc/Logger2.hpp ../Core/Inc/sdCard.hpp
+ ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h
 
-../Core/Inc/ESC.hpp:
+../Core/Inc/Logger2.hpp:
+
+../Core/Inc/sdCard.hpp:
+
+../FATFS/App/fatfs.h:
+
+../Middlewares/Third_Party/FatFs/src/ff.h:
+
+../Middlewares/Third_Party/FatFs/src/integer.h:
+
+../FATFS/Target/ffconf.h:
+
+../Core/Inc/main.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -130,56 +126,6 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/ESC.hpp \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
-../Core/Inc/wrapper.hpp:
-
-../Core/Inc/LineSensor.hpp:
-
-../Core/Inc/Macro.h:
-
-../Core/Inc/LED.hpp:
-
-../Core/Inc/Joystick.hpp:
-
-../Core/Inc/RotarySwitch.hpp:
-
-../Core/Inc/SideSensor.hpp:
-
-../Core/Inc/Joystick.hpp:
-
-../Core/Inc/RotarySwitch.hpp:
-
-../Core/Inc/Motor.hpp:
-
-../Core/Inc/LED.hpp:
-
-../Core/Inc/Encoder.hpp:
-
-../Core/Inc/VelocityCtrl.hpp:
-
-../Core/Inc/Motor.hpp:
-
-../Core/Inc/Encoder.hpp:
-
-../Core/Inc/IMU.hpp:
-
-../Core/Inc/LineTrace.hpp:
-
-../Core/Inc/LineSensor.hpp:
-
-../Core/Inc/VelocityCtrl.hpp:
-
-../Core/Inc/HAL_SDcard_lib.h:
-
-../FATFS/App/fatfs.h:
-
-../Middlewares/Third_Party/FatFs/src/ff.h:
-
-../Middlewares/Third_Party/FatFs/src/integer.h:
-
-../FATFS/Target/ffconf.h:
-
-../Core/Inc/main.h:
-
 ../FATFS/Target/bsp_driver_sd.h:
 
 ../FATFS/Target/fatfs_platform.h:
@@ -191,35 +137,3 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/ESC.hpp \
 ../Middlewares/Third_Party/FatFs/src/ff.h:
 
 ../FATFS/Target/sd_diskio.h:
-
-../Core/Inc/SideSensor.hpp:
-
-../Core/Inc/Odometry.hpp:
-
-../Core/Inc/Logger.hpp:
-
-../Core/Inc/ESC.hpp:
-
-../Core/Inc/PowerSensor.hpp:
-
-../Core/Inc/IMU.hpp:
-
-../Core/Inc/AQM0802.h:
-
-../Core/Inc/main.h:
-
-../Core/Inc/Logger.hpp:
-
-../Core/Inc/Odometry.hpp:
-
-../Core/Inc/HAL_SDcard_lib.h:
-
-../Core/Inc/SystemIdentification.hpp:
-
-../Core/Inc/PathFollowing.hpp:
-
-../Core/Inc/rtwtypes.h:
-
-../Core/Inc/Logger2.hpp:
-
-../Core/Inc/sdCard.hpp:
