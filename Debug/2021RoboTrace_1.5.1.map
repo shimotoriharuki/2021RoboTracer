@@ -2198,15 +2198,15 @@ Discarded input sections
  .data          0x0000000000000000        0x0 Core/Src/Logger2.o
  .bss           0x0000000000000000        0x0 Core/Src/Logger2.o
  .text._ZN7Logger2C2EP6sdCardt
-                0x0000000000000000       0x38 Core/Src/Logger2.o
+                0x0000000000000000       0x44 Core/Src/Logger2.o
  .text._ZN7Logger29storeLogsEf
-                0x0000000000000000       0x18 Core/Src/Logger2.o
- .text._ZN7Logger28saveLogsEv
-                0x0000000000000000       0x14 Core/Src/Logger2.o
+                0x0000000000000000       0x4e Core/Src/Logger2.o
+ .text._ZN7Logger28saveLogsEPKcS1_
+                0x0000000000000000       0x30 Core/Src/Logger2.o
  .text._ZN7Logger29clearLogsEv
-                0x0000000000000000       0x14 Core/Src/Logger2.o
- .debug_info    0x0000000000000000     0x1697 Core/Src/Logger2.o
- .debug_abbrev  0x0000000000000000      0x37e Core/Src/Logger2.o
+                0x0000000000000000       0x3c Core/Src/Logger2.o
+ .debug_info    0x0000000000000000     0x16df Core/Src/Logger2.o
+ .debug_abbrev  0x0000000000000000      0x3a9 Core/Src/Logger2.o
  .debug_aranges
                 0x0000000000000000       0x38 Core/Src/Logger2.o
  .debug_ranges  0x0000000000000000       0x28 Core/Src/Logger2.o
@@ -2287,10 +2287,10 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0xe2 Core/Src/Logger2.o
  .debug_macro   0x0000000000000000       0x8e Core/Src/Logger2.o
  .debug_macro   0x0000000000000000       0x16 Core/Src/Logger2.o
- .debug_line    0x0000000000000000      0xca0 Core/Src/Logger2.o
- .debug_str     0x0000000000000000    0xfee32 Core/Src/Logger2.o
+ .debug_line    0x0000000000000000      0xcbd Core/Src/Logger2.o
+ .debug_str     0x0000000000000000    0xfee6e Core/Src/Logger2.o
  .comment       0x0000000000000000       0x7c Core/Src/Logger2.o
- .debug_frame   0x0000000000000000       0xb0 Core/Src/Logger2.o
+ .debug_frame   0x0000000000000000       0xac Core/Src/Logger2.o
  .ARM.attributes
                 0x0000000000000000       0x39 Core/Src/Logger2.o
  .group         0x0000000000000000        0xc Core/Src/Motor.o
@@ -3736,11 +3736,11 @@ Discarded input sections
                 0x0000000000000000       0x1e Core/Src/sdCard.o
  .text._ZN6sdCard11userFclose_Ev
                 0x0000000000000000       0x1e Core/Src/sdCard.o
- .text._ZN6sdCard6write_EPKcS1_sPfc
-                0x0000000000000000       0xfc Core/Src/sdCard.o
- .text._ZN6sdCard5read_EPKcS1_sPf
+ .text._ZN6sdCard6write_EPKcS1_tPfc
+                0x0000000000000000       0xf8 Core/Src/sdCard.o
+ .text._ZN6sdCard5read_EPKcS1_tPf
                 0x0000000000000000       0xa0 Core/Src/sdCard.o
- .debug_info    0x0000000000000000     0x1805 Core/Src/sdCard.o
+ .debug_info    0x0000000000000000     0x181b Core/Src/sdCard.o
  .debug_abbrev  0x0000000000000000      0x3a9 Core/Src/sdCard.o
  .debug_aranges
                 0x0000000000000000       0x60 Core/Src/sdCard.o
@@ -3838,7 +3838,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x16 Core/Src/sdCard.o
  .debug_macro   0x0000000000000000       0x20 Core/Src/sdCard.o
  .debug_line    0x0000000000000000      0xe52 Core/Src/sdCard.o
- .debug_str     0x0000000000000000   0x1001a7 Core/Src/sdCard.o
+ .debug_str     0x0000000000000000   0x1001bb Core/Src/sdCard.o
  .comment       0x0000000000000000       0x7c Core/Src/sdCard.o
  .debug_frame   0x0000000000000000      0x160 Core/Src/sdCard.o
  .ARM.attributes

@@ -80,7 +80,7 @@ void sdCard::userFclose_()
 
 
 }
-void sdCard::write_(const char *p_folder_name, const char *p_file_name, short size, float *data, char state)
+void sdCard::write_(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data, char state)
 {
 	openFile(p_folder_name, p_file_name);
 
@@ -103,7 +103,7 @@ void sdCard::write_(const char *p_folder_name, const char *p_file_name, short si
 	f_close(&fil_);	//	ファイル閉じる
 
 }
-void sdCard::read_(const char *p_folder_name, const char *p_file_name, short size, float *data)
+void sdCard::read_(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data)
 {
 	short i = 0;
 

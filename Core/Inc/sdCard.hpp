@@ -35,8 +35,8 @@ public:
 	bool unmout_();
 	void userFopen_(const char *, const char *);
 	void userFclose_();
-	void write_(const char *, const char * , short, float *, char);
-	void read_(const char *, const char * , short, float *);
+	void write_(const char *, const char * , uint16_t, float *, char);
+	void read_(const char *, const char * , uint16_t, float *);
 };
 
 #endif /* INC_SDCARD_HPP_ */
