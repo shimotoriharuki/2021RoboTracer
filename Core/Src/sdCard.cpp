@@ -10,18 +10,6 @@
 #include <stdio.h>
 #include "string.h"
 
-FATFS fs_;
-FIL fil_;
-FRESULT fresult;
-char buffer_[BUFF_SIZE];
-UINT br_, bw_;
-
-FATFS *pfs;
-DWORD fre_clust;
-uint32_t total, free_space;
-
-char filepath_[256];
-char dirpath_[256];
 
 void sdCard::openFile(const char *p_directory_name, const char *p_file_name)
 {
@@ -41,7 +29,7 @@ void sdCard::clearBuff()
 	}
 }
 
-sdCard::sdCard() : mount_success_flag_(false)
+sdCard::sdCard()
 {
 	/*
 	if(mount_() == 1){
@@ -54,14 +42,14 @@ sdCard::sdCard() : mount_success_flag_(false)
 	*/
 }
 
-void sdCard::init()
+bool sdCard::init()
 {
 	if(mount_() == 1){
-		mount_success_flag_ = true;
+		return true;
 
 	}
 	else{
-		mount_success_flag_ = false;
+		return false;
 	}
 
 }
@@ -140,7 +128,3 @@ void sdCard::read_(const char *p_folder_name, const char *p_file_name, uint16_t 
 
 }
 
-bool sdCard::isMountSuccessful()
-{
-	return mount_success_flag_;
-}

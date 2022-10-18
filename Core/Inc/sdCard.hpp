@@ -17,7 +17,18 @@
 class sdCard{
 private:
 
-	bool mount_success_flag_;
+	FATFS fs_;
+	FIL fil_;
+	FRESULT fresult;
+	char buffer_[BUFF_SIZE];
+	UINT br_, bw_;
+
+	FATFS *pfs;
+	DWORD fre_clust;
+	uint32_t total, free_space;
+
+	char filepath_[256];
+	char dirpath_[256];
 
 	void openFile(const char *, const char *);
 	void clearBuff();
@@ -26,14 +37,13 @@ public:
 
 	sdCard();
 
-	void init();
+	bool init();
 	bool mount_();
 	bool unmout_();
 	void userFopen_(const char *, const char *);
 	void userFclose_();
 	void write_(const char *, const char * , uint16_t, float *, char);
 	void read_(const char *, const char * , uint16_t, float *);
-	bool isMountSuccessful();
 };
 
 #endif /* INC_SDCARD_HPP_ */

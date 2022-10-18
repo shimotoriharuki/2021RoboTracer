@@ -101,8 +101,8 @@ void cppInit(void)
 	//if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
 
 	// -----------initialize-------//
-	sd_card.init();
-	if(sd_card.isMountSuccessful() == true){
+
+	if(sd_card.init() == true){
 	  lcd_clear();
 	  lcd_locate(0,0);
 	  lcd_printf("SD mount");
