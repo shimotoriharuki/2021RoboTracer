@@ -13,8 +13,12 @@
 
 void sdCard::openFile(const char *p_directory_name, const char *p_file_name)
 {
+	static int num;
+	char c[5];
+	sprintf(c, "%d", num);
 	sprintf(dirpath_, "%s", p_directory_name);
-	sprintf(filepath_, "%s", p_file_name);
+	sprintf(filepath_, "%s %s", p_file_name, c);
+	num++;
 
 	f_mkdir(dirpath_);
 	f_chdir(dirpath_);
@@ -70,28 +74,27 @@ void sdCard::userFopen_(const char *p_directory_name, const char *p_file_name)
 }
 void sdCard::userFclose_()
 {
-
 	f_close(&fil_);	//ファイル閉じる
-
-
 }
 void sdCard::write_(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data, char state)
 {
-	//openFile(p_folder_name, p_file_name);
+	openFile(p_folder_name, p_file_name);
 
-	sprintf(dirpath_, "%s", p_folder_name);
-	sprintf(filepath_, "%s", p_file_name);
+	//sprintf(dirpath_, "%s", p_folder_name);
+	//sprintf(filepath_, "%s", p_file_name);
 
+	/*
 	if(state == OVER_WRITE){
 		f_chdir(dirpath_);
 		f_unlink(filepath_);	//	一回消す
 		f_chdir("..");
 	}
+	*/
 
-	f_mkdir(dirpath_);
-	f_chdir(dirpath_);
-	f_open(&fil_, filepath_, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
-	f_chdir("..");
+	//f_mkdir(dirpath_);
+	//f_chdir(dirpath_);
+	//f_open(&fil_, filepath_, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
+	//f_chdir("..");
 
 	for(short i = 0 ; i < size; i++){
 		snprintf(buffer_, BUFF_SIZE, "%f\n", *(data + i));	//floatをstringに変換

@@ -25,7 +25,6 @@ void Logger2::storeLogs(float data)
 }
 void Logger2::saveLogs(const char *directory_name, const char *file_name)
 {
-	float soiya[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	sd_card_->write_(directory_name, file_name, max_log_size_, logs_, OVER_WRITE);
 }
 void Logger2::clearLogs()

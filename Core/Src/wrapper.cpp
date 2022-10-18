@@ -136,11 +136,11 @@ void cppInit(void)
 	imu.init();
 	line_trace.init();
 
-	line_sensor.calibration();
+	//line_sensor.calibration();
 	HAL_Delay(1000);
 
 	led.fullColor('M');
-	imu.calibration();
+	//imu.calibration();
 
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	//line_trace.setGain(0.0005, 0.000002, 0);
