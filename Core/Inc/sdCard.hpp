@@ -16,7 +16,6 @@
 
 class sdCard{
 private:
-
 	FATFS fs_;
 	FIL fil_;
 	FRESULT fresult;

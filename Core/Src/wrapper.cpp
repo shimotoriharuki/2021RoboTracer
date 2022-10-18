@@ -53,7 +53,7 @@ SystemIdentification sys_ident(&logger, &motor);
 PathFollowing path_following;
 
 sdCard sd_card;
-//Logger2 test_logger(&sd_card, 10);
+Logger2 test_logger(&sd_card, 10);
 
 
 float mon_v, mon_w;
@@ -1192,17 +1192,19 @@ void cppLoop(void)
 		lcd_printf("LOG");
 		lcd_locate(0,1);
 		lcd_printf("TEST");
+
 		if(joy_stick.getValue() == JOY_C){
 			led.fullColor('R');
-			logger.resetLogsTim1();
-			logger.resetLogsTim2();
-			logger.start();
+			test_logger.clearLogs();
+			test_logger.start();
 
+			for(int i = 1; i < 10; i++){
+				test_logger.storeLogs(float(i));
+			}
 			HAL_Delay(1000);
 
-			logger.stop();
-			logger.saveLogs("STATELOG", "TARVEL.txt");
-			logger.saveLogs2("STATELOG", "CURVEL.txt");
+			test_logger.stop();
+			test_logger.saveLogs("TEST", "SOIYA.txt");
 			led.fullColor('~');
 		}
 

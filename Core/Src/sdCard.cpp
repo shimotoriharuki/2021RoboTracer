@@ -29,18 +29,7 @@ void sdCard::clearBuff()
 	}
 }
 
-sdCard::sdCard()
-{
-	/*
-	if(mount_() == 1){
-		mount_success_flag_ = true;
-
-	}
-	else{
-		mount_success_flag_ = false;
-	}
-	*/
-}
+sdCard::sdCard() : buffer_{0}, filepath_{0}, dirpath_{0}{}
 
 bool sdCard::init()
 {
@@ -88,7 +77,10 @@ void sdCard::userFclose_()
 }
 void sdCard::write_(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data, char state)
 {
-	openFile(p_folder_name, p_file_name);
+	//openFile(p_folder_name, p_file_name);
+
+	sprintf(dirpath_, "%s", p_folder_name);
+	sprintf(filepath_, "%s", p_file_name);
 
 	if(state == OVER_WRITE){
 		f_chdir(dirpath_);
@@ -96,6 +88,10 @@ void sdCard::write_(const char *p_folder_name, const char *p_file_name, uint16_t
 		f_chdir("..");
 	}
 
+	f_mkdir(dirpath_);
+	f_chdir(dirpath_);
+	f_open(&fil_, filepath_, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
+	f_chdir("..");
 
 	for(short i = 0 ; i < size; i++){
 		snprintf(buffer_, BUFF_SIZE, "%f\n", *(data + i));	//floatをstringに変換

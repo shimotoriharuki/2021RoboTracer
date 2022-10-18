@@ -25,6 +25,8 @@ public:
 	void storeLogs(float);
 	void saveLogs(const char *, const char *);
 	void clearLogs();
+	void start();
+	void stop();
 
 };
 
