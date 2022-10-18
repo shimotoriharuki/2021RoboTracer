@@ -29,6 +29,7 @@
 #include "ESC.hpp"
 
 #include "Logger2.hpp"
+#include "sdCard.hpp"
 
 #define BLDC_POWER 0.32
 
@@ -50,6 +51,9 @@ LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encode
 SystemIdentification sys_ident(&logger, &motor);
 
 PathFollowing path_following;
+
+sdCard sd_card;
+//Logger2 test_logger(&sd_card, 10);
 
 
 float mon_v, mon_w;
@@ -97,6 +101,25 @@ void cppInit(void)
 	//if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
 
 	// -----------initialize-------//
+	sd_card.init();
+	if(sd_card.isMountSuccessful() == true){
+	  lcd_clear();
+	  lcd_locate(0,0);
+	  lcd_printf("SD mount");
+	  lcd_locate(0,1);
+	  lcd_printf("Success");
+	  HAL_Delay(500);
+
+	}
+	else{
+	  lcd_clear();
+	  lcd_locate(0,0);
+	  lcd_printf("SD mount");
+	  lcd_locate(0,1);
+	  lcd_printf("Fail");
+	  HAL_Delay(1000);
+	}
+	/*
 	if(logger.sdCardInit() == true){ //sd mount successfull
 		led.fullColor('G');
 		HAL_Delay(100);
@@ -105,6 +128,7 @@ void cppInit(void)
 		led.fullColor('R');
 		HAL_Delay(100);
 	}
+	*/
 
 	line_sensor.ADCStart();
 	motor.init();
@@ -1129,6 +1153,7 @@ void cppLoop(void)
 	case 12:
 		led.fullColor('~');
 
+		/*
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("Teoshi");
@@ -1160,26 +1185,8 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
-		/*
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("ESC");
-		lcd_locate(0,1);
-		lcd_printf("TEST");
-
-		if(joy_stick.getValue() == JOY_C){
-			HAL_Delay(1000);
-			led.LR(-1, 1);
-
-			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
-			HAL_Delay(3000);
-			esc.off();
-
-			led.LR(-1, 0);
-		}
 		*/
 
-		/*
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("LOG");
@@ -1198,7 +1205,6 @@ void cppLoop(void)
 			logger.saveLogs2("STATELOG", "CURVEL.txt");
 			led.fullColor('~');
 		}
-		*/
 
 		/*
 		lcd_clear();
@@ -1263,6 +1269,32 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
+
+		/*
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("Msig");
+		lcd_locate(0,1);
+		lcd_printf("Response");
+		if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(1500);
+
+			HAL_Delay(3000);
+			esc.on(0.35, 0.35, 0.35, 0.35);
+			HAL_Delay(1000);
+
+			sys_ident.setInputRatio(0.3);
+			sys_ident.start();
+			HAL_Delay(17000);
+			sys_ident.stop();
+
+			esc.off();
+			sys_ident.inOutputSave();
+
+			led.LR(-1, 0);
+		}
+		*/
 		break;
 
 	case 14:
@@ -1295,31 +1327,6 @@ void cppLoop(void)
 			led.LR(0, -1);
 		}
 
-		/*
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("Msig");
-		lcd_locate(0,1);
-		lcd_printf("Response");
-		if(joy_stick.getValue() == JOY_C){
-			led.LR(-1, 1);
-			HAL_Delay(1500);
-
-			HAL_Delay(3000);
-			esc.on(0.35, 0.35, 0.35, 0.35);
-			HAL_Delay(1000);
-
-			sys_ident.setInputRatio(0.3);
-			sys_ident.start();
-			HAL_Delay(17000);
-			sys_ident.stop();
-
-			esc.off();
-			sys_ident.inOutputSave();
-
-			led.LR(-1, 0);
-		}
-		*/
 		break;
 
 	case 15:

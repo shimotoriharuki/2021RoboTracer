@@ -56,7 +56,7 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/ESC.hpp \
  ../Core/Inc/Logger.hpp ../Core/Inc/Odometry.hpp \
  ../Core/Inc/HAL_SDcard_lib.h ../Core/Inc/SystemIdentification.hpp \
  ../Core/Inc/PathFollowing.hpp ../Core/Inc/rtwtypes.h \
- ../Core/Inc/Logger2.hpp ../Core/Inc/sdCard.hpp
+ ../Core/Inc/Logger2.hpp ../Core/Inc/sdCard.hpp ../Core/Inc/sdCard.hpp
 
 ../Core/Inc/ESC.hpp:
 
@@ -221,5 +221,7 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/ESC.hpp \
 ../Core/Inc/rtwtypes.h:
 
 ../Core/Inc/Logger2.hpp:
+
+../Core/Inc/sdCard.hpp:
 
 ../Core/Inc/sdCard.hpp:

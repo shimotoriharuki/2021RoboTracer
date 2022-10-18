@@ -10,6 +10,19 @@
 #include <stdio.h>
 #include "string.h"
 
+FATFS fs_;
+FIL fil_;
+FRESULT fresult;
+char buffer_[BUFF_SIZE];
+UINT br_, bw_;
+
+FATFS *pfs;
+DWORD fre_clust;
+uint32_t total, free_space;
+
+char filepath_[256];
+char dirpath_[256];
+
 void sdCard::openFile(const char *p_directory_name, const char *p_file_name)
 {
 	sprintf(dirpath_, "%s", p_directory_name);
@@ -28,26 +41,31 @@ void sdCard::clearBuff()
 	}
 }
 
-sdCard::sdCard()
+sdCard::sdCard() : mount_success_flag_(false)
 {
+	/*
 	if(mount_() == 1){
-	  lcd_clear();
-	  lcd_locate(0,0);
-	  lcd_printf("SD mount");
-	  lcd_locate(0,1);
-	  lcd_printf("Success");
-	  HAL_Delay(500);
+		mount_success_flag_ = true;
 
 	}
 	else{
-	  lcd_clear();
-	  lcd_locate(0,0);
-	  lcd_printf("SD mount");
-	  lcd_locate(0,1);
-	  lcd_printf("Fail");
-	  HAL_Delay(1000);
+		mount_success_flag_ = false;
 	}
+	*/
 }
+
+void sdCard::init()
+{
+	if(mount_() == 1){
+		mount_success_flag_ = true;
+
+	}
+	else{
+		mount_success_flag_ = false;
+	}
+
+}
+
 
 bool sdCard::mount_()
 {
@@ -122,5 +140,7 @@ void sdCard::read_(const char *p_folder_name, const char *p_file_name, uint16_t 
 
 }
 
-
-
+bool sdCard::isMountSuccessful()
+{
+	return mount_success_flag_;
+}
