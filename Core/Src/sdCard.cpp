@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include "string.h"
 
-char mon_c[32];
+char mon_cc[32];
 
 void sdCard::openFile(const char *p_directory_name, const char *p_file_name)
 {
@@ -81,22 +81,10 @@ void sdCard::write_(const char *p_folder_name, const char *p_file_name, uint16_t
 {
 	//openFile(p_folder_name, p_file_name);
 
-	static int num;
-	char file_path1[6] = {'s', 'o', 'i', 'y', 'a', '\0'};
-	char *p1 = file_path1;
-
-	char file_path2[2] = {'1', '\0'};
-	char *p2 = file_path2;
-
-	char file_path3[5] = {'.', 't', 'x', 't', '\0'};
-	char *p3 = file_path3;
-	//sprintf(c, "%d", num);
-
 	sprintf(dirpath_, "%s", p_folder_name);
-	//sprintf(filepath_, "%s", p_file_name);
-	sprintf(filepath_, "%s%s%s", p1, p2, p3);
+	sprintf(filepath_, "%s", p_file_name);
 
-	strcpy(mon_c, filepath_);
+	strcpy(mon_cc, filepath_);
 
 	if(state == OVER_WRITE){
 		//f_chdir(dirpath_);
