@@ -34,7 +34,6 @@ void Logger2::saveLogs(const char *directory_name, const char *file_name)
 	char file_name_with_null[32] ={'\0'};
 	sprintf(file_name_with_null, "%s", file_name);
 
-	//char file_path1[6] = {'s', 'o', 'i', 'y', 'a', '\0'};
 	char file_path2[5] = {'1', '\0'};
 	char file_path3[5] = {'.', 't', 'x', 't', '\0'};
 
