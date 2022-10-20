@@ -1204,7 +1204,7 @@ void cppLoop(void)
 			HAL_Delay(1000);
 
 			test_logger.stop();
-			test_logger.saveLogs("TEST", "SOIYA.txt");
+			test_logger.saveLogs("TEST", "SoIyA.txt");
 			led.fullColor('~');
 		}
 

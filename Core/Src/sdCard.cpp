@@ -10,14 +10,15 @@
 #include <stdio.h>
 #include "string.h"
 
+char mon_c[32];
 
 void sdCard::openFile(const char *p_directory_name, const char *p_file_name)
 {
 	static int num;
-	char c[5];
-	sprintf(c, "%d", num);
+	char c[5] = {'s', 'o', 'i', 'y', 'a'};
+	//sprintf(c, "%d", num);
 	sprintf(dirpath_, "%s", p_directory_name);
-	sprintf(filepath_, "%s %s", p_file_name, c);
+	sprintf(filepath_, "%s_%s", p_file_name, c);
 	num++;
 
 	f_mkdir(dirpath_);
@@ -78,23 +79,35 @@ void sdCard::userFclose_()
 }
 void sdCard::write_(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data, char state)
 {
-	openFile(p_folder_name, p_file_name);
+	//openFile(p_folder_name, p_file_name);
 
-	//sprintf(dirpath_, "%s", p_folder_name);
+	static int num;
+	char file_path1[6] = {'s', 'o', 'i', 'y', 'a', '\0'};
+	char *p1 = file_path1;
+
+	char file_path2[2] = {'1', '\0'};
+	char *p2 = file_path2;
+
+	char file_path3[5] = {'.', 't', 'x', 't', '\0'};
+	char *p3 = file_path3;
+	//sprintf(c, "%d", num);
+
+	sprintf(dirpath_, "%s", p_folder_name);
 	//sprintf(filepath_, "%s", p_file_name);
+	sprintf(filepath_, "%s%s%s", p1, p2, p3);
 
-	/*
+	strcpy(mon_c, filepath_);
+
 	if(state == OVER_WRITE){
-		f_chdir(dirpath_);
-		f_unlink(filepath_);	//	一回消す
-		f_chdir("..");
+		//f_chdir(dirpath_);
+		//f_unlink(filepath_);	//	一回消す
+		//f_chdir("..");
 	}
-	*/
 
-	//f_mkdir(dirpath_);
-	//f_chdir(dirpath_);
-	//f_open(&fil_, filepath_, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
-	//f_chdir("..");
+	f_mkdir(dirpath_);
+	f_chdir(dirpath_);
+	f_open(&fil_, filepath_, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
+	f_chdir("..");
 
 	for(short i = 0 ; i < size; i++){
 		snprintf(buffer_, BUFF_SIZE, "%f\n", *(data + i));	//floatをstringに変換
