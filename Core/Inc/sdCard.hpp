@@ -26,8 +26,8 @@ private:
 	DWORD fre_clust;
 	uint32_t total, free_space;
 
-	char filepath_[256];
-	char dirpath_[256];
+	char filepath_[64];
+	char dirpath_[64];
 
 	void openFile(const char *, const char *);
 	void clearBuff();

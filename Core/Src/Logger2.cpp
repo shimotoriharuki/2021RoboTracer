@@ -31,6 +31,7 @@ void Logger2::storeLogs(float data)
 }
 void Logger2::saveLogs(const char *directory_name, const char *file_name)
 {
+	/*
 	char file_name_with_null[32] ={'\0'};
 	sprintf(file_name_with_null, "%s", file_name);
 
@@ -40,8 +41,10 @@ void Logger2::saveLogs(const char *directory_name, const char *file_name)
 	char file_path[32] = {'\0'};
 	sprintf(file_path, "%s%s%s", file_name_with_null, file_path2, file_path3);
 	strcpy(mon_c, file_path);
+	*/
 
-	sd_card_->write(directory_name, file_path, max_log_size_, logs_, OVER_WRITE);
+	//sd_card_->write(directory_name, file_path, max_log_size_, logs_, OVER_WRITE);
+	sd_card_->write(directory_name, file_name, max_log_size_, logs_, OVER_WRITE);
 }
 void Logger2::clearLogs()
 {

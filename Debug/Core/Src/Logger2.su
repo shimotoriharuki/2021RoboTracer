@@ -1,6 +1,6 @@
 Logger2.cpp:16:1:Logger2::Logger2(sdCard*, uint16_t)	24	static
 Logger2.cpp:21:6:void Logger2::storeLogs(float)	16	static
-Logger2.cpp:32:6:void Logger2::saveLogs(const char*, const char*)	120	static
-Logger2.cpp:46:6:void Logger2::clearLogs()	24	static
-Logger2.cpp:56:6:void Logger2::start()	16	static
-Logger2.cpp:63:6:void Logger2::stop()	16	static
+Logger2.cpp:32:6:void Logger2::saveLogs(const char*, const char*)	32	static
+Logger2.cpp:49:6:void Logger2::clearLogs()	24	static
+Logger2.cpp:59:6:void Logger2::start()	16	static
+Logger2.cpp:66:6:void Logger2::stop()	16	static

@@ -58,6 +58,8 @@ ff.c:4475:9:f_truncate	32	static
 ff.c:4525:9:f_unlink	136	static
 ff.c:4620:9:f_mkdir	104	static
 ff.c:4717:9:f_rename	168	static
+ff.c:4825:9:f_chmod	80	static
+ff.c:4872:9:f_utime	80	static
 ff.c:5830:8:f_gets	40	static
 ff.c:5917:6:putc_bfd	24	static
 ff.c:5973:5:putc_flush	24	static
