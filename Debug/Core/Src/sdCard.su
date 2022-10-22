@@ -1,10 +1,14 @@
-sdCard.cpp:15:6:void sdCard::openFile(const char*, const char*)	32	static
-sdCard.cpp:30:6:void sdCard::clearBuff()	24	static
-sdCard.cpp:37:1:sdCard::sdCard()	16	static
-sdCard.cpp:39:6:bool sdCard::init()	16	static
-sdCard.cpp:52:6:bool sdCard::mount_()	24	static
-sdCard.cpp:62:6:bool sdCard::unmout_()	24	static
-sdCard.cpp:72:6:void sdCard::userFopen_(const char*, const char*)	24	static
-sdCard.cpp:76:6:void sdCard::userFclose_()	16	static
-sdCard.cpp:80:6:void sdCard::write_(const char*, const char*, uint16_t, float*, char)	48	static
-sdCard.cpp:112:6:void sdCard::read_(const char*, const char*, uint16_t, float*)	32	static
+gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
+sdCard.cpp:16:6:void sdCard::openFile(const char*, const char*)	24	static
+sdCard.cpp:29:6:void sdCard::clearBuff()	24	static
+sdCard.cpp:36:1:sdCard::sdCard()	16	static
+sdCard.cpp:38:6:bool sdCard::init()	16	static
+sdCard.cpp:51:6:bool sdCard::mount()	24	static
+sdCard.cpp:61:6:bool sdCard::unmout()	24	static
+sdCard.cpp:71:6:void sdCard::userFopen(const char*, const char*)	24	static
+sdCard.cpp:75:6:void sdCard::userFclose()	16	static
+sdCard.cpp:79:6:void sdCard::write(const char*, const char*, uint16_t, float*, char)	48	static
+sdCard.cpp:120:6:void sdCard::read(const char*, const char*, uint16_t, float*)	32	static
+sdCard.cpp:137:1:void __static_initialization_and_destruction_0(int, int)	16	static
+sdCard.cpp:137:1:cpp)	8	static
+sdCard.cpp:137:1:cpp)	8	static

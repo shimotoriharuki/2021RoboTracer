@@ -7,6 +7,7 @@
 #include <ESC.hpp>
 #include "wrapper.hpp"
 #include <stdio.h>
+#include <iostream>
 
 #include "LineSensor.hpp"
 #include "SideSensor.hpp"
@@ -133,11 +134,11 @@ void cppInit(void)
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();
-	imu.init();
-	line_trace.init();
+	//imu.init();
+	//line_trace.init();
 
 	//line_sensor.calibration();
-	HAL_Delay(1000);
+	//HAL_Delay(1000);
 
 	led.fullColor('M');
 	//imu.calibration();
@@ -1204,7 +1205,10 @@ void cppLoop(void)
 			HAL_Delay(1000);
 
 			test_logger.stop();
-			test_logger.saveLogs("TEST", "hogehohoho");
+			test_logger.saveLogs("TEST", "file");
+
+			float read_data[10];
+			sd_card.read("TEST", "file1.txt", 10, read_data);
 			led.fullColor('~');
 		}
 

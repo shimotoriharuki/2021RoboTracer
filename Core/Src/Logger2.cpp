@@ -41,7 +41,7 @@ void Logger2::saveLogs(const char *directory_name, const char *file_name)
 	sprintf(file_path, "%s%s%s", file_name_with_null, file_path2, file_path3);
 	strcpy(mon_c, file_path);
 
-	sd_card_->write_(directory_name, file_path, max_log_size_, logs_, OVER_WRITE);
+	sd_card_->write(directory_name, file_path, max_log_size_, logs_, OVER_WRITE);
 }
 void Logger2::clearLogs()
 {

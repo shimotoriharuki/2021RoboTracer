@@ -37,12 +37,12 @@ public:
 	sdCard();
 
 	bool init();
-	bool mount_();
-	bool unmout_();
-	void userFopen_(const char *, const char *);
-	void userFclose_();
-	void write_(const char *, const char * , uint16_t, float *, char);
-	void read_(const char *, const char * , uint16_t, float *);
+	bool mount();
+	bool unmout();
+	void userFopen(const char *, const char *);
+	void userFclose();
+	void write(const char *, const char * , uint16_t, float *, char);
+	void read(const char *, const char * , uint16_t, float *);
 };
 
 #endif /* INC_SDCARD_HPP_ */

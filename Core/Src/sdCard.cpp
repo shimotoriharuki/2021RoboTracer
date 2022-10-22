@@ -9,16 +9,15 @@
 #include "AQM0802.h"
 #include <stdio.h>
 #include "string.h"
+#include <iostream>
 
 char mon_cc[32];
 
 void sdCard::openFile(const char *p_directory_name, const char *p_file_name)
 {
 	static int num;
-	char c[5] = {'s', 'o', 'i', 'y', 'a'};
-	//sprintf(c, "%d", num);
 	sprintf(dirpath_, "%s", p_directory_name);
-	sprintf(filepath_, "%s_%s", p_file_name, c);
+	sprintf(filepath_, "%s", p_file_name);
 	num++;
 
 	f_mkdir(dirpath_);
@@ -38,7 +37,7 @@ sdCard::sdCard() : buffer_{0}, filepath_{0}, dirpath_{0}{}
 
 bool sdCard::init()
 {
-	if(mount_() == 1){
+	if(mount() == 1){
 		return true;
 
 	}
@@ -49,7 +48,7 @@ bool sdCard::init()
 }
 
 
-bool sdCard::mount_()
+bool sdCard::mount()
 {
 	bool ret = false;
 
@@ -59,7 +58,7 @@ bool sdCard::mount_()
 	return ret;
 }
 
-bool sdCard::unmout_()
+bool sdCard::unmout()
 {
 	bool ret = false;
 
@@ -69,15 +68,15 @@ bool sdCard::unmout_()
 	return ret;
 
 }
-void sdCard::userFopen_(const char *p_directory_name, const char *p_file_name)
+void sdCard::userFopen(const char *p_directory_name, const char *p_file_name)
 {
 	openFile(p_directory_name, p_file_name);
 }
-void sdCard::userFclose_()
+void sdCard::userFclose()
 {
 	f_close(&fil_);	//ファイル閉じる
 }
-void sdCard::write_(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data, char state)
+void sdCard::write(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data, char state)
 {
 	//openFile(p_folder_name, p_file_name);
 
@@ -94,7 +93,16 @@ void sdCard::write_(const char *p_folder_name, const char *p_file_name, uint16_t
 
 	f_mkdir(dirpath_);
 	f_chdir(dirpath_);
-	f_open(&fil_, filepath_, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
+
+	FRESULT res;
+	res = f_open(&fil_, filepath_, FA_CREATE_NEW| FA_READ | FA_WRITE);
+	if(res == FR_EXIST){
+		printf("soiya");
+		//res = f_open(&fil_, filepath_, FA_CREATE_NEW| FA_READ | FA_WRITE);
+	}
+	else{
+		printf("SOIYA");
+	}
 	f_chdir("..");
 
 	for(short i = 0 ; i < size; i++){
@@ -109,7 +117,7 @@ void sdCard::write_(const char *p_folder_name, const char *p_file_name, uint16_t
 	f_close(&fil_);	//	ファイル閉じる
 
 }
-void sdCard::read_(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data)
+void sdCard::read(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data)
 {
 	short i = 0;
 

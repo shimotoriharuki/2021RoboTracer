@@ -1,11 +1,13 @@
+gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
 std_abs.h:74:3:constexpr float std::abs(float)	16	static
-wrapper.cpp:64:6:void batteryLowMode()	8	static
-wrapper.cpp:85:6:void cppInit()	16	static
-wrapper.cpp:164:6:void cppFlip1ms()	8	static
-wrapper.cpp:198:6:void cppFlip100ns()	8	static
-wrapper.cpp:203:6:void cppFlip10ms()	8	static
-wrapper.cpp:237:6:void cppExit(uint16_t)	16	static
-wrapper.cpp:247:6:void cppLoop()	40	static
-wrapper.cpp:1377:6:void prameterSttingMode()	4	static
-wrapper.cpp:1380:1:void __static_initialization_and_destruction_0(int, int)	40	static
-wrapper.cpp:1380:1:cpp)	8	static
+wrapper.cpp:65:6:void batteryLowMode()	8	static
+wrapper.cpp:86:6:void cppInit()	16	static
+wrapper.cpp:165:6:void cppFlip1ms()	8	static
+wrapper.cpp:199:6:void cppFlip100ns()	8	static
+wrapper.cpp:204:6:void cppFlip10ms()	8	static
+wrapper.cpp:238:6:void cppExit(uint16_t)	16	static
+wrapper.cpp:248:6:void cppLoop()	80	static
+wrapper.cpp:1381:6:void prameterSttingMode()	4	static
+wrapper.cpp:1384:1:void __static_initialization_and_destruction_0(int, int)	40	static
+wrapper.cpp:1384:1:cpp)	8	static
+wrapper.cpp:1384:1:cpp)	8	static
