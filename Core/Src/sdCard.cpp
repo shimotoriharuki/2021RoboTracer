@@ -76,7 +76,7 @@ void sdCard::userFclose()
 {
 	f_close(&fil_);	//ファイル閉じる
 }
-void sdCard::write(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data, char state)
+void sdCard::write(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data)
 {
 	FRESULT res;
 
@@ -99,13 +99,10 @@ void sdCard::write(const char *p_folder_name, const char *p_file_name, uint16_t 
 
 		clearBuff();	//	書き込み用のバッファをクリア
 	}
-	else{
-		f_close(&fil_);	//	ファイル閉じる
-	}
 
 	// ------Create file path----------//
 	// Copy file name
-	char file_name[32];
+	char file_name[32] = {'\0'};
 	sprintf(file_name, "%s", p_file_name);
 
 	// Get serial number
@@ -119,13 +116,15 @@ void sdCard::write(const char *p_folder_name, const char *p_file_name, uint16_t 
 	sprintf(filepath_, "%s%s%s", file_name, char_number, extension);
 
 
-	int int_number;
+	int int_number = 0;
 	sscanf(char_number, "%d", &int_number);
 
 	res = f_open(&fil_, filepath_, FA_CREATE_NEW | FA_READ | FA_WRITE);
 	//if(res == FR_EXIST){ // If there is same file
 	while(res == FR_EXIST){ // While there is same file
 		int_number++;
+		if(int_number >= 99999) int_number = 99999;
+
 		sprintf(char_number, "%d", int_number);
 		sprintf(filepath_, "%s%s%s", file_name, char_number, extension);
 		res = f_open(&fil_, filepath_, FA_CREATE_NEW | FA_READ | FA_WRITE);
@@ -142,6 +141,7 @@ void sdCard::write(const char *p_folder_name, const char *p_file_name, uint16_t 
 
 	res = f_open(&fil_, hidden_file_path, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
 	int_number++;
+	if(int_number >= 99999) int_number = 99999;
 	sprintf(char_number, "%d", int_number);
 	f_lseek(&fil_, 0);
 	f_write(&fil_, char_number, strlen(char_number), &bw_);	//	書き込む

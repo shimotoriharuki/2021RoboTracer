@@ -31,7 +31,7 @@ void Logger2::storeLogs(float data)
 }
 void Logger2::saveLogs(const char *directory_name, const char *file_name)
 {
-	sd_card_->write(directory_name, file_name, max_log_size_, logs_, OVER_WRITE);
+	sd_card_->write(directory_name, file_name, max_log_size_, logs_);
 }
 void Logger2::clearLogs()
 {

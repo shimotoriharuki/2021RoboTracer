@@ -41,7 +41,7 @@ public:
 	bool unmout();
 	void userFopen(const char *, const char *);
 	void userFclose();
-	void write(const char *, const char * , uint16_t, float *, char);
+	void write(const char *, const char * , uint16_t, float *);
 	void read(const char *, const char * , uint16_t, float *);
 };
 

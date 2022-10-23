@@ -1206,9 +1206,9 @@ void cppLoop(void)
 
 			test_logger.stop();
 			test_logger.saveLogs("TEST", "file");
+			test_logger.saveLogs("TEST", "soiya");
+			test_logger.saveLogs("TEST", "hoge");
 
-			//float read_data[10];
-			//sd_card.read("TEST", "file1.txt", 10, read_data);
 			led.fullColor('~');
 		}
 
