@@ -8,7 +8,7 @@ sdCard.cpp:61:6:bool sdCard::unmout()	24	static
 sdCard.cpp:71:6:void sdCard::userFopen(const char*, const char*)	24	static
 sdCard.cpp:75:6:void sdCard::userFclose()	16	static
 sdCard.cpp:79:6:void sdCard::write(const char*, const char*, uint16_t, float*, char)	128	static
-sdCard.cpp:179:6:void sdCard::read(const char*, const char*, uint16_t, float*)	32	static
-sdCard.cpp:196:1:void __static_initialization_and_destruction_0(int, int)	16	static
-sdCard.cpp:196:1:cpp)	8	static
-sdCard.cpp:196:1:cpp)	8	static
+sdCard.cpp:153:6:void sdCard::read(const char*, const char*, uint16_t, float*)	32	static
+sdCard.cpp:170:1:void __static_initialization_and_destruction_0(int, int)	16	static
+sdCard.cpp:170:1:cpp)	8	static
+sdCard.cpp:170:1:cpp)	8	static

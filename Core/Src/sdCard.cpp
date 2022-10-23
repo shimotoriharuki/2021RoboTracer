@@ -22,7 +22,7 @@ void sdCard::openFile(const char *p_directory_name, const char *p_file_name)
 
 	f_mkdir(dirpath_);
 	f_chdir(dirpath_);
-	f_open(&fil_, filepath_, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
+	f_open(&fil_, filepath_, FA_OPEN_EXISTING| FA_READ | FA_WRITE);
 	f_chdir("..");
 }
 
@@ -99,70 +99,37 @@ void sdCard::write(const char *p_folder_name, const char *p_file_name, uint16_t 
 
 		clearBuff();	//	書き込み用のバッファをクリア
 	}
-	/*
 	else{
-		res = f_open(&fil_, hidden_file_path, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
-		snprintf(buffer_, BUFF_SIZE, "%d", 1);
-		f_lseek(&fil_, f_size(&fil_));	//	ファイルの最後に移動
-		f_write(&fil_, buffer_, strlen(buffer_), &bw_);	//	書き込む
 		f_close(&fil_);	//	ファイル閉じる
-
-		clearBuff();	//	書き込み用のバッファをクリア
 	}
-	*/
-
-
-
 
 	// ------Create file path----------//
-	// Add Null
-	char file_name_with_null[32];
-	sprintf(file_name_with_null, "%s", p_file_name);
+	// Copy file name
+	char file_name[32];
+	sprintf(file_name, "%s", p_file_name);
 
-	// Open serial number file
-	res = f_open(&fil_, hidden_file_path, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
-
-	// Convert string to int
-	int int_number;
-	f_gets(buffer_, sizeof(buffer_), &fil_);
-	sscanf(buffer_, "%d", &int_number);
-	clearBuff();
-
-	// Convert int to string
+	// Get serial number
 	char char_number[5] = {'\0'};
-	sprintf(char_number, "%d", int_number);
+	res = f_open(&fil_, hidden_file_path, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
+	f_gets(char_number, sizeof(char_number), &fil_);
+	f_close(&fil_);	//	ファイル閉じる
 
 	// Linkng
 	char extension[5] = {'.', 't', 'x', 't', '\0'};
-	sprintf(filepath_, "%s%s%s", file_name_with_null, char_number, extension);
+	sprintf(filepath_, "%s%s%s", file_name, char_number, extension);
 
-	//
-	int_number++;
-	sprintf(buffer_, "%d", int_number);
-	f_lseek(&fil_, 0);
-	f_write(&fil_, buffer_, strlen(buffer_), &bw_);	//	書き込む
 
-	f_close(&fil_);	//	ファイル閉じる
-	clearBuff();
-
-	/*
-	if(state == OVER_WRITE){
-		//f_chdir(dirpath_);
-		//f_unlink(filepath_);	//	一回消す
-		//f_chdir("..");
-	}
-	*/
-
+	int int_number;
+	sscanf(char_number, "%d", &int_number);
 
 	res = f_open(&fil_, filepath_, FA_CREATE_NEW | FA_READ | FA_WRITE);
-	if(res == FR_EXIST){ // If there is same file
-		printf("soiya");
-		//res = f_open(&fil_, filepath_, FA_CREATE_NEW| FA_READ | FA_WRITE);
+	//if(res == FR_EXIST){ // If there is same file
+	while(res == FR_EXIST){ // While there is same file
+		int_number++;
+		sprintf(char_number, "%d", int_number);
+		sprintf(filepath_, "%s%s%s", file_name, char_number, extension);
+		res = f_open(&fil_, filepath_, FA_CREATE_NEW | FA_READ | FA_WRITE);
 	}
-	else{
-		printf("SOIYA");
-	}
-
 	for(short i = 0 ; i < size; i++){
 		snprintf(buffer_, BUFF_SIZE, "%f\n", *(data + i));	//floatをstringに変換
 
@@ -171,9 +138,16 @@ void sdCard::write(const char *p_folder_name, const char *p_file_name, uint16_t 
 
 		clearBuff();	//	書き込み用のバッファをクリア
 	}
+	f_close(&fil_);	//	ファイル閉じる
+
+	res = f_open(&fil_, hidden_file_path, FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
+	int_number++;
+	sprintf(char_number, "%d", int_number);
+	f_lseek(&fil_, 0);
+	f_write(&fil_, char_number, strlen(char_number), &bw_);	//	書き込む
+	f_close(&fil_);	//	ファイル閉じる
 
 	f_chdir("..");
-	f_close(&fil_);	//	ファイル閉じる
 
 }
 void sdCard::read(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data)
