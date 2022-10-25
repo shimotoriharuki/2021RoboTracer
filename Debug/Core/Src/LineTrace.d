@@ -47,7 +47,8 @@ Core/Src/LineTrace.o: ../Core/Src/LineTrace.cpp ../Core/Inc/LineTrace.hpp \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
  ../Core/Inc/SideSensor.hpp ../Core/Inc/Odometry.hpp \
- ../Core/Inc/Logger.hpp ../Core/Inc/ESC.hpp ../Core/Inc/Macro.h
+ ../Core/Inc/Logger.hpp ../Core/Inc/ESC.hpp ../Core/Inc/Logger2.hpp \
+ ../Core/Inc/sdCard.hpp ../Core/Inc/SdCard.hpp ../Core/Inc/Macro.h
 
 ../Core/Inc/LineTrace.hpp:
 
@@ -170,5 +171,11 @@ Core/Src/LineTrace.o: ../Core/Src/LineTrace.cpp ../Core/Inc/LineTrace.hpp \
 ../Core/Inc/Logger.hpp:
 
 ../Core/Inc/ESC.hpp:
+
+../Core/Inc/Logger2.hpp:
+
+../Core/Inc/sdCard.hpp:
+
+../Core/Inc/SdCard.hpp:
 
 ../Core/Inc/Macro.h:

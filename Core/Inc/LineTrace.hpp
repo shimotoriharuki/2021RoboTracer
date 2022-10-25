@@ -18,6 +18,8 @@
 #include "Odometry.hpp"
 #include "Logger.hpp"
 #include "ESC.hpp"
+#include "Logger2.hpp"
+#include "SdCard.hpp"
 
 #define DELTA_T 0.001
 #define ANGLE_BETWEEN_SENSORS 0.17104 //[rad]
@@ -49,6 +51,7 @@ private:
 	Logger *logger_;
 	IMU *imu_;
     ESC *esc_;
+    sdCard *sd_card_;
 
 	float kp_, kd_, ki_;
 	float kp_slow_, kd_slow_, ki_slow_;
@@ -92,6 +95,10 @@ private:
 	uint16_t store_check_cnt_;
 	uint16_t ignore_check_cnt_;
 	bool all_sideline_flag_;
+
+    Logger2 *debugger_;
+
+
 
 	// Sensor angle based line following
 	float calcError();
@@ -141,7 +148,7 @@ private:
 	float calcRadius(float, float);
 
 public:
-	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *, IMU *, ESC *);
+	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *, IMU *, ESC *, sdCard *);
 
 	// Initialize
 	void init();
@@ -205,6 +212,7 @@ public:
 	void createVelocityTabele();
 	void createVelocityTabeleFromSD();
 
+	void storeDebugLogs10ms();
 };
 
 

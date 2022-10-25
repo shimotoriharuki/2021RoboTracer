@@ -51,12 +51,13 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/ESC.hpp \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
  ../Core/Inc/SideSensor.hpp ../Core/Inc/Odometry.hpp \
- ../Core/Inc/Logger.hpp ../Core/Inc/ESC.hpp ../Core/Inc/PowerSensor.hpp \
- ../Core/Inc/IMU.hpp ../Core/Inc/AQM0802.h ../Core/Inc/main.h \
- ../Core/Inc/Logger.hpp ../Core/Inc/Odometry.hpp \
+ ../Core/Inc/Logger.hpp ../Core/Inc/ESC.hpp ../Core/Inc/Logger2.hpp \
+ ../Core/Inc/sdCard.hpp ../Core/Inc/SdCard.hpp \
+ ../Core/Inc/PowerSensor.hpp ../Core/Inc/IMU.hpp ../Core/Inc/AQM0802.h \
+ ../Core/Inc/main.h ../Core/Inc/Logger.hpp ../Core/Inc/Odometry.hpp \
  ../Core/Inc/HAL_SDcard_lib.h ../Core/Inc/SystemIdentification.hpp \
  ../Core/Inc/PathFollowing.hpp ../Core/Inc/rtwtypes.h \
- ../Core/Inc/Logger2.hpp ../Core/Inc/sdCard.hpp ../Core/Inc/sdCard.hpp
+ ../Core/Inc/Logger2.hpp ../Core/Inc/sdCard.hpp
 
 ../Core/Inc/ESC.hpp:
 
@@ -200,6 +201,12 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/ESC.hpp \
 
 ../Core/Inc/ESC.hpp:
 
+../Core/Inc/Logger2.hpp:
+
+../Core/Inc/sdCard.hpp:
+
+../Core/Inc/SdCard.hpp:
+
 ../Core/Inc/PowerSensor.hpp:
 
 ../Core/Inc/IMU.hpp:
@@ -221,7 +228,5 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/ESC.hpp \
 ../Core/Inc/rtwtypes.h:
 
 ../Core/Inc/Logger2.hpp:
-
-../Core/Inc/sdCard.hpp:
 
 ../Core/Inc/sdCard.hpp:

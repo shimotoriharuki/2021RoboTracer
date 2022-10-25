@@ -31,7 +31,7 @@ uint16_t mon_vel_idx, mon_i;
 float mon_tar_vel;
 
 
-LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu, ESC *esc) :
+LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, Logger *logger, IMU *imu, ESC *esc, sdCard *sd_card) :
 				kp_(0), kd_(0), ki_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), max_velocity_(0), min_velocity_(0), max_velocity2_(0),  min_velocity2_(0), max_velocity3_(0),  min_velocity3_(0), max_velocity4_(0),  min_velocity4_(0),
@@ -39,7 +39,7 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), sideline_idx2_(0), all_sideline_idx_(0),
 				ignore_crossline_flag_(false), stable_flag_(false), stable_flag_force_(false), stable_cnt_reset_flag_(false),
 				max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), max_acc3_(0), max_dec3_(0), max_acc4_(0), max_dec4_(0),
-				correction_check_cnt_(0), store_check_cnt_(0), ignore_check_cnt_(0), all_sideline_flag_(false)
+				correction_check_cnt_(0), store_check_cnt_(0), ignore_check_cnt_(0), all_sideline_flag_(false), debugger_(0)
 
 {
 	motor_ = motor;
@@ -51,6 +51,8 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	logger_ = logger;
 	imu_ = imu;
 	esc_ = esc;
+	sd_card_ = sd_card;
+	debugger_ = new Logger2(sd_card_, 100);
 
 	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
 		velocity_table_[i] = 0;
@@ -257,6 +259,9 @@ void LineTrace::loggerStart()
 void LineTrace::loggerStop()
 {
 	logger_->stop();
+	debugger_->stop();
+
+	debugger_->saveLogs("TEST", "target_velocitys");
 	logging_flag_ = false;
 }
 
@@ -1099,6 +1104,8 @@ void LineTrace::running()
 			if(side_sensor_->getStatusR() == true){
 				loggerStart();
 				logger_->start();
+
+				debugger_->start();
 				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
 					startVelocityPlay();
 				}
@@ -1312,4 +1319,9 @@ void LineTrace::createVelocityTabeleFromSD()
 
 	sd_write_array_float("COURSLOG", "VELTABLE.TXT", LOG_DATA_SIZE_DIS, velocity_table_, OVER_WRITE);
 
+}
+
+void LineTrace::storeDebugLogs10ms()
+{
+	debugger_->storeLogs(getTargetVelocity());
 }

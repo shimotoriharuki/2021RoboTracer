@@ -42,18 +42,19 @@ Motor motor;
 LED led;
 PowerSensor power_sensor;
 IMU imu;
+sdCard sd_card;
+
 Logger logger;
 
 Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
 ESC esc;
-LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &logger, &imu, &esc);
+LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &logger, &imu, &esc, &sd_card);
 SystemIdentification sys_ident(&logger, &motor);
 
 PathFollowing path_following;
 
-sdCard sd_card;
 Logger2 test_logger1(&sd_card, 10);
 Logger2 test_logger2(&sd_card, 100);
 
@@ -135,10 +136,10 @@ void cppInit(void)
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();
-	//imu.init();
-	//line_trace.init();
+	imu.init();
+	line_trace.init();
 
-	//line_sensor.calibration();
+	line_sensor.calibration();
 	//HAL_Delay(1000);
 
 	led.fullColor('M');
@@ -213,8 +214,11 @@ void cppFlip10ms(void)
 	}
 	*/
 
+	/*
 	logger.storeLog(line_trace.getTargetVelocity());
 	logger.storeLog2(velocity_ctrl.getCurrentVelocity());
+	*/
+	line_trace.storeDebugLogs10ms();
 	/*
 	static float tim;
 	tim++;
@@ -459,8 +463,8 @@ void cppLoop(void)
 				// Run
 				line_trace.setMode(FIRST_RUNNING);
 
-				logger.resetLogsTim1();
-				logger.resetLogsTim2();
+				//logger.resetLogsTim1();
+				//logger.resetLogsTim2();
 
 				line_trace.running();
 
