@@ -54,7 +54,8 @@ SystemIdentification sys_ident(&logger, &motor);
 PathFollowing path_following;
 
 sdCard sd_card;
-Logger2 test_logger(&sd_card, 10);
+Logger2 test_logger1(&sd_card, 10);
+Logger2 test_logger2(&sd_card, 100);
 
 
 float mon_v, mon_w;
@@ -1196,18 +1197,29 @@ void cppLoop(void)
 
 		if(joy_stick.getValue() == JOY_C){
 			led.fullColor('R');
-			test_logger.clearLogs();
-			test_logger.start();
+			test_logger1.clearLogs();
+			test_logger1.start();
+			test_logger2.clearLogs();
+			test_logger2.start();
 
-			for(int i = 1; i < 10; i++){
-				test_logger.storeLogs(float(i));
+			for(int i = 0; i < 10; i++){
+				test_logger1.storeLogs(float(i));
 			}
+			for(int i = 0; i < 50; i++){
+				test_logger2.storeLogs(float(i));
+			}
+
 			HAL_Delay(1000);
 
-			test_logger.stop();
-			test_logger.saveLogs("TEST", "file");
-			test_logger.saveLogs("TEST", "soiya");
-			test_logger.saveLogs("TEST", "hoge");
+			test_logger1.stop();
+			test_logger1.saveLogs("TEST", "file");
+			test_logger1.saveLogs("TEST", "soiya");
+			test_logger1.saveLogs("TEST", "hoge");
+
+			test_logger2.stop();
+			test_logger2.saveLogs("TEST", "foo");
+			test_logger2.saveLogs("TEST", "yaa");
+			test_logger2.saveLogs("TEST", "seisei");
 
 			led.fullColor('~');
 		}
