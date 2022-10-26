@@ -28,6 +28,10 @@ public:
 	void start();
 	void stop();
 
+	const float *getLogsPointer();
+	void  importLatestLogs(const char *, const char * );
+	uint16_t getLogsSize();
+
 };
 
 

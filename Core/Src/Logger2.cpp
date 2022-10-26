@@ -54,3 +54,32 @@ void Logger2::stop()
 {
 	recording_flag_ = false;
 }
+
+const float *Logger2::getLogsPointer()
+{
+	return logs_;
+}
+
+void Logger2::importLatestLogs(const char *directory_name, const char *file_name)
+{
+	float serial_number;
+	char hidden_file_name[32];
+	sprintf(hidden_file_name, "%c%s", '.', file_name);
+	sd_card_->read(directory_name, hidden_file_name, 1, &serial_number);
+
+	char directory_name_with_null[32];
+	sprintf(directory_name_with_null, "%s", directory_name);
+
+	char file_name_with_null[32];
+	sprintf(file_name_with_null, "%s", file_name);
+
+	char file_path[32];
+	sprintf(file_path, "%s%d%s", file_name_with_null, int(serial_number-1), ".txt\0");
+
+	sd_card_->read(directory_name_with_null, file_path, max_log_size_, logs_);
+}
+
+uint16_t Logger2::getLogsSize()
+{
+	return max_log_size_;
+}

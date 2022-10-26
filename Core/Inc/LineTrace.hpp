@@ -53,6 +53,9 @@ private:
     ESC *esc_;
     sdCard *sd_card_;
 
+    Logger2 *debugger_;
+    Logger2 *distance_logger_, *theta_logger_;
+
 	float kp_, kd_, ki_;
 	float kp_slow_, kd_slow_, ki_slow_;
 	bool excution_flag_;
@@ -96,7 +99,7 @@ private:
 	uint16_t ignore_check_cnt_;
 	bool all_sideline_flag_;
 
-    Logger2 *debugger_;
+
 
 
 

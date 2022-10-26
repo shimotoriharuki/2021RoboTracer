@@ -4,3 +4,6 @@ Logger2.cpp:32:6:void Logger2::saveLogs(const char*, const char*)	32	static
 Logger2.cpp:36:6:void Logger2::clearLogs()	24	static
 Logger2.cpp:46:6:void Logger2::start()	16	static
 Logger2.cpp:53:6:void Logger2::stop()	16	static
+Logger2.cpp:58:14:const float* Logger2::getLogsPointer()	16	static
+Logger2.cpp:63:6:void Logger2::importLatestLogs(const char*, const char*)	176	static
+Logger2.cpp:82:10:uint16_t Logger2::getLogsSize()	16	static

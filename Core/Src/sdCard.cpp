@@ -76,12 +76,12 @@ void sdCard::userFclose()
 {
 	f_close(&fil_);	//ファイル閉じる
 }
-void sdCard::write(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data)
+void sdCard::write(const char *p_directory_name, const char *p_file_name, uint16_t size, float *data)
 {
 	FRESULT res;
 
 	// Change directory
-	sprintf(dirpath_, "%s", p_folder_name);
+	sprintf(dirpath_, "%s", p_directory_name);
 	f_mkdir(dirpath_);
 	f_chdir(dirpath_);
 
@@ -150,11 +150,11 @@ void sdCard::write(const char *p_folder_name, const char *p_file_name, uint16_t 
 	f_chdir("..");
 
 }
-void sdCard::read(const char *p_folder_name, const char *p_file_name, uint16_t size, float *data)
+void sdCard::read(const char *p_directory_name, const char *p_file_name, uint16_t size, float *data)
 {
 	short i = 0;
 
-	openFile(p_folder_name, p_file_name);
+	openFile(p_directory_name, p_file_name);
 
 	while(f_gets(buffer_, sizeof(buffer_), &fil_) != NULL){
 		sscanf(buffer_, "%f", data + i);
@@ -168,4 +168,3 @@ void sdCard::read(const char *p_folder_name, const char *p_file_name, uint16_t s
 	f_close(&fil_);
 
 }
-
