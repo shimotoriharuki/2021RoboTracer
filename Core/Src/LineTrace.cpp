@@ -56,6 +56,8 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	debugger_ = new Logger2(sd_card_, 100);
 	distance_logger_ = new Logger2(sd_card_, 100);
 	theta_logger_ = new Logger2(sd_card_, 100);
+	crossline_distance_logger_ = new Logger2(sd_card_, 100);
+	sideline_distance_logger_ = new Logger2(sd_card_, 100);
 
 	for(uint16_t i = 0; i < LOG_DATA_SIZE_DIS; i++){
 		velocity_table_[i] = 0;
@@ -254,25 +256,31 @@ void LineTrace::loggerStart()
 {
 	encoder_->clearDistance10mm();
 	odometry_->clearPotition();
-	logger_->resetLogsDis2();
+	//logger_->resetLogsDis2();
 
 	debugger_->clearLogs();
 	distance_logger_->clearLogs();
 	theta_logger_->clearLogs();
+	crossline_distance_logger_->clearLogs();
+	sideline_distance_logger_->clearLogs();
 
+	debugger_->start();
 	distance_logger_->start();
 	theta_logger_->start();
+	crossline_distance_logger_->start();
+	sideline_distance_logger_->start();
 
 	logging_flag_ = true;
 }
 
 void LineTrace::loggerStop()
 {
-	logger_->stop();
+	//logger_->stop();
 	debugger_->stop();
-
 	distance_logger_->stop();
 	theta_logger_->stop();
+	crossline_distance_logger_->stop();
+	sideline_distance_logger_->stop();
 
 	//distance_logger_->saveLogs("TEST", "distances");
 	//theta_logger_->saveLogs("TEST", "thetas");
@@ -281,7 +289,8 @@ void LineTrace::loggerStop()
 
 void LineTrace::storeCrossLineDistance()
 {
-	crossline_distance_[crossline_idx_] = encoder_->getTotalDistance();
+	//crossline_distance_[crossline_idx_] = encoder_->getTotalDistance();
+	crossline_distance_logger_->storeLogs(encoder_->getTotalDistance());
 	crossline_idx_++;
 
 	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
@@ -356,14 +365,14 @@ void LineTrace::storeLogs()
 	if(logging_flag_ == true){
 		if(mode_selector_ == FIRST_RUNNING){
 			//logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getTheta());
-			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getDeltaTheta());
+			//logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getDeltaTheta());
 			distance_logger_->storeLogs(encoder_->getDistance10mm());
 			theta_logger_->storeLogs(odometry_->getDeltaTheta());
 		}
 		else{
 			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
 			//logger_->storeDistanceAndTheta2(encoder_->getTotalDistance(), odometry_->getTheta());
-			logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getDeltaTheta());
+			//logger_->storeDistanceAndTheta(encoder_->getDistance10mm(), odometry_->getDeltaTheta());
 			distance_logger_->storeLogs(encoder_->getDistance10mm());
 			theta_logger_->storeLogs(odometry_->getDeltaTheta());
 			//logger_->storeDistanceAndTheta2(encoder_->getDistance10mm(), odometry_->getTheta());
@@ -1122,9 +1131,8 @@ void LineTrace::running()
 			//if(side_sensor_->getWhiteLineCntR() == 1){
 			if(side_sensor_->getStatusR() == true){
 				loggerStart();
-				logger_->start();
+				//logger_->start();
 
-				debugger_->start();
 				if(mode_selector_ != FIRST_RUNNING){ // Other than first running
 					startVelocityPlay();
 				}
@@ -1208,40 +1216,50 @@ void LineTrace::stop()
 	if(mode_selector_ == FIRST_RUNNING){ //First running
 		distance_logger_->saveLogs("TEST", "first_run_distances");
 		theta_logger_->saveLogs("TEST", "first_run_thetas");
+		crossline_distance_logger_ ->saveLogs("TEST", "first_run_crossline_distances");
+		sideline_distance_logger_ ->saveLogs("TEST", "first_run_sideline_distances");
 
-		logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
+		//logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
 		sd_write_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_, OVER_WRITE);
 		sd_write_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_, OVER_WRITE);
 	}
 	else if(mode_selector_ == SECOND_RUNNING){ //Secondary run
 		distance_logger_->saveLogs("TEST", "second_run_distances");
 		theta_logger_->saveLogs("TEST", "second_run_thetas");
+		crossline_distance_logger_ ->saveLogs("TEST", "second_run_crossline_distances");
+		sideline_distance_logger_ ->saveLogs("TEST", "second_run_sideline_distances");
 
-		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
+		//logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
 		sd_write_array_float("COURSLOG", "CROSSDI2.TXT", CROSSLINE_SIZE, crossline_distance2_, OVER_WRITE);
 		sd_write_array_float("COURSLOG", "SIDEDIS2.TXT", SIDELINE_SIZE, sideline_distance2_, OVER_WRITE);
 	}
 	else if(mode_selector_ == THIRD_RUNNING){ //Third run
 		distance_logger_->saveLogs("TEST", "third_run_distances");
 		theta_logger_->saveLogs("TEST", "third_run__thetas");
+		crossline_distance_logger_ ->saveLogs("TEST", "third_run_crossline_distances");
+		sideline_distance_logger_ ->saveLogs("TEST", "third_run_sideline_distances");
 
-		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
+		//logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
 		sd_write_array_float("COURSLOG", "CROSSDI2.TXT", CROSSLINE_SIZE, crossline_distance2_, OVER_WRITE);
 		sd_write_array_float("COURSLOG", "SIDEDIS2.TXT", SIDELINE_SIZE, sideline_distance2_, OVER_WRITE);
 	}
 	else if(mode_selector_ == FOURTH_RUNNING){ //Fourth run
 		distance_logger_->saveLogs("TEST", "fourth_run_distances");
 		theta_logger_->saveLogs("TEST", "fourth_run__thetas");
+		crossline_distance_logger_ ->saveLogs("TEST", "fourth_run_crossline_distances");
+		sideline_distance_logger_ ->saveLogs("TEST", "fourth_run_sideline_distances");
 
-		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
+		//logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
 		sd_write_array_float("COURSLOG", "CROSSDI2.TXT", CROSSLINE_SIZE, crossline_distance2_, OVER_WRITE);
 		sd_write_array_float("COURSLOG", "SIDEDIS2.TXT", SIDELINE_SIZE, sideline_distance2_, OVER_WRITE);
 	}
 	else if(mode_selector_ == FIFTH_RUNNING){ //Fifth run
 		distance_logger_->saveLogs("TEST", "fifth_run_distances");
 		theta_logger_->saveLogs("TEST", "fifth_run__thetas");
+		crossline_distance_logger_ ->saveLogs("TEST", "fifth_run_crossline_distances");
+		sideline_distance_logger_ ->saveLogs("TEST", "fifth_run_sideline_distances");
 
-		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
+		//logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
 		sd_write_array_float("COURSLOG", "CROSSDI2.TXT", CROSSLINE_SIZE, crossline_distance2_, OVER_WRITE);
 		sd_write_array_float("COURSLOG", "SIDEDIS2.TXT", SIDELINE_SIZE, sideline_distance2_, OVER_WRITE);
 	}
@@ -1249,7 +1267,7 @@ void LineTrace::stop()
 		distance_logger_->saveLogs("TEST", "other_distances");
 		theta_logger_->saveLogs("TEST", "other_thetas");
 
-		logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
+		//logger_->saveDistanceAndTheta2("COURSLOG", "DISTANC2.TXT", "THETA2.TXT");
 		sd_write_array_float("COURSLOG", "CROSSDI2.TXT", CROSSLINE_SIZE, crossline_distance2_, OVER_WRITE);
 		sd_write_array_float("COURSLOG", "SIDEDIS2.TXT", SIDELINE_SIZE, sideline_distance2_, OVER_WRITE);
 	}
@@ -1257,7 +1275,7 @@ void LineTrace::stop()
 
 	led_.LR(-1, 0);
 
-	logger_->resetIdx();
+	//logger_->resetIdx();
 	//logger_->resetLogsDis2();
 }
 
@@ -1327,7 +1345,7 @@ void LineTrace::createVelocityTabeleFromSD()
 	distance_logger_->importLatestLogs("TEST", "first_run_distance");
 	theta_logger_->importLatestLogs("TEST", "first_run_thetas");
 
-	logger_->importDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
+	//logger_->importDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
 	sd_read_array_float("COURSLOG", "CROSSDIS.TXT", CROSSLINE_SIZE, crossline_distance_);
 	sd_read_array_float("COURSLOG", "SIDEDIS.TXT", SIDELINE_SIZE, sideline_distance_);
 
