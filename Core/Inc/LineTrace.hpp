@@ -56,7 +56,8 @@ private:
     Logger2 *debugger_;
     Logger2 *first_run_distance_logger_, *first_run_theta_logger_;
     Logger2 *accdec_run_distance_logger_, *accdec_run_theta_logger_;
-    Logger2 *crossline_distance_logger_, *sideline_distance_logger_;
+    Logger2 *first_run_crossline_distance_logger_, *first_run_sideline_distance_logger_;
+    Logger2 *accdec_run_crossline_distance_logger_, *accdec_run_sideline_distance_logger_;
 
 	float kp_, kd_, ki_;
 	float kp_slow_, kd_slow_, ki_slow_;
