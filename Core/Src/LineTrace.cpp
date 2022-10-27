@@ -1203,7 +1203,7 @@ void LineTrace::stop()
 
 	led_.LR(-1, 1);
 	if(mode_selector_ == FIRST_RUNNING){ //First running
-		distance_logger_->saveLogs("TEST", "fitst_run_distances");
+		distance_logger_->saveLogs("TEST", "first_run_distances");
 		theta_logger_->saveLogs("TEST", "first_run_thetas");
 
 		logger_->saveDistanceAndTheta("COURSLOG", "DISTANCE.TXT", "THETA.TXT");
