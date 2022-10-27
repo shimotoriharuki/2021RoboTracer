@@ -319,36 +319,36 @@ void LineTrace::storeCrossLineDistance()
 {
 	//crossline_distance_[crossline_idx_] = encoder_->getTotalDistance();
 	first_run_crossline_distance_logger_->storeLogs(encoder_->getTotalDistance());
-	crossline_idx_++;
+	//crossline_idx_++;
 
-	if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
+	//if(crossline_idx_ >= CROSSLINE_SIZE) crossline_idx_ = CROSSLINE_SIZE - 1;
 }
 
 void LineTrace::storeCrossLineDistance2()
 {
 	//crossline_distance2_[crossline_idx2_] = encoder_->getTotalDistance();
 	accdec_run_crossline_distance_logger_->storeLogs(encoder_->getTotalDistance());
-	crossline_idx2_++;
+	//crossline_idx2_++;
 
-	if(crossline_idx2_ >= CROSSLINE_SIZE) crossline_idx2_ = CROSSLINE_SIZE - 1;
+	//if(crossline_idx2_ >= CROSSLINE_SIZE) crossline_idx2_ = CROSSLINE_SIZE - 1;
 }
 
 void LineTrace::storeSideLineDistance()
 {
 	//sideline_distance_[sideline_idx_] = encoder_->getTotalDistance();
 	first_run_sideline_distance_logger_->storeLogs(encoder_->getTotalDistance());
-	sideline_idx_++;
+	//sideline_idx_++;
 
-	if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
+	//if(sideline_idx_ >= SIDELINE_SIZE) sideline_idx_ = SIDELINE_SIZE - 1;
 }
 
 void LineTrace::storeSideLineDistance2()
 {
 	//sideline_distance2_[sideline_idx2_] = encoder_->getTotalDistance();
 	accdec_run_sideline_distance_logger_->storeLogs(encoder_->getTotalDistance());
-	sideline_idx2_++;
+	//sideline_idx2_++;
 
-	if(sideline_idx2_ >= SIDELINE_SIZE) sideline_idx2_ = SIDELINE_SIZE - 1;
+	//if(sideline_idx2_ >= SIDELINE_SIZE) sideline_idx2_ = SIDELINE_SIZE - 1;
 }
 
 void LineTrace::clearCrossLineDistance()
