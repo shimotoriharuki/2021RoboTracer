@@ -54,7 +54,8 @@ private:
     sdCard *sd_card_;
 
     Logger2 *debugger_;
-    Logger2 *distance_logger_, *theta_logger_;
+    Logger2 *first_run_distance_logger_, *first_run_theta_logger_;
+    Logger2 *accdec_run_distance_logger_, *accdec_run_theta_logger_;
     Logger2 *crossline_distance_logger_, *sideline_distance_logger_;
 
 	float kp_, kd_, ki_;
