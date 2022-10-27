@@ -256,6 +256,7 @@ void LineTrace::loggerStart()
 	odometry_->clearPotition();
 	logger_->resetLogsDis2();
 
+	debugger_->clearLogs();
 	distance_logger_->clearLogs();
 	theta_logger_->clearLogs();
 
@@ -273,7 +274,6 @@ void LineTrace::loggerStop()
 	distance_logger_->stop();
 	theta_logger_->stop();
 
-	debugger_->saveLogs("TEST", "target_velocitys");
 	//distance_logger_->saveLogs("TEST", "distances");
 	//theta_logger_->saveLogs("TEST", "thetas");
 	logging_flag_ = false;
@@ -1202,6 +1202,9 @@ void LineTrace::stop()
 	velocity_ctrl_->stop();
 
 	led_.LR(-1, 1);
+
+	debugger_->saveLogs("TEST", "target_velocitys");
+
 	if(mode_selector_ == FIRST_RUNNING){ //First running
 		distance_logger_->saveLogs("TEST", "first_run_distances");
 		theta_logger_->saveLogs("TEST", "first_run_thetas");
@@ -1384,7 +1387,8 @@ void LineTrace::createVelocityTabeleFromSD()
 	}
 
 
-	sd_write_array_float("COURSLOG", "VELTABLE.TXT", distance_logger_->getLogsSize(), velocity_table_, OVER_WRITE);
+	//sd_write_array_float("COURSLOG", "VELTABLE.TXT", distance_logger_->getLogsSize(), velocity_table_, OVER_WRITE);
+	sd_card_->write("TEST", "velocity_table.txt", distance_logger_->getLogsSize(), velocity_table_);
 
 }
 

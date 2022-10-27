@@ -9,7 +9,7 @@ LineTrace.cpp:189:6:void LineTrace::calcDeltaTheta(float, float, float&)	40	stat
 LineTrace.cpp:195:6:void LineTrace::steeringAngleTrace()	40	static
 LineTrace.cpp:219:6:void LineTrace::pidTrace()	40	static
 LineTrace.cpp:253:6:void LineTrace::loggerStart()	16	static
-LineTrace.cpp:268:6:void LineTrace::loggerStop()	16	static
+LineTrace.cpp:269:6:void LineTrace::loggerStop()	16	static
 LineTrace.cpp:282:6:void LineTrace::storeCrossLineDistance()	24	static
 LineTrace.cpp:290:6:void LineTrace::storeCrossLineDistance2()	24	static
 LineTrace.cpp:298:6:void LineTrace::storeSideLineDistance()	24	static
@@ -77,6 +77,6 @@ LineTrace.cpp:1089:6:void LineTrace::setMode(int16_t)	16	static
 LineTrace.cpp:1094:6:void LineTrace::start()	16	static
 LineTrace.cpp:1112:6:void LineTrace::running()	24	static
 LineTrace.cpp:1199:6:void LineTrace::stop()	24	static
-LineTrace.cpp:1264:6:void LineTrace::createVelocityTabele()	56	static
-LineTrace.cpp:1322:6:void LineTrace::createVelocityTabeleFromSD()	56	static
-LineTrace.cpp:1391:6:void LineTrace::storeDebugLogs10ms()	24	static
+LineTrace.cpp:1267:6:void LineTrace::createVelocityTabele()	56	static
+LineTrace.cpp:1325:6:void LineTrace::createVelocityTabeleFromSD()	56	static
+LineTrace.cpp:1395:6:void LineTrace::storeDebugLogs10ms()	24	static
