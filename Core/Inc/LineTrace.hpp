@@ -28,13 +28,18 @@
 #define CENTER_NUM 6
 #define PI 3.1415926535
 #define CENTER_OF_ROTATION_TO_CENTER_OF_SENSOR 0.060 //[m]
+
 #define FIRST_RUNNING 0
 #define SECOND_RUNNING 1
 #define THIRD_RUNNING 2
 #define FOURTH_RUNNING 3
 #define FIFTH_RUNNING 4
-#define CROSSLINE_SIZE 100
-#define SIDELINE_SIZE 500
+
+#define LOG_SIZE_TIM 3000 // Time based size. Can record for 50 seconds every 10 ms. max 3000
+#define LOG_SIZE_DIS 6000 // Distance based size. Can record for 60 m every 10 mm
+#define LOG_CROSSLINE_SIZE 100
+#define LOG_SIDELINE_SIZE 500
+
 #define R_RADIUS 0.05
 #define DISTANCE_CORRECTION_CONST 1 //0.9663
 
@@ -48,7 +53,7 @@ private:
 	SideSensor *side_sensor_;
 	Encoder *encoder_;
 	Odometry *odometry_;
-	Logger *logger_;
+	//Logger *logger_;
 	IMU *imu_;
     ESC *esc_;
     sdCard *sd_card_;
@@ -79,10 +84,10 @@ private:
 	bool velocity_play_flag_;
 	uint16_t velocity_table_idx_;
 	int16_t mode_selector_;
-	float crossline_distance_[CROSSLINE_SIZE];
-	float crossline_distance2_[CROSSLINE_SIZE];
-	float sideline_distance_[SIDELINE_SIZE];
-	float sideline_distance2_[SIDELINE_SIZE];
+	//float crossline_distance_[CROSSLINE_SIZE];
+	//float crossline_distance2_[CROSSLINE_SIZE];
+	//float sideline_distance_[SIDELINE_SIZE];
+	//float sideline_distance2_[SIDELINE_SIZE];
 	//float all_sideline_distance_[SIDELINE_SIZE];
 	uint16_t crossline_idx_;
 	uint16_t crossline_idx2_;
@@ -121,14 +126,16 @@ private:
 	// Logging
 	void loggerStart();
 	void loggerStop();
-	void storeCrossLineDistance();
-	void storeCrossLineDistance2();
-	void storeSideLineDistance();
-	void storeSideLineDistance2();
+	void storeFirstRunCrossLineDistance();
+	void storeAccDecRunCrossLineDistance();
+	void storeFirstRunSideLineDistance();
+	void storeAccDecRunSideLineDistance();
+	/*
 	void clearCrossLineDistance();
 	void clearCrossLineDistance2();
 	void clearSideLineDistance();
 	void clearSideLineDistance2();
+	*/
 	//void storeAllSideLineDistance();
 	void storeLogs();
 
@@ -154,7 +161,7 @@ private:
 	float calcRadius(float, float);
 
 public:
-	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, Logger *, IMU *, ESC *, sdCard *);
+	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, IMU *, ESC *, sdCard *);
 
 	// Initialize
 	void init();

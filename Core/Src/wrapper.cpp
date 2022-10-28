@@ -50,7 +50,7 @@ Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
 ESC esc;
-LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &logger, &imu, &esc, &sd_card);
+LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &imu, &esc, &sd_card);
 SystemIdentification sys_ident(&logger, &motor);
 
 PathFollowing path_following;

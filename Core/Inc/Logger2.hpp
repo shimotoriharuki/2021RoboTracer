@@ -31,6 +31,7 @@ public:
 	const float *getLogsPointer();
 	void  importLatestLogs(const char *, const char * );
 	uint16_t getLogsSize();
+	float getLogData(uint16_t);
 
 };
 
