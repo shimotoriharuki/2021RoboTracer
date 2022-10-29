@@ -463,9 +463,6 @@ void cppLoop(void)
 				// Run
 				line_trace.setMode(FIRST_RUNNING);
 
-				//logger.resetLogsTim1();
-				//logger.resetLogsTim2();
-
 				line_trace.running();
 
 				logger.stop();
@@ -547,16 +544,13 @@ void cppLoop(void)
 
 				HAL_Delay(1000);
 
-				logger.resetLogsTim1();
-				logger.resetLogsTim2();
-				//logger.start();
-
 				line_trace.running();
 
+				/*
 				logger.stop();
 				logger.saveLogs("STATELOG", "TARVEL.txt");
 				logger.saveLogs2("STATELOG", "CURVEL.txt");
-
+				*/
 				led.LR(0, -1);
 			}
 		}

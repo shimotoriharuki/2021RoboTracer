@@ -58,7 +58,7 @@ private:
     ESC *esc_;
     sdCard *sd_card_;
 
-    Logger2 *debugger_;
+    Logger2 *debugger_, *debugger2_;
     Logger2 *first_run_distance_logger_, *first_run_theta_logger_;
     Logger2 *accdec_run_distance_logger_, *accdec_run_theta_logger_;
     Logger2 *first_run_crossline_distance_logger_, *first_run_sideline_distance_logger_;
@@ -78,9 +78,9 @@ private:
 	float max_velocity3_, min_velocity3_;
 	float max_velocity4_, min_velocity4_;
 	bool logging_flag_;
-	float ref_delta_distances_[LOG_DATA_SIZE_DIS];
+	float ref_delta_distances_[LOG_SIZE_DIS];
 	float ref_distance_;
-	float velocity_table_[LOG_DATA_SIZE_DIS];
+	float velocity_table_[LOG_SIZE_DIS];
 	bool velocity_play_flag_;
 	uint16_t velocity_table_idx_;
 	int16_t mode_selector_;
