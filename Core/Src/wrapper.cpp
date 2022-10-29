@@ -44,19 +44,19 @@ PowerSensor power_sensor;
 IMU imu;
 sdCard sd_card;
 
-Logger logger;
+//Logger logger;
 
 Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
 ESC esc;
 LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &imu, &esc, &sd_card);
-SystemIdentification sys_ident(&logger, &motor);
+//SystemIdentification sys_ident(&logger, &motor);
 
 PathFollowing path_following;
 
 Logger2 test_logger1(&sd_card, 10);
-Logger2 test_logger2(&sd_card, 100);
+Logger2 test_logger2(&sd_card, 10);
 
 
 float mon_v, mon_w;
@@ -104,7 +104,6 @@ void cppInit(void)
 	//if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
 
 	// -----------initialize-------//
-
 	if(sd_card.init() == true){
 	  lcd_clear();
 	  lcd_locate(0,0);
@@ -122,16 +121,6 @@ void cppInit(void)
 	  lcd_printf("Fail");
 	  HAL_Delay(1000);
 	}
-	/*
-	if(logger.sdCardInit() == true){ //sd mount successfull
-		led.fullColor('G');
-		HAL_Delay(100);
-	}
-	else{ //sd mount fali
-		led.fullColor('R');
-		HAL_Delay(100);
-	}
-	*/
 
 	line_sensor.ADCStart();
 	motor.init();
@@ -143,7 +132,7 @@ void cppInit(void)
 	HAL_Delay(1000);
 
 	led.fullColor('M');
-	//imu.calibration();
+	imu.calibration();
 
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	//line_trace.setGain(0.0005, 0.000002, 0);
@@ -176,8 +165,6 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-	//logger.storeLog(velocity_ctrl.getCurrentVelocity());
-	//logger.storeLog(imu.getOmega());
 /*
 	static uint16_t twice_cnt;
 	twice_cnt++;
@@ -214,11 +201,8 @@ void cppFlip10ms(void)
 	}
 	*/
 
-	/*
-	logger.storeLog(line_trace.getTargetVelocity());
-	logger.storeLog2(velocity_ctrl.getCurrentVelocity());
-	*/
 	line_trace.storeDebugLogs10ms();
+
 	/*
 	static float tim;
 	tim++;
@@ -457,18 +441,11 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_velocity);
 				led.LR(1, -1);
 
-				// Record start
 				HAL_Delay(1000);
 
 				// Run
 				line_trace.setMode(FIRST_RUNNING);
-
 				line_trace.running();
-
-				logger.stop();
-				logger.saveLogs("STATELOG", "TARVEL.txt");
-				logger.saveLogs2("STATELOG", "CURVEL.txt");
-
 
 				led.LR(0, -1);
 			}
@@ -546,11 +523,6 @@ void cppLoop(void)
 
 				line_trace.running();
 
-				/*
-				logger.stop();
-				logger.saveLogs("STATELOG", "TARVEL.txt");
-				logger.saveLogs2("STATELOG", "CURVEL.txt");
-				*/
 				led.LR(0, -1);
 			}
 		}
@@ -641,13 +613,7 @@ void cppLoop(void)
 				line_trace.setMinVelocity2(adj_min_velocity2);
 				line_trace.createVelocityTabele();
 
-				//logger.start();
-
 				line_trace.running();
-
-				logger.stop();
-				logger.saveLogs("STATELOG", "TARVEL.txt");
-				logger.saveLogs2("STATELOG", "CURVEL.txt");
 
 				led.LR(0, -1);
 			}
@@ -737,13 +703,8 @@ void cppLoop(void)
 				line_trace.setMinVelocity3(adj_min_velocity3);
 				line_trace.createVelocityTabele();
 
-				//logger.start();
 
 				line_trace.running();
-
-				logger.stop();
-				logger.saveLogs("STATELOG", "TARVEL.txt");
-				logger.saveLogs2("STATELOG", "CURVEL.txt");
 
 				led.LR(0, -1);
 			}
@@ -834,13 +795,8 @@ void cppLoop(void)
 				line_trace.setMinVelocity4(adj_min_velocity4);
 				line_trace.createVelocityTabele();
 
-				//logger.start();
 
 				line_trace.running();
-
-				logger.stop();
-				logger.saveLogs("STATELOG", "TARVEL.txt");
-				logger.saveLogs2("STATELOG", "CURVEL.txt");
 
 				led.LR(0, -1);
 			}
@@ -1187,6 +1143,7 @@ void cppLoop(void)
 		}
 		*/
 
+		/*
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("LOG");
@@ -1200,10 +1157,10 @@ void cppLoop(void)
 			test_logger2.clearLogs();
 			test_logger2.start();
 
-			for(int i = 0; i < 10; i++){
+			for(int i = 0; i < 5; i++){
 				test_logger1.storeLogs(float(i));
 			}
-			for(int i = 0; i < 50; i++){
+			for(int i = 0; i < 5; i++){
 				test_logger2.storeLogs(float(i));
 			}
 
@@ -1221,6 +1178,7 @@ void cppLoop(void)
 
 			led.fullColor('~');
 		}
+		*/
 
 		/*
 		lcd_clear();
@@ -1271,17 +1229,13 @@ void cppLoop(void)
 			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
 			HAL_Delay(1000);
 
-			logger.start();
 			velocity_ctrl.start();
 			velocity_ctrl.setVelocity(1, 0);
 
 			HAL_Delay(1000);
 
-			logger.stop();
 			velocity_ctrl.stop();
-			esc.off();
-
-			logger.saveLogs("SYSIDENT", "PIDRES.txt");
+			//esc.off();
 
 			led.LR(-1, 0);
 		}
@@ -1336,9 +1290,6 @@ void cppLoop(void)
 			HAL_Delay(1000);
 
 			line_trace.running();
-			logger.stop();
-			logger.saveLogs("STATELOG", "TARVEL.txt");
-			logger.saveLogs2("STATELOG", "CURVEL.txt");
 
 			led.LR(0, -1);
 		}
@@ -1367,11 +1318,6 @@ void cppLoop(void)
 			HAL_Delay(1000);
 
 			line_trace.running();
-
-			logger.stop();
-			logger.saveLogs("STATELOG", "TARVEL.txt");
-			logger.saveLogs2("STATELOG", "CURVEL.txt");
-;
 
 			led.LR(0, -1);
 		}
