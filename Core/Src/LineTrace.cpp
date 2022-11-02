@@ -32,11 +32,11 @@ float mon_tar_vel;
 
 
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, IMU *imu, ESC *esc, sdCard *sd_card) :
-				kp_(0), kd_(0), ki_(0),
+				kp_(0), kd_(0), ki_(0), kp_slow_(0), kd_slow_(0), ki_slow_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
-				target_velocity_(0), max_velocity_(0), min_velocity_(0), max_velocity2_(0),  min_velocity2_(0), max_velocity3_(0),  min_velocity3_(0), max_velocity4_(0),  min_velocity4_(0),
+				target_velocity_(0), target_omega_(0), max_velocity_(0), min_velocity_(0), max_velocity2_(0),  min_velocity2_(0), max_velocity3_(0),  min_velocity3_(0), max_velocity4_(0),  min_velocity4_(0),
 				logging_flag_(false),
-				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), sideline_idx_(0), sideline_idx2_(0), all_sideline_idx_(0),
+				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), crossline_idx2_(0), sideline_idx_(0), sideline_idx2_(0), all_sideline_idx_(0),
 				ignore_crossline_flag_(false), stable_flag_(false), stable_flag_force_(false), stable_cnt_reset_flag_(false),
 				max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), max_acc3_(0), max_dec3_(0), max_acc4_(0), max_dec4_(0),
 				correction_check_cnt_(0), store_check_cnt_(0), ignore_check_cnt_(0), all_sideline_flag_(false)
@@ -325,11 +325,13 @@ void LineTrace::storeLogs()
 	if(logging_flag_ == true){
 		if(mode_selector_ == FIRST_RUNNING){
 			first_run_distance_logger_->storeLogs(encoder_->getDistance10mm());
-			first_run_theta_logger_->storeLogs(odometry_->getDeltaTheta());
+			//first_run_theta_logger_->storeLogs(odometry_->getDeltaTheta());
+			first_run_theta_logger_->storeLogs(odometry_->getTheta());
 		}
 		else{
 			accdec_run_distance_logger_->storeLogs(encoder_->getDistance10mm());
-			accdec_run_theta_logger_->storeLogs(odometry_->getDeltaTheta());
+			//accdec_run_theta_logger_->storeLogs(odometry_->getDeltaTheta());
+			accdec_run_theta_logger_->storeLogs(odometry_->getTheta());
 		}
 		mon_store_cnt++;
 	}
@@ -937,17 +939,17 @@ void LineTrace::flip()
 		// ----- Processing at regular distances -----//
 
 		if(isTargetDistance(10) == true){
-			// ---- Store Logs ------//
-			storeLogs();
-
 			// -------- Detect Robot stabilization ------//
 			if(isStable() == true && side_sensor_->getStatusL() == false){ // Stabilizing and side sensor is black
 				stable_flag_ = true;
 			}
 
+			// ---- Store Logs ------//
+			storeLogs();
+
 			// ---reset total cnt ---//
 			encoder_->clearDistance10mm();
-			//odometry_->clearPotition();
+			odometry_->clearPotition();
 		}
 
 		// ----- cross line ignore processing ------//

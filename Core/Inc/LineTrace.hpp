@@ -18,6 +18,7 @@
 #include "Odometry.hpp"
 #include "Logger.hpp"
 #include "ESC.hpp"
+#include "Logger.hpp"
 #include "Logger2.hpp"
 #include "SdCard.hpp"
 

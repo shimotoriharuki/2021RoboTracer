@@ -1333,13 +1333,3 @@ void cppLoop(void)
 	HAL_Delay(30);
 
 }
-
-void prameterSttingMode()
-{
-
-}
-
-
-
-
-
