@@ -71,8 +71,8 @@ LineTrace.cpp:919:7:float LineTrace::getMaxDec4()	16	static
 LineTrace.cpp:927:6:void LineTrace::flip()	16	static
 LineTrace.cpp:1029:6:void LineTrace::setMode(int16_t)	16	static
 LineTrace.cpp:1034:6:void LineTrace::start()	16	static
-LineTrace.cpp:1049:6:void LineTrace::running()	24	static
-LineTrace.cpp:1134:6:void LineTrace::stop()	16	static
-LineTrace.cpp:1194:6:void LineTrace::createVelocityTabele()	56	static
-LineTrace.cpp:1254:6:void LineTrace::createVelocityTabeleFromSD()	56	static
-LineTrace.cpp:1324:6:void LineTrace::storeDebugLogs10ms()	24	static
+LineTrace.cpp:1050:6:void LineTrace::running()	24	static
+LineTrace.cpp:1135:6:void LineTrace::stop()	16	static
+LineTrace.cpp:1195:6:void LineTrace::createVelocityTabele()	56	static
+LineTrace.cpp:1255:6:void LineTrace::createVelocityTabeleFromSD()	56	static
+LineTrace.cpp:1325:6:void LineTrace::storeDebugLogs10ms()	24	static

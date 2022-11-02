@@ -18,6 +18,7 @@ private:
 	//int16_t xa_store_[STORE_NUM], ya_store_[STORE_NUM], za_store_[STORE_NUM];
 	//int16_t xg_store_[STORE_NUM], yg_store_[STORE_NUM], zg_store_[STORE_NUM];
 	int16_t xa_, ya_, za_, xg_, yg_, zg_;
+	float omega_;
 	//uint16_t array_idx;
 	float offset_;
 	LED led;

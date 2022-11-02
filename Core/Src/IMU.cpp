@@ -15,7 +15,7 @@
 
 #define PI 3.1415926535
 
-float mon_zg;
+float mon_zg, mon_omega;
 
 IMU::IMU() : xa_(0), ya_(0), za_(0), xg_(0), yg_(0), zg_(0), offset_(0)
 {
@@ -65,15 +65,19 @@ void IMU::updateValues()
 	//xa_ = xa;
 	//ya_ = ya;
 	//za_ = za;
-	xg_ = xg;
-	yg_ = yg;
-	zg_ = zg;
+	//xg_ = xg;
+	//yg_ = yg;
+	//zg_ = zg;
 
 	static int16_t pre_zg;
-	zg_ = ((R_IMU)*(zg_) + (1.0 - (R_IMU))* (pre_zg)); // lowpath filter
+	zg_ = int((R_IMU)*(zg) + (1.0 - (R_IMU))* (pre_zg)); // lowpath filter
 
 	pre_zg = zg_;
-	//mon_zg= zg_;
+	mon_zg= zg_;
+
+	float corrected_zg = float(zg_) - offset_;
+	omega_ = -(corrected_zg / 16.4) * PI / 180;
+	mon_omega = omega_;
 
 	/*
 	// heap value
@@ -102,10 +106,7 @@ void IMU::updateValues()
 
 float IMU::getOmega()
 {
-	float corrected_zg = float(zg_) - offset_;
-	float omega = -(corrected_zg / 16.4) * PI / 180;
-
-	return omega;
+	return omega_;
 }
 
 void IMU::calibration()

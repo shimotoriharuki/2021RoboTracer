@@ -947,7 +947,7 @@ void LineTrace::flip()
 
 			// ---reset total cnt ---//
 			encoder_->clearDistance10mm();
-			odometry_->clearPotition();
+			//odometry_->clearPotition();
 		}
 
 		// ----- cross line ignore processing ------//
@@ -1037,6 +1037,7 @@ void LineTrace::start()
 	i_reset_flag_ = true;
 	velocity_ctrl_->start();
 	side_sensor_->resetWhiteLineCnt();
+	odometry_->clearPotition();
 
 	crossline_idx_ = 0;
 	crossline_idx2_ = 0;
