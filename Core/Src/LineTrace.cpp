@@ -30,6 +30,8 @@ float mon_ref_dis, mon_current_dis;
 uint16_t mon_vel_idx, mon_i;
 float mon_tar_vel;
 
+float my_theta;
+
 
 LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, IMU *imu, ESC *esc, sdCard *sd_card) :
 				kp_(0), kd_(0), ki_(0), kp_slow_(0), kd_slow_(0), ki_slow_(0),
@@ -325,12 +327,11 @@ void LineTrace::storeLogs()
 	if(logging_flag_ == true){
 		if(mode_selector_ == FIRST_RUNNING){
 			first_run_distance_logger_->storeLogs(encoder_->getDistance10mm());
-			//first_run_theta_logger_->storeLogs(odometry_->getDeltaTheta());
-			first_run_theta_logger_->storeLogs(odometry_->getTheta());
+			//first_run_theta_logger_->storeLogs(odometry_->getTheta());
+			first_run_theta_logger_->storeLogs(my_theta);
 		}
 		else{
 			accdec_run_distance_logger_->storeLogs(encoder_->getDistance10mm());
-			//accdec_run_theta_logger_->storeLogs(odometry_->getDeltaTheta());
 			accdec_run_theta_logger_->storeLogs(odometry_->getTheta());
 		}
 		mon_store_cnt++;
@@ -936,8 +937,8 @@ void LineTrace::flip()
 		// ---- Target Velocity Updata ------//
 		updateTargetVelocity();
 
+		my_theta += float(imu_->getOmega()) * 0.001;
 		// ----- Processing at regular distances -----//
-
 		if(isTargetDistance(10) == true){
 			// -------- Detect Robot stabilization ------//
 			if(isStable() == true && side_sensor_->getStatusL() == false){ // Stabilizing and side sensor is black
@@ -950,6 +951,7 @@ void LineTrace::flip()
 			// ---reset total cnt ---//
 			encoder_->clearDistance10mm();
 			odometry_->clearPotition();
+			my_theta = 0;
 		}
 
 		// ----- cross line ignore processing ------//
