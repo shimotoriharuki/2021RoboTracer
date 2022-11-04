@@ -34,7 +34,6 @@ void Encoder::init()
 
 void Encoder::update()
 {
-	//static float pre_cnt_l, pre_cnt_r;
 	float cnt_l = (float(CNT_OFFSET) - float(TIM1 -> CNT)) * CORRECTION_COEFFICIENT;
 	float cnt_r = (float(TIM8 -> CNT) - float(CNT_OFFSET)) * CORRECTION_COEFFICIENT;
 	//monitor_cnt_l = cnt_l;
@@ -42,7 +41,6 @@ void Encoder::update()
 	cnt_l_ = cnt_l;
 	cnt_r_ = cnt_r;
 
-	//distance_ = distance_ + DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	distance_ = DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	distance_10mm_ += distance_;
 	total_distance_ += distance_;
