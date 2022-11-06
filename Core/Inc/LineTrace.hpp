@@ -64,6 +64,7 @@ private:
     Logger2 *accdec_run_distance_logger_, *accdec_run_theta_logger_;
     Logger2 *first_run_crossline_distance_logger_, *first_run_sideline_distance_logger_;
     Logger2 *accdec_run_crossline_distance_logger_, *accdec_run_sideline_distance_logger_;
+    Logger2 *total_distance_logger_;
 
 	float kp_, kd_, ki_;
 	float kp_slow_, kd_slow_, ki_slow_;
@@ -132,6 +133,7 @@ private:
 	//void correctionTotalDistanceFromAllSideMarker();
 
 	// Acceleration / deceleration processing
+	float dtheta2Velocity(float);
 	float radius2Velocity(float);
 	float radius2VelocityFnc(float);
 	void decelerateProcessing(const float, const float *);

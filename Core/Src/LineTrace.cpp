@@ -54,8 +54,8 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	esc_ = esc;
 	sd_card_ = sd_card;
 
-	debugger_ = new Logger2(sd_card_, LOG_SIZE_TIM);
-	debugger2_ = new Logger2(sd_card_, LOG_SIZE_TIM);
+	//debugger_ = new Logger2(sd_card_, LOG_SIZE_TIM);
+	//debugger2_ = new Logger2(sd_card_, LOG_SIZE_TIM);
 
 	first_run_distance_logger_ = new Logger2(sd_card_, LOG_SIZE_DIS);
 	first_run_theta_logger_ = new Logger2(sd_card_, LOG_SIZE_DIS);
@@ -68,6 +68,8 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 
 	accdec_run_crossline_distance_logger_ = new Logger2(sd_card_, LOG_CROSSLINE_SIZE);
 	accdec_run_sideline_distance_logger_ = new Logger2(sd_card_, LOG_SIDELINE_SIZE);
+
+	total_distance_logger_ = new Logger2(sd_card_, LOG_SIZE_DIS);
 
 	for(uint16_t i = 0; i < LOG_SIZE_DIS; i++){
 		velocity_table_[i] = 0;
@@ -250,11 +252,12 @@ void LineTrace::loggerStart()
 	encoder_->clearDistance10mm();
 	odometry_->clearPotition();
 
+	/*
 	debugger_->clearLogs();
 	debugger_->start();
 	debugger2_->clearLogs();
 	debugger2_->start();
-
+	*/
 	if(mode_selector_ == FIRST_RUNNING){
 		first_run_distance_logger_->clearLogs();
 		first_run_theta_logger_->clearLogs();
@@ -278,13 +281,16 @@ void LineTrace::loggerStart()
 		accdec_run_sideline_distance_logger_->start();
 	}
 
+	total_distance_logger_->clearLogs();
+	total_distance_logger_->start();
+
 	logging_flag_ = true;
 }
 
 void LineTrace::loggerStop()
 {
-	debugger_->stop();
-	debugger2_->stop();
+	//debugger_->stop();
+	//debugger2_->stop();
 
 	first_run_distance_logger_->stop();
 	first_run_theta_logger_->stop();
@@ -297,6 +303,8 @@ void LineTrace::loggerStop()
 
 	accdec_run_crossline_distance_logger_->stop();
 	accdec_run_sideline_distance_logger_->stop();
+
+	total_distance_logger_->stop();
 
 	logging_flag_ = false;
 }
@@ -334,7 +342,9 @@ void LineTrace::storeLogs()
 			accdec_run_distance_logger_->storeLogs(encoder_->getDistance10mm());
 			accdec_run_theta_logger_->storeLogs(odometry_->getTheta());
 		}
-		mon_store_cnt++;
+
+		total_distance_logger_->storeLogs(encoder_->getTotalDistance());
+
 	}
 }
 
@@ -412,6 +422,20 @@ void LineTrace::correctionTotalDistanceFromSideMarker()
 // ---------------------------------------------------------------------------------------------------//
 // ------------------------ Acceleration / deceleration processing------------------------------------//
 // ---------------------------------------------------------------------------------------------------//
+float LineTrace::dtheta2Velocity(float dtheta)
+{
+	float velocity;
+
+	if(mode_selector_ == SECOND_RUNNING){
+		if(dtheta > 0.0025) velocity = min_velocity_; //1.0 R10
+		else if(dtheta > 0.001) velocity = 2.0; //midium radius and snake
+		else velocity = max_velocity_; //3.0 large R and straight
+	}
+	else velocity = 1.3;
+
+	return velocity;
+}
+
 float LineTrace::radius2Velocity(float radius)
 {
 	float velocity;
@@ -1125,8 +1149,8 @@ void LineTrace::stop()
 
 	led_.LR(-1, 1);
 
-	debugger_->saveLogs("TEST", "target_velocitys");
-	debugger2_->saveLogs("TEST", "current_velocitys");
+	//debugger_->saveLogs("TEST", "target_velocitys");
+	//debugger2_->saveLogs("TEST", "current_velocitys");
 
 	if(mode_selector_ == FIRST_RUNNING){ //First running
 		first_run_distance_logger_->saveLogs("TEST", "first_run_distances");
@@ -1170,6 +1194,7 @@ void LineTrace::stop()
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "other_run_sideline_distances");
 
 	}
+	total_distance_logger_->saveLogs("TEST", "total_distances");
 
 	led_.LR(-1, 0);
 
@@ -1184,16 +1209,24 @@ void LineTrace::createVelocityTabele()
 	p_distance = first_run_distance_logger_->getLogsPointer();
 	p_theta = first_run_theta_logger_->getLogsPointer();
 
+
 	float temp_distance, temp_theta;
 	for(uint16_t i = 0; i < first_run_distance_logger_->getLogsSize(); i++){
 		temp_distance = p_distance[i];
 		temp_theta = p_theta[i];
 
 		if(temp_theta == 0) temp_theta = 0.00001;
+		float dtheta= abs(temp_theta / temp_distance);
+
+		velocity_table_[i] = dtheta2Velocity(dtheta);
+
+		/*
+		if(temp_theta == 0) temp_theta = 0.00001;
 		float radius = abs(temp_distance / temp_theta);
 		if(radius >= 5000) radius = 5000;
 
 		velocity_table_[i] = radius2Velocity(radius);
+		*/
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
@@ -1310,6 +1343,6 @@ void LineTrace::createVelocityTabeleFromSD()
 
 void LineTrace::storeDebugLogs10ms()
 {
-	debugger_->storeLogs(getTargetVelocity());
-	debugger2_->storeLogs(velocity_ctrl_->getCurrentVelocity());
+	//debugger_->storeLogs(getTargetVelocity());
+	//debugger2_->storeLogs(velocity_ctrl_->getCurrentVelocity());
 }
