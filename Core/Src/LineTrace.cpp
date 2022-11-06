@@ -593,24 +593,6 @@ bool LineTrace::isCrossLine()
 				storeAccDecRunCrossLineDistance(); //for correction check
 			}
 		}
-	//}
-	/*
-	else{
-		if(sensor_edge_val_l > 500 && sensor_edge_val_r > 500){
-			cnt++;
-		}
-		else{
-			cnt = 0;
-		}
-
-		if(cnt >= 3){
-			flag = false;
-			white_flag = false;
-			cnt = 0;
-		}
-
-	}
-	*/
 
 	return flag;
 }
