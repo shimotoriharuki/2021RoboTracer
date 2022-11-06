@@ -1157,6 +1157,7 @@ void LineTrace::stop()
 		first_run_theta_logger_->saveLogs("TEST", "first_run_thetas");
 		first_run_crossline_distance_logger_ ->saveLogs("TEST", "first_run_crossline_distances");
 		first_run_sideline_distance_logger_ ->saveLogs("TEST", "first_run_sideline_distances");
+		total_distance_logger_->saveLogs("TEST", "first_run_total_distances");
 
 	}
 	else if(mode_selector_ == SECOND_RUNNING){ //Secondary run
@@ -1164,6 +1165,7 @@ void LineTrace::stop()
 		accdec_run_theta_logger_->saveLogs("TEST", "second_run_thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "second_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "second_run_sideline_distances");
+		total_distance_logger_->saveLogs("TEST", "second_run_total_distances");
 
 	}
 	else if(mode_selector_ == THIRD_RUNNING){ //Third run
@@ -1171,6 +1173,7 @@ void LineTrace::stop()
 		accdec_run_theta_logger_->saveLogs("TEST", "third_run__thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "third_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "third_run_sideline_distances");
+		total_distance_logger_->saveLogs("TEST", "third_run_total_distances");
 
 	}
 	else if(mode_selector_ == FOURTH_RUNNING){ //Fourth run
@@ -1178,6 +1181,7 @@ void LineTrace::stop()
 		accdec_run_theta_logger_->saveLogs("TEST", "fourth_run__thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "fourth_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "fourth_run_sideline_distances");
+		total_distance_logger_->saveLogs("TEST", "fourth_run_total_distances");
 
 	}
 	else if(mode_selector_ == FIFTH_RUNNING){ //Fifth run
@@ -1185,6 +1189,7 @@ void LineTrace::stop()
 		accdec_run_theta_logger_->saveLogs("TEST", "fifth_run__thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "fifth_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "fifth_run_sideline_distances");
+		total_distance_logger_->saveLogs("TEST", "fifth_run_total_distances");
 
 	}
 	else{ //Other run
@@ -1194,7 +1199,6 @@ void LineTrace::stop()
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "other_run_sideline_distances");
 
 	}
-	total_distance_logger_->saveLogs("TEST", "total_distances");
 
 	led_.LR(-1, 0);
 
