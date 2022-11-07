@@ -335,8 +335,7 @@ void LineTrace::storeLogs()
 	if(logging_flag_ == true){
 		if(mode_selector_ == FIRST_RUNNING){
 			first_run_distance_logger_->storeLogs(encoder_->getDistance10mm());
-			//first_run_theta_logger_->storeLogs(odometry_->getTheta());
-			first_run_theta_logger_->storeLogs(my_theta);
+			first_run_theta_logger_->storeLogs(odometry_->getTheta());
 		}
 		else{
 			accdec_run_distance_logger_->storeLogs(encoder_->getDistance10mm());
@@ -943,7 +942,6 @@ void LineTrace::flip()
 		// ---- Target Velocity Updata ------//
 		updateTargetVelocity();
 
-		my_theta += float(imu_->getOmega()) * 0.001;
 		// ----- Processing at regular distances -----//
 		if(isTargetDistance(10) == true){
 			// -------- Detect Robot stabilization ------//
@@ -957,7 +955,6 @@ void LineTrace::flip()
 			// ---reset total cnt ---//
 			encoder_->clearDistance10mm();
 			odometry_->clearPotition();
-			my_theta = 0;
 		}
 
 		// ----- cross line ignore processing ------//
