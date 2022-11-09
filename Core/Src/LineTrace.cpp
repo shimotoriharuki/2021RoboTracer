@@ -33,7 +33,8 @@ float mon_tar_vel;
 float my_theta;
 
 
-LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, IMU *imu, ESC *esc, sdCard *sd_card) :
+LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, IMU *imu,
+		DownForceUnit *down_force_unit, sdCard *sd_card) :
 				kp_(0), kd_(0), ki_(0), kp_slow_(0), kd_slow_(0), ki_slow_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
 				target_velocity_(0), target_omega_(0), max_velocity_(0), min_velocity_(0), max_velocity2_(0),  min_velocity2_(0), max_velocity3_(0),  min_velocity3_(0), max_velocity4_(0),  min_velocity4_(0),
@@ -51,7 +52,7 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	encoder_ = encoder;
 	odometry_ = odometry;
 	imu_ = imu;
-	esc_ = esc;
+	down_force_unit_ = down_force_unit;
 	sd_card_ = sd_card;
 
 	//debugger_ = new Logger2(sd_card_, LOG_SIZE_TIM);
@@ -1019,7 +1020,7 @@ void LineTrace::flip()
 		// ----- Emergency stop processing------//
 		if(line_sensor_->emergencyStop() == true){
 			velocity_ctrl_->setTranslationVelocityOnly(0, 0);
-			esc_->off();
+			down_force_unit_->off();
 			//led_.LR(1, -1);
 		}
 		else{
@@ -1051,6 +1052,9 @@ void LineTrace::start()
 	sideline_idx_ = 0;
 	sideline_idx2_ = 0;
 	all_sideline_idx_ = 0;
+
+	down_force_unit_->on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
+	HAL_Delay(100);
 }
 
 
@@ -1141,6 +1145,8 @@ void LineTrace::running()
 
 void LineTrace::stop()
 {
+	down_force_unit_->off();
+
 	excution_flag_ = false;
 	velocity_ctrl_->stop();
 

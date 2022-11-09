@@ -21,6 +21,7 @@
 #include "Logger.hpp"
 #include "Logger2.hpp"
 #include "SdCard.hpp"
+#include "DownForceUnit.hpp"
 
 #define DELTA_T 0.001
 #define ANGLE_BETWEEN_SENSORS 0.17104 //[rad]
@@ -44,6 +45,8 @@
 #define R_RADIUS 0.05
 #define DISTANCE_CORRECTION_CONST 1 //0.9663
 
+#define DOWN_FORCE_POWER 0.4
+
 class LineTrace
 {
 private:
@@ -54,9 +57,8 @@ private:
 	SideSensor *side_sensor_;
 	Encoder *encoder_;
 	Odometry *odometry_;
-	//Logger *logger_;
 	IMU *imu_;
-    ESC *esc_;
+    DownForceUnit *down_force_unit_;
     sdCard *sd_card_;
 
     Logger2 *debugger_, *debugger2_;
@@ -150,7 +152,7 @@ private:
 	float calcRadius(float, float);
 
 public:
-	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, IMU *, ESC *, sdCard *);
+	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, IMU *, DownForceUnit*, sdCard *);
 
 	// Initialize
 	void init();

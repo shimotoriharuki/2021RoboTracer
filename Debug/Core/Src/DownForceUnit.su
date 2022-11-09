@@ -1,0 +1,5 @@
+DownForceUnit.cpp:15:10:uint16_t DownForceUnit::getCounterPeriod(float)	16	static
+DownForceUnit.cpp:21:1:DownForceUnit::DownForceUnit()	16	static
+DownForceUnit.cpp:23:6:void DownForceUnit::init()	16	static
+DownForceUnit.cpp:29:6:void DownForceUnit::on(float, float)	24	static
+DownForceUnit.cpp:42:6:void DownForceUnit::off()	16	static

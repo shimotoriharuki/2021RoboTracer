@@ -4,7 +4,6 @@
  *  Created on: Jun 9, 2021
  *      Author: Haruki Shimotori
  */
-#include <ESC.hpp>
 #include "wrapper.hpp"
 #include <stdio.h>
 #include <iostream>
@@ -31,8 +30,8 @@
 
 #include "Logger2.hpp"
 #include "sdCard.hpp"
+#include "DownForceUnit.hpp"
 
-#define BLDC_POWER 0.32
 
 LineSensor line_sensor;
 SideSensor side_sensor;
@@ -49,8 +48,8 @@ sdCard sd_card;
 Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
-ESC esc;
-LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &imu, &esc, &sd_card);
+DownForceUnit down_force_unit;
+LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &imu, &down_force_unit, &sd_card);
 //SystemIdentification sys_ident(&logger, &motor);
 
 PathFollowing path_following;
@@ -149,7 +148,7 @@ void cppInit(void)
 
 	path_following.init();
 
-	esc.init();
+	down_force_unit.init();
 
 }
 
@@ -267,6 +266,8 @@ void cppLoop(void)
 	static float adj_dec3 = line_trace.getMaxDec3();
 	static float adj_acc4 = line_trace.getMaxAcc4();
 	static float adj_dec4 = line_trace.getMaxDec4();
+
+	static float down_force_ratio = 0;
 
 	switch(rotary_switch.getValue()){
 	/*-------------------------------------------------------------------------*/
@@ -1109,6 +1110,39 @@ void cppLoop(void)
 	case 12:
 		led.fullColor('~');
 
+		lcd_clear();
+		lcd_locate(0,0);
+		lcd_printf("DownForc");
+		lcd_locate(0,1);
+		lcd_printf("Test");
+
+		if(joy_stick.getValue() == JOY_C){
+			led.LR(-1, 1);
+			HAL_Delay(500);
+
+			down_force_unit.on(down_force_ratio, down_force_ratio);
+			HAL_Delay(5000);
+			down_force_unit.off();
+
+			led.LR(-1, 0);
+		}
+		else if(joy_stick.getValue() == JOY_R){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			down_force_ratio= down_force_ratio + 0.1;
+
+			led.LR(-1, 0);
+		}
+
+		else if(joy_stick.getValue() == JOY_L){
+			led.LR(-1, 1);
+			HAL_Delay(100);
+
+			down_force_ratio = down_force_ratio - 0.1;
+
+			led.LR(-1, 0);
+		}
 		/*
 		lcd_clear();
 		lcd_locate(0,0);
@@ -1226,7 +1260,7 @@ void cppLoop(void)
 			led.LR(-1, 1);
 
 			HAL_Delay(3000);
-			esc.on(BLDC_POWER, BLDC_POWER, BLDC_POWER, BLDC_POWER);
+			down_force_unit.on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
 			HAL_Delay(1000);
 
 			velocity_ctrl.start();
