@@ -102,6 +102,9 @@ void VelocityCtrl::pidTranslationOnly()
 
 	translation_ratio =  v_p + v_d + v_i;
 
+	if(translation_ratio >= 0.8) translation_ratio = 0.8;
+	else if(translation_ratio <= -0.8) translation_ratio = -0.8;
+
 	motor_->setRatio(translation_ratio + rotation_ratio_, translation_ratio - rotation_ratio_);
 
 	v_pre_diff = v_diff;

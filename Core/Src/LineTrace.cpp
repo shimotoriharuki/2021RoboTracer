@@ -55,8 +55,8 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	down_force_unit_ = down_force_unit;
 	sd_card_ = sd_card;
 
-	//debugger_ = new Logger2(sd_card_, LOG_SIZE_TIM);
-	//debugger2_ = new Logger2(sd_card_, LOG_SIZE_TIM);
+	debugger_ = new Logger2(sd_card_, LOG_SIZE_TIM);
+	debugger2_ = new Logger2(sd_card_, LOG_SIZE_TIM);
 
 	first_run_distance_logger_ = new Logger2(sd_card_, LOG_SIZE_DIS);
 	first_run_theta_logger_ = new Logger2(sd_card_, LOG_SIZE_DIS);
@@ -253,12 +253,11 @@ void LineTrace::loggerStart()
 	encoder_->clearDistance10mm();
 	odometry_->clearPotition();
 
-	/*
 	debugger_->clearLogs();
 	debugger_->start();
 	debugger2_->clearLogs();
 	debugger2_->start();
-	*/
+
 	if(mode_selector_ == FIRST_RUNNING){
 		first_run_distance_logger_->clearLogs();
 		first_run_theta_logger_->clearLogs();
@@ -290,8 +289,8 @@ void LineTrace::loggerStart()
 
 void LineTrace::loggerStop()
 {
-	//debugger_->stop();
-	//debugger2_->stop();
+	debugger_->stop();
+	debugger2_->stop();
 
 	first_run_distance_logger_->stop();
 	first_run_theta_logger_->stop();
@@ -1041,6 +1040,9 @@ void LineTrace::setMode(int16_t mode)
 
 void LineTrace::start()
 {
+	down_force_unit_->on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
+	HAL_Delay(500);
+
 	excution_flag_ = true;
 	i_reset_flag_ = true;
 	velocity_ctrl_->start();
@@ -1053,8 +1055,6 @@ void LineTrace::start()
 	sideline_idx2_ = 0;
 	all_sideline_idx_ = 0;
 
-	down_force_unit_->on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
-	HAL_Delay(100);
 }
 
 
@@ -1152,8 +1152,8 @@ void LineTrace::stop()
 
 	led_.LR(-1, 1);
 
-	//debugger_->saveLogs("TEST", "target_velocitys");
-	//debugger2_->saveLogs("TEST", "current_velocitys");
+	debugger_->saveLogs("DEBUG", "left_motor_counterperiod");
+	debugger2_->saveLogs("DEBUG", "right_motor_counterperiod");
 
 	if(mode_selector_ == FIRST_RUNNING){ //First running
 		first_run_distance_logger_->saveLogs("TEST", "first_run_distances");
@@ -1345,6 +1345,6 @@ void LineTrace::createVelocityTabeleFromSD()
 
 void LineTrace::storeDebugLogs10ms()
 {
-	//debugger_->storeLogs(getTargetVelocity());
-	//debugger2_->storeLogs(velocity_ctrl_->getCurrentVelocity());
+	debugger_->storeLogs(motor_->getLeftCounterPeriod());
+	debugger2_->storeLogs(motor_->getRightCounterPeriod());
 }
