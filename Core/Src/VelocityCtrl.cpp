@@ -6,8 +6,8 @@
  */
 
 #include "VelocityCtrl.hpp"
-//#include "ICM_20648.h"
 #include <stdio.h>
+#include <math.h>
 
 float mon_current_velocity;
 
@@ -102,16 +102,21 @@ void VelocityCtrl::pidTranslationOnly()
 
 	translation_ratio =  v_p + v_d + v_i;
 
-	if(translation_ratio >= 0.9) translation_ratio = 0.9;
-	else if(translation_ratio <= -0.9) translation_ratio = -0.9;
+	float limit = 0.7;
+	if(translation_ratio >= limit) translation_ratio = limit;
+	else if(translation_ratio <= -limit) translation_ratio = -limit;
 
 	float exceeded = 0;
 	if(translation_ratio + rotation_ratio_ >= 1.0){
 		exceeded = (translation_ratio + rotation_ratio_) - 1.0;
 	}
+	else if(translation_ratio - rotation_ratio_ <= -1.0){
+		exceeded = -1.0 - (translation_ratio - rotation_ratio_) ;
+	}
 
 	translation_ratio -= exceeded;
 	rotation_ratio_ += exceeded;
+
 
 	motor_->setRatio(translation_ratio + rotation_ratio_, translation_ratio - rotation_ratio_);
 
