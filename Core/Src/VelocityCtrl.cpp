@@ -101,7 +101,7 @@ void VelocityCtrl::pidTranslationOnly()
 
 	translation_ratio_ =  v_p + v_d + v_i;
 
-	float limit = 0.7;
+	float limit = 0.9;
 	if(translation_ratio_ >= limit) translation_ratio_= limit;
 	else if(translation_ratio_ <= -limit) translation_ratio_ = -limit;
 
