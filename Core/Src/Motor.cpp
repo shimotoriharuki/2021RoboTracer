@@ -49,10 +49,10 @@ void Motor::motorCtrl()
 
 void Motor::setRatio(double left_ratio, double right_ratio)
 {
-	if(left_ratio > 1) left_ratio = 1;
-	else if(left_ratio < -1) left_ratio = -1;
-	if(right_ratio > 1) right_ratio = 1;
-	else if(right_ratio < -1) right_ratio = -1;
+	if(left_ratio > 1.0) left_ratio = 1.0;
+	else if(left_ratio < -1.0) left_ratio = -1.0;
+	if(right_ratio > 1.0) right_ratio = 1.0;
+	else if(right_ratio < -1.0) right_ratio = -1.0;
 
 	temp_left_counter_period_ = (int)((double)MAX_COUNTER_PERIOD * left_ratio);
 	temp_right_counter_period_ = (int)((double)MAX_COUNTER_PERIOD * right_ratio);

@@ -57,6 +57,8 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 
 	debugger_ = new Logger2(sd_card_, LOG_SIZE_TIM);
 	debugger2_ = new Logger2(sd_card_, LOG_SIZE_TIM);
+	//debugger3_ = new Logger2(sd_card_, LOG_SIZE_TIM);
+	//debugger4_ = new Logger2(sd_card_, LOG_SIZE_TIM);
 
 	first_run_distance_logger_ = new Logger2(sd_card_, LOG_SIZE_DIS);
 	first_run_theta_logger_ = new Logger2(sd_card_, LOG_SIZE_DIS);
@@ -257,6 +259,12 @@ void LineTrace::loggerStart()
 	debugger_->start();
 	debugger2_->clearLogs();
 	debugger2_->start();
+	/*
+	debugger3_->clearLogs();
+	debugger3_->start();
+	debugger4_->clearLogs();
+	debugger4_->start();
+	*/
 
 	if(mode_selector_ == FIRST_RUNNING){
 		first_run_distance_logger_->clearLogs();
@@ -291,6 +299,8 @@ void LineTrace::loggerStop()
 {
 	debugger_->stop();
 	debugger2_->stop();
+	//debugger3_->stop();
+	//debugger4_->stop();
 
 	first_run_distance_logger_->stop();
 	first_run_theta_logger_->stop();
@@ -1152,8 +1162,11 @@ void LineTrace::stop()
 
 	led_.LR(-1, 1);
 
-	debugger_->saveLogs("DEBUG", "left_motor_counterperiod");
-	debugger2_->saveLogs("DEBUG", "right_motor_counterperiod");
+	debugger_->saveLogs("DEBUG", "translation_ratio");
+	debugger2_->saveLogs("DEBUG", "rotation_ratio");
+	//debugger3_->saveLogs("DEBUG", "left_velocity_power");
+	//debugger4_->saveLogs("DEBUG", "right_velocity_power");
+
 
 	if(mode_selector_ == FIRST_RUNNING){ //First running
 		first_run_distance_logger_->saveLogs("TEST", "first_run_distances");
@@ -1345,6 +1358,6 @@ void LineTrace::createVelocityTabeleFromSD()
 
 void LineTrace::storeDebugLogs10ms()
 {
-	debugger_->storeLogs(motor_->getLeftCounterPeriod());
-	debugger2_->storeLogs(motor_->getRightCounterPeriod());
+	debugger_->storeLogs(velocity_ctrl_->getTranslationRatio());
+	debugger2_->storeLogs(velocity_ctrl_->getRotationRatio());
 }
