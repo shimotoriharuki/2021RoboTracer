@@ -124,6 +124,8 @@ private:
 	// Logging
 	void loggerStart();
 	void loggerStop();
+	void debuggerStart();
+	void debuggerStop();
 	void storeFirstRunCrossLineDistance();
 	void storeAccDecRunCrossLineDistance();
 	void storeFirstRunSideLineDistance();
