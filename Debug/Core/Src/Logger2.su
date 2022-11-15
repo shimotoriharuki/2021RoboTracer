@@ -1,10 +1,10 @@
 Logger2.cpp:16:1:Logger2::Logger2(sdCard*, uint16_t)	32	static
 Logger2.cpp:25:6:void Logger2::storeLogs(float)	16	static
 Logger2.cpp:36:6:void Logger2::saveLogs(const char*, const char*)	32	static
-Logger2.cpp:40:6:void Logger2::clearLogs()	24	static
-Logger2.cpp:50:6:void Logger2::start()	16	static
-Logger2.cpp:57:6:void Logger2::stop()	16	static
-Logger2.cpp:62:14:const float* Logger2::getLogsPointer()	16	static
-Logger2.cpp:67:6:void Logger2::importLatestLogs(const char*, const char*)	1072	static
-Logger2.cpp:86:10:uint16_t Logger2::getLogsSize()	16	static
-Logger2.cpp:91:7:float Logger2::getLogData(uint16_t)	16	static
+Logger2.cpp:41:6:void Logger2::clearLogs()	24	static
+Logger2.cpp:51:6:void Logger2::start()	16	static
+Logger2.cpp:58:6:void Logger2::stop()	16	static
+Logger2.cpp:63:14:const float* Logger2::getLogsPointer()	16	static
+Logger2.cpp:68:6:void Logger2::importLatestLogs(const char*, const char*)	1072	static
+Logger2.cpp:87:10:uint16_t Logger2::getLogsSize()	16	static
+Logger2.cpp:92:7:float Logger2::getLogData(uint16_t)	16	static

@@ -9,11 +9,12 @@
 
 float mon_msig;
 
-SystemIdentification::SystemIdentification(Logger *logger, Motor *motor) : msigArrayIdx_(0), inputVal_(0), processing_flag_(false)
+SystemIdentification::SystemIdentification(sdCard *sd_card, Motor *motor) : msigArrayIdx_(0), inputVal_(0), processing_flag_(false)
 {
-	logger_ = logger;
+	sd_card_ = sd_card;
+	logger1_= new Logger2(sd_card_, LOG_SIZE);
+	logger2_= new Logger2(sd_card_, LOG_SIZE);
 	motor_ = motor;
-	//msigItr_ = msigArray_.begin();
 }
 
 void SystemIdentification::init()
@@ -24,16 +25,16 @@ void SystemIdentification::init()
 void SystemIdentification::inOutputStore(float output)
 {
 	if(processing_flag_ == true){
-		//logger_->storeLog(output);
-		//logger_->storeLog2(inputVal_);
+		logger1_->storeLogs(output);
+		logger2_->storeLogs(inputVal_);
 	}
 
 }
 
 void SystemIdentification::inOutputSave()
 {
-	logger_->saveLogs("sysident", "MSIGRES.txt");
-	logger_->saveLogs2("sysident", "INPUT.txt");
+	logger1_->saveLogs("SYSIDENT", "response");
+	logger2_->saveLogs("SYSIDENT", "input");
 }
 
 void SystemIdentification::updateMsig()
@@ -57,14 +58,19 @@ void SystemIdentification::setInputRatio(float ratio)
 
 void SystemIdentification::start()
 {
-	//logger_->resetLogs();
-	logger_->start();
+	logger1_->clearLogs();
+	logger1_->start();
+	logger2_->clearLogs();
+	logger2_->start();
+
 	processing_flag_ = true;
 }
 
 void SystemIdentification::stop()
 {
-	logger_->stop();
+	logger1_->stop();
+	logger2_->stop();
+
 	processing_flag_ = false;
 	msigArrayIdx_ = 0;
 	motor_->setRatio(0, 0);

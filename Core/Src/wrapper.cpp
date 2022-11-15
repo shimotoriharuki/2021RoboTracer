@@ -50,7 +50,7 @@ VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
 DownForceUnit down_force_unit;
 LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &imu, &down_force_unit, &sd_card);
-//SystemIdentification sys_ident(&logger, &motor);
+SystemIdentification sys_ident(&sd_card, &motor);
 
 PathFollowing path_following;
 
@@ -135,9 +135,10 @@ void cppInit(void)
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	//line_trace.setGain(0.0005, 0.000002, 0);
 
-	velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243); //2s
+	//velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243); //2s
 	//velocity_ctrl.setVelocityGain(1.0154, 6.5511, 0.0010088); //3s dorone
 	//velocity_ctrl.setVelocityGain(1.2, 10.6, 0.0); //3s hand tune
+	velocity_ctrl.setVelocityGain(1.1218, 12.9586, 0.0011089); //2s drone system identification
 
 	velocity_ctrl.setOmegaGain(0.060, 0.86816, 0.000); //2s
 
@@ -163,14 +164,12 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-/*
 	static uint16_t twice_cnt;
 	twice_cnt++;
 	if(twice_cnt >= 2){ //2ms
 		sys_ident.inOutputStore(velocity_ctrl.getCurrentVelocity());
 		twice_cnt = 0;
 	}
-*/
 	//mon_cnt = twice_cnt;
 	/*
 	*/
@@ -190,14 +189,12 @@ void cppFlip100ns(void)
 
 void cppFlip10ms(void)
 {
-	/*
 	static uint16_t twice_cnt;
 	twice_cnt++;
 	if(twice_cnt >= 17){ //170ms
 		sys_ident.updateMsig();
 		twice_cnt = 0;
 	}
-	*/
 
 	line_trace.storeDebugLogs10ms();
 	logger1.storeLogs(velocity_ctrl.getCurrentVelocity());
@@ -1293,7 +1290,7 @@ void cppLoop(void)
 			HAL_Delay(1500);
 
 			HAL_Delay(3000);
-			esc.on(0.35, 0.35, 0.35, 0.35);
+			down_force_unit.on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
 			HAL_Delay(1000);
 
 			sys_ident.setInputRatio(0.3);
@@ -1301,12 +1298,14 @@ void cppLoop(void)
 			HAL_Delay(17000);
 			sys_ident.stop();
 
-			esc.off();
+			down_force_unit.off();
 			sys_ident.inOutputSave();
 
 			led.LR(-1, 0);
 		}
 		*/
+
+
 		break;
 
 	case 14:
