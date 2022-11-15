@@ -136,9 +136,9 @@ void cppInit(void)
 	//line_trace.setGain(0.0005, 0.000002, 0);
 
 	//velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243); //2s
-	//velocity_ctrl.setVelocityGain(1.0154, 6.5511, 0.0010088); //3s dorone
+	velocity_ctrl.setVelocityGain(1.0154, 6.5511, 0.0010088); //3s dorone
 	//velocity_ctrl.setVelocityGain(1.2, 10.6, 0.0); //3s hand tune
-	velocity_ctrl.setVelocityGain(1.1218, 12.9586, 0.00); //2s drone system identification
+	//velocity_ctrl.setVelocityGain(1.1218, 12.9586, 0.00); //2s drone system identification
 
 	velocity_ctrl.setOmegaGain(0.060, 0.86816, 0.000); //2s
 
