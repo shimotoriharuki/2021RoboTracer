@@ -54,8 +54,7 @@ LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encode
 
 PathFollowing path_following;
 
-Logger2 test_logger1(&sd_card, 10);
-Logger2 test_logger2(&sd_card, 10);
+Logger2 logger1(&sd_card, 500);
 
 
 float mon_v, mon_w;
@@ -136,9 +135,9 @@ void cppInit(void)
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	//line_trace.setGain(0.0005, 0.000002, 0);
 
-	//velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243); //2s
+	velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243); //2s
 	//velocity_ctrl.setVelocityGain(1.0154, 6.5511, 0.0010088); //3s dorone
-	velocity_ctrl.setVelocityGain(1.2, 10.6, 0.0); //3s hand tune
+	//velocity_ctrl.setVelocityGain(1.2, 10.6, 0.0); //3s hand tune
 
 	velocity_ctrl.setOmegaGain(0.060, 0.86816, 0.000); //2s
 
@@ -201,6 +200,7 @@ void cppFlip10ms(void)
 	*/
 
 	line_trace.storeDebugLogs10ms();
+	logger1.storeLogs(velocity_ctrl.getCurrentVelocity());
 
 	/*
 	static float tim;
@@ -1259,17 +1259,25 @@ void cppLoop(void)
 			HAL_Delay(1500);
 			led.LR(-1, 1);
 
-			HAL_Delay(3000);
+			logger1.clearLogs();
 			down_force_unit.on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
 			HAL_Delay(1000);
 
+			logger1.start();
 			velocity_ctrl.start();
+
 			velocity_ctrl.setVelocity(1, 0);
+			HAL_Delay(500);
+			velocity_ctrl.setVelocity(-1, 0);
+			HAL_Delay(500);
+			velocity_ctrl.setVelocity(0, 0);
+			HAL_Delay(500);
 
-			HAL_Delay(1000);
-
+			logger1.stop();
 			velocity_ctrl.stop();
-			//esc.off();
+			down_force_unit.off();
+
+			logger1.saveLogs("DEBUG", "velocity_response");
 
 			led.LR(-1, 0);
 		}

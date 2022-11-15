@@ -62,7 +62,7 @@ private:
     sdCard *sd_card_;
 
     Logger2 *debugger_, *debugger2_;
-    Logger2 *debugger3_, *debugger4_;
+    Logger2 *debugger3_;
     Logger2 *first_run_distance_logger_, *first_run_theta_logger_;
     Logger2 *accdec_run_distance_logger_, *accdec_run_theta_logger_;
     Logger2 *first_run_crossline_distance_logger_, *first_run_sideline_distance_logger_;
