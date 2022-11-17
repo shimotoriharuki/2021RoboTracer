@@ -1347,7 +1347,7 @@ void cppLoop(void)
 			HAL_Delay(300);
 
 			selector_logrun++;
-			if(selector_logrun >= 3) selector_logrun = 0;
+			if(selector_logrun >= 4) selector_logrun = 0;
 
 			led.LR(-1, 0);
 		}
@@ -1357,7 +1357,7 @@ void cppLoop(void)
 			lcd_locate(0,0);
 			lcd_printf("SECOND");
 			lcd_locate(0,1);
-			lcd_printf("LOGRUN%2.1f", adj_max_velocity);
+			lcd_printf("LOG %3.1f", adj_max_velocity);
 
 			if(joy_stick.getValue() == JOY_C){
 				HAL_Delay(500);
@@ -1381,7 +1381,7 @@ void cppLoop(void)
 			lcd_locate(0,0);
 			lcd_printf("THIRD");
 			lcd_locate(0,1);
-			lcd_printf("LOGRUN%2.1f", adj_max_velocity2);
+			lcd_printf("LOG %3.1f", adj_max_velocity2);
 
 			if(joy_stick.getValue() == JOY_C){
 				HAL_Delay(500);
@@ -1405,7 +1405,7 @@ void cppLoop(void)
 			lcd_locate(0,0);
 			lcd_printf("FOURTH");
 			lcd_locate(0,1);
-			lcd_printf("LOGRUN%2.1f", adj_max_velocity3);
+			lcd_printf("LOG %3.1f", adj_max_velocity3);
 
 			if(joy_stick.getValue() == JOY_C){
 				HAL_Delay(500);
@@ -1429,7 +1429,7 @@ void cppLoop(void)
 			lcd_locate(0,0);
 			lcd_printf("FIFTH");
 			lcd_locate(0,1);
-			lcd_printf("LOGRUN%2.1f", adj_max_velocity4);
+			lcd_printf("LOG %3.1f", adj_max_velocity4);
 
 			if(joy_stick.getValue() == JOY_C){
 				HAL_Delay(500);
