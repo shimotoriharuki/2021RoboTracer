@@ -55,10 +55,10 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	down_force_unit_ = down_force_unit;
 	sd_card_ = sd_card;
 
-	debugger_ = new Logger2(sd_card_, LOG_SIZE_TIM);
-	debugger2_ = new Logger2(sd_card_, LOG_SIZE_TIM);
+	//debugger_ = new Logger2(sd_card_, LOG_SIZE_TIM);
+	//debugger2_ = new Logger2(sd_card_, LOG_SIZE_TIM);
 	debugger3_ = new Logger2(sd_card_, LOG_SIZE_TIM);
-	//debugger4_ = new Logger2(sd_card_, LOG_SIZE_TIM);
+	debugger4_ = new Logger2(sd_card_, LOG_SIZE_TIM);
 
 	first_run_distance_logger_ = new Logger2(sd_card_, LOG_SIZE_DIS);
 	first_run_theta_logger_ = new Logger2(sd_card_, LOG_SIZE_DIS);
@@ -287,16 +287,16 @@ void LineTrace::loggerStart()
 
 void LineTrace::debuggerStart()
 {
+	/*
 	debugger_->clearLogs();
 	debugger_->start();
 	debugger2_->clearLogs();
 	debugger2_->start();
+	*/
 	debugger3_->clearLogs();
 	debugger3_->start();
-	/*
 	debugger4_->clearLogs();
 	debugger4_->start();
-	*/
 
 }
 
@@ -322,10 +322,10 @@ void LineTrace::loggerStop()
 
 void LineTrace::debuggerStop()
 {
-	debugger_->stop();
-	debugger2_->stop();
+	//debugger_->stop();
+	//debugger2_->stop();
 	debugger3_->stop();
-	//debugger4_->stop();
+	debugger4_->stop();
 
 }
 
@@ -1188,10 +1188,10 @@ void LineTrace::stop()
 
 	led_.LR(-1, 1);
 
-	debugger_->saveLogs("DEBUG", "translation_ratio");
-	debugger2_->saveLogs("DEBUG", "rotation_ratio");
+	///debugger_->saveLogs("DEBUG", "translation_ratio");
+	//debugger2_->saveLogs("DEBUG", "rotation_ratio");
 	debugger3_->saveLogs("DEBUG", "current_velocity");
-	//debugger4_->saveLogs("DEBUG", "right_velocity_power");
+	debugger4_->saveLogs("DEBUG", "target_velocity");
 
 
 	if(mode_selector_ == FIRST_RUNNING){ //First running
@@ -1384,7 +1384,8 @@ void LineTrace::createVelocityTabeleFromSD()
 
 void LineTrace::storeDebugLogs10ms()
 {
-	debugger_->storeLogs(velocity_ctrl_->getTranslationRatio());
-	debugger2_->storeLogs(velocity_ctrl_->getRotationRatio());
+	//debugger_->storeLogs(velocity_ctrl_->getTranslationRatio());
+	//debugger2_->storeLogs(velocity_ctrl_->getRotationRatio());
 	debugger3_->storeLogs(velocity_ctrl_->getCurrentVelocity());
+	debugger4_->storeLogs(target_velocity_);
 }
