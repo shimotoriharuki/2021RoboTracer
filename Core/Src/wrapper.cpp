@@ -1429,7 +1429,7 @@ void cppLoop(void)
 			lcd_locate(0,0);
 			lcd_printf("FIFTH");
 			lcd_locate(0,1);
-			lcd_printf("LOG %3.1f", adj_max_velocity4);
+			lcd_printf("LOG%3.1f", adj_max_velocity4);
 
 			if(joy_stick.getValue() == JOY_C){
 				HAL_Delay(500);

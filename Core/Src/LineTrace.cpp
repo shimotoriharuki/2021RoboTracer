@@ -453,18 +453,18 @@ float LineTrace::dtheta2Velocity(float dtheta)
 	else if(mode_selector_ == THIRD_RUNNING){
 		if(dtheta > 0.0025) velocity = min_velocity_; //1.0 R10
 		else if(dtheta > 0.001) velocity = 2.0; //midium radius and snake
-		else velocity = max_velocity_; //4.0 large R and straight
+		else velocity = max_velocity2_; //4.0 large R and straight
 	}
 	else if (mode_selector_ == FOURTH_RUNNING){
 		if(dtheta > 0.0025) velocity = min_velocity_; //1.0 R10
 		else if(dtheta > 0.001) velocity = 2.0; //midium radius and snake
-		else velocity = max_velocity_; //5.0 large R and straight
+		else velocity = max_velocity3_; //5.0 large R and straight
 	}
 	else if (mode_selector_ == FIFTH_RUNNING){
 		if(dtheta > 0.0025) velocity = min_velocity_; //1.0 R10
 		else if(dtheta > 0.0015) velocity = 2.0; //midium radius and snake
 		else if(dtheta > 0.0005) velocity = 3.0; //midium radius and snake
-		else velocity = max_velocity_; //6.0 large R and straight
+		else velocity = max_velocity4_; //6.0 large R and straight
 	}
 	else velocity = 1.5;
 
@@ -1332,12 +1332,18 @@ void LineTrace::createVelocityTabeleFromSD()
 		temp_theta = p_theta[i];
 
 		if(temp_theta == 0) temp_theta = 0.00001;
+		float dtheta= abs(temp_theta / temp_distance);
+
+		velocity_table_[i] = dtheta2Velocity(dtheta);
+
+		/*
+		if(temp_theta == 0) temp_theta = 0.00001;
 		float radius_origin = abs(temp_distance / temp_theta);
 		if(radius_origin >= 5000) radius_origin = 5000;
-
+		*/
 		//float radius_lpf = ((R_RADIUS)*(radius_origin) + (1.0 - (R_RADIUS))* (pre_radius));
 		//velocity_table_[i] = radius_lpf;
-		velocity_table_[i] = radius2Velocity(radius_origin);
+		//velocity_table_[i] = radius2Velocity(radius_origin);
 		//pre_radius = radius_origin;
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
