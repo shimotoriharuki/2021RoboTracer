@@ -462,7 +462,8 @@ float LineTrace::dtheta2Velocity(float dtheta)
 	}
 	else if (mode_selector_ == FIFTH_RUNNING){
 		if(dtheta > 0.0025) velocity = min_velocity_; //1.0 R10
-		else if(dtheta > 0.001) velocity = 3.0; //midium radius and snake
+		else if(dtheta > 0.0015) velocity = 2.0; //midium radius and snake
+		else if(dtheta > 0.0005) velocity = 3.0; //midium radius and snake
 		else velocity = max_velocity_; //6.0 large R and straight
 	}
 	else velocity = 1.5;
@@ -1210,21 +1211,21 @@ void LineTrace::stop()
 	}
 	else if(mode_selector_ == THIRD_RUNNING){ //Third run
 		accdec_run_distance_logger_->saveLogs("TEST", "third_run_distances");
-		accdec_run_theta_logger_->saveLogs("TEST", "third_run__thetas");
+		accdec_run_theta_logger_->saveLogs("TEST", "third_run_thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "third_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "third_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "third_run_total_distances");
 	}
 	else if(mode_selector_ == FOURTH_RUNNING){ //Fourth run
 		accdec_run_distance_logger_->saveLogs("TEST", "fourth_run_distances");
-		accdec_run_theta_logger_->saveLogs("TEST", "fourth_run__thetas");
+		accdec_run_theta_logger_->saveLogs("TEST", "fourth_run_thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "fourth_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "fourth_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "fourth_run_total_distances");
 	}
 	else if(mode_selector_ == FIFTH_RUNNING){ //Fifth run
 		accdec_run_distance_logger_->saveLogs("TEST", "fifth_run_distances");
-		accdec_run_theta_logger_->saveLogs("TEST", "fifth_run__thetas");
+		accdec_run_theta_logger_->saveLogs("TEST", "fifth_run_thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "fifth_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "fifth_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "fifth_run_total_distances");
