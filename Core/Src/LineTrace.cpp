@@ -1003,8 +1003,9 @@ void LineTrace::flip()
 		}
 
 		// ------- Store side line distance or correction distance------//
-		if(stable_flag_ == true && side_sensor_->getStatusL() == true){ //Stabilizing and side sensor is white
-		//if((stable_flag_force_ == true || stable_flag_ == true) && side_sensor_->getStatusL() == true && encoder_->getSideLineIgnoreDistance() >= 120){ //Stabilizing and side sensor is white
+		//if(stable_flag_ == true && side_sensor_->getStatusL() == true){ //Stabilizing and side sensor is white
+		//if((stable_flag_force_ == true || stable_flag_ == true) && side_sensor_->getStatusL() == true && encoder_->getSideLineIgnoreDistance() >= 120){ //Stabilizing and side sensor is white and no ignore side line
+		if(stable_flag_ == true && side_sensor_->getStatusL() == true && side_sensor_->getIgnoreFlag() == false){ //Stabilizing and side sensor is white and no ignore side line
 			//correction_check_cnt_ = 0;
 
 			if(mode_selector_ == FIRST_RUNNING){
@@ -1024,11 +1025,10 @@ void LineTrace::flip()
 
 
 
-		if(side_sensor_->getIgnoreFlag() == true && encoder_->getSideLineIgnoreDistance() >= 100){
+		if(side_sensor_->getIgnoreFlag() == true && encoder_->getSideLineIgnoreDistance() >= 100){ //Ignore Side line
 			side_sensor_->disableIgnore();
 			//led_.LR(0, -1);
 		}
-
 
 
 		//if(stable_flag_ == true) led_.LR(-1, 1);
