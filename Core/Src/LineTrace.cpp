@@ -391,7 +391,6 @@ void LineTrace::correctionTotalDistanceFromCrossLine()
 	*/
 
 	while(crossline_idx_ <= first_run_crossline_distance_logger_->getLogsSize()){
-		//float temp_crossline_distance = crossline_distance_[crossline_idx_];
 		float temp_crossline_distance = first_run_crossline_distance_logger_->getLogData(crossline_idx_);
 		float diff = abs(temp_crossline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
 		if(diff <= 250){
@@ -410,29 +409,30 @@ void LineTrace::correctionTotalDistanceFromCrossLine()
 void LineTrace::correctionTotalDistanceFromSideMarker()
 {
 
+	/*
 	for(uint16_t i = 0; i < first_run_sideline_distance_logger_->getLogsSize(); i++){
 		//float temp_sideline_distance = sideline_distance_[i];
 		float temp_sideline_distance = first_run_sideline_distance_logger_->getLogData(i);
 		float diff = abs(temp_sideline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
 		//if(diff <= 230){
-		if(diff <= 500){
+		if(diff <= 450){
 			correction_check_cnt_ = 0;
 			encoder_->setTotalDistance(first_run_sideline_distance_logger_->getLogData(i) / DISTANCE_CORRECTION_CONST);
 			break;
 		}
 	}
-	/*
-	while(sideline_idx_ <= SIDELINE_SIZE){
-		float temp_sideline_distance = sideline_distance_[sideline_idx_];
+	*/
+	while(sideline_idx_ <= first_run_sideline_distance_logger_->getLogsSize()){
+		float temp_sideline_distance = first_run_sideline_distance_logger_->getLogData(sideline_idx_);
 		float diff = abs(temp_sideline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
-		if(diff <= 230){
+		//if(diff <= 230){
+		if(diff <= 450){
 			correction_check_cnt_ = 0;
-			encoder_->setTotalDistance(sideline_distance_[sideline_idx_] / DISTANCE_CORRECTION_CONST);
+			encoder_->setTotalDistance(first_run_sideline_distance_logger_->getLogData(sideline_idx_) / DISTANCE_CORRECTION_CONST);
 			break;
 		}
 		sideline_idx_++;
 	}
-	*/
 
 	if(sideline_idx_ >= first_run_sideline_distance_logger_->getLogsSize()) sideline_idx_ = first_run_sideline_distance_logger_->getLogsSize() - 1;
 
