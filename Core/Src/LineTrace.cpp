@@ -458,6 +458,7 @@ float LineTrace::dtheta2Velocity(float dtheta)
 	else if (mode_selector_ == FOURTH_RUNNING){
 		if(dtheta > 0.0025) velocity = min_velocity_; //1.0 R10
 		else if(dtheta > 0.001) velocity = 2.0; //midium radius and snake
+		else if(dtheta > 0.0004) velocity = 2.5; //midium radius and snake
 		else velocity = max_velocity3_; //5.0 large R and straight
 	}
 	else if (mode_selector_ == FIFTH_RUNNING){
