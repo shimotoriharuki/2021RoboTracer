@@ -1250,8 +1250,16 @@ void LineTrace::stop()
 // ---------------------------------------------------------------------------------------------------//
 // ------------------------------ Create velocity table-----------------------------------------------//
 // ---------------------------------------------------------------------------------------------------//
-void LineTrace::createVelocityTabele()
+void LineTrace::createVelocityTabele(bool is_from_sd)
 {
+	if(is_from_sd == true){
+		first_run_distance_logger_->importLatestLogs("TEST", "first_run_distances");
+		first_run_theta_logger_->importLatestLogs("TEST", "first_run_thetas");
+
+		first_run_crossline_distance_logger_->importLatestLogs("TEST", "first_run_crossline_distances");
+		first_run_sideline_distance_logger_->importLatestLogs("TEST", "first_run_sideline_distances");
+	}
+
 	const float *p_distance, *p_theta;
 	p_distance = first_run_distance_logger_->getLogsPointer();
 	p_theta = first_run_theta_logger_->getLogsPointer();
@@ -1266,14 +1274,6 @@ void LineTrace::createVelocityTabele()
 		float dtheta= abs(temp_theta / temp_distance);
 
 		velocity_table_[i] = dtheta2Velocity(dtheta);
-
-		/*
-		if(temp_theta == 0) temp_theta = 0.00001;
-		float radius = abs(temp_distance / temp_theta);
-		if(radius >= 5000) radius = 5000;
-
-		velocity_table_[i] = radius2Velocity(radius);
-		*/
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
@@ -1318,6 +1318,7 @@ void LineTrace::createVelocityTabele()
 
 }
 
+/*
 void LineTrace::createVelocityTabeleFromSD()
 {
 	first_run_distance_logger_->importLatestLogs("TEST", "first_run_distances");
@@ -1342,16 +1343,6 @@ void LineTrace::createVelocityTabeleFromSD()
 
 		velocity_table_[i] = dtheta2Velocity(dtheta);
 
-		/*
-		if(temp_theta == 0) temp_theta = 0.00001;
-		float radius_origin = abs(temp_distance / temp_theta);
-		if(radius_origin >= 5000) radius_origin = 5000;
-		*/
-		//float radius_lpf = ((R_RADIUS)*(radius_origin) + (1.0 - (R_RADIUS))* (pre_radius));
-		//velocity_table_[i] = radius_lpf;
-		//velocity_table_[i] = radius2Velocity(radius_origin);
-		//pre_radius = radius_origin;
-
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
 
@@ -1393,6 +1384,7 @@ void LineTrace::createVelocityTabeleFromSD()
 	}
 
 }
+*/
 
 void LineTrace::storeDebugLogs10ms()
 {

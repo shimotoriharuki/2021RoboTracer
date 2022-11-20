@@ -32,6 +32,8 @@
 #include "sdCard.hpp"
 #include "DownForceUnit.hpp"
 
+#define USE_SD_CARD_INFO_RUNNING true
+#define USE_RAM_INFO_RUNNING false
 
 LineSensor line_sensor;
 SideSensor side_sensor;
@@ -516,7 +518,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity);
 				line_trace.setMaxVelocity(adj_max_velocity);
 				line_trace.setMinVelocity(adj_min_velocity);
-				line_trace.createVelocityTabele();
+				line_trace.createVelocityTabele(USE_RAM_INFO_RUNNING);
 
 				HAL_Delay(1000);
 
@@ -610,7 +612,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity2);
 				line_trace.setMaxVelocity2(adj_max_velocity2);
 				line_trace.setMinVelocity2(adj_min_velocity2);
-				line_trace.createVelocityTabele();
+				line_trace.createVelocityTabele(USE_RAM_INFO_RUNNING);
 
 				line_trace.running();
 
@@ -700,7 +702,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity3);
 				line_trace.setMaxVelocity3(adj_max_velocity3);
 				line_trace.setMinVelocity3(adj_min_velocity3);
-				line_trace.createVelocityTabele();
+				line_trace.createVelocityTabele(USE_RAM_INFO_RUNNING);
 
 
 				line_trace.running();
@@ -792,7 +794,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity4);
 				line_trace.setMaxVelocity4(adj_max_velocity4);
 				line_trace.setMinVelocity4(adj_min_velocity4);
-				line_trace.createVelocityTabele();
+				line_trace.createVelocityTabele(USE_RAM_INFO_RUNNING);
 
 
 				line_trace.running();
@@ -1098,7 +1100,8 @@ void cppLoop(void)
 			line_trace.setTargetVelocity(adj_max_velocity2);
 			line_trace.setMaxVelocity(adj_max_velocity2);
 			line_trace.setMinVelocity(adj_max_velocity2);
-			line_trace.createVelocityTabeleFromSD();
+			//line_trace.createVelocityTabeleFromSD();
+			line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
 
 			led.LR(-1, 0);
 		}
@@ -1328,7 +1331,7 @@ void cppLoop(void)
 			line_trace.setTargetVelocity(adj_min_velocity2);
 			line_trace.setMaxVelocity(adj_max_velocity2);
 			line_trace.setMinVelocity(adj_max_velocity2);
-			line_trace.createVelocityTabeleFromSD();
+			line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
 
 			HAL_Delay(1000);
 
@@ -1367,7 +1370,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity);
 				line_trace.setMaxVelocity(adj_max_velocity);
 				line_trace.setMinVelocity(adj_min_velocity);
-				line_trace.createVelocityTabeleFromSD();
+				line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
 
 				HAL_Delay(1000);
 
@@ -1391,7 +1394,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity2);
 				line_trace.setMaxVelocity(adj_max_velocity2);
 				line_trace.setMinVelocity(adj_max_velocity2);
-				line_trace.createVelocityTabeleFromSD();
+				line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
 
 				HAL_Delay(1000);
 
@@ -1415,7 +1418,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity3);
 				line_trace.setMaxVelocity(adj_max_velocity3);
 				line_trace.setMinVelocity(adj_max_velocity3);
-				line_trace.createVelocityTabeleFromSD();
+				line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
 
 				HAL_Delay(1000);
 
@@ -1439,7 +1442,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity4);
 				line_trace.setMaxVelocity(adj_max_velocity4);
 				line_trace.setMinVelocity(adj_max_velocity4);
-				line_trace.createVelocityTabeleFromSD();
+				line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
 
 				HAL_Delay(1000);
 

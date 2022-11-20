@@ -216,8 +216,8 @@ public:
 	void stop();
 
 	// create velocity table
-	void createVelocityTabele();
-	void createVelocityTabeleFromSD();
+	void createVelocityTabele(bool);
+	//void createVelocityTabeleFromSD();
 
 	void storeDebugLogs10ms();
 };

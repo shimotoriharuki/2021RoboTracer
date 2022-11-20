@@ -76,6 +76,5 @@ LineTrace.cpp:1078:6:void LineTrace::setMode(int16_t)	16	static
 LineTrace.cpp:1083:6:void LineTrace::start()	16	static
 LineTrace.cpp:1102:6:void LineTrace::running()	24	static
 LineTrace.cpp:1188:6:void LineTrace::stop()	16	static
-LineTrace.cpp:1253:6:void LineTrace::createVelocityTabele()	56	static
-LineTrace.cpp:1321:6:void LineTrace::createVelocityTabeleFromSD()	56	static
-LineTrace.cpp:1397:6:void LineTrace::storeDebugLogs10ms()	24	static
+LineTrace.cpp:1253:6:void LineTrace::createVelocityTabele(bool)	56	static
+LineTrace.cpp:1389:6:void LineTrace::storeDebugLogs10ms()	24	static
