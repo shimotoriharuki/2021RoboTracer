@@ -11,6 +11,7 @@
 #include <cmath>
 
 #define R_DIFF 0.08
+#define DISTANCE_TO_RECORD 30 //mm
 
 float mon_steer_angle;
 
@@ -451,20 +452,21 @@ float LineTrace::dtheta2Velocity(float dtheta)
 		else velocity = max_velocity_; //3.0 large R and straight
 	}
 	else if(mode_selector_ == THIRD_RUNNING){
-		if(dtheta > 0.0025) velocity = min_velocity_; //1.0 R10
+		if(dtheta > 0.0025) velocity = min_velocity2_; //1.0 R10
 		else if(dtheta > 0.001) velocity = 2.0; //midium radius and snake
 		else velocity = max_velocity2_; //4.0 large R and straight
 	}
 	else if (mode_selector_ == FOURTH_RUNNING){
-		if(dtheta > 0.0025) velocity = min_velocity_; //1.0 R10
+		if(dtheta > 0.0030) velocity = min_velocity3_; //1.0 R10
 		else if(dtheta > 0.0017) velocity = 2.0; //
 		else if(dtheta > 0.0013) velocity = 2.2; // snake
+		else if(dtheta > 0.0010) velocity = 3.0; // large R
 		else if(dtheta > 0.0007) velocity = 3.0; // large R
 		else if(dtheta > 0.0005) velocity = 3.5; //
-		else velocity = max_velocity3_; //5.0 large R and straight
+		else velocity = max_velocity3_; //6.0 straight
 	}
 	else if (mode_selector_ == FIFTH_RUNNING){
-		if(dtheta > 0.0030) velocity = min_velocity_; //1.0 R10
+		if(dtheta > 0.0030) velocity = min_velocity4_; //1.0 R10
 		else if(dtheta > 0.0017) velocity = 2.0; //
 		else if(dtheta > 0.0013) velocity = 2.2; // snake
 		else if(dtheta > 0.0010) velocity = 3.0; // large R
@@ -685,7 +687,8 @@ bool LineTrace::isStable()
 		stable_cnt = 0;
 	}
 
-	if(stable_cnt >= 25){ //250mm
+	//if(stable_cnt >= 25){ //250mm
+	if(stable_cnt >= int(250 / DISTANCE_TO_RECORD)){ //250mm
 		ret = true;
 	}
 
@@ -985,7 +988,7 @@ void LineTrace::flip()
 		updateTargetVelocity();
 
 		// ----- Processing at regular distances -----//
-		if(isTargetDistance(10) == true){
+		if(isTargetDistance(DISTANCE_TO_RECORD) == true){
 			// -------- Detect Robot stabilization ------//
 			if(isStable() == true && side_sensor_->getStatusL() == false){ // Stabilizing and side sensor is black
 				stable_flag_ = true;
@@ -1317,74 +1320,6 @@ void LineTrace::createVelocityTabele(bool is_from_sd)
 	}
 
 }
-
-/*
-void LineTrace::createVelocityTabeleFromSD()
-{
-	first_run_distance_logger_->importLatestLogs("TEST", "first_run_distances");
-	first_run_theta_logger_->importLatestLogs("TEST", "first_run_thetas");
-
-	first_run_crossline_distance_logger_->importLatestLogs("TEST", "first_run_crossline_distances");
-	first_run_sideline_distance_logger_->importLatestLogs("TEST", "first_run_sideline_distances");
-
-	const float *p_distance, *p_theta;
-	p_distance = first_run_distance_logger_->getLogsPointer();
-	p_theta= first_run_theta_logger_->getLogsPointer();
-
-	float temp_distance, temp_theta;
-	//float pre_radius = 0;;
-	for(uint16_t i = 0; i < first_run_distance_logger_->getLogsSize(); i++){
-
-		temp_distance = p_distance[i];
-		temp_theta = p_theta[i];
-
-		if(temp_theta == 0) temp_theta = 0.00001;
-		float dtheta= abs(temp_theta / temp_distance);
-
-		velocity_table_[i] = dtheta2Velocity(dtheta);
-
-		ref_delta_distances_[i] = p_distance[i]; //copy
-	}
-
-	if(mode_selector_ == SECOND_RUNNING){
-		velocity_table_[0] = min_velocity_;
-		// ----- Decelerate processing -----//
-		decelerateProcessing(max_dec_, p_distance);
-		// ----- Accelerate processing -----//
-		accelerateProcessing(max_acc_, p_distance);
-
-		sd_card_->write("TEST", "second_velocity_table", first_run_distance_logger_->getLogsSize(), velocity_table_);
-	}
-	else if(mode_selector_ == THIRD_RUNNING){
-		velocity_table_[0] = min_velocity2_;
-		// ----- Decelerate processing -----//
-		decelerateProcessing(max_dec2_, p_distance);
-		// ----- Accelerate processing -----//
-		accelerateProcessing(max_acc2_, p_distance);
-
-		sd_card_->write("TEST", "third_velocity_table", first_run_distance_logger_->getLogsSize(), velocity_table_);
-	}
-	else if(mode_selector_ == FOURTH_RUNNING){
-		velocity_table_[0] = min_velocity3_;
-		// ----- Decelerate processing -----//
-		decelerateProcessing(max_dec3_, p_distance);
-		// ----- Accelerate processing -----//
-		accelerateProcessing(max_acc3_, p_distance);
-
-		sd_card_->write("TEST", "fourth_velocity_table", first_run_distance_logger_->getLogsSize(), velocity_table_);
-	}
-	else if(mode_selector_ == FIFTH_RUNNING){
-		velocity_table_[0] = min_velocity4_;
-		// ----- Decelerate processing -----//
-		decelerateProcessing(max_dec4_, p_distance);
-		// ----- Accelerate processing -----//
-		accelerateProcessing(max_acc4_, p_distance);
-
-		sd_card_->write("TEST", "fifth_velocity_table", first_run_distance_logger_->getLogsSize(), velocity_table_);
-	}
-
-}
-*/
 
 void LineTrace::storeDebugLogs10ms()
 {
