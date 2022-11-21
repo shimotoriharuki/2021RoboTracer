@@ -11,7 +11,7 @@
 #include <cmath>
 
 #define R_DIFF 0.08
-#define DISTANCE_TO_RECORD 30 //mm
+#define DISTANCE_TO_RECORD 10 //mm
 
 float mon_steer_angle;
 
