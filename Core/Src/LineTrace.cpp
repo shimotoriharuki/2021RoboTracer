@@ -500,18 +500,18 @@ float LineTrace::radius2Velocity(float radius)
 	}
 	else if(mode_selector_ == FOURTH_RUNNING){
 		if(radius < 200) velocity = min_velocity3_;
-		else if(radius < 400) velocity = 2.4;
-		else if(radius < 650) velocity = 3.0;
-		else if(radius < 1100) velocity = 3.3;
+		else if(radius < 400) velocity = 2.2;
+		else if(radius < 650) velocity = 2.8;
+		else if(radius < 1100) velocity = 2.8;
 		else if(radius < 1900) velocity = 3.4;
 		else if(radius < 2100) velocity = 4.0;
 		else velocity = max_velocity3_;
 	}
 	else if(mode_selector_ == FIFTH_RUNNING){
-		if(radius < 200) velocity = min_velocity3_;
+		if(radius < 200) velocity = min_velocity4_;
 		else if(radius < 400) velocity = 2.4;
 		else if(radius < 650) velocity = 3.0;
-		else if(radius < 1100) velocity = 3.3;
+		else if(radius < 1100) velocity = 3.1;
 		else if(radius < 1900) velocity = 3.4;
 		else if(radius < 2100) velocity = 4.0;
 		else velocity = max_velocity4_;
@@ -1301,7 +1301,7 @@ void LineTrace::createVelocityTabele(bool is_from_sd)
 	}
 
 	// Shift velocity_table_(Low-pass filter delay)
-	shiftVelocityTable(velocity_table_, 10);
+	//shiftVelocityTable(velocity_table_, 15);
 
 	if(mode_selector_ == SECOND_RUNNING){
 		velocity_table_[0] = min_velocity_;
