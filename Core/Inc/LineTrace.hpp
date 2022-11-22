@@ -45,6 +45,7 @@
 #define R_RADIUS 0.05
 #define DISTANCE_CORRECTION_CONST 1 //0.9663
 
+#define DOWN_FORCE_POWER_SEARCHING 0.2
 #define DOWN_FORCE_POWER 0.4
 
 class LineTrace

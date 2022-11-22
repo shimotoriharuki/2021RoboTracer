@@ -1084,7 +1084,8 @@ void LineTrace::setMode(int16_t mode)
 
 void LineTrace::start()
 {
-	down_force_unit_->on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
+	if(mode_selector_ == FIRST_RUNNING)	down_force_unit_->on(DOWN_FORCE_POWER_SEARCHING, DOWN_FORCE_POWER_SEARCHING);
+	else	down_force_unit_->on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
 	HAL_Delay(500);
 
 	excution_flag_ = true;
