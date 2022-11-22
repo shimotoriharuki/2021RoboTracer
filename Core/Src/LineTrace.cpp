@@ -1272,16 +1272,16 @@ void LineTrace::createVelocityTabele(bool is_from_sd)
 		temp_distance = p_distance[i];
 		temp_theta = p_theta[i];
 
-		/*
 		if(temp_theta == 0) temp_theta = 0.00001;
 		float dtheta= abs(temp_theta / temp_distance);
 		velocity_table_[i] = dtheta2Velocity(dtheta);
-		*/
 
+		/*
 		if(temp_theta == 0) temp_theta = 0.00001;
 		float radius = abs(temp_distance / temp_theta);
 		if(radius >= 5000) radius = 5000;
 		velocity_table_[i] = radius2Velocity(radius);
+		*/
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
