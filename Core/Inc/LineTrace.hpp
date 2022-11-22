@@ -142,6 +142,7 @@ private:
 	float dtheta2Velocity(float);
 	float radius2Velocity(float);
 	float radius2VelocityFnc(float);
+	void shiftVelocityTable(float *, int16_t);
 	void decelerateProcessing(const float, const float *);
 	void accelerateProcessing(const float, const float *);
 	void startVelocityPlay();

@@ -531,6 +531,19 @@ float LineTrace::radius2VelocityFnc(float radius)
 	return a * exp(b * radius) + c * exp(d * radius);
 }
 
+void LineTrace::shiftVelocityTable(float *table, int16_t shitf_size)
+{
+	for(uint16_t i = shitf_size; i < LOG_SIZE_DIS; i++){
+		table[i - shitf_size] = table[i];
+	}
+
+	for(uint16_t i = LOG_SIZE_DIS - 1 - shitf_size; i < LOG_SIZE_DIS; i++){
+		table[i] = 5.0;
+	}
+
+
+}
+
 void LineTrace::decelerateProcessing(const float am, const float *p_distance)
 {
 	for(uint16_t i = first_run_distance_logger_->getLogsSize() - 1; i >= 1; i--){
@@ -1287,6 +1300,8 @@ void LineTrace::createVelocityTabele(bool is_from_sd)
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
 
+	// Shift velocity_table_(Low-pass filter delay)
+	shiftVelocityTable(velocity_table_, 10);
 
 	if(mode_selector_ == SECOND_RUNNING){
 		velocity_table_[0] = min_velocity_;
