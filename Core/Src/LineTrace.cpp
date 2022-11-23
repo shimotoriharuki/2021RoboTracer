@@ -500,7 +500,7 @@ float LineTrace::radius2Velocity(float radius)
 	}
 	else if(mode_selector_ == FOURTH_RUNNING){
 		if(radius < 200) velocity = min_velocity3_;
-		else if(radius < 400) velocity = 2.2;
+		else if(radius < 400) velocity = 2.0;
 		else if(radius < 650) velocity = 2.8;
 		else if(radius < 1100) velocity = 3.0;
 		else if(radius < 1900) velocity = 3.4;
@@ -509,7 +509,7 @@ float LineTrace::radius2Velocity(float radius)
 	}
 	else if(mode_selector_ == FIFTH_RUNNING){
 		if(radius < 200) velocity = min_velocity4_;
-		else if(radius < 400) velocity = 2.4;
+		else if(radius < 400) velocity = 2.2;
 		else if(radius < 650) velocity = 3.0;
 		else if(radius < 1100) velocity = 3.5;
 		else if(radius < 1900) velocity = 3.8;
