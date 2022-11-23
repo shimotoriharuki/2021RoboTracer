@@ -1301,7 +1301,7 @@ void LineTrace::createVelocityTabele(bool is_from_sd)
 	}
 
 	// Shift velocity_table_(Low-pass filter delay)
-	shiftVelocityTable(velocity_table_, 12);
+	//shiftVelocityTable(velocity_table_, 12);
 
 	if(mode_selector_ == SECOND_RUNNING){
 		velocity_table_[0] = min_velocity_;
