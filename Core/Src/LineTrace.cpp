@@ -1283,6 +1283,8 @@ void LineTrace::createVelocityTabele(bool is_from_sd)
 
 
 	float temp_distance, temp_theta;
+	uint16_t crossline_idx = 0;
+	float total_distance = 0;
 	for(uint16_t i = 0; i < first_run_distance_logger_->getLogsSize(); i++){
 		temp_distance = p_distance[i];
 		temp_theta = p_theta[i];
@@ -1297,6 +1299,20 @@ void LineTrace::createVelocityTabele(bool is_from_sd)
 		float radius = abs(temp_distance / temp_theta);
 		if(radius >= 5000) radius = 5000;
 		velocity_table_[i] = radius2Velocity(radius);
+
+		//Forced maximum speed on the crossline
+		total_distance += temp_distance;
+		float crossline_distance = first_run_crossline_distance_logger_->getLogData(crossline_idx);
+		if(crossline_distance + 15 >= total_distance && total_distance >= crossline_distance - 15){
+			if(mode_selector_ == SECOND_RUNNING) velocity_table_[i] = max_velocity_;
+			else if(mode_selector_ == THIRD_RUNNING) velocity_table_[i] = max_velocity2_;
+			else if(mode_selector_ == FOURTH_RUNNING) velocity_table_[i] = max_velocity3_;
+			else if(mode_selector_ == FIFTH_RUNNING) velocity_table_[i] = max_velocity4_;
+		}
+
+		if(total_distance >= crossline_distance + 15){
+			crossline_idx++;
+		}
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}

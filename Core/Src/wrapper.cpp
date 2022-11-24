@@ -1098,11 +1098,10 @@ void cppLoop(void)
 			HAL_Delay(500);
 			led.LR(-1, 1);
 
-			line_trace.setMode(THIRD_RUNNING);
-			line_trace.setTargetVelocity(adj_max_velocity2);
-			line_trace.setMaxVelocity(adj_max_velocity2);
-			line_trace.setMinVelocity(adj_max_velocity2);
-			//line_trace.createVelocityTabeleFromSD();
+			line_trace.setMode(FIFTH_RUNNING);
+			line_trace.setTargetVelocity(adj_max_velocity4);
+			line_trace.setMaxVelocity(adj_max_velocity4);
+			line_trace.setMinVelocity(adj_max_velocity4);
 			line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
 
 			led.LR(-1, 0);

@@ -91,5 +91,6 @@ uint16_t Logger2::getLogsSize()
 
 float Logger2::getLogData(uint16_t idx)
 {
+	if(idx >= max_log_size_) idx = max_log_size_ - 1;
 	return logs_[idx];
 }
