@@ -1300,6 +1300,7 @@ void LineTrace::createVelocityTabele(bool is_from_sd)
 		if(radius >= 5000) radius = 5000;
 		velocity_table_[i] = radius2Velocity(radius);
 
+
 		//Forced maximum speed on the crossline
 		total_distance += temp_distance;
 		float crossline_distance = first_run_crossline_distance_logger_->getLogData(crossline_idx);
