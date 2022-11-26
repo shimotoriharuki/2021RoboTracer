@@ -1165,6 +1165,7 @@ void LineTrace::running()
 			}
 			else if(goal_judge_flag == true && encoder_->getGoalJudgeDistance() >= 30){
 				goal_marker_cnt++;
+				goal_judge_flag = false;
 			}
 
 			if(goal_marker_cnt >= 4){
@@ -1178,7 +1179,6 @@ void LineTrace::running()
 				HAL_Delay(500); //Stop for a while on the spot
 
 				goal_flag = true;
-				goal_judge_flag = false;
 			}
 
 
