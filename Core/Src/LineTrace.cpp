@@ -1121,6 +1121,7 @@ void LineTrace::running()
 	uint16_t stage = 0;
 	bool goal_flag = false;
 	bool goal_judge_flag = false;
+	uint16_t goal_marker_cnt = 0;
 	start();
 	debuggerStart();
 
@@ -1163,6 +1164,10 @@ void LineTrace::running()
 				led_.fullColor('Y');
 			}
 			else if(goal_judge_flag == true && encoder_->getGoalJudgeDistance() >= 30){
+				goal_marker_cnt++;
+			}
+
+			if(goal_marker_cnt >= 4){
 				led_.fullColor('M');
 				loggerStop();
 				debuggerStop();
@@ -1174,8 +1179,8 @@ void LineTrace::running()
 
 				goal_flag = true;
 				goal_judge_flag = false;
-
 			}
+
 
 			break;
 		}
