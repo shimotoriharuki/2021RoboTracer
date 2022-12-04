@@ -37,15 +37,16 @@
 #define FOURTH_RUNNING 3
 #define FIFTH_RUNNING 4
 
-#define LOG_SIZE_TIM 3000 // Time based size. Can record for 50 seconds every 10 ms. max 3000
+#define LOG_SIZE_TIM 3500 // Time based size. Can record for 50 seconds every 10 ms. max 3000
 #define LOG_SIZE_DIS 6000 // Distance based size. Can record for 60 m every 10 mm
 #define LOG_CROSSLINE_SIZE 100
-#define LOG_SIDELINE_SIZE 500
+#define LOG_SIDELINE_SIZE 100
 
 #define R_RADIUS 0.05
 #define DISTANCE_CORRECTION_CONST 1 //0.9663
 
-#define DOWN_FORCE_POWER 0.4
+#define DOWN_FORCE_POWER_SEARCHING 0.5
+#define DOWN_FORCE_POWER 0.5
 
 class LineTrace
 {
@@ -62,6 +63,7 @@ private:
     sdCard *sd_card_;
 
     Logger2 *debugger_, *debugger2_;
+    Logger2 *debugger3_, *debugger4_;
     Logger2 *first_run_distance_logger_, *first_run_theta_logger_;
     Logger2 *accdec_run_distance_logger_, *accdec_run_theta_logger_;
     Logger2 *first_run_crossline_distance_logger_, *first_run_sideline_distance_logger_;
@@ -123,6 +125,8 @@ private:
 	// Logging
 	void loggerStart();
 	void loggerStop();
+	void debuggerStart();
+	void debuggerStop();
 	void storeFirstRunCrossLineDistance();
 	void storeAccDecRunCrossLineDistance();
 	void storeFirstRunSideLineDistance();
@@ -138,6 +142,7 @@ private:
 	float dtheta2Velocity(float);
 	float radius2Velocity(float);
 	float radius2VelocityFnc(float);
+	void shiftVelocityTable(float *, int16_t);
 	void decelerateProcessing(const float, const float *);
 	void accelerateProcessing(const float, const float *);
 	void startVelocityPlay();
@@ -213,8 +218,8 @@ public:
 	void stop();
 
 	// create velocity table
-	void createVelocityTabele();
-	void createVelocityTabeleFromSD();
+	void createVelocityTabele(bool);
+	//void createVelocityTabeleFromSD();
 
 	void storeDebugLogs10ms();
 };

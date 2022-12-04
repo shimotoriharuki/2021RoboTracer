@@ -33,6 +33,9 @@
 #include "DownForceUnit.hpp"
 
 
+#define USE_SD_CARD_INFO_RUNNING true
+#define USE_RAM_INFO_RUNNING false
+
 LineSensor line_sensor;
 SideSensor side_sensor;
 JoyStick joy_stick;
@@ -50,12 +53,11 @@ VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
 DownForceUnit down_force_unit;
 LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &imu, &down_force_unit, &sd_card);
-//SystemIdentification sys_ident(&logger, &motor);
+SystemIdentification sys_ident(&sd_card, &motor);
 
 PathFollowing path_following;
 
-Logger2 test_logger1(&sd_card, 10);
-Logger2 test_logger2(&sd_card, 10);
+Logger2 logger1(&sd_card, 500);
 
 
 float mon_v, mon_w;
@@ -137,8 +139,10 @@ void cppInit(void)
 	//line_trace.setGain(0.0005, 0.000002, 0);
 
 	//velocity_ctrl.setVelocityGain(1.8295, 16.1174, 0.025243); //2s
-	//velocity_ctrl.setVelocityGain(1.0154, 6.5511, 0.0010088); //3s dorone
-	velocity_ctrl.setVelocityGain(1.2, 10.6, 0.0); //3s hand tune
+	velocity_ctrl.setVelocityGain(1.0154, 6.5511, 0.00); //3s dorone system identidication PID
+	//velocity_ctrl.setVelocityGain(1.1003, 13.7651, 0.00); //3s dorone system identidication PI
+	//velocity_ctrl.setVelocityGain(1.2, 10.6, 0.0); //3s hand tune
+	//velocity_ctrl.setVelocityGain(1.1218, 12.9586, 0.00); //2s drone system identification
 
 	velocity_ctrl.setOmegaGain(0.060, 0.86816, 0.000); //2s
 
@@ -164,14 +168,12 @@ void cppFlip1ms(void)
 
 	motor.motorCtrl();
 
-/*
 	static uint16_t twice_cnt;
 	twice_cnt++;
 	if(twice_cnt >= 2){ //2ms
 		sys_ident.inOutputStore(velocity_ctrl.getCurrentVelocity());
 		twice_cnt = 0;
 	}
-*/
 	//mon_cnt = twice_cnt;
 	/*
 	*/
@@ -191,16 +193,15 @@ void cppFlip100ns(void)
 
 void cppFlip10ms(void)
 {
-	/*
 	static uint16_t twice_cnt;
 	twice_cnt++;
 	if(twice_cnt >= 17){ //170ms
 		sys_ident.updateMsig();
 		twice_cnt = 0;
 	}
-	*/
 
 	line_trace.storeDebugLogs10ms();
+	logger1.storeLogs(velocity_ctrl.getCurrentVelocity());
 
 	/*
 	static float tim;
@@ -239,6 +240,7 @@ void cppLoop(void)
 	static int16_t selector_run;
 	static int16_t selector_acc;
 	static int16_t selector_vel;
+	static int16_t selector_logrun;
 
 	static float adj_kp = line_trace.getKp();
 	static float adj_ki= line_trace.getKi();
@@ -518,7 +520,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity);
 				line_trace.setMaxVelocity(adj_max_velocity);
 				line_trace.setMinVelocity(adj_min_velocity);
-				line_trace.createVelocityTabele();
+				line_trace.createVelocityTabele(USE_RAM_INFO_RUNNING);
 
 				HAL_Delay(1000);
 
@@ -612,7 +614,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity2);
 				line_trace.setMaxVelocity2(adj_max_velocity2);
 				line_trace.setMinVelocity2(adj_min_velocity2);
-				line_trace.createVelocityTabele();
+				line_trace.createVelocityTabele(USE_RAM_INFO_RUNNING);
 
 				line_trace.running();
 
@@ -702,7 +704,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity3);
 				line_trace.setMaxVelocity3(adj_max_velocity3);
 				line_trace.setMinVelocity3(adj_min_velocity3);
-				line_trace.createVelocityTabele();
+				line_trace.createVelocityTabele(USE_RAM_INFO_RUNNING);
 
 
 				line_trace.running();
@@ -794,7 +796,7 @@ void cppLoop(void)
 				line_trace.setTargetVelocity(adj_min_velocity4);
 				line_trace.setMaxVelocity4(adj_max_velocity4);
 				line_trace.setMinVelocity4(adj_min_velocity4);
-				line_trace.createVelocityTabele();
+				line_trace.createVelocityTabele(USE_RAM_INFO_RUNNING);
 
 
 				line_trace.running();
@@ -1096,11 +1098,11 @@ void cppLoop(void)
 			HAL_Delay(500);
 			led.LR(-1, 1);
 
-			line_trace.setMode(THIRD_RUNNING);
-			line_trace.setTargetVelocity(adj_max_velocity2);
-			line_trace.setMaxVelocity(adj_max_velocity2);
-			line_trace.setMinVelocity(adj_max_velocity2);
-			line_trace.createVelocityTabeleFromSD();
+			line_trace.setMode(FIFTH_RUNNING);
+			line_trace.setTargetVelocity(adj_max_velocity4);
+			line_trace.setMaxVelocity(adj_max_velocity4);
+			line_trace.setMinVelocity(adj_max_velocity4);
+			line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
 
 			led.LR(-1, 0);
 		}
@@ -1187,6 +1189,7 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			led.fullColor('R');
 			test_logger1.clearLogs();
+
 			test_logger1.start();
 			test_logger2.clearLogs();
 			test_logger2.start();
@@ -1259,17 +1262,25 @@ void cppLoop(void)
 			HAL_Delay(1500);
 			led.LR(-1, 1);
 
-			HAL_Delay(3000);
+			logger1.clearLogs();
 			down_force_unit.on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
 			HAL_Delay(1000);
 
+			logger1.start();
 			velocity_ctrl.start();
+
 			velocity_ctrl.setVelocity(1, 0);
+			HAL_Delay(500);
+			velocity_ctrl.setVelocity(-1, 0);
+			HAL_Delay(500);
+			velocity_ctrl.setVelocity(0, 0);
+			HAL_Delay(500);
 
-			HAL_Delay(1000);
-
+			logger1.stop();
 			velocity_ctrl.stop();
-			//esc.off();
+			down_force_unit.off();
+
+			logger1.saveLogs("DEBUG", "velocity_response");
 
 			led.LR(-1, 0);
 		}
@@ -1285,7 +1296,7 @@ void cppLoop(void)
 			HAL_Delay(1500);
 
 			HAL_Delay(3000);
-			esc.on(0.35, 0.35, 0.35, 0.35);
+			down_force_unit.on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
 			HAL_Delay(1000);
 
 			sys_ident.setInputRatio(0.3);
@@ -1293,12 +1304,14 @@ void cppLoop(void)
 			HAL_Delay(17000);
 			sys_ident.stop();
 
-			esc.off();
+			down_force_unit.off();
 			sys_ident.inOutputSave();
 
 			led.LR(-1, 0);
 		}
 		*/
+
+
 		break;
 
 	case 14:
@@ -1307,23 +1320,23 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("LogRun2    ");
+		lcd_printf("MAX VELO");
 		lcd_locate(0,1);
-		lcd_printf("Start%3.1f", adj_max_velocity2);
+		lcd_printf("TEST");
 
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 
 			led.LR(1, -1);
-			line_trace.setMode(THIRD_RUNNING);
-			line_trace.setTargetVelocity(adj_min_velocity2);
-			line_trace.setMaxVelocity(adj_max_velocity2);
-			line_trace.setMinVelocity(adj_max_velocity2);
-			line_trace.createVelocityTabeleFromSD();
+
+			//velocity_ctrl.setVelocity(7.0, 0.0);
+			//velocity_ctrl.start();
 
 			HAL_Delay(1000);
 
-			line_trace.running();
+			//velocity_ctrl.setVelocity(0.0, 0.0);
+			HAL_Delay(500);
+
 
 			led.LR(0, -1);
 		}
@@ -1333,28 +1346,113 @@ void cppLoop(void)
 	case 15:
 		led.fullColor('W');
 
-		lcd_clear();
-		lcd_locate(0,0);
-		lcd_printf("LogRun1    ");
-		lcd_locate(0,1);
-		lcd_printf("Start%3.1f", adj_max_velocity);
+		if(joy_stick.getValue() == JOY_D){
+			led.LR(-1, 1);
+			HAL_Delay(300);
 
-		if(joy_stick.getValue() == JOY_C){
-			HAL_Delay(500);
+			selector_logrun++;
+			if(selector_logrun >= 4) selector_logrun = 0;
 
-			led.LR(1, -1);
-			line_trace.setMode(SECOND_RUNNING);
-			line_trace.setTargetVelocity(adj_min_velocity);
-			line_trace.setMaxVelocity(adj_max_velocity);
-			line_trace.setMinVelocity(adj_min_velocity);
-			line_trace.createVelocityTabeleFromSD();
-
-			HAL_Delay(1000);
-
-			line_trace.running();
-
-			led.LR(0, -1);
+			led.LR(-1, 0);
 		}
+
+		if(selector_logrun == 0){
+			lcd_clear();
+			lcd_locate(0,0);
+			lcd_printf("SECOND");
+			lcd_locate(0,1);
+			lcd_printf("LOG %3.1f", adj_max_velocity);
+
+			if(joy_stick.getValue() == JOY_C){
+				HAL_Delay(500);
+
+				led.LR(1, -1);
+				line_trace.setMode(SECOND_RUNNING);
+				line_trace.setTargetVelocity(adj_min_velocity);
+				line_trace.setMaxVelocity(adj_max_velocity);
+				line_trace.setMinVelocity(adj_min_velocity);
+				line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
+
+				HAL_Delay(1000);
+
+				line_trace.running();
+
+				led.LR(0, -1);
+			}
+		}
+		else if(selector_logrun == 1){
+			lcd_clear();
+			lcd_locate(0,0);
+			lcd_printf("THIRD");
+			lcd_locate(0,1);
+			lcd_printf("LOG %3.1f", adj_max_velocity2);
+
+			if(joy_stick.getValue() == JOY_C){
+				HAL_Delay(500);
+
+				led.LR(1, -1);
+				line_trace.setMode(THIRD_RUNNING);
+				line_trace.setTargetVelocity(adj_min_velocity2);
+				line_trace.setMaxVelocity(adj_max_velocity2);
+				line_trace.setMinVelocity(adj_max_velocity2);
+				line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
+
+				HAL_Delay(1000);
+
+				line_trace.running();
+
+				led.LR(0, -1);
+			}
+		}
+		else if(selector_logrun == 2){
+			lcd_clear();
+			lcd_locate(0,0);
+			lcd_printf("FOURTH");
+			lcd_locate(0,1);
+			lcd_printf("LOG %3.1f", adj_max_velocity3);
+
+			if(joy_stick.getValue() == JOY_C){
+				HAL_Delay(500);
+
+				led.LR(1, -1);
+				line_trace.setMode(FOURTH_RUNNING);
+				line_trace.setTargetVelocity(adj_min_velocity3);
+				line_trace.setMaxVelocity(adj_max_velocity3);
+				line_trace.setMinVelocity(adj_max_velocity3);
+				line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
+
+				HAL_Delay(1000);
+
+				line_trace.running();
+
+				led.LR(0, -1);
+			}
+		}
+		else if(selector_logrun == 3){
+			lcd_clear();
+			lcd_locate(0,0);
+			lcd_printf("FIFTH");
+			lcd_locate(0,1);
+			lcd_printf("LOG %3.1f", adj_max_velocity4);
+
+			if(joy_stick.getValue() == JOY_C){
+				HAL_Delay(500);
+
+				led.LR(1, -1);
+				line_trace.setMode(FIFTH_RUNNING);
+				line_trace.setTargetVelocity(adj_min_velocity4);
+				line_trace.setMaxVelocity(adj_max_velocity4);
+				line_trace.setMinVelocity(adj_max_velocity4);
+				line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
+
+				HAL_Delay(1000);
+
+				line_trace.running();
+
+				led.LR(0, -1);
+			}
+		}
+
 
 		break;
 

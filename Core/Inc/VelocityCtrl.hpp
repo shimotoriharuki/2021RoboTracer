@@ -31,12 +31,12 @@ private:
 	bool excution_flag_;
 	bool i_reset_flag_;
 	float rotation_ratio_;
+	float translation_ratio_;
 	Motor *motor_;
 	Encoder *encoder_;
 	IMU *imu_;
 
 	float calcVelocity();
-	//float calcOmega();
 	void pid();
 	void pidTranslationOnly();
 
@@ -52,6 +52,8 @@ public:
 	void stop();
 	float getCurrentVelocity();
 	//float getCurrentOmega();
+	float getTranslationRatio();
+	float getRotationRatio();
 
 };
 

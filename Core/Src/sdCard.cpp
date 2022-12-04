@@ -11,8 +11,6 @@
 #include "string.h"
 #include <iostream>
 
-char mon_cc[32];
-
 void sdCard::openFile(const char *p_directory_name, const char *p_file_name)
 {
 	static int num;
@@ -150,6 +148,7 @@ void sdCard::write(const char *p_directory_name, const char *p_file_name, uint16
 	f_chdir("..");
 
 }
+
 void sdCard::read(const char *p_directory_name, const char *p_file_name, uint16_t size, float *data)
 {
 	short i = 0;

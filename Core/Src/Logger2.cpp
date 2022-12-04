@@ -37,6 +37,7 @@ void Logger2::saveLogs(const char *directory_name, const char *file_name)
 {
 	sd_card_->write(directory_name, file_name, max_log_size_, logs_);
 }
+
 void Logger2::clearLogs()
 {
 	for(int i = 0; i < max_log_size_; i++){
@@ -90,5 +91,6 @@ uint16_t Logger2::getLogsSize()
 
 float Logger2::getLogData(uint16_t idx)
 {
+	if(idx >= max_log_size_) idx = max_log_size_ - 1;
 	return logs_[idx];
 }

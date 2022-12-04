@@ -10,7 +10,7 @@
 #include "Macro.h"
 #include <cmath>
 
-#define R_DIFF 0.08
+#define DISTANCE_TO_RECORD 10 //mm
 
 float mon_steer_angle;
 
@@ -57,6 +57,8 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 
 	//debugger_ = new Logger2(sd_card_, LOG_SIZE_TIM);
 	//debugger2_ = new Logger2(sd_card_, LOG_SIZE_TIM);
+	debugger3_ = new Logger2(sd_card_, LOG_SIZE_TIM);
+	debugger4_ = new Logger2(sd_card_, LOG_SIZE_TIM);
 
 	first_run_distance_logger_ = new Logger2(sd_card_, LOG_SIZE_DIS);
 	first_run_theta_logger_ = new Logger2(sd_card_, LOG_SIZE_DIS);
@@ -253,12 +255,7 @@ void LineTrace::loggerStart()
 	encoder_->clearDistance10mm();
 	odometry_->clearPotition();
 
-	/*
-	debugger_->clearLogs();
-	debugger_->start();
-	debugger2_->clearLogs();
-	debugger2_->start();
-	*/
+
 	if(mode_selector_ == FIRST_RUNNING){
 		first_run_distance_logger_->clearLogs();
 		first_run_theta_logger_->clearLogs();
@@ -288,10 +285,23 @@ void LineTrace::loggerStart()
 	logging_flag_ = true;
 }
 
+void LineTrace::debuggerStart()
+{
+	/*
+	debugger_->clearLogs();
+	debugger_->start();
+	debugger2_->clearLogs();
+	debugger2_->start();
+	*/
+	debugger3_->clearLogs();
+	debugger3_->start();
+	debugger4_->clearLogs();
+	debugger4_->start();
+
+}
+
 void LineTrace::loggerStop()
 {
-	//debugger_->stop();
-	//debugger2_->stop();
 
 	first_run_distance_logger_->stop();
 	first_run_theta_logger_->stop();
@@ -308,6 +318,15 @@ void LineTrace::loggerStop()
 	total_distance_logger_->stop();
 
 	logging_flag_ = false;
+}
+
+void LineTrace::debuggerStop()
+{
+	//debugger_->stop();
+	//debugger2_->stop();
+	debugger3_->stop();
+	debugger4_->stop();
+
 }
 
 void LineTrace::storeFirstRunCrossLineDistance()
@@ -372,7 +391,6 @@ void LineTrace::correctionTotalDistanceFromCrossLine()
 	*/
 
 	while(crossline_idx_ <= first_run_crossline_distance_logger_->getLogsSize()){
-		//float temp_crossline_distance = crossline_distance_[crossline_idx_];
 		float temp_crossline_distance = first_run_crossline_distance_logger_->getLogData(crossline_idx_);
 		float diff = abs(temp_crossline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
 		if(diff <= 250){
@@ -391,29 +409,30 @@ void LineTrace::correctionTotalDistanceFromCrossLine()
 void LineTrace::correctionTotalDistanceFromSideMarker()
 {
 
+	/*
 	for(uint16_t i = 0; i < first_run_sideline_distance_logger_->getLogsSize(); i++){
 		//float temp_sideline_distance = sideline_distance_[i];
 		float temp_sideline_distance = first_run_sideline_distance_logger_->getLogData(i);
 		float diff = abs(temp_sideline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
-		if(diff <= 230){
-		//if(diff <= 550){
+		//if(diff <= 230){
+		if(diff <= 450){
 			correction_check_cnt_ = 0;
 			encoder_->setTotalDistance(first_run_sideline_distance_logger_->getLogData(i) / DISTANCE_CORRECTION_CONST);
 			break;
 		}
 	}
-	/*
-	while(sideline_idx_ <= SIDELINE_SIZE){
-		float temp_sideline_distance = sideline_distance_[sideline_idx_];
+	*/
+	while(sideline_idx_ <= first_run_sideline_distance_logger_->getLogsSize()){
+		float temp_sideline_distance = first_run_sideline_distance_logger_->getLogData(sideline_idx_);
 		float diff = abs(temp_sideline_distance - (encoder_->getTotalDistance() / DISTANCE_CORRECTION_CONST));
-		if(diff <= 230){
+		//if(diff <= 230){
+		if(diff <= 700){
 			correction_check_cnt_ = 0;
-			encoder_->setTotalDistance(sideline_distance_[sideline_idx_] / DISTANCE_CORRECTION_CONST);
+			encoder_->setTotalDistance(first_run_sideline_distance_logger_->getLogData(sideline_idx_) / DISTANCE_CORRECTION_CONST);
 			break;
 		}
 		sideline_idx_++;
 	}
-	*/
 
 	if(sideline_idx_ >= first_run_sideline_distance_logger_->getLogsSize()) sideline_idx_ = first_run_sideline_distance_logger_->getLogsSize() - 1;
 
@@ -431,7 +450,30 @@ float LineTrace::dtheta2Velocity(float dtheta)
 		else if(dtheta > 0.001) velocity = 2.0; //midium radius and snake
 		else velocity = max_velocity_; //3.0 large R and straight
 	}
-	else velocity = 1.3;
+	else if(mode_selector_ == THIRD_RUNNING){
+		if(dtheta > 0.0025) velocity = min_velocity2_; //1.0 R10
+		else if(dtheta > 0.001) velocity = 2.0; //midium radius and snake
+		else velocity = max_velocity2_; //4.0 large R and straight
+	}
+	else if (mode_selector_ == FOURTH_RUNNING){
+		if(dtheta > 0.0030) velocity = min_velocity3_; //1.0 R10
+		else if(dtheta > 0.0017) velocity = 2.0; //
+		else if(dtheta > 0.0013) velocity = 2.2; // snake
+		else if(dtheta > 0.0010) velocity = 3.0; // large R
+		else if(dtheta > 0.0007) velocity = 3.0; // large R
+		else if(dtheta > 0.0005) velocity = 3.5; //
+		else velocity = max_velocity3_; //6.0 straight
+	}
+	else if (mode_selector_ == FIFTH_RUNNING){
+		if(dtheta > 0.0030) velocity = min_velocity4_; //1.0 R10
+		else if(dtheta > 0.0017) velocity = 2.0; //
+		else if(dtheta > 0.0013) velocity = 2.2; // snake
+		else if(dtheta > 0.0010) velocity = 3.0; // large R
+		else if(dtheta > 0.0007) velocity = 3.0; // large R
+		else if(dtheta > 0.0005) velocity = 3.5; //
+		else velocity = max_velocity4_; //6.0 straight
+	}
+	else velocity = 1.5;
 
 	return velocity;
 }
@@ -449,29 +491,30 @@ float LineTrace::radius2Velocity(float radius)
 		else velocity = max_velocity_;
 	}
 	else if(mode_selector_ == THIRD_RUNNING){
-		if(radius < 400) velocity = min_velocity2_;
-		else if(radius < 500) velocity = 1.5;
-		else if(radius < 650) velocity = 2.0;
-		else if(radius < 1500) velocity = 2.5;
-		else if(radius < 2000) velocity = 3.3;
+		if(radius < 200) velocity = min_velocity2_;
+		else if(radius < 400) velocity = 2.0;
+		else if(radius < 650) velocity = 2.5;
+		else if(radius < 1100) velocity = 2.8;
+		else if(radius < 1900) velocity = 3.0;
+		else if(radius < 2100) velocity = 3.5;
 		else velocity = max_velocity2_;
 	}
 	else if(mode_selector_ == FOURTH_RUNNING){
-		if(radius < 400) velocity = min_velocity3_;
-		else if(radius < 500) velocity = 2.0;
-		else if(radius < 650) velocity = 2.0;
+		if(radius < 200) velocity = min_velocity3_;
+		else if(radius < 400) velocity = 2.0;
+		else if(radius < 650) velocity = 2.8;
 		else if(radius < 1100) velocity = 3.0;
-		else if(radius < 1900) velocity = 3.0;
-		else if(radius < 2500) velocity = 3.5;
+		else if(radius < 1900) velocity = 3.4;
+		else if(radius < 2100) velocity = 4.0;
 		else velocity = max_velocity3_;
 	}
 	else if(mode_selector_ == FIFTH_RUNNING){
-		if(radius < 400) velocity = min_velocity4_;
-		else if(radius < 500) velocity = 2.5;
+		if(radius < 200) velocity = min_velocity4_;
+		else if(radius < 400) velocity = 2.2;
 		else if(radius < 650) velocity = 3.0;
-		else if(radius < 1100) velocity = 3.0;
-		else if(radius < 1900) velocity = 3.3;
-		else if(radius < 2500) velocity = 4.0;
+		else if(radius < 1100) velocity = 3.3;
+		else if(radius < 1900) velocity = 3.8;
+		else if(radius < 2100) velocity = 4.0;
 		else velocity = max_velocity4_;
 	}
 	else velocity = 1.3;
@@ -487,6 +530,19 @@ float LineTrace::radius2VelocityFnc(float radius)
 	float d =   -0.001755;
 
 	return a * exp(b * radius) + c * exp(d * radius);
+}
+
+void LineTrace::shiftVelocityTable(float *table, int16_t shitf_size)
+{
+	for(uint16_t i = shitf_size; i < LOG_SIZE_DIS; i++){
+		table[i - shitf_size] = table[i];
+	}
+
+	for(uint16_t i = LOG_SIZE_DIS - 1 - shitf_size; i < LOG_SIZE_DIS; i++){
+		table[i] = 5.0;
+	}
+
+
 }
 
 void LineTrace::decelerateProcessing(const float am, const float *p_distance)
@@ -644,7 +700,8 @@ bool LineTrace::isStable()
 		stable_cnt = 0;
 	}
 
-	if(stable_cnt >= 25){ //250mm
+	//if(stable_cnt >= 25){ //250mm
+	if(stable_cnt >= int(250 / DISTANCE_TO_RECORD)){ //250mm
 		ret = true;
 	}
 
@@ -944,7 +1001,7 @@ void LineTrace::flip()
 		updateTargetVelocity();
 
 		// ----- Processing at regular distances -----//
-		if(isTargetDistance(10) == true){
+		if(isTargetDistance(DISTANCE_TO_RECORD) == true){
 			// -------- Detect Robot stabilization ------//
 			if(isStable() == true && side_sensor_->getStatusL() == false){ // Stabilizing and side sensor is black
 				stable_flag_ = true;
@@ -967,8 +1024,9 @@ void LineTrace::flip()
 		}
 
 		// ------- Store side line distance or correction distance------//
-		if(stable_flag_ == true && side_sensor_->getStatusL() == true){ //Stabilizing and side sensor is white
-		//if((stable_flag_force_ == true || stable_flag_ == true) && side_sensor_->getStatusL() == true && encoder_->getSideLineIgnoreDistance() >= 120){ //Stabilizing and side sensor is white
+		//if(stable_flag_ == true && side_sensor_->getStatusL() == true){ //Stabilizing and side sensor is white
+		//if((stable_flag_force_ == true || stable_flag_ == true) && side_sensor_->getStatusL() == true && encoder_->getSideLineIgnoreDistance() >= 120){ //Stabilizing and side sensor is white and no ignore side line
+		if(stable_flag_ == true && side_sensor_->getStatusL() == true && side_sensor_->getStatusR() == false && side_sensor_->getIgnoreFlag() == false){ //Stabilizing and side sensor is white and no ignore side line
 			//correction_check_cnt_ = 0;
 
 			if(mode_selector_ == FIRST_RUNNING){
@@ -988,11 +1046,10 @@ void LineTrace::flip()
 
 
 
-		if(side_sensor_->getIgnoreFlag() == true && encoder_->getSideLineIgnoreDistance() >= 100){
+		if(side_sensor_->getIgnoreFlag() == true && encoder_->getSideLineIgnoreDistance() >= 140){ //Ignore Side line
 			side_sensor_->disableIgnore();
 			//led_.LR(0, -1);
 		}
-
 
 
 		//if(stable_flag_ == true) led_.LR(-1, 1);
@@ -1041,6 +1098,10 @@ void LineTrace::setMode(int16_t mode)
 
 void LineTrace::start()
 {
+	if(mode_selector_ == FIRST_RUNNING)	down_force_unit_->on(DOWN_FORCE_POWER_SEARCHING, DOWN_FORCE_POWER_SEARCHING);
+	else	down_force_unit_->on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
+	HAL_Delay(500);
+
 	excution_flag_ = true;
 	i_reset_flag_ = true;
 	velocity_ctrl_->start();
@@ -1052,9 +1113,6 @@ void LineTrace::start()
 	sideline_idx_ = 0;
 	sideline_idx2_ = 0;
 	all_sideline_idx_ = 0;
-
-	down_force_unit_->on(DOWN_FORCE_POWER, DOWN_FORCE_POWER);
-	HAL_Delay(100);
 }
 
 
@@ -1063,12 +1121,13 @@ void LineTrace::running()
 	uint16_t stage = 0;
 	bool goal_flag = false;
 	bool goal_judge_flag = false;
+	uint16_t goal_marker_cnt = 0;
 	start();
+	debuggerStart();
 
 	while(goal_flag == false){
 		switch(stage){
 		case 0:
-			//if(side_sensor_->getWhiteLineCntR() == 1){
 			if(side_sensor_->getStatusR() == true){
 				loggerStart();
 
@@ -1105,8 +1164,14 @@ void LineTrace::running()
 				led_.fullColor('Y');
 			}
 			else if(goal_judge_flag == true && encoder_->getGoalJudgeDistance() >= 30){
+				goal_marker_cnt++;
+				goal_judge_flag = false;
+			}
+
+			if(goal_marker_cnt >= 1){
 				led_.fullColor('M');
 				loggerStop();
+				debuggerStop();
 				stopVelocityPlay();
 				HAL_Delay(100); //Run through after the goal
 
@@ -1114,9 +1179,8 @@ void LineTrace::running()
 				HAL_Delay(500); //Stop for a while on the spot
 
 				goal_flag = true;
-				goal_judge_flag = false;
-
 			}
+
 
 			break;
 		}
@@ -1152,8 +1216,11 @@ void LineTrace::stop()
 
 	led_.LR(-1, 1);
 
-	//debugger_->saveLogs("TEST", "target_velocitys");
-	//debugger2_->saveLogs("TEST", "current_velocitys");
+	///debugger_->saveLogs("DEBUG", "translation_ratio");
+	//debugger2_->saveLogs("DEBUG", "rotation_ratio");
+	//debugger3_->saveLogs("DEBUG", "current_velocity");
+	//debugger4_->saveLogs("DEBUG", "target_velocity");
+
 
 	if(mode_selector_ == FIRST_RUNNING){ //First running
 		first_run_distance_logger_->saveLogs("TEST", "first_run_distances");
@@ -1161,6 +1228,8 @@ void LineTrace::stop()
 		first_run_crossline_distance_logger_ ->saveLogs("TEST", "first_run_crossline_distances");
 		first_run_sideline_distance_logger_ ->saveLogs("TEST", "first_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "first_run_total_distances");
+		debugger3_->saveLogs("DEBUG", "first_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "first_run_target_velocity");
 	}
 	else if(mode_selector_ == SECOND_RUNNING){ //Secondary run
 		accdec_run_distance_logger_->saveLogs("TEST", "second_run_distances");
@@ -1168,34 +1237,44 @@ void LineTrace::stop()
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "second_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "second_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "second_run_total_distances");
+		debugger3_->saveLogs("DEBUG", "second_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "second_run_target_velocity");
 
 	}
 	else if(mode_selector_ == THIRD_RUNNING){ //Third run
 		accdec_run_distance_logger_->saveLogs("TEST", "third_run_distances");
-		accdec_run_theta_logger_->saveLogs("TEST", "third_run__thetas");
+		accdec_run_theta_logger_->saveLogs("TEST", "third_run_thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "third_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "third_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "third_run_total_distances");
+		debugger3_->saveLogs("DEBUG", "third_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "third_run_target_velocity");
 	}
 	else if(mode_selector_ == FOURTH_RUNNING){ //Fourth run
 		accdec_run_distance_logger_->saveLogs("TEST", "fourth_run_distances");
-		accdec_run_theta_logger_->saveLogs("TEST", "fourth_run__thetas");
+		accdec_run_theta_logger_->saveLogs("TEST", "fourth_run_thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "fourth_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "fourth_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "fourth_run_total_distances");
+		debugger3_->saveLogs("DEBUG", "fourth_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "fourth_run_target_velocity");
 	}
 	else if(mode_selector_ == FIFTH_RUNNING){ //Fifth run
 		accdec_run_distance_logger_->saveLogs("TEST", "fifth_run_distances");
-		accdec_run_theta_logger_->saveLogs("TEST", "fifth_run__thetas");
+		accdec_run_theta_logger_->saveLogs("TEST", "fifth_run_thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "fifth_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "fifth_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "fifth_run_total_distances");
+		debugger3_->saveLogs("DEBUG", "fifth_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "fifth_run_target_velocity");
 	}
 	else{ //Other run
 		accdec_run_distance_logger_->saveLogs("TEST", "other_distances");
 		accdec_run_theta_logger_->saveLogs("TEST", "other_thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "other_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "other_run_sideline_distances");
+		debugger3_->saveLogs("DEBUG", "other_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "other_run_target_velocity");
 	}
 
 	led_.LR(-1, 0);
@@ -1205,104 +1284,59 @@ void LineTrace::stop()
 // ---------------------------------------------------------------------------------------------------//
 // ------------------------------ Create velocity table-----------------------------------------------//
 // ---------------------------------------------------------------------------------------------------//
-void LineTrace::createVelocityTabele()
+void LineTrace::createVelocityTabele(bool is_from_sd)
 {
+	if(is_from_sd == true){
+		first_run_distance_logger_->importLatestLogs("TEST", "first_run_distances");
+		first_run_theta_logger_->importLatestLogs("TEST", "first_run_thetas");
+
+		first_run_crossline_distance_logger_->importLatestLogs("TEST", "first_run_crossline_distances");
+		first_run_sideline_distance_logger_->importLatestLogs("TEST", "first_run_sideline_distances");
+	}
+
 	const float *p_distance, *p_theta;
 	p_distance = first_run_distance_logger_->getLogsPointer();
 	p_theta = first_run_theta_logger_->getLogsPointer();
 
 
 	float temp_distance, temp_theta;
+	uint16_t crossline_idx = 0;
+	float total_distance = 0;
 	for(uint16_t i = 0; i < first_run_distance_logger_->getLogsSize(); i++){
 		temp_distance = p_distance[i];
 		temp_theta = p_theta[i];
-
-		if(temp_theta == 0) temp_theta = 0.00001;
-		float dtheta= abs(temp_theta / temp_distance);
-
-		velocity_table_[i] = dtheta2Velocity(dtheta);
 
 		/*
 		if(temp_theta == 0) temp_theta = 0.00001;
-		float radius = abs(temp_distance / temp_theta);
-		if(radius >= 5000) radius = 5000;
-
-		velocity_table_[i] = radius2Velocity(radius);
+		float dtheta= abs(temp_theta / temp_distance);
+		velocity_table_[i] = dtheta2Velocity(dtheta);
 		*/
 
-		ref_delta_distances_[i] = p_distance[i]; //copy
-	}
-
-
-	if(mode_selector_ == SECOND_RUNNING){
-		velocity_table_[0] = min_velocity_;
-		// ----- Decelerate processing -----//
-		decelerateProcessing(max_dec_, p_distance);
-		// ----- Accelerate processing -----//
-		accelerateProcessing(max_acc_, p_distance);
-
-		sd_card_->write("TEST", "second_velocity_table", first_run_distance_logger_->getLogsSize(), velocity_table_);
-	}
-	else if(mode_selector_ == THIRD_RUNNING){
-		velocity_table_[0] = min_velocity2_;
-		// ----- Decelerate processing -----//
-		decelerateProcessing(max_dec2_, p_distance);
-		// ----- Accelerate processing -----//
-		accelerateProcessing(max_acc2_, p_distance);
-
-		sd_card_->write("TEST", "third_velocity_table", first_run_distance_logger_->getLogsSize(), velocity_table_);
-	}
-	else if(mode_selector_ == FOURTH_RUNNING){
-		velocity_table_[0] = min_velocity3_;
-		// ----- Decelerate processing -----//
-		decelerateProcessing(max_dec3_, p_distance);
-		// ----- Accelerate processing -----//
-		accelerateProcessing(max_acc3_, p_distance);
-
-		sd_card_->write("TEST", "fourth_velocity_table", first_run_distance_logger_->getLogsSize(), velocity_table_);
-	}
-	else if(mode_selector_ == FIFTH_RUNNING){
-		velocity_table_[0] = min_velocity4_;
-		// ----- Decelerate processing -----//
-		decelerateProcessing(max_dec4_, p_distance);
-		// ----- Accelerate processing -----//
-		accelerateProcessing(max_acc4_, p_distance);
-
-		sd_card_->write("TEST", "fifth_velocity_table", first_run_distance_logger_->getLogsSize(), velocity_table_);
-	}
-
-}
-
-void LineTrace::createVelocityTabeleFromSD()
-{
-	first_run_distance_logger_->importLatestLogs("TEST", "first_run_distances");
-	first_run_theta_logger_->importLatestLogs("TEST", "first_run_thetas");
-
-	first_run_crossline_distance_logger_->importLatestLogs("TEST", "first_run_crossline_distances");
-	first_run_sideline_distance_logger_->importLatestLogs("TEST", "first_run_sideline_distances");
-
-	const float *p_distance, *p_theta;
-	p_distance = first_run_distance_logger_->getLogsPointer();
-	p_theta= first_run_theta_logger_->getLogsPointer();
-
-	float temp_distance, temp_theta;
-	//float pre_radius = 0;;
-	for(uint16_t i = 0; i < first_run_distance_logger_->getLogsSize(); i++){
-
-		temp_distance = p_distance[i];
-		temp_theta = p_theta[i];
-
 		if(temp_theta == 0) temp_theta = 0.00001;
-		float radius_origin = abs(temp_distance / temp_theta);
-		if(radius_origin >= 5000) radius_origin = 5000;
+		float radius = abs(temp_distance / temp_theta);
+		if(radius >= 5000) radius = 5000;
+		velocity_table_[i] = radius2Velocity(radius);
 
-		//float radius_lpf = ((R_RADIUS)*(radius_origin) + (1.0 - (R_RADIUS))* (pre_radius));
-		//velocity_table_[i] = radius_lpf;
-		velocity_table_[i] = radius2Velocity(radius_origin);
-		//pre_radius = radius_origin;
+
+		//Forced maximum speed on the crossline
+		total_distance += temp_distance;
+		float crossline_distance = first_run_crossline_distance_logger_->getLogData(crossline_idx);
+		if(crossline_distance + 15 >= total_distance && total_distance >= crossline_distance - 15){
+			if(mode_selector_ == SECOND_RUNNING) velocity_table_[i] = max_velocity_;
+			else if(mode_selector_ == THIRD_RUNNING) velocity_table_[i] = max_velocity2_;
+			else if(mode_selector_ == FOURTH_RUNNING) velocity_table_[i] = max_velocity3_;
+			else if(mode_selector_ == FIFTH_RUNNING) velocity_table_[i] = max_velocity4_;
+		}
+
+		if(total_distance >= crossline_distance + 15){
+			crossline_idx++;
+		}
 
 		ref_delta_distances_[i] = p_distance[i]; //copy
 	}
+
+	// Shift velocity_table_(Low-pass filter delay)
+	shiftVelocityTable(velocity_table_, 10);
 
 	if(mode_selector_ == SECOND_RUNNING){
 		velocity_table_[0] = min_velocity_;
@@ -1345,6 +1379,8 @@ void LineTrace::createVelocityTabeleFromSD()
 
 void LineTrace::storeDebugLogs10ms()
 {
-	//debugger_->storeLogs(getTargetVelocity());
-	//debugger2_->storeLogs(velocity_ctrl_->getCurrentVelocity());
+	//debugger_->storeLogs(velocity_ctrl_->getTranslationRatio());
+	//debugger2_->storeLogs(velocity_ctrl_->getRotationRatio());
+	debugger3_->storeLogs(velocity_ctrl_->getCurrentVelocity());
+	debugger4_->storeLogs(target_velocity_);
 }
