@@ -1218,8 +1218,8 @@ void LineTrace::stop()
 
 	///debugger_->saveLogs("DEBUG", "translation_ratio");
 	//debugger2_->saveLogs("DEBUG", "rotation_ratio");
-	debugger3_->saveLogs("DEBUG", "current_velocity");
-	debugger4_->saveLogs("DEBUG", "target_velocity");
+	//debugger3_->saveLogs("DEBUG", "current_velocity");
+	//debugger4_->saveLogs("DEBUG", "target_velocity");
 
 
 	if(mode_selector_ == FIRST_RUNNING){ //First running
@@ -1228,6 +1228,8 @@ void LineTrace::stop()
 		first_run_crossline_distance_logger_ ->saveLogs("TEST", "first_run_crossline_distances");
 		first_run_sideline_distance_logger_ ->saveLogs("TEST", "first_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "first_run_total_distances");
+		debugger3_->saveLogs("DEBUG", "first_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "first_run_target_velocity");
 	}
 	else if(mode_selector_ == SECOND_RUNNING){ //Secondary run
 		accdec_run_distance_logger_->saveLogs("TEST", "second_run_distances");
@@ -1235,6 +1237,8 @@ void LineTrace::stop()
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "second_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "second_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "second_run_total_distances");
+		debugger3_->saveLogs("DEBUG", "second_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "second_run_target_velocity");
 
 	}
 	else if(mode_selector_ == THIRD_RUNNING){ //Third run
@@ -1243,6 +1247,8 @@ void LineTrace::stop()
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "third_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "third_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "third_run_total_distances");
+		debugger3_->saveLogs("DEBUG", "third_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "third_run_target_velocity");
 	}
 	else if(mode_selector_ == FOURTH_RUNNING){ //Fourth run
 		accdec_run_distance_logger_->saveLogs("TEST", "fourth_run_distances");
@@ -1250,6 +1256,8 @@ void LineTrace::stop()
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "fourth_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "fourth_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "fourth_run_total_distances");
+		debugger3_->saveLogs("DEBUG", "fourth_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "fourth_run_target_velocity");
 	}
 	else if(mode_selector_ == FIFTH_RUNNING){ //Fifth run
 		accdec_run_distance_logger_->saveLogs("TEST", "fifth_run_distances");
@@ -1257,12 +1265,16 @@ void LineTrace::stop()
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "fifth_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "fifth_run_sideline_distances");
 		total_distance_logger_->saveLogs("TEST", "fifth_run_total_distances");
+		debugger3_->saveLogs("DEBUG", "fifth_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "fifth_run_target_velocity");
 	}
 	else{ //Other run
 		accdec_run_distance_logger_->saveLogs("TEST", "other_distances");
 		accdec_run_theta_logger_->saveLogs("TEST", "other_thetas");
 		accdec_run_crossline_distance_logger_ ->saveLogs("TEST", "other_run_crossline_distances");
 		accdec_run_sideline_distance_logger_ ->saveLogs("TEST", "other_run_sideline_distances");
+		debugger3_->saveLogs("DEBUG", "other_run_current_velocity");
+		debugger4_->saveLogs("DEBUG", "other_run_target_velocity");
 	}
 
 	led_.LR(-1, 0);

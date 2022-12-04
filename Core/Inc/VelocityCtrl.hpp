@@ -37,7 +37,6 @@ private:
 	IMU *imu_;
 
 	float calcVelocity();
-	//float calcOmega();
 	void pid();
 	void pidTranslationOnly();
 

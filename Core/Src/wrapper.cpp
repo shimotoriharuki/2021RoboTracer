@@ -1320,23 +1320,23 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("LogRun2    ");
+		lcd_printf("MAX VELO");
 		lcd_locate(0,1);
-		lcd_printf("Start%3.1f", adj_max_velocity2);
+		lcd_printf("TEST");
 
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(500);
 
 			led.LR(1, -1);
-			line_trace.setMode(THIRD_RUNNING);
-			line_trace.setTargetVelocity(adj_min_velocity2);
-			line_trace.setMaxVelocity(adj_max_velocity2);
-			line_trace.setMinVelocity(adj_max_velocity2);
-			line_trace.createVelocityTabele(USE_SD_CARD_INFO_RUNNING);
+
+			//velocity_ctrl.setVelocity(7.0, 0.0);
+			//velocity_ctrl.start();
 
 			HAL_Delay(1000);
 
-			line_trace.running();
+			//velocity_ctrl.setVelocity(0.0, 0.0);
+			HAL_Delay(500);
+
 
 			led.LR(0, -1);
 		}
