@@ -2,7 +2,7 @@
 
 This repository contains the source code for line following robot(UnderBird). 
 
-Running video: https://youtu.be/3UgktZoH9lk
+Running video: https://youtu.be/w84HsdSqK7M
 
 Detail information: https://underbirdworks.blogspot.com/2022/12/2022.html
 
