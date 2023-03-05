@@ -8,6 +8,10 @@
 #include "Localization.hpp"
 
 
+// ------------------------------//
+// ------------private-----------//
+// ------------------------------//
+
 /*
  * Arguments    : double result[4]
  * Return Type  : void
@@ -74,7 +78,7 @@ Change this size to the value that the application requires. */
  * Arguments    : double result[3]
  * Return Type  : void
  */
-void Localization::argInit_3x1_real_T(double result[3])
+void Localization::convertPrePositionData(double result[3])
 {
   int idx0;
   /* Loop over the array to initialize each element. */
@@ -89,7 +93,7 @@ Change this value to the value that the application requires. */
  * Arguments    : double result[9]
  * Return Type  : void
  */
-void Localization::argInit_3x3_real_T(double result[9])
+void Localization::convertPrePtData(double result[9])
 {
   int i;
   /* Loop over the array to initialize each element. */
@@ -115,13 +119,31 @@ float Localization::calcTargetAngularVelocity(float line_sensor_diff)
 	return 0;
 }
 
-Localization::Localization(float qt, float tred, float dt, float *error_parameter) : translation_velocity_(0), anguler_velocity_(0), measured_x_(0), measured_y_(0), measured_theta_(0),
+void Localization::initializePreData()
+{
+	for(uint16_t i = 0; i < 3; i++){
+		pre_position_[i] = 0;
+	}
+	for(uint16_t i = 0; i < 9; i++){
+		pre_pt_[i] = 0;
+	}
+
+}
+
+// ------------------------------//
+// ------------public------------//
+// ------------------------------//
+
+Localization::Localization(float qt, float tred, float dt, float *error_parameter) : execute_flag_(false), initialize_flag_(false), translation_velocity_(0), anguler_velocity_(0),
+		measured_x_(0), measured_y_(0), measured_theta_(0),
 		estimated_x_(0), estimated_y_(0), estimated_theta_(0)
 {
 	qt_ = qt;
 	tred_ = tred;
 	dt_ = dt;
-	error_parameter_ = *error_parameter;
+	error_parameter_ = error_parameter;
+
+	initializePreData();
 
 }
 
@@ -147,45 +169,59 @@ void Localization::setObservdTheta(float theta)
 
 void Localization::estimatePositionFlip()
 {
-	double EstPt[9];
-	double PrePt[9];
-	double EstPosition_data[6];
-	double ErrorParameter[4];
-	double MeasuredPosition_data[3];
-	double TargetVelo_data[3];
-	double PrePosition[3];
-	double ObsZt_data[2];
-	double Qt;
-	double Tred;
-	double dt;
-	int EstPosition_size[2];
-	int MeasuredPosition_size[2];
-	int ObsZt_size[2];
-	int TargetVelo_size[2];
+	if(execute_flag_ == true){
+		if(initialize_flag_ == true){ //Initialize
+			initialize_flag_ = false;
+			initializePreData();
+		}
 
-	/*------ Initialize function 'GetSelfLocation' input arguments. -------*/
-	/* Initialize function input argument 'MeasuredPosition'. */
-	convertMeasuredPositionData(MeasuredPosition_data, MeasuredPosition_size);
+		double EstPt[9];
+		double PrePt[9];
+		double EstPosition_data[6];
+		double ErrorParameter[4];
+		double MeasuredPosition_data[3];
+		double TargetVelo_data[3];
+		double PrePosition[3];
+		double ObsZt_data[2];
+		double Qt;
+		double Tred;
+		double dt;
+		int EstPosition_size[2];
+		int MeasuredPosition_size[2];
+		int ObsZt_size[2];
+		int TargetVelo_size[2];
 
-	/* Initialize function input argument 'ObsZt'. */
-	convertObservdThetaData(ObsZt_data, ObsZt_size);
-	ObsZt_data[0] = observed_theta_;
+		/*------ Initialize function 'GetSelfLocation' input arguments. -------*/
+		/* Initialize function input argument 'MeasuredPosition'. */
+		convertMeasuredPositionData(MeasuredPosition_data, MeasuredPosition_size);
 
-	/* Initialize function input argument 'TargetVelo'. */
-	convertTargetVelocityData(TargetVelo_data, TargetVelo_size);
+		/* Initialize function input argument 'ObsZt'. */
+		convertObservdThetaData(ObsZt_data, ObsZt_size);
 
-	Qt = qt_;
-	Tred = tred_; //100.6mm
-	dt = dt_; //10ms
+		/* Initialize function input argument 'TargetVelo'. */
+		convertTargetVelocityData(TargetVelo_data, TargetVelo_size);
 
-	/* Call the entry-point 'GetSelfLocation'. */
-	argInit_3x1_real_T(PrePosition);
-	argInit_3x3_real_T(PrePt);
-	argInit_1x4_real_T(ErrorParameter);
-	GetSelfLocation(MeasuredPosition_data, MeasuredPosition_size, ObsZt_data,
-				  ObsZt_size, TargetVelo_data, TargetVelo_size, PrePosition, PrePt, ErrorParameter,
-				  Qt, Tred, dt, EstPosition_data, EstPosition_size,
-				  EstPt);
+		Qt = qt_;
+		Tred = tred_; //100.6mm
+		dt = dt_; //10ms
+
+		/* Call the entry-point 'GetSelfLocation'. */
+		convertPrePositionData(PrePosition);
+		convertPrePtData(PrePt);
+		//argInit_1x4_real_T(ErrorParameter);
+
+		GetSelfLocation(MeasuredPosition_data, MeasuredPosition_size, ObsZt_data,
+					  ObsZt_size, TargetVelo_data, TargetVelo_size, PrePosition, PrePt, ErrorParameter,
+					  Qt, Tred, dt, EstPosition_data, EstPosition_size,
+					  EstPt);
+
+		for(uint16_t i = 0; i < 3; i++){
+			pre_position_[i] = EstPosition_data[i];
+		}
+		for(uint16_t i = 0; i < 9; i++){
+			pre_pt_[i] = EstPt[i];
+		}
+	}
 
 }
 
@@ -196,4 +232,13 @@ void Localization::getEstimatedPosition(float *x, float *y, float *theta)
 	*theta = estimated_theta_;
 }
 
+void Localization::enableEstimating()
+{
+	execute_flag_ = true;
+	initialize_flag_ = true;
+}
 
+void Localization::disableEstimating()
+{
+	execute_flag_ = false;
+}

@@ -32,9 +32,11 @@
 #include "sdCard.hpp"
 #include "DownForceUnit.hpp"
 
-#include "GetSelfLocation.h"
-#include "GetSelfLocation_terminate.h"
-#include <cmath>
+//#include "GetSelfLocation.h"
+//#include "GetSelfLocation_terminate.h"
+//#include <cmath>
+
+#include "Localization.hpp"
 
 #define USE_SD_CARD_INFO_RUNNING true
 #define USE_RAM_INFO_RUNNING false
@@ -62,139 +64,14 @@ PathFollowing path_following;
 
 Logger2 logger1(&sd_card, 500);
 
+float error_parameter[4] = {0.1, 0.1, 0.1, 0.1};
+Localization localization(pow(0.001, 2), 100.6e-3, 10e-3, error_parameter);
+
 
 float mon_v, mon_w;
 uint16_t mon_cnt;
 
 float mon_soiya = 0;
-
-/* Custom Source Code */
-/* Author: SHIMOTORI, Haruki */
-/* Function Declarations */
-static void argInit_1x4_real_T(double result[4]);
-
-static void argInit_1xd3_real_T(double result_data[], int result_size[2]);
-
-static void argInit_3x1_real_T(double result[3]);
-
-static void argInit_3x3_real_T(double result[9]);
-
-static double argInit_real_T(void);
-
-/* Function Definitions */
-/*
- * Arguments    : double result[4]
- * Return Type  : void
- */
-static void argInit_1x4_real_T(double result[4])
-{
-  int idx1;
-  /* Loop over the array to initialize each element. */
-  for (idx1 = 0; idx1 < 4; idx1++) {
-    /* Set the value of the array element.
-Change this value to the value that the application requires. */
-    result[idx1] = argInit_real_T();
-  }
-}
-
-/*
- * Arguments    : double result_data[]
- *                int result_size[2]
- * Return Type  : void
- */
-static void argInit_1xd3_real_T(double result_data[], int result_size[2])
-{
-  int idx1;
-  /* Set the size of the array.
-Change this size to the value that the application requires. */
-  result_size[0] = 1;
-  result_size[1] = 2;
-  /* Loop over the array to initialize each element. */
-  for (idx1 = 0; idx1 < 2; idx1++) {
-    /* Set the value of the array element.
-Change this value to the value that the application requires. */
-    result_data[idx1] = argInit_real_T();
-  }
-}
-
-/*
- * Arguments    : double result[3]
- * Return Type  : void
- */
-static void argInit_3x1_real_T(double result[3])
-{
-  int idx0;
-  /* Loop over the array to initialize each element. */
-  for (idx0 = 0; idx0 < 3; idx0++) {
-    /* Set the value of the array element.
-Change this value to the value that the application requires. */
-    result[idx0] = argInit_real_T();
-  }
-}
-
-/*
- * Arguments    : double result[9]
- * Return Type  : void
- */
-static void argInit_3x3_real_T(double result[9])
-{
-  int i;
-  /* Loop over the array to initialize each element. */
-  for (i = 0; i < 9; i++) {
-    /* Set the value of the array element.
-Change this value to the value that the application requires. */
-    result[i] = argInit_real_T();
-  }
-}
-
-/*
- * Arguments    : void
- * Return Type  : double
- */
-static double argInit_real_T(void)
-{
-  return 0.0;
-}
-
-void main_GetSelfLocation(void)
-{
-  double EstPt[9];
-  double PrePt[9];
-  double EstPosition_data[6];
-  double ErrorParameter[4];
-  double MeasuredPosition_data[3];
-  double TargetVelo_data[3];
-  double PrePosition[3];
-  double ObsZt_data[2];
-  double Qt;
-  double Tred;
-  double dt;
-  int EstPosition_size[2];
-  int MeasuredPosition_size[2];
-  int ObsZt_size[2];
-  int TargetVelo_size[2];
-  /* Initialize function 'GetSelfLocation' input arguments. */
-  /* Initialize function input argument 'MeasuredPosition'. */
-  argInit_1xd3_real_T(MeasuredPosition_data, MeasuredPosition_size);
-  /* Initialize function input argument 'ObsZt'. */
-  argInit_1xd3_real_T(ObsZt_data, ObsZt_size);
-  /* Initialize function input argument 'TargetVelo'. */
-  argInit_1xd3_real_T(TargetVelo_data, TargetVelo_size);
-  /* Initialize function input argument 'PrePosition'. */
-  /* Initialize function input argument 'PrePt'. */
-  /* Initialize function input argument 'ErrerParameter'. */
-  Qt = pow(0.001, 2);
-  Tred = 100.6e-3; //100.6mm
-  dt = 10e-3; //10ms
-  /* Call the entry-point 'GetSelfLocation'. */
-  argInit_3x1_real_T(PrePosition);
-  argInit_3x3_real_T(PrePt);
-  argInit_1x4_real_T(ErrorParameter);
-  GetSelfLocation(MeasuredPosition_data, MeasuredPosition_size, ObsZt_data,
-                  ObsZt_size, TargetVelo_data, TargetVelo_size, PrePosition, PrePt, ErrorParameter,
-                  Qt, Tred, dt, EstPosition_data, EstPosition_size,
-                  EstPt);
-}
 
 
 void batteryLowMode()
@@ -286,8 +163,6 @@ void cppInit(void)
 
 	down_force_unit.init();
 
-	main_GetSelfLocation();
-
 }
 
 void cppFlip1ms(void)
@@ -336,6 +211,8 @@ void cppFlip10ms(void)
 
 	line_trace.storeDebugLogs10ms();
 	logger1.storeLogs(velocity_ctrl.getCurrentVelocity());
+
+	localization.estimatePositionFlip();
 
 	/*
 	static float tim;

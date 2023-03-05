@@ -1,18 +1,12 @@
 gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
 std_abs.h:74:3:constexpr float std::abs(float)	16	static
-wrapper.cpp:89:13:void argInit_1x4_real_T(double*)	32	static
-wrapper.cpp:105:13:void argInit_1xd3_real_T(double*, int*)	32	static
-wrapper.cpp:124:13:void argInit_3x1_real_T(double*)	32	static
-wrapper.cpp:139:13:void argInit_3x3_real_T(double*)	32	static
-wrapper.cpp:154:15:double argInit_real_T()	8	static
-wrapper.cpp:159:6:void main_GetSelfLocation()	416	static
-wrapper.cpp:200:6:void batteryLowMode()	8	static
-wrapper.cpp:221:6:void cppInit()	16	static
-wrapper.cpp:293:6:void cppFlip1ms()	8	static
-wrapper.cpp:323:6:void cppFlip100ns()	8	static
-wrapper.cpp:328:6:void cppFlip10ms()	8	static
-wrapper.cpp:361:6:void cppExit(uint16_t)	16	static
-wrapper.cpp:371:6:void cppLoop()	32	static
-wrapper.cpp:1601:1:void __static_initialization_and_destruction_0(int, int)	40	static
-wrapper.cpp:1601:1:cpp)	8	static
-wrapper.cpp:1601:1:cpp)	8	static
+wrapper.cpp:77:6:void batteryLowMode()	8	static
+wrapper.cpp:98:6:void cppInit()	16	static
+wrapper.cpp:168:6:void cppFlip1ms()	8	static
+wrapper.cpp:198:6:void cppFlip100ns()	8	static
+wrapper.cpp:203:6:void cppFlip10ms()	8	static
+wrapper.cpp:238:6:void cppExit(uint16_t)	16	static
+wrapper.cpp:248:6:void cppLoop()	32	static
+wrapper.cpp:1478:1:void __static_initialization_and_destruction_0(int, int)	40	static
+wrapper.cpp:1478:1:cpp)	8	static
+wrapper.cpp:1478:1:cpp)	8	static
