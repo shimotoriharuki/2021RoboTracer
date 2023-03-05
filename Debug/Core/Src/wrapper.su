@@ -8,11 +8,11 @@ wrapper.cpp:154:15:double argInit_real_T()	8	static
 wrapper.cpp:159:6:void main_GetSelfLocation()	416	static
 wrapper.cpp:200:6:void batteryLowMode()	8	static
 wrapper.cpp:221:6:void cppInit()	16	static
-wrapper.cpp:291:6:void cppFlip1ms()	8	static
-wrapper.cpp:321:6:void cppFlip100ns()	8	static
-wrapper.cpp:326:6:void cppFlip10ms()	8	static
-wrapper.cpp:359:6:void cppExit(uint16_t)	16	static
-wrapper.cpp:369:6:void cppLoop()	32	static
-wrapper.cpp:1599:1:void __static_initialization_and_destruction_0(int, int)	40	static
-wrapper.cpp:1599:1:cpp)	8	static
-wrapper.cpp:1599:1:cpp)	8	static
+wrapper.cpp:293:6:void cppFlip1ms()	8	static
+wrapper.cpp:323:6:void cppFlip100ns()	8	static
+wrapper.cpp:328:6:void cppFlip10ms()	8	static
+wrapper.cpp:361:6:void cppExit(uint16_t)	16	static
+wrapper.cpp:371:6:void cppLoop()	32	static
+wrapper.cpp:1601:1:void __static_initialization_and_destruction_0(int, int)	40	static
+wrapper.cpp:1601:1:cpp)	8	static
+wrapper.cpp:1601:1:cpp)	8	static

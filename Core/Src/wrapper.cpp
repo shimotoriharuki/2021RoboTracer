@@ -286,6 +286,8 @@ void cppInit(void)
 
 	down_force_unit.init();
 
+	main_GetSelfLocation();
+
 }
 
 void cppFlip1ms(void)

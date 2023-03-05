@@ -15,6 +15,7 @@
 "Core/Src/LED.o"
 "Core/Src/LineSensor.o"
 "Core/Src/LineTrace.o"
+"Core/Src/Localization.o"
 "Core/Src/Logger.o"
 "Core/Src/Logger2.o"
 "Core/Src/Motor.o"
