@@ -12,6 +12,8 @@
 #include "Macro.h"
 #include "AQM0802.h"
 
+#define MAX_SENSOR_VALUE 1000
+
 float mon_sens, mon_sens_lpf;
 
 float mon_sens0;
@@ -59,6 +61,9 @@ void LineSensor::storeSensorValues()
 	for(int i = 0; i < AD_DATA_SIZE; i++){
 		store_vals_[cnt][i] = sensor_coefficient_[i] * (analog_val_[i] - offset_values_[i]) ;
 		//store_vals_[cnt][i] = float(analog_val_[i]) ;
+
+		if(store_vals_[cnt][i] < 0) store_vals_[cnt][i] = 0;
+		else if(store_vals_[cnt][i] > MAX_SENSOR_VALUE) store_vals_[cnt][i] = MAX_SENSOR_VALUE;
 	}
 
 	cnt++;
@@ -143,7 +148,7 @@ void LineSensor::calibration()
 	*/
 
 	for(uint16_t i = 0; i < AD_DATA_SIZE; i++){
-		sensor_coefficient_[i] = 1000 / (max_values[i] - min_values[i]);
+		sensor_coefficient_[i] = MAX_SENSOR_VALUE / (max_values[i] - min_values[i]);
 	}
 	for(uint16_t i = 0; i < AD_DATA_SIZE; i++){
 		offset_values_[i] = min_values[i];

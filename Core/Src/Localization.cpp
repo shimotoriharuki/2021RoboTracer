@@ -85,7 +85,7 @@ void Localization::convertPrePositionData(double result[3])
   for (idx0 = 0; idx0 < 3; idx0++) {
     /* Set the value of the array element.
 Change this value to the value that the application requires. */
-    result[idx0] = argInit_real_T();
+    result[idx0] = pre_position_[idx0];
   }
 }
 
@@ -100,7 +100,7 @@ void Localization::convertPrePtData(double result[9])
   for (i = 0; i < 9; i++) {
     /* Set the value of the array element.
 Change this value to the value that the application requires. */
-    result[i] = argInit_real_T();
+    result[i] = pre_pt_[i];
   }
 }
 

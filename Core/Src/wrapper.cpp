@@ -212,6 +212,10 @@ void cppFlip10ms(void)
 	line_trace.storeDebugLogs10ms();
 	logger1.storeLogs(velocity_ctrl.getCurrentVelocity());
 
+
+	localization.setTargetVelocity(0, 0);
+	localization.setMeasuredPosition(0, 0, 0);
+	localization.setObservdTheta(0);
 	localization.estimatePositionFlip();
 
 	/*
