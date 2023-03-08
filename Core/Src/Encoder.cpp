@@ -65,6 +65,12 @@ void Encoder::getCnt(float &cnt_l, float &cnt_r)
 	cnt_r = cnt_r_;
 }
 
+void Encoder::getLeftAndRightDistance(float &distance_l, float &distance_r)
+{
+	distance_l = DISTANCE_PER_CNT * cnt_l_;
+	distance_r = DISTANCE_PER_CNT * cnt_r_;
+}
+
 float Encoder::getDistance()
 {
 	return distance_;

@@ -30,6 +30,7 @@ public:
 	void update();
 	void clear();
 	void getCnt(float &, float &);
+	void getLeftAndRightDistance(float &, float &);
 	float getDistance();
 	float getDistance10mm();
 	float getTotalDistance();

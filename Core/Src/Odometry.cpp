@@ -23,10 +23,14 @@ Odometry::Odometry(Encoder *encoder, IMU *imu, VelocityCtrl *velocity_ctrl) : x_
 
 void Odometry::calcPotition()
 {
-	double current_omega = imu_->getOmega();
-	float distance = encoder_->getDistance();
+	//double current_omega = imu_->getOmega();
+	//delta_theta_ = current_omega * DELTA_T;
 
-	delta_theta_ = current_omega * DELTA_T;
+	float distance_l, distance_r;
+	encoder_->getLeftAndRightDistance(distance_l, distance_r);
+	delta_theta_ = (distance_r - distance_l) / TRED;
+
+	float distance = encoder_->getDistance();
 
 	x_robot_ = x_robot_ + distance * cos(theta_ + delta_theta_ / 2); //calculate the rotation center position.
 	y_robot_ = y_robot_ + distance * sin(theta_ + delta_theta_ / 2);
