@@ -14,10 +14,11 @@
 #include "AQM0802.h"
 
 #define PI 3.1415926535
+#define DELTA_T 0.001
 
 float mon_zg, mon_omega;
 
-IMU::IMU() : xa_(0), ya_(0), za_(0), xg_(0), yg_(0), zg_(0), omega_(0), offset_(0)
+IMU::IMU() : xa_(0), ya_(0), za_(0), xg_(0), yg_(0), zg_(0), omega_(0), offset_(0), constant_distance_theta_(0)
 {
 
 }
@@ -52,6 +53,9 @@ void IMU::updateValues()
 	omega_ = -(corrected_zg / 16.4) * PI / 180;
 	mon_omega = omega_;
 
+
+	float delta_theta_ = omega_ * DELTA_T;
+	constant_distance_theta_= constant_distance_theta_ + delta_theta_;
 
 }
 
@@ -88,4 +92,14 @@ void IMU::calibration()
 float IMU::getOffsetVal()
 {
 	return offset_;
+}
+
+double IMU::getConstantDistanceTheta()
+{
+	return constant_distance_theta_;
+}
+
+void IMU::clearConstantDistanceTheta()
+{
+	constant_distance_theta_ = 0;
 }

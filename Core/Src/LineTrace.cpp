@@ -253,7 +253,7 @@ void LineTrace::pidTrace()
 void LineTrace::loggerStart()
 {
 	encoder_->clearDistance10mm();
-	odometry_->clearConstantDistanceTheta();
+	imu_->clearConstantDistanceTheta();
 
 
 	if(mode_selector_ == FIRST_RUNNING){
@@ -355,11 +355,11 @@ void LineTrace::storeLogs()
 	if(logging_flag_ == true){
 		if(mode_selector_ == FIRST_RUNNING){
 			first_run_distance_logger_->storeLogs(encoder_->getDistance10mm());
-			first_run_theta_logger_->storeLogs(odometry_->getConstantDistanceTheta());
+			first_run_theta_logger_->storeLogs(imu_->getConstantDistanceTheta());
 		}
 		else{
 			accdec_run_distance_logger_->storeLogs(encoder_->getDistance10mm());
-			accdec_run_theta_logger_->storeLogs(odometry_->getConstantDistanceTheta());
+			accdec_run_theta_logger_->storeLogs(imu_->getConstantDistanceTheta());
 		}
 
 		total_distance_logger_->storeLogs(encoder_->getTotalDistance());
@@ -682,7 +682,7 @@ bool LineTrace::isStable()
 	bool ret = false;
 	static uint16_t stable_cnt = 0;
 	float temp_distance = encoder_->getDistance10mm();
-	float temp_theta = odometry_->getConstantDistanceTheta();;
+	float temp_theta = imu_->getConstantDistanceTheta();;
 
 	if(temp_theta == 0) temp_theta = 0.00001;
 	float radius = abs(temp_distance / temp_theta);
@@ -1012,7 +1012,7 @@ void LineTrace::flip()
 
 			// ---reset total cnt ---//
 			encoder_->clearDistance10mm();
-			odometry_->clearConstantDistanceTheta();
+			imu_->clearConstantDistanceTheta();
 		}
 
 		// ----- cross line ignore processing ------//
@@ -1106,7 +1106,7 @@ void LineTrace::start()
 	i_reset_flag_ = true;
 	velocity_ctrl_->start();
 	side_sensor_->resetWhiteLineCnt();
-	odometry_->clearConstantDistanceTheta();
+	imu_->clearConstantDistanceTheta();
 
 	crossline_idx_ = 0;
 	crossline_idx2_ = 0;

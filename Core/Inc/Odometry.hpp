@@ -25,7 +25,6 @@ private:
 	double x_robot_, y_robot_, theta_; // Center position of Robot
 	double x_sens_, y_sens_; //Center position of sensor
 	double delta_theta_;
-	double constant_distance_theta_;
 
 	void calcPotition();
 
@@ -35,10 +34,8 @@ public:
 	double getX();
 	double getY();
 	double getTheta();
-	double getConstantDistanceTheta();
 	double getDeltaTheta();
 	void clearPotition();
-	void clearConstantDistanceTheta();
 
 };
 

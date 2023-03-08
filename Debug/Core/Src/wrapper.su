@@ -4,9 +4,9 @@ wrapper.cpp:77:6:void batteryLowMode()	8	static
 wrapper.cpp:98:6:void cppInit()	16	static
 wrapper.cpp:169:6:void cppFlip1ms()	8	static
 wrapper.cpp:199:6:void cppFlip100ns()	8	static
-wrapper.cpp:204:6:void cppFlip10ms()	16	static
-wrapper.cpp:243:6:void cppExit(uint16_t)	16	static
-wrapper.cpp:253:6:void cppLoop()	32	static
-wrapper.cpp:1483:1:void __static_initialization_and_destruction_0(int, int)	40	static
-wrapper.cpp:1483:1:cpp)	8	static
-wrapper.cpp:1483:1:cpp)	8	static
+wrapper.cpp:204:6:void cppFlip10ms()	40	static
+wrapper.cpp:247:6:void cppExit(uint16_t)	16	static
+wrapper.cpp:257:6:void cppLoop()	32	static
+wrapper.cpp:1487:1:void __static_initialization_and_destruction_0(int, int)	40	static
+wrapper.cpp:1487:1:cpp)	8	static
+wrapper.cpp:1487:1:cpp)	8	static
