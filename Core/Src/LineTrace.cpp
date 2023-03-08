@@ -355,11 +355,11 @@ void LineTrace::storeLogs()
 	if(logging_flag_ == true){
 		if(mode_selector_ == FIRST_RUNNING){
 			first_run_distance_logger_->storeLogs(encoder_->getDistance10mm());
-			first_run_theta_logger_->storeLogs(odometry_->getTheta());
+			first_run_theta_logger_->storeLogs(odometry_->getConstantDistanceTheta());
 		}
 		else{
 			accdec_run_distance_logger_->storeLogs(encoder_->getDistance10mm());
-			accdec_run_theta_logger_->storeLogs(odometry_->getTheta());
+			accdec_run_theta_logger_->storeLogs(odometry_->getConstantDistanceTheta());
 		}
 
 		total_distance_logger_->storeLogs(encoder_->getTotalDistance());
@@ -682,7 +682,7 @@ bool LineTrace::isStable()
 	bool ret = false;
 	static uint16_t stable_cnt = 0;
 	float temp_distance = encoder_->getDistance10mm();
-	float temp_theta = odometry_->getTheta();;
+	float temp_theta = odometry_->getConstantDistanceTheta();;
 
 	if(temp_theta == 0) temp_theta = 0.00001;
 	float radius = abs(temp_distance / temp_theta);

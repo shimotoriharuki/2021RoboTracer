@@ -47,17 +47,24 @@ void Odometry::flip()
 
 double Odometry::getX()
 {
-	return x_sens_;
+	//return x_sens_;
+	return x_robot_;
 }
 
 double Odometry::getY()
 {
-	return y_sens_;
+	//return y_sens_;
+	return y_robot_;
 }
 
 double Odometry::getTheta()
 {
 	return theta_;
+}
+
+double Odometry::getConstantDistanceTheta()
+{
+	return constant_distance_theta_;
 }
 
 double Odometry::getDeltaTheta()

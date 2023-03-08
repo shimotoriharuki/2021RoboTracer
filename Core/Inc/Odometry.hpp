@@ -34,6 +34,7 @@ public:
 	double getX();
 	double getY();
 	double getTheta();
+	double getConstantDistanceTheta();
 	double getDeltaTheta();
 	void clearPotition();
 	void clearConstantDistanceTheta();
