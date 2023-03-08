@@ -158,6 +158,7 @@ void cppInit(void)
 
 	//encoder.clearDistance();
 	odometry.clearPotition();
+	odometry.clearConstantDistanceTheta();
 
 	path_following.init();
 
@@ -213,7 +214,7 @@ void cppFlip10ms(void)
 	logger1.storeLogs(velocity_ctrl.getCurrentVelocity());
 
 
-	localization.setTargetVelocity(0, 0);
+	localization.setTargetVelocity(line_trace.getTargetVelocity(), velocity_ctrl.getRotationRatio());
 	localization.setMeasuredPosition(0, 0, 0);
 	localization.setObservdTheta(0);
 	localization.estimatePositionFlip();

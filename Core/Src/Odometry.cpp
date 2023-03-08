@@ -13,7 +13,7 @@
 float monitor_x, monitor_y, monitor_theta;
 float mon_theta;
 
-Odometry::Odometry(Encoder *encoder, IMU *imu, VelocityCtrl *velocity_ctrl) : x_robot_(0), y_robot_(0), theta_(0), x_sens_(0), y_sens_(0), delta_theta_(0)
+Odometry::Odometry(Encoder *encoder, IMU *imu, VelocityCtrl *velocity_ctrl) : x_robot_(0), y_robot_(0), theta_(0), x_sens_(0), y_sens_(0), delta_theta_(0), constant_distance_theta_(0)
 {
 	encoder_ = encoder;
 	imu_ = imu;
@@ -28,9 +28,11 @@ void Odometry::calcPotition()
 
 	delta_theta_ = current_omega * DELTA_T;
 
-	x_robot_ = x_robot_ + distance * cos(theta_ + delta_theta_ / 2);
+	x_robot_ = x_robot_ + distance * cos(theta_ + delta_theta_ / 2); //calculate the rotation center position.
 	y_robot_ = y_robot_ + distance * sin(theta_ + delta_theta_ / 2);
 	theta_= theta_ + delta_theta_;
+
+	constant_distance_theta_= constant_distance_theta_ + delta_theta_;
 	mon_theta = theta_;
 
 	x_sens_ = x_robot_ + SENSOR_LENGTH * cos(theta_); //calculate a sensor position from robot's center position
@@ -65,7 +67,14 @@ double Odometry::getDeltaTheta()
 
 void Odometry::clearPotition()
 {
+	x_robot_ = 0;
+	y_robot_ = 0;
 	x_sens_ = 0;
 	y_sens_ = 0;
 	theta_ = 0;
+}
+
+void Odometry::clearConstantDistanceTheta()
+{
+	constant_distance_theta_ = 0;
 }

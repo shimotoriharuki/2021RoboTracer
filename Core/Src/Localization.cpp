@@ -147,11 +147,11 @@ Localization::Localization(float qt, float tred, float dt, float *error_paramete
 
 }
 
-void Localization::setTargetVelocity(float translation_velocity, float line_sensor_diff)
+void Localization::setTargetVelocity(float translation_velocity, float rotation_ratio)
 {
 	translation_velocity_ = translation_velocity;
 
-	anguler_velocity_ = calcTargetAngularVelocity(line_sensor_diff);
+	anguler_velocity_ = calcTargetAngularVelocity(rotation_ratio);
 
 }
 
