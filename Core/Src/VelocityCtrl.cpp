@@ -13,7 +13,7 @@ float mon_current_velocity;
 
 VelocityCtrl::VelocityCtrl(Motor *motor, Encoder *encoder, IMU *imu) :
 target_velocity_(0), target_omega_(0), current_velocity_(0), current_omega_(0), v_kp_(0), v_kd_(0), v_ki_(0),
-	o_kp_(0), o_kd_(0), o_ki_(0), excution_flag_(false), i_reset_flag_(false), rotation_ratio_(0), translation_ratio_(0)
+	o_kp_(0), o_kd_(0), o_ki_(0), excution_flag_(false), i_reset_flag_(false), raw_rotation_ratio_(0), rotation_ratio_(0), raw_translation_ratio_(0), translation_ratio_(0)
 {
 	motor_ = motor;
 	encoder_ = encoder;
@@ -99,18 +99,18 @@ void VelocityCtrl::pidTranslationOnly()
 	v_d = v_kd_ * (v_diff - v_pre_diff) / DELTA_T;
 
 
-	translation_ratio_ =  v_p + v_d + v_i;
+	raw_translation_ratio_ =  v_p + v_d + v_i;
 
 	float limit = 0.9;
-	if(translation_ratio_ >= limit) translation_ratio_= limit;
-	else if(translation_ratio_ <= -limit) translation_ratio_ = -limit;
+	if(raw_translation_ratio_ >= limit) translation_ratio_= limit;
+	else if(raw_translation_ratio_ <= -limit) translation_ratio_ = -limit;
 
 	float exceeded = 0;
-	if(translation_ratio_ + rotation_ratio_ >= 1.0){
-		exceeded = (translation_ratio_ + rotation_ratio_) - 1.0;
+	if(raw_translation_ratio_ + raw_rotation_ratio_ >= 1.0){
+		exceeded = (raw_translation_ratio_ + raw_rotation_ratio_) - 1.0;
 	}
-	else if(translation_ratio_ - rotation_ratio_ <= -1.0){
-		exceeded = -1.0 - (translation_ratio_ - rotation_ratio_) ;
+	else if(raw_translation_ratio_ - raw_rotation_ratio_ <= -1.0){
+		exceeded = -1.0 - (raw_translation_ratio_ - raw_rotation_ratio_) ;
 	}
 
 	translation_ratio_ -= exceeded;
@@ -134,7 +134,7 @@ void VelocityCtrl::setVelocity(float velocity, float omega)
 void VelocityCtrl::setTranslationVelocityOnly(float velocity, float rotation_ratio)
 {
 	target_velocity_ = velocity;
-	rotation_ratio_ = rotation_ratio;
+	raw_rotation_ratio_ = rotation_ratio;
 }
 
 void VelocityCtrl::setVelocityGain(float kp, float ki, float kd)
