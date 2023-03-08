@@ -55,6 +55,7 @@ void IMU::updateValues()
 
 
 	float delta_theta_ = omega_ * DELTA_T;
+	theta_ = theta_ + delta_theta_;
 	constant_distance_theta_= constant_distance_theta_ + delta_theta_;
 
 }
@@ -94,7 +95,17 @@ float IMU::getOffsetVal()
 	return offset_;
 }
 
-double IMU::getConstantDistanceTheta()
+float IMU::getTheta()
+{
+	return theta_;
+}
+
+void IMU::clearTheta()
+{
+	theta_ = 0;
+}
+
+float IMU::getConstantDistanceTheta()
 {
 	return constant_distance_theta_;
 }

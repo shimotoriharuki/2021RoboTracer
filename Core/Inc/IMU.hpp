@@ -20,7 +20,8 @@ private:
 	float offset_;
 	LED led;
 
-	double constant_distance_theta_;
+	float theta_;
+	float constant_distance_theta_;
 
 public:
 	IMU();
@@ -29,7 +30,9 @@ public:
 	float getOmega();
 	void calibration();
 	float getOffsetVal();
-	double getConstantDistanceTheta();
+	float getTheta();
+	void clearTheta();
+	float getConstantDistanceTheta();
 	void clearConstantDistanceTheta();
 
 };

@@ -220,7 +220,7 @@ void cppFlip10ms(void)
 
 	localization.setTargetVelocity(line_trace.getTargetVelocity(), velocity_ctrl.getRotationRatio());
 	localization.setMeasuredPosition(x, y, theta);
-	localization.setObservdTheta(0);
+	localization.setObservdTheta(imu.getTheta());
 	localization.estimatePositionFlip();
 
 	/*

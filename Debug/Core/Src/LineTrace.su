@@ -30,7 +30,7 @@ LineTrace.cpp:590:6:void LineTrace::stopVelocityPlay()	16	static
 LineTrace.cpp:597:6:void LineTrace::updateTargetVelocity()	16	static
 LineTrace.cpp:625:6:bool LineTrace::isTargetDistance(float)	24	static
 LineTrace.cpp:635:6:bool LineTrace::isCrossLine()	24	static
-LineTrace.cpp:680:6:bool LineTrace::isStable()	40	static
+LineTrace.cpp:680:6:bool LineTrace::isStable()	32	static
 LineTrace.cpp:711:7:float LineTrace::calcRadius(float, float)	24	static
 LineTrace.cpp:721:6:void LineTrace::init()	112	static
 LineTrace.cpp:781:6:void LineTrace::setGain(float, float, float)	24	static
