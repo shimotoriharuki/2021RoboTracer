@@ -218,6 +218,7 @@ void cppFlip10ms(void)
 
 
 	//get odometry position
+	/*
 	float odometry_x = odometry.getX();
 	float odometry_y = odometry.getY();
 	float odometry_theta = odometry.getTheta();
@@ -227,7 +228,7 @@ void cppFlip10ms(void)
 	localization.setMeasuredPosition(odometry_x, odometry_y, odometry_theta);
 	localization.setObservdTheta(imu.getTheta());
 	localization.estimatePositionFlip();
-
+	*/
 	//save odometry position
 	/*
 	odometry_position_logger.storeLogs(odometry_x);
@@ -235,8 +236,10 @@ void cppFlip10ms(void)
 	odometry_position_logger.storeLogs(odometry_theta);
 	*/
 	//save estimated position
+	/*
 	float estimated_x, estimated_y, estimated_theta;
 	localization.getEstimatedPosition(&estimated_x, &estimated_y, &estimated_theta);
+	*/
 	/*
 	estimated_position_logger.storeLogs(estimated_x);
 	estimated_position_logger.storeLogs(estimated_y);
