@@ -62,8 +62,8 @@ void LineSensor::storeSensorValues()
 		store_vals_[cnt][i] = sensor_coefficient_[i] * (analog_val_[i] - offset_values_[i]) ;
 		//store_vals_[cnt][i] = float(analog_val_[i]) ;
 
-		if(store_vals_[cnt][i] < 0) store_vals_[cnt][i] = 0;
-		else if(store_vals_[cnt][i] > MAX_SENSOR_VALUE) store_vals_[cnt][i] = MAX_SENSOR_VALUE;
+		//if(store_vals_[cnt][i] < 0) store_vals_[cnt][i] = 0;
+		//else if(store_vals_[cnt][i] > MAX_SENSOR_VALUE) store_vals_[cnt][i] = MAX_SENSOR_VALUE;
 	}
 
 	cnt++;

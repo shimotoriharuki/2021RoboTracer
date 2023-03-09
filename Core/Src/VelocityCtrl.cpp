@@ -102,8 +102,8 @@ void VelocityCtrl::pidTranslationOnly()
 	raw_translation_ratio_ =  v_p + v_d + v_i;
 
 	float limit = 0.9;
-	if(raw_translation_ratio_ >= limit) translation_ratio_= limit;
-	else if(raw_translation_ratio_ <= -limit) translation_ratio_ = -limit;
+	if(raw_translation_ratio_ >= limit) raw_translation_ratio_= limit;
+	else if(raw_translation_ratio_ <= -limit) raw_translation_ratio_ = -limit;
 
 	float exceeded = 0;
 	if(raw_translation_ratio_ + raw_rotation_ratio_ >= 1.0){
@@ -113,8 +113,8 @@ void VelocityCtrl::pidTranslationOnly()
 		exceeded = -1.0 - (raw_translation_ratio_ - raw_rotation_ratio_) ;
 	}
 
-	translation_ratio_ -= exceeded;
-	rotation_ratio_ += exceeded;
+	translation_ratio_ = raw_translation_ratio_ - exceeded;
+	rotation_ratio_ = raw_rotation_ratio_ + exceeded;
 
 
 	motor_->setRatio(translation_ratio_ + rotation_ratio_, translation_ratio_ - rotation_ratio_);
