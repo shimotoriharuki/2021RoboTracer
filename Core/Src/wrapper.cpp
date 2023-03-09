@@ -64,8 +64,8 @@ PathFollowing path_following;
 
 Logger2 logger1(&sd_card, 500);
 
-Logger2 odometry_position_logger(&sd_card, 500);
-Logger2 estimated_position_logger(&sd_card, 500);
+//Logger2 odometry_position_logger(&sd_card, 1);
+//Logger2 estimated_position_logger(&sd_card, 1);
 
 float error_parameter[4] = {0.1, 0.1, 0.1, 0.1};
 Localization localization(pow(0.001, 2), 100.6e-3, 10e-3, error_parameter);
@@ -229,17 +229,19 @@ void cppFlip10ms(void)
 	localization.estimatePositionFlip();
 
 	//save odometry position
+	/*
 	odometry_position_logger.storeLogs(odometry_x);
 	odometry_position_logger.storeLogs(odometry_y);
 	odometry_position_logger.storeLogs(odometry_theta);
-
+	*/
 	//save estimated position
 	float estimated_x, estimated_y, estimated_theta;
 	localization.getEstimatedPosition(&estimated_x, &estimated_y, &estimated_theta);
+	/*
 	estimated_position_logger.storeLogs(estimated_x);
 	estimated_position_logger.storeLogs(estimated_y);
 	estimated_position_logger.storeLogs(estimated_theta);
-	/*
+	*/	/*
 	static float tim;
 	tim++;
 	if(tim >= 100000) tim = 0;
@@ -1165,8 +1167,8 @@ void cppLoop(void)
 			//start estimated
 			localization.enableEstimating();
 			//start logging
-			odometry_position_logger.start();
-			estimated_position_logger.start();
+			//odometry_position_logger.start();
+			//estimated_position_logger.start();
 
 			// Run
 			line_trace.setMode(FIRST_RUNNING);
@@ -1175,13 +1177,13 @@ void cppLoop(void)
 			//stop estimated
 			localization.disableEstimating();
 			//stop logging
-			odometry_position_logger.stop();
-			estimated_position_logger.stop();
+			//odometry_position_logger.stop();
+			//estimated_position_logger.stop();
 
 			//save logs
 			led.LR(-1, 1);
-			odometry_position_logger.saveLogs("STATELOG", "odometry_position");
-			estimated_position_logger.saveLogs("STATELOG", "estimated_position");
+			//odometry_position_logger.saveLogs("STATELOG", "odometry_position");
+			//estimated_position_logger.saveLogs("STATELOG", "estimated_position");
 			led.LR(-1, 0);
 
 			led.LR(0, -1);
