@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include "string.h"
 
-char mon_c[32];
+//char mon_c[32];
 
 
 Logger2::Logger2(sdCard *sd_card, uint16_t size) : sd_card_(sd_card), log_idx_(0), recording_flag_(false), max_log_size_(size)

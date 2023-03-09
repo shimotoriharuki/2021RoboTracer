@@ -64,6 +64,9 @@ PathFollowing path_following;
 
 Logger2 logger1(&sd_card, 500);
 
+Logger2 odometry_position_logger(&sd_card, 500);
+Logger2 estimated_position_logger(&sd_card, 500);
+
 float error_parameter[4] = {0.1, 0.1, 0.1, 0.1};
 Localization localization(pow(0.001, 2), 100.6e-3, 10e-3, error_parameter);
 
@@ -214,16 +217,29 @@ void cppFlip10ms(void)
 	logger1.storeLogs(velocity_ctrl.getCurrentVelocity());
 
 
-	float x = odometry.getX();
-	float y = odometry.getY();
-	float theta = odometry.getTheta();
+	//get odometry position
+	float odometry_x = odometry.getX();
+	float odometry_y = odometry.getY();
+	float odometry_theta = odometry.getTheta();
 
+	//compute estimated position using EKF
 	localization.setTargetVelocity(line_trace.getTargetVelocity(), velocity_ctrl.getRotationRatio());
-	localization.setMeasuredPosition(x, y, theta);
+	localization.setMeasuredPosition(odometry_x, odometry_y, odometry_theta);
 	localization.setObservdTheta(imu.getTheta());
 	localization.estimatePositionFlip();
 
-	/*
+	//save odometry position
+	odometry_position_logger.storeLogs(odometry_x);
+	odometry_position_logger.storeLogs(odometry_y);
+	odometry_position_logger.storeLogs(odometry_theta);
+
+	//save estimated position
+	float estimated_x, estimated_y, estimated_theta;
+	localization.getEstimatedPosition(&estimated_x, &estimated_y, &estimated_theta);
+	estimated_position_logger.storeLogs(estimated_x);
+	estimated_position_logger.storeLogs(estimated_y);
+	estimated_position_logger.storeLogs(estimated_theta);
+	/*
 	static float tim;
 	tim++;
 	if(tim >= 100000) tim = 0;
@@ -1134,6 +1150,46 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
+		lcd_printf("Estimate");
+		lcd_locate(0,1);
+		lcd_printf("Test");
+
+		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
+
+			line_trace.setTargetVelocity(adj_velocity);
+			led.LR(1, -1);
+
+			HAL_Delay(1000);
+
+			//start estimated
+			localization.enableEstimating();
+			//start logging
+			odometry_position_logger.start();
+			estimated_position_logger.start();
+
+			// Run
+			line_trace.setMode(FIRST_RUNNING);
+			line_trace.running();
+
+			//stop estimated
+			localization.disableEstimating();
+			//stop logging
+			odometry_position_logger.stop();
+			estimated_position_logger.stop();
+
+			//save logs
+			led.LR(-1, 1);
+			odometry_position_logger.saveLogs("STATELOG", "odometry_position");
+			estimated_position_logger.saveLogs("STATELOG", "estimated_position");
+			led.LR(-1, 0);
+
+			led.LR(0, -1);
+
+		}
+		/*
+		lcd_clear();
+		lcd_locate(0,0);
 		lcd_printf("DownForc");
 		lcd_locate(0,1);
 		lcd_printf("Test");
@@ -1165,6 +1221,7 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
+		*/
 		/*
 		lcd_clear();
 		lcd_locate(0,0);
