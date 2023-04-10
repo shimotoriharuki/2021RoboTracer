@@ -1188,7 +1188,6 @@ void cppLoop(void)
 			led.LR(-1, 0);
 
 			led.LR(0, -1);
-
 		}
 		/*
 		lcd_clear();
