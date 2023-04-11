@@ -42,7 +42,8 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 				ref_distance_(0), velocity_play_flag_(false), velocity_table_idx_(0), mode_selector_(0), crossline_idx_(0), crossline_idx2_(0), sideline_idx_(0), sideline_idx2_(0), all_sideline_idx_(0),
 				ignore_crossline_flag_(false), stable_flag_(false), stable_flag_force_(false), stable_cnt_reset_flag_(false),
 				max_acc_(0), max_dec_(0), max_acc2_(0), max_dec2_(0), max_acc3_(0), max_dec3_(0), max_acc4_(0), max_dec4_(0),
-				correction_check_cnt_(0), store_check_cnt_(0), ignore_check_cnt_(0), all_sideline_flag_(false)
+				correction_check_cnt_(0), store_check_cnt_(0), ignore_check_cnt_(0), all_sideline_flag_(false),
+				running_flag_(false)
 
 {
 	motor_ = motor;
@@ -1137,6 +1138,9 @@ void LineTrace::running()
 				encoder_->clearSideLineIgnoreDistance();
 				encoder_->clearCrossLineIgnoreDistance();
 				encoder_->clearTotalDistance();
+
+				running_flag_ = true;
+
 				led_.LR(0, -1);
 				stage = 5;
 			}
@@ -1169,6 +1173,7 @@ void LineTrace::running()
 
 			if(goal_marker_cnt >= 1){
 				led_.fullColor('M');
+				running_flag_ = false;
 				loggerStop();
 				debuggerStop();
 				stopVelocityPlay();
@@ -1382,4 +1387,9 @@ void LineTrace::storeDebugLogs10ms()
 	//debugger2_->storeLogs(velocity_ctrl_->getRotationRatio());
 	debugger3_->storeLogs(velocity_ctrl_->getCurrentVelocity());
 	debugger4_->storeLogs(target_velocity_);
+}
+
+bool LineTrace::isRunning()
+{
+	return running_flag_;
 }

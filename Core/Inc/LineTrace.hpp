@@ -106,6 +106,7 @@ private:
 	uint16_t store_check_cnt_;
 	uint16_t ignore_check_cnt_;
 	bool all_sideline_flag_;
+	bool running_flag_;
 
 
 
@@ -221,6 +222,8 @@ public:
 	//void createVelocityTabeleFromSD();
 
 	void storeDebugLogs10ms();
+
+	bool isRunning();
 };
 
 

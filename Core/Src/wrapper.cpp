@@ -77,6 +77,8 @@ uint16_t mon_cnt;
 float mon_soiya = 0;
 float mon_odo_x, mon_odo_y, mon_odo_theta;
 
+bool ekf_start_flag = false;
+
 
 void batteryLowMode()
 {
@@ -217,6 +219,11 @@ void cppFlip10ms(void)
 	line_trace.storeDebugLogs10ms();
 	logger1.storeLogs(velocity_ctrl.getCurrentVelocity());
 
+	if(ekf_start_flag == true && line_trace.isRunning() == true){
+		ekf_start_flag = false;
+		odometry_position_logger.start();
+		estimated_position_logger.start();
+	}
 
 	//get odometry position
 	float odometry_x = odometry.getX();
@@ -1174,8 +1181,9 @@ void cppLoop(void)
 			//start logging
 			odometry_position_logger.clearLogs();
 			estimated_position_logger.clearLogs();
-			odometry_position_logger.start();
-			estimated_position_logger.start();
+			ekf_start_flag = true;
+			//odometry_position_logger.start();
+			//estimated_position_logger.start();
 
 			// Run
 			line_trace.setMode(FIRST_RUNNING);
