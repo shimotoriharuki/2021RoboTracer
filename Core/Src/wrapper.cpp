@@ -78,6 +78,7 @@ float mon_soiya = 0;
 float mon_odo_x, mon_odo_y, mon_odo_theta;
 
 bool ekf_start_flag = false;
+float tmp[10];
 
 
 void batteryLowMode()
@@ -224,6 +225,10 @@ void cppFlip10ms(void)
 		odometry_position_logger.start();
 		estimated_position_logger.start();
 	}
+	else if(line_trace.isRunning() == false){
+		odometry_position_logger.stop();
+		estimated_position_logger.stop();
+	}
 
 	//get odometry position
 	float odometry_x = odometry.getX();
@@ -240,7 +245,7 @@ void cppFlip10ms(void)
 	localization.estimatePositionFlip();
 
 	//save odometry position
-	odometry_position_logger.storeLogs(odometry_x);
+	odometry_position_logger.storeLogs(mon_odo_x);
 	odometry_position_logger.storeLogs(odometry_y);
 	odometry_position_logger.storeLogs(odometry_theta);
 
@@ -1192,8 +1197,8 @@ void cppLoop(void)
 			//stop estimated
 			localization.disableEstimating();
 			//stop logging
-			odometry_position_logger.stop();
-			estimated_position_logger.stop();
+			//odometry_position_logger.stop();
+			//estimated_position_logger.stop();
 
 			//save logs
 			led.LR(-1, 1);
@@ -1202,6 +1207,11 @@ void cppLoop(void)
 			led.LR(-1, 0);
 
 			led.LR(0, -1);
+
+			for(int i = 0; i < 10; i++){
+				tmp[i] = odometry_position_logger.getLogData(i);
+			}
+
 		}
 		/*
 		lcd_clear();
