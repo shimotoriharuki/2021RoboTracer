@@ -68,7 +68,7 @@ Logger2 odometry_position_logger(&sd_card, 3000);
 Logger2 estimated_position_logger(&sd_card, 3000);
 
 float error_parameter[4] = {0.1, 0.1, 0.1, 0.1};
-Localization localization(pow(0.001, 2), TRED, 10e-3, error_parameter);
+Localization localization(pow(0.01, 2), TRED, 10e-3, error_parameter);
 
 
 float mon_v, mon_w;
