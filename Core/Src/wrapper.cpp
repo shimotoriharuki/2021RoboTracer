@@ -57,24 +57,25 @@ Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
 Odometry odometry(&encoder, &imu, &velocity_ctrl);
 DownForceUnit down_force_unit;
-LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &odometry, &imu, &down_force_unit, &sd_card);
+LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &imu, &down_force_unit, &sd_card);
 SystemIdentification sys_ident(&sd_card, &motor);
 
 PathFollowing path_following;
 
 Logger2 logger1(&sd_card, 500);
 
-Logger2 odometry_position_logger(&sd_card, 1000);
-Logger2 estimated_position_logger(&sd_card, 1000);
+Logger2 odometry_position_logger(&sd_card, 3000);
+Logger2 estimated_position_logger(&sd_card, 3000);
 
 float error_parameter[4] = {0.1, 0.1, 0.1, 0.1};
-Localization localization(pow(0.001, 2), 100.6e-3, 10e-3, error_parameter);
+Localization localization(pow(0.001, 2), TRED, 10e-3, error_parameter);
 
 
 float mon_v, mon_w;
 uint16_t mon_cnt;
 
 float mon_soiya = 0;
+float mon_odo_x, mon_odo_y, mon_odo_theta;
 
 
 void batteryLowMode()
@@ -218,10 +219,12 @@ void cppFlip10ms(void)
 
 
 	//get odometry position
-
 	float odometry_x = odometry.getX();
 	float odometry_y = odometry.getY();
 	float odometry_theta = odometry.getTheta();
+	mon_odo_x = odometry_x;
+	mon_odo_y = odometry_y;
+	mon_odo_theta = odometry_theta;
 
 	//compute estimated position using EKF
 	localization.setTargetVelocity(line_trace.getTargetVelocity(), velocity_ctrl.getRotationRatio());
@@ -1166,8 +1169,11 @@ void cppLoop(void)
 			HAL_Delay(1000);
 
 			//start estimated
+			odometry.clearPotition();
 			localization.enableEstimating();
 			//start logging
+			odometry_position_logger.clearLogs();
+			estimated_position_logger.clearLogs();
 			odometry_position_logger.start();
 			estimated_position_logger.start();
 

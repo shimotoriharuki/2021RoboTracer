@@ -202,7 +202,7 @@ void Localization::estimatePositionFlip()
 		convertTargetVelocityData(TargetVelo_data, TargetVelo_size);
 
 		Qt = qt_;
-		Tred = tred_; //100.6mm
+		Tred = tred_; //122mm
 		dt = dt_; //10ms
 
 		/* Call the entry-point 'GetSelfLocation'. */
@@ -214,6 +214,10 @@ void Localization::estimatePositionFlip()
 					  ObsZt_size, TargetVelo_data, TargetVelo_size, PrePosition, PrePt, ErrorParameter,
 					  Qt, Tred, dt, EstPosition_data, EstPosition_size,
 					  EstPt);
+
+		estimated_x_ = EstPosition_data[0];
+		estimated_y_ = EstPosition_data[1];
+		estimated_theta_ = EstPosition_data[2];
 
 		for(uint16_t i = 0; i < 3; i++){
 			pre_position_[i] = EstPosition_data[i];

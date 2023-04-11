@@ -37,8 +37,8 @@
 #define FOURTH_RUNNING 3
 #define FIFTH_RUNNING 4
 
-#define LOG_SIZE_TIM 3500 // Time based size. Can record for 50 seconds every 10 ms. max 3000
-#define LOG_SIZE_DIS 6000 // Distance based size. Can record for 60 m every 10 mm
+#define LOG_SIZE_TIM 35 // Time based size. Can record for 50 seconds every 10 ms. max 3000
+#define LOG_SIZE_DIS 60 // Distance based size. Can record for 60 m every 10 mm
 #define LOG_CROSSLINE_SIZE 100
 #define LOG_SIDELINE_SIZE 100
 
@@ -57,7 +57,6 @@ private:
 	LED led_;
 	SideSensor *side_sensor_;
 	Encoder *encoder_;
-	Odometry *odometry_;
 	IMU *imu_;
     DownForceUnit *down_force_unit_;
     sdCard *sd_card_;
@@ -157,7 +156,7 @@ private:
 	float calcRadius(float, float);
 
 public:
-	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, Odometry *, IMU *, DownForceUnit*, sdCard *);
+	LineTrace(Motor *, LineSensor *, VelocityCtrl *, SideSensor * ,Encoder *, IMU *, DownForceUnit*, sdCard *);
 
 	// Initialize
 	void init();

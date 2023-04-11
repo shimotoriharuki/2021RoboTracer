@@ -10,8 +10,7 @@
 
 #define DELTA_T 0.001
 
-float monitor_x, monitor_y, monitor_theta;
-float mon_theta;
+float moni_x, moni_y, moni_theta;
 
 Odometry::Odometry(Encoder *encoder, IMU *imu, VelocityCtrl *velocity_ctrl) : x_robot_(0), y_robot_(0), theta_(0), x_sens_(0), y_sens_(0), delta_theta_(0)
 {
@@ -28,7 +27,7 @@ void Odometry::calcPotition()
 
 	float distance_l, distance_r;
 	encoder_->getLeftAndRightDistance(distance_l, distance_r);
-	delta_theta_ = (distance_r - distance_l) / TRED;
+	delta_theta_ = (distance_r - distance_l) * DELTA_T / TRED; //rad
 
 	float distance = encoder_->getDistance();
 
@@ -36,7 +35,9 @@ void Odometry::calcPotition()
 	y_robot_ = y_robot_ + distance * sin(theta_ + delta_theta_ / 2);
 	theta_= theta_ + delta_theta_;
 
-	mon_theta = theta_;
+	moni_x = x_robot_;
+	moni_y = y_robot_;
+	moni_theta = theta_;
 
 	x_sens_ = x_robot_ + SENSOR_LENGTH * cos(theta_); //calculate a sensor position from robot's center position
 	y_sens_ = y_robot_ + SENSOR_LENGTH * sin(theta_);

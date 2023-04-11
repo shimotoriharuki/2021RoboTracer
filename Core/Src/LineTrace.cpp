@@ -33,7 +33,7 @@ float mon_tar_vel;
 float my_theta;
 
 
-LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, Odometry *odometry, IMU *imu,
+LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *velocity_ctrl, SideSensor *side_sensor, Encoder *encoder, IMU *imu,
 		DownForceUnit *down_force_unit, sdCard *sd_card) :
 				kp_(0), kd_(0), ki_(0), kp_slow_(0), kd_slow_(0), ki_slow_(0),
 				excution_flag_(false), i_reset_flag_(false), normal_ratio_(0),
@@ -50,7 +50,6 @@ LineTrace::LineTrace(Motor *motor, LineSensor *line_sensor, VelocityCtrl *veloci
 	velocity_ctrl_ = velocity_ctrl;
 	side_sensor_ = side_sensor;
 	encoder_ = encoder;
-	odometry_ = odometry;
 	imu_ = imu;
 	down_force_unit_ = down_force_unit;
 	sd_card_ = sd_card;
