@@ -67,7 +67,7 @@ Logger2 logger1(&sd_card, 500);
 Logger2 odometry_position_logger(&sd_card, 3000);
 Logger2 estimated_position_logger(&sd_card, 3000);
 
-float error_parameter[4] = {0.1, 0.1, 0.1, 0.1};
+float error_parameter[4] = {1, 1, 1, 1};
 Localization localization(pow(0.01, 2), TRED, 10e-3, error_parameter);
 
 
@@ -245,7 +245,7 @@ void cppFlip10ms(void)
 	localization.estimatePositionFlip();
 
 	//save odometry position
-	odometry_position_logger.storeLogs(mon_odo_x);
+	odometry_position_logger.storeLogs(odometry_x);
 	odometry_position_logger.storeLogs(odometry_y);
 	odometry_position_logger.storeLogs(odometry_theta);
 

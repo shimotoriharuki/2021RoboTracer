@@ -16,14 +16,14 @@
  * Arguments    : double result[4]
  * Return Type  : void
  */
-void Localization::argInit_1x4_real_T(double result[4])
+void Localization::convertErrorParameter(double result[4])
 {
   int idx1;
   /* Loop over the array to initialize each element. */
   for (idx1 = 0; idx1 < 4; idx1++) {
     /* Set the value of the array element.
 Change this value to the value that the application requires. */
-    result[idx1] = argInit_real_T();
+    result[idx1] = error_parameter_[idx1];
   }
 }
 
@@ -212,7 +212,7 @@ void Localization::estimatePositionFlip()
 		/* Call the entry-point 'GetSelfLocation'. */
 		convertPrePositionData(PrePosition);
 		convertPrePtData(PrePt);
-		//argInit_1x4_real_T(ErrorParameter);
+		convertErrorParameter(ErrorParameter);
 
 		GetSelfLocation(MeasuredPosition_data, MeasuredPosition_size, ObsZt_data,
 					  ObsZt_size, TargetVelo_data, TargetVelo_size, PrePosition, PrePt, ErrorParameter,

@@ -26,7 +26,7 @@ private:
 
 	float qt_, tred_, dt_, *error_parameter_;
 
-	void argInit_1x4_real_T(double result[4]);
+	void convertErrorParameter(double result[4]);
 	void convertTargetVelocityData(double result_data[], int result_size[2]);
 	void convertMeasuredPositionData(double result_data[], int result_size[2]);
 	void convertObservdThetaData(double result_data[], int result_size[2]);

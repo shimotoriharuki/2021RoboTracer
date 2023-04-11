@@ -1,4 +1,4 @@
-Localization.cpp:19:6:void Localization::argInit_1x4_real_T(double*)	32	static
+Localization.cpp:19:6:void Localization::convertErrorParameter(double*)	32	static
 Localization.cpp:35:6:void Localization::convertTargetVelocityData(double*, int*)	32	static
 Localization.cpp:51:6:void Localization::convertMeasuredPositionData(double*, int*)	32	static
 Localization.cpp:68:6:void Localization::convertObservdThetaData(double*, int*)	32	static
