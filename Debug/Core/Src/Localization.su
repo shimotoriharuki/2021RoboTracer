@@ -5,13 +5,13 @@ Localization.cpp:68:6:void Localization::convertObservdThetaData(double*, int*)	
 Localization.cpp:81:6:void Localization::convertPrePositionData(double*)	32	static
 Localization.cpp:96:6:void Localization::convertPrePtData(double*)	32	static
 Localization.cpp:111:8:double Localization::argInit_real_T()	16	static
-Localization.cpp:116:7:float Localization::calcTargetAngularVelocity(float)	16	static
-Localization.cpp:122:6:void Localization::initializePreData()	24	static
-Localization.cpp:137:1:Localization::Localization(float, float, float, float*)	32	static
-Localization.cpp:150:6:void Localization::setTargetVelocity(float, float)	24	static
-Localization.cpp:158:6:void Localization::setMeasuredPosition(float, float, float)	24	static
-Localization.cpp:165:6:void Localization::setObservdTheta(float)	16	static
-Localization.cpp:170:6:void Localization::estimatePositionFlip()	432	static
-Localization.cpp:232:6:void Localization::getEstimatedPosition(float*, float*, float*)	24	static
-Localization.cpp:239:6:void Localization::enableEstimating()	16	static
-Localization.cpp:245:6:void Localization::disableEstimating()	16	static
+Localization.cpp:116:7:float Localization::calcTargetAngularVelocity(float)	40	static
+Localization.cpp:124:6:void Localization::initializePreData()	24	static
+Localization.cpp:139:1:Localization::Localization(float, float, float, float*)	32	static
+Localization.cpp:152:6:void Localization::setTargetVelocity(float, float)	24	static
+Localization.cpp:162:6:void Localization::setMeasuredPosition(float, float, float)	24	static
+Localization.cpp:169:6:void Localization::setObservdTheta(float)	16	static
+Localization.cpp:174:6:void Localization::estimatePositionFlip()	432	static
+Localization.cpp:236:6:void Localization::getEstimatedPosition(float*, float*, float*)	24	static
+Localization.cpp:243:6:void Localization::enableEstimating()	16	static
+Localization.cpp:249:6:void Localization::disableEstimating()	16	static

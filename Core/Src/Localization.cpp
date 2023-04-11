@@ -115,8 +115,10 @@ double Localization::argInit_real_T(void)
 
 float Localization::calcTargetAngularVelocity(float line_sensor_diff)
 {
+	float s = line_sensor_diff;
+	float steady_output = 0.0189 / (pow(s, 2) - 1.7881*s + 0.7979);
 
-	return 0;
+	return steady_output; //rad/s
 }
 
 void Localization::initializePreData()
@@ -151,6 +153,8 @@ void Localization::setTargetVelocity(float translation_velocity, float rotation_
 {
 	translation_velocity_ = translation_velocity;
 
+	if(rotation_ratio >= 1) rotation_ratio = 1;
+	else if(rotation_ratio <= -1) rotation_ratio = -1;
 	anguler_velocity_ = calcTargetAngularVelocity(rotation_ratio);
 
 }
