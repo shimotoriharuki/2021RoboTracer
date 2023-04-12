@@ -17,6 +17,8 @@
 #define DELTA_T 0.001
 
 float mon_zg, mon_omega;
+float mon_theta;
+
 
 IMU::IMU() : xa_(0), ya_(0), za_(0), xg_(0), yg_(0), zg_(0), omega_(0), offset_(0), constant_distance_theta_(0)
 {
@@ -50,13 +52,15 @@ void IMU::updateValues()
 	mon_zg= zg_;
 
 	float corrected_zg = float(zg_) - offset_;
-	omega_ = -(corrected_zg / 16.4) * PI / 180;
+	omega_ = (corrected_zg / 16.4) * PI / 180;
 	mon_omega = omega_;
 
 
-	float delta_theta_ = omega_ * DELTA_T;
-	theta_ = theta_ + delta_theta_;
-	constant_distance_theta_= constant_distance_theta_ + delta_theta_;
+	float delta_theta = omega_ * DELTA_T;
+	theta_ = theta_ + delta_theta;
+	constant_distance_theta_= constant_distance_theta_ + delta_theta;
+
+	mon_theta = theta_;
 
 }
 
