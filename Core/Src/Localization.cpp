@@ -7,6 +7,7 @@
 
 #include "Localization.hpp"
 
+float mon_tra_velo, mon_ang_velo;
 
 // ------------------------------//
 // ------------private-----------//
@@ -113,10 +114,9 @@ double Localization::argInit_real_T(void)
   return 0.0;
 }
 
-float Localization::calcTargetAngularVelocity(float line_sensor_diff)
+float Localization::calcTargetAngularVelocity(float ratio)
 {
-	float s = line_sensor_diff;
-	float steady_output = 0.0189 / (pow(s, 2) - 1.7881*s + 0.7979);
+	float steady_output = ratio * 0.0969 / (1 - 1.9109 + 0.9123);
 
 	return steady_output; //rad/s
 }
@@ -156,6 +156,9 @@ void Localization::setTargetVelocity(float translation_velocity, float rotation_
 	if(rotation_ratio >= 1) rotation_ratio = 1;
 	else if(rotation_ratio <= -1) rotation_ratio = -1;
 	anguler_velocity_ = calcTargetAngularVelocity(rotation_ratio);
+
+	mon_tra_velo = translation_velocity_;
+	mon_ang_velo = anguler_velocity_;
 
 }
 

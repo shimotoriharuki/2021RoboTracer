@@ -67,8 +67,8 @@ Logger2 logger1(&sd_card, 500);
 Logger2 odometry_position_logger(&sd_card, 3000);
 Logger2 estimated_position_logger(&sd_card, 3000);
 
-float error_parameter[4] = {1, 1, 1, 1};
-Localization localization(pow(0.01, 2), TRED, 10e-3, error_parameter);
+float error_parameter[4] = {10, 10, 10, 10};
+Localization localization(pow(0.001, 2), TRED, 10e-3, error_parameter);
 
 
 float mon_v, mon_w;
@@ -160,7 +160,7 @@ void cppInit(void)
 	//velocity_ctrl.setVelocityGain(1.2, 10.6, 0.0); //3s hand tune
 	//velocity_ctrl.setVelocityGain(1.1218, 12.9586, 0.00); //2s drone system identification
 
-	velocity_ctrl.setOmegaGain(0.060, 0.86816, 0.000); //2s
+	velocity_ctrl.setOmegaGain(0.060*1.5, 0.86816*1.5, 0.000); //2s*1.5
 
 
 	//encoder.clearDistance();
@@ -1191,8 +1191,13 @@ void cppLoop(void)
 			//estimated_position_logger.start();
 
 			// Run
-			line_trace.setMode(FIRST_RUNNING);
-			line_trace.running();
+			velocity_ctrl.setVelocity(0.5, 0.1);
+			velocity_ctrl.start();
+			HAL_Delay(2000);
+			velocity_ctrl.stop();
+
+			//line_trace.setMode(FIRST_RUNNING);
+			//line_trace.running();
 
 			//stop estimated
 			localization.disableEstimating();
