@@ -13,3 +13,5 @@ VelocityCtrl.cpp:173:6:void VelocityCtrl::stop()	16	static
 VelocityCtrl.cpp:180:7:float VelocityCtrl::getCurrentVelocity()	16	static
 VelocityCtrl.cpp:185:7:float VelocityCtrl::getTranslationRatio()	16	static
 VelocityCtrl.cpp:190:7:float VelocityCtrl::getRotationRatio()	16	static
+VelocityCtrl.cpp:195:7:float VelocityCtrl::getTargetTranslationVelocity()	16	static
+VelocityCtrl.cpp:200:7:float VelocityCtrl::getTargetRotationVelocity()	16	static

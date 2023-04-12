@@ -160,7 +160,7 @@ void cppInit(void)
 	//velocity_ctrl.setVelocityGain(1.2, 10.6, 0.0); //3s hand tune
 	//velocity_ctrl.setVelocityGain(1.1218, 12.9586, 0.00); //2s drone system identification
 
-	velocity_ctrl.setOmegaGain(0.060*1.5, 0.86816*1.5, 0.000); //2s*1.5
+	velocity_ctrl.setOmegaGain(0.060, 0.86816, 0.000); //2s*1.5
 
 
 	//encoder.clearDistance();
@@ -222,12 +222,12 @@ void cppFlip10ms(void)
 
 	if(ekf_start_flag == true && line_trace.isRunning() == true){
 		ekf_start_flag = false;
-		odometry_position_logger.start();
-		estimated_position_logger.start();
+		//odometry_position_logger.start();
+		//estimated_position_logger.start();
 	}
 	else if(line_trace.isRunning() == false){
-		odometry_position_logger.stop();
-		estimated_position_logger.stop();
+		//odometry_position_logger.stop();
+		//estimated_position_logger.stop();
 	}
 
 	//get odometry position
@@ -239,7 +239,8 @@ void cppFlip10ms(void)
 	mon_odo_theta = odometry_theta;
 
 	//compute estimated position using EKF
-	localization.setTargetVelocity(line_trace.getTargetVelocity(), velocity_ctrl.getRotationRatio());
+	//localization.setTargetVelocity(line_trace.getTargetVelocity(), velocity_ctrl.getRotationRatio());
+	localization.setTargetVelocity(velocity_ctrl.getTargetTranslationVelocity(), velocity_ctrl.getTargetRotationVelocity());
 	localization.setMeasuredPosition(odometry_x, odometry_y, odometry_theta);
 	localization.setObservdTheta(imu.getTheta());
 	localization.estimatePositionFlip();
@@ -1186,14 +1187,14 @@ void cppLoop(void)
 			//start logging
 			odometry_position_logger.clearLogs();
 			estimated_position_logger.clearLogs();
-			ekf_start_flag = true;
-			//odometry_position_logger.start();
-			//estimated_position_logger.start();
+			//ekf_start_flag = true;
+			odometry_position_logger.start();
+			estimated_position_logger.start();
 
 			// Run
-			velocity_ctrl.setVelocity(0.5, 0.1);
+			velocity_ctrl.setVelocity(0.5, 1.57);
 			velocity_ctrl.start();
-			HAL_Delay(2000);
+			HAL_Delay(1000);
 			velocity_ctrl.stop();
 
 			//line_trace.setMode(FIRST_RUNNING);
@@ -1202,8 +1203,8 @@ void cppLoop(void)
 			//stop estimated
 			localization.disableEstimating();
 			//stop logging
-			//odometry_position_logger.stop();
-			//estimated_position_logger.stop();
+			odometry_position_logger.stop();
+			estimated_position_logger.stop();
 
 			//save logs
 			led.LR(-1, 1);

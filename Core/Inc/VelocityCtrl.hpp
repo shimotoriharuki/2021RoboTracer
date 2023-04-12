@@ -57,6 +57,9 @@ public:
 	float getTranslationRatio();
 	float getRotationRatio();
 
+	float getTargetTranslationVelocity();
+	float getTargetRotationVelocity();
+
 };
 
 #endif /* INC_VELOCITYCTRL_HPP_ */

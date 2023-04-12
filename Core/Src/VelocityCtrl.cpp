@@ -72,8 +72,8 @@ void VelocityCtrl::pid()
 
 	v_left_ratio = v_right_ratio =  v_p + v_d + v_i;
 
-	o_left_ratio = o_p + o_d + o_i;
-	o_right_ratio = -(o_p + o_d + o_i);
+	o_left_ratio = -(o_p + o_d + o_i);
+	o_right_ratio = o_p + o_d + o_i;
 
 	motor_->setRatio(v_left_ratio + o_left_ratio, v_right_ratio + o_right_ratio);
 
@@ -190,4 +190,14 @@ float VelocityCtrl::getTranslationRatio()
 float VelocityCtrl::getRotationRatio()
 {
 	return rotation_ratio_;
+}
+
+float VelocityCtrl::getTargetTranslationVelocity()
+{
+	return  target_velocity_;
+}
+
+float VelocityCtrl::getTargetRotationVelocity()
+{
+	return target_omega_;
 }
