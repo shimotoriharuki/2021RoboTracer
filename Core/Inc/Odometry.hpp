@@ -19,8 +19,6 @@ class Odometry
 {
 private:
 	Encoder *encoder_;
-	IMU *imu_;
-	VelocityCtrl *velocity_ctrl_;
 
 	double x_robot_, y_robot_, theta_; // Center position of Robot
 	double x_sens_, y_sens_; //Center position of sensor
@@ -29,13 +27,15 @@ private:
 	void calcPotition();
 
 public:
-	Odometry(Encoder *, IMU *, VelocityCtrl *);
+	Odometry(Encoder *);
 	void flip();
 	double getX();
 	double getY();
 	double getTheta();
 	double getDeltaTheta();
 	void clearPotition();
+
+	void setCorrectionPosition(float, float, float);
 
 };
 

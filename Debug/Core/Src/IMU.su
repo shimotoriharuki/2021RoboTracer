@@ -8,3 +8,4 @@ IMU.cpp:102:7:float IMU::getTheta()	16	static
 IMU.cpp:107:6:void IMU::clearTheta()	16	static
 IMU.cpp:112:7:float IMU::getConstantDistanceTheta()	16	static
 IMU.cpp:117:6:void IMU::clearConstantDistanceTheta()	16	static
+IMU.cpp:122:6:void IMU::setCorrectionTheta(float)	16	static

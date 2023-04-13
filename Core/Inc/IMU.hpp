@@ -35,6 +35,8 @@ public:
 	float getConstantDistanceTheta();
 	void clearConstantDistanceTheta();
 
+	void setCorrectionTheta(float);
+
 };
 
 

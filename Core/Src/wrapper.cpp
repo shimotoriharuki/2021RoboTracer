@@ -55,7 +55,8 @@ sdCard sd_card;
 
 Encoder encoder;
 VelocityCtrl velocity_ctrl(&motor, &encoder, &imu);
-Odometry odometry(&encoder, &imu, &velocity_ctrl);
+Odometry odometry(&encoder);
+Odometry odometry_only(&encoder);
 DownForceUnit down_force_unit;
 LineTrace line_trace(&motor, &line_sensor, &velocity_ctrl, &side_sensor, &encoder, &imu, &down_force_unit, &sd_card);
 SystemIdentification sys_ident(&sd_card, &motor);
@@ -165,6 +166,7 @@ void cppInit(void)
 
 	//encoder.clearDistance();
 	odometry.clearPotition();
+	odometry_only.clearPotition();
 	imu.clearConstantDistanceTheta();
 
 	path_following.init();
@@ -181,6 +183,7 @@ void cppFlip1ms(void)
 	line_trace.flip();
 	velocity_ctrl.flip();
 	odometry.flip();
+	odometry_only.flip();
 	side_sensor.updateStatus();
 
 	motor.motorCtrl();
@@ -230,13 +233,19 @@ void cppFlip10ms(void)
 		//estimated_position_logger.stop();
 	}
 
+	//get odometry_only position
+	float odometry_only_x = odometry_only.getX();
+	float odometry_only_y = odometry_only.getY();
+	float odometry_only_theta = odometry_only.getTheta();
+
+	mon_odo_x = odometry_only_x;
+	mon_odo_y = odometry_only_y;
+	mon_odo_theta = odometry_only_theta;
+
 	//get odometry position
 	float odometry_x = odometry.getX();
 	float odometry_y = odometry.getY();
 	float odometry_theta = odometry.getTheta();
-	mon_odo_x = odometry_x;
-	mon_odo_y = odometry_y;
-	mon_odo_theta = odometry_theta;
 
 	//compute estimated position using EKF
 	//localization.setTargetVelocity(line_trace.getTargetVelocity(), velocity_ctrl.getRotationRatio());
@@ -245,18 +254,22 @@ void cppFlip10ms(void)
 	localization.setObservdTheta(imu.getTheta());
 	localization.estimatePositionFlip();
 
-	//save odometry position
-	odometry_position_logger.storeLogs(odometry_x);
-	odometry_position_logger.storeLogs(odometry_y);
-	odometry_position_logger.storeLogs(odometry_theta);
-
 	//save estimated position
 	float estimated_x, estimated_y, estimated_theta;
 	localization.getEstimatedPosition(&estimated_x, &estimated_y, &estimated_theta);
 
+	odometry.setCorrectionPosition(estimated_x, estimated_y, estimated_theta);
+	imu.setCorrectionTheta(estimated_theta);
+
+	//save odometry position
+	odometry_position_logger.storeLogs(odometry_only_x);
+	odometry_position_logger.storeLogs(odometry_only_y);
+	odometry_position_logger.storeLogs(odometry_only_theta);
+
 	estimated_position_logger.storeLogs(estimated_x);
 	estimated_position_logger.storeLogs(estimated_y);
 	estimated_position_logger.storeLogs(estimated_theta);
+
 
 	/*
 	static float tim;

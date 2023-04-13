@@ -118,3 +118,8 @@ void IMU::clearConstantDistanceTheta()
 {
 	constant_distance_theta_ = 0;
 }
+
+void IMU::setCorrectionTheta(float theta)
+{
+	theta_ = theta;
+}

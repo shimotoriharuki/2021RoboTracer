@@ -12,11 +12,9 @@
 
 float moni_x, moni_y, moni_theta;
 
-Odometry::Odometry(Encoder *encoder, IMU *imu, VelocityCtrl *velocity_ctrl) : x_robot_(0), y_robot_(0), theta_(0), x_sens_(0), y_sens_(0), delta_theta_(0)
+Odometry::Odometry(Encoder *encoder) : x_robot_(0), y_robot_(0), theta_(0), x_sens_(0), y_sens_(0), delta_theta_(0)
 {
 	encoder_ = encoder;
-	imu_ = imu;
-	velocity_ctrl_ = velocity_ctrl;
 }
 
 
@@ -80,3 +78,9 @@ void Odometry::clearPotition()
 	theta_ = 0;
 }
 
+void Odometry::setCorrectionPosition(float x, float y, float theta)
+{
+	x_robot_ = x;
+	y_robot_ = y;
+	theta_ = theta;
+}
