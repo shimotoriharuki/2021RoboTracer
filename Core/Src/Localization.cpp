@@ -153,9 +153,10 @@ void Localization::setTargetVelocity(float translation_velocity, float rotation_
 {
 	translation_velocity_ = translation_velocity;
 
-	if(rotation_ratio >= 1) rotation_ratio = 1;
-	else if(rotation_ratio <= -1) rotation_ratio = -1;
-	anguler_velocity_ = calcTargetAngularVelocity(rotation_ratio);
+	//if(rotation_ratio >= 1) rotation_ratio = 1;
+	//else if(rotation_ratio <= -1) rotation_ratio = -1;
+	//anguler_velocity_ = calcTargetAngularVelocity(rotation_ratio);
+	anguler_velocity_ = rotation_ratio;
 
 	mon_tra_velo = translation_velocity_;
 	mon_ang_velo = anguler_velocity_;

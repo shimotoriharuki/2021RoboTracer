@@ -1,18 +1,18 @@
-Encoder.cpp:24:1:Encoder::Encoder()	16	static
-Encoder.cpp:27:6:void Encoder::init()	16	static
-Encoder.cpp:35:6:void Encoder::update()	32	static
-Encoder.cpp:53:6:void Encoder::clear()	16	static
-Encoder.cpp:62:6:void Encoder::getCnt(float&, float&)	24	static
-Encoder.cpp:68:6:void Encoder::getLeftAndRightDistance(float&, float&)	32	static
-Encoder.cpp:74:7:float Encoder::getDistance()	16	static
-Encoder.cpp:79:7:float Encoder::getDistance10mm()	16	static
-Encoder.cpp:84:7:float Encoder::getTotalDistance()	16	static
-Encoder.cpp:89:6:void Encoder::setTotalDistance(float)	16	static
-Encoder.cpp:107:6:void Encoder::clearDistance10mm()	16	static
-Encoder.cpp:114:6:void Encoder::clearTotalDistance()	16	static
-Encoder.cpp:119:7:float Encoder::getSideLineIgnoreDistance()	16	static
-Encoder.cpp:124:6:void Encoder::clearSideLineIgnoreDistance()	16	static
-Encoder.cpp:128:7:float Encoder::getCrossLineIgnoreDistance()	16	static
-Encoder.cpp:133:6:void Encoder::clearCrossLineIgnoreDistance()	16	static
-Encoder.cpp:138:7:float Encoder::getGoalJudgeDistance()	16	static
-Encoder.cpp:143:6:void Encoder::clearGoalJudgeDistance()	16	static
+Encoder.cpp:26:1:Encoder::Encoder()	16	static
+Encoder.cpp:29:6:void Encoder::init()	16	static
+Encoder.cpp:37:6:void Encoder::update()	32	static
+Encoder.cpp:55:6:void Encoder::clear()	16	static
+Encoder.cpp:64:6:void Encoder::getCnt(float&, float&)	24	static
+Encoder.cpp:70:6:void Encoder::getLeftAndRightDistance(float&, float&)	32	static
+Encoder.cpp:76:7:float Encoder::getDistance()	16	static
+Encoder.cpp:81:7:float Encoder::getDistance10mm()	16	static
+Encoder.cpp:86:7:float Encoder::getTotalDistance()	16	static
+Encoder.cpp:91:6:void Encoder::setTotalDistance(float)	16	static
+Encoder.cpp:109:6:void Encoder::clearDistance10mm()	16	static
+Encoder.cpp:116:6:void Encoder::clearTotalDistance()	16	static
+Encoder.cpp:121:7:float Encoder::getSideLineIgnoreDistance()	16	static
+Encoder.cpp:126:6:void Encoder::clearSideLineIgnoreDistance()	16	static
+Encoder.cpp:130:7:float Encoder::getCrossLineIgnoreDistance()	16	static
+Encoder.cpp:135:6:void Encoder::clearCrossLineIgnoreDistance()	16	static
+Encoder.cpp:140:7:float Encoder::getGoalJudgeDistance()	16	static
+Encoder.cpp:145:6:void Encoder::clearGoalJudgeDistance()	16	static

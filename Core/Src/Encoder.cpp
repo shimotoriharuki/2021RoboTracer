@@ -10,7 +10,7 @@
 
 #define MAX_ENCODER_CNT 65535
 #define CNT_OFFSET 32768
-#define WHEEL_RADIUS 10.75 //[mm]
+#define WHEEL_RADIUS 10.5 //[mm]
 #define PI 3.1415926535
 #define ENCODER_RESOLUTION 4096
 #define REDUCTION_RATIO 0.35 //Gear reduction ratio
@@ -20,6 +20,8 @@
 float monitor_distance;
 float monitor_cnt_l;
 float monitor_cnt_l_lpf;
+
+float mon_enc_l, mon_enc_r;
 
 Encoder::Encoder() : cnt_l_(0), cnt_r_(0), distance_(0), total_cnt_l_(0), total_cnt_r_(0), distance_10mm_(0), total_distance_(0),
 		side_line_ignore_distance_(), cross_line_ignore_distance_(0), goal_judge_distance_(0){}
@@ -38,8 +40,8 @@ void Encoder::update()
 	float cnt_r = (float(TIM8 -> CNT) - float(CNT_OFFSET)) * CORRECTION_COEFFICIENT;
 	//monitor_cnt_l = cnt_l;
 
-	cnt_l_ = cnt_l;
-	cnt_r_ = cnt_r;
+	mon_enc_l = cnt_l_ = cnt_l;
+	mon_enc_r = cnt_r_ = cnt_r;
 
 	distance_ = DISTANCE_PER_CNT * (cnt_l_ + cnt_r_) / 2;
 	distance_10mm_ += distance_;

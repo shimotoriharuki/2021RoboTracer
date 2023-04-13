@@ -13,7 +13,7 @@
 #include "VelocityCtrl.hpp"
 
 #define SENSOR_LENGTH 110 //mm
-#define TRED 122e-3
+#define TRED 122e-3 //[mm]
 
 class Odometry
 {
@@ -22,7 +22,7 @@ private:
 
 	double x_robot_, y_robot_, theta_; // Center position of Robot
 	double x_sens_, y_sens_; //Center position of sensor
-	double delta_theta_;
+	double d_theta_;
 
 	void calcPotition();
 

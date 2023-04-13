@@ -1,5 +1,5 @@
 Odometry.cpp:15:1:Odometry::Odometry(Encoder*)	16	static
-Odometry.cpp:21:6:void Odometry::calcPotition()	56	static
+Odometry.cpp:21:6:void Odometry::calcPotition()	48	static
 Odometry.cpp:45:6:void Odometry::flip()	16	static
 Odometry.cpp:50:8:double Odometry::getX()	16	static
 Odometry.cpp:56:8:double Odometry::getY()	16	static
