@@ -1171,7 +1171,7 @@ void LineTrace::running()
 				goal_judge_flag = false;
 			}
 
-			if(goal_marker_cnt >= 3){
+			if(goal_marker_cnt >= 1){
 				led_.fullColor('M');
 				running_flag_ = false;
 				loggerStop();

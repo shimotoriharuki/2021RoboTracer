@@ -225,12 +225,12 @@ void cppFlip10ms(void)
 
 	if(ekf_start_flag == true && line_trace.isRunning() == true){
 		ekf_start_flag = false;
-		//odometry_position_logger.start();
-		//estimated_position_logger.start();
+		odometry_position_logger.start();
+		estimated_position_logger.start();
 	}
 	else if(line_trace.isRunning() == false){
-		//odometry_position_logger.stop();
-		//estimated_position_logger.stop();
+		odometry_position_logger.stop();
+		estimated_position_logger.stop();
 	}
 
 	//get odometry_only position
@@ -249,7 +249,7 @@ void cppFlip10ms(void)
 
 	//compute estimated position using EKF
 	//localization.setTargetVelocity(line_trace.getTargetVelocity(), velocity_ctrl.getRotationRatio());
-	localization.setTargetVelocity(velocity_ctrl.getTargetTranslationVelocity(), velocity_ctrl.getTargetRotationVelocity());
+	localization.setTargetVelocity(velocity_ctrl.getTargetTranslationVelocity(), imu.getOmega());
 	localization.setMeasuredPosition(odometry_x, odometry_y, odometry_theta);
 	localization.setObservdTheta(imu.getTheta());
 	localization.estimatePositionFlip();
@@ -337,7 +337,7 @@ void cppLoop(void)
 	static float adj_acc4 = line_trace.getMaxAcc4();
 	static float adj_dec4 = line_trace.getMaxDec4();
 
-	static float down_force_ratio = 0;
+	//static float down_force_ratio = 0;
 
 	switch(rotary_switch.getValue()){
 	/*-------------------------------------------------------------------------*/
@@ -1200,18 +1200,20 @@ void cppLoop(void)
 			//start logging
 			odometry_position_logger.clearLogs();
 			estimated_position_logger.clearLogs();
-			//ekf_start_flag = true;
+			ekf_start_flag = true;
 			odometry_position_logger.start();
 			estimated_position_logger.start();
 
 			// Run
+			/*
 			velocity_ctrl.setVelocity(0.25, 1.57);
 			velocity_ctrl.start();
 			HAL_Delay(8000);
 			velocity_ctrl.stop();
+			*/
 
-			//line_trace.setMode(FIRST_RUNNING);
-			//line_trace.running();
+			line_trace.setMode(FIRST_RUNNING);
+			line_trace.running();
 
 			//stop estimated
 			localization.disableEstimating();
