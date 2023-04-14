@@ -227,6 +227,10 @@ void cppFlip10ms(void)
 		ekf_start_flag = false;
 		odometry_position_logger.start();
 		estimated_position_logger.start();
+
+		odometry.clearPotition();
+		odometry_only.clearPotition();
+		imu.clearTheta();
 	}
 	else if(line_trace.isRunning() == false){
 		odometry_position_logger.stop();
