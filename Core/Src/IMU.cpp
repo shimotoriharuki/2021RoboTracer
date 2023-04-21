@@ -54,7 +54,7 @@ void IMU::updateValues()
 
 	float corrected_zg = float(zg_) - offset_;
 	omega_ = (corrected_zg / 16.4) * PI / 180;
-	omega_ *= CORRECTION_CONST;
+	//omega_ *= CORRECTION_CONST;
 	mon_omega = omega_;
 
 
