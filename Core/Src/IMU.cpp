@@ -15,6 +15,7 @@
 
 #define PI 3.1415926535
 #define DELTA_T 0.001
+#define CORRECTION_CONST 1.015
 
 float mon_zg, mon_omega;
 float mon_theta;
@@ -57,7 +58,7 @@ void IMU::updateValues()
 
 
 	float delta_theta = omega_ * DELTA_T;
-	theta_ = theta_ + delta_theta;
+	theta_ = theta_ + delta_theta * CORRECTION_CONST;
 	constant_distance_theta_= constant_distance_theta_ + delta_theta;
 
 	mon_theta = theta_;

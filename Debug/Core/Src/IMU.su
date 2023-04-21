@@ -1,11 +1,11 @@
-IMU.cpp:23:1:IMU::IMU()	16	static
-IMU.cpp:28:6:void IMU::init()	24	static
-IMU.cpp:43:6:void IMU::updateValues()	32	static
-IMU.cpp:67:7:float IMU::getOmega()	16	static
-IMU.cpp:72:6:void IMU::calibration()	72	dynamic
-IMU.cpp:97:7:float IMU::getOffsetVal()	16	static
-IMU.cpp:102:7:float IMU::getTheta()	16	static
-IMU.cpp:107:6:void IMU::clearTheta()	16	static
-IMU.cpp:112:7:float IMU::getConstantDistanceTheta()	16	static
-IMU.cpp:117:6:void IMU::clearConstantDistanceTheta()	16	static
-IMU.cpp:122:6:void IMU::setCorrectionTheta(float)	16	static
+IMU.cpp:24:1:IMU::IMU()	16	static
+IMU.cpp:29:6:void IMU::init()	24	static
+IMU.cpp:44:6:void IMU::updateValues()	32	static
+IMU.cpp:68:7:float IMU::getOmega()	16	static
+IMU.cpp:73:6:void IMU::calibration()	72	dynamic
+IMU.cpp:98:7:float IMU::getOffsetVal()	16	static
+IMU.cpp:103:7:float IMU::getTheta()	16	static
+IMU.cpp:108:6:void IMU::clearTheta()	16	static
+IMU.cpp:113:7:float IMU::getConstantDistanceTheta()	16	static
+IMU.cpp:118:6:void IMU::clearConstantDistanceTheta()	16	static
+IMU.cpp:123:6:void IMU::setCorrectionTheta(float)	16	static
