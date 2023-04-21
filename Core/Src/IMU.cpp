@@ -54,11 +54,12 @@ void IMU::updateValues()
 
 	float corrected_zg = float(zg_) - offset_;
 	omega_ = (corrected_zg / 16.4) * PI / 180;
+	omega_ *= CORRECTION_CONST;
 	mon_omega = omega_;
 
 
 	float delta_theta = omega_ * DELTA_T;
-	theta_ = theta_ + delta_theta * CORRECTION_CONST;
+	theta_ = theta_ + delta_theta;
 	constant_distance_theta_= constant_distance_theta_ + delta_theta;
 
 	mon_theta = theta_;

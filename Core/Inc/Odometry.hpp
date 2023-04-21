@@ -13,7 +13,7 @@
 #include "VelocityCtrl.hpp"
 
 #define SENSOR_LENGTH 110 //mm
-#define TRED 122e-3 //[mm]
+#define TRED 120e-3 //[mm]
 
 class Odometry
 {
