@@ -145,8 +145,8 @@ void cppInit(void)
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();
-	//imu.init();
-	//line_trace.init();
+	imu.init();
+	line_trace.init();
 
 	//line_sensor.calibration();
 	HAL_Delay(1000);

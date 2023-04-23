@@ -15,7 +15,7 @@ private:
 	I2C_HandleTypeDef hi2c1;
 
 	void send(uint8_t, uint8_t *, uint16_t);
-	void read(uint8_t);
+	void read(uint8_t, uint8_t *, uint16_t);
 
 public:
 	MMC5983MA();

@@ -1,7 +1,7 @@
 MMC5983MA.cpp:17:6:void MMC5983MA::send(uint8_t, uint8_t*, uint16_t)	32	static
-MMC5983MA.cpp:23:6:void MMC5983MA::read(uint8_t)	16	static
-MMC5983MA.cpp:31:1:MMC5983MA::MMC5983MA()	16	static
-MMC5983MA.cpp:36:6:void MMC5983MA::start()	32	static
-MMC5983MA.cpp:67:6:void MMC5983MA::stop()	16	static
-MMC5983MA.cpp:72:6:void MMC5983MA::updateData()	16	static
-MMC5983MA.cpp:77:6:void MMC5983MA::getData()	16	static
+MMC5983MA.cpp:23:6:void MMC5983MA::read(uint8_t, uint8_t*, uint16_t)	32	static
+MMC5983MA.cpp:32:1:MMC5983MA::MMC5983MA()	16	static
+MMC5983MA.cpp:37:6:void MMC5983MA::start()	24	static
+MMC5983MA.cpp:68:6:void MMC5983MA::stop()	16	static
+MMC5983MA.cpp:73:6:void MMC5983MA::updateData()	16	static
+MMC5983MA.cpp:78:6:void MMC5983MA::getData()	16	static

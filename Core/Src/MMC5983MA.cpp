@@ -20,8 +20,9 @@ void MMC5983MA::send(uint8_t mode, uint8_t *cmd, uint16_t size)
 
 }
 
-void MMC5983MA::read(uint8_t data)
+void MMC5983MA::read(uint8_t mode, uint8_t *data, uint16_t size)
 {
+	HAL_I2C_Master_Receive(&hi2c1, SLAVEADRESS | mode, data, size, 100);
 }
 
 
@@ -46,9 +47,9 @@ void MMC5983MA::start()
 	send(WRITE, cmd, 1); // Request a write to Status Resister. 4-5
 	HAL_Delay(1);
 
-	send(READ, cmd, 0); // Appear Status Register data on SDA line. 6-7
+	read(READ, &mon_data, 1); // Appear Status Register data on SDA line. 6-7
 	HAL_Delay(1);
-	HAL_I2C_Master_Receive(&hi2c1, SLAVEADRESS, &mon_data, 1, 100);
+	//HAL_I2C_Master_Receive(&hi2c1, SLAVEADRESS, &mon_data, 1, 100);
 
 	HAL_Delay(1000);
 
@@ -56,9 +57,9 @@ void MMC5983MA::start()
 	send(WRITE, cmd, 1); //Request a write to Xout. 8-9
 	HAL_Delay(1);
 
-	send(READ, cmd, 0); // Appear Xout data on SDA line. 10-11
+	read(READ, &mon_data, 1); // Appear Xout data on SDA line. 10-11
 	HAL_Delay(1);
-	HAL_I2C_Master_Receive(&hi2c1, SLAVEADRESS, &mon_data, 1, 100);
+	//HAL_I2C_Master_Receive(&hi2c1, SLAVEADRESS, &mon_data, 1, 100);
 	HAL_Delay(1000);
 
 
