@@ -37,6 +37,7 @@
 //#include <cmath>
 
 #include "Localization.hpp"
+#include "MMC5983MA.hpp"
 
 #define USE_SD_CARD_INFO_RUNNING true
 #define USE_RAM_INFO_RUNNING false
@@ -70,6 +71,7 @@ Logger2 estimated_position_logger(&sd_card, 3000);
 
 float error_parameter[4] = {0.01, 0.5, 0.01, 0.5};
 Localization localization(pow(0.01, 2), TRED, 10e-3, error_parameter);
+MMC5983MA magnetic_sensor;
 
 
 float mon_v, mon_w;
@@ -143,14 +145,14 @@ void cppInit(void)
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();
-	imu.init();
-	line_trace.init();
+	//imu.init();
+	//line_trace.init();
 
-	line_sensor.calibration();
+	//line_sensor.calibration();
 	HAL_Delay(1000);
 
 	led.fullColor('M');
-	imu.calibration();
+	//imu.calibration();
 
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	//line_trace.setGain(0.0005, 0.000002, 0);
@@ -1382,6 +1384,18 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
+		lcd_printf("Magnetic");
+		lcd_locate(0,1);
+		lcd_printf("Test");
+
+		if(joy_stick.getValue() == JOY_C){
+			led.LR(1, -1);
+			magnetic_sensor.start();
+			led.LR(0, -1);
+		}
+		/*
+		lcd_clear();
+		lcd_locate(0,0);
 		lcd_printf("PID");
 		lcd_locate(0,1);
 		lcd_printf("Response");
@@ -1412,6 +1426,7 @@ void cppLoop(void)
 
 			led.LR(-1, 0);
 		}
+		*/
 
 		/*
 		lcd_clear();

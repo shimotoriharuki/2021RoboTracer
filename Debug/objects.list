@@ -18,6 +18,7 @@
 "Core/Src/Localization.o"
 "Core/Src/Logger.o"
 "Core/Src/Logger2.o"
+"Core/Src/MMC5983MA.o"
 "Core/Src/Motor.o"
 "Core/Src/Odometry.o"
 "Core/Src/PathFollowing.o"

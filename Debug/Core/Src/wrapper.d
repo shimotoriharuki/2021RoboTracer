@@ -59,7 +59,8 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
  ../Core/Inc/PathFollowing.hpp ../Core/Inc/rtwtypes.h ../Core/Inc/ESC.hpp \
  ../Core/Inc/Logger2.hpp ../Core/Inc/sdCard.hpp \
  ../Core/Inc/DownForceUnit.hpp ../Core/Inc/Localization.hpp \
- ../Core/Inc/GetSelfLocation.h ../Core/Inc/GetSelfLocation_terminate.h
+ ../Core/Inc/GetSelfLocation.h ../Core/Inc/GetSelfLocation_terminate.h \
+ ../Core/Inc/MMC5983MA.hpp
 
 ../Core/Inc/wrapper.hpp:
 
@@ -242,3 +243,5 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
 ../Core/Inc/GetSelfLocation.h:
 
 ../Core/Inc/GetSelfLocation_terminate.h:
+
+../Core/Inc/MMC5983MA.hpp:
