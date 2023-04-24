@@ -83,6 +83,7 @@ float mon_odo_x, mon_odo_y, mon_odo_theta;
 bool ekf_start_flag = false;
 float tmp[10];
 
+//I2C_HandleTypeDef hi2c1;
 
 void batteryLowMode()
 {
@@ -114,16 +115,18 @@ void cppInit(void)
 	HAL_Delay(100);
 	power_sensor.updateValues();
 
+	/*
 	lcd_clear();
 	lcd_locate(0,0);
 	lcd_printf("Voltage");
 	lcd_locate(0,1);
 	lcd_printf("%f", power_sensor.getButteryVoltage());
 	HAL_Delay(800);
-
+	*/
 	//if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
 
 	// -----------initialize-------//
+	/*
 	if(sd_card.init() == true){
 	  lcd_clear();
 	  lcd_locate(0,0);
@@ -141,12 +144,13 @@ void cppInit(void)
 	  lcd_printf("Fail");
 	  HAL_Delay(1000);
 	}
+	*/
 
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();
-	imu.init();
-	line_trace.init();
+	//imu.init();
+	//line_trace.init();
 
 	//line_sensor.calibration();
 	HAL_Delay(1000);
@@ -1382,15 +1386,19 @@ void cppLoop(void)
 	case 13:
 		led.fullColor('~');
 
+		/*
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("Magnetic");
 		lcd_locate(0,1);
 		lcd_printf("Test");
-
+		*/
 		if(joy_stick.getValue() == JOY_C){
 			led.LR(1, -1);
 			magnetic_sensor.start();
+			//uint8_t address = 0x60;
+			//uint8_t data = 0x08;
+			//HAL_I2C_Master_Transmit(&hi2c1, address, &data, 1, 100);
 			led.LR(0, -1);
 		}
 		/*

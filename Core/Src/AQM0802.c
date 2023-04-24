@@ -23,7 +23,7 @@ void lcd_data(uint8_t data) {
 }
 
 void lcd_init(){
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);//lcd_reset_pin
+	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);//lcd_reset_pin
 	HAL_Delay(40);
 	lcd_cmd(0x38);
 	HAL_Delay(1);
