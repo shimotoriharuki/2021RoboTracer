@@ -83,6 +83,8 @@ float mon_odo_x, mon_odo_y, mon_odo_theta;
 bool ekf_start_flag = false;
 float tmp[10];
 
+int16_t mon_gauss_x, mon_gauss_y;
+
 //I2C_HandleTypeDef hi2c1;
 
 void batteryLowMode()
@@ -225,6 +227,11 @@ void cppFlip10ms(void)
 	line_trace.storeDebugLogs10ms();
 	logger1.storeLogs(velocity_ctrl.getCurrentVelocity());
 
+	//magnetic_sensor.updateData();
+	//mon_gauss_x = magnetic_sensor.getGaussXData();
+	//mon_gauss_y = magnetic_sensor.getGaussYData();
+
+	//-----EKF pricessing ------//
 	if(ekf_start_flag == true && line_trace.isRunning() == true){
 		ekf_start_flag = false;
 		odometry_position_logger.start();
@@ -1389,7 +1396,16 @@ void cppLoop(void)
 		lcd_printf("Test");
 		if(joy_stick.getValue() == JOY_C){
 			led.LR(1, -1);
-			magnetic_sensor.start();
+			magnetic_sensor.measurementStart();
+			magnetic_sensor.calibration();
+
+			magnetic_sensor.updateData();
+
+			mon_gauss_x = magnetic_sensor.getGaussXData();
+			mon_gauss_y = magnetic_sensor.getGaussYData();
+
+			HAL_Delay(1000);
+
 			//uint8_t address = 0x60;
 			//uint8_t data = 0x08;
 			//HAL_I2C_Master_Transmit(&hi2c1, address, &data, 1, 100);

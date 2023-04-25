@@ -5,7 +5,11 @@
  *      Author: Haruki SHIMOTORI
  */
 
-#include "MMC5983MA.hpp"
+#include <MMC5983MA.hpp>
+#include <stm32f4xx_hal.h>
+#include <stm32f4xx_hal_def.h>
+#include <stm32f4xx_hal_i2c.h>
+#include <sys/_stdint.h>
 
 #define MAG_SLAVEADRESS 0x60
 #define WRITE 0
@@ -13,7 +17,7 @@
 
 uint8_t mon_data[2];
 uint16_t mon_xout, mon_yout;
-uint16_t mon_xout_calib, mon_yout_calib;
+int16_t mon_xout_calib, mon_yout_calib;
 HAL_StatusTypeDef mon_ret;
 
 I2C_HandleTypeDef hi2c1;
@@ -34,11 +38,15 @@ void MMC5983MA::receive(uint8_t *received_data, uint16_t size)
 
 //------public--------//
 
-MMC5983MA::MMC5983MA()
+MMC5983MA::MMC5983MA() : enable_flag_(false)
 {
 	offset_.x = 0;
 	offset_.y = 0;
 	offset_.z = 0;
+
+	gauss_.x = 0;
+	gauss_.y = 0;
+	gauss_.z = 0;
 
 }
 
@@ -52,7 +60,7 @@ void MMC5983MA::write(uint8_t address, uint8_t *write_data, uint16_t write_data_
 	}
 
 	send(cmd, write_data_size + 1);
-	HAL_Delay(1);
+	//HAL_Delay(1);
 }
 
 void MMC5983MA::read(uint8_t address, uint8_t *read_data, uint16_t read_data_size)
@@ -60,43 +68,39 @@ void MMC5983MA::read(uint8_t address, uint8_t *read_data, uint16_t read_data_siz
 	send(&address, 1);
 	HAL_Delay(1);
 	receive(read_data, read_data_size);
-	HAL_Delay(1);
+	//HAL_Delay(1);
 }
 
-void MMC5983MA::start()
+void MMC5983MA::measurementStart()
 {
-	uint8_t address = 0x09;
+	enable_flag_ = true;
+
 	uint8_t write_data = 0x01;
+	write(INTERNAL_CONTROL0_ADDRESS, &write_data, 1); //Measument start
+	//HAL_Delay(1000);
 
-	write(address, &write_data, 1); //Measument start
-	HAL_Delay(1000);
-
+	/*
 	// read no calibration data
-	address = 0x00;
-	read(address, mon_data, 2); // Appear Xout data on SDA line. 10-11
+	read(X_OUT0_ADDRESS, mon_data, 2); // Appear Xout data on SDA line. 10-11
 	mon_xout = mon_data[0] << 8 | mon_data[1];
 
-	address = 0x02;
-	read(address, mon_data, 2); // Appear Yout data on SDA line. 10-11
+	read(Y_OUT0_ADDRESS, mon_data, 2); // Appear Yout data on SDA line. 10-11
 	mon_yout = mon_data[0] << 8 | mon_data[1];
 
 	HAL_Delay(1000);
+	*/
 
 	// read calibration data
-	calibration();
-
-	address = 0x00;
-	read(address, mon_data, 2); // Appear Xout data on SDA line. 10-11
+	read(X_OUT0_ADDRESS, mon_data, 2); // Appear Xout data on SDA line. 10-11
 	mon_xout_calib = ((mon_data[0] - offset_.x) << 8) | (mon_data[1] - offset_.x);
 
-	address = 0x02;
-	read(address, mon_data, 2); // Appear Yout data on SDA line. 10-11
+	read(Y_OUT0_ADDRESS, mon_data, 2); // Appear Yout data on SDA line. 10-11
 	mon_yout_calib = ((mon_data[0] - offset_.y) << 8) | (mon_data[1] - offset_.y);
 
 
 }
 
-void MMC5983MA::stop()
+void MMC5983MA::measurementStop()
 {
 
 }
@@ -143,10 +147,34 @@ void MMC5983MA::calibration()
 
 void MMC5983MA::updateData()
 {
+	if(enable_flag_ == true){
+		uint8_t xout_data[2], yout_data[2];
+
+		read(X_OUT0_ADDRESS, xout_data, 2); // read xout
+		gauss_.x = ((xout_data[0] - offset_.x) << 8) | (xout_data[1] - offset_.x);
+		mon_xout_calib = gauss_.x;
+
+		read(Y_OUT0_ADDRESS, yout_data, 2); // read yout
+		gauss_.y = ((yout_data[0] - offset_.y) << 8) | (yout_data[1] - offset_.y);
+		mon_yout_calib = gauss_.y;
+	}
 
 }
 
-void MMC5983MA::getData()
+int16_t MMC5983MA::getGaussXData()
 {
+	return gauss_.x;
+
+}
+
+int16_t MMC5983MA::getGaussYData()
+{
+	return gauss_.y;
+
+}
+
+int16_t MMC5983MA::getGaussZData()
+{
+	return gauss_.z;
 
 }
