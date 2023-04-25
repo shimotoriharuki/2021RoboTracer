@@ -14,13 +14,19 @@
 class MMC5983MA{
 private:
 
-	void send(uint8_t, uint8_t *, uint16_t);
-	void read(uint8_t, uint8_t *, uint16_t);
+	void send(uint8_t *, uint16_t);
+	void receive(uint8_t *, uint16_t);
+
 
 public:
 	MMC5983MA();
+
+	void write(const uint8_t, uint8_t *, uint16_t);
+	void read(const uint8_t, uint8_t *, uint16_t);
+
 	void start();
 	void stop();
+
 	void updateData();
 	void getData();
 

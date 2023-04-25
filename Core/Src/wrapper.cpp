@@ -115,18 +115,15 @@ void cppInit(void)
 	HAL_Delay(100);
 	power_sensor.updateValues();
 
-	/*
 	lcd_clear();
 	lcd_locate(0,0);
 	lcd_printf("Voltage");
 	lcd_locate(0,1);
 	lcd_printf("%f", power_sensor.getButteryVoltage());
 	HAL_Delay(800);
-	*/
 	//if(power_sensor.butteryCheck() == true) batteryLowMode(); //if battery low, informed
 
 	// -----------initialize-------//
-	/*
 	if(sd_card.init() == true){
 	  lcd_clear();
 	  lcd_locate(0,0);
@@ -144,7 +141,6 @@ void cppInit(void)
 	  lcd_printf("Fail");
 	  HAL_Delay(1000);
 	}
-	*/
 
 	line_sensor.ADCStart();
 	motor.init();
@@ -1386,13 +1382,11 @@ void cppLoop(void)
 	case 13:
 		led.fullColor('~');
 
-		/*
 		lcd_clear();
 		lcd_locate(0,0);
 		lcd_printf("Magnetic");
 		lcd_locate(0,1);
 		lcd_printf("Test");
-		*/
 		if(joy_stick.getValue() == JOY_C){
 			led.LR(1, -1);
 			magnetic_sensor.start();
