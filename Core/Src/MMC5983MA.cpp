@@ -93,13 +93,14 @@ void MMC5983MA::measurementStart()
 	HAL_Delay(1000);
 	*/
 
+	/*
 	// read calibration data
 	read(X_OUT0_ADDRESS, mon_data, 2); // Appear Xout data on SDA line. 10-11
 	mon_xout_calib = (mon_data[0] << 8 | mon_data[1]) - offset_.x;
 
 	read(Y_OUT0_ADDRESS, mon_data, 2); // Appear Yout data on SDA line. 10-11
 	mon_yout_calib = (mon_data[0] << 8 | mon_data[1]) - offset_.y;
-
+	*/
 
 }
 
@@ -115,6 +116,7 @@ void MMC5983MA::calibration()
 	//Get values when device is set mode;
 	uint8_t set_cmd = 0x08;
 	write(INTERNAL_CONTROL0_ADDRESS, &set_cmd, 1); //set
+	measurementStart();
 	read(X_OUT0_ADDRESS, read_x_out, 2);
 	read(X_OUT0_ADDRESS, read_y_out, 2);
 	read(X_OUT0_ADDRESS, read_z_out, 2);
@@ -127,6 +129,7 @@ void MMC5983MA::calibration()
 	//Get values when device is reset mode;
 	uint8_t reset_cmd = 0x10;
 	write(INTERNAL_CONTROL0_ADDRESS, &reset_cmd, 1);
+	measurementStart();
 	read(X_OUT0_ADDRESS, read_x_out, 2);
 	read(X_OUT0_ADDRESS, read_y_out, 2);
 	read(X_OUT0_ADDRESS, read_z_out, 2);
@@ -138,9 +141,9 @@ void MMC5983MA::calibration()
 
 	//Calucurate true value excluding offset
 	int32_t x_out_H, y_out_H, z_out_H;
-	x_out_H = x_out_set - x_out_reset;
-	y_out_H = y_out_set - y_out_reset;
-	z_out_H = z_out_set - z_out_reset;
+	x_out_H = (x_out_set - x_out_reset) / 2;
+	y_out_H = (y_out_set - y_out_reset) / 2;
+	z_out_H = (z_out_set - z_out_reset) / 2;
 
 	//Calucurate offset
 	offset_.x = x_out_set - x_out_H;
@@ -154,17 +157,21 @@ void MMC5983MA::calibration()
 
 void MMC5983MA::updateData()
 {
-	if(enable_flag_ == true){
+	//if(enable_flag_ == true){
 		uint8_t xout_data[2], yout_data[2];
 
+		measurementStart();
 		read(X_OUT0_ADDRESS, xout_data, 2); // read xout
 		gauss_.x = (xout_data[0] << 8 | xout_data[1]) - offset_.x;
+		mon_data[0] = xout_data[0];
+		mon_data[1] = xout_data[1];
 		mon_xout_calib = gauss_.x;
 
+		measurementStart();
 		read(Y_OUT0_ADDRESS, yout_data, 2); // read yout
 		gauss_.y = (yout_data[0] << 8 | yout_data[1]) - offset_.y;
 		mon_yout_calib = gauss_.y;
-	}
+	//}
 
 }
 
