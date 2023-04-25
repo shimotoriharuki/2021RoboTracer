@@ -15,12 +15,15 @@
 #define WRITE 0
 #define READ 1
 
+I2C_HandleTypeDef hi2c1;
+
 uint8_t mon_data[2];
 uint16_t mon_xout, mon_yout;
 int16_t mon_xout_calib, mon_yout_calib;
 HAL_StatusTypeDef mon_ret;
 
-I2C_HandleTypeDef hi2c1;
+int16_t mon_offset_x, mon_offset_y, mon_offset_z;
+
 
 //------private-------//
 void MMC5983MA::send(uint8_t *cmd, uint16_t size)
@@ -60,7 +63,7 @@ void MMC5983MA::write(uint8_t address, uint8_t *write_data, uint16_t write_data_
 	}
 
 	send(cmd, write_data_size + 1);
-	//HAL_Delay(1);
+	HAL_Delay(1);
 }
 
 void MMC5983MA::read(uint8_t address, uint8_t *read_data, uint16_t read_data_size)
@@ -68,7 +71,7 @@ void MMC5983MA::read(uint8_t address, uint8_t *read_data, uint16_t read_data_siz
 	send(&address, 1);
 	HAL_Delay(1);
 	receive(read_data, read_data_size);
-	//HAL_Delay(1);
+	HAL_Delay(1);
 }
 
 void MMC5983MA::measurementStart()
@@ -92,10 +95,10 @@ void MMC5983MA::measurementStart()
 
 	// read calibration data
 	read(X_OUT0_ADDRESS, mon_data, 2); // Appear Xout data on SDA line. 10-11
-	mon_xout_calib = ((mon_data[0] - offset_.x) << 8) | (mon_data[1] - offset_.x);
+	mon_xout_calib = (mon_data[0] << 8 | mon_data[1]) - offset_.x;
 
 	read(Y_OUT0_ADDRESS, mon_data, 2); // Appear Yout data on SDA line. 10-11
-	mon_yout_calib = ((mon_data[0] - offset_.y) << 8) | (mon_data[1] - offset_.y);
+	mon_yout_calib = (mon_data[0] << 8 | mon_data[1]) - offset_.y;
 
 
 }
@@ -117,9 +120,9 @@ void MMC5983MA::calibration()
 	read(X_OUT0_ADDRESS, read_z_out, 2);
 
 	uint16_t x_out_set, y_out_set, z_out_set;
-	x_out_set = read_x_out[0] << 8 | read_x_out[1];
-	y_out_set = read_y_out[0] << 8 | read_y_out[1];
-	z_out_set = read_z_out[0] << 8 | read_z_out[1];
+	x_out_set = (read_x_out[0] << 8) | (read_x_out[1]);
+	y_out_set = (read_y_out[0] << 8) | (read_y_out[1]);
+	z_out_set = (read_z_out[0] << 8) | (read_z_out[1]);
 
 	//Get values when device is reset mode;
 	uint8_t reset_cmd = 0x10;
@@ -129,12 +132,12 @@ void MMC5983MA::calibration()
 	read(X_OUT0_ADDRESS, read_z_out, 2);
 
 	uint16_t x_out_reset, y_out_reset, z_out_reset;
-	x_out_reset = read_x_out[0] << 8 | read_x_out[1];
-	y_out_reset = read_y_out[0] << 8 | read_y_out[1];
-	z_out_reset = read_z_out[0] << 8 | read_z_out[1];
+	x_out_reset = (read_x_out[0] << 8) | (read_x_out[1]);
+	y_out_reset = (read_y_out[0] << 8) | (read_y_out[1]);
+	z_out_reset = (read_z_out[0] << 8) | (read_z_out[1]);
 
 	//Calucurate true value excluding offset
-	int16_t x_out_H, y_out_H, z_out_H;
+	int32_t x_out_H, y_out_H, z_out_H;
 	x_out_H = x_out_set - x_out_reset;
 	y_out_H = y_out_set - y_out_reset;
 	z_out_H = z_out_set - z_out_reset;
@@ -143,6 +146,10 @@ void MMC5983MA::calibration()
 	offset_.x = x_out_set - x_out_H;
 	offset_.y = y_out_set - y_out_H;
 	offset_.z = z_out_set - z_out_H;
+
+	mon_offset_x = offset_.x;
+	mon_offset_y = offset_.y;
+	mon_offset_z = offset_.z;
 }
 
 void MMC5983MA::updateData()
@@ -151,29 +158,29 @@ void MMC5983MA::updateData()
 		uint8_t xout_data[2], yout_data[2];
 
 		read(X_OUT0_ADDRESS, xout_data, 2); // read xout
-		gauss_.x = ((xout_data[0] - offset_.x) << 8) | (xout_data[1] - offset_.x);
+		gauss_.x = (xout_data[0] << 8 | xout_data[1]) - offset_.x;
 		mon_xout_calib = gauss_.x;
 
 		read(Y_OUT0_ADDRESS, yout_data, 2); // read yout
-		gauss_.y = ((yout_data[0] - offset_.y) << 8) | (yout_data[1] - offset_.y);
+		gauss_.y = (yout_data[0] << 8 | yout_data[1]) - offset_.y;
 		mon_yout_calib = gauss_.y;
 	}
 
 }
 
-int16_t MMC5983MA::getGaussXData()
+int32_t MMC5983MA::getGaussXData()
 {
 	return gauss_.x;
 
 }
 
-int16_t MMC5983MA::getGaussYData()
+int32_t MMC5983MA::getGaussYData()
 {
 	return gauss_.y;
 
 }
 
-int16_t MMC5983MA::getGaussZData()
+int32_t MMC5983MA::getGaussZData()
 {
 	return gauss_.z;
 

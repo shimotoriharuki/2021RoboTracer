@@ -83,7 +83,7 @@ float mon_odo_x, mon_odo_y, mon_odo_theta;
 bool ekf_start_flag = false;
 float tmp[10];
 
-int16_t mon_gauss_x, mon_gauss_y;
+int32_t mon_gauss_x, mon_gauss_y;
 
 //I2C_HandleTypeDef hi2c1;
 

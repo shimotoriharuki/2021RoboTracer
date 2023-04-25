@@ -28,14 +28,14 @@
 class MMC5983MA{
 private:
 	struct Offset{
-		int16_t x;
-		int16_t y;
-		int16_t z;
+		int32_t x;
+		int32_t y;
+		int32_t z;
 	};
 	struct Gauss{
-		int16_t x;
-		int16_t y;
-		int16_t z;
+		int32_t x;
+		int32_t y;
+		int32_t z;
 	};
 
 	Offset offset_;
@@ -57,9 +57,9 @@ public:
 
 	void calibration();
 	void updateData();
-	int16_t getGaussXData();
-	int16_t getGaussYData();
-	int16_t getGaussZData();
+	int32_t getGaussXData();
+	int32_t getGaussYData();
+	int32_t getGaussZData();
 
 };
 
