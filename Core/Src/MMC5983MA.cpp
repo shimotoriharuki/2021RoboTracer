@@ -74,39 +74,27 @@ void MMC5983MA::read(uint8_t address, uint8_t *read_data, uint16_t read_data_siz
 	HAL_Delay(1);
 }
 
-void MMC5983MA::measurementStart()
+void MMC5983MA::measurementStartOnce()
+{
+	uint8_t write_data;
+
+	write_data = 0x01;
+	write(INTERNAL_CONTROL0_ADDRESS, &write_data, 1); //Measument start
+
+
+
+}
+void MMC5983MA::measurementStartContinuous()
 {
 	enable_flag_ = true;
 
 	uint8_t write_data;
 
 	write_data = 0x21; //0010 0001
-	write(INTERNAL_CONTROL0_ADDRESS, &write_data, 1); //Measument start
+	write(INTERNAL_CONTROL0_ADDRESS, &write_data, 1);
 
 	write_data = 0xBD; //1011 1101
-	write(INTERNAL_CONTROL2_ADDRESS, &write_data, 1); //Measument start
-	//HAL_Delay(1000);
-
-	/*
-	// read no calibration data
-	read(X_OUT0_ADDRESS, mon_data, 2); // Appear Xout data on SDA line. 10-11
-	mon_xout = mon_data[0] << 8 | mon_data[1];
-
-	read(Y_OUT0_ADDRESS, mon_data, 2); // Appear Yout data on SDA line. 10-11
-	mon_yout = mon_data[0] << 8 | mon_data[1];
-
-	HAL_Delay(1000);
-	*/
-
-	/*
-	// read calibration data
-	read(X_OUT0_ADDRESS, mon_data, 2); // Appear Xout data on SDA line. 10-11
-	mon_xout_calib = (mon_data[0] << 8 | mon_data[1]) - offset_.x;
-
-	read(Y_OUT0_ADDRESS, mon_data, 2); // Appear Yout data on SDA line. 10-11
-	mon_yout_calib = (mon_data[0] << 8 | mon_data[1]) - offset_.y;
-	*/
-
+	write(INTERNAL_CONTROL2_ADDRESS, &write_data, 1);
 }
 
 void MMC5983MA::measurementStop()
@@ -121,7 +109,8 @@ void MMC5983MA::calibration()
 	//Get values when device is set mode;
 	uint8_t set_cmd = 0x08;
 	write(INTERNAL_CONTROL0_ADDRESS, &set_cmd, 1); //set
-	//measurementStart();
+
+	measurementStartOnce();
 	read(X_OUT0_ADDRESS, read_x_out, 2);
 	read(X_OUT0_ADDRESS, read_y_out, 2);
 	read(X_OUT0_ADDRESS, read_z_out, 2);
@@ -133,8 +122,9 @@ void MMC5983MA::calibration()
 
 	//Get values when device is reset mode;
 	uint8_t reset_cmd = 0x10;
-	write(INTERNAL_CONTROL0_ADDRESS, &reset_cmd, 1);
-	//measurementStart();
+	write(INTERNAL_CONTROL0_ADDRESS, &reset_cmd, 1); //reset
+
+	measurementStartOnce();
 	read(X_OUT0_ADDRESS, read_x_out, 2);
 	read(X_OUT0_ADDRESS, read_y_out, 2);
 	read(X_OUT0_ADDRESS, read_z_out, 2);

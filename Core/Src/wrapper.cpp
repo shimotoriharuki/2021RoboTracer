@@ -65,6 +65,8 @@ SystemIdentification sys_ident(&sd_card, &motor);
 PathFollowing path_following;
 
 Logger2 logger1(&sd_card, 500);
+Logger2 mag_logger_x(&sd_card, 500);
+Logger2 mag_logger_y(&sd_card, 500);
 
 Logger2 odometry_position_logger(&sd_card, 3000);
 Logger2 estimated_position_logger(&sd_card, 3000);
@@ -1395,18 +1397,29 @@ void cppLoop(void)
 		lcd_locate(0,1);
 		lcd_printf("Test");
 		if(joy_stick.getValue() == JOY_C){
-			led.LR(1, -1);
-			magnetic_sensor.measurementStart();
+			led.LR(1, 1);
 			magnetic_sensor.calibration();
 
-			for(uint16_t i = 0; i < 1000; i++){
+			mag_logger_x.start();
+			mag_logger_y.start();
+			magnetic_sensor.measurementStartContinuous();
+			for(uint16_t i = 0; i < 500; i++){
 				magnetic_sensor.updateData();
 
 				mon_gauss_x = magnetic_sensor.getGaussXData();
 				mon_gauss_y = magnetic_sensor.getGaussYData();
+				mag_logger_x.storeLogs(mon_gauss_x);
+				mag_logger_y.storeLogs(mon_gauss_y);
+
 				HAL_Delay(1);
 
 			}
+			mag_logger_x.stop();
+			mag_logger_y.stop();
+
+			led.LR(-1, 0);
+			mag_logger_x.saveLogs("STATELOG", "geomagnetism_x");
+			mag_logger_y.saveLogs("STATELOG", "geomagnetism_y");
 
 
 			HAL_Delay(1000);

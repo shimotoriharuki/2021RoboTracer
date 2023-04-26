@@ -52,7 +52,8 @@ public:
 	void write(const uint8_t, uint8_t *, uint16_t);
 	void read(const uint8_t, uint8_t *, uint16_t);
 
-	void measurementStart();
+	void measurementStartOnce();
+	void measurementStartContinuous();
 	void measurementStop();
 
 	void calibration();
