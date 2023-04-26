@@ -78,8 +78,13 @@ void MMC5983MA::measurementStart()
 {
 	enable_flag_ = true;
 
-	uint8_t write_data = 0x01;
+	uint8_t write_data;
+
+	write_data = 0x21; //0010 0001
 	write(INTERNAL_CONTROL0_ADDRESS, &write_data, 1); //Measument start
+
+	write_data = 0xBD; //1011 1101
+	write(INTERNAL_CONTROL2_ADDRESS, &write_data, 1); //Measument start
 	//HAL_Delay(1000);
 
 	/*
@@ -116,7 +121,7 @@ void MMC5983MA::calibration()
 	//Get values when device is set mode;
 	uint8_t set_cmd = 0x08;
 	write(INTERNAL_CONTROL0_ADDRESS, &set_cmd, 1); //set
-	measurementStart();
+	//measurementStart();
 	read(X_OUT0_ADDRESS, read_x_out, 2);
 	read(X_OUT0_ADDRESS, read_y_out, 2);
 	read(X_OUT0_ADDRESS, read_z_out, 2);
@@ -129,7 +134,7 @@ void MMC5983MA::calibration()
 	//Get values when device is reset mode;
 	uint8_t reset_cmd = 0x10;
 	write(INTERNAL_CONTROL0_ADDRESS, &reset_cmd, 1);
-	measurementStart();
+	//measurementStart();
 	read(X_OUT0_ADDRESS, read_x_out, 2);
 	read(X_OUT0_ADDRESS, read_y_out, 2);
 	read(X_OUT0_ADDRESS, read_z_out, 2);
@@ -160,14 +165,14 @@ void MMC5983MA::updateData()
 	//if(enable_flag_ == true){
 		uint8_t xout_data[2], yout_data[2];
 
-		measurementStart();
+		//measurementStart();
 		read(X_OUT0_ADDRESS, xout_data, 2); // read xout
 		gauss_.x = (xout_data[0] << 8 | xout_data[1]) - offset_.x;
 		mon_data[0] = xout_data[0];
 		mon_data[1] = xout_data[1];
 		mon_xout_calib = gauss_.x;
 
-		measurementStart();
+		//measurementStart();
 		read(Y_OUT0_ADDRESS, yout_data, 2); // read yout
 		gauss_.y = (yout_data[0] << 8 | yout_data[1]) - offset_.y;
 		mon_yout_calib = gauss_.y;

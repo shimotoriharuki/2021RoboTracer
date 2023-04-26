@@ -4,9 +4,9 @@ MMC5983MA.cpp:44:1:MMC5983MA::MMC5983MA()	16	static
 MMC5983MA.cpp:56:6:void MMC5983MA::write(uint8_t, uint8_t*, uint16_t)	48	dynamic
 MMC5983MA.cpp:69:6:void MMC5983MA::read(uint8_t, uint8_t*, uint16_t)	24	static
 MMC5983MA.cpp:77:6:void MMC5983MA::measurementStart()	24	static
-MMC5983MA.cpp:107:6:void MMC5983MA::measurementStop()	16	static
-MMC5983MA.cpp:112:6:void MMC5983MA::calibration()	56	static
-MMC5983MA.cpp:158:6:void MMC5983MA::updateData()	24	static
-MMC5983MA.cpp:178:9:int32_t MMC5983MA::getGaussXData()	16	static
-MMC5983MA.cpp:184:9:int32_t MMC5983MA::getGaussYData()	16	static
-MMC5983MA.cpp:190:9:int32_t MMC5983MA::getGaussZData()	16	static
+MMC5983MA.cpp:112:6:void MMC5983MA::measurementStop()	16	static
+MMC5983MA.cpp:117:6:void MMC5983MA::calibration()	56	static
+MMC5983MA.cpp:163:6:void MMC5983MA::updateData()	24	static
+MMC5983MA.cpp:183:9:int32_t MMC5983MA::getGaussXData()	16	static
+MMC5983MA.cpp:189:9:int32_t MMC5983MA::getGaussYData()	16	static
+MMC5983MA.cpp:195:9:int32_t MMC5983MA::getGaussZData()	16	static

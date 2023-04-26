@@ -1399,10 +1399,15 @@ void cppLoop(void)
 			magnetic_sensor.measurementStart();
 			magnetic_sensor.calibration();
 
-			magnetic_sensor.updateData();
+			for(uint16_t i = 0; i < 1000; i++){
+				magnetic_sensor.updateData();
 
-			mon_gauss_x = magnetic_sensor.getGaussXData();
-			mon_gauss_y = magnetic_sensor.getGaussYData();
+				mon_gauss_x = magnetic_sensor.getGaussXData();
+				mon_gauss_y = magnetic_sensor.getGaussYData();
+				HAL_Delay(1);
+
+			}
+
 
 			HAL_Delay(1000);
 
