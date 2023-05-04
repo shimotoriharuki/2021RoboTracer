@@ -1398,11 +1398,13 @@ void cppLoop(void)
 		lcd_printf("Test");
 		if(joy_stick.getValue() == JOY_C){
 			led.LR(1, 1);
+			//magnetic_sensor.softwareReset();
+
 			magnetic_sensor.calibration();
 
 			mag_logger_x.start();
 			mag_logger_y.start();
-			magnetic_sensor.measurementStartContinuous();
+			//magnetic_sensor.measurementStartContinuous();
 			for(uint16_t i = 0; i < 500; i++){
 				magnetic_sensor.updateData();
 
