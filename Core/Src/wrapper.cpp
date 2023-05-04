@@ -1397,6 +1397,7 @@ void cppLoop(void)
 		lcd_locate(0,1);
 		lcd_printf("Test");
 		if(joy_stick.getValue() == JOY_C){
+			HAL_Delay(500);
 			led.LR(1, 1);
 			//magnetic_sensor.softwareReset();
 
