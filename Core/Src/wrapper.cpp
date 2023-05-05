@@ -1403,6 +1403,7 @@ void cppLoop(void)
 			//magnetic_sensor.softwareReset();
 
 			magnetic_sensor.read_IT(0x00, 2);
+			magnetic_sensor.read_IT(0x02, 2);
 
 			magnetic_sensor.calibration();
 

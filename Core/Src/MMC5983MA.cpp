@@ -32,7 +32,10 @@ static uint8_t receive_buff[MAG_BUFF_SIZE];
 static uint8_t receive_buff_size;
 static bool receive_waiting_flag;
 
-static uint16_t store_xout;
+static uint8_t data_queue[MAG_QUEUE_SIZE][2]; //[address][read data size]
+static uint8_t is_queue_data_size;
+
+static uint16_t store_xout, store_yout, store_zout;
 
 //------private-------//
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
@@ -132,8 +135,12 @@ void MMC5983MA::read_IT(uint8_t address, uint16_t read_data_size)
 {
 	receive_waiting_flag = true;
 
-	setInterruptReceiveDataSize(read_data_size);
-	send_IT(&address, 1);
+	is_queue_data_size++;
+
+	if(is_queue_data_size == 1){
+		setInterruptReceiveDataSize(read_data_size);
+		send_IT(&address, 1);
+	}
 
 	//receive_IT(read_data, read_data_size);
 }
