@@ -25,6 +25,9 @@
 #define INTERNAL_CONTROL3_ADDRESS 0x0C
 #define PRODUCT_ID1_ADDRESS 0x2f
 
+#define MAG_BUFF_SIZE 32
+
+
 class MMC5983MA{
 private:
 	struct Offset{
@@ -42,15 +45,24 @@ private:
 	Gauss gauss_;
 	bool enable_flag_;
 
-	void send(uint8_t *, uint16_t);
-	void receive(uint8_t *, uint16_t);
+
+	void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef);
+	void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef);
+	void setInterruptReceiveDataSize(uint8_t);
 
 
 public:
 	MMC5983MA();
 
+	void send(uint8_t *, uint16_t);
+	void receive(uint8_t *, uint16_t);
+	void send_IT(uint8_t *, uint16_t);
+	void receive_IT(uint8_t *, uint16_t);
+
 	void write(const uint8_t, uint8_t *, uint16_t);
 	void read(const uint8_t, uint8_t *, uint16_t);
+	void write_IT(const uint8_t, uint8_t *, uint16_t);
+	void read_IT(const uint8_t, uint8_t *, uint16_t);
 
 	void measurementStartOnce();
 	void measurementStartContinuous();
@@ -63,6 +75,7 @@ public:
 	int16_t getGaussZData();
 
 	void softwareReset();
+	void clearBuff();
 
 };
 

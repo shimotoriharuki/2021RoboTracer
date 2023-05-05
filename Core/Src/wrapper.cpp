@@ -86,6 +86,7 @@ bool ekf_start_flag = false;
 float tmp[10];
 
 int32_t mon_gauss_x, mon_gauss_y;
+uint8_t monmon[2];
 
 //I2C_HandleTypeDef hi2c1;
 
@@ -1400,6 +1401,8 @@ void cppLoop(void)
 			HAL_Delay(1000);
 			led.LR(1, 1);
 			//magnetic_sensor.softwareReset();
+
+			magnetic_sensor.read_IT(0x00, monmon, 2);
 
 			magnetic_sensor.calibration();
 

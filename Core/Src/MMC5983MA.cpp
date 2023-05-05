@@ -28,20 +28,35 @@ uint8_t mon_xout0, mon_xout1;
 uint8_t mon_yout0, mon_yout1;
 uint8_t mon_xyzout2;
 
+static uint8_t receive_buff[MAG_BUFF_SIZE];
+static uint8_t receive_buff_size;
+static bool receive_waiting_flag;
+
+static uint16_t store_xout;
 
 //------private-------//
-void MMC5983MA::send(uint8_t *cmd, uint16_t size)
+void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
-	HAL_I2C_Master_Transmit(&hi2c1, MAG_SLAVEADRESS, cmd, size, 100);
+	if(receive_waiting_flag == true){
+		receive_waiting_flag = false;
+
+		MMC5983MA mmc5983ma;
+		mmc5983ma.receive_IT(receive_buff, receive_buff_size);
+	}
 
 }
 
-void MMC5983MA::receive(uint8_t *received_data, uint16_t size)
+void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
-	HAL_I2C_Master_Receive(&hi2c1, MAG_SLAVEADRESS, received_data, size, 100);
+	store_xout = (receive_buff[0] << 8 | receive_buff[1]);
+	MMC5983MA mmc5983ma;
+	mmc5983ma.clearBuff();
 }
 
-
+void MMC5983MA::setInterruptReceiveDataSize(uint8_t size)
+{
+	receive_buff_size = size;
+}
 
 //------public--------//
 
@@ -55,6 +70,28 @@ MMC5983MA::MMC5983MA() : enable_flag_(false)
 	gauss_.y = 0;
 	gauss_.z = 0;
 
+	clearBuff();
+
+}
+
+void MMC5983MA::send(uint8_t *cmd, uint16_t size)
+{
+	HAL_I2C_Master_Transmit(&hi2c1, MAG_SLAVEADRESS, cmd, size, 100);
+}
+
+void MMC5983MA::receive(uint8_t *received_data, uint16_t size)
+{
+	HAL_I2C_Master_Receive(&hi2c1, MAG_SLAVEADRESS, received_data, size, 100);
+}
+
+void MMC5983MA::send_IT(uint8_t *cmd, uint16_t size)
+{
+	HAL_I2C_Master_Transmit_IT(&hi2c1, MAG_SLAVEADRESS, cmd, size);
+}
+
+void MMC5983MA::receive_IT(uint8_t *received_data, uint16_t size)
+{
+	HAL_I2C_Master_Receive_IT(&hi2c1, MAG_SLAVEADRESS, received_data, size);
 }
 
 void MMC5983MA::write(uint8_t address, uint8_t *write_data, uint16_t write_data_size)
@@ -76,6 +113,28 @@ void MMC5983MA::read(uint8_t address, uint8_t *read_data, uint16_t read_data_siz
 	HAL_Delay(1);
 	receive(read_data, read_data_size);
 	HAL_Delay(1);
+}
+
+void MMC5983MA::write_IT(uint8_t address, uint8_t *write_data, uint16_t write_data_size)
+{
+	uint8_t cmd[write_data_size + 1];
+	cmd[0] = address;
+
+	for(uint16_t i = 0; i < write_data_size; i++){
+		cmd[i + 1] = write_data[i];
+	}
+
+	send_IT(cmd, write_data_size + 1);
+}
+
+void MMC5983MA::read_IT(uint8_t address, uint8_t *read_data, uint16_t read_data_size)
+{
+	receive_waiting_flag = true;
+
+	setInterruptReceiveDataSize(read_data_size);
+	send_IT(&address, 1);
+
+	//receive_IT(read_data, read_data_size);
 }
 
 void MMC5983MA::measurementStartOnce()
@@ -223,4 +282,11 @@ void MMC5983MA::softwareReset()
 	uint8_t write_data = 0x08;
 	write(INTERNAL_CONTROL0_ADDRESS, &write_data, 1);
 	HAL_Delay(20);
+}
+
+void MMC5983MA::clearBuff()
+{
+	for(uint16_t i = 0; i < MAG_BUFF_SIZE; i++){
+		receive_buff[i] = 0;
+	}
 }
