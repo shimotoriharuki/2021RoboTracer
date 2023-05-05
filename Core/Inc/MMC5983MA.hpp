@@ -62,7 +62,7 @@ public:
 	void write(const uint8_t, uint8_t *, uint16_t);
 	void read(const uint8_t, uint8_t *, uint16_t);
 	void write_IT(const uint8_t, uint8_t *, uint16_t);
-	void read_IT(const uint8_t, uint8_t *, uint16_t);
+	void read_IT(const uint8_t, uint16_t);
 
 	void measurementStartOnce();
 	void measurementStartContinuous();

@@ -1402,7 +1402,7 @@ void cppLoop(void)
 			led.LR(1, 1);
 			//magnetic_sensor.softwareReset();
 
-			magnetic_sensor.read_IT(0x00, monmon, 2);
+			magnetic_sensor.read_IT(0x00, 2);
 
 			magnetic_sensor.calibration();
 
