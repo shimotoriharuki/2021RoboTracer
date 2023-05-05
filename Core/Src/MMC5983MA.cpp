@@ -40,11 +40,8 @@ void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
 	if(receive_waiting_flag == true){
 		receive_waiting_flag = false;
 
-		HAL_I2C_Master_Receive_IT(&hi2c1, MAG_SLAVEADRESS, receive_buff, receive_buff_size);
-		/*
 		MMC5983MA mmc5983ma;
 		mmc5983ma.receive_IT(receive_buff, receive_buff_size);
-		*/
 	}
 
 }
@@ -52,10 +49,9 @@ void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
 void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
 	store_xout = (receive_buff[0] << 8 | receive_buff[1]);
-	/*
+
 	MMC5983MA mmc5983ma;
 	mmc5983ma.clearBuff();
-	*/
 }
 
 void MMC5983MA::setInterruptReceiveDataSize(uint8_t size)
