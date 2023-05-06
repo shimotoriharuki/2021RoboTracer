@@ -15,6 +15,17 @@
 #define WRITE 0
 #define READ 1
 
+struct Queue{
+	uint8_t data;
+	uint8_t size;
+};
+
+struct StoreData{
+	uint16_t xout;
+	uint16_t yout;
+	uint16_t zout;
+};
+
 I2C_HandleTypeDef hi2c1;
 
 uint8_t mon_data[2];
@@ -29,38 +40,49 @@ uint8_t mon_yout0, mon_yout1;
 uint8_t mon_xyzout2;
 
 static uint8_t receive_buff[MAG_BUFF_SIZE];
-static uint8_t receive_buff_size;
 static bool receive_waiting_flag;
 
-static uint8_t data_queue[MAG_QUEUE_SIZE][2]; //[address][read data size]
-static uint8_t is_queue_data_size;
+static Queue queue_data[MAG_QUEUE_SIZE]; //[address][read data size]
+static uint8_t queue_idx;
 
-static uint16_t store_xout, store_yout, store_zout;
+static StoreData store_data;
 
 //------private-------//
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
-	if(receive_waiting_flag == true){
-		receive_waiting_flag = false;
+	if(queue_idx >= 1){
+		//receive_waiting_flag = false;
 
 		MMC5983MA mmc5983ma;
-		mmc5983ma.receive_IT(receive_buff, receive_buff_size);
+		mmc5983ma.receive_IT(receive_buff, queue_data[0].size);
 	}
 
 }
 
 void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
-	store_xout = (receive_buff[0] << 8 | receive_buff[1]);
+	if(queue_data[0].data == X_OUT0_ADDRESS){
+		store_data.xout = (receive_buff[0] << 8 | receive_buff[1]);
+	}
+	else if(queue_data[0].data == Y_OUT0_ADDRESS){
+		store_data.yout = (receive_buff[0] << 8 | receive_buff[1]);
+	}
+	else if(queue_data[0].data == Z_OUT0_ADDRESS){
+		store_data.zout = (receive_buff[0] << 8 | receive_buff[1]);
+	}
 
 	MMC5983MA mmc5983ma;
+	mmc5983ma.shiftQueue();
 	mmc5983ma.clearBuff();
+
+	queue_idx--;
+
+	if(queue_idx >= 1){
+		MMC5983MA mmc5983ma;
+		mmc5983ma.send_IT(&queue_data[0].data, 1);
+	}
 }
 
-void MMC5983MA::setInterruptReceiveDataSize(uint8_t size)
-{
-	receive_buff_size = size;
-}
 
 //------public--------//
 
@@ -133,14 +155,14 @@ void MMC5983MA::write_IT(uint8_t address, uint8_t *write_data, uint16_t write_da
 
 void MMC5983MA::read_IT(uint8_t address, uint16_t read_data_size)
 {
-	receive_waiting_flag = true;
+	//receive_waiting_flag = true;
 
-	is_queue_data_size++;
+	setQueue(address, read_data_size);
 
-	if(is_queue_data_size == 1){
-		setInterruptReceiveDataSize(read_data_size);
+	if(queue_idx == 1){
 		send_IT(&address, 1);
 	}
+
 
 	//receive_IT(read_data, read_data_size);
 }
@@ -296,5 +318,22 @@ void MMC5983MA::clearBuff()
 {
 	for(uint16_t i = 0; i < MAG_BUFF_SIZE; i++){
 		receive_buff[i] = 0;
+	}
+}
+
+void MMC5983MA::setQueue(uint8_t data, uint8_t size)
+{
+	queue_data[queue_idx].data = data;
+	queue_data[queue_idx].size = size;
+
+	queue_idx++;
+	if(queue_idx >= MAG_QUEUE_SIZE) queue_idx = MAG_QUEUE_SIZE - 1;
+
+}
+
+void MMC5983MA::shiftQueue()
+{
+	for(uint8_t idx = 0; idx < MAG_QUEUE_SIZE - 1; idx++){
+		queue_data[idx] = queue_data[idx + 1];
 	}
 }

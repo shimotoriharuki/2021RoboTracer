@@ -49,7 +49,6 @@ private:
 
 	void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef);
 	void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef);
-	void setInterruptReceiveDataSize(uint8_t);
 
 
 public:
@@ -78,6 +77,8 @@ public:
 	void softwareReset();
 	void clearBuff();
 
+	void setQueue(uint8_t , uint8_t);
+	void shiftQueue();
 };
 
 

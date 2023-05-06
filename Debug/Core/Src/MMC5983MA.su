@@ -1,22 +1,23 @@
-MMC5983MA.cpp:41:6:void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef*)	32	static
-MMC5983MA.cpp:52:6:void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef*)	32	static
-MMC5983MA.cpp:60:6:void MMC5983MA::setInterruptReceiveDataSize(uint8_t)	16	static
-MMC5983MA.cpp:67:1:MMC5983MA::MMC5983MA()	16	static
-MMC5983MA.cpp:81:6:void MMC5983MA::send(uint8_t*, uint16_t)	32	static
-MMC5983MA.cpp:86:6:void MMC5983MA::receive(uint8_t*, uint16_t)	32	static
-MMC5983MA.cpp:91:6:void MMC5983MA::send_IT(uint8_t*, uint16_t)	24	static
-MMC5983MA.cpp:96:6:void MMC5983MA::receive_IT(uint8_t*, uint16_t)	24	static
-MMC5983MA.cpp:101:6:void MMC5983MA::write(uint8_t, uint8_t*, uint16_t)	48	dynamic
-MMC5983MA.cpp:114:6:void MMC5983MA::read(uint8_t, uint8_t*, uint16_t)	24	static
-MMC5983MA.cpp:122:6:void MMC5983MA::write_IT(uint8_t, uint8_t*, uint16_t)	48	dynamic
-MMC5983MA.cpp:134:6:void MMC5983MA::read_IT(uint8_t, uint16_t)	16	static
-MMC5983MA.cpp:148:6:void MMC5983MA::measurementStartOnce()	24	static
-MMC5983MA.cpp:158:6:void MMC5983MA::measurementStartContinuous()	24	static
-MMC5983MA.cpp:171:6:void MMC5983MA::measurementStop()	16	static
-MMC5983MA.cpp:176:6:void MMC5983MA::calibration()	48	static
-MMC5983MA.cpp:230:6:void MMC5983MA::updateData()	24	static
-MMC5983MA.cpp:270:9:int16_t MMC5983MA::getGaussXData()	16	static
-MMC5983MA.cpp:276:9:int16_t MMC5983MA::getGaussYData()	16	static
-MMC5983MA.cpp:282:9:int16_t MMC5983MA::getGaussZData()	16	static
-MMC5983MA.cpp:288:6:void MMC5983MA::softwareReset()	24	static
-MMC5983MA.cpp:295:6:void MMC5983MA::clearBuff()	24	static
+MMC5983MA.cpp:51:6:void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef*)	32	static
+MMC5983MA.cpp:62:6:void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef*)	48	static
+MMC5983MA.cpp:89:1:MMC5983MA::MMC5983MA()	16	static
+MMC5983MA.cpp:103:6:void MMC5983MA::send(uint8_t*, uint16_t)	32	static
+MMC5983MA.cpp:108:6:void MMC5983MA::receive(uint8_t*, uint16_t)	32	static
+MMC5983MA.cpp:113:6:void MMC5983MA::send_IT(uint8_t*, uint16_t)	24	static
+MMC5983MA.cpp:118:6:void MMC5983MA::receive_IT(uint8_t*, uint16_t)	24	static
+MMC5983MA.cpp:123:6:void MMC5983MA::write(uint8_t, uint8_t*, uint16_t)	48	dynamic
+MMC5983MA.cpp:136:6:void MMC5983MA::read(uint8_t, uint8_t*, uint16_t)	24	static
+MMC5983MA.cpp:144:6:void MMC5983MA::write_IT(uint8_t, uint8_t*, uint16_t)	48	dynamic
+MMC5983MA.cpp:156:6:void MMC5983MA::read_IT(uint8_t, uint16_t)	16	static
+MMC5983MA.cpp:170:6:void MMC5983MA::measurementStartOnce()	24	static
+MMC5983MA.cpp:180:6:void MMC5983MA::measurementStartContinuous()	24	static
+MMC5983MA.cpp:193:6:void MMC5983MA::measurementStop()	16	static
+MMC5983MA.cpp:198:6:void MMC5983MA::calibration()	48	static
+MMC5983MA.cpp:252:6:void MMC5983MA::updateData()	24	static
+MMC5983MA.cpp:292:9:int16_t MMC5983MA::getGaussXData()	16	static
+MMC5983MA.cpp:298:9:int16_t MMC5983MA::getGaussYData()	16	static
+MMC5983MA.cpp:304:9:int16_t MMC5983MA::getGaussZData()	16	static
+MMC5983MA.cpp:310:6:void MMC5983MA::softwareReset()	24	static
+MMC5983MA.cpp:317:6:void MMC5983MA::clearBuff()	24	static
+MMC5983MA.cpp:324:6:void MMC5983MA::setQueue(uint8_t, uint8_t)	16	static
+MMC5983MA.cpp:334:6:void MMC5983MA::shiftQueue()	24	static
