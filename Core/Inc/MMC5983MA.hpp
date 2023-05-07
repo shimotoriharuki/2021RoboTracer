@@ -70,6 +70,7 @@ public:
 
 	void calibration();
 	void updateData();
+	void requestDataReading();
 	int16_t getGaussXData();
 	int16_t getGaussYData();
 	int16_t getGaussZData();

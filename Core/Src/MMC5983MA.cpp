@@ -203,11 +203,11 @@ void MMC5983MA::calibration()
 	uint8_t set_cmd = 0x08;
 	write(INTERNAL_CONTROL0_ADDRESS, &set_cmd, 1); //set
 
-	measurementStartOnce();
+	//measurementStartOnce();
 	read(X_OUT0_ADDRESS, read_x_out, 2);
-	measurementStartOnce();
+	//measurementStartOnce();
 	read(Y_OUT0_ADDRESS, read_y_out, 2);
-	measurementStartOnce();
+	//measurementStartOnce();
 	read(Z_OUT0_ADDRESS, read_z_out, 2);
 
 	uint16_t x_out_set, y_out_set, z_out_set;
@@ -221,11 +221,11 @@ void MMC5983MA::calibration()
 	uint8_t reset_cmd = 0x10;
 	write(INTERNAL_CONTROL0_ADDRESS, &reset_cmd, 1); //reset
 
-	measurementStartOnce();
+	//measurementStartOnce();
 	read(X_OUT0_ADDRESS, read_x_out, 2);
-	measurementStartOnce();
+	//measurementStartOnce();
 	read(Y_OUT0_ADDRESS, read_y_out, 2);
-	measurementStartOnce();
+	//measurementStartOnce();
 	read(Z_OUT0_ADDRESS, read_z_out, 2);
 
 	uint16_t x_out_reset, y_out_reset, z_out_reset;
@@ -252,10 +252,13 @@ void MMC5983MA::calibration()
 void MMC5983MA::updateData()
 {
 	//if(enable_flag_ == true){
+		/*
 		uint8_t xout0_data, yout0_data;
 		uint8_t xout1_data, yout1_data;
 		uint8_t xyzout2_data;
+		*/
 
+		/*
 		measurementStartOnce();
 		read(X_OUT0_ADDRESS, &xout0_data, 1); // read xout
 		measurementStartOnce();
@@ -268,7 +271,9 @@ void MMC5983MA::updateData()
 
 		measurementStartOnce();
 		read(XYZ_OUT2_ADDRESS, &xyzout2_data, 1); // read xyzout
+		*/
 
+		/*
 		gauss_.x = (xout0_data << 8 | xout1_data) - offset_.x;
 		//gauss_.x = (xout0_data << 8 | xout1_data);
 		mon_xout_calib = gauss_.x;
@@ -284,8 +289,19 @@ void MMC5983MA::updateData()
 		mon_yout1 = yout1_data;
 
 		mon_xyzout2 = xyzout2_data;
-
+		*/
+		gauss_.x = store_data.xout - offset_.x;
+		gauss_.y = store_data.yout - offset_.y;
+		gauss_.z = store_data.zout - offset_.z;
 	//}
+
+}
+
+void MMC5983MA::requestDataReading()
+{
+	read_IT(X_OUT0_ADDRESS, 2);
+	read_IT(Y_OUT0_ADDRESS, 2);
+	read_IT(Z_OUT0_ADDRESS, 2);
 
 }
 

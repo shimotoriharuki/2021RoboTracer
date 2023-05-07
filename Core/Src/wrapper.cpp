@@ -1402,16 +1402,14 @@ void cppLoop(void)
 			led.LR(1, 1);
 			//magnetic_sensor.softwareReset();
 
-			magnetic_sensor.read_IT(0x00, 2);
-			//HAL_Delay(1);
-			magnetic_sensor.read_IT(0x02, 2);
 
 			magnetic_sensor.calibration();
 
 			mag_logger_x.start();
 			mag_logger_y.start();
-			//magnetic_sensor.measurementStartContinuous();
+			magnetic_sensor.measurementStartContinuous();
 			for(uint16_t i = 0; i < 500; i++){
+				magnetic_sensor.requestDataReading();
 				magnetic_sensor.updateData();
 
 				mon_gauss_x = magnetic_sensor.getGaussXData();
@@ -1419,7 +1417,7 @@ void cppLoop(void)
 				mag_logger_x.storeLogs(mon_gauss_x);
 				mag_logger_y.storeLogs(mon_gauss_y);
 
-				HAL_Delay(1);
+				HAL_Delay(10);
 
 			}
 			mag_logger_x.stop();
