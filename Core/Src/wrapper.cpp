@@ -1400,7 +1400,7 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(1000);
 			led.LR(1, 1);
-			magnetic_sensor.softwareReset();
+			//magnetic_sensor.softwareReset();
 
 			magnetic_sensor.calibration();
 

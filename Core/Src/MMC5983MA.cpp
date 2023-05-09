@@ -203,7 +203,7 @@ void MMC5983MA::calibration()
 	read(Y_OUT0_ADDRESS, read_y_out, 2);
 	read(Z_OUT0_ADDRESS, read_z_out, 2);
 
-	uint16_t x_out_set, y_out_set, z_out_set;
+	uint32_t x_out_set, y_out_set, z_out_set;
 	x_out_set = (read_x_out[0] << 8) | (read_x_out[1]);
 	y_out_set = (read_y_out[0] << 8) | (read_y_out[1]);
 	z_out_set = (read_z_out[0] << 8) | (read_z_out[1]);
@@ -218,13 +218,13 @@ void MMC5983MA::calibration()
 	read(Y_OUT0_ADDRESS, read_y_out, 2);
 	read(Z_OUT0_ADDRESS, read_z_out, 2);
 
-	uint16_t x_out_reset, y_out_reset, z_out_reset;
+	uint32_t x_out_reset, y_out_reset, z_out_reset;
 	x_out_reset = (read_x_out[0] << 8) | (read_x_out[1]);
 	y_out_reset = (read_y_out[0] << 8) | (read_y_out[1]);
 	z_out_reset = (read_z_out[0] << 8) | (read_z_out[1]);
 
 	//Calucurate true value excluding offset
-	int16_t x_out_H, y_out_H, z_out_H;
+	int32_t x_out_H, y_out_H, z_out_H;
 	x_out_H = (x_out_set - x_out_reset) / 2;
 	y_out_H = (y_out_set - y_out_reset) / 2;
 	z_out_H = (z_out_set - z_out_reset) / 2;

@@ -1,5 +1,5 @@
-MMC5983MA.cpp:50:6:void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef*)	40	static
-MMC5983MA.cpp:59:6:void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef*)	64	static
+MMC5983MA.cpp:50:6:void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef*)	48	static
+MMC5983MA.cpp:59:6:void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef*)	72	static
 MMC5983MA.cpp:86:1:MMC5983MA::MMC5983MA()	16	static
 MMC5983MA.cpp:100:6:void MMC5983MA::send(uint8_t*, uint16_t)	32	static
 MMC5983MA.cpp:105:6:void MMC5983MA::receive(uint8_t*, uint16_t)	32	static
@@ -12,7 +12,7 @@ MMC5983MA.cpp:153:6:void MMC5983MA::read_IT(uint8_t, uint16_t)	16	static
 MMC5983MA.cpp:163:6:void MMC5983MA::measurementStartOnce()	24	static
 MMC5983MA.cpp:174:6:void MMC5983MA::measurementStartContinuous()	24	static
 MMC5983MA.cpp:189:6:void MMC5983MA::measurementStop()	16	static
-MMC5983MA.cpp:194:6:void MMC5983MA::calibration()	48	static
+MMC5983MA.cpp:194:6:void MMC5983MA::calibration()	72	static
 MMC5983MA.cpp:242:6:void MMC5983MA::updateData()	16	static
 MMC5983MA.cpp:257:6:void MMC5983MA::requestDataReading()	16	static
 MMC5983MA.cpp:265:9:int16_t MMC5983MA::getGaussXData()	16	static
