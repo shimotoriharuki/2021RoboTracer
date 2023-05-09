@@ -71,9 +71,9 @@ public:
 	void calibration();
 	void updateData();
 	void requestDataReading();
-	int16_t getGaussXData();
-	int16_t getGaussYData();
-	int16_t getGaussZData();
+	int32_t getGaussXData();
+	int32_t getGaussYData();
+	int32_t getGaussZData();
 
 	void softwareReset();
 	void clearBuff();

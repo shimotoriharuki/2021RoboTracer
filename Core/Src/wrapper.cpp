@@ -1406,7 +1406,7 @@ void cppLoop(void)
 
 			mag_logger_x.start();
 			mag_logger_y.start();
-			magnetic_sensor.measurementStartContinuous();
+			//magnetic_sensor.measurementStartContinuous();
 
 			for(uint16_t i = 0; i < 500; i++){
 				magnetic_sensor.requestDataReading();

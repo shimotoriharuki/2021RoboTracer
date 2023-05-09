@@ -30,21 +30,18 @@ I2C_HandleTypeDef hi2c1;
 
 uint8_t mon_data[2];
 //uint16_t mon_xout, mon_yout;
-int16_t mon_xout_calib, mon_yout_calib;
 HAL_StatusTypeDef mon_ret;
-
-int16_t mon_offset_x, mon_offset_y, mon_offset_z;
 
 uint8_t mon_xout0, mon_xout1;
 uint8_t mon_yout0, mon_yout1;
 uint8_t mon_xyzout2;
 
-static uint8_t receive_buff[MAG_BUFF_SIZE];
+uint8_t receive_buff[MAG_BUFF_SIZE];
 
-static Queue queue_data[MAG_QUEUE_SIZE]; //[address][read data size]
-static uint8_t queue_idx;
+Queue queue_data[MAG_QUEUE_SIZE]; //[address][read data size]
+uint8_t queue_idx;
 
-static StoreData store_data;
+StoreData store_data;
 
 //------private-------//
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
@@ -58,14 +55,20 @@ void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
 
 void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
+	uint16_t temp0 = receive_buff[0];
+	uint16_t temp1 = receive_buff[1];
+
 	if(queue_data[0].addr== X_OUT0_ADDRESS){
-		store_data.xout = (receive_buff[0] << 8 | receive_buff[1]);
+		store_data.xout = (temp0 << 8 | temp1);
+		//store_data.xout = (receive_buff[0] << 8 | receive_buff[1]);
 	}
 	else if(queue_data[0].addr == Y_OUT0_ADDRESS){
-		store_data.yout = (receive_buff[0] << 8 | receive_buff[1]);
+		store_data.yout = (temp0 << 8 | temp1);
+		//store_data.yout = (receive_buff[0] << 8 | receive_buff[1]);
 	}
 	else if(queue_data[0].addr == Z_OUT0_ADDRESS){
-		store_data.zout = (receive_buff[0] << 8 | receive_buff[1]);
+		store_data.zout = (temp0 << 8 | temp1);
+		//store_data.zout = (receive_buff[0] << 8 | receive_buff[1]);
 	}
 
 	MMC5983MA mmc5983ma;
@@ -194,6 +197,9 @@ void MMC5983MA::measurementStop()
 void MMC5983MA::calibration()
 {
 	uint8_t read_x_out[2], read_y_out[2], read_z_out[2];
+	uint16_t temp_x[2];
+	uint16_t temp_y[2];
+	uint16_t temp_z[2];
 
 	//Get values when device is set mode;
 	uint8_t set_cmd = 0x08;
@@ -203,10 +209,18 @@ void MMC5983MA::calibration()
 	read(Y_OUT0_ADDRESS, read_y_out, 2);
 	read(Z_OUT0_ADDRESS, read_z_out, 2);
 
-	uint32_t x_out_set, y_out_set, z_out_set;
-	x_out_set = (read_x_out[0] << 8) | (read_x_out[1]);
-	y_out_set = (read_y_out[0] << 8) | (read_y_out[1]);
-	z_out_set = (read_z_out[0] << 8) | (read_z_out[1]);
+
+	int32_t x_out_set, y_out_set, z_out_set;
+	temp_x[0] = read_x_out[0];
+	temp_x[1] = read_x_out[1];
+	temp_y[0] = read_y_out[0];
+	temp_y[1] = read_y_out[1];
+	temp_z[0] = read_z_out[0];
+	temp_z[1] = read_z_out[1];
+
+	x_out_set = (temp_x[0] << 8) | (temp_x[1]);
+	y_out_set = (temp_y[0] << 8) | (temp_y[1]);
+	z_out_set = (temp_z[0] << 8) | (temp_z[1]);
 
 	HAL_Delay(10);
 
@@ -218,10 +232,16 @@ void MMC5983MA::calibration()
 	read(Y_OUT0_ADDRESS, read_y_out, 2);
 	read(Z_OUT0_ADDRESS, read_z_out, 2);
 
-	uint32_t x_out_reset, y_out_reset, z_out_reset;
-	x_out_reset = (read_x_out[0] << 8) | (read_x_out[1]);
-	y_out_reset = (read_y_out[0] << 8) | (read_y_out[1]);
-	z_out_reset = (read_z_out[0] << 8) | (read_z_out[1]);
+	int32_t x_out_reset, y_out_reset, z_out_reset;
+	temp_x[0] = read_x_out[0];
+	temp_x[1] = read_x_out[1];
+	temp_y[0] = read_y_out[0];
+	temp_y[1] = read_y_out[1];
+	temp_z[0] = read_z_out[0];
+	temp_z[1] = read_z_out[1];
+	x_out_reset = (temp_x[0] << 8) | (temp_x[1]);
+	y_out_reset = (temp_y[0] << 8) | (temp_y[1]);
+	z_out_reset = (temp_z[0] << 8) | (temp_z[1]);
 
 	//Calucurate true value excluding offset
 	int32_t x_out_H, y_out_H, z_out_H;
@@ -234,9 +254,6 @@ void MMC5983MA::calibration()
 	offset_.y = y_out_set - y_out_H;
 	offset_.z = z_out_set - z_out_H;
 
-	mon_offset_x = offset_.x;
-	mon_offset_y = offset_.y;
-	mon_offset_z = offset_.z;
 }
 
 void MMC5983MA::updateData()
@@ -262,19 +279,19 @@ void MMC5983MA::requestDataReading()
 
 }
 
-int16_t MMC5983MA::getGaussXData()
+int32_t MMC5983MA::getGaussXData()
 {
 	return gauss_.x;
 
 }
 
-int16_t MMC5983MA::getGaussYData()
+int32_t MMC5983MA::getGaussYData()
 {
 	return gauss_.y;
 
 }
 
-int16_t MMC5983MA::getGaussZData()
+int32_t MMC5983MA::getGaussZData()
 {
 	return gauss_.z;
 
