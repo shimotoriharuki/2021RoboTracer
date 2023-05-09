@@ -16,14 +16,14 @@
 #define READ 1
 
 struct Queue{
-	uint8_t data;
+	uint8_t addr;
 	uint8_t size;
 };
 
 struct StoreData{
-	uint16_t xout;
-	uint16_t yout;
-	uint16_t zout;
+	int32_t xout;
+	int32_t yout;
+	int32_t zout;
 };
 
 I2C_HandleTypeDef hi2c1;
@@ -40,7 +40,6 @@ uint8_t mon_yout0, mon_yout1;
 uint8_t mon_xyzout2;
 
 static uint8_t receive_buff[MAG_BUFF_SIZE];
-static bool receive_waiting_flag;
 
 static Queue queue_data[MAG_QUEUE_SIZE]; //[address][read data size]
 static uint8_t queue_idx;
@@ -51,8 +50,6 @@ static StoreData store_data;
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
 	if(queue_idx >= 1){
-		//receive_waiting_flag = false;
-
 		MMC5983MA mmc5983ma;
 		mmc5983ma.receive_IT(receive_buff, queue_data[0].size);
 	}
@@ -61,13 +58,13 @@ void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
 
 void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
-	if(queue_data[0].data == X_OUT0_ADDRESS){
+	if(queue_data[0].addr== X_OUT0_ADDRESS){
 		store_data.xout = (receive_buff[0] << 8 | receive_buff[1]);
 	}
-	else if(queue_data[0].data == Y_OUT0_ADDRESS){
+	else if(queue_data[0].addr == Y_OUT0_ADDRESS){
 		store_data.yout = (receive_buff[0] << 8 | receive_buff[1]);
 	}
-	else if(queue_data[0].data == Z_OUT0_ADDRESS){
+	else if(queue_data[0].addr == Z_OUT0_ADDRESS){
 		store_data.zout = (receive_buff[0] << 8 | receive_buff[1]);
 	}
 
@@ -79,7 +76,7 @@ void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c)
 
 	if(queue_idx >= 1){
 		MMC5983MA mmc5983ma;
-		mmc5983ma.send_IT(&queue_data[0].data, 1);
+		mmc5983ma.send_IT(&queue_data[0].addr, 1);
 	}
 }
 
@@ -155,16 +152,12 @@ void MMC5983MA::write_IT(uint8_t address, uint8_t *write_data, uint16_t write_da
 
 void MMC5983MA::read_IT(uint8_t address, uint16_t read_data_size)
 {
-	//receive_waiting_flag = true;
-
 	setQueue(address, read_data_size);
 
 	if(queue_idx == 1){
-		send_IT(&address, 1);
+		send_IT(&queue_data[0].addr, 1);
 	}
 
-
-	//receive_IT(read_data, read_data_size);
 }
 
 void MMC5983MA::measurementStartOnce()
@@ -174,9 +167,10 @@ void MMC5983MA::measurementStartOnce()
 	write_data = 0x01;
 	write(INTERNAL_CONTROL0_ADDRESS, &write_data, 1); //Measument start
 
-
+	queue_idx = 0;
 
 }
+
 void MMC5983MA::measurementStartContinuous()
 {
 	enable_flag_ = true;
@@ -188,6 +182,8 @@ void MMC5983MA::measurementStartContinuous()
 
 	write_data = 0xBD; //1011 1101
 	write(INTERNAL_CONTROL2_ADDRESS, &write_data, 1);
+
+	queue_idx = 0;
 }
 
 void MMC5983MA::measurementStop()
@@ -203,11 +199,8 @@ void MMC5983MA::calibration()
 	uint8_t set_cmd = 0x08;
 	write(INTERNAL_CONTROL0_ADDRESS, &set_cmd, 1); //set
 
-	//measurementStartOnce();
 	read(X_OUT0_ADDRESS, read_x_out, 2);
-	//measurementStartOnce();
 	read(Y_OUT0_ADDRESS, read_y_out, 2);
-	//measurementStartOnce();
 	read(Z_OUT0_ADDRESS, read_z_out, 2);
 
 	uint16_t x_out_set, y_out_set, z_out_set;
@@ -221,11 +214,8 @@ void MMC5983MA::calibration()
 	uint8_t reset_cmd = 0x10;
 	write(INTERNAL_CONTROL0_ADDRESS, &reset_cmd, 1); //reset
 
-	//measurementStartOnce();
 	read(X_OUT0_ADDRESS, read_x_out, 2);
-	//measurementStartOnce();
 	read(Y_OUT0_ADDRESS, read_y_out, 2);
-	//measurementStartOnce();
 	read(Z_OUT0_ADDRESS, read_z_out, 2);
 
 	uint16_t x_out_reset, y_out_reset, z_out_reset;
@@ -252,47 +242,14 @@ void MMC5983MA::calibration()
 void MMC5983MA::updateData()
 {
 	//if(enable_flag_ == true){
-		/*
-		uint8_t xout0_data, yout0_data;
-		uint8_t xout1_data, yout1_data;
-		uint8_t xyzout2_data;
-		*/
-
-		/*
-		measurementStartOnce();
-		read(X_OUT0_ADDRESS, &xout0_data, 1); // read xout
-		measurementStartOnce();
-		read(X_OUT1_ADDRESS, &xout1_data, 1); // read xout
-
-		measurementStartOnce();
-		read(Y_OUT0_ADDRESS, &yout0_data, 1); // read yout
-		measurementStartOnce();
-		read(Y_OUT1_ADDRESS, &yout1_data, 1); // read yout
-
-		measurementStartOnce();
-		read(XYZ_OUT2_ADDRESS, &xyzout2_data, 1); // read xyzout
-		*/
-
-		/*
-		gauss_.x = (xout0_data << 8 | xout1_data) - offset_.x;
-		//gauss_.x = (xout0_data << 8 | xout1_data);
-		mon_xout_calib = gauss_.x;
-
-		mon_xout0 = xout0_data;
-		mon_xout1 = xout1_data;
-
-		gauss_.y = (yout0_data << 8 | yout1_data) - offset_.y;
-		//gauss_.y = (yout0_data << 8 | yout1_data);
-		mon_yout_calib = gauss_.y;
-
-		mon_yout0 = yout0_data;
-		mon_yout1 = yout1_data;
-
-		mon_xyzout2 = xyzout2_data;
-		*/
 		gauss_.x = store_data.xout - offset_.x;
 		gauss_.y = store_data.yout - offset_.y;
 		gauss_.z = store_data.zout - offset_.z;
+		/*
+		gauss_.x = store_data.xout;
+		gauss_.y = store_data.yout;
+		gauss_.z = store_data.zout;
+		*/
 	//}
 
 }
@@ -301,7 +258,7 @@ void MMC5983MA::requestDataReading()
 {
 	read_IT(X_OUT0_ADDRESS, 2);
 	read_IT(Y_OUT0_ADDRESS, 2);
-	read_IT(Z_OUT0_ADDRESS, 2);
+	//read_IT(Z_OUT0_ADDRESS, 2);
 
 }
 
@@ -339,7 +296,7 @@ void MMC5983MA::clearBuff()
 
 void MMC5983MA::setQueue(uint8_t data, uint8_t size)
 {
-	queue_data[queue_idx].data = data;
+	queue_data[queue_idx].addr = data;
 	queue_data[queue_idx].size = size;
 
 	queue_idx++;
