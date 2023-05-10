@@ -1402,12 +1402,48 @@ void cppLoop(void)
 			led.LR(1, 1);
 			//magnetic_sensor.softwareReset();
 
-			magnetic_sensor.calibration();
+			magnetic_sensor.resetcalibrationInfo();
+
+			magnetic_sensor.calibrationUsingSetReset();
+
+			/*
+			lcd_clear();
+			lcd_locate(0,0);
+			lcd_printf("Rotate");
+			lcd_locate(0,1);
+			lcd_printf("calib");
+			HAL_Delay(500);
+			*/
+			bool break_flag = false;
+			while(break_flag == false){
+				magnetic_sensor.requestDataReading();
+
+				HAL_Delay(10);
+
+				magnetic_sensor.updateData();
+				mon_gauss_x = magnetic_sensor.getGaussXData();
+				mon_gauss_y = magnetic_sensor.getGaussYData();
+
+				magnetic_sensor.calibrationUsingRotation();
+
+				if(joy_stick.getValue() == JOY_C){
+					break_flag = true;
+				}
+
+			}
+
+			magnetic_sensor.calcRotationOffset();
+
+			/*
+			lcd_clear();
+			lcd_locate(0,0);
+			lcd_printf("Recording");
+			lcd_locate(0,1);
+			lcd_printf("Rotate");
+			*/
 
 			mag_logger_x.start();
 			mag_logger_y.start();
-			//magnetic_sensor.measurementStartContinuous();
-
 			for(uint16_t i = 0; i < 500; i++){
 				magnetic_sensor.requestDataReading();
 

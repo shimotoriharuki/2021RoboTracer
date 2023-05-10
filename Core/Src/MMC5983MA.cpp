@@ -86,11 +86,15 @@ void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c)
 
 //------public--------//
 
-MMC5983MA::MMC5983MA() : enable_flag_(false)
+MMC5983MA::MMC5983MA() : enable_flag_(false), max_x_(0), min_x_(0), max_y_(0), min_y_(0), max_z_(0), min_z_(0)
 {
-	offset_.x = 0;
-	offset_.y = 0;
-	offset_.z = 0;
+	set_reset_offset_.x = 0;
+	set_reset_offset_.y = 0;
+	set_reset_offset_.z = 0;
+
+	rotation_offset_.x = 0;
+	rotation_offset_.y = 0;
+	rotation_offset_.z = 0;
 
 	gauss_.x = 0;
 	gauss_.y = 0;
@@ -194,7 +198,7 @@ void MMC5983MA::measurementStop()
 
 }
 
-void MMC5983MA::calibration()
+void MMC5983MA::calibrationUsingSetReset()
 {
 	uint8_t read_x_out[2], read_y_out[2], read_z_out[2];
 	uint16_t temp_x[2];
@@ -250,18 +254,31 @@ void MMC5983MA::calibration()
 	z_out_H = (z_out_set - z_out_reset) / 2;
 
 	//Calucurate offset
-	offset_.x = x_out_set - x_out_H;
-	offset_.y = y_out_set - y_out_H;
-	offset_.z = z_out_set - z_out_H;
+	set_reset_offset_.x = x_out_set - x_out_H;
+	set_reset_offset_.y = y_out_set - y_out_H;
+	set_reset_offset_.z = z_out_set - z_out_H;
+
+}
+
+void MMC5983MA::calibrationUsingRotation()
+{
+	if(gauss_.x >= max_x_) max_x_ = gauss_.x;
+	else if(min_x_ < gauss_.x) min_x_ = gauss_.x;
+
+	if(gauss_.y >= max_y_) max_y_ = gauss_.y;
+	else if(min_y_ < gauss_.y) min_y_ = gauss_.y;
+
+	if(gauss_.z >= max_z_) max_z_ = gauss_.z;
+	else if(min_z_ < gauss_.z) min_z_ = gauss_.z;
 
 }
 
 void MMC5983MA::updateData()
 {
 	//if(enable_flag_ == true){
-		gauss_.x = store_data.xout - offset_.x;
-		gauss_.y = store_data.yout - offset_.y;
-		gauss_.z = store_data.zout - offset_.z;
+		gauss_.x = store_data.xout - set_reset_offset_.x - rotation_offset_.x;
+		gauss_.y = store_data.yout - set_reset_offset_.y - rotation_offset_.y;
+		gauss_.z = store_data.zout - set_reset_offset_.z - rotation_offset_.z;
 		/*
 		gauss_.x = store_data.xout;
 		gauss_.y = store_data.yout;
@@ -326,4 +343,26 @@ void MMC5983MA::shiftQueue()
 	for(uint8_t idx = 0; idx < MAG_QUEUE_SIZE - 1; idx++){
 		queue_data[idx] = queue_data[idx + 1];
 	}
+}
+
+void MMC5983MA::resetcalibrationInfo()
+{
+	set_reset_offset_.x = 0;
+	set_reset_offset_.y = 0;
+	set_reset_offset_.z = 0;
+
+	rotation_offset_.x = 0;
+	rotation_offset_.y = 0;
+	rotation_offset_.z = 0;
+
+	max_x_ = min_x_ = 0;
+	max_y_ = min_y_ = 0;
+	max_z_ = min_z_ = 0;
+}
+
+void MMC5983MA::calcRotationOffset()
+{
+	rotation_offset_.x = (max_x_ + min_x_) / 2;
+	rotation_offset_.y = (max_y_ + min_y_) / 2;
+	rotation_offset_.z = (max_z_ + min_z_) / 2;
 }

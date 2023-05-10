@@ -42,10 +42,14 @@ private:
 		int32_t z;
 	};
 
-	Offset offset_;
+	Offset set_reset_offset_;
+	Offset rotation_offset_;
 	Gauss gauss_;
 	bool enable_flag_;
 
+	int32_t max_x_, min_x_;
+	int32_t max_y_, min_y_;
+	int32_t max_z_, min_z_;
 
 	void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef);
 	void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef);
@@ -68,7 +72,8 @@ public:
 	void measurementStartContinuous();
 	void measurementStop();
 
-	void calibration();
+	void calibrationUsingSetReset();
+	void calibrationUsingRotation();
 	void updateData();
 	void requestDataReading();
 	int32_t getGaussXData();
@@ -80,6 +85,9 @@ public:
 
 	void setQueue(uint8_t , uint8_t);
 	void shiftQueue();
+
+	void resetcalibrationInfo();
+	void calcRotationOffset();
 };
 
 
