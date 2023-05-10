@@ -74,6 +74,8 @@ public:
 
 	void calibrationUsingSetReset();
 	void calibrationUsingRotation();
+	void calcRotationOffset();
+
 	void updateData();
 	void requestDataReading();
 	int32_t getGaussXData();
@@ -86,8 +88,7 @@ public:
 	void setQueue(uint8_t , uint8_t);
 	void shiftQueue();
 
-	void resetcalibrationInfo();
-	void calcRotationOffset();
+	void clearCalibrationInfo();
 };
 
 

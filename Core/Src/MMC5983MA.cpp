@@ -43,6 +43,9 @@ uint8_t queue_idx;
 
 StoreData store_data;
 
+int32_t mon_max_x, mon_max_y, mon_max_z;
+int32_t mon_min_x, mon_min_y, mon_min_z;
+
 //------private-------//
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
@@ -263,14 +266,29 @@ void MMC5983MA::calibrationUsingSetReset()
 void MMC5983MA::calibrationUsingRotation()
 {
 	if(gauss_.x >= max_x_) max_x_ = gauss_.x;
-	else if(min_x_ < gauss_.x) min_x_ = gauss_.x;
+	else if(min_x_ > gauss_.x) min_x_ = gauss_.x;
 
 	if(gauss_.y >= max_y_) max_y_ = gauss_.y;
-	else if(min_y_ < gauss_.y) min_y_ = gauss_.y;
+	else if(min_y_ > gauss_.y) min_y_ = gauss_.y;
 
 	if(gauss_.z >= max_z_) max_z_ = gauss_.z;
-	else if(min_z_ < gauss_.z) min_z_ = gauss_.z;
+	else if(min_z_ > gauss_.z) min_z_ = gauss_.z;
 
+	mon_max_x = max_x_;
+	mon_min_x = min_x_;
+
+	mon_max_y = max_y_;
+	mon_min_y = min_y_;
+
+	mon_max_z = max_z_;
+	mon_min_z = min_z_;
+}
+
+void MMC5983MA::calcRotationOffset()
+{
+	rotation_offset_.x = (max_x_ + min_x_) / 2;
+	rotation_offset_.y = (max_y_ + min_y_) / 2;
+	rotation_offset_.z = (max_z_ + min_z_) / 2;
 }
 
 void MMC5983MA::updateData()
@@ -345,7 +363,7 @@ void MMC5983MA::shiftQueue()
 	}
 }
 
-void MMC5983MA::resetcalibrationInfo()
+void MMC5983MA::clearCalibrationInfo()
 {
 	set_reset_offset_.x = 0;
 	set_reset_offset_.y = 0;
@@ -360,9 +378,3 @@ void MMC5983MA::resetcalibrationInfo()
 	max_z_ = min_z_ = 0;
 }
 
-void MMC5983MA::calcRotationOffset()
-{
-	rotation_offset_.x = (max_x_ + min_x_) / 2;
-	rotation_offset_.y = (max_y_ + min_y_) / 2;
-	rotation_offset_.z = (max_z_ + min_z_) / 2;
-}
