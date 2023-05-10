@@ -45,6 +45,7 @@ StoreData store_data;
 
 int32_t mon_max_x, mon_max_y, mon_max_z;
 int32_t mon_min_x, mon_min_y, mon_min_z;
+int32_t mon_gauss_x, mon_gauss_y, mon_gauss_z;
 
 //------private-------//
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
@@ -111,7 +112,7 @@ void MMC5983MA::init()
 {
 	//softwareReset();
 
-	clearCalibrationInfo();
+	//clearCalibrationInfo();
 	calibrationUsingSetReset();
 	measurementStartContinuous();
 }
@@ -301,7 +302,6 @@ void MMC5983MA::calibrationUsingRotation()
 	if(gauss_.z >= max_z_) max_z_ = gauss_.z;
 	else if(min_z_ > gauss_.z) min_z_ = gauss_.z;
 
-	/*
 	mon_max_x = max_x_;
 	mon_min_x = min_x_;
 
@@ -310,7 +310,6 @@ void MMC5983MA::calibrationUsingRotation()
 
 	mon_max_z = max_z_;
 	mon_min_z = min_z_;
-	*/
 }
 
 void MMC5983MA::applyRotationOffset()
@@ -326,13 +325,16 @@ void MMC5983MA::updateData()
 	gauss_.y = store_data.yout - set_reset_offset_.y - rotation_offset_.y;
 	gauss_.z = store_data.zout - set_reset_offset_.z - rotation_offset_.z;
 
+	mon_gauss_x = gauss_.x;
+	mon_gauss_y = gauss_.y;
+	mon_gauss_z = gauss_.z;
 }
 
 void MMC5983MA::requestDataReading()
 {
 	read_IT(X_OUT0_ADDRESS, 2);
 	read_IT(Y_OUT0_ADDRESS, 2);
-	//read_IT(Z_OUT0_ADDRESS, 2);
+	read_IT(Z_OUT0_ADDRESS, 2);
 
 }
 
@@ -387,9 +389,11 @@ void MMC5983MA::shiftQueue()
 
 void MMC5983MA::clearCalibrationInfo()
 {
+	/*
 	set_reset_offset_.x = 0;
 	set_reset_offset_.y = 0;
 	set_reset_offset_.z = 0;
+	*/
 
 	rotation_offset_.x = 0;
 	rotation_offset_.y = 0;

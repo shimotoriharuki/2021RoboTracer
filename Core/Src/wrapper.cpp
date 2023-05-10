@@ -85,9 +85,9 @@ float mon_odo_x, mon_odo_y, mon_odo_theta;
 bool ekf_start_flag = false;
 float tmp[10];
 
-int32_t mon_gauss_x, mon_gauss_y;
 uint8_t monmon[2];
 
+int32_t gauss_x, gauss_y;
 //I2C_HandleTypeDef hi2c1;
 
 void batteryLowMode()
@@ -1413,6 +1413,9 @@ void cppLoop(void)
 			HAL_Delay(500);
 
 			magnetic_sensor.start();
+			HAL_Delay(10);
+
+			magnetic_sensor.clearCalibrationInfo();
 
 			bool break_flag = false;
 			while(break_flag == false){
@@ -1446,10 +1449,10 @@ void cppLoop(void)
 				HAL_Delay(10);
 
 				//magnetic_sensor.updateData();
-				mon_gauss_x = magnetic_sensor.getGaussXData();
-				mon_gauss_y = magnetic_sensor.getGaussYData();
-				mag_logger_x.storeLogs(mon_gauss_x);
-				mag_logger_y.storeLogs(mon_gauss_y);
+				gauss_x = magnetic_sensor.getGaussXData();
+				gauss_y = magnetic_sensor.getGaussYData();
+				mag_logger_x.storeLogs(gauss_x);
+				mag_logger_y.storeLogs(gauss_y);
 
 			}
 			magnetic_sensor.stop();
