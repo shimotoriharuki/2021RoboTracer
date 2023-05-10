@@ -107,6 +107,35 @@ MMC5983MA::MMC5983MA() : enable_flag_(false), max_x_(0), min_x_(0), max_y_(0), m
 
 }
 
+void MMC5983MA::init()
+{
+	//softwareReset();
+
+	clearCalibrationInfo();
+	calibrationUsingSetReset();
+	measurementStartContinuous();
+}
+
+void MMC5983MA::flip()
+{
+	if(enable_flag_  == true){
+		requestDataReading();
+		updateData();
+	}
+
+}
+
+void MMC5983MA::start()
+{
+	enable_flag_ = true;
+
+}
+
+void MMC5983MA::stop()
+{
+	enable_flag_ = false;
+}
+
 void MMC5983MA::send(uint8_t *cmd, uint16_t size)
 {
 	HAL_I2C_Master_Transmit(&hi2c1, MAG_SLAVEADRESS, cmd, size, 100);
@@ -183,8 +212,6 @@ void MMC5983MA::measurementStartOnce()
 
 void MMC5983MA::measurementStartContinuous()
 {
-	enable_flag_ = true;
-
 	uint8_t write_data;
 
 	write_data = 0x21; //0010 0001
@@ -274,6 +301,7 @@ void MMC5983MA::calibrationUsingRotation()
 	if(gauss_.z >= max_z_) max_z_ = gauss_.z;
 	else if(min_z_ > gauss_.z) min_z_ = gauss_.z;
 
+	/*
 	mon_max_x = max_x_;
 	mon_min_x = min_x_;
 
@@ -282,9 +310,10 @@ void MMC5983MA::calibrationUsingRotation()
 
 	mon_max_z = max_z_;
 	mon_min_z = min_z_;
+	*/
 }
 
-void MMC5983MA::calcRotationOffset()
+void MMC5983MA::applyRotationOffset()
 {
 	rotation_offset_.x = (max_x_ + min_x_) / 2;
 	rotation_offset_.y = (max_y_ + min_y_) / 2;
@@ -293,16 +322,9 @@ void MMC5983MA::calcRotationOffset()
 
 void MMC5983MA::updateData()
 {
-	//if(enable_flag_ == true){
-		gauss_.x = store_data.xout - set_reset_offset_.x - rotation_offset_.x;
-		gauss_.y = store_data.yout - set_reset_offset_.y - rotation_offset_.y;
-		gauss_.z = store_data.zout - set_reset_offset_.z - rotation_offset_.z;
-		/*
-		gauss_.x = store_data.xout;
-		gauss_.y = store_data.yout;
-		gauss_.z = store_data.zout;
-		*/
-	//}
+	gauss_.x = store_data.xout - set_reset_offset_.x - rotation_offset_.x;
+	gauss_.y = store_data.yout - set_reset_offset_.y - rotation_offset_.y;
+	gauss_.z = store_data.zout - set_reset_offset_.z - rotation_offset_.z;
 
 }
 

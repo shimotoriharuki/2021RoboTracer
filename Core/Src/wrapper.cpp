@@ -180,6 +180,8 @@ void cppInit(void)
 
 	down_force_unit.init();
 
+	magnetic_sensor.init();
+
 }
 
 void cppFlip1ms(void)
@@ -233,6 +235,8 @@ void cppFlip10ms(void)
 	//magnetic_sensor.updateData();
 	//mon_gauss_x = magnetic_sensor.getGaussXData();
 	//mon_gauss_y = magnetic_sensor.getGaussYData();
+
+	magnetic_sensor.flip();
 
 	//-----EKF pricessing ------//
 	if(ekf_start_flag == true && line_trace.isRunning() == true){
@@ -1400,13 +1404,6 @@ void cppLoop(void)
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(1000);
 			led.LR(1, 1);
-			//magnetic_sensor.softwareReset();
-
-			magnetic_sensor.clearCalibrationInfo();
-
-			magnetic_sensor.calibrationUsingSetReset();
-
-			magnetic_sensor.measurementStartContinuous();
 
 			lcd_clear();
 			lcd_locate(0,0);
@@ -1415,25 +1412,25 @@ void cppLoop(void)
 			lcd_printf("calib");
 			HAL_Delay(500);
 
+			magnetic_sensor.start();
+
 			bool break_flag = false;
 			while(break_flag == false){
-				magnetic_sensor.requestDataReading();
 
 				HAL_Delay(10);
 
-				magnetic_sensor.updateData();
-				mon_gauss_x = magnetic_sensor.getGaussXData();
-				mon_gauss_y = magnetic_sensor.getGaussYData();
+				//magnetic_sensor.updateData();
+				//mon_gauss_x = magnetic_sensor.getGaussXData();
+				//mon_gauss_y = magnetic_sensor.getGaussYData();
 
 				magnetic_sensor.calibrationUsingRotation();
 
 				if(joy_stick.getValue() == JOY_C){
 					break_flag = true;
-					magnetic_sensor.calcRotationOffset();
+					magnetic_sensor.applyRotationOffset();
 				}
 
 			}
-
 
 			lcd_clear();
 			lcd_locate(0,0);
@@ -1444,17 +1441,19 @@ void cppLoop(void)
 			mag_logger_x.start();
 			mag_logger_y.start();
 			for(uint16_t i = 0; i < 500; i++){
-				magnetic_sensor.requestDataReading();
+				//magnetic_sensor.requestDataReading();
 
 				HAL_Delay(10);
 
-				magnetic_sensor.updateData();
+				//magnetic_sensor.updateData();
 				mon_gauss_x = magnetic_sensor.getGaussXData();
 				mon_gauss_y = magnetic_sensor.getGaussYData();
 				mag_logger_x.storeLogs(mon_gauss_x);
 				mag_logger_y.storeLogs(mon_gauss_y);
 
 			}
+			magnetic_sensor.stop();
+
 			mag_logger_x.stop();
 			mag_logger_y.stop();
 

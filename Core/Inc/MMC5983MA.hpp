@@ -58,6 +58,11 @@ private:
 public:
 	MMC5983MA();
 
+	void init();
+	void flip();
+	void start();
+	void stop();
+
 	void send(uint8_t *, uint16_t);
 	void receive(uint8_t *, uint16_t);
 	void send_IT(uint8_t *, uint16_t);
@@ -74,7 +79,7 @@ public:
 
 	void calibrationUsingSetReset();
 	void calibrationUsingRotation();
-	void calcRotationOffset();
+	void applyRotationOffset();
 
 	void updateData();
 	void requestDataReading();
