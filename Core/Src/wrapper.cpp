@@ -1406,6 +1406,8 @@ void cppLoop(void)
 
 			magnetic_sensor.calibrationUsingSetReset();
 
+			magnetic_sensor.measurementStartContinuous();
+
 			/*
 			lcd_clear();
 			lcd_locate(0,0);
