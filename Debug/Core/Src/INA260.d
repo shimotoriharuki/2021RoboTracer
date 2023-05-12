@@ -1,4 +1,4 @@
-Core/Src/INA260.o: ../Core/Src/INA260.c ../Core/Src/INA260.h \
+Core/Src/INA260.o: ../Core/Src/INA260.c ../Core/Inc/INA260.h \
  ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -35,7 +35,7 @@ Core/Src/INA260.o: ../Core/Src/INA260.c ../Core/Src/INA260.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 
-../Core/Src/INA260.h:
+../Core/Inc/INA260.h:
 
 ../Core/Inc/main.h:
 

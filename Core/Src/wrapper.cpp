@@ -67,6 +67,7 @@ PathFollowing path_following;
 Logger2 logger1(&sd_card, 500);
 Logger2 mag_logger_x(&sd_card, 500);
 Logger2 mag_logger_y(&sd_card, 500);
+Logger2 mag_logger_angle(&sd_card, 500);
 
 Logger2 odometry_position_logger(&sd_card, 3000);
 Logger2 estimated_position_logger(&sd_card, 3000);
@@ -1415,7 +1416,8 @@ void cppLoop(void)
 			magnetic_sensor.start();
 			HAL_Delay(10);
 
-			magnetic_sensor.clearCalibrationInfo();
+			//magnetic_sensor.clearCalibrationInfo();
+			//magnetic_sensor.measurementStartContinuous();
 
 			bool break_flag = false;
 			while(break_flag == false){
@@ -1435,14 +1437,19 @@ void cppLoop(void)
 
 			}
 
+			/*
 			lcd_clear();
 			lcd_locate(0,0);
 			lcd_printf("Recording");
 			lcd_locate(0,1);
 			lcd_printf("Rotate");
+			*/
 
 			mag_logger_x.start();
 			mag_logger_y.start();
+			mag_logger_angle.start();
+			//magnetic_sensor.measurementStartContinuous();
+			float angle = 0;
 			for(uint16_t i = 0; i < 500; i++){
 				//magnetic_sensor.requestDataReading();
 
@@ -1451,18 +1458,23 @@ void cppLoop(void)
 				//magnetic_sensor.updateData();
 				gauss_x = magnetic_sensor.getGaussXData();
 				gauss_y = magnetic_sensor.getGaussYData();
+				angle = magnetic_sensor.calcAngle(float(gauss_x), float(gauss_y));
+
 				mag_logger_x.storeLogs(gauss_x);
 				mag_logger_y.storeLogs(gauss_y);
+				mag_logger_angle.storeLogs(angle);
 
 			}
 			magnetic_sensor.stop();
 
 			mag_logger_x.stop();
 			mag_logger_y.stop();
+			mag_logger_angle.stop();
 
 			led.LR(-1, 0);
 			mag_logger_x.saveLogs("STATELOG", "geomagnetism_x");
 			mag_logger_y.saveLogs("STATELOG", "geomagnetism_y");
+			mag_logger_angle.saveLogs("STATELOG", "geomagnetism_angle");
 
 
 			HAL_Delay(1000);

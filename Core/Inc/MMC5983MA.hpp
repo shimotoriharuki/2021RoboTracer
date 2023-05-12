@@ -51,6 +51,8 @@ private:
 	int32_t max_y_, min_y_;
 	int32_t max_z_, min_z_;
 
+	float angle_;
+
 	void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef);
 	void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef);
 
@@ -80,6 +82,7 @@ public:
 	void calibrationUsingSetReset();
 	void calibrationUsingRotation();
 	void applyRotationOffset();
+	void clearCalibrationInfo();
 
 	void updateData();
 	void requestDataReading();
@@ -87,13 +90,14 @@ public:
 	int32_t getGaussYData();
 	int32_t getGaussZData();
 
+	float calcAngle(float, float);
+
 	void softwareReset();
 	void clearBuff();
 
 	void setQueue(uint8_t , uint8_t);
 	void shiftQueue();
 
-	void clearCalibrationInfo();
 };
 
 

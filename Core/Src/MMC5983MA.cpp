@@ -10,6 +10,7 @@
 #include <stm32f4xx_hal_def.h>
 #include <stm32f4xx_hal_i2c.h>
 #include <sys/_stdint.h>
+#include <cmath>
 
 #define MAG_SLAVEADRESS 0x60
 #define WRITE 0
@@ -90,7 +91,7 @@ void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c)
 
 //------public--------//
 
-MMC5983MA::MMC5983MA() : enable_flag_(false), max_x_(0), min_x_(0), max_y_(0), min_y_(0), max_z_(0), min_z_(0)
+MMC5983MA::MMC5983MA() : enable_flag_(false), max_x_(0), min_x_(0), max_y_(0), min_y_(0), max_z_(0), min_z_(0), angle_(0)
 {
 	set_reset_offset_.x = 0;
 	set_reset_offset_.y = 0;
@@ -319,6 +320,23 @@ void MMC5983MA::applyRotationOffset()
 	rotation_offset_.z = (max_z_ + min_z_) / 2;
 }
 
+void MMC5983MA::clearCalibrationInfo()
+{
+	/*
+	set_reset_offset_.x = 0;
+	set_reset_offset_.y = 0;
+	set_reset_offset_.z = 0;
+	*/
+
+	rotation_offset_.x = 0;
+	rotation_offset_.y = 0;
+	rotation_offset_.z = 0;
+
+	max_x_ = min_x_ = 0;
+	max_y_ = min_y_ = 0;
+	max_z_ = min_z_ = 0;
+}
+
 void MMC5983MA::updateData()
 {
 	gauss_.x = store_data.xout - set_reset_offset_.x - rotation_offset_.x;
@@ -356,6 +374,17 @@ int32_t MMC5983MA::getGaussZData()
 
 }
 
+float MMC5983MA::calcAngle(float gauss_x, float gauss_y)
+{
+	float angle;
+	if(gauss_x != 0 && gauss_y != 0){
+		angle = std::atan2(gauss_y, gauss_x);
+	}
+
+	return angle;
+}
+
+
 void MMC5983MA::softwareReset()
 {
 	uint8_t write_data = 0x08;
@@ -386,21 +415,3 @@ void MMC5983MA::shiftQueue()
 		queue_data[idx] = queue_data[idx + 1];
 	}
 }
-
-void MMC5983MA::clearCalibrationInfo()
-{
-	/*
-	set_reset_offset_.x = 0;
-	set_reset_offset_.y = 0;
-	set_reset_offset_.z = 0;
-	*/
-
-	rotation_offset_.x = 0;
-	rotation_offset_.y = 0;
-	rotation_offset_.z = 0;
-
-	max_x_ = min_x_ = 0;
-	max_y_ = min_y_ = 0;
-	max_z_ = min_z_ = 0;
-}
-
