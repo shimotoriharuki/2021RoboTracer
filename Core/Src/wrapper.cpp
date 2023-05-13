@@ -1413,20 +1413,17 @@ void cppLoop(void)
 			lcd_printf("calib");
 			HAL_Delay(500);
 
+			magnetic_sensor.clearCalibrationInfo();
+
+			//magnetic_sensor.measurementStartContinuous();
+
 			magnetic_sensor.start();
 			HAL_Delay(10);
-
-			//magnetic_sensor.clearCalibrationInfo();
-			//magnetic_sensor.measurementStartContinuous();
 
 			bool break_flag = false;
 			while(break_flag == false){
 
 				HAL_Delay(10);
-
-				//magnetic_sensor.updateData();
-				//mon_gauss_x = magnetic_sensor.getGaussXData();
-				//mon_gauss_y = magnetic_sensor.getGaussYData();
 
 				magnetic_sensor.calibrationUsingRotation();
 
@@ -1437,21 +1434,14 @@ void cppLoop(void)
 
 			}
 
-			/*
-			lcd_clear();
-			lcd_locate(0,0);
-			lcd_printf("Recording");
-			lcd_locate(0,1);
-			lcd_printf("Rotate");
-			*/
+			HAL_Delay(10);
 
 			mag_logger_x.start();
 			mag_logger_y.start();
 			mag_logger_angle.start();
-			//magnetic_sensor.measurementStartContinuous();
+
 			float angle = 0;
 			for(uint16_t i = 0; i < 500; i++){
-				//magnetic_sensor.requestDataReading();
 
 				HAL_Delay(10);
 
@@ -1465,6 +1455,7 @@ void cppLoop(void)
 				mag_logger_angle.storeLogs(angle);
 
 			}
+
 			magnetic_sensor.stop();
 
 			mag_logger_x.stop();

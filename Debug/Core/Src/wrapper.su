@@ -7,6 +7,6 @@ wrapper.cpp:219:6:void cppFlip100ns()	8	static
 wrapper.cpp:224:6:void cppFlip10ms()	64	static
 wrapper.cpp:316:6:void cppExit(uint16_t)	16	static
 wrapper.cpp:326:6:void cppLoop()	48	static
-wrapper.cpp:1701:1:void __static_initialization_and_destruction_0(int, int)	40	static
-wrapper.cpp:1701:1:cpp)	8	static
-wrapper.cpp:1701:1:cpp)	8	static
+wrapper.cpp:1692:1:void __static_initialization_and_destruction_0(int, int)	40	static
+wrapper.cpp:1692:1:cpp)	8	static
+wrapper.cpp:1692:1:cpp)	8	static

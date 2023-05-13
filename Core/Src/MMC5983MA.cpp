@@ -111,7 +111,7 @@ MMC5983MA::MMC5983MA() : enable_flag_(false), max_x_(0), min_x_(0), max_y_(0), m
 
 void MMC5983MA::init()
 {
-	//softwareReset();
+	softwareReset();
 
 	//clearCalibrationInfo();
 	calibrationUsingSetReset();
