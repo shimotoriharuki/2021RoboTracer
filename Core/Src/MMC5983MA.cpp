@@ -123,7 +123,7 @@ void MMC5983MA::flip()
 	if(enable_flag_  == true){
 		requestDataReading();
 		updateData();
-		//calcAngle();
+		calcAngle();
 	}
 
 }

@@ -1448,7 +1448,7 @@ void cppLoop(void)
 			mag_logger_y.start();
 			mag_logger_angle.start();
 
-			//motor.setRatio(-0.1, 0.1);
+			motor.setRatio(-0.1, 0.1);
 			float angle = 0;
 			for(uint16_t i = 0; i < 500; i++){
 
@@ -1456,8 +1456,8 @@ void cppLoop(void)
 
 				gauss_x = magnetic_sensor.getGaussXData();
 				gauss_y = magnetic_sensor.getGaussYData();
-				//angle = magnetic_sensor.calcAngle(float(gauss_x), float(gauss_y));
-				magnetic_sensor.calcAngle();
+				angle = magnetic_sensor.calcAngle(float(gauss_x), float(gauss_y));
+				//magnetic_sensor.calcAngle();
 				angle = magnetic_sensor.getAngle();
 
 				mag_logger_x.storeLogs(gauss_x);
