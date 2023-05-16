@@ -123,6 +123,7 @@ void MMC5983MA::flip()
 	if(enable_flag_  == true){
 		requestDataReading();
 		updateData();
+		//calcAngle();
 	}
 
 }
@@ -384,6 +385,19 @@ float MMC5983MA::calcAngle(float gauss_x, float gauss_y)
 	return angle;
 }
 
+void MMC5983MA::calcAngle()
+{
+	if(gauss_.x != 0 && gauss_.y != 0){
+		angle_ = std::atan2(gauss_.y, gauss_.x);
+	}
+
+
+}
+
+float MMC5983MA::getAngle()
+{
+	return angle_;
+}
 
 void MMC5983MA::softwareReset()
 {

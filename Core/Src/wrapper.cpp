@@ -1442,34 +1442,30 @@ void cppLoop(void)
 
 			}
 
-			magnetic_sensor.stop();
 			HAL_Delay(10);
 
-			/*
 			mag_logger_x.start();
 			mag_logger_y.start();
 			mag_logger_angle.start();
 
-			velocity_ctrl.setVelocity(0, 3.14);
-			velocity_ctrl.start();
+			//motor.setRatio(-0.1, 0.1);
 			float angle = 0;
 			for(uint16_t i = 0; i < 500; i++){
 
 				HAL_Delay(10);
 
-				//magnetic_sensor.updateData();
 				gauss_x = magnetic_sensor.getGaussXData();
 				gauss_y = magnetic_sensor.getGaussYData();
-				angle = magnetic_sensor.calcAngle(float(gauss_x), float(gauss_y));
+				//angle = magnetic_sensor.calcAngle(float(gauss_x), float(gauss_y));
+				magnetic_sensor.calcAngle();
+				angle = magnetic_sensor.getAngle();
 
 				mag_logger_x.storeLogs(gauss_x);
 				mag_logger_y.storeLogs(gauss_y);
 				mag_logger_angle.storeLogs(angle);
 
 			}
-			velocity_ctrl.setVelocity(0, 0);
-			HAL_Delay(10);
-			velocity_ctrl.stop();
+			motor.setRatio(0.0, 0.0);
 
 			magnetic_sensor.stop();
 
@@ -1484,7 +1480,6 @@ void cppLoop(void)
 
 			HAL_Delay(1000);
 
-			*/
 			//uint8_t address = 0x60;
 			//uint8_t data = 0x08;
 			//HAL_I2C_Master_Transmit(&hi2c1, address, &data, 1, 100);

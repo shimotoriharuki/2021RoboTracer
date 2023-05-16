@@ -91,6 +91,8 @@ public:
 	int32_t getGaussZData();
 
 	float calcAngle(float, float);
+	void calcAngle();
+	float getAngle();
 
 	void softwareReset();
 	void clearBuff();

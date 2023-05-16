@@ -4,30 +4,33 @@ MMC5983MA.cpp:61:6:void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef*)	160	sta
 MMC5983MA.cpp:94:1:MMC5983MA::MMC5983MA()	16	static
 MMC5983MA.cpp:112:6:void MMC5983MA::init()	16	static
 MMC5983MA.cpp:121:6:void MMC5983MA::flip()	16	static
-MMC5983MA.cpp:130:6:void MMC5983MA::start()	16	static
-MMC5983MA.cpp:136:6:void MMC5983MA::stop()	16	static
-MMC5983MA.cpp:141:6:void MMC5983MA::send(uint8_t*, uint16_t)	32	static
-MMC5983MA.cpp:146:6:void MMC5983MA::receive(uint8_t*, uint16_t)	32	static
-MMC5983MA.cpp:151:6:void MMC5983MA::send_IT(uint8_t*, uint16_t)	24	static
-MMC5983MA.cpp:156:6:void MMC5983MA::receive_IT(uint8_t*, uint16_t)	24	static
-MMC5983MA.cpp:161:6:void MMC5983MA::write(uint8_t, uint8_t*, uint16_t)	48	dynamic
-MMC5983MA.cpp:174:6:void MMC5983MA::read(uint8_t, uint8_t*, uint16_t)	24	static
-MMC5983MA.cpp:182:6:void MMC5983MA::write_IT(uint8_t, uint8_t*, uint16_t)	48	dynamic
-MMC5983MA.cpp:194:6:void MMC5983MA::read_IT(uint8_t, uint16_t)	16	static
-MMC5983MA.cpp:204:6:void MMC5983MA::measurementStartOnce()	24	static
-MMC5983MA.cpp:215:6:void MMC5983MA::measurementStartContinuous()	24	static
-MMC5983MA.cpp:228:6:void MMC5983MA::measurementStop()	16	static
-MMC5983MA.cpp:233:6:void MMC5983MA::calibrationUsingSetReset()	80	static
-MMC5983MA.cpp:295:6:void MMC5983MA::calibrationUsingRotation()	16	static
-MMC5983MA.cpp:316:6:void MMC5983MA::applyRotationOffset()	16	static
-MMC5983MA.cpp:323:6:void MMC5983MA::clearCalibrationInfo()	16	static
-MMC5983MA.cpp:340:6:void MMC5983MA::updateData()	16	static
-MMC5983MA.cpp:351:6:void MMC5983MA::requestDataReading()	16	static
-MMC5983MA.cpp:359:9:int32_t MMC5983MA::getGaussXData()	16	static
-MMC5983MA.cpp:365:9:int32_t MMC5983MA::getGaussYData()	16	static
-MMC5983MA.cpp:371:9:int32_t MMC5983MA::getGaussZData()	16	static
-MMC5983MA.cpp:377:7:float MMC5983MA::calcAngle(float, float)	32	static
-MMC5983MA.cpp:388:6:void MMC5983MA::softwareReset()	24	static
-MMC5983MA.cpp:395:6:void MMC5983MA::clearBuff()	24	static
-MMC5983MA.cpp:402:6:void MMC5983MA::setQueue(uint8_t, uint8_t)	16	static
-MMC5983MA.cpp:412:6:void MMC5983MA::shiftQueue()	24	static
+MMC5983MA.cpp:131:6:void MMC5983MA::start()	16	static
+MMC5983MA.cpp:137:6:void MMC5983MA::stop()	16	static
+MMC5983MA.cpp:142:6:void MMC5983MA::send(uint8_t*, uint16_t)	32	static
+MMC5983MA.cpp:147:6:void MMC5983MA::receive(uint8_t*, uint16_t)	32	static
+MMC5983MA.cpp:152:6:void MMC5983MA::send_IT(uint8_t*, uint16_t)	24	static
+MMC5983MA.cpp:157:6:void MMC5983MA::receive_IT(uint8_t*, uint16_t)	24	static
+MMC5983MA.cpp:162:6:void MMC5983MA::write(uint8_t, uint8_t*, uint16_t)	48	dynamic
+MMC5983MA.cpp:175:6:void MMC5983MA::read(uint8_t, uint8_t*, uint16_t)	24	static
+MMC5983MA.cpp:183:6:void MMC5983MA::write_IT(uint8_t, uint8_t*, uint16_t)	48	dynamic
+MMC5983MA.cpp:195:6:void MMC5983MA::read_IT(uint8_t, uint16_t)	16	static
+MMC5983MA.cpp:205:6:void MMC5983MA::measurementStartOnce()	24	static
+MMC5983MA.cpp:216:6:void MMC5983MA::measurementStartContinuous()	24	static
+MMC5983MA.cpp:229:6:void MMC5983MA::measurementStop()	16	static
+MMC5983MA.cpp:234:6:void MMC5983MA::calibrationUsingSetReset()	80	static
+MMC5983MA.cpp:296:6:void MMC5983MA::calibrationUsingRotation()	16	static
+MMC5983MA.cpp:317:6:void MMC5983MA::applyRotationOffset()	16	static
+MMC5983MA.cpp:324:6:void MMC5983MA::clearCalibrationInfo()	16	static
+MMC5983MA.cpp:341:6:void MMC5983MA::updateData()	16	static
+MMC5983MA.cpp:352:6:void MMC5983MA::requestDataReading()	16	static
+MMC5983MA.cpp:360:9:int32_t MMC5983MA::getGaussXData()	16	static
+MMC5983MA.cpp:366:9:int32_t MMC5983MA::getGaussYData()	16	static
+MMC5983MA.cpp:372:9:int32_t MMC5983MA::getGaussZData()	16	static
+MMC5983MA.cpp:378:7:float MMC5983MA::calcAngle(float, float)	32	static
+MMC5983MA.cpp:388:6:void MMC5983MA::calcAngle()	24	static
+MMC5983MA.cpp:397:7:float MMC5983MA::getAngle()	16	static
+MMC5983MA.cpp:402:6:void MMC5983MA::softwareReset()	24	static
+MMC5983MA.cpp:409:6:void MMC5983MA::clearBuff()	24	static
+MMC5983MA.cpp:416:6:void MMC5983MA::setQueue(uint8_t, uint8_t)	16	static
+MMC5983MA.cpp:426:6:void MMC5983MA::shiftQueue()	24	static
+cmath:155:5:constexpr typename __gnu_cxx::__promote_2<_Tp, _Up>::__type std::atan2(_Tp, _Up) [with _Tp = long int; _Up = long int]	24	static
