@@ -1,12 +1,12 @@
 gthr-default.h:229:1:int __gthread_key_delete(__gthread_key_t)	16	static
 std_abs.h:74:3:constexpr float std::abs(float)	16	static
-wrapper.cpp:94:6:void batteryLowMode()	8	static
-wrapper.cpp:115:6:void cppInit()	16	static
-wrapper.cpp:188:6:void cppFlip1ms()	8	static
-wrapper.cpp:219:6:void cppFlip100ns()	8	static
-wrapper.cpp:224:6:void cppFlip10ms()	64	static
-wrapper.cpp:316:6:void cppExit(uint16_t)	16	static
-wrapper.cpp:326:6:void cppLoop()	48	static
-wrapper.cpp:1692:1:void __static_initialization_and_destruction_0(int, int)	40	static
-wrapper.cpp:1692:1:cpp)	8	static
-wrapper.cpp:1692:1:cpp)	8	static
+wrapper.cpp:96:6:void batteryLowMode()	8	static
+wrapper.cpp:117:6:void cppInit()	16	static
+wrapper.cpp:190:6:void cppFlip1ms()	8	static
+wrapper.cpp:221:6:void cppFlip100ns()	8	static
+wrapper.cpp:226:6:void cppFlip10ms()	64	static
+wrapper.cpp:318:6:void cppExit(uint16_t)	16	static
+wrapper.cpp:328:6:void cppLoop()	48	static
+wrapper.cpp:1710:1:void __static_initialization_and_destruction_0(int, int)	40	static
+wrapper.cpp:1710:1:cpp)	8	static
+wrapper.cpp:1710:1:cpp)	8	static

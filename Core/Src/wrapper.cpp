@@ -91,6 +91,8 @@ uint8_t monmon[2];
 int32_t gauss_x, gauss_y;
 //I2C_HandleTypeDef hi2c1;
 
+float mon_imu_theta;
+
 void batteryLowMode()
 {
 	lcd_clear();
@@ -151,14 +153,14 @@ void cppInit(void)
 	line_sensor.ADCStart();
 	motor.init();
 	encoder.init();
-	//imu.init();
+	imu.init();
 	//line_trace.init();
 
 	//line_sensor.calibration();
 	HAL_Delay(1000);
 
 	led.fullColor('M');
-	//imu.calibration();
+	imu.calibration();
 
 	//line_trace.setGain(0.0005, 0.000003, 0);
 	//line_trace.setGain(0.0005, 0.000002, 0);
@@ -247,7 +249,7 @@ void cppFlip10ms(void)
 
 		odometry.clearPotition();
 		odometry_only.clearPotition();
-		imu.clearTheta();
+		//imu.clearTheta();
 	}
 	else if(line_trace.isRunning() == false){
 		odometry_position_logger.stop();
@@ -280,7 +282,7 @@ void cppFlip10ms(void)
 	localization.getEstimatedPosition(&estimated_x, &estimated_y, &estimated_theta);
 
 	odometry.setCorrectionPosition(estimated_x, estimated_y, estimated_theta);
-	imu.setCorrectionTheta(estimated_theta);
+	//imu.setCorrectionTheta(estimated_theta);
 
 	//save odometry position
 	odometry_position_logger.storeLogs(odometry_only_x);
@@ -1420,16 +1422,27 @@ void cppLoop(void)
 			magnetic_sensor.start();
 			HAL_Delay(10);
 
+			velocity_ctrl.setVelocity(0, 1.57);
+			velocity_ctrl.start();
+			imu.clearTheta();
 			bool break_flag = false;
+			float imu_theta = 0;
 			while(break_flag == false){
+				imu_theta = abs(imu.getTheta());
+				mon_imu_theta = imu_theta;
 
 				HAL_Delay(10);
 
 				magnetic_sensor.calibrationUsingRotation();
 
-				if(joy_stick.getValue() == JOY_C){
+				//if(joy_stick.getValue() == JOY_C){
+				if(imu_theta >= 2*PI){
 					break_flag = true;
 					magnetic_sensor.applyRotationOffset();
+
+					velocity_ctrl.setVelocity(0, 0);
+					HAL_Delay(10);
+					velocity_ctrl.stop();
 				}
 
 			}
@@ -1440,6 +1453,8 @@ void cppLoop(void)
 			mag_logger_y.start();
 			mag_logger_angle.start();
 
+			velocity_ctrl.setVelocity(0, 3.14);
+			velocity_ctrl.start();
 			float angle = 0;
 			for(uint16_t i = 0; i < 500; i++){
 
@@ -1455,6 +1470,9 @@ void cppLoop(void)
 				mag_logger_angle.storeLogs(angle);
 
 			}
+			velocity_ctrl.setVelocity(0, 0);
+			HAL_Delay(10);
+			velocity_ctrl.stop();
 
 			magnetic_sensor.stop();
 
