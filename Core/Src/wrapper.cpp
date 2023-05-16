@@ -154,9 +154,9 @@ void cppInit(void)
 	motor.init();
 	encoder.init();
 	imu.init();
-	//line_trace.init();
+	line_trace.init();
 
-	//line_sensor.calibration();
+	line_sensor.calibration();
 	HAL_Delay(1000);
 
 	led.fullColor('M');
@@ -241,7 +241,7 @@ void cppFlip10ms(void)
 
 	magnetic_sensor.flip();
 
-	//-----EKF pricessing ------//
+	//-----EKF processing ------//
 	if(ekf_start_flag == true && line_trace.isRunning() == true){
 		ekf_start_flag = false;
 		odometry_position_logger.start();
@@ -249,7 +249,7 @@ void cppFlip10ms(void)
 
 		odometry.clearPotition();
 		odometry_only.clearPotition();
-		//imu.clearTheta();
+		imu.clearTheta();
 	}
 	else if(line_trace.isRunning() == false){
 		odometry_position_logger.stop();
@@ -282,7 +282,7 @@ void cppFlip10ms(void)
 	localization.getEstimatedPosition(&estimated_x, &estimated_y, &estimated_theta);
 
 	odometry.setCorrectionPosition(estimated_x, estimated_y, estimated_theta);
-	//imu.setCorrectionTheta(estimated_theta);
+	imu.setCorrectionTheta(estimated_theta);
 
 	//save odometry position
 	odometry_position_logger.storeLogs(odometry_only_x);
@@ -1422,33 +1422,30 @@ void cppLoop(void)
 			magnetic_sensor.start();
 			HAL_Delay(10);
 
-			velocity_ctrl.setVelocity(0, 1.57);
-			velocity_ctrl.start();
-			imu.clearTheta();
+			motor.setRatio(0.1, -0.1);
 			bool break_flag = false;
 			float imu_theta = 0;
 			while(break_flag == false){
-				imu_theta = abs(imu.getTheta());
-				mon_imu_theta = imu_theta;
-
 				HAL_Delay(10);
 
 				magnetic_sensor.calibrationUsingRotation();
+
+				imu_theta += abs(imu.getOmega() * 0.010);
+				mon_imu_theta = imu_theta;
 
 				//if(joy_stick.getValue() == JOY_C){
 				if(imu_theta >= 2*PI){
 					break_flag = true;
 					magnetic_sensor.applyRotationOffset();
-
-					velocity_ctrl.setVelocity(0, 0);
-					HAL_Delay(10);
-					velocity_ctrl.stop();
+					motor.setRatio(0.0, 0.0);
 				}
 
 			}
 
+			magnetic_sensor.stop();
 			HAL_Delay(10);
 
+			/*
 			mag_logger_x.start();
 			mag_logger_y.start();
 			mag_logger_angle.start();
@@ -1485,9 +1482,9 @@ void cppLoop(void)
 			mag_logger_y.saveLogs("STATELOG", "geomagnetism_y");
 			mag_logger_angle.saveLogs("STATELOG", "geomagnetism_angle");
 
-
 			HAL_Delay(1000);
 
+			*/
 			//uint8_t address = 0x60;
 			//uint8_t data = 0x08;
 			//HAL_I2C_Master_Transmit(&hi2c1, address, &data, 1, 100);
