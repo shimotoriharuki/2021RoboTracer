@@ -51,7 +51,7 @@ private:
 	int32_t max_y_, min_y_;
 	int32_t max_z_, min_z_;
 
-	float angle_;
+	float angle_, pre_raw_angle_;
 
 	void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef);
 	void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef);
@@ -91,8 +91,7 @@ public:
 	int32_t getGaussZData();
 
 	float calcAngle(float, float);
-	void calcAngle();
-	float getAngle();
+	void resetAngle();
 
 	void softwareReset();
 	void clearBuff();

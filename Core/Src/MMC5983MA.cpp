@@ -15,6 +15,7 @@
 #define MAG_SLAVEADRESS 0x60
 #define WRITE 0
 #define READ 1
+#define PI 3.1415926535
 
 struct Queue{
 	uint8_t addr;
@@ -91,7 +92,7 @@ void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c)
 
 //------public--------//
 
-MMC5983MA::MMC5983MA() : enable_flag_(false), max_x_(0), min_x_(0), max_y_(0), min_y_(0), max_z_(0), min_z_(0), angle_(0)
+MMC5983MA::MMC5983MA() : enable_flag_(false), max_x_(0), min_x_(0), max_y_(0), min_y_(0), max_z_(0), min_z_(0), angle_(0), pre_raw_angle_(0)
 {
 	set_reset_offset_.x = 0;
 	set_reset_offset_.y = 0;
@@ -123,7 +124,6 @@ void MMC5983MA::flip()
 	if(enable_flag_  == true){
 		requestDataReading();
 		updateData();
-		calcAngle();
 	}
 
 }
@@ -377,26 +377,30 @@ int32_t MMC5983MA::getGaussZData()
 
 float MMC5983MA::calcAngle(float gauss_x, float gauss_y)
 {
-	float angle;
+	float raw_angle;
 	if(gauss_x != 0 && gauss_y != 0){
-		angle = std::atan2(gauss_y, gauss_x);
+		raw_angle = std::atan2(gauss_y, gauss_x);
+
+		float alternative_angle = 0;
+
+		if(pre_raw_angle_ > 0 && raw_angle < 0) alternative_angle = raw_angle + 2*PI; //PI -> -PI
+		else if(pre_raw_angle_ < 0 && raw_angle > 0) alternative_angle = raw_angle - 2*PI; //PI <- -PI
+		else alternative_angle = raw_angle;
+
+		float diff_angle = alternative_angle - pre_raw_angle_;
+
+		angle_ += diff_angle;
+
+		pre_raw_angle_ = raw_angle;
 	}
 
-	return angle;
-}
-
-void MMC5983MA::calcAngle()
-{
-	if(gauss_.x != 0 && gauss_.y != 0){
-		angle_ = std::atan2(gauss_.y, gauss_.x);
-	}
-
-
-}
-
-float MMC5983MA::getAngle()
-{
 	return angle_;
+}
+
+void MMC5983MA::resetAngle()
+{
+	angle_ = 0;
+	pre_raw_angle_ = 0;
 }
 
 void MMC5983MA::softwareReset()

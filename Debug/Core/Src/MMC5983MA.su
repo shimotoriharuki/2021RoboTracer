@@ -1,9 +1,9 @@
 cmath:144:3:constexpr float std::atan2(float, float)	16	static
-MMC5983MA.cpp:52:6:void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef*)	88	static
-MMC5983MA.cpp:61:6:void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef*)	160	static
-MMC5983MA.cpp:94:1:MMC5983MA::MMC5983MA()	16	static
-MMC5983MA.cpp:112:6:void MMC5983MA::init()	16	static
-MMC5983MA.cpp:121:6:void MMC5983MA::flip()	16	static
+MMC5983MA.cpp:53:6:void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef*)	88	static
+MMC5983MA.cpp:62:6:void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef*)	168	static
+MMC5983MA.cpp:95:1:MMC5983MA::MMC5983MA()	16	static
+MMC5983MA.cpp:113:6:void MMC5983MA::init()	16	static
+MMC5983MA.cpp:122:6:void MMC5983MA::flip()	16	static
 MMC5983MA.cpp:131:6:void MMC5983MA::start()	16	static
 MMC5983MA.cpp:137:6:void MMC5983MA::stop()	16	static
 MMC5983MA.cpp:142:6:void MMC5983MA::send(uint8_t*, uint16_t)	32	static
@@ -26,11 +26,9 @@ MMC5983MA.cpp:352:6:void MMC5983MA::requestDataReading()	16	static
 MMC5983MA.cpp:360:9:int32_t MMC5983MA::getGaussXData()	16	static
 MMC5983MA.cpp:366:9:int32_t MMC5983MA::getGaussYData()	16	static
 MMC5983MA.cpp:372:9:int32_t MMC5983MA::getGaussZData()	16	static
-MMC5983MA.cpp:378:7:float MMC5983MA::calcAngle(float, float)	32	static
-MMC5983MA.cpp:388:6:void MMC5983MA::calcAngle()	24	static
-MMC5983MA.cpp:397:7:float MMC5983MA::getAngle()	16	static
-MMC5983MA.cpp:402:6:void MMC5983MA::softwareReset()	24	static
-MMC5983MA.cpp:409:6:void MMC5983MA::clearBuff()	24	static
-MMC5983MA.cpp:416:6:void MMC5983MA::setQueue(uint8_t, uint8_t)	16	static
-MMC5983MA.cpp:426:6:void MMC5983MA::shiftQueue()	24	static
-cmath:155:5:constexpr typename __gnu_cxx::__promote_2<_Tp, _Up>::__type std::atan2(_Tp, _Up) [with _Tp = long int; _Up = long int]	24	static
+MMC5983MA.cpp:378:7:float MMC5983MA::calcAngle(float, float)	48	static
+MMC5983MA.cpp:400:6:void MMC5983MA::resetAngle()	16	static
+MMC5983MA.cpp:406:6:void MMC5983MA::softwareReset()	24	static
+MMC5983MA.cpp:413:6:void MMC5983MA::clearBuff()	24	static
+MMC5983MA.cpp:420:6:void MMC5983MA::setQueue(uint8_t, uint8_t)	16	static
+MMC5983MA.cpp:430:6:void MMC5983MA::shiftQueue()	24	static

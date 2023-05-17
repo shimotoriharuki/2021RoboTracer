@@ -92,6 +92,7 @@ int32_t gauss_x, gauss_y;
 //I2C_HandleTypeDef hi2c1;
 
 float mon_imu_theta;
+float mon_angle;
 
 void batteryLowMode()
 {
@@ -1450,6 +1451,7 @@ void cppLoop(void)
 
 			motor.setRatio(-0.1, 0.1);
 			float angle = 0;
+			magnetic_sensor.resetAngle();
 			for(uint16_t i = 0; i < 500; i++){
 
 				HAL_Delay(10);
@@ -1457,8 +1459,6 @@ void cppLoop(void)
 				gauss_x = magnetic_sensor.getGaussXData();
 				gauss_y = magnetic_sensor.getGaussYData();
 				angle = magnetic_sensor.calcAngle(float(gauss_x), float(gauss_y));
-				//magnetic_sensor.calcAngle();
-				angle = magnetic_sensor.getAngle();
 
 				mag_logger_x.storeLogs(gauss_x);
 				mag_logger_y.storeLogs(gauss_y);
