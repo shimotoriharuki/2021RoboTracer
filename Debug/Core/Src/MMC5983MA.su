@@ -1,34 +1,40 @@
 cmath:144:3:constexpr float std::atan2(float, float)	16	static
-MMC5983MA.cpp:53:6:void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef*)	88	static
-MMC5983MA.cpp:62:6:void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef*)	168	static
-MMC5983MA.cpp:95:1:MMC5983MA::MMC5983MA()	16	static
-MMC5983MA.cpp:113:6:void MMC5983MA::init()	16	static
-MMC5983MA.cpp:122:6:void MMC5983MA::flip()	16	static
-MMC5983MA.cpp:131:6:void MMC5983MA::start()	16	static
-MMC5983MA.cpp:137:6:void MMC5983MA::stop()	16	static
-MMC5983MA.cpp:142:6:void MMC5983MA::send(uint8_t*, uint16_t)	32	static
-MMC5983MA.cpp:147:6:void MMC5983MA::receive(uint8_t*, uint16_t)	32	static
-MMC5983MA.cpp:152:6:void MMC5983MA::send_IT(uint8_t*, uint16_t)	24	static
-MMC5983MA.cpp:157:6:void MMC5983MA::receive_IT(uint8_t*, uint16_t)	24	static
-MMC5983MA.cpp:162:6:void MMC5983MA::write(uint8_t, uint8_t*, uint16_t)	48	dynamic
-MMC5983MA.cpp:175:6:void MMC5983MA::read(uint8_t, uint8_t*, uint16_t)	24	static
-MMC5983MA.cpp:183:6:void MMC5983MA::write_IT(uint8_t, uint8_t*, uint16_t)	48	dynamic
-MMC5983MA.cpp:195:6:void MMC5983MA::read_IT(uint8_t, uint16_t)	16	static
-MMC5983MA.cpp:205:6:void MMC5983MA::measurementStartOnce()	24	static
-MMC5983MA.cpp:216:6:void MMC5983MA::measurementStartContinuous()	24	static
-MMC5983MA.cpp:229:6:void MMC5983MA::measurementStop()	16	static
-MMC5983MA.cpp:234:6:void MMC5983MA::calibrationUsingSetReset()	80	static
-MMC5983MA.cpp:296:6:void MMC5983MA::calibrationUsingRotation()	16	static
-MMC5983MA.cpp:317:6:void MMC5983MA::applyRotationOffset()	16	static
-MMC5983MA.cpp:324:6:void MMC5983MA::clearCalibrationInfo()	16	static
-MMC5983MA.cpp:341:6:void MMC5983MA::updateData()	16	static
-MMC5983MA.cpp:352:6:void MMC5983MA::requestDataReading()	16	static
-MMC5983MA.cpp:360:9:int32_t MMC5983MA::getGaussXData()	16	static
-MMC5983MA.cpp:366:9:int32_t MMC5983MA::getGaussYData()	16	static
-MMC5983MA.cpp:372:9:int32_t MMC5983MA::getGaussZData()	16	static
-MMC5983MA.cpp:378:7:float MMC5983MA::calcAngle(float, float)	48	static
-MMC5983MA.cpp:400:6:void MMC5983MA::resetAngle()	16	static
-MMC5983MA.cpp:406:6:void MMC5983MA::softwareReset()	24	static
-MMC5983MA.cpp:413:6:void MMC5983MA::clearBuff()	24	static
-MMC5983MA.cpp:420:6:void MMC5983MA::setQueue(uint8_t, uint8_t)	16	static
-MMC5983MA.cpp:430:6:void MMC5983MA::shiftQueue()	24	static
+MMC5983MA.cpp:54:6:void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef*)	88	static
+MMC5983MA.cpp:63:6:void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef*)	168	static
+MMC5983MA.cpp:96:1:MMC5983MA::MMC5983MA()	16	static
+MMC5983MA.cpp:114:6:void MMC5983MA::init()	16	static
+MMC5983MA.cpp:123:6:void MMC5983MA::flip()	16	static
+MMC5983MA.cpp:132:6:void MMC5983MA::start()	16	static
+MMC5983MA.cpp:138:6:void MMC5983MA::stop()	16	static
+MMC5983MA.cpp:143:6:void MMC5983MA::send(uint8_t*, uint16_t)	32	static
+MMC5983MA.cpp:148:6:void MMC5983MA::receive(uint8_t*, uint16_t)	32	static
+MMC5983MA.cpp:153:6:void MMC5983MA::send_IT(uint8_t*, uint16_t)	24	static
+MMC5983MA.cpp:158:6:void MMC5983MA::receive_IT(uint8_t*, uint16_t)	24	static
+MMC5983MA.cpp:163:6:void MMC5983MA::write(uint8_t, uint8_t*, uint16_t)	48	dynamic
+MMC5983MA.cpp:176:6:void MMC5983MA::read(uint8_t, uint8_t*, uint16_t)	24	static
+MMC5983MA.cpp:184:6:void MMC5983MA::write_IT(uint8_t, uint8_t*, uint16_t)	48	dynamic
+MMC5983MA.cpp:196:6:void MMC5983MA::read_IT(uint8_t, uint16_t)	16	static
+MMC5983MA.cpp:206:6:void MMC5983MA::measurementStartOnce()	24	static
+MMC5983MA.cpp:217:6:void MMC5983MA::measurementStartContinuous()	24	static
+MMC5983MA.cpp:230:6:void MMC5983MA::measurementStop()	16	static
+MMC5983MA.cpp:235:6:void MMC5983MA::calibrationUsingSetReset()	80	static
+MMC5983MA.cpp:297:6:void MMC5983MA::calibrationUsingRotation()	16	static
+MMC5983MA.cpp:318:6:void MMC5983MA::applyRotationOffset()	16	static
+MMC5983MA.cpp:325:6:void MMC5983MA::clearCalibrationInfo()	16	static
+MMC5983MA.cpp:346:6:void MMC5983MA::updateData()	16	static
+MMC5983MA.cpp:357:6:void MMC5983MA::requestDataReading()	16	static
+MMC5983MA.cpp:365:9:int32_t MMC5983MA::getGaussXData()	16	static
+MMC5983MA.cpp:371:9:int32_t MMC5983MA::getGaussYData()	16	static
+MMC5983MA.cpp:377:9:int32_t MMC5983MA::getGaussZData()	16	static
+MMC5983MA.cpp:383:7:float MMC5983MA::calcAngle(float, float)	48	static
+MMC5983MA.cpp:406:6:void MMC5983MA::resetAngle()	16	static
+MMC5983MA.cpp:412:6:void MMC5983MA::softwareReset()	24	static
+MMC5983MA.cpp:419:6:void MMC5983MA::clearBuff()	24	static
+MMC5983MA.cpp:426:6:void MMC5983MA::setQueue(uint8_t, uint8_t)	16	static
+MMC5983MA.cpp:436:6:void MMC5983MA::shiftQueue()	24	static
+MMC5983MA.cpp:443:9:int32_t MMC5983MA::getMaxX()	16	static
+MMC5983MA.cpp:448:9:int32_t MMC5983MA::getMinX()	16	static
+MMC5983MA.cpp:453:9:int32_t MMC5983MA::getMaxY()	16	static
+MMC5983MA.cpp:458:9:int32_t MMC5983MA::getMinY()	16	static
+MMC5983MA.cpp:463:9:int32_t MMC5983MA::getMaxZ()	16	static
+MMC5983MA.cpp:468:9:int32_t MMC5983MA::getMinZ()	16	static

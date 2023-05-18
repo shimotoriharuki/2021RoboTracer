@@ -94,6 +94,8 @@ int32_t gauss_x, gauss_y;
 float mon_imu_theta;
 float mon_angle;
 
+int32_t max_x, min_x, max_y, min_y, max_z, min_z;
+
 void batteryLowMode()
 {
 	lcd_clear();
@@ -1402,9 +1404,11 @@ void cppLoop(void)
 
 		lcd_clear();
 		lcd_locate(0,0);
-		lcd_printf("Magnetic");
+		//lcd_printf("%ld,%ld", max_x, min_x);
+		lcd_printf("%ld", max_x);
 		lcd_locate(0,1);
-		lcd_printf("Test");
+		//lcd_printf("%ld,%ld", max_y, min_y);
+		lcd_printf("%ld", min_x);
 		if(joy_stick.getValue() == JOY_C){
 			HAL_Delay(1000);
 			led.LR(1, 1);
@@ -1449,16 +1453,24 @@ void cppLoop(void)
 			mag_logger_y.start();
 			mag_logger_angle.start();
 
-			motor.setRatio(-0.1, 0.1);
 			float angle = 0;
+
+			motor.setRatio(-0.1, 0.1);
 			magnetic_sensor.resetAngle();
-			for(uint16_t i = 0; i < 500; i++){
+			for(uint16_t i = 0; i < 150; i++){
 
 				HAL_Delay(10);
 
 				gauss_x = magnetic_sensor.getGaussXData();
 				gauss_y = magnetic_sensor.getGaussYData();
-				angle = magnetic_sensor.calcAngle(float(gauss_x), float(gauss_y));
+				//angle = magnetic_sensor.calcAngle(float(gauss_x), float(gauss_y));
+
+				max_x = magnetic_sensor.getMaxX();
+				min_x = magnetic_sensor.getMinX();
+				max_y = magnetic_sensor.getMaxY();
+				min_y = magnetic_sensor.getMinY();
+				max_z = magnetic_sensor.getMaxZ();
+				min_z = magnetic_sensor.getMinZ();
 
 				mag_logger_x.storeLogs(gauss_x);
 				mag_logger_y.storeLogs(gauss_y);

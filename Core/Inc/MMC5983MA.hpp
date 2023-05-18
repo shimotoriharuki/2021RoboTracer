@@ -99,6 +99,15 @@ public:
 	void setQueue(uint8_t , uint8_t);
 	void shiftQueue();
 
+	int32_t getMaxX();
+	int32_t getMinX();
+
+	int32_t getMaxY();
+	int32_t getMinY();
+
+	int32_t getMaxZ();
+	int32_t getMinZ();
+
 };
 
 

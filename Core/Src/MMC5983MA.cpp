@@ -48,6 +48,7 @@ StoreData store_data;
 int32_t mon_max_x, mon_max_y, mon_max_z;
 int32_t mon_min_x, mon_min_y, mon_min_z;
 int32_t mon_gauss_x, mon_gauss_y, mon_gauss_z;
+float mon_diff_angle;
 
 //------private-------//
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
@@ -333,9 +334,13 @@ void MMC5983MA::clearCalibrationInfo()
 	rotation_offset_.y = 0;
 	rotation_offset_.z = 0;
 
-	max_x_ = min_x_ = 0;
-	max_y_ = min_y_ = 0;
-	max_z_ = min_z_ = 0;
+	max_x_ = -100000;
+	max_y_ = -100000;
+	max_z_ = -100000;
+
+	min_x_ = 1000000;
+	min_y_ = 1000000;
+	min_z_ = 1000000;
 }
 
 void MMC5983MA::updateData()
@@ -388,6 +393,7 @@ float MMC5983MA::calcAngle(float gauss_x, float gauss_y)
 		else alternative_angle = raw_angle;
 
 		float diff_angle = alternative_angle - pre_raw_angle_;
+		mon_diff_angle = diff_angle;
 
 		angle_ += diff_angle;
 
@@ -432,4 +438,34 @@ void MMC5983MA::shiftQueue()
 	for(uint8_t idx = 0; idx < MAG_QUEUE_SIZE - 1; idx++){
 		queue_data[idx] = queue_data[idx + 1];
 	}
+}
+
+int32_t MMC5983MA::getMaxX()
+{
+	return max_x_;
+}
+
+int32_t MMC5983MA::getMinX()
+{
+	return min_x_;
+}
+
+int32_t MMC5983MA::getMaxY()
+{
+	return max_y_;
+}
+
+int32_t MMC5983MA::getMinY()
+{
+	return min_y_;
+}
+
+int32_t MMC5983MA::getMaxZ()
+{
+	return max_z_;
+}
+
+int32_t MMC5983MA::getMinZ()
+{
+	return min_z_;
 }
