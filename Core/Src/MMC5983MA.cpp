@@ -10,7 +10,7 @@
 #include <stm32f4xx_hal_def.h>
 #include <stm32f4xx_hal_i2c.h>
 #include <sys/_stdint.h>
-#include <math.h>
+#include <cmath>
 
 #define MAG_SLAVEADRESS 0x60
 #define WRITE 0
@@ -384,13 +384,17 @@ float MMC5983MA::calcAngle(float gauss_x, float gauss_y)
 {
 	float raw_angle;
 	if(gauss_x != 0 && gauss_y != 0){
-		raw_angle = atan2(gauss_y, gauss_x);
+		raw_angle = std::atan2(gauss_y, gauss_x);
 
 		float alternative_angle = 0;
 
-		if(pre_raw_angle_ > 0 && raw_angle < 0) alternative_angle = raw_angle + 2*PI; //PI -> -PI
-		else if(pre_raw_angle_ < 0 && raw_angle > 0) alternative_angle = raw_angle - 2*PI; //PI <- -PI
-		else alternative_angle = raw_angle;
+		if(std::abs(raw_angle - pre_raw_angle_) >= PI){
+			if(pre_raw_angle_ >= 0 && raw_angle <= 0) alternative_angle = raw_angle + 2*PI; //PI -> -PI
+			else if(pre_raw_angle_ <= 0 && raw_angle >= 0) alternative_angle = raw_angle - 2*PI; //PI <- -PI
+		}
+		else{
+			alternative_angle = raw_angle;
+		}
 
 		float diff_angle = alternative_angle - pre_raw_angle_;
 		mon_diff_angle = diff_angle;

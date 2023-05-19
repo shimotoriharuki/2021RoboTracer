@@ -1441,6 +1441,26 @@ void cppLoop(void)
 				//if(joy_stick.getValue() == JOY_C){
 				if(imu_theta >= 2*PI){
 					break_flag = true;
+					//magnetic_sensor.applyRotationOffset();
+					motor.setRatio(0.0, 0.0);
+				}
+
+			}
+
+			motor.setRatio(-0.1, 0.1);
+			imu_theta = 0;
+			break_flag = false;
+			while(break_flag == false){
+				HAL_Delay(10);
+
+				magnetic_sensor.calibrationUsingRotation();
+
+				imu_theta += abs(imu.getOmega() * 0.010);
+				mon_imu_theta = imu_theta;
+
+				//if(joy_stick.getValue() == JOY_C){
+				if(imu_theta >= 2*PI){
+					break_flag = true;
 					magnetic_sensor.applyRotationOffset();
 					motor.setRatio(0.0, 0.0);
 				}
@@ -1455,23 +1475,24 @@ void cppLoop(void)
 
 			float angle = 0;
 
-			motor.setRatio(-0.1, 0.1);
+			motor.setRatio(0.1, -0.1);
 			magnetic_sensor.resetAngle();
-			for(uint16_t i = 0; i < 150; i++){
+			for(uint16_t i = 0; i < 500; i++){
 
 				HAL_Delay(10);
 
 				gauss_x = magnetic_sensor.getGaussXData();
 				gauss_y = magnetic_sensor.getGaussYData();
-				//angle = magnetic_sensor.calcAngle(float(gauss_x), float(gauss_y));
+				angle = magnetic_sensor.calcAngle(float(gauss_x), float(gauss_y));
 
+				/*
 				max_x = magnetic_sensor.getMaxX();
 				min_x = magnetic_sensor.getMinX();
 				max_y = magnetic_sensor.getMaxY();
 				min_y = magnetic_sensor.getMinY();
 				max_z = magnetic_sensor.getMaxZ();
 				min_z = magnetic_sensor.getMinZ();
-
+				*/
 				mag_logger_x.storeLogs(gauss_x);
 				mag_logger_y.storeLogs(gauss_y);
 				mag_logger_angle.storeLogs(angle);
